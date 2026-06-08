@@ -1,0 +1,5 @@
+market,instrument,label,trades,units,net_usd,closed_dd_usd,stress_dd_usd,win_rate_pct,profit_factor,max_open_units,net_over_stress
+mnq,MNQ,v2b gated only,353,1765,113547.50,-3493.50,-5418.00,68.56,2.6150,5,20.96
+mnq,MNQ,prior ST only,353,353,1894.50,-1085.50,-1085.50,28.61,1.1446,1,1.75
+mnq,MNQ,paired prior ST + v2b,353,2118,115442.00,-3159.50,-6503.50,68.56,2.6758,6,17.75
+mnq,MNQ,full ST + gated v2b portfolio,1144,2556,122424.62,-3397.50,-7880.00,43.18,2.2384,6,15.54
