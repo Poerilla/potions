@@ -1,0 +1,26 @@
+{
+  "side_rule": "first_rth_touch",
+  "sl_mode": "london_range",
+  "sl_points": "london_range",
+  "pw_prox_pts": null,
+  "n_contracts": 2,
+  "scaleout": "1 @ Ldn mid, 1 @ opposite Ldn",
+  "cumulative_pnl": -11809.5,
+  "n_ok": 1254,
+  "n_wins": 652,
+  "win_rate": 0.5199362041467305,
+  "max_drawdown_usd": -26409.5,
+  "drawdown_window": {
+    "mdd_usd": -26409.5,
+    "n_legs_in_equity": 1289,
+    "cluster_legs": 979,
+    "cluster_pnl": -26409.5,
+    "date_at_peak_leg": "2022-01-27",
+    "date_at_trough_leg": "2025-11-13",
+    "trough_leg_iloc": 1212,
+    "peak_leg_iloc": 233
+  },
+  "tight_930_count": 70,
+  "tight_930_pct_of_ok": 5.582,
+  "tight_930_pct_of_sessions_1m": 5.431
+}

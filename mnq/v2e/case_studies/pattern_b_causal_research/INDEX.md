@@ -1,0 +1,54 @@
+# Fib-62 filled trade charts (5m RTH)
+
+| PNG | Session · result · note |
+|-----|-------------------------|
+| [`fib62_001_2021-03-04_Loss.png`](charts/fib62_001_2021-03-04_Loss.png) | 2021-03-04 · Loss · net $-119.53 |
+| [`fib62_002_2021-04-28_Loss.png`](charts/fib62_002_2021-04-28_Loss.png) | 2021-04-28 · Loss · net $-48.29 |
+| [`fib62_003_2021-05-21_Loss.png`](charts/fib62_003_2021-05-21_Loss.png) | 2021-05-21 · Loss · net $-49.05 |
+| [`fib62_004_2021-06-09_Loss.png`](charts/fib62_004_2021-06-09_Loss.png) | 2021-06-09 · Loss · net $-53.64 |
+| [`fib62_005_2021-07-13_EOD-Win.png`](charts/fib62_005_2021-07-13_EOD-Win.png) | 2021-07-13 · EOD-Win · net $+39.21 |
+| [`fib62_006_2021-08-25_Loss.png`](charts/fib62_006_2021-08-25_Loss.png) | 2021-08-25 · Loss · net $-44.85 |
+| [`fib62_007_2021-09-01_EOD-Win.png`](charts/fib62_007_2021-09-01_EOD-Win.png) | 2021-09-01 · EOD-Win · net $+2.06 |
+| [`fib62_008_2021-10-22_Loss.png`](charts/fib62_008_2021-10-22_Loss.png) | 2021-10-22 · Loss · net $-52.30 |
+| [`fib62_009_2021-11-05_Loss.png`](charts/fib62_009_2021-11-05_Loss.png) | 2021-11-05 · Loss · net $-94.70 |
+| [`fib62_010_2021-12-01_Loss.png`](charts/fib62_010_2021-12-01_Loss.png) | 2021-12-01 · Loss · net $-76.17 |
+| [`fib62_011_2022-01-19_Loss.png`](charts/fib62_011_2022-01-19_Loss.png) | 2022-01-19 · Loss · net $-205.47 |
+| [`fib62_012_2022-02-22_Win.png`](charts/fib62_012_2022-02-22_Win.png) | 2022-02-22 · Win · net $+434.83 |
+| [`fib62_013_2022-03-24_Win.png`](charts/fib62_013_2022-03-24_Win.png) | 2022-03-24 · Win · net $+85.64 |
+| [`fib62_014_2022-04-27_Loss.png`](charts/fib62_014_2022-04-27_Loss.png) | 2022-04-27 · Loss · net $-159.06 |
+| [`fib62_015_2022-05-23_Win.png`](charts/fib62_015_2022-05-23_Win.png) | 2022-05-23 · Win · net $+222.23 |
+| [`fib62_016_2022-06-29_Win.png`](charts/fib62_016_2022-06-29_Win.png) | 2022-06-29 · Win · net $+130.14 |
+| [`fib62_017_2022-07-18_Loss.png`](charts/fib62_017_2022-07-18_Loss.png) | 2022-07-18 · Loss · net $-65.29 |
+| [`fib62_018_2022-08-02_Win.png`](charts/fib62_018_2022-08-02_Win.png) | 2022-08-02 · Win · net $+125.51 |
+| [`fib62_019_2022-09-27_Loss.png`](charts/fib62_019_2022-09-27_Loss.png) | 2022-09-27 · Loss · net $-87.06 |
+| [`fib62_020_2022-10-18_Loss.png`](charts/fib62_020_2022-10-18_Loss.png) | 2022-10-18 · Loss · net $-132.71 |
+| [`fib62_021_2022-11-14_Win.png`](charts/fib62_021_2022-11-14_Win.png) | 2022-11-14 · Win · net $+80.39 |
+| [`fib62_022_2022-12-07_EOD-Win.png`](charts/fib62_022_2022-12-07_EOD-Win.png) | 2022-12-07 · EOD-Win · net $+42.60 |
+| [`fib62_023_2023-01-04_Win.png`](charts/fib62_023_2023-01-04_Win.png) | 2023-01-04 · Win · net $+96.15 |
+| [`fib62_024_2023-02-28_EOD-Loss.png`](charts/fib62_024_2023-02-28_EOD-Loss.png) | 2023-02-28 · EOD-Loss · net $-19.58 |
+| [`fib62_025_2023-03-23_Loss.png`](charts/fib62_025_2023-03-23_Loss.png) | 2023-03-23 · Loss · net $-62.81 |
+| [`fib62_026_2023-04-24_Loss.png`](charts/fib62_026_2023-04-24_Loss.png) | 2023-04-24 · Loss · net $-66.63 |
+| [`fib62_027_2023-05-10_Win.png`](charts/fib62_027_2023-05-10_Win.png) | 2023-05-10 · Win · net $+253.44 |
+| [`fib62_028_2023-06-26_Win.png`](charts/fib62_028_2023-06-26_Win.png) | 2023-06-26 · Win · net $+109.13 |
+| [`fib62_029_2023-07-19_Win.png`](charts/fib62_029_2023-07-19_Win.png) | 2023-07-19 · Win · net $+70.81 |
+| [`fib62_030_2023-08-10_Loss.png`](charts/fib62_030_2023-08-10_Loss.png) | 2023-08-10 · Loss · net $-93.55 |
+| [`fib62_031_2023-09-11_Loss.png`](charts/fib62_031_2023-09-11_Loss.png) | 2023-09-11 · Loss · net $-65.29 |
+| [`fib62_032_2023-10-11_Win.png`](charts/fib62_032_2023-10-11_Win.png) | 2023-10-11 · Win · net $+88.42 |
+| [`fib62_033_2023-11-06_Win.png`](charts/fib62_033_2023-11-06_Win.png) | 2023-11-06 · Win · net $+49.49 |
+| [`fib62_034_2023-12-20_Loss.png`](charts/fib62_034_2023-12-20_Loss.png) | 2023-12-20 · Loss · net $-61.85 |
+| [`fib62_035_2024-01-31_Loss.png`](charts/fib62_035_2024-01-31_Loss.png) | 2024-01-31 · Loss · net $-104.82 |
+| [`fib62_036_2024-02-01_Win.png`](charts/fib62_036_2024-02-01_Win.png) | 2024-02-01 · Win · net $+123.34 |
+| [`fib62_037_2024-03-28_Loss.png`](charts/fib62_037_2024-03-28_Loss.png) | 2024-03-28 · Loss · net $-53.83 |
+| [`fib62_038_2024-04-24_Loss.png`](charts/fib62_038_2024-04-24_Loss.png) | 2024-04-24 · Loss · net $-67.96 |
+| [`fib62_039_2024-05-07_Win.png`](charts/fib62_039_2024-05-07_Win.png) | 2024-05-07 · Win · net $+76.06 |
+| [`fib62_040_2024-06-27_Win.png`](charts/fib62_040_2024-06-27_Win.png) | 2024-06-27 · Win · net $+89.35 |
+| [`fib62_041_2024-07-09_Win.png`](charts/fib62_041_2024-07-09_Win.png) | 2024-07-09 · Win · net $+53.51 |
+| [`fib62_042_2024-08-29_EOD-Win.png`](charts/fib62_042_2024-08-29_EOD-Win.png) | 2024-08-29 · EOD-Win · net $+9.72 |
+| [`fib62_043_2024-09-17_Win.png`](charts/fib62_043_2024-09-17_Win.png) | 2024-09-17 · Win · net $+177.73 |
+| [`fib62_044_2024-10-10_EOD-Win.png`](charts/fib62_044_2024-10-10_EOD-Win.png) | 2024-10-10 · EOD-Win · net $+98.60 |
+| [`fib62_045_2024-11-12_Loss.png`](charts/fib62_045_2024-11-12_Loss.png) | 2024-11-12 · Loss · net $-86.49 |
+| [`fib62_046_2024-12-19_Loss.png`](charts/fib62_046_2024-12-19_Loss.png) | 2024-12-19 · Loss · net $-154.48 |
+| [`fib62_047_2025-01-24_Win.png`](charts/fib62_047_2025-01-24_Win.png) | 2025-01-24 · Win · net $+98.31 |
+| [`fib62_048_2025-02-28_Loss.png`](charts/fib62_048_2025-02-28_Loss.png) | 2025-02-28 · Loss · net $-101.38 |
+| [`fib62_049_2025-03-19_Win.png`](charts/fib62_049_2025-03-19_Win.png) | 2025-03-19 · Win · net $+162.90 |
+| [`fib62_050_2025-04-23_EOD-Loss.png`](charts/fib62_050_2025-04-23_EOD-Loss.png) | 2025-04-23 · EOD-Loss · net $-50.48 |

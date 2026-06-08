@@ -1,0 +1,15 @@
+{
+  "source_csv": "/home/tester/hsm/potions/mnq/v2e/data/mnq_v2e_per_leg.csv",
+  "rows": 1991,
+  "v2e_fill_count": 1103,
+  "fee_rt_5": 5.0,
+  "slip_std_pts": 0.35,
+  "fill_err_pts_uniform_hi": 5.0,
+  "sims": 10000,
+  "seed": 42,
+  "dollars_per_index_point_v2e": 10.0,
+  "frictionless_cum_": 108262.5,
+  "fee_total_est": 5515.0,
+  "cum_base_minus_fees": 102747.5,
+  "years_in_sample": 5.1362
+}
