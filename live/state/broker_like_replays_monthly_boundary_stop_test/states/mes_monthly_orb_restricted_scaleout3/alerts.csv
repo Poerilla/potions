@@ -1,0 +1,577 @@
+alert_id,strategy_id,level,message,payload_json,status,created_at
+alert_9ca814f9f6aa,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MES,{},sent,2026-05-19T17:12:33Z
+alert_b37a73b1f625,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MES,{},sent,2026-05-19T17:12:33Z
+alert_5920f47a4568,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MES,{},sent,2026-05-19T17:12:33Z
+alert_e328ccb45a0e,mes_monthly_orb_restricted_scaleout3,info,Monthly ORB failed-breakout flatten requested (25% range retrace),{},sent,2026-05-19T17:12:33Z
+alert_b3a5622cc981,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_c2175b4a979a,{},sent,2026-05-19T17:12:33Z
+alert_139c8ac31674,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_896742477313,{},sent,2026-05-19T17:12:33Z
+alert_173b15bf8937,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_9782ad01a94e,{},sent,2026-05-19T17:12:33Z
+alert_12c54605ecc2,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_8b4cce40c45a,{},sent,2026-05-19T17:12:34Z
+alert_3a9a42944c30,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_49a5f7be5ca7,{},sent,2026-05-19T17:12:34Z
+alert_bd7383db3e05,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 3 MES,{},sent,2026-05-19T17:12:34Z
+alert_c172463a989c,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MES,{},sent,2026-05-19T17:12:34Z
+alert_01530381e148,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MES,{},sent,2026-05-19T17:12:34Z
+alert_8d6041d94449,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MES,{},sent,2026-05-19T17:12:34Z
+alert_4df7cfff5a10,mes_monthly_orb_restricted_scaleout3,info,Modified order ord_91f9ff98567e,{},sent,2026-05-19T17:12:34Z
+alert_d64941b7719a,mes_monthly_orb_restricted_scaleout3,info,Monthly ORB month-end flatten requested,{},sent,2026-05-19T17:12:34Z
+alert_a54e68d34813,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_91f9ff98567e,{},sent,2026-05-19T17:12:34Z
+alert_04ec279539bd,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MES,{},sent,2026-05-19T17:12:34Z
+alert_3862bbdb2fbc,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MES,{},sent,2026-05-19T17:12:34Z
+alert_52957e73009b,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MES,{},sent,2026-05-19T17:12:34Z
+alert_d76415abacd2,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MES,{},sent,2026-05-19T17:12:34Z
+alert_0d547ab2f0d8,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_e73fa17742c3,{},sent,2026-05-19T17:12:34Z
+alert_543e2c4c11fe,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_cdce3f668078,{},sent,2026-05-19T17:12:34Z
+alert_cd25dce10175,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_182908022f65,{},sent,2026-05-19T17:12:34Z
+alert_b7e28e7105ae,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MES,{},sent,2026-05-19T17:12:34Z
+alert_9ab8aea46242,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MES,{},sent,2026-05-19T17:12:34Z
+alert_b831ba9cddf4,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MES,{},sent,2026-05-19T17:12:34Z
+alert_b3718dd82548,mes_monthly_orb_restricted_scaleout3,info,Monthly ORB failed-breakout flatten requested (25% range retrace),{},sent,2026-05-19T17:12:34Z
+alert_b6744a41d026,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_7a3a9588888e,{},sent,2026-05-19T17:12:34Z
+alert_4847c227b110,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_fca0166fa029,{},sent,2026-05-19T17:12:34Z
+alert_0637aa0280a7,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_8f16e196c0fe,{},sent,2026-05-19T17:12:34Z
+alert_649cc0b8e4fb,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_b44b96c6a3fe,{},sent,2026-05-19T17:12:34Z
+alert_d12ad35b1b83,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_1f46f2615b42,{},sent,2026-05-19T17:12:34Z
+alert_5c20edee38cb,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 3 MES,{},sent,2026-05-19T17:12:34Z
+alert_9413a673e209,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MES,{},sent,2026-05-19T17:12:34Z
+alert_8472f94c607f,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MES,{},sent,2026-05-19T17:12:34Z
+alert_8c49ba221f2b,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MES,{},sent,2026-05-19T17:12:34Z
+alert_d000c34dcb03,mes_monthly_orb_restricted_scaleout3,info,Monthly ORB month-end flatten requested,{},sent,2026-05-19T17:12:34Z
+alert_ced716f400ef,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_ced0c7cf78fa,{},sent,2026-05-19T17:12:34Z
+alert_30bc1dc037db,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_329827e4e8ef,{},sent,2026-05-19T17:12:34Z
+alert_70f046c061b2,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_775193b0363d,{},sent,2026-05-19T17:12:34Z
+alert_e9f92ef6057d,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 2 MES,{},sent,2026-05-19T17:12:34Z
+alert_05b64033345d,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MES,{},sent,2026-05-19T17:12:34Z
+alert_45ad247b8ac1,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MES,{},sent,2026-05-19T17:12:34Z
+alert_c7fca0c8fb45,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MES,{},sent,2026-05-19T17:12:34Z
+alert_2440db3d207d,mes_monthly_orb_restricted_scaleout3,info,Modified order ord_22d284cb8d6d,{},sent,2026-05-19T17:12:34Z
+alert_f40108007762,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MES,{},sent,2026-05-19T17:12:34Z
+alert_ba49ca888006,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MES,{},sent,2026-05-19T17:12:34Z
+alert_aa36ac23053e,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MES,{},sent,2026-05-19T17:12:34Z
+alert_6cae3d42dc39,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_d00685018b3a,{},sent,2026-05-19T17:12:34Z
+alert_a2c5e0ee6a4d,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_1a51c560f92b,{},sent,2026-05-19T17:12:34Z
+alert_437cd26b38e5,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_bbd046348b91,{},sent,2026-05-19T17:12:34Z
+alert_d4ebcc39280b,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MES,{},sent,2026-05-19T17:12:34Z
+alert_d474a56eedc0,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MES,{},sent,2026-05-19T17:12:34Z
+alert_44ad86e84165,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MES,{},sent,2026-05-19T17:12:34Z
+alert_fbc1cd6d04b0,mes_monthly_orb_restricted_scaleout3,info,Monthly ORB month-end flatten requested,{},sent,2026-05-19T17:12:34Z
+alert_778d509d259d,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_c0b73aed4506,{},sent,2026-05-19T17:12:34Z
+alert_df22aab4757e,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_8b3da04054d8,{},sent,2026-05-19T17:12:34Z
+alert_4c0408482f0b,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_2ec7943fa8a6,{},sent,2026-05-19T17:12:34Z
+alert_f733bcbc9544,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 2 MES,{},sent,2026-05-19T17:12:34Z
+alert_0dfe93ea648e,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MES,{},sent,2026-05-19T17:12:34Z
+alert_300d56422055,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MES,{},sent,2026-05-19T17:12:34Z
+alert_4fdf2a487e24,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MES,{},sent,2026-05-19T17:12:34Z
+alert_9b8cdf844dd4,mes_monthly_orb_restricted_scaleout3,info,Modified order ord_8deff1a0196a,{},sent,2026-05-19T17:12:35Z
+alert_e3fa60790a43,mes_monthly_orb_restricted_scaleout3,info,Monthly ORB month-end flatten requested,{},sent,2026-05-19T17:12:35Z
+alert_b0264ae25820,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_8deff1a0196a,{},sent,2026-05-19T17:12:35Z
+alert_f201c64b71e6,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MES,{},sent,2026-05-19T17:12:35Z
+alert_96de9957194c,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MES,{},sent,2026-05-19T17:12:35Z
+alert_9b60aa7b4c9f,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MES,{},sent,2026-05-19T17:12:35Z
+alert_65bee4ace728,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MES,{},sent,2026-05-19T17:12:35Z
+alert_336672e38a91,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_c1ab831e3ded,{},sent,2026-05-19T17:12:35Z
+alert_1fac446cbd62,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_f8b1447202a4,{},sent,2026-05-19T17:12:35Z
+alert_5610bac72e30,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_4c416acb5be1,{},sent,2026-05-19T17:12:35Z
+alert_8f1179751492,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MES,{},sent,2026-05-19T17:12:35Z
+alert_1b0b4030eb1f,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MES,{},sent,2026-05-19T17:12:35Z
+alert_d4ac6d8b5d7a,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MES,{},sent,2026-05-19T17:12:35Z
+alert_86695c3174a7,mes_monthly_orb_restricted_scaleout3,info,Monthly ORB failed-breakout flatten requested (25% range retrace),{},sent,2026-05-19T17:12:35Z
+alert_9f148cd41a06,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_d7f4ab9f4c1e,{},sent,2026-05-19T17:12:35Z
+alert_b9f2c2909a1b,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_7acbf82b5035,{},sent,2026-05-19T17:12:35Z
+alert_7120f877fb8c,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_185ab9817229,{},sent,2026-05-19T17:12:35Z
+alert_eeeb666fd786,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_565a1b2f6ac5,{},sent,2026-05-19T17:12:35Z
+alert_54b4491e5064,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_bf87a3f7a682,{},sent,2026-05-19T17:12:35Z
+alert_55cc5657cae3,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 3 MES,{},sent,2026-05-19T17:12:35Z
+alert_46a458d84082,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MES,{},sent,2026-05-19T17:12:35Z
+alert_db14f291acb7,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MES,{},sent,2026-05-19T17:12:35Z
+alert_ee292bc50f08,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MES,{},sent,2026-05-19T17:12:35Z
+alert_0b1e04b5fd82,mes_monthly_orb_restricted_scaleout3,info,Modified order ord_65d579509ceb,{},sent,2026-05-19T17:12:35Z
+alert_0569817732ab,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MES,{},sent,2026-05-19T17:12:35Z
+alert_850f5e1adde8,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MES,{},sent,2026-05-19T17:12:35Z
+alert_a925b5e10a17,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MES,{},sent,2026-05-19T17:12:35Z
+alert_c88477190739,mes_monthly_orb_restricted_scaleout3,info,Modified order ord_e426283ceb24,{},sent,2026-05-19T17:12:35Z
+alert_64b6c42526a0,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MES,{},sent,2026-05-19T17:12:35Z
+alert_0b7cd39635ef,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MES,{},sent,2026-05-19T17:12:35Z
+alert_41b4446d921f,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MES,{},sent,2026-05-19T17:12:35Z
+alert_e56e88411459,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_3f979f7a60a6,{},sent,2026-05-19T17:12:35Z
+alert_0bb67a9f5812,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_eee42c57b017,{},sent,2026-05-19T17:12:35Z
+alert_cb0677492ba3,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_cbeeca1c53ff,{},sent,2026-05-19T17:12:35Z
+alert_209e4a8f0902,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MES,{},sent,2026-05-19T17:12:36Z
+alert_16f6b60dd2b0,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MES,{},sent,2026-05-19T17:12:36Z
+alert_b464d2ad9613,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MES,{},sent,2026-05-19T17:12:36Z
+alert_d97b8053f7f2,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_7b39901267cd,{},sent,2026-05-19T17:12:36Z
+alert_87049bf96b2e,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_5559d49ecace,{},sent,2026-05-19T17:12:36Z
+alert_1e0a611855f2,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_6e314d975985,{},sent,2026-05-19T17:12:36Z
+alert_8d1ee48a57a2,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MES,{},sent,2026-05-19T17:12:36Z
+alert_0edd928d2e99,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MES,{},sent,2026-05-19T17:12:36Z
+alert_f06addb35f9a,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MES,{},sent,2026-05-19T17:12:36Z
+alert_6788476a7e5f,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_94c77ae6b741,{},sent,2026-05-19T17:12:36Z
+alert_cc2dfcc25897,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_5a9c418000aa,{},sent,2026-05-19T17:12:36Z
+alert_41fdb2497e39,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_9f6d7cae4ccd,{},sent,2026-05-19T17:12:36Z
+alert_62f8ceeb9c72,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MES,{},sent,2026-05-19T17:12:36Z
+alert_16cd4d808ae7,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MES,{},sent,2026-05-19T17:12:36Z
+alert_a88c0f06e07b,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MES,{},sent,2026-05-19T17:12:36Z
+alert_33268266fa30,mes_monthly_orb_restricted_scaleout3,info,Monthly ORB failed-breakout flatten requested (25% range retrace),{},sent,2026-05-19T17:12:36Z
+alert_eafc6cf562e2,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_7357ac6d8a9d,{},sent,2026-05-19T17:12:36Z
+alert_f640871aede7,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_4defad689378,{},sent,2026-05-19T17:12:36Z
+alert_2c6b4ac62df9,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_f7940a4a6629,{},sent,2026-05-19T17:12:36Z
+alert_e9763c68e0d6,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_d1eec6e0e4a2,{},sent,2026-05-19T17:12:36Z
+alert_30a5b33d87cb,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_b09980d4db50,{},sent,2026-05-19T17:12:36Z
+alert_876fe19ae7df,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 3 MES,{},sent,2026-05-19T17:12:36Z
+alert_dcbe8e5ced8a,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MES,{},sent,2026-05-19T17:12:36Z
+alert_b1eb01c5e991,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MES,{},sent,2026-05-19T17:12:36Z
+alert_cfdec25b682e,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MES,{},sent,2026-05-19T17:12:36Z
+alert_a107dda29c41,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_0a7344f9edbb,{},sent,2026-05-19T17:12:36Z
+alert_aac8dba1c994,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_b1fd9497380e,{},sent,2026-05-19T17:12:36Z
+alert_e65a2aafba4c,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_9c896769417d,{},sent,2026-05-19T17:12:36Z
+alert_0c654c74d567,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MES,{},sent,2026-05-19T17:12:36Z
+alert_c91ff9c8d242,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MES,{},sent,2026-05-19T17:12:36Z
+alert_d9c779e3e29f,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MES,{},sent,2026-05-19T17:12:36Z
+alert_8d82fb129a59,mes_monthly_orb_restricted_scaleout3,info,Monthly ORB failed-breakout flatten requested (25% range retrace),{},sent,2026-05-19T17:12:37Z
+alert_6af72cf20916,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_25fd4cbd7aab,{},sent,2026-05-19T17:12:37Z
+alert_e64d8e2a71e3,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_976824a52a50,{},sent,2026-05-19T17:12:37Z
+alert_b26358761798,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_5d96cb9d72fa,{},sent,2026-05-19T17:12:37Z
+alert_1c3167bb9ec7,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_d9b605922f8d,{},sent,2026-05-19T17:12:37Z
+alert_7086ffa1826a,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_4f2bbc39f3c8,{},sent,2026-05-19T17:12:37Z
+alert_50e38589cbc9,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 3 MES,{},sent,2026-05-19T17:12:37Z
+alert_7995754f932e,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MES,{},sent,2026-05-19T17:12:37Z
+alert_faf7ba7cb26c,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MES,{},sent,2026-05-19T17:12:37Z
+alert_cc3cb71e53d6,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MES,{},sent,2026-05-19T17:12:37Z
+alert_e9d7c75198e9,mes_monthly_orb_restricted_scaleout3,info,Monthly ORB failed-breakout flatten requested (25% range retrace),{},sent,2026-05-19T17:12:37Z
+alert_a3a0f833b0a2,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_3b13f014ca81,{},sent,2026-05-19T17:12:37Z
+alert_b39b17118f7a,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_586d788a513f,{},sent,2026-05-19T17:12:37Z
+alert_7c2f53e84772,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_87fb037abbfe,{},sent,2026-05-19T17:12:37Z
+alert_49f85fba008e,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_6b73ef2ff0b3,{},sent,2026-05-19T17:12:37Z
+alert_e8b3c8d55042,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_dba32a8d8073,{},sent,2026-05-19T17:12:37Z
+alert_66d243e11fed,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 3 MES,{},sent,2026-05-19T17:12:37Z
+alert_1ab7618b65fb,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MES,{},sent,2026-05-19T17:12:37Z
+alert_855a584db56a,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MES,{},sent,2026-05-19T17:12:37Z
+alert_31b91cc58380,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MES,{},sent,2026-05-19T17:12:37Z
+alert_4b6304d4eb1c,mes_monthly_orb_restricted_scaleout3,info,Modified order ord_3abcbea44ec2,{},sent,2026-05-19T17:12:37Z
+alert_41935e7e8ea9,mes_monthly_orb_restricted_scaleout3,info,Monthly ORB month-end flatten requested,{},sent,2026-05-19T17:12:37Z
+alert_357b6892acc4,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_3abcbea44ec2,{},sent,2026-05-19T17:12:37Z
+alert_72d4ec2fb7af,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MES,{},sent,2026-05-19T17:12:37Z
+alert_b3394c6c1de3,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MES,{},sent,2026-05-19T17:12:37Z
+alert_d1b819015403,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MES,{},sent,2026-05-19T17:12:37Z
+alert_f87d58735027,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MES,{},sent,2026-05-19T17:12:37Z
+alert_0b3f59255b46,mes_monthly_orb_restricted_scaleout3,info,Modified order ord_4f58e94a875a,{},sent,2026-05-19T17:12:38Z
+alert_eefce172d59d,mes_monthly_orb_restricted_scaleout3,info,Monthly ORB month-end flatten requested,{},sent,2026-05-19T17:12:38Z
+alert_70fcd87ac5b5,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_4f58e94a875a,{},sent,2026-05-19T17:12:38Z
+alert_7d55609768fd,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MES,{},sent,2026-05-19T17:12:38Z
+alert_4a78815b3927,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MES,{},sent,2026-05-19T17:12:38Z
+alert_d28577f54839,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MES,{},sent,2026-05-19T17:12:38Z
+alert_f9d6a21ce5e5,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MES,{},sent,2026-05-19T17:12:38Z
+alert_cd7d1b6d9091,mes_monthly_orb_restricted_scaleout3,info,Modified order ord_4157d6a85c22,{},sent,2026-05-19T17:12:38Z
+alert_a0bfa1ae945e,mes_monthly_orb_restricted_scaleout3,info,Monthly ORB month-end flatten requested,{},sent,2026-05-19T17:12:38Z
+alert_ce9990e7ed8e,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_4157d6a85c22,{},sent,2026-05-19T17:12:38Z
+alert_fa38c482b94a,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MES,{},sent,2026-05-19T17:12:38Z
+alert_36b6174f830a,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MES,{},sent,2026-05-19T17:12:38Z
+alert_77e4252fd5c8,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MES,{},sent,2026-05-19T17:12:38Z
+alert_93e3098e0d4b,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MES,{},sent,2026-05-19T17:12:38Z
+alert_2cec4dcab2ce,mes_monthly_orb_restricted_scaleout3,info,Monthly ORB failed-breakout flatten requested (25% range retrace),{},sent,2026-05-19T17:12:38Z
+alert_439b7a8f1ca5,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_5e2924836ee0,{},sent,2026-05-19T17:12:38Z
+alert_f9105a1096c4,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_f5c799f8f8fc,{},sent,2026-05-19T17:12:38Z
+alert_f023c99df248,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_7eb014133762,{},sent,2026-05-19T17:12:38Z
+alert_72d1c39cbaaf,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_c58215641db5,{},sent,2026-05-19T17:12:38Z
+alert_dd81727d4076,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_f7b436a9ae72,{},sent,2026-05-19T17:12:39Z
+alert_21537edb5feb,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 3 MES,{},sent,2026-05-19T17:12:39Z
+alert_d5fa3d883186,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MES,{},sent,2026-05-19T17:12:39Z
+alert_3bc6bcce3503,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MES,{},sent,2026-05-19T17:12:39Z
+alert_c928092f00aa,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MES,{},sent,2026-05-19T17:12:39Z
+alert_bbdd40e32de5,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MES,{},sent,2026-05-19T17:12:39Z
+alert_d331efb59ad2,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MES,{},sent,2026-05-19T17:12:39Z
+alert_cda936ce8c71,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MES,{},sent,2026-05-19T17:12:39Z
+alert_e4c9175b0a49,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_9872aa7cd56a,{},sent,2026-05-19T17:12:39Z
+alert_ea15c675a429,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_173e8cbf8dce,{},sent,2026-05-19T17:12:39Z
+alert_7eb66388370f,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_4a1dcdb934d2,{},sent,2026-05-19T17:12:39Z
+alert_3396fc15429e,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MES,{},sent,2026-05-19T17:12:40Z
+alert_b0f0c0e6c690,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MES,{},sent,2026-05-19T17:12:40Z
+alert_e22ad85aaeb5,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MES,{},sent,2026-05-19T17:12:40Z
+alert_5dd236750039,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MES,{},sent,2026-05-19T17:12:40Z
+alert_0cb6ed6a3b80,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MES,{},sent,2026-05-19T17:12:40Z
+alert_dc119c777751,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MES,{},sent,2026-05-19T17:12:40Z
+alert_4398a5d759c4,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MES,{},sent,2026-05-19T17:12:40Z
+alert_b0957ab0c93e,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MES,{},sent,2026-05-19T17:12:40Z
+alert_8b53277f33c0,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MES,{},sent,2026-05-19T17:12:40Z
+alert_8d7be3de04d2,mes_monthly_orb_restricted_scaleout3,info,Monthly ORB failed-breakout flatten requested (25% range retrace),{},sent,2026-05-19T17:12:41Z
+alert_fd53f67e2f65,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_c4ad53becf96,{},sent,2026-05-19T17:12:41Z
+alert_70dedf62566b,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_7235e7a9407f,{},sent,2026-05-19T17:12:41Z
+alert_024fe23669fd,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_84c8501b1985,{},sent,2026-05-19T17:12:41Z
+alert_c4a356b32b64,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 2 MES,{},sent,2026-05-19T17:12:41Z
+alert_f15f5447b6da,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MES,{},sent,2026-05-19T17:12:41Z
+alert_c4fbbfb0c293,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MES,{},sent,2026-05-19T17:12:41Z
+alert_dfe4db9ad6ec,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MES,{},sent,2026-05-19T17:12:41Z
+alert_67ab24b612df,mes_monthly_orb_restricted_scaleout3,info,Monthly ORB month-end flatten requested,{},sent,2026-05-19T17:12:41Z
+alert_eb80b6d1edbf,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_40c5aa07b744,{},sent,2026-05-19T17:12:41Z
+alert_78da2128094d,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_06cd15eede7a,{},sent,2026-05-19T17:12:41Z
+alert_e4e9b19cc8b0,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_b7412f178ff8,{},sent,2026-05-19T17:12:41Z
+alert_283f6181e719,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 2 MES,{},sent,2026-05-19T17:12:41Z
+alert_c7eb49b5a64e,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MES,{},sent,2026-05-19T17:12:41Z
+alert_882c06106fa1,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MES,{},sent,2026-05-19T17:12:41Z
+alert_0c2c425becc0,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MES,{},sent,2026-05-19T17:12:41Z
+alert_43ec065f9362,mes_monthly_orb_restricted_scaleout3,info,Monthly ORB failed-breakout flatten requested (25% range retrace),{},sent,2026-05-19T17:12:42Z
+alert_8ffbb1f69103,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_4dd6b7f7d9c9,{},sent,2026-05-19T17:12:42Z
+alert_ebf0821a4eea,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_49bd7ccae3f0,{},sent,2026-05-19T17:12:42Z
+alert_cbc9f7f5e2e7,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_39d93b48da7b,{},sent,2026-05-19T17:12:42Z
+alert_09d2c581b981,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_eee60b573870,{},sent,2026-05-19T17:12:42Z
+alert_a023828c187c,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_f42abf0b22d3,{},sent,2026-05-19T17:12:42Z
+alert_f18da9d99818,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 3 MES,{},sent,2026-05-19T17:12:42Z
+alert_0af6dd95e103,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MES,{},sent,2026-05-19T17:12:42Z
+alert_f033beb7fb46,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MES,{},sent,2026-05-19T17:12:42Z
+alert_9bc3980cedfe,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MES,{},sent,2026-05-19T17:12:42Z
+alert_b0f07a9646b1,mes_monthly_orb_restricted_scaleout3,info,Monthly ORB month-end flatten requested,{},sent,2026-05-19T17:12:42Z
+alert_1884dab9a531,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_0be930f5306e,{},sent,2026-05-19T17:12:42Z
+alert_ce00f74ad8c9,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_cb438d2f0f4a,{},sent,2026-05-19T17:12:42Z
+alert_1ea03aa72100,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_3af17fffe2c2,{},sent,2026-05-19T17:12:42Z
+alert_e03c7f1fdcd3,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 2 MES,{},sent,2026-05-19T17:12:42Z
+alert_73d6b182bbc8,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MES,{},sent,2026-05-19T17:12:42Z
+alert_067ff1d4a744,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MES,{},sent,2026-05-19T17:12:42Z
+alert_cfb20b07802d,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MES,{},sent,2026-05-19T17:12:42Z
+alert_3ac9f76eefd7,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_73c2513a7e78,{},sent,2026-05-19T17:12:43Z
+alert_2c3f6435f016,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_f6765d00c750,{},sent,2026-05-19T17:12:43Z
+alert_80d212693c86,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_c0c297e2c688,{},sent,2026-05-19T17:12:43Z
+alert_b232ae35bf2f,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MES,{},sent,2026-05-19T17:12:43Z
+alert_ace571e7c3c9,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MES,{},sent,2026-05-19T17:12:43Z
+alert_e99eb1945e68,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MES,{},sent,2026-05-19T17:12:43Z
+alert_d0adfc6cfea0,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MES,{},sent,2026-05-19T17:12:43Z
+alert_684dd89bec13,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MES,{},sent,2026-05-19T17:12:43Z
+alert_b27aa34e7f1b,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MES,{},sent,2026-05-19T17:12:43Z
+alert_2be0f1007ecc,mes_monthly_orb_restricted_scaleout3,info,Monthly ORB failed-breakout flatten requested (25% range retrace),{},sent,2026-05-19T17:12:43Z
+alert_c968d5dd7e54,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_20da88b2e19f,{},sent,2026-05-19T17:12:43Z
+alert_4f4f09ab781c,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_8268fd7ca24a,{},sent,2026-05-19T17:12:43Z
+alert_f88198bad067,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_ec5a613e0b87,{},sent,2026-05-19T17:12:43Z
+alert_fb71aebba0e7,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_86fbd11ce0c5,{},sent,2026-05-19T17:12:43Z
+alert_94a445aeebb4,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_c70f96e8cca1,{},sent,2026-05-19T17:12:43Z
+alert_53278c76095e,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 3 MES,{},sent,2026-05-19T17:12:43Z
+alert_1766c3cba976,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MES,{},sent,2026-05-19T17:12:44Z
+alert_36c0ce50929a,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MES,{},sent,2026-05-19T17:12:44Z
+alert_c2e1481d5a64,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MES,{},sent,2026-05-19T17:12:44Z
+alert_2ec02da861b0,mes_monthly_orb_restricted_scaleout3,info,Monthly ORB failed-breakout flatten requested (25% range retrace),{},sent,2026-05-19T17:12:44Z
+alert_ce151ef05243,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_78aa3a29f647,{},sent,2026-05-19T17:12:44Z
+alert_0ff7865f9911,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_0355b2d4e9d8,{},sent,2026-05-19T17:12:44Z
+alert_edd4542f8c13,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_5aa76e8d0b20,{},sent,2026-05-19T17:12:44Z
+alert_33e8439dc57d,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 2 MES,{},sent,2026-05-19T17:12:44Z
+alert_ca34d0b26ee8,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MES,{},sent,2026-05-19T17:12:44Z
+alert_af6a977a6c70,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MES,{},sent,2026-05-19T17:12:44Z
+alert_dea54d954407,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MES,{},sent,2026-05-19T17:12:44Z
+alert_fab8e0b2a249,mes_monthly_orb_restricted_scaleout3,info,Monthly ORB failed-breakout flatten requested (25% range retrace),{},sent,2026-05-19T17:12:44Z
+alert_e7c0d21e7f2d,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_66f255d6cdb1,{},sent,2026-05-19T17:12:44Z
+alert_ca803508e394,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_5b19e46d5804,{},sent,2026-05-19T17:12:44Z
+alert_35e6ed0f6e55,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_27e0dd52926c,{},sent,2026-05-19T17:12:45Z
+alert_427cdaf7e357,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_9f004b6d3656,{},sent,2026-05-19T17:12:45Z
+alert_29e0a5a87bfb,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_fb53628fe460,{},sent,2026-05-19T17:12:45Z
+alert_1ca9d5aad3be,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 3 MES,{},sent,2026-05-19T17:12:45Z
+alert_00540c16129b,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MES,{},sent,2026-05-19T17:12:45Z
+alert_87eb62165dbe,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MES,{},sent,2026-05-19T17:12:45Z
+alert_08cf1e610f7d,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MES,{},sent,2026-05-19T17:12:45Z
+alert_dcf8124b660d,mes_monthly_orb_restricted_scaleout3,info,Monthly ORB failed-breakout flatten requested (25% range retrace),{},sent,2026-05-19T17:12:45Z
+alert_0e0e30fe6650,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_bab23d243391,{},sent,2026-05-19T17:12:45Z
+alert_8d59a2c14c6f,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_b0b4850daf7b,{},sent,2026-05-19T17:12:45Z
+alert_ea6b1cb54d7b,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_8bd4e2f549d8,{},sent,2026-05-19T17:12:45Z
+alert_a4c9b416a700,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_d2245f5961fb,{},sent,2026-05-19T17:12:45Z
+alert_45a6cedd15ee,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_1b1f76eacd1e,{},sent,2026-05-19T17:12:45Z
+alert_20f1277568ec,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 3 MES,{},sent,2026-05-19T17:12:45Z
+alert_52817e253f4d,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MES,{},sent,2026-05-19T17:12:45Z
+alert_3c84a097fb55,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MES,{},sent,2026-05-19T17:12:45Z
+alert_beb305052edd,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MES,{},sent,2026-05-19T17:12:45Z
+alert_4617d248cbc9,mes_monthly_orb_restricted_scaleout3,info,Monthly ORB failed-breakout flatten requested (25% range retrace),{},sent,2026-05-19T17:12:46Z
+alert_8fb4f78f36f8,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_955d5e7b26e9,{},sent,2026-05-19T17:12:46Z
+alert_879255b2aad7,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_9b8a6293b81b,{},sent,2026-05-19T17:12:46Z
+alert_797a33815aac,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_7107d057318f,{},sent,2026-05-19T17:12:46Z
+alert_f0b74cd123d0,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 2 MES,{},sent,2026-05-19T17:12:46Z
+alert_2640defc4149,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MES,{},sent,2026-05-19T17:12:46Z
+alert_2779de427545,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MES,{},sent,2026-05-19T17:12:46Z
+alert_516afa79fc1a,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MES,{},sent,2026-05-19T17:12:46Z
+alert_1cf3de81f187,mes_monthly_orb_restricted_scaleout3,info,Modified order ord_2ee5f407f028,{},sent,2026-05-19T17:12:46Z
+alert_16857a8c21cc,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MES,{},sent,2026-05-19T17:12:47Z
+alert_b37e1b3e75ee,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MES,{},sent,2026-05-19T17:12:47Z
+alert_7035a9893bc7,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MES,{},sent,2026-05-19T17:12:47Z
+alert_83b37632ad9f,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_92c87ec42ebe,{},sent,2026-05-19T17:12:47Z
+alert_553b7c3b0c3e,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_2d2b44281e14,{},sent,2026-05-19T17:12:47Z
+alert_3d5b407b055f,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_0c2845a9fa10,{},sent,2026-05-19T17:12:47Z
+alert_41d8776ac6b8,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MES,{},sent,2026-05-19T17:12:47Z
+alert_b9a81ab6cdbc,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MES,{},sent,2026-05-19T17:12:47Z
+alert_081f768e12c1,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MES,{},sent,2026-05-19T17:12:47Z
+alert_429da0784ea5,mes_monthly_orb_restricted_scaleout3,info,Modified order ord_9b00541bab82,{},sent,2026-05-19T17:12:47Z
+alert_569ef21bc205,mes_monthly_orb_restricted_scaleout3,info,Monthly ORB month-end flatten requested,{},sent,2026-05-19T17:12:48Z
+alert_24b6cb86d769,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_9b00541bab82,{},sent,2026-05-19T17:12:48Z
+alert_6c0f03eaa00a,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MES,{},sent,2026-05-19T17:12:48Z
+alert_818778e9780f,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MES,{},sent,2026-05-19T17:12:48Z
+alert_8276a1803a49,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MES,{},sent,2026-05-19T17:12:48Z
+alert_9d59aba2a35d,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MES,{},sent,2026-05-19T17:12:48Z
+alert_fc9760b2151e,mes_monthly_orb_restricted_scaleout3,info,Monthly ORB failed-breakout flatten requested (25% range retrace),{},sent,2026-05-19T17:12:48Z
+alert_662a73365e7d,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_cc90c3b1c818,{},sent,2026-05-19T17:12:48Z
+alert_465c15eae151,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_6afaf4f0d1a2,{},sent,2026-05-19T17:12:48Z
+alert_e5856a57b334,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_70bcb2c0f4de,{},sent,2026-05-19T17:12:48Z
+alert_6d800d2a7c1b,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 2 MES,{},sent,2026-05-19T17:12:48Z
+alert_609860e677d5,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MES,{},sent,2026-05-19T17:12:48Z
+alert_02f485a3e9bb,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MES,{},sent,2026-05-19T17:12:48Z
+alert_e29987c977fc,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MES,{},sent,2026-05-19T17:12:48Z
+alert_0ca9317e1947,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_435e757f07e2,{},sent,2026-05-19T17:12:49Z
+alert_ee653db83229,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_b430b4893e70,{},sent,2026-05-19T17:12:49Z
+alert_6dfa39c15f57,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_632df352da8c,{},sent,2026-05-19T17:12:49Z
+alert_ce5a3a5812f5,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MES,{},sent,2026-05-19T17:12:49Z
+alert_0737ece76e24,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MES,{},sent,2026-05-19T17:12:49Z
+alert_9ecb55fbc5cf,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MES,{},sent,2026-05-19T17:12:49Z
+alert_86b152779513,mes_monthly_orb_restricted_scaleout3,info,Monthly ORB failed-breakout flatten requested (25% range retrace),{},sent,2026-05-19T17:12:49Z
+alert_cf33fc23a34f,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_f7bdf2767743,{},sent,2026-05-19T17:12:49Z
+alert_4e1dc4a28eaf,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_4857f955a660,{},sent,2026-05-19T17:12:49Z
+alert_d082186194df,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_0409c34d4402,{},sent,2026-05-19T17:12:49Z
+alert_ae9241da602b,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_492e05f09350,{},sent,2026-05-19T17:12:49Z
+alert_395952485977,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_2de374c81feb,{},sent,2026-05-19T17:12:49Z
+alert_a21dab9fbd3f,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 3 MES,{},sent,2026-05-19T17:12:49Z
+alert_013571a98e61,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MES,{},sent,2026-05-19T17:12:49Z
+alert_9545dd807aad,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MES,{},sent,2026-05-19T17:12:49Z
+alert_4b92056dec56,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MES,{},sent,2026-05-19T17:12:49Z
+alert_6f1422cf013b,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MES,{},sent,2026-05-19T17:12:50Z
+alert_a70f428429d6,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MES,{},sent,2026-05-19T17:12:50Z
+alert_44fa38f68628,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MES,{},sent,2026-05-19T17:12:50Z
+alert_4387a223f1e8,mes_monthly_orb_restricted_scaleout3,info,Monthly ORB failed-breakout flatten requested (25% range retrace),{},sent,2026-05-19T17:12:51Z
+alert_29ed742e5c11,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_2c90e37191c3,{},sent,2026-05-19T17:12:51Z
+alert_73d4c2c572c6,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_49178187e693,{},sent,2026-05-19T17:12:51Z
+alert_d72534660810,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_075af33d1801,{},sent,2026-05-19T17:12:51Z
+alert_9c369739a20d,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 2 MES,{},sent,2026-05-19T17:12:51Z
+alert_13547266b9d8,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MES,{},sent,2026-05-19T17:12:51Z
+alert_626dbe841a3a,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MES,{},sent,2026-05-19T17:12:51Z
+alert_2a8c57a8c82d,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MES,{},sent,2026-05-19T17:12:51Z
+alert_6576ce2bd1c1,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_6942fb3b5373,{},sent,2026-05-19T17:12:51Z
+alert_793620cf2efc,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_a285449d9ae4,{},sent,2026-05-19T17:12:51Z
+alert_5331e604d79b,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_89469a26facd,{},sent,2026-05-19T17:12:51Z
+alert_6d813ad63558,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MES,{},sent,2026-05-19T17:12:51Z
+alert_4b209bf60b90,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MES,{},sent,2026-05-19T17:12:51Z
+alert_c3dcbe4fd499,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MES,{},sent,2026-05-19T17:12:51Z
+alert_c19a87dfa298,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_9379fd21e842,{},sent,2026-05-19T17:12:52Z
+alert_2f8c94d61bbd,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_43e4928eb634,{},sent,2026-05-19T17:12:52Z
+alert_3ae9aa3dc7e2,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_8dc28254a3d7,{},sent,2026-05-19T17:12:52Z
+alert_b49d7dc7d925,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MES,{},sent,2026-05-19T17:12:52Z
+alert_efcb6202dffc,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MES,{},sent,2026-05-19T17:12:52Z
+alert_ae91957ef127,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MES,{},sent,2026-05-19T17:12:52Z
+alert_dae6f941fcd1,mes_monthly_orb_restricted_scaleout3,info,Modified order ord_c9557902d046,{},sent,2026-05-19T17:12:52Z
+alert_0f13ba354d1c,mes_monthly_orb_restricted_scaleout3,info,Monthly ORB month-end flatten requested,{},sent,2026-05-19T17:12:53Z
+alert_88dc891e523b,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_c9557902d046,{},sent,2026-05-19T17:12:53Z
+alert_b991fa807f7e,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MES,{},sent,2026-05-19T17:12:53Z
+alert_3f921b305e18,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MES,{},sent,2026-05-19T17:12:53Z
+alert_adcc58cd4c92,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MES,{},sent,2026-05-19T17:12:53Z
+alert_2d942df08999,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MES,{},sent,2026-05-19T17:12:53Z
+alert_b8532c4fb878,mes_monthly_orb_restricted_scaleout3,info,Modified order ord_5c46b1f8b5aa,{},sent,2026-05-19T17:12:53Z
+alert_30e5bf928636,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MES,{},sent,2026-05-19T17:12:53Z
+alert_2857388ee5ea,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MES,{},sent,2026-05-19T17:12:53Z
+alert_ac423e3096b3,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MES,{},sent,2026-05-19T17:12:53Z
+alert_cc52b760e980,mes_monthly_orb_restricted_scaleout3,info,Modified order ord_cb89fe99ac54,{},sent,2026-05-19T17:12:54Z
+alert_4e1cb7e112f6,mes_monthly_orb_restricted_scaleout3,info,Monthly ORB month-end flatten requested,{},sent,2026-05-19T17:12:54Z
+alert_83cf89929107,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_cb89fe99ac54,{},sent,2026-05-19T17:12:54Z
+alert_c3e1cc9ae023,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MES,{},sent,2026-05-19T17:12:54Z
+alert_55b4834520b2,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MES,{},sent,2026-05-19T17:12:54Z
+alert_078dea4829f0,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MES,{},sent,2026-05-19T17:12:54Z
+alert_535e41922343,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MES,{},sent,2026-05-19T17:12:54Z
+alert_39afdededb91,mes_monthly_orb_restricted_scaleout3,info,Modified order ord_84bdaa668dac,{},sent,2026-05-19T17:12:55Z
+alert_04023b88e38d,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MES,{},sent,2026-05-19T17:12:55Z
+alert_6b74a314642c,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MES,{},sent,2026-05-19T17:12:55Z
+alert_38e3999f9079,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MES,{},sent,2026-05-19T17:12:55Z
+alert_b6c6678b8f35,mes_monthly_orb_restricted_scaleout3,info,Monthly ORB failed-breakout flatten requested (25% range retrace),{},sent,2026-05-19T17:12:55Z
+alert_900ae7014c71,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_3ca013316aa0,{},sent,2026-05-19T17:12:56Z
+alert_e262066265ea,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_cf00cc3d300b,{},sent,2026-05-19T17:12:56Z
+alert_42be770b539b,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_ba2cf4d2ccd2,{},sent,2026-05-19T17:12:56Z
+alert_6d376fac262b,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_27a6c70e2cc8,{},sent,2026-05-19T17:12:56Z
+alert_9ec21aa3e31b,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_0954d4b69a8b,{},sent,2026-05-19T17:12:56Z
+alert_80d01a308932,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 3 MES,{},sent,2026-05-19T17:12:56Z
+alert_a5ab5b356458,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MES,{},sent,2026-05-19T17:12:56Z
+alert_a9ccd924225c,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MES,{},sent,2026-05-19T17:12:56Z
+alert_3af1f6224084,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MES,{},sent,2026-05-19T17:12:56Z
+alert_0c27a20f05df,mes_monthly_orb_restricted_scaleout3,info,Modified order ord_f1fdf986a344,{},sent,2026-05-19T17:12:56Z
+alert_73faa14ac9a0,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MES,{},sent,2026-05-19T17:12:57Z
+alert_fc18f2f18267,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MES,{},sent,2026-05-19T17:12:57Z
+alert_3ef175ea2488,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MES,{},sent,2026-05-19T17:12:57Z
+alert_e6858a81db92,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_072456a29c64,{},sent,2026-05-19T17:12:57Z
+alert_c30409fa8452,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_d6edfba786ef,{},sent,2026-05-19T17:12:57Z
+alert_a9280d3debc7,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_c56e1efc1087,{},sent,2026-05-19T17:12:57Z
+alert_bd5631039356,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MES,{},sent,2026-05-19T17:12:58Z
+alert_d575eb01bf3a,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MES,{},sent,2026-05-19T17:12:58Z
+alert_673be083ee9f,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MES,{},sent,2026-05-19T17:12:58Z
+alert_c70560bedd3b,mes_monthly_orb_restricted_scaleout3,info,Monthly ORB failed-breakout flatten requested (25% range retrace),{},sent,2026-05-19T17:12:58Z
+alert_9ca4435c1624,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_b282a7256bab,{},sent,2026-05-19T17:12:58Z
+alert_e968244bf9ac,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_ad3072f5e28a,{},sent,2026-05-19T17:12:58Z
+alert_94d0b6250e81,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_73655adb025d,{},sent,2026-05-19T17:12:58Z
+alert_bfbfc916b3a1,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_7077232f1eeb,{},sent,2026-05-19T17:12:58Z
+alert_7512df99dab4,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_0b60f0d66a1e,{},sent,2026-05-19T17:12:58Z
+alert_1250dcbf0d3c,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 3 MES,{},sent,2026-05-19T17:12:58Z
+alert_99b35c5b9284,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MES,{},sent,2026-05-19T17:12:58Z
+alert_d2c3c70e54b7,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MES,{},sent,2026-05-19T17:12:58Z
+alert_1bf2181bbcb6,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MES,{},sent,2026-05-19T17:12:58Z
+alert_3591181e2a39,mes_monthly_orb_restricted_scaleout3,info,Modified order ord_8d55ceeb1df5,{},sent,2026-05-19T17:12:59Z
+alert_6e68b5e1361d,mes_monthly_orb_restricted_scaleout3,info,Monthly ORB month-end flatten requested,{},sent,2026-05-19T17:12:59Z
+alert_ec3322deeda2,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_8d55ceeb1df5,{},sent,2026-05-19T17:12:59Z
+alert_147b96fa7116,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MES,{},sent,2026-05-19T17:12:59Z
+alert_b52ed80005c7,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MES,{},sent,2026-05-19T17:12:59Z
+alert_e9c634b0a023,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MES,{},sent,2026-05-19T17:12:59Z
+alert_5710cfb288fa,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MES,{},sent,2026-05-19T17:12:59Z
+alert_e8a57fdde157,mes_monthly_orb_restricted_scaleout3,info,Monthly ORB failed-breakout flatten requested (25% range retrace),{},sent,2026-05-19T17:13:00Z
+alert_a620fdfef45a,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_52ea48fa277f,{},sent,2026-05-19T17:13:00Z
+alert_012b76ad93d1,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_d83d7fcd3121,{},sent,2026-05-19T17:13:00Z
+alert_7d9ddae1bcac,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_2146db75e479,{},sent,2026-05-19T17:13:00Z
+alert_4eb54798bc30,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_c7c1586a0e09,{},sent,2026-05-19T17:13:00Z
+alert_4c6086feed7f,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_469fa6cfe548,{},sent,2026-05-19T17:13:00Z
+alert_2688607afb4c,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 3 MES,{},sent,2026-05-19T17:13:00Z
+alert_159d6559a420,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MES,{},sent,2026-05-19T17:13:00Z
+alert_960728a982f1,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MES,{},sent,2026-05-19T17:13:00Z
+alert_d7c2352030ba,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MES,{},sent,2026-05-19T17:13:00Z
+alert_55baae5918b9,mes_monthly_orb_restricted_scaleout3,info,Monthly ORB failed-breakout flatten requested (25% range retrace),{},sent,2026-05-19T17:13:00Z
+alert_a8fb6167bd0d,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_69ee5ce938a2,{},sent,2026-05-19T17:13:00Z
+alert_19a12f72b7b1,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_151132f3f5ef,{},sent,2026-05-19T17:13:00Z
+alert_d4c7e130c909,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_64be93a621ef,{},sent,2026-05-19T17:13:00Z
+alert_cdee5dc5169a,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_1b613e6c175f,{},sent,2026-05-19T17:13:01Z
+alert_004499c67f55,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_dd3875878519,{},sent,2026-05-19T17:13:01Z
+alert_4e966a14939b,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 3 MES,{},sent,2026-05-19T17:13:01Z
+alert_39ef5bede1b0,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MES,{},sent,2026-05-19T17:13:01Z
+alert_b8f5ee8ec80c,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MES,{},sent,2026-05-19T17:13:01Z
+alert_0d69ff1c98dd,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MES,{},sent,2026-05-19T17:13:01Z
+alert_4b2c74c749e3,mes_monthly_orb_restricted_scaleout3,info,Monthly ORB failed-breakout flatten requested (25% range retrace),{},sent,2026-05-19T17:13:01Z
+alert_bd6e6d1af938,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_1510d88a188c,{},sent,2026-05-19T17:13:01Z
+alert_bcaf69ccfb1e,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_697af5856afc,{},sent,2026-05-19T17:13:01Z
+alert_b063aa9516af,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_43f72b396d7a,{},sent,2026-05-19T17:13:01Z
+alert_cb5e4b76dde1,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_d9be388d3563,{},sent,2026-05-19T17:13:01Z
+alert_f33eea6a6ea8,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_6e9ba9fec7bc,{},sent,2026-05-19T17:13:01Z
+alert_2b9534a52565,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 3 MES,{},sent,2026-05-19T17:13:01Z
+alert_b45c9111b930,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MES,{},sent,2026-05-19T17:13:02Z
+alert_0d6f003391a8,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MES,{},sent,2026-05-19T17:13:02Z
+alert_a6a641d46a9b,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MES,{},sent,2026-05-19T17:13:02Z
+alert_3bf7d61d8fda,mes_monthly_orb_restricted_scaleout3,info,Modified order ord_5e78c905ed19,{},sent,2026-05-19T17:13:02Z
+alert_4d6d8ff62b87,mes_monthly_orb_restricted_scaleout3,info,Monthly ORB month-end flatten requested,{},sent,2026-05-19T17:13:02Z
+alert_f80919b5d914,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_5e78c905ed19,{},sent,2026-05-19T17:13:02Z
+alert_4adac0082148,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MES,{},sent,2026-05-19T17:13:02Z
+alert_205214d0bd01,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MES,{},sent,2026-05-19T17:13:03Z
+alert_850742ed80ab,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MES,{},sent,2026-05-19T17:13:03Z
+alert_3c0a1ce446c7,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MES,{},sent,2026-05-19T17:13:03Z
+alert_9bfb31a2362f,mes_monthly_orb_restricted_scaleout3,info,Monthly ORB failed-breakout flatten requested (25% range retrace),{},sent,2026-05-19T17:13:03Z
+alert_837b2912c5b3,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_db28754b7f43,{},sent,2026-05-19T17:13:03Z
+alert_6fd705f8dac4,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_d0820f8d5217,{},sent,2026-05-19T17:13:03Z
+alert_35c340da9bfd,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_fcf7aa91f0f6,{},sent,2026-05-19T17:13:03Z
+alert_1c7bfcb1c895,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_f7d41d2c4819,{},sent,2026-05-19T17:13:03Z
+alert_d76cee0d253b,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_c04f9e7ab8bb,{},sent,2026-05-19T17:13:03Z
+alert_600aae675aef,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 3 MES,{},sent,2026-05-19T17:13:03Z
+alert_19de4b30f969,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MES,{},sent,2026-05-19T17:13:04Z
+alert_0c2e140a1576,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MES,{},sent,2026-05-19T17:13:04Z
+alert_58797d5da01d,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MES,{},sent,2026-05-19T17:13:04Z
+alert_1e665ad90924,mes_monthly_orb_restricted_scaleout3,info,Monthly ORB month-end flatten requested,{},sent,2026-05-19T17:13:04Z
+alert_378f1a1c2052,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_2ff748a35985,{},sent,2026-05-19T17:13:04Z
+alert_b5bc7ec85acb,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_3446fdad05f5,{},sent,2026-05-19T17:13:04Z
+alert_2cbe5b06f0b0,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_381b92a2eb4b,{},sent,2026-05-19T17:13:04Z
+alert_2052e3f162f9,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 2 MES,{},sent,2026-05-19T17:13:04Z
+alert_6fc1243eafb7,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MES,{},sent,2026-05-19T17:13:05Z
+alert_3a643d381a11,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MES,{},sent,2026-05-19T17:13:05Z
+alert_e1d691636ce6,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MES,{},sent,2026-05-19T17:13:05Z
+alert_a3ce9656a064,mes_monthly_orb_restricted_scaleout3,info,Monthly ORB month-end flatten requested,{},sent,2026-05-19T17:13:05Z
+alert_3cf875f16ee5,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_44bc67580612,{},sent,2026-05-19T17:13:05Z
+alert_1f580de69cd1,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_249b84e97469,{},sent,2026-05-19T17:13:05Z
+alert_a4a75c47334f,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_81eb82198d28,{},sent,2026-05-19T17:13:06Z
+alert_8bda075999a5,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 2 MES,{},sent,2026-05-19T17:13:06Z
+alert_00e17fbc3dd3,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MES,{},sent,2026-05-19T17:13:06Z
+alert_ffb02b346418,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MES,{},sent,2026-05-19T17:13:06Z
+alert_64d99900a7d7,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MES,{},sent,2026-05-19T17:13:06Z
+alert_9c9fe86bd819,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MES,{},sent,2026-05-19T17:13:07Z
+alert_25baa2ae866f,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MES,{},sent,2026-05-19T17:13:07Z
+alert_4ad5cd1f482c,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MES,{},sent,2026-05-19T17:13:07Z
+alert_41267a825d09,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_ac332f8547cf,{},sent,2026-05-19T17:13:07Z
+alert_b7c582bab755,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_6464d5bc8234,{},sent,2026-05-19T17:13:07Z
+alert_6d299e40ea0b,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_eb5a39cb8160,{},sent,2026-05-19T17:13:07Z
+alert_96e9e577ee07,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MES,{},sent,2026-05-19T17:13:07Z
+alert_16351ec7e5bf,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MES,{},sent,2026-05-19T17:13:07Z
+alert_6fcdbb2b8397,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MES,{},sent,2026-05-19T17:13:07Z
+alert_da05a75f9281,mes_monthly_orb_restricted_scaleout3,info,Modified order ord_45059c6748ac,{},sent,2026-05-19T17:13:08Z
+alert_b428c47f66d7,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MES,{},sent,2026-05-19T17:13:09Z
+alert_35e7e778bb1e,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MES,{},sent,2026-05-19T17:13:09Z
+alert_92aff4d8c2be,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MES,{},sent,2026-05-19T17:13:09Z
+alert_80bb36ad0e1b,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_0500f4358f00,{},sent,2026-05-19T17:13:09Z
+alert_59e70112a1ec,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_933411c3f10a,{},sent,2026-05-19T17:13:09Z
+alert_0ae65a85becb,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_096e5ca52acf,{},sent,2026-05-19T17:13:09Z
+alert_3c4e2e74c453,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MES,{},sent,2026-05-19T17:13:09Z
+alert_8f6f024ae203,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MES,{},sent,2026-05-19T17:13:09Z
+alert_e87bac245ff8,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MES,{},sent,2026-05-19T17:13:10Z
+alert_484927433f45,mes_monthly_orb_restricted_scaleout3,info,Monthly ORB failed-breakout flatten requested (25% range retrace),{},sent,2026-05-19T17:13:10Z
+alert_f3ac594a8540,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_0415ae8a7e9f,{},sent,2026-05-19T17:13:10Z
+alert_8fc960f04098,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_328026c3c2fd,{},sent,2026-05-19T17:13:10Z
+alert_2e0340bd38fe,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_f1cc828cabfc,{},sent,2026-05-19T17:13:10Z
+alert_a2ef67bf9ba7,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_665ff20fad59,{},sent,2026-05-19T17:13:10Z
+alert_adfa4ff275bd,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_7079eb8e9440,{},sent,2026-05-19T17:13:10Z
+alert_d1e930566f09,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 3 MES,{},sent,2026-05-19T17:13:10Z
+alert_1445c85ef55f,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MES,{},sent,2026-05-19T17:13:10Z
+alert_132c74ea9204,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MES,{},sent,2026-05-19T17:13:10Z
+alert_8e3cd8a292a7,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MES,{},sent,2026-05-19T17:13:10Z
+alert_aec7970cd795,mes_monthly_orb_restricted_scaleout3,info,Monthly ORB failed-breakout flatten requested (25% range retrace),{},sent,2026-05-19T17:13:11Z
+alert_025597e8b583,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_ff5e00e5cb34,{},sent,2026-05-19T17:13:11Z
+alert_4bcfc22214b7,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_f7fa99c4c6c8,{},sent,2026-05-19T17:13:11Z
+alert_236ed8ad7036,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_8812bae0e67d,{},sent,2026-05-19T17:13:11Z
+alert_d3a6b403dbbf,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 2 MES,{},sent,2026-05-19T17:13:11Z
+alert_0013a1f86821,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MES,{},sent,2026-05-19T17:13:11Z
+alert_bad5ba0956b6,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MES,{},sent,2026-05-19T17:13:11Z
+alert_37ea2d57dea8,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MES,{},sent,2026-05-19T17:13:12Z
+alert_8b457b4c8aaa,mes_monthly_orb_restricted_scaleout3,info,Monthly ORB failed-breakout flatten requested (25% range retrace),{},sent,2026-05-19T17:13:12Z
+alert_5cdda22f3b72,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_85ca3c788aee,{},sent,2026-05-19T17:13:12Z
+alert_abca310383e2,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_c017ac9278ae,{},sent,2026-05-19T17:13:12Z
+alert_37f51f88dae1,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_fdd9a273545f,{},sent,2026-05-19T17:13:12Z
+alert_413c4220dfc4,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_e55810c05fda,{},sent,2026-05-19T17:13:12Z
+alert_f6d782fc5a33,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_94055cbb9322,{},sent,2026-05-19T17:13:12Z
+alert_192000214b1a,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 3 MES,{},sent,2026-05-19T17:13:12Z
+alert_09d14e3a554a,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MES,{},sent,2026-05-19T17:13:12Z
+alert_a49ba053fd3d,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MES,{},sent,2026-05-19T17:13:12Z
+alert_433d3638392e,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MES,{},sent,2026-05-19T17:13:12Z
+alert_ccfb8bfe6595,mes_monthly_orb_restricted_scaleout3,info,Monthly ORB failed-breakout flatten requested (25% range retrace),{},sent,2026-05-19T17:13:13Z
+alert_4a2524d95572,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_4c24e7b52bd9,{},sent,2026-05-19T17:13:13Z
+alert_8ff0ff1713c4,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_3d98e95bdced,{},sent,2026-05-19T17:13:13Z
+alert_e6715d9c6af6,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_3e2d86a135eb,{},sent,2026-05-19T17:13:13Z
+alert_75fa12599379,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_357abe42db56,{},sent,2026-05-19T17:13:13Z
+alert_92bbfccb24c7,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_c80e6801ee47,{},sent,2026-05-19T17:13:13Z
+alert_47866cfc84f9,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 3 MES,{},sent,2026-05-19T17:13:13Z
+alert_d020a1b7b945,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MES,{},sent,2026-05-19T17:13:14Z
+alert_c3f998267439,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MES,{},sent,2026-05-19T17:13:14Z
+alert_07c88d8e5365,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MES,{},sent,2026-05-19T17:13:14Z
+alert_dba96ba75258,mes_monthly_orb_restricted_scaleout3,info,Monthly ORB failed-breakout flatten requested (25% range retrace),{},sent,2026-05-19T17:13:14Z
+alert_41fc95e813cf,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_96387e271841,{},sent,2026-05-19T17:13:14Z
+alert_a088fb7c44f0,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_5cf9fead53b5,{},sent,2026-05-19T17:13:14Z
+alert_2dc7cc14d767,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_4d55fae07d26,{},sent,2026-05-19T17:13:14Z
+alert_222be7b7190d,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_ba8e8354b15e,{},sent,2026-05-19T17:13:14Z
+alert_fb7e689194a2,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_6ae8e11a4797,{},sent,2026-05-19T17:13:14Z
+alert_ed5eb2985a90,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 3 MES,{},sent,2026-05-19T17:13:15Z
+alert_2904fb6fa51a,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MES,{},sent,2026-05-19T17:13:15Z
+alert_8ef2beb1f42a,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MES,{},sent,2026-05-19T17:13:15Z
+alert_86c266d5bde3,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MES,{},sent,2026-05-19T17:13:15Z
+alert_d41782ecaa5f,mes_monthly_orb_restricted_scaleout3,info,Monthly ORB month-end flatten requested,{},sent,2026-05-19T17:13:15Z
+alert_ae6ba2e05246,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_9a370a81f37b,{},sent,2026-05-19T17:13:15Z
+alert_133c8f957f75,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_8b8aed5a11da,{},sent,2026-05-19T17:13:15Z
+alert_401cccfbeba6,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_d9dcf6b6899f,{},sent,2026-05-19T17:13:15Z
+alert_92d707d6ecb8,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_ba90c38dcf3d,{},sent,2026-05-19T17:13:15Z
+alert_ee2f7f0cced2,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_e289b8e188e3,{},sent,2026-05-19T17:13:15Z
+alert_85e53cbae76c,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 3 MES,{},sent,2026-05-19T17:13:15Z
+alert_9c21c0ddebc0,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MES,{},sent,2026-05-19T17:13:16Z
+alert_ee7b50f88815,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MES,{},sent,2026-05-19T17:13:16Z
+alert_756f219b6082,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MES,{},sent,2026-05-19T17:13:16Z
+alert_b9a7be905c06,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_b861c9edc56e,{},sent,2026-05-19T17:13:16Z
+alert_f24ab18a9ed3,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_03ae1398ed10,{},sent,2026-05-19T17:13:16Z
+alert_a45f3d90e24e,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_7da1bd48e278,{},sent,2026-05-19T17:13:16Z
+alert_95bdcf209961,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MES,{},sent,2026-05-19T17:13:17Z
+alert_f4315ca06d4c,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MES,{},sent,2026-05-19T17:13:17Z
+alert_59c985ba091d,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MES,{},sent,2026-05-19T17:13:17Z
+alert_f87eb481ffd8,mes_monthly_orb_restricted_scaleout3,info,Monthly ORB failed-breakout flatten requested (25% range retrace),{},sent,2026-05-19T17:13:17Z
+alert_b753491975ff,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_580eec5d08db,{},sent,2026-05-19T17:13:17Z
+alert_e5b4a9e4750b,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_d18822ef2139,{},sent,2026-05-19T17:13:17Z
+alert_5ebe77a6e2f2,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_126756b068e9,{},sent,2026-05-19T17:13:17Z
+alert_6b62ba634593,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_27fdac07b002,{},sent,2026-05-19T17:13:17Z
+alert_851b5c0da64b,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_df0986c8f301,{},sent,2026-05-19T17:13:17Z
+alert_e7250dae30af,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 3 MES,{},sent,2026-05-19T17:13:17Z
+alert_7fd9cddff31c,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MES,{},sent,2026-05-19T17:13:18Z
+alert_a94015fb734f,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MES,{},sent,2026-05-19T17:13:18Z
+alert_55dc9504b1cb,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MES,{},sent,2026-05-19T17:13:18Z
+alert_d0147286b6e9,mes_monthly_orb_restricted_scaleout3,info,Monthly ORB failed-breakout flatten requested (25% range retrace),{},sent,2026-05-19T17:13:19Z
+alert_1d2cd655d9b4,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_43e11f151c75,{},sent,2026-05-19T17:13:19Z
+alert_03c6f6a7fb11,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_05bf298f86d2,{},sent,2026-05-19T17:13:19Z
+alert_7459fc8e9770,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_2daaa31e06f8,{},sent,2026-05-19T17:13:19Z
+alert_5e4149b5b9a3,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_4025d87463e9,{},sent,2026-05-19T17:13:19Z
+alert_1e1ba4337782,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_07c8b474c4ec,{},sent,2026-05-19T17:13:19Z
+alert_a9cd43005640,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 3 MES,{},sent,2026-05-19T17:13:19Z
+alert_59dae0104c9d,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MES,{},sent,2026-05-19T17:13:19Z
+alert_c9b85f0b0d8e,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MES,{},sent,2026-05-19T17:13:19Z
+alert_93c7e90a9f40,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MES,{},sent,2026-05-19T17:13:19Z
+alert_fad01d1450e4,mes_monthly_orb_restricted_scaleout3,info,Monthly ORB month-end flatten requested,{},sent,2026-05-19T17:13:20Z
+alert_ebbdd5815d1c,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_a2221715ff5c,{},sent,2026-05-19T17:13:20Z
+alert_93bc412d1504,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_b3eda3dbd1db,{},sent,2026-05-19T17:13:20Z
+alert_e7f4e4af4290,mes_monthly_orb_restricted_scaleout3,info,Cancelled order ord_d1c6a9b67e76,{},sent,2026-05-19T17:13:20Z
+alert_28dc7b38d0c0,mes_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 2 MES,{},sent,2026-05-19T17:13:20Z
