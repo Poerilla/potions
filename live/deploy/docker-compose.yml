@@ -1,0 +1,19 @@
+services:
+  mnq-v2b-paper:
+    build:
+      context: ../..
+      dockerfile: live/deploy/Dockerfile
+    image: potions-live:local
+    restart: unless-stopped
+    volumes:
+      - ./engine.conf.json:/config/engine.conf.json:ro
+      - ./state:/app/potions/live/deploy/state
+    ports:
+      - "127.0.0.1:8765:8765"
+    command:
+      - python
+      - -m
+      - potions.live.config_runner
+      - --config
+      - /config/engine.conf.json
+      - run-loop

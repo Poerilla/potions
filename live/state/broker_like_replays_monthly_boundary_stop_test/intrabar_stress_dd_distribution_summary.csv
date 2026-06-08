@@ -1,0 +1,37 @@
+slug,candidate,instrument,events,max_intrabar_stress_dd_usd,p50_abs_dd_usd,p75_abs_dd_usd,p90_abs_dd_usd,p95_abs_dd_usd,p99_abs_dd_usd,events_ge_50pct_max,events_ge_75pct_max,events_ge_90pct_max,tail_signal
+nq_atr_weekly_2initial_3add_6max,NQ ATR weekly 2-initial / 3-add / 6-max,NQ,335,-428375.00,5640.00,19050.00,39468.00,61521.00,246582.30,4,1,1,max stress is an outlier
+nq_atr_daily_3initial_10max,NQ ATR daily 3-initial 10-max,NQ,212,-308655.00,15375.00,35707.50,73562.00,111026.25,257071.40,7,4,1,large stress recurs
+es_atr_daily_3initial_10max,ES ATR daily 3-initial 10-max,ES,120,-275712.50,10875.00,21131.25,39071.25,72676.87,181661.25,3,1,1,max stress is an outlier
+nq_atr_daily_ladder112221_10max,NQ ATR daily ladder 1/1/2/2/2 10-max,NQ,170,-255950.00,18002.50,39862.50,75798.00,132796.00,236730.80,10,5,3,large stress recurs
+ym_atr_weekly_2initial_3add_6max,YM ATR weekly 2-initial / 3-add / 6-max,YM,293,-245550.00,3120.00,7050.00,15972.00,39262.00,132957.60,4,2,1,largest stress is elevated but recurring
+es_atr_daily_ladder112221_10max,ES ATR daily ladder 1/1/2/2/2 10-max,ES,93,-245025.00,10500.00,23500.00,43017.50,104870.00,159005.00,4,1,1,max stress is an outlier
+ym_atr_daily_ladder112221_10max,YM ATR daily ladder 1/1/2/2/2 10-max,YM,72,-224330.00,4645.00,11760.00,17950.00,38095.75,157029.10,2,1,1,max stress is an outlier
+nq_monthly_orb_restricted_scaleout3,NQ Monthly ORB restricted scaleout3,NQ,116,-218668.75,2148.75,6361.25,23421.25,34105.94,59417.44,1,1,1,max stress is an outlier
+es_atr_weekly_2initial_3add_6max,ES ATR weekly 2-initial / 3-add / 6-max,ES,306,-199637.50,6300.00,13106.25,34762.50,59962.50,163558.12,10,5,2,large stress recurs
+nq_monthly_orb_restricted_scaleout3_boundary_stop,NQ Monthly ORB restricted scaleout3 boundary-stop entry,NQ,285,-168163.75,2890.00,7905.00,22735.00,35829.00,96879.70,4,1,1,max stress is an outlier
+ym_atr_daily_3initial_10max,YM ATR daily 3-initial 10-max,YM,108,-165935.00,4625.00,11750.00,29298.50,65079.75,129850.65,5,2,1,largest stress is elevated but recurring
+nq_yearly_orb_scaleout3,NQ Yearly ORB scaleout3,NQ,122,-133860.00,5845.00,13190.00,32844.00,56495.81,117488.85,5,3,2,large stress recurs
+es_monthly_orb_restricted_scaleout3,ES Monthly ORB restricted scaleout3,ES,34,-127996.88,831.25,1885.94,3755.00,4746.40,87693.56,1,1,1,max stress is an outlier
+es_monthly_orb_restricted_scaleout3_boundary_stop,ES Monthly ORB restricted scaleout3 boundary-stop entry,ES,217,-95793.75,2925.00,6325.00,16647.50,26410.62,57933.75,6,1,1,max stress is an outlier
+ym_yearly_orb_scaleout3,YM Yearly ORB scaleout3,YM,87,-75305.00,845.00,1765.00,6202.00,12702.00,60001.30,2,2,1,largest stress is elevated but recurring
+es_yearly_orb_scaleout3,ES Yearly ORB scaleout3,ES,40,-70612.50,3056.25,6478.12,35554.69,38830.16,60316.50,5,1,1,max stress is an outlier
+ym_monthly_orb_restricted_scaleout3,YM Monthly ORB restricted scaleout3,YM,29,-70177.50,6060.00,12680.00,36443.50,46923.50,64006.30,3,1,1,max stress is an outlier
+ym_monthly_orb_restricted_scaleout3_boundary_stop,YM Monthly ORB restricted scaleout3 boundary-stop entry,YM,236,-47753.75,2322.50,5180.62,14980.00,22242.19,41199.94,9,4,3,large stress recurs
+mnq_atr_weekly_2initial_3add_6max,MNQ ATR weekly 2-initial / 3-add / 6-max,MNQ,171,-42806.50,1746.00,3027.00,6003.00,11676.00,27505.00,3,1,1,max stress is an outlier
+mnq_atr_daily_3initial_10max,MNQ ATR daily 3-initial 10-max,MNQ,156,-29264.00,2220.00,4496.88,7960.75,13867.75,25901.37,7,4,1,large stress recurs
+mes_atr_daily_3initial_10max,MES ATR daily 3-initial 10-max,MES,56,-27550.00,800.00,1526.25,3062.50,5706.56,17424.50,1,1,1,max stress is an outlier
+mnq_atr_daily_ladder112221_10max,MNQ ATR daily ladder 1/1/2/2/2 10-max,MNQ,134,-25610.00,2292.00,4742.25,8140.95,14553.02,23149.52,10,5,2,large stress recurs
+mes_atr_daily_ladder112221_10max,MES ATR daily ladder 1/1/2/2/2 10-max,MES,41,-24488.75,640.00,1437.50,3633.75,6996.25,18725.25,1,1,1,max stress is an outlier
+mnq_monthly_orb_restricted_scaleout3,MNQ Monthly ORB restricted scaleout3,MNQ,66,-20808.75,423.00,1243.50,2696.12,3498.75,11198.91,1,1,1,max stress is an outlier
+mym_atr_daily_ladder112221_10max,MYM ATR daily ladder 1/1/2/2/2 10-max,MYM,32,-19514.50,429.50,1891.00,6189.30,12101.12,17617.46,3,1,1,max stress is an outlier
+mym_atr_weekly_2initial_3add_6max,MYM ATR weekly 2-initial / 3-add / 6-max,MYM,107,-18929.50,846.00,1743.00,4606.20,8608.20,13083.90,4,1,1,max stress is an outlier
+mes_atr_weekly_2initial_3add_6max,MES ATR weekly 2-initial / 3-add / 6-max,MES,147,-17212.50,765.00,1338.75,3150.00,5756.25,12711.15,3,2,1,largest stress is elevated but recurring
+mnq_monthly_orb_restricted_scaleout3_boundary_stop,MNQ Monthly ORB restricted scaleout3 boundary-stop entry,MNQ,160,-16881.38,574.50,1288.12,2915.97,5380.52,10926.99,4,1,1,max stress is an outlier
+mnq_yearly_orb_scaleout3,MNQ Yearly ORB scaleout3,MNQ,97,-13378.50,759.00,1506.00,3434.40,6593.60,12095.46,5,3,2,large stress recurs
+mym_atr_daily_3initial_10max,MYM ATR daily 3-initial 10-max,MYM,52,-13205.50,1009.50,1988.25,3979.95,8243.57,13129.51,3,3,3,large stress recurs
+mym_monthly_orb_restricted_scaleout3,MYM Monthly ORB restricted scaleout3,MYM,19,-8606.25,664.50,1284.00,3282.12,3928.38,7670.68,1,1,1,max stress is an outlier
+mes_monthly_orb_restricted_scaleout3,MES Monthly ORB restricted scaleout3,MES,29,-7443.75,240.00,515.00,1111.94,3210.13,6609.35,2,1,1,max stress is an outlier
+mes_yearly_orb_scaleout3,MES Yearly ORB scaleout3,MES,3,-7143.75,997.50,4070.62,5914.50,6529.12,7020.82,1,1,1,max stress is the dominant tail event
+mes_monthly_orb_restricted_scaleout3_boundary_stop,MES Monthly ORB restricted scaleout3 boundary-stop entry,MES,107,-6512.81,393.75,740.15,2256.75,3138.75,5733.61,4,3,1,large stress recurs
+mym_monthly_orb_restricted_scaleout3_boundary_stop,MYM Monthly ORB restricted scaleout3 boundary-stop entry,MYM,110,-5504.12,333.88,961.88,2127.90,3204.30,4278.22,7,2,1,largest stress is elevated but recurring
+mym_yearly_orb_scaleout3,MYM Yearly ORB scaleout3,MYM,20,-5407.50,527.25,1065.75,3577.30,5180.45,5362.09,3,2,2,large stress recurs

@@ -1,0 +1,31 @@
+candidate,slug,instrument,units,trades,net_usd,close_mtm_dd_usd,intrabar_mtm_dd_usd,max_open_units,net_over_stress_dd
+NQ ATR daily ladder 1/1/2/2/2 10-max,nq_atr_daily_ladder112221_10max,NQ,402,149,1576610.00,-235800.00,-255950.00,10,6.16
+MNQ ATR daily ladder 1/1/2/2/2 10-max,mnq_atr_daily_ladder112221_10max,MNQ,162,52,147280.00,-23408.50,-25610.00,10,5.75
+NQ ATR daily 3-initial 10-max,nq_atr_daily_3initial_10max,NQ,623,149,1723980.00,-299280.00,-308655.00,10,5.59
+MNQ ATR daily 3-initial 10-max,mnq_atr_daily_3initial_10max,MNQ,233,52,160401.50,-28647.50,-29264.00,10,5.48
+ES ATR weekly 2-initial / 3-add / 6-max,es_atr_weekly_2initial_3add_6max,ES,144,43,857100.00,-194325.00,-199637.50,6,4.29
+ES Monthly ORB restricted scaleout3,es_monthly_orb_restricted_scaleout3,ES,54,18,246453.12,-62075.00,-66162.50,3,3.72
+NQ Monthly ORB restricted scaleout3,nq_monthly_orb_restricted_scaleout3,NQ,30,10,430465.00,-117565.00,-122080.00,3,3.53
+NQ ATR weekly 2-initial / 3-add / 6-max,nq_atr_weekly_2initial_3add_6max,NQ,127,38,1444735.00,-407105.00,-428375.00,6,3.37
+YM Monthly ORB restricted scaleout3,ym_monthly_orb_restricted_scaleout3,YM,54,18,179658.75,-56275.00,-56795.00,3,3.16
+NQ Yearly ORB scaleout3,nq_yearly_orb_scaleout3,NQ,204,68,403571.25,-125490.00,-133860.00,3,3.01
+MNQ Yearly ORB scaleout3,mnq_yearly_orb_scaleout3,MNQ,72,24,39216.62,-12546.00,-13378.50,3,2.93
+MNQ ATR weekly 2-initial / 3-add / 6-max,mnq_atr_weekly_2initial_3add_6max,MNQ,54,17,119427.00,-40691.50,-42806.50,6,2.79
+MES ATR weekly 2-initial / 3-add / 6-max,mes_atr_weekly_2initial_3add_6max,MES,28,8,37548.75,-14457.50,-17212.50,6,2.18
+ES ATR daily 3-initial 10-max,es_atr_daily_3initial_10max,ES,628,147,589050.00,-271925.00,-275712.50,10,2.14
+ES ATR daily ladder 1/1/2/2/2 10-max,es_atr_daily_ladder112221_10max,ES,416,147,464712.50,-238925.00,-245025.00,10,1.90
+YM ATR daily 3-initial 10-max,ym_atr_daily_3initial_10max,YM,609,144,297045.00,-161975.00,-165935.00,10,1.79
+YM ATR weekly 2-initial / 3-add / 6-max,ym_atr_weekly_2initial_3add_6max,YM,157,49,407900.00,-231360.00,-245550.00,6,1.66
+MYM ATR weekly 2-initial / 3-add / 6-max,mym_atr_weekly_2initial_3add_6max,MYM,83,27,24931.00,-18860.50,-18929.50,6,1.32
+MYM ATR daily 3-initial 10-max,mym_atr_daily_3initial_10max,MYM,249,58,16639.00,-12145.50,-13205.50,10,1.26
+YM Yearly ORB scaleout3,ym_yearly_orb_scaleout3,YM,243,81,59582.50,-70715.00,-75305.00,3,0.79
+ES Yearly ORB scaleout3,es_yearly_orb_scaleout3,ES,219,73,41684.38,-64500.00,-70612.50,3,0.59
+YM ATR daily ladder 1/1/2/2/2 10-max,ym_atr_daily_ladder112221_10max,YM,408,144,105555.00,-222215.00,-224330.00,10,0.47
+MES Monthly ORB restricted scaleout3,mes_monthly_orb_restricted_scaleout3,MES,24,8,2901.88,-7821.25,-8350.00,3,0.35
+MYM ATR daily ladder 1/1/2/2/2 10-max,mym_atr_daily_ladder112221_10max,MYM,173,58,2799.00,-19091.50,-19514.50,10,0.14
+MYM Yearly ORB scaleout3,mym_yearly_orb_scaleout3,MYM,81,27,677.38,-5097.00,-5407.50,3,0.13
+MES ATR daily 3-initial 10-max,mes_atr_daily_3initial_10max,MES,169,40,3008.75,-27167.50,-27550.00,10,0.11
+MNQ Monthly ORB restricted scaleout3,mnq_monthly_orb_restricted_scaleout3,MNQ,108,36,2425.62,-34230.12,-34398.12,3,0.07
+MYM Monthly ORB restricted scaleout3,mym_monthly_orb_restricted_scaleout3,MYM,108,36,-222.00,-15443.88,-16100.88,3,-0.01
+MES ATR daily ladder 1/1/2/2/2 10-max,mes_atr_daily_ladder112221_10max,MES,111,40,-1192.50,-23878.75,-24488.75,10,-0.05
+MES Yearly ORB scaleout3,mes_yearly_orb_scaleout3,MES,36,12,-3465.00,-6480.00,-7143.75,3,-0.49
