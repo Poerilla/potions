@@ -1,0 +1,564 @@
+alert_id,strategy_id,level,message,payload_json,status,created_at
+alert_efe2a63647c8,mnq_v2b_sizing_S_5_2_1,info,v2b opening range armed,{},sent,2026-05-21T21:10:41Z
+alert_4832a4aac0e9,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 8 MNQ,{},sent,2026-05-21T21:10:41Z
+alert_fe69c0da4ce8,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 8 MNQ,{},sent,2026-05-21T21:10:41Z
+alert_40d09f274943,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 8 MNQ,{},sent,2026-05-21T21:10:41Z
+alert_e4c0bbefd76a,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 5 MNQ,{},sent,2026-05-21T21:10:41Z
+alert_f564780c23fe,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 2 MNQ,{},sent,2026-05-21T21:10:41Z
+alert_5bec2e79a833,mnq_v2b_sizing_S_5_2_1,info,Cancelled order ord_75b67457e8b1,{},sent,2026-05-21T21:10:41Z
+alert_63f9786896b8,mnq_v2b_sizing_S_5_2_1,info,Cancelled order ord_414f6b565e18,{},sent,2026-05-21T21:10:41Z
+alert_03c868d04401,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 3 MNQ,{},sent,2026-05-21T21:10:41Z
+alert_6267723192c6,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 2 MNQ,{},sent,2026-05-21T21:10:41Z
+alert_0fecf40e92c8,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 8 MNQ,{},sent,2026-05-21T21:10:41Z
+alert_b11294eb602d,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 8 MNQ,{},sent,2026-05-21T21:10:41Z
+alert_45becadb824d,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 5 MNQ,{},sent,2026-05-21T21:10:41Z
+alert_b1777cc532c9,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 2 MNQ,{},sent,2026-05-21T21:10:41Z
+alert_7e1045f5f7fc,mnq_v2b_sizing_S_5_2_1,info,v2b opening range armed,{},sent,2026-05-21T21:10:41Z
+alert_ae2e366136ed,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 8 MNQ,{},sent,2026-05-21T21:10:41Z
+alert_cb1bcbb90723,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 8 MNQ,{},sent,2026-05-21T21:10:41Z
+alert_d9393ed0ddea,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 8 MNQ,{},sent,2026-05-21T21:10:41Z
+alert_8e20941d1ced,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 5 MNQ,{},sent,2026-05-21T21:10:41Z
+alert_1d062ee4ed67,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 2 MNQ,{},sent,2026-05-21T21:10:41Z
+alert_471642169877,mnq_v2b_sizing_S_5_2_1,info,Cancelled order ord_9809915c9c47,{},sent,2026-05-21T21:10:41Z
+alert_21783a134ee8,mnq_v2b_sizing_S_5_2_1,info,Cancelled order ord_3ad05bdc9697,{},sent,2026-05-21T21:10:41Z
+alert_170fea0a00db,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 3 MNQ,{},sent,2026-05-21T21:10:41Z
+alert_31c759b42b91,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 2 MNQ,{},sent,2026-05-21T21:10:41Z
+alert_e393b955fd81,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 8 MNQ,{},sent,2026-05-21T21:10:41Z
+alert_87b377a8a635,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 8 MNQ,{},sent,2026-05-21T21:10:41Z
+alert_8faa8568525c,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 5 MNQ,{},sent,2026-05-21T21:10:41Z
+alert_11d9e4ba1c64,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 2 MNQ,{},sent,2026-05-21T21:10:41Z
+alert_a6969082021f,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 8 MNQ,{},sent,2026-05-21T21:10:41Z
+alert_1f7ca7086ead,mnq_v2b_sizing_S_5_2_1,info,v2b opening range armed,{},sent,2026-05-21T21:10:41Z
+alert_cf77381a3069,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 8 MNQ,{},sent,2026-05-21T21:10:41Z
+alert_6a54f2a5650f,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 8 MNQ,{},sent,2026-05-21T21:10:41Z
+alert_1f5cce8231e8,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 8 MNQ,{},sent,2026-05-21T21:10:41Z
+alert_3036797557ab,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 5 MNQ,{},sent,2026-05-21T21:10:41Z
+alert_c189c2c94564,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 2 MNQ,{},sent,2026-05-21T21:10:41Z
+alert_932ce2dcc842,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 8 MNQ,{},sent,2026-05-21T21:10:41Z
+alert_eee545cdb354,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 8 MNQ,{},sent,2026-05-21T21:10:41Z
+alert_2114612e71ab,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 5 MNQ,{},sent,2026-05-21T21:10:41Z
+alert_18d302579446,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 2 MNQ,{},sent,2026-05-21T21:10:41Z
+alert_dfe34ec83865,mnq_v2b_sizing_S_5_2_1,info,Cancelled order ord_60bd37fdacd7,{},sent,2026-05-21T21:10:41Z
+alert_444dcdb767e3,mnq_v2b_sizing_S_5_2_1,info,Cancelled order ord_83e74c590905,{},sent,2026-05-21T21:10:41Z
+alert_a95c1a4ed5bc,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 3 MNQ,{},sent,2026-05-21T21:10:41Z
+alert_82196cf23d07,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 2 MNQ,{},sent,2026-05-21T21:10:41Z
+alert_a27c588fe160,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 3 MNQ,{},sent,2026-05-21T21:10:41Z
+alert_cd70aca36af5,mnq_v2b_sizing_S_5_2_1,info,v2b opening range armed,{},sent,2026-05-21T21:10:41Z
+alert_29837fa5ee10,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 8 MNQ,{},sent,2026-05-21T21:10:41Z
+alert_d65ee6f9c451,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 8 MNQ,{},sent,2026-05-21T21:10:41Z
+alert_77b35723a951,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 8 MNQ,{},sent,2026-05-21T21:10:41Z
+alert_dc9076da3f50,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 5 MNQ,{},sent,2026-05-21T21:10:41Z
+alert_c22d3705dc36,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 2 MNQ,{},sent,2026-05-21T21:10:41Z
+alert_113b8e18f0ba,mnq_v2b_sizing_S_5_2_1,info,Cancelled order ord_2f01c074fcc5,{},sent,2026-05-21T21:10:41Z
+alert_4b8eddb6218f,mnq_v2b_sizing_S_5_2_1,info,Cancelled order ord_9b5b04b6bd95,{},sent,2026-05-21T21:10:41Z
+alert_0fc37572c9e3,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 3 MNQ,{},sent,2026-05-21T21:10:41Z
+alert_a30c7b78cb8e,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 2 MNQ,{},sent,2026-05-21T21:10:41Z
+alert_9828f3bdca08,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 1 MNQ,{},sent,2026-05-21T21:10:41Z
+alert_0583eee51eea,mnq_v2b_sizing_S_5_2_1,info,v2b opening range armed,{},sent,2026-05-21T21:10:41Z
+alert_1bb7d32a0ce5,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 8 MNQ,{},sent,2026-05-21T21:10:41Z
+alert_c97eadbc0672,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 8 MNQ,{},sent,2026-05-21T21:10:41Z
+alert_f886abf04bef,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 8 MNQ,{},sent,2026-05-21T21:10:41Z
+alert_d2e58cbf2843,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 5 MNQ,{},sent,2026-05-21T21:10:41Z
+alert_39466205158e,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 2 MNQ,{},sent,2026-05-21T21:10:41Z
+alert_d8ebbea2388e,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 8 MNQ,{},sent,2026-05-21T21:10:41Z
+alert_7fff17725cca,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 8 MNQ,{},sent,2026-05-21T21:10:41Z
+alert_4ccef3ce0f04,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 5 MNQ,{},sent,2026-05-21T21:10:41Z
+alert_36eaeabd298b,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 2 MNQ,{},sent,2026-05-21T21:10:41Z
+alert_11032a5de709,mnq_v2b_sizing_S_5_2_1,info,Cancelled order ord_58d99adc9187,{},sent,2026-05-21T21:10:41Z
+alert_2f3f84f60018,mnq_v2b_sizing_S_5_2_1,info,Cancelled order ord_105c4a6e605c,{},sent,2026-05-21T21:10:41Z
+alert_2dc14ac950e9,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 3 MNQ,{},sent,2026-05-21T21:10:41Z
+alert_0301350946a9,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 2 MNQ,{},sent,2026-05-21T21:10:41Z
+alert_a2cba8b43647,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 3 MNQ,{},sent,2026-05-21T21:10:42Z
+alert_0462cee56b88,mnq_v2b_sizing_S_5_2_1,info,v2b opening range armed,{},sent,2026-05-21T21:10:42Z
+alert_5ad2f6ef69b6,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 8 MNQ,{},sent,2026-05-21T21:10:42Z
+alert_73e0e1c5ed7b,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 8 MNQ,{},sent,2026-05-21T21:10:42Z
+alert_74ac4e1a9c59,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 8 MNQ,{},sent,2026-05-21T21:10:42Z
+alert_403d6d9e486a,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 5 MNQ,{},sent,2026-05-21T21:10:42Z
+alert_ab884b981b72,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 2 MNQ,{},sent,2026-05-21T21:10:42Z
+alert_269d99da4fe8,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 8 MNQ,{},sent,2026-05-21T21:10:42Z
+alert_a8a79482b749,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 8 MNQ,{},sent,2026-05-21T21:10:42Z
+alert_ac07ed4dd846,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 5 MNQ,{},sent,2026-05-21T21:10:42Z
+alert_cf55898bcf23,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 2 MNQ,{},sent,2026-05-21T21:10:42Z
+alert_498572b0a4ec,mnq_v2b_sizing_S_5_2_1,info,Cancelled order ord_8291432ff885,{},sent,2026-05-21T21:10:42Z
+alert_053a871f1fc0,mnq_v2b_sizing_S_5_2_1,info,Cancelled order ord_0373dda460e7,{},sent,2026-05-21T21:10:42Z
+alert_ec54e8dd73d2,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 3 MNQ,{},sent,2026-05-21T21:10:42Z
+alert_9dd4a9cc51bd,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 2 MNQ,{},sent,2026-05-21T21:10:42Z
+alert_a03d8ce91cfe,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 3 MNQ,{},sent,2026-05-21T21:10:42Z
+alert_d2a5fada4a05,mnq_v2b_sizing_S_5_2_1,info,v2b opening range armed,{},sent,2026-05-21T21:10:42Z
+alert_a339b38374e3,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 8 MNQ,{},sent,2026-05-21T21:10:42Z
+alert_fc16f31cf477,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 8 MNQ,{},sent,2026-05-21T21:10:42Z
+alert_7cec58508956,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 8 MNQ,{},sent,2026-05-21T21:10:42Z
+alert_8a7e5ce048a1,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 5 MNQ,{},sent,2026-05-21T21:10:42Z
+alert_69e240b4544f,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 2 MNQ,{},sent,2026-05-21T21:10:42Z
+alert_0ed81c8214a2,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 8 MNQ,{},sent,2026-05-21T21:10:42Z
+alert_d019d3f2ab4d,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 8 MNQ,{},sent,2026-05-21T21:10:42Z
+alert_0a6e8b871cc4,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 5 MNQ,{},sent,2026-05-21T21:10:42Z
+alert_f575a64d91c7,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 2 MNQ,{},sent,2026-05-21T21:10:42Z
+alert_c1c86d4cf682,mnq_v2b_sizing_S_5_2_1,info,v2b opening range armed,{},sent,2026-05-21T21:10:42Z
+alert_ba5c0fca7ebe,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 8 MNQ,{},sent,2026-05-21T21:10:42Z
+alert_6c0adaff3506,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 8 MNQ,{},sent,2026-05-21T21:10:42Z
+alert_5da8ee31d8a6,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 8 MNQ,{},sent,2026-05-21T21:10:42Z
+alert_2f9c3eee9cd4,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 5 MNQ,{},sent,2026-05-21T21:10:42Z
+alert_a8a422cc0295,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 2 MNQ,{},sent,2026-05-21T21:10:42Z
+alert_eb12ef285630,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 8 MNQ,{},sent,2026-05-21T21:10:42Z
+alert_73d77d46b638,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 8 MNQ,{},sent,2026-05-21T21:10:42Z
+alert_7461f6b8ea45,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 5 MNQ,{},sent,2026-05-21T21:10:42Z
+alert_816aa5e73e50,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 2 MNQ,{},sent,2026-05-21T21:10:42Z
+alert_cc40442e59fb,mnq_v2b_sizing_S_5_2_1,info,v2b opening range armed,{},sent,2026-05-21T21:10:42Z
+alert_44ee36bbedd3,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 8 MNQ,{},sent,2026-05-21T21:10:42Z
+alert_e86015575111,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 8 MNQ,{},sent,2026-05-21T21:10:42Z
+alert_d6d6e264e702,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 8 MNQ,{},sent,2026-05-21T21:10:42Z
+alert_40bdc3034225,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 5 MNQ,{},sent,2026-05-21T21:10:42Z
+alert_b85c909adabf,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 2 MNQ,{},sent,2026-05-21T21:10:42Z
+alert_1cfe92f73eb6,mnq_v2b_sizing_S_5_2_1,info,Cancelled order ord_a02d4cbd3f51,{},sent,2026-05-21T21:10:42Z
+alert_8d65dc749759,mnq_v2b_sizing_S_5_2_1,info,Cancelled order ord_4b9bacc11800,{},sent,2026-05-21T21:10:42Z
+alert_7aeb9e7a830c,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 3 MNQ,{},sent,2026-05-21T21:10:42Z
+alert_04008783507e,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 2 MNQ,{},sent,2026-05-21T21:10:42Z
+alert_d5cd0afc406b,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 8 MNQ,{},sent,2026-05-21T21:10:42Z
+alert_126d892045b1,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 8 MNQ,{},sent,2026-05-21T21:10:42Z
+alert_88f19c186659,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 5 MNQ,{},sent,2026-05-21T21:10:42Z
+alert_4ccfdfdc8822,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 2 MNQ,{},sent,2026-05-21T21:10:42Z
+alert_2aac9b383550,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 8 MNQ,{},sent,2026-05-21T21:10:42Z
+alert_ca9a20360e29,mnq_v2b_sizing_S_5_2_1,info,v2b opening range armed,{},sent,2026-05-21T21:10:42Z
+alert_573666055f13,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 8 MNQ,{},sent,2026-05-21T21:10:42Z
+alert_cfd4867876fc,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 8 MNQ,{},sent,2026-05-21T21:10:42Z
+alert_3b5e8fea6779,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 8 MNQ,{},sent,2026-05-21T21:10:42Z
+alert_5f016b6010da,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 5 MNQ,{},sent,2026-05-21T21:10:42Z
+alert_f3a954464a5b,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 2 MNQ,{},sent,2026-05-21T21:10:42Z
+alert_9507bcd881bb,mnq_v2b_sizing_S_5_2_1,info,Cancelled order ord_eb91d96c4687,{},sent,2026-05-21T21:10:43Z
+alert_7c6fc8dbf63e,mnq_v2b_sizing_S_5_2_1,info,Cancelled order ord_3bdac947ffb8,{},sent,2026-05-21T21:10:43Z
+alert_7e39c70abe84,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 3 MNQ,{},sent,2026-05-21T21:10:43Z
+alert_ea0f838b8d4f,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 2 MNQ,{},sent,2026-05-21T21:10:43Z
+alert_4935e45d18eb,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 1 MNQ,{},sent,2026-05-21T21:10:43Z
+alert_d817540388eb,mnq_v2b_sizing_S_5_2_1,info,v2b opening range armed,{},sent,2026-05-21T21:10:43Z
+alert_bcbb59c72859,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 8 MNQ,{},sent,2026-05-21T21:10:43Z
+alert_2a9fcfb6e97f,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 8 MNQ,{},sent,2026-05-21T21:10:43Z
+alert_a96c6ed682ba,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 8 MNQ,{},sent,2026-05-21T21:10:43Z
+alert_72180daaa81e,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 5 MNQ,{},sent,2026-05-21T21:10:43Z
+alert_11891fe185f4,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 2 MNQ,{},sent,2026-05-21T21:10:43Z
+alert_6022adc64adf,mnq_v2b_sizing_S_5_2_1,info,Cancelled order ord_bd9ffbeacd22,{},sent,2026-05-21T21:10:43Z
+alert_629e19102fd6,mnq_v2b_sizing_S_5_2_1,info,Cancelled order ord_ce5431afe0bb,{},sent,2026-05-21T21:10:43Z
+alert_ee2727599a3e,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 3 MNQ,{},sent,2026-05-21T21:10:43Z
+alert_bbc35c74f56a,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 2 MNQ,{},sent,2026-05-21T21:10:43Z
+alert_67275516a8c7,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 8 MNQ,{},sent,2026-05-21T21:10:43Z
+alert_8bd2dd2e2847,mnq_v2b_sizing_S_5_2_1,info,v2b opening range armed,{},sent,2026-05-21T21:10:43Z
+alert_de987424ad56,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 8 MNQ,{},sent,2026-05-21T21:10:43Z
+alert_755513835a7f,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 8 MNQ,{},sent,2026-05-21T21:10:43Z
+alert_e6064c628c08,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 8 MNQ,{},sent,2026-05-21T21:10:43Z
+alert_1e2ecbb7ba40,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 5 MNQ,{},sent,2026-05-21T21:10:43Z
+alert_370fc35aeae7,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 2 MNQ,{},sent,2026-05-21T21:10:43Z
+alert_80bdc1d41c58,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 8 MNQ,{},sent,2026-05-21T21:10:43Z
+alert_c6fd41ab0d2a,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 8 MNQ,{},sent,2026-05-21T21:10:43Z
+alert_518e5dc4cbcc,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 5 MNQ,{},sent,2026-05-21T21:10:43Z
+alert_c9d3ef1e1e60,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 2 MNQ,{},sent,2026-05-21T21:10:43Z
+alert_1c26c7ee66b0,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 8 MNQ,{},sent,2026-05-21T21:10:43Z
+alert_05b4c475cbac,mnq_v2b_sizing_S_5_2_1,info,v2b opening range armed,{},sent,2026-05-21T21:10:43Z
+alert_f05fdb0f423a,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 8 MNQ,{},sent,2026-05-21T21:10:43Z
+alert_3784cbe354a6,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 8 MNQ,{},sent,2026-05-21T21:10:43Z
+alert_2e406fdaddbf,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 8 MNQ,{},sent,2026-05-21T21:10:43Z
+alert_9bce26248b52,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 5 MNQ,{},sent,2026-05-21T21:10:43Z
+alert_7b150fc5b69a,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 2 MNQ,{},sent,2026-05-21T21:10:43Z
+alert_9e2b822cee3f,mnq_v2b_sizing_S_5_2_1,info,Cancelled order ord_d574371c74c4,{},sent,2026-05-21T21:10:43Z
+alert_1d266f95a7b3,mnq_v2b_sizing_S_5_2_1,info,Cancelled order ord_a592278988ae,{},sent,2026-05-21T21:10:43Z
+alert_e33920d789b1,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 3 MNQ,{},sent,2026-05-21T21:10:43Z
+alert_c89ab53f73b7,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 2 MNQ,{},sent,2026-05-21T21:10:43Z
+alert_6b1ef0dd16dc,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 1 MNQ,{},sent,2026-05-21T21:10:43Z
+alert_dfec7c12e628,mnq_v2b_sizing_S_5_2_1,info,v2b opening range armed,{},sent,2026-05-21T21:10:43Z
+alert_50f52dfc6f4d,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 8 MNQ,{},sent,2026-05-21T21:10:43Z
+alert_5dd1ef1cc8ae,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 8 MNQ,{},sent,2026-05-21T21:10:43Z
+alert_d0e103202ae7,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 8 MNQ,{},sent,2026-05-21T21:10:43Z
+alert_e43267a1d8f3,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 5 MNQ,{},sent,2026-05-21T21:10:43Z
+alert_2580f4509c79,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 2 MNQ,{},sent,2026-05-21T21:10:43Z
+alert_047a4bcc9836,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 8 MNQ,{},sent,2026-05-21T21:10:43Z
+alert_0ca83f8eaa10,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 8 MNQ,{},sent,2026-05-21T21:10:43Z
+alert_b5c1764d4af5,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 5 MNQ,{},sent,2026-05-21T21:10:43Z
+alert_e2eebda021d4,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 2 MNQ,{},sent,2026-05-21T21:10:43Z
+alert_9a991a6430d0,mnq_v2b_sizing_S_5_2_1,info,v2b opening range armed,{},sent,2026-05-21T21:10:44Z
+alert_aa2e993b512b,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 8 MNQ,{},sent,2026-05-21T21:10:44Z
+alert_8d50b0cb767e,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 8 MNQ,{},sent,2026-05-21T21:10:44Z
+alert_0f39a0cd41d2,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 8 MNQ,{},sent,2026-05-21T21:10:44Z
+alert_469b982940f7,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 5 MNQ,{},sent,2026-05-21T21:10:44Z
+alert_77e830d2249a,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 2 MNQ,{},sent,2026-05-21T21:10:44Z
+alert_71b7ac161530,mnq_v2b_sizing_S_5_2_1,info,Cancelled order ord_d2f898c81ef2,{},sent,2026-05-21T21:10:44Z
+alert_f76ec98f1f0b,mnq_v2b_sizing_S_5_2_1,info,Cancelled order ord_651fbd3d2379,{},sent,2026-05-21T21:10:44Z
+alert_c21076ee476f,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 3 MNQ,{},sent,2026-05-21T21:10:44Z
+alert_540c8a235a51,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 2 MNQ,{},sent,2026-05-21T21:10:44Z
+alert_d1f998d160c4,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-21T21:10:44Z
+alert_19cb8cc7c755,mnq_v2b_sizing_S_5_2_1,info,v2b opening range armed,{},sent,2026-05-21T21:10:44Z
+alert_289dd941c331,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 8 MNQ,{},sent,2026-05-21T21:10:44Z
+alert_da69ea6aaaed,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 8 MNQ,{},sent,2026-05-21T21:10:44Z
+alert_2bb569dedc1b,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 8 MNQ,{},sent,2026-05-21T21:10:44Z
+alert_333750d97e32,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 5 MNQ,{},sent,2026-05-21T21:10:44Z
+alert_8e21c13cf885,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 2 MNQ,{},sent,2026-05-21T21:10:44Z
+alert_49f18697075f,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 8 MNQ,{},sent,2026-05-21T21:10:44Z
+alert_9093fd7526f8,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 8 MNQ,{},sent,2026-05-21T21:10:44Z
+alert_0781bb3d56ac,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 5 MNQ,{},sent,2026-05-21T21:10:44Z
+alert_c4f4016b82db,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 2 MNQ,{},sent,2026-05-21T21:10:44Z
+alert_9e4ef1f70886,mnq_v2b_sizing_S_5_2_1,info,v2b opening range armed,{},sent,2026-05-21T21:10:44Z
+alert_b84e9bc6ce32,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 8 MNQ,{},sent,2026-05-21T21:10:44Z
+alert_3b2bb854f08f,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 8 MNQ,{},sent,2026-05-21T21:10:44Z
+alert_2cf01a54a907,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 8 MNQ,{},sent,2026-05-21T21:10:44Z
+alert_b36956d652de,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 5 MNQ,{},sent,2026-05-21T21:10:44Z
+alert_ff5df71d77f9,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 2 MNQ,{},sent,2026-05-21T21:10:44Z
+alert_74b119172331,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 8 MNQ,{},sent,2026-05-21T21:10:44Z
+alert_337f4fb1f16e,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 8 MNQ,{},sent,2026-05-21T21:10:44Z
+alert_ebdf9874398e,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 5 MNQ,{},sent,2026-05-21T21:10:44Z
+alert_57e1d7d77a71,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 2 MNQ,{},sent,2026-05-21T21:10:44Z
+alert_84e115906d51,mnq_v2b_sizing_S_5_2_1,info,v2b opening range armed,{},sent,2026-05-21T21:10:44Z
+alert_1bbc30df6c89,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 8 MNQ,{},sent,2026-05-21T21:10:44Z
+alert_4f2fc3757570,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 8 MNQ,{},sent,2026-05-21T21:10:44Z
+alert_778c667a92b2,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 8 MNQ,{},sent,2026-05-21T21:10:44Z
+alert_cb46e7b9e52d,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 5 MNQ,{},sent,2026-05-21T21:10:44Z
+alert_c10f9412d1d0,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 2 MNQ,{},sent,2026-05-21T21:10:44Z
+alert_78d7b07834ba,mnq_v2b_sizing_S_5_2_1,info,Cancelled order ord_160df084c7dd,{},sent,2026-05-21T21:10:44Z
+alert_ed897ed39c44,mnq_v2b_sizing_S_5_2_1,info,Cancelled order ord_e8db7c34062f,{},sent,2026-05-21T21:10:44Z
+alert_704014281257,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 3 MNQ,{},sent,2026-05-21T21:10:44Z
+alert_bf6f1b26828b,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 2 MNQ,{},sent,2026-05-21T21:10:44Z
+alert_13dc16326f1f,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 8 MNQ,{},sent,2026-05-21T21:10:44Z
+alert_54425727d056,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 8 MNQ,{},sent,2026-05-21T21:10:44Z
+alert_80fea04dbce9,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 5 MNQ,{},sent,2026-05-21T21:10:44Z
+alert_e245d1b88b9b,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 2 MNQ,{},sent,2026-05-21T21:10:44Z
+alert_88de1b63767f,mnq_v2b_sizing_S_5_2_1,info,v2b opening range armed,{},sent,2026-05-21T21:10:44Z
+alert_f0abdc8379e0,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 8 MNQ,{},sent,2026-05-21T21:10:44Z
+alert_a95cbb1fe2f0,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 8 MNQ,{},sent,2026-05-21T21:10:44Z
+alert_2b6e8c580c6b,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 8 MNQ,{},sent,2026-05-21T21:10:44Z
+alert_33c0f049febf,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 5 MNQ,{},sent,2026-05-21T21:10:44Z
+alert_ecb233d48cb6,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 2 MNQ,{},sent,2026-05-21T21:10:44Z
+alert_e4bbf8a67e47,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 8 MNQ,{},sent,2026-05-21T21:10:44Z
+alert_99748dbfc495,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 8 MNQ,{},sent,2026-05-21T21:10:44Z
+alert_fd5e5cf281c2,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 5 MNQ,{},sent,2026-05-21T21:10:44Z
+alert_fecb5f25b7ca,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 2 MNQ,{},sent,2026-05-21T21:10:44Z
+alert_5010bae633a9,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 8 MNQ,{},sent,2026-05-21T21:10:45Z
+alert_d00d94265dc8,mnq_v2b_sizing_S_5_2_1,info,v2b opening range armed,{},sent,2026-05-21T21:10:45Z
+alert_16e29859b110,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 8 MNQ,{},sent,2026-05-21T21:10:45Z
+alert_27b5609adf9d,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 8 MNQ,{},sent,2026-05-21T21:10:45Z
+alert_4b82b4936ead,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 8 MNQ,{},sent,2026-05-21T21:10:45Z
+alert_12c75fe8d896,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 5 MNQ,{},sent,2026-05-21T21:10:45Z
+alert_41d28da83e43,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 2 MNQ,{},sent,2026-05-21T21:10:45Z
+alert_e7dce77d9720,mnq_v2b_sizing_S_5_2_1,info,Cancelled order ord_3f956920bd28,{},sent,2026-05-21T21:10:45Z
+alert_ac41ed791db2,mnq_v2b_sizing_S_5_2_1,info,Cancelled order ord_bc3c961938d6,{},sent,2026-05-21T21:10:45Z
+alert_47d8d6e671d4,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 3 MNQ,{},sent,2026-05-21T21:10:45Z
+alert_74b35b5a308e,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 2 MNQ,{},sent,2026-05-21T21:10:45Z
+alert_91d7a213cdf7,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 1 MNQ,{},sent,2026-05-21T21:10:45Z
+alert_9e459222ae64,mnq_v2b_sizing_S_5_2_1,info,v2b opening range armed,{},sent,2026-05-21T21:10:45Z
+alert_f12070fdeadb,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 8 MNQ,{},sent,2026-05-21T21:10:45Z
+alert_044bab8c31d8,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 8 MNQ,{},sent,2026-05-21T21:10:45Z
+alert_633690f1995c,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 8 MNQ,{},sent,2026-05-21T21:10:45Z
+alert_636574260dcc,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 5 MNQ,{},sent,2026-05-21T21:10:45Z
+alert_64311d2c3c42,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 2 MNQ,{},sent,2026-05-21T21:10:45Z
+alert_8b792db85f11,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 8 MNQ,{},sent,2026-05-21T21:10:45Z
+alert_f03f83228d66,mnq_v2b_sizing_S_5_2_1,info,v2b opening range armed,{},sent,2026-05-21T21:10:45Z
+alert_c819654ea7c2,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 8 MNQ,{},sent,2026-05-21T21:10:45Z
+alert_31525378a606,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 8 MNQ,{},sent,2026-05-21T21:10:45Z
+alert_94ff45d24b07,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 8 MNQ,{},sent,2026-05-21T21:10:45Z
+alert_fa96f40802d8,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 5 MNQ,{},sent,2026-05-21T21:10:45Z
+alert_ca4b83f2f9b7,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 2 MNQ,{},sent,2026-05-21T21:10:45Z
+alert_2b2ec4a2076a,mnq_v2b_sizing_S_5_2_1,info,Cancelled order ord_7a8a50c033e8,{},sent,2026-05-21T21:10:45Z
+alert_4866adcf0986,mnq_v2b_sizing_S_5_2_1,info,Cancelled order ord_78c39943fcb0,{},sent,2026-05-21T21:10:45Z
+alert_2ec11beb5b76,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 3 MNQ,{},sent,2026-05-21T21:10:45Z
+alert_61b11c3d47da,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 2 MNQ,{},sent,2026-05-21T21:10:45Z
+alert_8a0aa9036581,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 1 MNQ,{},sent,2026-05-21T21:10:45Z
+alert_c0ddb0e8f3d4,mnq_v2b_sizing_S_5_2_1,info,v2b opening range armed,{},sent,2026-05-21T21:10:45Z
+alert_367c1c628b09,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 8 MNQ,{},sent,2026-05-21T21:10:45Z
+alert_2eec8fcde230,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 8 MNQ,{},sent,2026-05-21T21:10:45Z
+alert_75a3d727de44,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 8 MNQ,{},sent,2026-05-21T21:10:45Z
+alert_e14304ba7716,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 5 MNQ,{},sent,2026-05-21T21:10:45Z
+alert_57e624de01c6,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 2 MNQ,{},sent,2026-05-21T21:10:45Z
+alert_18b914b17aa1,mnq_v2b_sizing_S_5_2_1,info,Cancelled order ord_c5df9d8b224b,{},sent,2026-05-21T21:10:45Z
+alert_84a135fd639d,mnq_v2b_sizing_S_5_2_1,info,Cancelled order ord_be5eb653d9e4,{},sent,2026-05-21T21:10:45Z
+alert_9fc9eef8f608,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 3 MNQ,{},sent,2026-05-21T21:10:45Z
+alert_6f53082c0dc1,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 2 MNQ,{},sent,2026-05-21T21:10:45Z
+alert_a3d7498851aa,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 8 MNQ,{},sent,2026-05-21T21:10:45Z
+alert_a97133cf4082,mnq_v2b_sizing_S_5_2_1,info,v2b opening range armed,{},sent,2026-05-21T21:10:46Z
+alert_30a0805add00,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 8 MNQ,{},sent,2026-05-21T21:10:46Z
+alert_af8d8da57cbd,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 8 MNQ,{},sent,2026-05-21T21:10:46Z
+alert_7e69c0b8beda,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 8 MNQ,{},sent,2026-05-21T21:10:46Z
+alert_4f0e6b4185f0,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 5 MNQ,{},sent,2026-05-21T21:10:46Z
+alert_26fb15ac260f,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 2 MNQ,{},sent,2026-05-21T21:10:46Z
+alert_7a94d71afdde,mnq_v2b_sizing_S_5_2_1,info,Cancelled order ord_7e762fa105ba,{},sent,2026-05-21T21:10:46Z
+alert_5bfc33543c56,mnq_v2b_sizing_S_5_2_1,info,Cancelled order ord_06971ae2c2a2,{},sent,2026-05-21T21:10:46Z
+alert_97837a7b177d,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 3 MNQ,{},sent,2026-05-21T21:10:46Z
+alert_47e5deea2c38,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 2 MNQ,{},sent,2026-05-21T21:10:46Z
+alert_3e599e7e026f,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 8 MNQ,{},sent,2026-05-21T21:10:46Z
+alert_ebbfbb95aa5a,mnq_v2b_sizing_S_5_2_1,info,v2b opening range armed,{},sent,2026-05-21T21:10:46Z
+alert_a3ec4c34edb0,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 8 MNQ,{},sent,2026-05-21T21:10:46Z
+alert_add3a46434a9,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 8 MNQ,{},sent,2026-05-21T21:10:46Z
+alert_c0c0b7ea078a,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 8 MNQ,{},sent,2026-05-21T21:10:46Z
+alert_ff07fd2ebbc3,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 5 MNQ,{},sent,2026-05-21T21:10:46Z
+alert_6a735961a895,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 2 MNQ,{},sent,2026-05-21T21:10:46Z
+alert_e9742e1b78d7,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 8 MNQ,{},sent,2026-05-21T21:10:46Z
+alert_d104347a9e20,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 8 MNQ,{},sent,2026-05-21T21:10:46Z
+alert_6a9596ce2549,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 5 MNQ,{},sent,2026-05-21T21:10:46Z
+alert_acadb6629cb8,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 2 MNQ,{},sent,2026-05-21T21:10:46Z
+alert_0e8ff2a8ab96,mnq_v2b_sizing_S_5_2_1,info,v2b opening range armed,{},sent,2026-05-21T21:10:46Z
+alert_afd1b5be3b3e,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 8 MNQ,{},sent,2026-05-21T21:10:46Z
+alert_fbd1a0a6749a,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 8 MNQ,{},sent,2026-05-21T21:10:46Z
+alert_61b199dacac8,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 8 MNQ,{},sent,2026-05-21T21:10:46Z
+alert_a38282367cfe,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 5 MNQ,{},sent,2026-05-21T21:10:46Z
+alert_f7c169b460af,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 2 MNQ,{},sent,2026-05-21T21:10:46Z
+alert_20dea324557c,mnq_v2b_sizing_S_5_2_1,info,Cancelled order ord_b0f39b792ec0,{},sent,2026-05-21T21:10:46Z
+alert_6b270c345b5e,mnq_v2b_sizing_S_5_2_1,info,Cancelled order ord_54c78e4a036e,{},sent,2026-05-21T21:10:46Z
+alert_672628ea9082,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 3 MNQ,{},sent,2026-05-21T21:10:46Z
+alert_68c39b266673,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 2 MNQ,{},sent,2026-05-21T21:10:46Z
+alert_02169a0f1485,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 1 MNQ,{},sent,2026-05-21T21:10:46Z
+alert_f11e3cc783b1,mnq_v2b_sizing_S_5_2_1,info,v2b opening range armed,{},sent,2026-05-21T21:10:46Z
+alert_7baddd2b80fa,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 8 MNQ,{},sent,2026-05-21T21:10:46Z
+alert_fcb07e54dd48,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 8 MNQ,{},sent,2026-05-21T21:10:46Z
+alert_5cf7cdbe715e,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 8 MNQ,{},sent,2026-05-21T21:10:46Z
+alert_6d832c23c29e,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 5 MNQ,{},sent,2026-05-21T21:10:46Z
+alert_29478efec45b,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 2 MNQ,{},sent,2026-05-21T21:10:46Z
+alert_4c49ca91d5b9,mnq_v2b_sizing_S_5_2_1,info,Cancelled order ord_1a3b22607d8d,{},sent,2026-05-21T21:10:46Z
+alert_09ad1bc226ce,mnq_v2b_sizing_S_5_2_1,info,Cancelled order ord_9a60822de60f,{},sent,2026-05-21T21:10:46Z
+alert_b6ac4618f995,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 3 MNQ,{},sent,2026-05-21T21:10:46Z
+alert_f1c9615789d8,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 2 MNQ,{},sent,2026-05-21T21:10:46Z
+alert_e2523ac8472b,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 8 MNQ,{},sent,2026-05-21T21:10:46Z
+alert_1b1700827a8f,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 8 MNQ,{},sent,2026-05-21T21:10:46Z
+alert_82cc1508a63e,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 5 MNQ,{},sent,2026-05-21T21:10:46Z
+alert_0e820570a51a,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 2 MNQ,{},sent,2026-05-21T21:10:46Z
+alert_06550593bfc9,mnq_v2b_sizing_S_5_2_1,info,v2b opening range armed,{},sent,2026-05-21T21:10:47Z
+alert_3800418f2575,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 8 MNQ,{},sent,2026-05-21T21:10:47Z
+alert_8397e1a03ebf,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 8 MNQ,{},sent,2026-05-21T21:10:47Z
+alert_cce50bc5ba19,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 8 MNQ,{},sent,2026-05-21T21:10:47Z
+alert_21c546e1598e,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 5 MNQ,{},sent,2026-05-21T21:10:47Z
+alert_30e9413674fc,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 2 MNQ,{},sent,2026-05-21T21:10:47Z
+alert_db80d69b16fc,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 8 MNQ,{},sent,2026-05-21T21:10:47Z
+alert_7ce097706edd,mnq_v2b_sizing_S_5_2_1,info,v2b opening range armed,{},sent,2026-05-21T21:10:47Z
+alert_03275f6ed552,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 8 MNQ,{},sent,2026-05-21T21:10:47Z
+alert_e89a50a853b0,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 8 MNQ,{},sent,2026-05-21T21:10:47Z
+alert_db0413017afe,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 8 MNQ,{},sent,2026-05-21T21:10:47Z
+alert_760cab8ed541,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 5 MNQ,{},sent,2026-05-21T21:10:47Z
+alert_cfd19e2e6096,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 2 MNQ,{},sent,2026-05-21T21:10:47Z
+alert_d21dcd3983d6,mnq_v2b_sizing_S_5_2_1,info,Cancelled order ord_16db6379767e,{},sent,2026-05-21T21:10:47Z
+alert_92098531e97e,mnq_v2b_sizing_S_5_2_1,info,Cancelled order ord_e94e111790b4,{},sent,2026-05-21T21:10:47Z
+alert_5d7e059d37d3,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 3 MNQ,{},sent,2026-05-21T21:10:47Z
+alert_fd8a5b35fa77,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 2 MNQ,{},sent,2026-05-21T21:10:47Z
+alert_30787ec35965,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-21T21:10:47Z
+alert_6639bd8e27b1,mnq_v2b_sizing_S_5_2_1,info,v2b opening range armed,{},sent,2026-05-21T21:10:47Z
+alert_8d93c70b648f,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 8 MNQ,{},sent,2026-05-21T21:10:47Z
+alert_8568f1422e92,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 8 MNQ,{},sent,2026-05-21T21:10:47Z
+alert_29b52bfb5d78,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 8 MNQ,{},sent,2026-05-21T21:10:47Z
+alert_d4bf4123ca8d,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 5 MNQ,{},sent,2026-05-21T21:10:47Z
+alert_db6808d66e61,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 2 MNQ,{},sent,2026-05-21T21:10:47Z
+alert_ee82a821558e,mnq_v2b_sizing_S_5_2_1,info,Cancelled order ord_07d36d9b10dc,{},sent,2026-05-21T21:10:47Z
+alert_2e39d2e70334,mnq_v2b_sizing_S_5_2_1,info,Cancelled order ord_abeaa542df32,{},sent,2026-05-21T21:10:47Z
+alert_7e1f8d4ca1d6,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 3 MNQ,{},sent,2026-05-21T21:10:47Z
+alert_02e00f2dcfd6,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 2 MNQ,{},sent,2026-05-21T21:10:47Z
+alert_f0cba6d560de,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 3 MNQ,{},sent,2026-05-21T21:10:47Z
+alert_bd505ace1b1e,mnq_v2b_sizing_S_5_2_1,info,v2b opening range armed,{},sent,2026-05-21T21:10:47Z
+alert_642dcc388320,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 8 MNQ,{},sent,2026-05-21T21:10:47Z
+alert_8b492061a98f,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 8 MNQ,{},sent,2026-05-21T21:10:47Z
+alert_42bf868858c7,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 8 MNQ,{},sent,2026-05-21T21:10:47Z
+alert_e5673f3b8a5f,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 5 MNQ,{},sent,2026-05-21T21:10:47Z
+alert_ee9994222a81,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 2 MNQ,{},sent,2026-05-21T21:10:47Z
+alert_cc5e6e65b877,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 8 MNQ,{},sent,2026-05-21T21:10:47Z
+alert_31c191845eba,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 8 MNQ,{},sent,2026-05-21T21:10:47Z
+alert_15a89ec29d89,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 5 MNQ,{},sent,2026-05-21T21:10:47Z
+alert_51033aef61d4,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 2 MNQ,{},sent,2026-05-21T21:10:47Z
+alert_0e209b41b979,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 8 MNQ,{},sent,2026-05-21T21:10:47Z
+alert_0cdd2eb8e718,mnq_v2b_sizing_S_5_2_1,info,v2b opening range armed,{},sent,2026-05-21T21:10:47Z
+alert_da970a8984f6,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 8 MNQ,{},sent,2026-05-21T21:10:47Z
+alert_89d88a7fdef4,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 8 MNQ,{},sent,2026-05-21T21:10:47Z
+alert_3f4017625cb2,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 8 MNQ,{},sent,2026-05-21T21:10:47Z
+alert_089b6f82b7c4,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 5 MNQ,{},sent,2026-05-21T21:10:47Z
+alert_3d59b0142439,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 2 MNQ,{},sent,2026-05-21T21:10:48Z
+alert_fed0245ea23c,mnq_v2b_sizing_S_5_2_1,info,Cancelled order ord_53443ecb7366,{},sent,2026-05-21T21:10:48Z
+alert_d9fff6ce09a0,mnq_v2b_sizing_S_5_2_1,info,Cancelled order ord_89f3136570d8,{},sent,2026-05-21T21:10:48Z
+alert_76a0e3a5dd29,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 3 MNQ,{},sent,2026-05-21T21:10:48Z
+alert_c8c8681d5c9e,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 2 MNQ,{},sent,2026-05-21T21:10:48Z
+alert_02d5b8d0b983,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-21T21:10:48Z
+alert_63e999c8a086,mnq_v2b_sizing_S_5_2_1,info,v2b opening range armed,{},sent,2026-05-21T21:10:48Z
+alert_199e92be7317,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 8 MNQ,{},sent,2026-05-21T21:10:48Z
+alert_6b4aec3fd0e8,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 8 MNQ,{},sent,2026-05-21T21:10:48Z
+alert_230dee0cdca2,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 8 MNQ,{},sent,2026-05-21T21:10:48Z
+alert_8636389a9a65,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 5 MNQ,{},sent,2026-05-21T21:10:48Z
+alert_88eaf7e8f463,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 2 MNQ,{},sent,2026-05-21T21:10:48Z
+alert_1fb7a41b0041,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 8 MNQ,{},sent,2026-05-21T21:10:48Z
+alert_7ad8ea7e37d9,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 8 MNQ,{},sent,2026-05-21T21:10:48Z
+alert_044681ede197,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 5 MNQ,{},sent,2026-05-21T21:10:48Z
+alert_5ebed0ddbf5e,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 2 MNQ,{},sent,2026-05-21T21:10:48Z
+alert_08aeba60ed6e,mnq_v2b_sizing_S_5_2_1,info,Cancelled order ord_e12cb96b8d6a,{},sent,2026-05-21T21:10:48Z
+alert_c83b3a7eaf78,mnq_v2b_sizing_S_5_2_1,info,Cancelled order ord_e1bb191d52a3,{},sent,2026-05-21T21:10:48Z
+alert_1a8cd3de1e89,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 3 MNQ,{},sent,2026-05-21T21:10:48Z
+alert_ca5e6a87b12b,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 2 MNQ,{},sent,2026-05-21T21:10:48Z
+alert_75c5e4f02500,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-21T21:10:48Z
+alert_94bfe49424f4,mnq_v2b_sizing_S_5_2_1,info,v2b opening range armed,{},sent,2026-05-21T21:10:48Z
+alert_7ef4a2a506f9,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 8 MNQ,{},sent,2026-05-21T21:10:48Z
+alert_1f0f592de086,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 8 MNQ,{},sent,2026-05-21T21:10:48Z
+alert_93effe09a6ef,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 8 MNQ,{},sent,2026-05-21T21:10:48Z
+alert_79d5586b09e2,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 5 MNQ,{},sent,2026-05-21T21:10:48Z
+alert_433872b1ef30,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 2 MNQ,{},sent,2026-05-21T21:10:48Z
+alert_ddd2220f2fdc,mnq_v2b_sizing_S_5_2_1,info,Cancelled order ord_afb638ef5bdd,{},sent,2026-05-21T21:10:48Z
+alert_e804353b16bc,mnq_v2b_sizing_S_5_2_1,info,Cancelled order ord_966b5e9f260d,{},sent,2026-05-21T21:10:48Z
+alert_638d74d299e4,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 3 MNQ,{},sent,2026-05-21T21:10:48Z
+alert_4138fdc23a19,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 2 MNQ,{},sent,2026-05-21T21:10:48Z
+alert_72980ef00b2c,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 1 MNQ,{},sent,2026-05-21T21:10:48Z
+alert_454af3feb853,mnq_v2b_sizing_S_5_2_1,info,v2b opening range armed,{},sent,2026-05-21T21:10:48Z
+alert_0a5f67a0461e,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 8 MNQ,{},sent,2026-05-21T21:10:48Z
+alert_033e532390f0,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 8 MNQ,{},sent,2026-05-21T21:10:48Z
+alert_5affee422041,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 8 MNQ,{},sent,2026-05-21T21:10:48Z
+alert_b7954ef0f814,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 5 MNQ,{},sent,2026-05-21T21:10:48Z
+alert_28e563462695,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 2 MNQ,{},sent,2026-05-21T21:10:48Z
+alert_a499e26bb835,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 8 MNQ,{},sent,2026-05-21T21:10:48Z
+alert_06ccb57c8d06,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 8 MNQ,{},sent,2026-05-21T21:10:48Z
+alert_f2556fbf3c2a,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 5 MNQ,{},sent,2026-05-21T21:10:48Z
+alert_b1329cb384c2,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 2 MNQ,{},sent,2026-05-21T21:10:48Z
+alert_db85ff811f84,mnq_v2b_sizing_S_5_2_1,info,v2b opening range armed,{},sent,2026-05-21T21:10:48Z
+alert_112a4ccd3827,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 8 MNQ,{},sent,2026-05-21T21:10:48Z
+alert_856cd483b696,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 8 MNQ,{},sent,2026-05-21T21:10:48Z
+alert_eb04f926f948,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 8 MNQ,{},sent,2026-05-21T21:10:48Z
+alert_94bb179333a2,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 5 MNQ,{},sent,2026-05-21T21:10:49Z
+alert_d227879bdea3,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 2 MNQ,{},sent,2026-05-21T21:10:49Z
+alert_5a6e8ef5fd03,mnq_v2b_sizing_S_5_2_1,info,Cancelled order ord_d4e1ef9c8f2f,{},sent,2026-05-21T21:10:49Z
+alert_05cb62bffacf,mnq_v2b_sizing_S_5_2_1,info,Cancelled order ord_dcc7be693146,{},sent,2026-05-21T21:10:49Z
+alert_5cd0d2788c46,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 3 MNQ,{},sent,2026-05-21T21:10:49Z
+alert_0fade3b80a77,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 2 MNQ,{},sent,2026-05-21T21:10:49Z
+alert_8a145f033da0,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 1 MNQ,{},sent,2026-05-21T21:10:49Z
+alert_f404f9b2e574,mnq_v2b_sizing_S_5_2_1,info,v2b opening range armed,{},sent,2026-05-21T21:10:49Z
+alert_0335a2cab4a1,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 8 MNQ,{},sent,2026-05-21T21:10:49Z
+alert_19ff438865f1,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 8 MNQ,{},sent,2026-05-21T21:10:49Z
+alert_862248f8f67c,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 8 MNQ,{},sent,2026-05-21T21:10:49Z
+alert_115ce3f13e67,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 5 MNQ,{},sent,2026-05-21T21:10:49Z
+alert_ba3a2ad8b74f,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 2 MNQ,{},sent,2026-05-21T21:10:49Z
+alert_eb6929655716,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 8 MNQ,{},sent,2026-05-21T21:10:49Z
+alert_4c877dcf59fb,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 8 MNQ,{},sent,2026-05-21T21:10:49Z
+alert_626a47f7e598,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 5 MNQ,{},sent,2026-05-21T21:10:49Z
+alert_d8a6cafe8ad6,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 2 MNQ,{},sent,2026-05-21T21:10:49Z
+alert_1df5c8f1ea0c,mnq_v2b_sizing_S_5_2_1,info,Cancelled order ord_fa3b33fd8973,{},sent,2026-05-21T21:10:49Z
+alert_376c244c31e9,mnq_v2b_sizing_S_5_2_1,info,Cancelled order ord_b735e1d324c3,{},sent,2026-05-21T21:10:49Z
+alert_0fabf5a68533,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 3 MNQ,{},sent,2026-05-21T21:10:49Z
+alert_08c15b4e98cc,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 2 MNQ,{},sent,2026-05-21T21:10:49Z
+alert_61f0a2ae7681,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 1 MNQ,{},sent,2026-05-21T21:10:49Z
+alert_8598371b7d55,mnq_v2b_sizing_S_5_2_1,info,v2b opening range armed,{},sent,2026-05-21T21:10:49Z
+alert_eb439f24e3a5,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 8 MNQ,{},sent,2026-05-21T21:10:49Z
+alert_15ea633e4262,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 8 MNQ,{},sent,2026-05-21T21:10:49Z
+alert_adc41dd2acf3,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 8 MNQ,{},sent,2026-05-21T21:10:49Z
+alert_91faa0021be6,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 5 MNQ,{},sent,2026-05-21T21:10:49Z
+alert_23345d27be80,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 2 MNQ,{},sent,2026-05-21T21:10:49Z
+alert_3f307e99d3ed,mnq_v2b_sizing_S_5_2_1,info,Cancelled order ord_217c93882a3d,{},sent,2026-05-21T21:10:49Z
+alert_22b52385e1c5,mnq_v2b_sizing_S_5_2_1,info,Cancelled order ord_6fc16406fc4f,{},sent,2026-05-21T21:10:49Z
+alert_620431bb8bcc,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 3 MNQ,{},sent,2026-05-21T21:10:49Z
+alert_f2a5285aaef5,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 2 MNQ,{},sent,2026-05-21T21:10:49Z
+alert_e0acf607495d,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 3 MNQ,{},sent,2026-05-21T21:10:49Z
+alert_85fe5be89e2c,mnq_v2b_sizing_S_5_2_1,info,v2b opening range armed,{},sent,2026-05-21T21:10:49Z
+alert_f9d63a3d932d,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 8 MNQ,{},sent,2026-05-21T21:10:49Z
+alert_f80de2aab853,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 8 MNQ,{},sent,2026-05-21T21:10:49Z
+alert_46b8b7903d46,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 8 MNQ,{},sent,2026-05-21T21:10:49Z
+alert_bcfd646ed69b,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 5 MNQ,{},sent,2026-05-21T21:10:49Z
+alert_740adaffd96f,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 2 MNQ,{},sent,2026-05-21T21:10:49Z
+alert_b3d7827bd2e8,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 8 MNQ,{},sent,2026-05-21T21:10:49Z
+alert_ddb51b165c06,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 8 MNQ,{},sent,2026-05-21T21:10:49Z
+alert_b29e2641de17,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 5 MNQ,{},sent,2026-05-21T21:10:49Z
+alert_2f9fcc881050,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 2 MNQ,{},sent,2026-05-21T21:10:49Z
+alert_c3082d2e2e20,mnq_v2b_sizing_S_5_2_1,info,v2b opening range armed,{},sent,2026-05-21T21:10:50Z
+alert_edbc5173992d,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 8 MNQ,{},sent,2026-05-21T21:10:50Z
+alert_7331e0789fc0,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 8 MNQ,{},sent,2026-05-21T21:10:50Z
+alert_50cc88232577,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 8 MNQ,{},sent,2026-05-21T21:10:50Z
+alert_f4e36741bc3c,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 5 MNQ,{},sent,2026-05-21T21:10:50Z
+alert_3defd1cd98b7,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 2 MNQ,{},sent,2026-05-21T21:10:50Z
+alert_708604341322,mnq_v2b_sizing_S_5_2_1,info,Cancelled order ord_eeda41556a43,{},sent,2026-05-21T21:10:50Z
+alert_d607f75186db,mnq_v2b_sizing_S_5_2_1,info,Cancelled order ord_b7032672d2dd,{},sent,2026-05-21T21:10:50Z
+alert_3746a77e939d,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 3 MNQ,{},sent,2026-05-21T21:10:50Z
+alert_5640135eafab,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 2 MNQ,{},sent,2026-05-21T21:10:50Z
+alert_780899e1ea05,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-21T21:10:50Z
+alert_c365464a2320,mnq_v2b_sizing_S_5_2_1,info,v2b opening range armed,{},sent,2026-05-21T21:10:50Z
+alert_09c939848493,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 8 MNQ,{},sent,2026-05-21T21:10:50Z
+alert_34e92e26aa69,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 8 MNQ,{},sent,2026-05-21T21:10:50Z
+alert_a81184f3c683,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 8 MNQ,{},sent,2026-05-21T21:10:50Z
+alert_0b3f79a9f8ae,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 5 MNQ,{},sent,2026-05-21T21:10:50Z
+alert_d2f107672a9b,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 2 MNQ,{},sent,2026-05-21T21:10:50Z
+alert_c06a5bf61061,mnq_v2b_sizing_S_5_2_1,info,Cancelled order ord_d8610cfb2a05,{},sent,2026-05-21T21:10:50Z
+alert_3a0f48499d53,mnq_v2b_sizing_S_5_2_1,info,Cancelled order ord_7c6fe55248a7,{},sent,2026-05-21T21:10:50Z
+alert_f7db87158b23,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 3 MNQ,{},sent,2026-05-21T21:10:50Z
+alert_e8c3c89fddc0,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 2 MNQ,{},sent,2026-05-21T21:10:50Z
+alert_89752c5cbfcf,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 8 MNQ,{},sent,2026-05-21T21:10:50Z
+alert_75f83f2bf22a,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 8 MNQ,{},sent,2026-05-21T21:10:50Z
+alert_63b38d11dbb6,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 5 MNQ,{},sent,2026-05-21T21:10:50Z
+alert_d1097de91b29,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 2 MNQ,{},sent,2026-05-21T21:10:50Z
+alert_05d1e5534dfb,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 8 MNQ,{},sent,2026-05-21T21:10:50Z
+alert_11aaf3474162,mnq_v2b_sizing_S_5_2_1,info,v2b opening range armed,{},sent,2026-05-21T21:10:50Z
+alert_bed784c9ba8d,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 8 MNQ,{},sent,2026-05-21T21:10:50Z
+alert_b089e687f527,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 8 MNQ,{},sent,2026-05-21T21:10:50Z
+alert_2837b5344297,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 8 MNQ,{},sent,2026-05-21T21:10:50Z
+alert_faa3d0acc2aa,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 5 MNQ,{},sent,2026-05-21T21:10:50Z
+alert_b1e0af48ff0b,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 2 MNQ,{},sent,2026-05-21T21:10:50Z
+alert_39da6945d89f,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 8 MNQ,{},sent,2026-05-21T21:10:50Z
+alert_6ec54aa95d32,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 8 MNQ,{},sent,2026-05-21T21:10:50Z
+alert_1b8845ffbcf8,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 5 MNQ,{},sent,2026-05-21T21:10:50Z
+alert_606009f210a1,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 2 MNQ,{},sent,2026-05-21T21:10:50Z
+alert_4a7b2b6c81d1,mnq_v2b_sizing_S_5_2_1,info,v2b opening range armed,{},sent,2026-05-21T21:10:50Z
+alert_ac31d61d96e2,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 8 MNQ,{},sent,2026-05-21T21:10:50Z
+alert_e3949d80b426,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 8 MNQ,{},sent,2026-05-21T21:10:50Z
+alert_68cf6afc3f09,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 8 MNQ,{},sent,2026-05-21T21:10:50Z
+alert_236987d79b5f,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 5 MNQ,{},sent,2026-05-21T21:10:50Z
+alert_5a53f72175b6,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 2 MNQ,{},sent,2026-05-21T21:10:50Z
+alert_3753112dfc77,mnq_v2b_sizing_S_5_2_1,info,Cancelled order ord_ac7a27a15c3f,{},sent,2026-05-21T21:10:50Z
+alert_3ff9d681e959,mnq_v2b_sizing_S_5_2_1,info,Cancelled order ord_53a60888b741,{},sent,2026-05-21T21:10:50Z
+alert_f83cb14dcf14,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 3 MNQ,{},sent,2026-05-21T21:10:50Z
+alert_f18725ba6d1b,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 2 MNQ,{},sent,2026-05-21T21:10:50Z
+alert_ea0b94f2565e,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-21T21:10:51Z
+alert_4d508c38c7f0,mnq_v2b_sizing_S_5_2_1,info,v2b opening range armed,{},sent,2026-05-21T21:10:51Z
+alert_2abfcc4d1126,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 8 MNQ,{},sent,2026-05-21T21:10:51Z
+alert_42247b997d40,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 8 MNQ,{},sent,2026-05-21T21:10:51Z
+alert_6240ed92fafb,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 8 MNQ,{},sent,2026-05-21T21:10:51Z
+alert_3a17caae6174,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 5 MNQ,{},sent,2026-05-21T21:10:51Z
+alert_96441c0c2aa6,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 2 MNQ,{},sent,2026-05-21T21:10:51Z
+alert_aad64a35fe7c,mnq_v2b_sizing_S_5_2_1,info,Cancelled order ord_258f04644abb,{},sent,2026-05-21T21:10:51Z
+alert_aa031138140c,mnq_v2b_sizing_S_5_2_1,info,Cancelled order ord_a9edca5f35cb,{},sent,2026-05-21T21:10:51Z
+alert_df27fc937062,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 3 MNQ,{},sent,2026-05-21T21:10:51Z
+alert_04297b4d195b,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 2 MNQ,{},sent,2026-05-21T21:10:51Z
+alert_c3ffaa67c78e,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 8 MNQ,{},sent,2026-05-21T21:10:51Z
+alert_69eafb50f4ed,mnq_v2b_sizing_S_5_2_1,info,v2b opening range armed,{},sent,2026-05-21T21:10:51Z
+alert_abb241b7987d,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 8 MNQ,{},sent,2026-05-21T21:10:51Z
+alert_e4ba76026228,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 8 MNQ,{},sent,2026-05-21T21:10:51Z
+alert_785b3d291db6,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 8 MNQ,{},sent,2026-05-21T21:10:51Z
+alert_1edc2bf08bdf,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 5 MNQ,{},sent,2026-05-21T21:10:51Z
+alert_69aaf993296d,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 2 MNQ,{},sent,2026-05-21T21:10:51Z
+alert_4e2cc44c4641,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 8 MNQ,{},sent,2026-05-21T21:10:51Z
+alert_0beca9cb1311,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 8 MNQ,{},sent,2026-05-21T21:10:51Z
+alert_fdec40b3a674,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 5 MNQ,{},sent,2026-05-21T21:10:51Z
+alert_530be9c4a8c3,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 2 MNQ,{},sent,2026-05-21T21:10:51Z
+alert_e7f070ebe74a,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 8 MNQ,{},sent,2026-05-21T21:10:51Z
+alert_e516cb65b097,mnq_v2b_sizing_S_5_2_1,info,v2b opening range armed,{},sent,2026-05-21T21:10:51Z
+alert_347d1d671e11,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 8 MNQ,{},sent,2026-05-21T21:10:51Z
+alert_44985552725b,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 8 MNQ,{},sent,2026-05-21T21:10:51Z
+alert_00e2a3c868be,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 8 MNQ,{},sent,2026-05-21T21:10:51Z
+alert_226bd135dd73,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 5 MNQ,{},sent,2026-05-21T21:10:51Z
+alert_2af03c9dfd0b,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 2 MNQ,{},sent,2026-05-21T21:10:51Z
+alert_06a4638ed267,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 8 MNQ,{},sent,2026-05-21T21:10:51Z
+alert_81a119089437,mnq_v2b_sizing_S_5_2_1,info,v2b opening range armed,{},sent,2026-05-21T21:10:51Z
+alert_c9e4e6e7c854,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 8 MNQ,{},sent,2026-05-21T21:10:51Z
+alert_b56d098b3485,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 8 MNQ,{},sent,2026-05-21T21:10:51Z
+alert_5ab061284db1,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 8 MNQ,{},sent,2026-05-21T21:10:51Z
+alert_f68d079df8b0,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 5 MNQ,{},sent,2026-05-21T21:10:51Z
+alert_b3eea2021f88,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 2 MNQ,{},sent,2026-05-21T21:10:52Z
+alert_6edea6a5e707,mnq_v2b_sizing_S_5_2_1,info,Cancelled order ord_3f85512f6e6a,{},sent,2026-05-21T21:10:52Z
+alert_7e30e5cb4f44,mnq_v2b_sizing_S_5_2_1,info,Cancelled order ord_159da7106eca,{},sent,2026-05-21T21:10:52Z
+alert_bbe6efb581aa,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 3 MNQ,{},sent,2026-05-21T21:10:52Z
+alert_929f4f4cfd6a,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 2 MNQ,{},sent,2026-05-21T21:10:52Z
+alert_b3ddbe2f7267,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 3 MNQ,{},sent,2026-05-21T21:10:52Z
+alert_2ef420da0932,mnq_v2b_sizing_S_5_2_1,info,v2b opening range armed,{},sent,2026-05-21T21:10:52Z
+alert_db2aab0061c9,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 8 MNQ,{},sent,2026-05-21T21:10:52Z
+alert_3fff1f483373,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 8 MNQ,{},sent,2026-05-21T21:10:52Z
+alert_0b09293ac007,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 8 MNQ,{},sent,2026-05-21T21:10:52Z
+alert_f00eed67b45d,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 5 MNQ,{},sent,2026-05-21T21:10:52Z
+alert_9b54de5052d5,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 2 MNQ,{},sent,2026-05-21T21:10:52Z
+alert_d7713699c080,mnq_v2b_sizing_S_5_2_1,info,Cancelled order ord_2200b56103c0,{},sent,2026-05-21T21:10:52Z
+alert_261f3a4c1970,mnq_v2b_sizing_S_5_2_1,info,Cancelled order ord_5f9d7badc726,{},sent,2026-05-21T21:10:52Z
+alert_ff2419d486b2,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 3 MNQ,{},sent,2026-05-21T21:10:52Z
+alert_dd9c61674dd1,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 2 MNQ,{},sent,2026-05-21T21:10:52Z
+alert_aac58ea95c09,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 3 MNQ,{},sent,2026-05-21T21:10:52Z
+alert_f0e8879ebeca,mnq_v2b_sizing_S_5_2_1,info,v2b opening range armed,{},sent,2026-05-21T21:10:52Z
+alert_e86bed6f0d58,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 8 MNQ,{},sent,2026-05-21T21:10:52Z
+alert_d5eeeeada5a2,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 8 MNQ,{},sent,2026-05-21T21:10:52Z
+alert_9154a07885b3,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 8 MNQ,{},sent,2026-05-21T21:10:52Z
+alert_a43a394edfb9,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 5 MNQ,{},sent,2026-05-21T21:10:52Z
+alert_e8a1d05e6b8f,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 2 MNQ,{},sent,2026-05-21T21:10:52Z
+alert_85b4712c9c56,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted sell 8 MNQ,{},sent,2026-05-21T21:10:52Z
+alert_0a724079b5f1,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 8 MNQ,{},sent,2026-05-21T21:10:52Z
+alert_18d695eb3a1a,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 5 MNQ,{},sent,2026-05-21T21:10:52Z
+alert_a5ae8dbcbc05,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 2 MNQ,{},sent,2026-05-21T21:10:52Z
+alert_9fc294c6a349,mnq_v2b_sizing_S_5_2_1,info,Cancelled order ord_b3d9fa1bea57,{},sent,2026-05-21T21:10:52Z
+alert_b9499358b94a,mnq_v2b_sizing_S_5_2_1,info,Cancelled order ord_400fff5fdc28,{},sent,2026-05-21T21:10:52Z
+alert_ed17d2885b5e,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 3 MNQ,{},sent,2026-05-21T21:10:52Z
+alert_046851045104,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 2 MNQ,{},sent,2026-05-21T21:10:52Z
+alert_ec561152434d,mnq_v2b_sizing_S_5_2_1,order_submitted,Submitted buy 3 MNQ,{},sent,2026-05-21T21:10:52Z

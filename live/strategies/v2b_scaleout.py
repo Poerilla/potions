@@ -1,0 +1,601 @@
+from __future__ import annotations
+
+import json
+from datetime import date, datetime, time
+from typing import Any, Dict, Iterable, List, Optional, Sequence
+
+from ..models import Alert, Bar, CancelIntent, LevelUpdate, OrderIntent, StrategyActions, new_id
+from .base import StrategyContext, StrategyPlugin
+
+
+class V2BScaleoutStrategy(StrategyPlugin):
+    """Intraday v2b opening-range breakout scaleout.
+
+    This is the live-orderable version of the v2b family.  The research-only
+    long-priority scanner is intentionally not implemented here because it can
+    select a later long before an earlier short.  Supported modes are:
+
+    - ``oco_then_reverse``: arm both sides after the OR; first fill owns leg 1,
+      then the opposite side may arm after leg 1 exits.
+    - ``strict_long_then_short``: arm long only; short can arm only after a
+      filled long exits.
+    """
+
+    strategy_type = "v2b_scaleout"
+    version = "v1"
+
+    def __init__(self, store, instance):
+        super().__init__(store, instance)
+        self.config = {
+            "mode": "oco_then_reverse",
+            "tick_size": 0.25,
+            "entry_qty": 2,
+            "tp1_qty": None,        # default: 1 (legacy)
+            "tp2_qty": None,        # default: 1 (legacy); runner = entry_qty - tp1_qty - tp2_qty
+            "rth_start": "09:30",
+            "or_end": "09:45",
+            "eod_cutoff": "15:59",
+            "use_regime_filter": True,
+            "require_regime_dates": False,
+            "regime_dates": [],
+            "record_levels": False,
+            "dynamic_sizing_events": {},
+            "prior_opposite_only": False,
+            "prior_opposite_entry_qty": None,
+            "prior_opposite_tp1_qty": None,
+            "prior_opposite_tp2_qty": None,
+        }
+        try:
+            self.config.update(json.loads(instance.config_json or "{}"))
+        except json.JSONDecodeError:
+            pass
+        self._regime_dates = set(str(x) for x in self.config.get("regime_dates", []))
+
+    def _unit_quantities(self, trade: Optional[Dict[str, Any]] = None) -> tuple[int, int, int]:
+        """Return ``(tp1_qty, tp2_qty, runner_qty)``.
+
+        Legacy behaviour: ``tp1_qty=1``, ``tp2_qty=1``,
+        ``runner_qty = entry_qty - 2``. New per-bucket knobs ``tp1_qty`` and
+        ``tp2_qty`` let a sweep express asymmetric ladders like 4 / 2 / 1.
+        The runner is whatever remains of the entry after TP1 and TP2.
+        """
+
+        trade = trade or {}
+        entry_qty = int(trade.get("entry_qty") or self.config["entry_qty"])
+        tp1_raw = trade.get("tp1_qty", self.config.get("tp1_qty"))
+        tp2_raw = trade.get("tp2_qty", self.config.get("tp2_qty"))
+        tp1 = 1 if tp1_raw is None else int(tp1_raw)
+        tp2 = 1 if tp2_raw is None else int(tp2_raw)
+        if tp1 < 0:
+            tp1 = 0
+        if tp2 < 0:
+            tp2 = 0
+        if tp1 + tp2 > entry_qty:
+            # Clamp so the ladder never exceeds the entry size.
+            overflow = (tp1 + tp2) - entry_qty
+            take_from_tp2 = min(tp2, overflow)
+            tp2 -= take_from_tp2
+            overflow -= take_from_tp2
+            tp1 -= overflow
+            if tp1 < 0:
+                tp1 = 0
+        runner = max(0, entry_qty - tp1 - tp2)
+        return tp1, tp2, runner
+
+    def on_bar_close(self, bar: Bar, context: StrategyContext) -> StrategyActions:
+        if bar.timeframe != "1m" or not bar.complete:
+            return StrategyActions.empty()
+        return self._on_1m_bar(bar, context)
+
+    def on_fill(self, fill, context: StrategyContext) -> StrategyActions:
+        state = self._state()
+        trade = self._trade(fill.trade_id, state)
+        role = fill.reason
+
+        if role == "entry":
+            direction = "Long" if fill.side == "buy" else "Short"
+            sizing = dict((trade.get("sizing_by_direction") or {}).get(direction) or {})
+            trade.update(
+                {
+                    "direction": direction,
+                    "entry_price": fill.price,
+                    "entry_ts": fill.ts,
+                    "status": "open",
+                    "tp1_hit": False,
+                    "entry_qty": int(sizing.get("entry_qty") or fill.quantity),
+                    "tp1_qty": sizing.get("tp1_qty"),
+                    "tp2_qty": sizing.get("tp2_qty"),
+                }
+            )
+            state["active_trade_id"] = fill.trade_id
+            state["active_direction"] = direction
+            state["entry_armed"] = []
+            state["current_leg_open"] = True
+            orders = self._initial_exit_orders(fill.trade_id, direction, state)
+            self._commit_state(state)
+            return StrategyActions(orders, [], [], [], [])
+
+        if role == "tp1":
+            trade["tp1_hit"] = True
+            cancels = self._cancel_open_roles(context, fill.trade_id, {"wide_stop", "tp2"})
+            orders: List[OrderIntent] = []
+            if context.position_quantity != 0:
+                direction = str(trade.get("direction") or state.get("active_direction") or "")
+                # Rebuild TP2 behind the runner stop so same-bar ambiguity is
+                # pessimistic: runner stop is checked before TP2.
+                orders.extend(self._runner_exit_orders(fill.trade_id, direction, state))
+            self._commit_state(state)
+            return StrategyActions(orders, cancels, [], [], [])
+
+        if role in {"wide_stop", "runner_stop", "tp2", "eod_close"}:
+            if context.position_quantity == 0:
+                trade["status"] = "closed"
+                trade["exit_ts"] = fill.ts
+                state["current_leg_open"] = False
+                state["legs_done"] = int(state.get("legs_done", 0)) + 1
+                state["last_exit_ts"] = fill.ts
+                state["last_exit_direction"] = str(trade.get("direction") or state.get("active_direction") or "")
+                state["active_trade_id"] = ""
+                state["active_direction"] = ""
+                cancels = self._cancel_reduce_orders(context, fill.trade_id)
+                orders = self._maybe_arm_next_leg(fill.ts, state, context)
+                self._commit_state(state)
+                return StrategyActions(orders, cancels, [], [], [])
+
+        self._commit_state(state)
+        return StrategyActions.empty()
+
+    def _on_1m_bar(self, bar: Bar, context: StrategyContext) -> StrategyActions:
+        dt = _parse_dt(bar.ts)
+        session = dt.date().isoformat()
+        t = dt.time()
+        state = self._state()
+        if state.get("session_date") != session:
+            state = self._fresh_session_state(session)
+
+        orders: List[OrderIntent] = []
+        cancels: List[CancelIntent] = []
+        levels: List[LevelUpdate] = []
+        alerts: List[Alert] = []
+
+        if not self._in_rth(t):
+            self._commit_state(state)
+            return StrategyActions.empty()
+
+        if t >= self._time("eod_cutoff"):
+            cancels.extend(self._cancel_all_open(context))
+            if context.position_quantity != 0:
+                orders.append(self._close_all(context, bar.ts, "eod_close", order_type="market_close"))
+            state["done"] = True
+            state["phase"] = "eod"
+            self._commit_state(state)
+            return StrategyActions(orders, cancels, [], levels, alerts)
+
+        if t < self._time("or_end"):
+            state["or_count"] = int(state.get("or_count", 0)) + 1
+            state["or_high"] = bar.high if state.get("or_high") is None else max(float(state["or_high"]), bar.high)
+            state["or_low"] = bar.low if state.get("or_low") is None else min(float(state["or_low"]), bar.low)
+            if bool(self.config.get("record_levels")):
+                levels.extend(self._levels(bar.ts, state))
+            if state["or_count"] >= 15 and not state.get("or_finalized"):
+                state["or_finalized"] = True
+                state["phase"] = "armed" if self._regime_ok(session) else "regime_skip"
+                state["regime_ok"] = self._regime_ok(session)
+                if state["regime_ok"]:
+                    orders.extend(self._arm_initial_entries(bar.ts, state))
+                    alerts.append(Alert.create(self.instance.strategy_id, "info", "v2b opening range armed"))
+            self._commit_state(state)
+            return StrategyActions(orders, cancels, [], levels, alerts)
+
+        if bool(self.config.get("record_levels")):
+            levels.extend(self._levels(bar.ts, state))
+
+        if state.get("regime_ok") and not state.get("done") and not state.get("current_leg_open") and int(state.get("legs_done", 0)) == 0:
+            if not self._has_open_entry_order(context):
+                orders.extend(self._arm_initial_entries(bar.ts, state))
+
+        self._commit_state(state)
+        return StrategyActions(orders, cancels, [], levels, alerts)
+
+    def _state(self) -> Dict[str, Any]:
+        state = dict(self.state or {})
+        state.setdefault("session_date", "")
+        state.setdefault("or_count", 0)
+        state.setdefault("or_high", None)
+        state.setdefault("or_low", None)
+        state.setdefault("or_finalized", False)
+        state.setdefault("regime_ok", False)
+        state.setdefault("phase", "")
+        state.setdefault("done", False)
+        state.setdefault("trade_seq", 0)
+        state.setdefault("legs_done", 0)
+        state.setdefault("current_leg_open", False)
+        state.setdefault("active_trade_id", "")
+        state.setdefault("active_direction", "")
+        state.setdefault("entry_armed", [])
+        state.setdefault("trades", {})
+        return state
+
+    def _fresh_session_state(self, session: str) -> Dict[str, Any]:
+        return {
+            "session_date": session,
+            "or_count": 0,
+            "or_high": None,
+            "or_low": None,
+            "or_finalized": False,
+            "regime_ok": False,
+            "phase": "building_or",
+            "done": False,
+            "trade_seq": 0,
+            "legs_done": 0,
+            "current_leg_open": False,
+            "active_trade_id": "",
+            "active_direction": "",
+            "entry_armed": [],
+            "last_exit_ts": "",
+            "last_exit_direction": "",
+            "trades": {},
+        }
+
+    def _commit_state(self, state: Dict[str, Any]) -> None:
+        if state != (self.state or {}):
+            self.state = state
+            self.save_state()
+
+    def _trade(self, trade_id: str, state: Dict[str, Any]) -> Dict[str, Any]:
+        trades = state.setdefault("trades", {})
+        if trade_id not in trades:
+            trades[trade_id] = {}
+        return trades[trade_id]
+
+    def _regime_ok(self, session: str) -> bool:
+        if not bool(self.config.get("use_regime_filter", True)):
+            return True
+        if not self._regime_dates:
+            return not bool(self.config.get("require_regime_dates", False))
+        return session in self._regime_dates
+
+    def _arm_initial_entries(self, ts: str, state: Dict[str, Any]) -> List[OrderIntent]:
+        mode = str(self.config.get("mode", "oco_then_reverse"))
+        if mode == "strict_long_then_short":
+            return self._entry_orders(ts, state, ["Long"])
+        return self._entry_orders(ts, state, ["Long", "Short"])
+
+    def _maybe_arm_next_leg(self, ts: str, state: Dict[str, Any], context: StrategyContext) -> List[OrderIntent]:
+        if state.get("done"):
+            return []
+        if int(state.get("legs_done", 0)) >= 2:
+            state["phase"] = "done"
+            return []
+        if context.position_quantity != 0 or self._has_open_entry_order(context):
+            return []
+        last_direction = str(state.get("last_exit_direction") or "")
+        if last_direction not in {"Long", "Short"}:
+            return []
+        opposite = "Short" if last_direction == "Long" else "Long"
+        return self._entry_orders(ts, state, [opposite])
+
+    def _entry_orders(self, ts: str, state: Dict[str, Any], directions: Sequence[str]) -> List[OrderIntent]:
+        range_high = _to_float(state.get("or_high"))
+        range_low = _to_float(state.get("or_low"))
+        if range_high is None or range_low is None or range_high <= range_low:
+            return []
+        armed = set(str(x) for x in state.get("entry_armed", []))
+        trade_id = self._new_trade_id(state)
+        oco = "%s_entry_oco" % trade_id if len(directions) > 1 else ""
+        out: List[OrderIntent] = []
+        for direction in directions:
+            if direction in armed:
+                continue
+            sizing = self._sizing_for_entry(ts, direction)
+            if sizing is None:
+                continue
+            state["trades"][trade_id] = {
+                "direction": direction,
+                "status": "armed",
+                "range_high": range_high,
+                "range_low": range_low,
+                "range_value": range_high - range_low,
+                "sizing_by_direction": {
+                    direction: {
+                        "entry_qty": int(sizing["entry_qty"]),
+                        "tp1_qty": int(sizing["tp1_qty"]),
+                        "tp2_qty": int(sizing["tp2_qty"]),
+                    }
+                },
+            }
+            out.append(self._entry_order(trade_id, direction, ts, range_high, range_low, oco, int(sizing["entry_qty"])))
+            armed.add(direction)
+        state["entry_armed"] = sorted(armed)
+        return out
+
+    def _entry_order(self, trade_id: str, direction: str, ts: str, range_high: float, range_low: float, oco: str, quantity: int) -> OrderIntent:
+        tick = float(self.config["tick_size"])
+        if direction == "Long":
+            side = "buy"
+            stop_price = range_high + tick
+        else:
+            side = "sell"
+            stop_price = range_low - tick
+        return OrderIntent.create(
+            strategy_id=self.instance.strategy_id,
+            trade_id=trade_id,
+            instrument=self.instance.instrument,
+            account_mode=self.instance.account_mode,
+            side=side,
+            order_type="stop",
+            quantity=quantity,
+            stop_price=stop_price,
+            reason="v2b_%s_entry" % direction.lower(),
+            requires_verification=True,
+            bracket_role="entry",
+            oco_group=oco,
+            live_after_ts=ts,
+            expires_after_ts=_session_expiry(ts),
+        )
+
+    def _sizing_for_entry(self, ts: str, direction: str) -> Optional[Dict[str, int]]:
+        base = {
+            "entry_qty": int(self.config["entry_qty"]),
+            "tp1_qty": 1 if self.config.get("tp1_qty") is None else int(self.config.get("tp1_qty")),
+            "tp2_qty": 1 if self.config.get("tp2_qty") is None else int(self.config.get("tp2_qty")),
+        }
+        if not self.config.get("dynamic_sizing_events"):
+            return base
+        has_prior_opposite = self._has_prior_opposite_event(ts, direction)
+        if bool(self.config.get("prior_opposite_only")) and not has_prior_opposite:
+            return None
+        if has_prior_opposite and self.config.get("prior_opposite_entry_qty") is not None:
+            return {
+                "entry_qty": int(self.config.get("prior_opposite_entry_qty")),
+                "tp1_qty": int(self.config.get("prior_opposite_tp1_qty")),
+                "tp2_qty": int(self.config.get("prior_opposite_tp2_qty")),
+            }
+        return base
+
+    def _has_prior_opposite_event(self, ts: str, direction: str) -> bool:
+        dt = _parse_dt(ts)
+        session = dt.date().isoformat()
+        wanted = "short" if direction == "Long" else "long"
+        events = (self.config.get("dynamic_sizing_events") or {}).get(session, [])
+        for event in events:
+            try:
+                event_ts = _parse_dt(str(event.get("ts") or ""))
+            except Exception:
+                continue
+            if str(event.get("side") or "").lower() == wanted and event_ts < dt:
+                return True
+        return False
+
+    def _initial_exit_orders(self, trade_id: str, direction: str, state: Dict[str, Any]) -> List[OrderIntent]:
+        params = self._params(direction, state)
+        if params is None:
+            return []
+        exit_side = "sell" if direction == "Long" else "buy"
+        trade = self._trade(trade_id, state)
+        tp1_qty, tp2_qty, _runner_qty = self._unit_quantities(trade)
+        entry_qty = int(trade.get("entry_qty") or self.config["entry_qty"])
+        out: List[OrderIntent] = []
+        out.append(
+            OrderIntent.create(
+                strategy_id=self.instance.strategy_id,
+                trade_id=trade_id,
+                instrument=self.instance.instrument,
+                account_mode=self.instance.account_mode,
+                side=exit_side,
+                order_type="stop",
+                quantity=entry_qty,
+                stop_price=params["init_sl"],
+                reason="v2b_wide_stop",
+                requires_verification=False,
+                reduce_only=True,
+                bracket_role="wide_stop",
+                expires_after_ts=_session_expiry(str(state.get("session_date", ""))),
+            )
+        )
+        if tp1_qty > 0:
+            out.append(
+                OrderIntent.create(
+                    strategy_id=self.instance.strategy_id,
+                    trade_id=trade_id,
+                    instrument=self.instance.instrument,
+                    account_mode=self.instance.account_mode,
+                    side=exit_side,
+                    order_type="limit",
+                    quantity=tp1_qty,
+                    limit_price=params["tp1"],
+                    reason="v2b_tp1",
+                    requires_verification=False,
+                    reduce_only=True,
+                    bracket_role="tp1",
+                    expires_after_ts=_session_expiry(str(state.get("session_date", ""))),
+                )
+            )
+        if tp2_qty > 0:
+            out.append(
+                OrderIntent.create(
+                    strategy_id=self.instance.strategy_id,
+                    trade_id=trade_id,
+                    instrument=self.instance.instrument,
+                    account_mode=self.instance.account_mode,
+                    side=exit_side,
+                    order_type="limit",
+                    quantity=tp2_qty,
+                    limit_price=params["tp2"],
+                    reason="v2b_tp2",
+                    requires_verification=False,
+                    reduce_only=True,
+                    bracket_role="tp2",
+                    expires_after_ts=_session_expiry(str(state.get("session_date", ""))),
+                )
+            )
+        return out
+
+    def _runner_exit_orders(self, trade_id: str, direction: str, state: Dict[str, Any]) -> List[OrderIntent]:
+        params = self._params(direction, state)
+        if params is None:
+            return []
+        trade = self._trade(trade_id, state)
+        _tp1_qty, tp2_qty, runner_qty = self._unit_quantities(trade)
+        # After TP1 fills, the remaining position is tp2_qty + runner_qty.
+        # Cover the whole remaining stack with a runner stop, and put a TP2 limit
+        # for the tp2_qty bucket. The implicit "runner" rides until either the
+        # runner stop or the session EOD flatten.
+        if runner_qty <= 0 and tp2_qty <= 0:
+            return []
+        exit_side = "sell" if direction == "Long" else "buy"
+        expiry = _session_expiry(str(state.get("session_date", "")))
+        out: List[OrderIntent] = []
+        runner_stack = max(0, tp2_qty + runner_qty)
+        if runner_stack > 0:
+            out.append(
+                OrderIntent.create(
+                    strategy_id=self.instance.strategy_id,
+                    trade_id=trade_id,
+                    instrument=self.instance.instrument,
+                    account_mode=self.instance.account_mode,
+                    side=exit_side,
+                    order_type="stop",
+                    quantity=runner_stack,
+                    stop_price=params["runner_sl"],
+                    reason="v2b_runner_stop",
+                    requires_verification=False,
+                    reduce_only=True,
+                    bracket_role="runner_stop",
+                    expires_after_ts=expiry,
+                )
+            )
+        if tp2_qty > 0:
+            out.append(
+                OrderIntent.create(
+                    strategy_id=self.instance.strategy_id,
+                    trade_id=trade_id,
+                    instrument=self.instance.instrument,
+                    account_mode=self.instance.account_mode,
+                    side=exit_side,
+                    order_type="limit",
+                    quantity=tp2_qty,
+                    limit_price=params["tp2"],
+                    reason="v2b_tp2",
+                    requires_verification=False,
+                    reduce_only=True,
+                    bracket_role="tp2",
+                    expires_after_ts=expiry,
+                )
+            )
+        return out
+
+    def _params(self, direction: str, state: Dict[str, Any]) -> Optional[Dict[str, float]]:
+        range_high = _to_float(state.get("or_high"))
+        range_low = _to_float(state.get("or_low"))
+        if range_high is None or range_low is None or range_high <= range_low:
+            return None
+        range_value = range_high - range_low
+        tick = float(self.config["tick_size"])
+        if direction == "Long":
+            return {
+                "entry": range_high + tick,
+                "init_sl": range_low,
+                "tp1": range_high + range_value,
+                "tp2": range_high + 2.0 * range_value,
+                "runner_sl": range_high + tick,
+            }
+        return {
+            "entry": range_low - tick,
+            "init_sl": range_high,
+            "tp1": range_low - range_value,
+            "tp2": range_low - 2.0 * range_value,
+            "runner_sl": range_low - tick,
+        }
+
+    def _new_trade_id(self, state: Dict[str, Any]) -> str:
+        state["trade_seq"] = int(state.get("trade_seq", 0)) + 1
+        return "%s_%s_%02d" % (
+            self.instance.strategy_id,
+            str(state.get("session_date", "")).replace("-", ""),
+            int(state["trade_seq"]),
+        )
+
+    def _close_all(self, context: StrategyContext, ts: str, reason: str, order_type: str = "market") -> OrderIntent:
+        return OrderIntent.create(
+            strategy_id=self.instance.strategy_id,
+            trade_id=str(self.state.get("active_trade_id") or new_id("trade")),
+            instrument=self.instance.instrument,
+            account_mode=self.instance.account_mode,
+            side="sell" if context.position_quantity > 0 else "buy",
+            order_type=order_type,
+            quantity=abs(context.position_quantity),
+            reason=reason,
+            requires_verification=False,
+            reduce_only=True,
+            bracket_role=reason,
+            live_after_ts=ts,
+        )
+
+    def _cancel_open_roles(self, context: StrategyContext, trade_id: str, roles: Iterable[str]) -> List[CancelIntent]:
+        role_set = set(roles)
+        return [
+            CancelIntent(self.instance.strategy_id, order.broker_order_id, "v2b_cancel_%s" % order.bracket_role)
+            for order in context.strategy_open_orders
+            if order.trade_id == trade_id and order.bracket_role in role_set
+        ]
+
+    def _cancel_reduce_orders(self, context: StrategyContext, trade_id: str) -> List[CancelIntent]:
+        return [
+            CancelIntent(self.instance.strategy_id, order.broker_order_id, "v2b_leg_closed")
+            for order in context.strategy_open_orders
+            if order.trade_id == trade_id and order.reduce_only
+        ]
+
+    def _cancel_all_open(self, context: StrategyContext) -> List[CancelIntent]:
+        return [
+            CancelIntent(self.instance.strategy_id, order.broker_order_id, "v2b_eod")
+            for order in context.strategy_open_orders
+        ]
+
+    def _has_open_entry_order(self, context: StrategyContext) -> bool:
+        return any(not order.reduce_only for order in context.strategy_open_orders)
+
+    def _levels(self, ts: str, state: Dict[str, Any]) -> List[LevelUpdate]:
+        high = _to_float(state.get("or_high"))
+        low = _to_float(state.get("or_low"))
+        if high is None or low is None:
+            return []
+        return [
+            LevelUpdate(self.instance.strategy_id, self.instance.instrument, "v2b_or_high", high, ts),
+            LevelUpdate(self.instance.strategy_id, self.instance.instrument, "v2b_or_low", low, ts),
+        ]
+
+    def _time(self, key: str) -> time:
+        hh, mm = str(self.config[key]).split(":")
+        return time(int(hh), int(mm))
+
+    def _in_rth(self, t: time) -> bool:
+        return self._time("rth_start") <= t < time(16, 0)
+
+
+def _parse_dt(ts: str) -> datetime:
+    value = str(ts)
+    if value.endswith("Z"):
+        value = value[:-1] + "+00:00"
+    try:
+        return datetime.fromisoformat(value)
+    except ValueError:
+        return datetime.strptime(value[:19], "%Y-%m-%dT%H:%M:%S")
+
+
+def _to_float(value: Any) -> Optional[float]:
+    if value is None or value == "":
+        return None
+    return float(value)
+
+
+def _session_expiry(ts: str) -> str:
+    # Date-only inputs come from persisted state.  ISO timestamp inputs come
+    # from bars.  Both produce a sortable same-day 15:59 expiry.
+    if len(str(ts)) >= 10:
+        return str(ts)[:10] + "T15:59:00"
+    try:
+        return date.fromisoformat(str(ts)).isoformat() + "T15:59:00"
+    except ValueError:
+        return str(ts)

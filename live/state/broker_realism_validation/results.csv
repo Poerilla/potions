@@ -1,0 +1,11 @@
+case_id,title,expected,actual,passed,chart,notes
+buy_stop_gap,Buy stop gap-through,103.25,103.25,true,charts/01_buy_stop_gap_through.png,
+sell_stop_gap,Sell stop gap-through,96.75,96.75,true,charts/02_sell_stop_gap_through.png,
+stop_first,Stop-first ambiguity,stop at 97.75,stop at 97.75,true,charts/03_stop_first_same_bar_ambiguity.png,
+strict_moc,Strict market-close,no 15:59 fill; 100.55 at 16:00,"early=0, fill=100.55",true,charts/04_strict_market_close.png,
+oco_risk_projection,OCO risk projection,second OCO allowed; extra ladder blocked,"second=ok, ladder=max_contracts_exceeded",true,charts/05_oco_risk_projection.png,"OCO peers project as max(2, 2)=2 contracts, while an unrelated ladder adds to the exposure."
+fee_audit,Audit fee subtraction,$18.50,$18.50,true,charts/06_fee_audit.png,
+real_mnq_buy_gap,Real MNQ 4h buy-stop gap-through sample,19164.00,19164.00,true,charts/07_real_mnq_buy_stop_gap.png,"bar=2025-04-13 16:00:00-04:00, previous close=18819.00, open=19163.75"
+real_mnq_sell_gap,Real MNQ 4h sell-stop gap-through sample,17126.00,17126.00,true,charts/08_real_mnq_sell_stop_gap.png,"bar=2025-04-06 16:00:00-04:00, previous close=17486.25, open=17126.25"
+real_nq_buy_gap,Real NQ 4h buy-stop gap-through sample,19225.25,19225.25,true,charts/07_real_nq_buy_stop_gap.png,"bar=2025-04-13 16:00:00-04:00, previous close=18820.50, open=19225.00"
+real_nq_sell_gap,Real NQ 4h sell-stop gap-through sample,17099.75,17099.75,true,charts/08_real_nq_sell_stop_gap.png,"bar=2025-04-06 16:00:00-04:00, previous close=17483.25, open=17100.00"
