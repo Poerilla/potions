@@ -1,0 +1,341 @@
+// =============================================================================
+//  Yearly ORB - Scaleout3 / Inside-Range Swing Stop / Range-Close
+// =============================================================================
+//  Higher-timeframe ORB research candidate.
+//
+//  Core rules:
+//     Build the yearly opening range from Jan-Mar daily candles.
+//     From Apr-Dec, a fresh daily close outside the yearly ORB arms a retest
+//     limit at the broken yearly boundary.
+//     Stop source is the latest confirmed daily swing pivot whose pivot candle
+//     is fully inside the yearly ORB.
+//     Enter 3 scaleout batches:
+//        Batch 1 exits at 25% of the distance to TP.
+//        Batch 2 exits at the full range extension TP.
+//        Batch 3 is the runner.
+//     Runner stop moves to breakeven only after the full TP has traded.
+//     Any daily close back inside the yearly ORB closes remaining position.
+//
+//  Sizing:
+//     "Contracts per scaleout batch" controls the quantity of each of the
+//     3 batches. MNQ research setting: 1 = 3 total contracts. MYM portfolio
+//     setting: 4 = 12 total contracts, scaled out as 4/4/4.
+//
+//  Use this on a DAILY chart. TradingView cannot perfectly prove same-day
+//  order sequencing, queue position, partial fills, or exact year-end flatten
+//  behavior; use this as the paper/live automation harness and reconcile it
+//  against the Python daily report.
+//
+//  Causality (Strategy Tester):
+//     • ``calc_on_every_tick=false`` and ``calc_on_order_fills=false`` so each
+//       bar is evaluated once at close (no extra post-fill replays that TV can
+//       treat as look-ahead).
+//     • Signals use confirmed daily OHLC / pivot rules on the chart timeframe
+//       only (no ``request.security`` here — HTF pulls often trigger TV’s
+//       generic “look-ahead bias” caution even when ``lookahead_off`` is set).
+//     • Optional weekly Supertrend **display**: add indicator
+//       ``pine/yearly_orb_weekly_st_overlay.pine`` on the same chart (defaults
+//       14×3, ``lookahead_off``).
+// =============================================================================
+//  TradingView: create a **Strategy** (not an Indicator). Use an empty script or
+//  delete the default ``indicator(...)`` line before pasting — only one of
+//  ``strategy`` / ``indicator`` / ``library`` is allowed per file (CE10243).
+//@version=5
+strategy("Yearly ORB Scaleout3 Range-Close", overlay=true,
+     default_qty_type=strategy.fixed, default_qty_value=1,
+     initial_capital=15000,
+     commission_type=strategy.commission.cash_per_contract,
+     commission_value=0.75,
+     slippage=1,
+     pyramiding=3,
+     currency=currency.USD,
+     calc_on_every_tick=false,
+     calc_on_order_fills=false,
+     process_orders_on_close=false)
+
+// === Inputs ============================================================
+sess_tz = "America/New_York"
+
+grpRange = "Yearly Opening Range"
+or_start_month = input.int(1, "OR start month", group=grpRange, minval=1, maxval=12)
+or_end_month = input.int(3, "OR end month", group=grpRange, minval=1, maxval=12,
+     tooltip="Jan-Mar is the research default. Trading starts after this month.")
+trade_start_month = input.int(4, "Trade start month", group=grpRange, minval=1, maxval=12)
+trade_end_month = input.int(12, "Trade end month", group=grpRange, minval=1, maxval=12)
+
+grpSizing = "Sizing"
+batch_qty = input.int(1, "Contracts per scaleout batch", group=grpSizing, minval=1,
+     tooltip="Total contracts = this value x 3. MNQ: 1. MYM 1+4 portfolio leg: 4.")
+
+grpRisk = "Risk / Targets"
+tp25_frac = input.float(0.25, "Batch 1 target fraction", group=grpRisk, minval=0.05, maxval=1.0, step=0.05)
+tp_full_mult = input.float(1.0, "Full target range multiple", group=grpRisk, minval=0.25, step=0.25)
+require_fresh_break = input.bool(true, "Require fresh outside close", group=grpRisk,
+     tooltip="When true, only arm after close crosses from inside the yearly range to outside it.")
+skip_if_breakout_touched_tp = input.bool(false, "Skip if breakout candle already touched TP", group=grpRisk,
+     tooltip="Optional live-hardening guard. Off preserves the current research-family behavior more closely.")
+
+grpDisplay = "Display"
+show_levels = input.bool(true, "Plot yearly ORB and active trade levels", group=grpDisplay)
+show_state = input.bool(true, "Show state label", group=grpDisplay)
+
+// === Date helpers ======================================================
+yr = year(time, sess_tz)
+mo = month(time, sess_tz)
+new_year = ta.change(yr) != 0
+in_or_window = mo >= or_start_month and mo <= or_end_month
+in_trade_window = mo >= trade_start_month and mo <= trade_end_month
+
+// === Yearly ORB state ==================================================
+var float yor_high = na
+var float yor_low = na
+var float last_inside_swing_low = na
+var float last_inside_swing_high = na
+
+var int armed_dir = 0
+var bool long_full_tp_seen = false
+var bool short_full_tp_seen = false
+
+var float active_entry = na
+var float active_stop = na
+var float active_tp25 = na
+var float active_tp = na
+
+if new_year
+    strategy.close_all(comment="Year change")
+    strategy.cancel("L25")
+    strategy.cancel("LTP")
+    strategy.cancel("LRUN")
+    strategy.cancel("S25")
+    strategy.cancel("STP")
+    strategy.cancel("SRUN")
+    yor_high := na
+    yor_low := na
+    last_inside_swing_low := na
+    last_inside_swing_high := na
+    armed_dir := 0
+    long_full_tp_seen := false
+    short_full_tp_seen := false
+    active_entry := na
+    active_stop := na
+    active_tp25 := na
+    active_tp := na
+
+if in_or_window
+    yor_high := na(yor_high) ? high : math.max(yor_high, high)
+    yor_low := na(yor_low) ? low : math.min(yor_low, low)
+
+range_ready = not na(yor_high) and not na(yor_low) and yor_high > yor_low
+yor_range = range_ready ? yor_high - yor_low : na
+inside_close = range_ready and close <= yor_high and close >= yor_low
+
+// Confirm a daily swing one candle after the pivot candle. The pivot candle
+// itself must be fully inside the Jan-Mar yearly ORB.
+pivot_low_confirmed = range_ready and not na(low[2]) and low[1] < low[2] and low[1] <= low
+pivot_high_confirmed = range_ready and not na(high[2]) and high[1] > high[2] and high[1] >= high
+pivot_candle_inside = range_ready and high[1] <= yor_high and low[1] >= yor_low
+
+if pivot_candle_inside and pivot_low_confirmed
+    last_inside_swing_low := low[1]
+
+if pivot_candle_inside and pivot_high_confirmed
+    last_inside_swing_high := high[1]
+
+// === Position state ====================================================
+long_open = strategy.position_size > 0
+short_open = strategy.position_size < 0
+flat = strategy.position_size == 0
+
+if flat and nz(strategy.position_size[1], 0) != 0
+    armed_dir := 0
+    long_full_tp_seen := false
+    short_full_tp_seen := false
+    active_entry := na
+    active_stop := na
+    active_tp25 := na
+    active_tp := na
+
+// Track full TP touch. This is enough for paper automation, but daily bars
+// still cannot prove whether TP or stop came first inside the same candle.
+if long_open and not long_full_tp_seen and not na(active_tp) and high >= active_tp
+    long_full_tp_seen := true
+
+if short_open and not short_full_tp_seen and not na(active_tp) and low <= active_tp
+    short_full_tp_seen := true
+
+// Range-close exit: once price closes back inside the yearly ORB, flatten.
+if range_ready and inside_close and strategy.position_size != 0
+    strategy.close("L25", comment="Range close")
+    strategy.close("LTP", comment="Range close")
+    strategy.close("LRUN", comment="Range close")
+    strategy.close("S25", comment="Range close")
+    strategy.close("STP", comment="Range close")
+    strategy.close("SRUN", comment="Range close")
+
+// Cancel stale pending orders once the daily close returns inside the range.
+if flat and armed_dir != 0 and inside_close
+    strategy.cancel("L25")
+    strategy.cancel("LTP")
+    strategy.cancel("LRUN")
+    strategy.cancel("S25")
+    strategy.cancel("STP")
+    strategy.cancel("SRUN")
+    armed_dir := 0
+    active_entry := na
+    active_stop := na
+    active_tp25 := na
+    active_tp := na
+
+// === Entry arming ======================================================
+prior_inside_or_opposite_for_long = close[1] <= yor_high
+prior_inside_or_opposite_for_short = close[1] >= yor_low
+fresh_long_break = range_ready and close > yor_high and (not require_fresh_break or prior_inside_or_opposite_for_long)
+fresh_short_break = range_ready and close < yor_low and (not require_fresh_break or prior_inside_or_opposite_for_short)
+
+long_entry_ok = in_trade_window and flat and fresh_long_break and not na(last_inside_swing_low)
+short_entry_ok = in_trade_window and flat and fresh_short_break and not na(last_inside_swing_high)
+
+long_boundary = yor_high
+short_boundary = yor_low
+long_tp = range_ready ? yor_high + yor_range * tp_full_mult : na
+short_tp = range_ready ? yor_low - yor_range * tp_full_mult : na
+long_stale = skip_if_breakout_touched_tp and not na(long_tp) and high >= long_tp
+short_stale = skip_if_breakout_touched_tp and not na(short_tp) and low <= short_tp
+
+if long_entry_ok and not long_stale
+    strategy.cancel("S25")
+    strategy.cancel("STP")
+    strategy.cancel("SRUN")
+    strategy.cancel("L25")
+    strategy.cancel("LTP")
+    strategy.cancel("LRUN")
+
+    active_entry := long_boundary
+    active_stop := last_inside_swing_low
+    active_tp := long_tp
+    active_tp25 := active_entry + (active_tp - active_entry) * tp25_frac
+    long_full_tp_seen := false
+    short_full_tp_seen := false
+
+    strategy.entry("L25", strategy.long, qty=batch_qty, limit=active_entry,
+         oca_name="YORB_BATCH_25", oca_type=strategy.oca.cancel, comment="Long 25% batch")
+    strategy.entry("LTP", strategy.long, qty=batch_qty, limit=active_entry,
+         oca_name="YORB_BATCH_TP", oca_type=strategy.oca.cancel, comment="Long TP batch")
+    strategy.entry("LRUN", strategy.long, qty=batch_qty, limit=active_entry,
+         oca_name="YORB_BATCH_RUN", oca_type=strategy.oca.cancel, comment="Long runner")
+
+    strategy.exit("L25X", from_entry="L25", stop=active_stop, limit=active_tp25, comment="L25 TP/SL")
+    strategy.exit("LTPX", from_entry="LTP", stop=active_stop, limit=active_tp, comment="LTP TP/SL")
+    strategy.exit("LRUNX", from_entry="LRUN", stop=active_stop, comment="LRUN SL")
+    armed_dir := 1
+
+if short_entry_ok and not short_stale
+    strategy.cancel("L25")
+    strategy.cancel("LTP")
+    strategy.cancel("LRUN")
+    strategy.cancel("S25")
+    strategy.cancel("STP")
+    strategy.cancel("SRUN")
+
+    active_entry := short_boundary
+    active_stop := last_inside_swing_high
+    active_tp := short_tp
+    active_tp25 := active_entry - (active_entry - active_tp) * tp25_frac
+    long_full_tp_seen := false
+    short_full_tp_seen := false
+
+    strategy.entry("S25", strategy.short, qty=batch_qty, limit=active_entry,
+         oca_name="YORB_BATCH_25", oca_type=strategy.oca.cancel, comment="Short 25% batch")
+    strategy.entry("STP", strategy.short, qty=batch_qty, limit=active_entry,
+         oca_name="YORB_BATCH_TP", oca_type=strategy.oca.cancel, comment="Short TP batch")
+    strategy.entry("SRUN", strategy.short, qty=batch_qty, limit=active_entry,
+         oca_name="YORB_BATCH_RUN", oca_type=strategy.oca.cancel, comment="Short runner")
+
+    strategy.exit("S25X", from_entry="S25", stop=active_stop, limit=active_tp25, comment="S25 TP/SL")
+    strategy.exit("STPX", from_entry="STP", stop=active_stop, limit=active_tp, comment="STP TP/SL")
+    strategy.exit("SRUNX", from_entry="SRUN", stop=active_stop, comment="SRUN SL")
+    armed_dir := -1
+
+// Keep exits updated. Runner moves to breakeven only after full TP touch.
+if not na(active_stop)
+    if long_open or armed_dir == 1
+        strategy.exit("L25X", from_entry="L25", stop=active_stop, limit=active_tp25, comment="L25 TP/SL")
+        strategy.exit("LTPX", from_entry="LTP", stop=active_stop, limit=active_tp, comment="LTP TP/SL")
+        strategy.exit("LRUNX", from_entry="LRUN",
+             stop=long_full_tp_seen ? active_entry : active_stop,
+             comment=long_full_tp_seen ? "LRUN BE" : "LRUN SL")
+
+    if short_open or armed_dir == -1
+        strategy.exit("S25X", from_entry="S25", stop=active_stop, limit=active_tp25, comment="S25 TP/SL")
+        strategy.exit("STPX", from_entry="STP", stop=active_stop, limit=active_tp, comment="STP TP/SL")
+        strategy.exit("SRUNX", from_entry="SRUN",
+             stop=short_full_tp_seen ? active_entry : active_stop,
+             comment=short_full_tp_seen ? "SRUN BE" : "SRUN SL")
+
+// Keep the opposite side clean once a position exists.
+if long_open
+    strategy.cancel("S25")
+    strategy.cancel("STP")
+    strategy.cancel("SRUN")
+
+if short_open
+    strategy.cancel("L25")
+    strategy.cancel("LTP")
+    strategy.cancel("LRUN")
+
+// === Visuals ===========================================================
+plot(show_levels and range_ready ? yor_high : na,
+     "Yearly OR High", color=color.new(color.lime, 0), linewidth=2, style=plot.style_linebr)
+plot(show_levels and range_ready ? yor_low : na,
+     "Yearly OR Low", color=color.new(color.red, 0), linewidth=2, style=plot.style_linebr)
+plot(show_levels and not na(active_entry) ? active_entry : na,
+     "Active Entry", color=color.new(color.white, 0), linewidth=1, style=plot.style_linebr)
+plot(show_levels and not na(active_stop) ? active_stop : na,
+     "Active Stop", color=color.new(color.orange, 0), linewidth=1, style=plot.style_linebr)
+plot(show_levels and not na(active_tp25) ? active_tp25 : na,
+     "TP 25%", color=color.new(color.aqua, 35), linewidth=1, style=plot.style_circles)
+plot(show_levels and not na(active_tp) ? active_tp : na,
+     "Full TP", color=color.new(color.aqua, 0), linewidth=1, style=plot.style_circles)
+
+runner_stop_plot = long_open and long_full_tp_seen ? active_entry :
+     short_open and short_full_tp_seen ? active_entry : na
+plot(show_levels ? runner_stop_plot : na,
+     "Runner BE Stop", color=color.new(color.yellow, 0), linewidth=2, style=plot.style_linebr)
+
+bgcolor(in_or_window ? color.new(color.blue, 92) : na, title="Yearly OR Build")
+bgcolor(in_trade_window and range_ready and inside_close ? color.new(color.gray, 94) : na,
+     title="Inside Yearly OR")
+
+if show_state and barstate.islast
+    var label state_label = na
+    label.delete(state_label)
+    txt = "YORB " + str.tostring(yr) +
+         "\nBatch qty: " + str.tostring(batch_qty) + " (total " + str.tostring(batch_qty * 3) + ")" +
+         "\nOR High: " + (range_ready ? str.tostring(yor_high, format.mintick) : "building") +
+         "\nOR Low: " + (range_ready ? str.tostring(yor_low, format.mintick) : "building")
+    state_label := label.new(bar_index, high, txt,
+         style=label.style_label_down,
+         color=color.new(color.black, 0),
+         textcolor=color.white,
+         size=size.normal)
+
+// =============================================================================
+// LIVE / PAPER SETUP NOTES
+// =============================================================================
+//   Chart timeframe: Daily
+//   MNQ sizing:      Contracts per scaleout batch = 1  -> 3 MNQ total
+//   MYM sizing:      Contracts per scaleout batch = 4  -> 12 MYM total
+//   Slippage:        Strategy Properties -> Slippage. Script default is 1 tick.
+//   Orders:          Retest limit entries plus strategy.exit stops/limits.
+//   Weekly ST line:  Add ``yearly_orb_weekly_st_overlay.pine`` as a second
+//                    indicator on the same chart (strategy has no HTF pulls).
+//
+//   This script is deliberately sized by batch so portfolio tests such as
+//   1 MNQ unit + 4 MYM units can be run as separate symbol charts:
+//      MNQ chart: batch qty 1
+//      MYM chart: batch qty 4
+//
+//   Reference docs:
+//      potions/mnq/case_studies/YEARLY_ORB_RESEARCH_NOTES.md
+//      potions/mnq/case_studies/yearly_orb_mnq_mym_portfolio/README.md
+// =============================================================================

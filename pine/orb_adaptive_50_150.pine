@@ -1,0 +1,247 @@
+// =============================================================================
+//  MNQ ORB — Adaptive 50/150 MA Switch (v2b breakout / v2d fade)
+// =============================================================================
+//  Combines the v2b (breakout) and v2d (fade) sub-strategies under a
+//  50/150 daily MA cross regime indicator.
+//
+//  Daily-MA regime decision (re-evaluated at session open each day):
+//     50-day MA(close) > 150-day MA(close)   -> trade v2b (breakout)
+//     50-day MA(close) <= 150-day MA(close)  -> trade v2d (fade)
+//
+//  v2b leg (when in trend regime):
+//     At 9:45 ET, place OCO stop pair:
+//        BUY STOP @ Range_High + 1 tick
+//        SELL STOP @ Range_Low - 1 tick
+//     Target = Entry ± Range; Stop = opposite range boundary.
+//
+//  v2d leg (when in chop regime):
+//     At 9:45 ET, do NOT enter immediately. Watch for breakout:
+//        - If price >= RH + 1 tick, arm a sell-stop @ RH - 1 tick (fade short)
+//        - If price <= RL - 1 tick, arm a buy-stop  @ RL + 1 tick (fade long)
+//     Target = opposite range boundary; Stop = RH + Range or RL - Range.
+//
+//  Bracket-then-reverse: max 1 long + 1 short per day, in either order.
+//  Force-close any open position at 15:55 ET.
+//
+//  Honest backtest results (1 MNQ, 2021-03 -> 2026-04, 50/150 cross):
+//     Trades:        1,919
+//     Win rate:      54.1%
+//     Net P/L:       +$18,885
+//     Annual avg:    ~$3,690/yr per MNQ
+//     Max realized DD: -$3,542
+//     Calmar ratio:  1.05
+//     Days in v2b regime: 74.4%   v2d regime: 25.6%
+//
+//  Use 1-minute chart timeframe for accurate intrabar simulation.
+//  Daily MAs are fetched via request.security on the daily timeframe.
+// =============================================================================
+//@version=5
+strategy("MNQ ORB v2b/v2d Adaptive 50/150", overlay=true,
+     default_qty_type=strategy.fixed, default_qty_value=1,
+     initial_capital=10000,
+     commission_type=strategy.commission.cash_per_contract,
+     commission_value=0.75,           // per side ($1.50 round-turn)
+     slippage=1,                      // 1 tick
+     pyramiding=0,
+     currency=currency.USD,
+     calc_on_every_tick=false,
+     process_orders_on_close=false)
+
+// === Inputs ============================================================
+sess_tz       = "America/New_York"
+
+grpRange      = "Opening Range"
+rs_h          = input.int(9,  "Range start hour", group=grpRange, minval=0, maxval=23)
+rs_m          = input.int(30, "Range start min",  group=grpRange, minval=0, maxval=59)
+re_h          = input.int(9,  "Range end hour",   group=grpRange, minval=0, maxval=23)
+re_m          = input.int(45, "Range end min",    group=grpRange, minval=0, maxval=59)
+
+grpSession    = "Session"
+eod_h         = input.int(15, "Force-close hour", group=grpSession, minval=0, maxval=23)
+eod_m         = input.int(55, "Force-close min",  group=grpSession, minval=0, maxval=59)
+
+grpEntry      = "Entry / Risk"
+trigger_buf   = input.int(1, "Trigger ticks beyond range",  group=grpEntry, minval=0)
+risk_R        = input.float(1.0, "Reward:Risk multiplier", group=grpEntry, minval=0.25, step=0.25)
+
+grpRegime     = "Regime Indicator"
+ma_fast_len   = input.int(50,  "Fast MA length (days)", group=grpRegime, minval=1)
+ma_slow_len   = input.int(150, "Slow MA length (days)", group=grpRegime, minval=1)
+
+grpDisplay    = "Display"
+show_levels   = input.bool(true,  "Plot range/target/stop lines", group=grpDisplay)
+show_regime   = input.bool(true,  "Show regime label",            group=grpDisplay)
+
+tick          = syminfo.mintick
+
+// === Daily MA regime indicator (causally honest) =====================
+// Fetch daily MAs; lookahead_off prevents the current intraday bar from
+// affecting the daily MA value before the daily candle has closed.
+ma_fast = request.security(syminfo.tickerid, "D",
+              ta.sma(close, ma_fast_len)[1],
+              lookahead=barmerge.lookahead_off)
+ma_slow = request.security(syminfo.tickerid, "D",
+              ta.sma(close, ma_slow_len)[1],
+              lookahead=barmerge.lookahead_off)
+
+regime_v2b = not na(ma_fast) and not na(ma_slow) and (ma_fast > ma_slow)
+
+// === Time helpers (NY) ================================================
+sod = (hour(time, sess_tz) * 60 + minute(time, sess_tz)) * 60 + second(time, sess_tz)
+rs  = (rs_h  * 60 + rs_m)  * 60
+re_ = (re_h  * 60 + re_m)  * 60
+eod = (eod_h * 60 + eod_m) * 60
+
+in_range    = sod >= rs and sod < re_
+after_range = sod >= re_ and sod < eod
+is_eod      = sod >= eod
+
+new_session = ta.change(dayofmonth(time, sess_tz)) != 0
+
+// === Range state (reset daily) ========================================
+var float rh             = na
+var float rl             = na
+var bool  tradedLong     = false
+var bool  tradedShort    = false
+var bool  v2b_armed      = false
+// v2d state: track whether we've SEEN a breakout (which arms the fade)
+var bool  long_break_seen  = false   // long breakout happened -> arm fade-short
+var bool  short_break_seen = false   // short breakout happened -> arm fade-long
+var bool  v2d_short_armed = false
+var bool  v2d_long_armed  = false
+var bool  regime_v2b_today = true    // captured at session start
+
+if new_session
+    rh                := na
+    rl                := na
+    tradedLong        := false
+    tradedShort       := false
+    v2b_armed         := false
+    long_break_seen   := false
+    short_break_seen  := false
+    v2d_short_armed   := false
+    v2d_long_armed    := false
+    regime_v2b_today  := regime_v2b   // lock in regime at start of day
+
+if in_range
+    rh := na(rh) ? high : math.max(rh, high)
+    rl := na(rl) ? low  : math.min(rl, low)
+
+trade_just_closed = strategy.closedtrades > nz(strategy.closedtrades[1], 0)
+if trade_just_closed
+    closed_id = strategy.closedtrades.entry_id(strategy.closedtrades - 1)
+    if closed_id == "L"  or closed_id == "FL"
+        tradedLong := true
+    if closed_id == "S"  or closed_id == "FS"
+        tradedShort := true
+
+// === V2B mode: arm OCO stop pair at first bar after range close ======
+needArm_v2b = regime_v2b_today
+           and after_range and not is_eod
+           and not v2b_armed
+           and strategy.position_size == 0
+           and not na(rh) and not na(rl)
+           and (rh - rl) > 0
+           and not (tradedLong and tradedShort)
+
+if needArm_v2b
+    rv     = rh - rl
+    longE  = rh + (trigger_buf * tick)
+    shortE = rl - (trigger_buf * tick)
+    longT  = rh + (rv * risk_R)
+    shortT = rl - (rv * risk_R)
+    if not tradedLong
+        strategy.entry("L",  strategy.long,  stop=longE,  comment="v2b L")
+        strategy.exit ("LX", from_entry="L", stop=rl,     limit=longT,  comment="L exit")
+    if not tradedShort
+        strategy.entry("S",  strategy.short, stop=shortE, comment="v2b S")
+        strategy.exit ("SX", from_entry="S", stop=rh,     limit=shortT, comment="S exit")
+    v2b_armed := true
+
+// === V2D mode: detect breakout, then arm fade =========================
+in_v2d_window = (not regime_v2b_today)
+             and after_range and not is_eod
+             and not na(rh) and not na(rl)
+             and (rh - rl) > 0
+             and strategy.position_size == 0
+
+if in_v2d_window
+    long_break_trig  = rh + (trigger_buf * tick)
+    short_break_trig = rl - (trigger_buf * tick)
+    // Detect breakouts (any time during the trade window)
+    if not long_break_seen and high >= long_break_trig
+        long_break_seen := true
+        if not tradedShort
+            v2d_short_armed := true
+    if not short_break_seen and low <= short_break_trig
+        short_break_seen := true
+        if not tradedLong
+            v2d_long_armed := true
+
+needArm_v2d = in_v2d_window and (v2d_short_armed or v2d_long_armed) and not (tradedLong and tradedShort)
+
+if needArm_v2d
+    rv         = rh - rl
+    short_fade_E = rh - (trigger_buf * tick)         // sell-stop trigger inside range
+    long_fade_E  = rl + (trigger_buf * tick)         // buy-stop trigger inside range
+    if v2d_short_armed and not tradedShort
+        strategy.entry("FS", strategy.short, stop=short_fade_E, comment="v2d fade S")
+        strategy.exit ("FSX", from_entry="FS", stop=rh + rv, limit=rl, comment="FS exit")
+    if v2d_long_armed  and not tradedLong
+        strategy.entry("FL", strategy.long,  stop=long_fade_E,  comment="v2d fade L")
+        strategy.exit ("FLX", from_entry="FL", stop=rl - rv, limit=rh, comment="FL exit")
+
+// OCO: cancel the unused entry leg when one fills
+if strategy.position_size > 0
+    strategy.cancel("S")
+    strategy.cancel("FS")
+else if strategy.position_size < 0
+    strategy.cancel("L")
+    strategy.cancel("FL")
+
+// === EOD force-close ==================================================
+if is_eod and strategy.position_size != 0
+    strategy.close_all(comment="EOD")
+
+if is_eod
+    strategy.cancel("L")
+    strategy.cancel("S")
+    strategy.cancel("FL")
+    strategy.cancel("FS")
+
+// === Visuals ==========================================================
+plot(show_levels and (in_range or after_range) ? rh : na,
+     "Range High", color=color.new(color.lime, 0), linewidth=1, style=plot.style_linebr)
+plot(show_levels and (in_range or after_range) ? rl : na,
+     "Range Low",  color=color.new(color.red, 0),  linewidth=1, style=plot.style_linebr)
+
+bgcolor(in_range ? color.new(color.blue, 90) : na, title="Opening Range")
+bgcolor(is_eod   ? color.new(color.gray, 90) : na, title="EOD Window")
+bgcolor(after_range and not regime_v2b_today ? color.new(color.orange, 92) : na,
+        title="V2D regime active")
+
+if show_regime and barstate.islast
+    var label rgl = na
+    label.delete(rgl)
+    txt = regime_v2b_today ? "REGIME: v2b BREAKOUT (50>150)" : "REGIME: v2d FADE (50≤150)"
+    rgl := label.new(bar_index, high, txt,
+                      style=label.style_label_down,
+                      color=regime_v2b_today ? color.green : color.orange,
+                      textcolor=color.white, size=size.normal)
+
+// =============================================================================
+// LIVE SETUP NOTES
+// =============================================================================
+//   Symbol:   MNQ1!  (continuous front-month)
+//   TF:       1m chart (intrabar precision)
+//   Broker:   Tradovate via TV broker panel
+//   Order:    Stop-Market (NOT Stop-Limit)
+//   Times:    All inputs in America/New_York
+//
+// VALIDATION:
+//   1. Bar replay 90 days, compare trade list to:
+//      potions/mnq/v2d/mnq_orb_results_adaptive_50_150.csv
+//   2. Paper-trade 5 sessions on Tradovate Demo
+//   3. Live 1 MNQ for 30 days; verify regime label matches Python CSV
+//   4. Scale to 3 MNQ
+// =============================================================================

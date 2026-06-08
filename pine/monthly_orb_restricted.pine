@@ -1,0 +1,334 @@
+// =============================================================================
+//  Monthly ORB — Baseline + range-close restriction (Pine harness)
+// =============================================================================
+//  Mirrors ``potions/scripts/monthly_orb_restricted.py`` on a DAILY chart.
+//
+//  Order semantics (live mental model vs Python CSV):
+//    • BREAKOUT ARM: Daily *close* above RH (below RL) establishes long (short)
+//      bias—not a resting stop sitting at RH before the breakout close prints.
+//    • ENTRY FILL at the RANGE EDGE: pullback *limit* → buy limit at RH (sell
+//      limit at RL). That matches the simulator (retest boundary), NOT a classic
+//      buy-stop chased through RH on first touch.
+//    • PROTECTIVE STOP (once long): opposite boundary RL — behaves like a
+//      STOP on longs tagged if price trades through RL intrabar before TP.
+//    • TARGET: RH + R  ( RL − R shorts ).
+//    • RANGE-CLOSE RESTRICTION: if OR is still violated by price but TODAY’s
+//      *close* prints back INSIDE [RL, RH], flatten at that close — that is NOT
+//      a resting stop order; it is an end-of-bar rule keyed off the settlement
+//      print inside the shaded OR box.
+//
+//  Visuals:
+//    • Semi-transparent BOX for the frozen opening range spans the remainder
+//      of each calendar month.
+//    • While IN_TRADE optional dashed ENTRY / STOP / TP reference lines reset
+//      when flat / new month.
+//
+//  Contracts: ``iContracts`` applied to resting limits and pulse entries alike.
+//
+// =============================================================================
+
+//@version=5
+strategy("Monthly ORB — Baseline Restricted",
+     overlay                  = true,
+     pyramiding               = 0,
+     default_qty_type         = strategy.fixed,
+     default_qty_value        = 1,
+     initial_capital          = 150000,
+     commission_type          = strategy.commission.cash_per_contract,
+     commission_value         = 0.75,
+     slippage                 = 1,
+     currency                 = currency.USD,
+     calc_on_every_tick       = false,
+     process_orders_on_close  = false)
+
+string TZ = "America/New_York"
+int PH_BO = 0
+int PH_WF = 1
+int PH_IN = 2
+
+grpOr = "Monthly OR"
+int iOrDays =
+     input.int(3, "OR length (daily bars)", minval = 1, maxval = 15, group = grpOr,
+          tooltip = "First N bars of calendar month freeze RH = max(high), RL = min(low).")
+
+grpSz = "Sizing"
+int iContracts =
+     input.int(1, "Contracts per entry", minval = 1, maxval = 500, group = grpSz,
+          tooltip = "Qty on each entry / resting retest.")
+
+grpVis = "Display"
+bool iShadeBuild =
+     input.bool(true, "Shade bars while OR still forming", group = grpVis,
+          tooltip = "Separate lighter tint vs the frozen OR box.")
+
+bool iDrawOrBox =
+     input.bool(true, "Draw frozen OR band for rest of month", group = grpVis)
+
+bool iDrawLvl =
+     input.bool(true, "Draw Entry / Stop / TP reference while IN_TRADE", group = grpVis)
+
+int ymt = year(time, TZ) * 100 + month(time, TZ)
+bool isNewMonth = ta.change(ymt) != 0
+
+var float vRH = na
+var float vRL = na
+var int vBarIx = 0
+var bool vOrLive = false
+var float vR = na
+
+var int vPhase = PH_BO
+var int vWFDir = 0  // WAIT_FILL bias: +1 RH long, −1 RL short
+var int vClosedMo = 0
+
+var int vSimSide = 0
+var float vStop = na
+var float vTP = na
+var float vEntryLvl = na  // RH for long retest entries, RL for shorts (display)
+
+var bool sgClose = false
+var bool sgOpenL = false
+var bool sgOpenS = false
+
+// --- Frozen OR hull for the remainder of calendar month ----------------------------
+var box orBox = na
+var int orBoxLeft = na
+
+var line lnEnt = na
+var line lnSL = na
+var line lnTP = na
+
+
+
+if isNewMonth
+    strategy.cancel("ORB-ret-L")
+    strategy.cancel("ORB-ret-S")
+    strategy.cancel_all()
+    strategy.close_all(comment = "New month")
+
+    if not na(orBox)
+        box.delete(orBox)
+    orBox := na
+    orBoxLeft := na
+    if not na(lnEnt)
+        line.delete(lnEnt)
+    if not na(lnSL)
+        line.delete(lnSL)
+    if not na(lnTP)
+        line.delete(lnTP)
+    lnEnt := na
+    lnSL := na
+    lnTP := na
+
+    vBarIx := 1
+    vRH := high
+    vRL := low
+    vOrLive := false
+    vR := na
+    vPhase := PH_BO
+    vWFDir := 0
+    vClosedMo := 0
+    vSimSide := 0
+    vStop := na
+    vTP := na
+    vEntryLvl := na
+
+sgClose := false
+sgOpenL := false
+sgOpenS := false
+
+if not isNewMonth
+    vBarIx += 1
+
+    bool orSealThisBar = not vOrLive and vBarIx <= iOrDays
+    if orSealThisBar
+        vRH := math.max(vRH, high)
+        vRL := math.min(vRL, low)
+
+    if not vOrLive and vBarIx == iOrDays
+        float rng = vRH - vRL
+        if rng > 0
+            vR := rng
+            vOrLive := true
+            if iDrawOrBox
+                orBoxLeft := bar_index - iOrDays + 1
+                orBox := box.new(orBoxLeft, vRH, bar_index, vRL,
+                     border_color = color.new(color.white, 45),
+                     bgcolor      = color.new(color.teal, 88))
+        else
+            vOrLive := false
+
+bgcolor(iShadeBuild and not vOrLive and vBarIx > 0 and vBarIx <= iOrDays ?
+     color.new(color.blue, 92) :
+     na)
+
+bool postOr = vOrLive and not na(vR) and vBarIx > iOrDays
+
+if postOr and iDrawOrBox and not na(orBox)
+    box.set_right(orBox, bar_index)
+
+bxCloseInside(c, rh, rl) =>
+    c <= rh and c >= rl
+
+bool frozenMo = postOr and vClosedMo >= 2 and vPhase != PH_IN
+
+float H = high
+float L = low
+float C = close
+
+// --------------------- FSM ---------------------------------------------------
+if postOr and not frozenMo
+
+    // (1) WAIT_FILL
+    if vPhase == PH_WF and vSimSide == 0
+        if vWFDir == 1
+            if L <= vRH
+                vSimSide := 1
+                vPhase := PH_IN
+                vEntryLvl := vRH
+                vStop := vRL
+                vTP := vRH + vR
+            else if C < vRL
+                strategy.cancel("ORB-ret-L")
+                vWFDir := -1
+        else if vWFDir == -1
+            if H >= vRL
+                vSimSide := -1
+                vPhase := PH_IN
+                vEntryLvl := vRL
+                vStop := vRH
+                vTP := vRL - vR
+            else if C > vRH
+                strategy.cancel("ORB-ret-S")
+                vWFDir := 1
+
+    // (2) IN_TRADE — stop sweep, TP touch, daily close inside OR
+    else if vPhase == PH_IN and vSimSide == 1 and not na(vStop) and not na(vTP)
+        bool exitBar = false
+        if L < vStop
+            exitBar := true
+        else if H >= vTP
+            exitBar := true
+        else if bxCloseInside(C, vRH, vRL)
+            exitBar := true
+
+        if exitBar
+            sgClose := true
+            vSimSide := 0
+            vPhase := PH_BO
+            vWFDir := 0
+            vStop := na
+            vTP := na
+            vEntryLvl := na
+            vClosedMo += 1
+
+    else if vPhase == PH_IN and vSimSide == -1 and not na(vStop) and not na(vTP)
+        bool exitBar = false
+        if H > vStop
+            exitBar := true
+        else if L <= vTP
+            exitBar := true
+        else if bxCloseInside(C, vRH, vRL)
+            exitBar := true
+
+        if exitBar
+            sgClose := true
+            vSimSide := 0
+            vPhase := PH_BO
+            vWFDir := 0
+            vStop := na
+            vTP := na
+            vEntryLvl := na
+            vClosedMo += 1
+
+    // (3) WAIT_BREAKOUT
+    if vPhase == PH_BO and vSimSide == 0 and vClosedMo < 2
+        if C > vRH
+            vWFDir := 1
+            if L <= vRH
+                vSimSide := 1
+                vPhase := PH_IN
+                vEntryLvl := vRH
+                vStop := vRL
+                vTP := vRH + vR
+                sgOpenL := true
+            else
+                vPhase := PH_WF
+
+        else if C < vRL
+            vWFDir := -1
+            if H >= vRL
+                vSimSide := -1
+                vPhase := PH_IN
+                vEntryLvl := vRL
+                vStop := vRH
+                vTP := vRL - vR
+                sgOpenS := true
+            else
+                vPhase := PH_WF
+
+// --- Planned Entry / protective Stop / TP (yellow / red / green dashes) ----------
+color cLvEnt = color.new(#FFC107, 15)
+color cLvStop = color.new(#EF5350, 25)
+color cLvTP = color.new(#26A69A, 35)
+
+bool planLvls =
+     postOr and iDrawLvl and vPhase == PH_IN and not na(vEntryLvl) and not na(vStop) and not na(vTP)
+
+if postOr and iDrawLvl
+    if planLvls
+        if not na(lnEnt)
+            line.delete(lnEnt)
+        if not na(lnSL)
+            line.delete(lnSL)
+        if not na(lnTP)
+            line.delete(lnTP)
+        int x0 = bar_index - 20
+        lnEnt := line.new(x0, vEntryLvl, bar_index + 4, vEntryLvl,
+             extend = extend.right, color = cLvEnt, style = line.style_dashed)
+        lnSL := line.new(x0, vStop, bar_index + 4, vStop,
+             extend = extend.right, color = cLvStop, style = line.style_dashed)
+        lnTP := line.new(x0, vTP, bar_index + 4, vTP,
+             extend = extend.right, color = cLvTP, style = line.style_dashed)
+    else if strategy.position_size == 0
+        if not na(lnEnt)
+            line.delete(lnEnt)
+        if not na(lnSL)
+            line.delete(lnSL)
+        if not na(lnTP)
+            line.delete(lnTP)
+        lnEnt := na
+        lnSL := na
+        lnTP := na
+
+// --- WAIT_FILL resting limits (do not cancel when IN_TRADE but still working a fill)
+if frozenMo or not postOr
+    strategy.cancel("ORB-ret-L")
+    strategy.cancel("ORB-ret-S")
+else if strategy.position_size == 0 and vPhase == PH_WF
+    if vWFDir == 1
+        strategy.cancel("ORB-ret-S")
+        strategy.entry("ORB-ret-L", strategy.long, qty = iContracts, limit = vRH,
+             comment = "Limit LH @ RH (retest)")
+    else if vWFDir == -1
+        strategy.cancel("ORB-ret-L")
+        strategy.entry("ORB-ret-S", strategy.short, qty = iContracts, limit = vRL,
+             comment = "Limit SH @ RL (retest)")
+else if strategy.position_size == 0 and vPhase == PH_BO
+    strategy.cancel("ORB-ret-L")
+    strategy.cancel("ORB-ret-S")
+
+// Pulse entries that skip explicit WAIT_FILL (same-bar breakout+touch)
+if postOr and sgClose
+    strategy.cancel_all()
+    strategy.close_all(comment = "ORB exit")
+
+if postOr and sgOpenL
+    strategy.entry("LON", strategy.long, qty = iContracts, limit = vRH,
+         comment = "Long LH @ RH")
+
+if postOr and sgOpenS
+    strategy.entry("SH", strategy.short, qty = iContracts, limit = vRL,
+         comment = "Short SH @ RL")
+
+if frozenMo
+    strategy.cancel_all()

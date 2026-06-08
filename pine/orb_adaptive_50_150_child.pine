@@ -1,0 +1,492 @@
+// =============================================================================
+//  MNQ ORB - Adaptive 50/150 with v2b_child-style scale-ins
+// =============================================================================
+//  Execution-test Pine strategy for the Python chronological model:
+//    potions/mnq/v2d/orb_adaptive_50_150_child.py --child-engine chronological
+//
+//  Regime:
+//    prior daily SMA50 > SMA150   -> v2b breakout mode
+//    prior daily SMA50 <= SMA150  -> v2d fade mode
+//
+//  Parent:
+//    v2b: pre-placed OCO stop pair outside opening range.
+//    v2d: wait for breakout, then fade back inside the range.
+//
+//  Children:
+//    after a parent fill, wait for a completed 5m candle.
+//    long child: green 5m candle fully above RH.
+//    short child: red 5m candle fully below RL.
+//    child entry is a limit at that completed 5m candle close.
+//
+//  Recommended execution-test setting:
+//    max child adds = 1, one MNQ per entry ID, chart timeframe = 1 minute.
+//
+//  Notes:
+//    Pine/TradingView is still a broker emulator on history. Use Python stress
+//    reports for execution haircut estimates, then reconcile with Tradovate
+//    demo/live fills before scaling.
+// =============================================================================
+//@version=5
+strategy("MNQ ORB Adaptive 50/150 + Child Scale-ins", overlay=true,
+     default_qty_type=strategy.fixed, default_qty_value=1,
+     initial_capital=15000,
+     commission_type=strategy.commission.cash_per_contract,
+     commission_value=0.75,
+     slippage=1,
+     pyramiding=3,
+     currency=currency.USD,
+     calc_on_every_tick=false,
+     calc_on_order_fills=true,
+     process_orders_on_close=false,
+     backtest_fill_limits_assumption=0)
+
+// === Inputs ============================================================
+sess_tz       = "America/New_York"
+
+grpRange      = "Opening Range"
+rs_h          = input.int(9,  "Range start hour", group=grpRange, minval=0, maxval=23)
+rs_m          = input.int(30, "Range start min",  group=grpRange, minval=0, maxval=59)
+re_h          = input.int(9,  "Range end hour",   group=grpRange, minval=0, maxval=23)
+re_m          = input.int(45, "Range end min",    group=grpRange, minval=0, maxval=59)
+
+grpSession    = "Session"
+eod_h         = input.int(15, "Force-close hour", group=grpSession, minval=0, maxval=23)
+eod_m         = input.int(55, "Force-close min",  group=grpSession, minval=0, maxval=59)
+
+grpEntry      = "Entry / Risk"
+trigger_buf   = input.int(1, "Trigger ticks beyond range", group=grpEntry, minval=0)
+risk_R        = input.float(1.0, "Reward:Risk multiplier", group=grpEntry, minval=0.25, step=0.25)
+max_child_adds = input.int(1, "Max child adds", group=grpEntry, minval=0, maxval=2,
+     tooltip="1 = parent plus one child, max 2 MNQ. 2 = parent plus two children, max 3 MNQ.")
+child_stop_mode = input.string("edge", "Child partial stop", group=grpEntry, options=["edge", "mid"])
+
+grpFilters    = "Optional Child Filters"
+enable_filters = input.bool(false, "Enable child filters", group=grpFilters)
+min_dist_target = input.float(0.0, "Min distance to target (pts)", group=grpFilters, minval=0.0, step=0.25)
+max_minutes_after_parent = input.float(999.0, "Max minutes after parent fill", group=grpFilters, minval=0.0, step=1.0)
+min_or_range = input.float(0.0, "Min OR range (pts)", group=grpFilters, minval=0.0, step=0.25)
+max_or_range = input.float(99999.0, "Max OR range (pts)", group=grpFilters, minval=0.0, step=0.25)
+max_1m_impulse = input.float(99999.0, "Max 1m impulse in signal 5m (pts)", group=grpFilters, minval=0.0, step=0.25)
+
+grpRegime     = "Regime Indicator"
+ma_fast_len   = input.int(50,  "Fast MA length (days)", group=grpRegime, minval=1)
+ma_slow_len   = input.int(150, "Slow MA length (days)", group=grpRegime, minval=1)
+
+grpDisplay    = "Display"
+show_levels   = input.bool(true, "Plot range/target/stop lines", group=grpDisplay)
+show_regime   = input.bool(true, "Show regime label", group=grpDisplay)
+show_child_marks = input.bool(true, "Show child candidate marks", group=grpDisplay)
+
+tick          = syminfo.mintick
+
+// === Helpers ===========================================================
+f_has_open(string id) =>
+    bool found = false
+    if strategy.opentrades > 0
+        for i = 0 to strategy.opentrades - 1
+            if strategy.opentrades.entry_id(i) == id
+                found := true
+    found
+
+f_child_stop(float rh_, float rl_, int side_) =>
+    child_stop_mode == "mid" ? (rh_ + rl_) / 2.0 : (side_ == 1 ? rh_ : rl_)
+
+f_long_child_signal(float o_, float h_, float l_, float c_, float rh_) =>
+    c_ > o_ and math.min(math.min(o_, h_), math.min(l_, c_)) > rh_
+
+f_short_child_signal(float o_, float h_, float l_, float c_, float rl_) =>
+    c_ < o_ and math.max(math.max(o_, h_), math.max(l_, c_)) < rl_
+
+// === Daily MA regime indicator ========================================
+ma_fast = request.security(syminfo.tickerid, "D",
+              ta.sma(close, ma_fast_len)[1],
+              lookahead=barmerge.lookahead_off)
+ma_slow = request.security(syminfo.tickerid, "D",
+              ta.sma(close, ma_slow_len)[1],
+              lookahead=barmerge.lookahead_off)
+
+regime_v2b = not na(ma_fast) and not na(ma_slow) and ma_fast > ma_slow
+
+// === Time helpers ======================================================
+sod = (hour(time, sess_tz) * 60 + minute(time, sess_tz)) * 60 + second(time, sess_tz)
+rs  = (rs_h  * 60 + rs_m)  * 60
+re_ = (re_h  * 60 + re_m)  * 60
+eod = (eod_h * 60 + eod_m) * 60
+
+in_range    = sod >= rs and sod < re_
+after_range = sod >= re_ and sod < eod
+in_day_window = sod >= rs and sod < eod
+is_eod      = sod >= eod
+new_session = ta.change(dayofmonth(time, sess_tz)) != 0
+
+// === Range / regime state =============================================
+var float rh = na
+var float rl = na
+var bool tradedLong = false
+var bool tradedShort = false
+var bool v2b_armed = false
+var bool long_break_seen = false
+var bool short_break_seen = false
+var bool v2d_short_armed = false
+var bool v2d_long_armed = false
+var bool regime_v2b_today = true
+
+// Parent/child state
+var bool parent_live = false
+var int active_side = 0
+var string active_mode = ""
+var float active_target = na
+var float active_parent_stop = na
+var float active_child_stop = na
+var int parent_fill_sod = na
+var bool child1_ordered = false
+var bool child2_ordered = false
+var bool child1_was_filled = false
+var bool child2_was_filled = false
+var bool pending_child = false
+
+// Persisted order levels for pending parents
+var float v2b_long_target = na
+var float v2b_short_target = na
+var float v2d_long_target = na
+var float v2d_short_target = na
+var float v2d_long_stop = na
+var float v2d_short_stop = na
+
+// Manual 5m aggregation anchored to range start.
+var int five_bucket = na
+var int five_start_sod = na
+var float five_o = na
+var float five_h = na
+var float five_l = na
+var float five_c = na
+var float five_max_1m = na
+
+float done5_o = na
+float done5_h = na
+float done5_l = na
+float done5_c = na
+float done5_impulse = na
+int done5_start_sod = na
+bool five_complete = false
+
+if new_session
+    rh := na
+    rl := na
+    tradedLong := false
+    tradedShort := false
+    v2b_armed := false
+    long_break_seen := false
+    short_break_seen := false
+    v2d_short_armed := false
+    v2d_long_armed := false
+    regime_v2b_today := regime_v2b
+    parent_live := false
+    active_side := 0
+    active_mode := ""
+    active_target := na
+    active_parent_stop := na
+    active_child_stop := na
+    parent_fill_sod := na
+    child1_ordered := false
+    child2_ordered := false
+    child1_was_filled := false
+    child2_was_filled := false
+    pending_child := false
+    five_bucket := na
+    five_start_sod := na
+    five_o := na
+    five_h := na
+    five_l := na
+    five_c := na
+    five_max_1m := na
+    strategy.cancel("L1")
+    strategy.cancel("S1")
+    strategy.cancel("FL1")
+    strategy.cancel("FS1")
+    strategy.cancel("LC1")
+    strategy.cancel("LC2")
+    strategy.cancel("SC1")
+    strategy.cancel("SC2")
+
+if in_range
+    rh := na(rh) ? high : math.max(rh, high)
+    rl := na(rl) ? low  : math.min(rl, low)
+
+// Build completed 5m candles causally from the 1m chart.
+if in_day_window
+    bucket_now = int(math.floor((sod - rs) / 300))
+    bucket_start = rs + bucket_now * 300
+    one_min_impulse = high - low
+    if na(five_bucket)
+        five_bucket := bucket_now
+        five_start_sod := bucket_start
+        five_o := open
+        five_h := high
+        five_l := low
+        five_c := close
+        five_max_1m := one_min_impulse
+    else if bucket_now != five_bucket
+        done5_o := five_o
+        done5_h := five_h
+        done5_l := five_l
+        done5_c := five_c
+        done5_impulse := five_max_1m
+        done5_start_sod := five_start_sod
+        five_complete := true
+        five_bucket := bucket_now
+        five_start_sod := bucket_start
+        five_o := open
+        five_h := high
+        five_l := low
+        five_c := close
+        five_max_1m := one_min_impulse
+    else
+        five_h := math.max(five_h, high)
+        five_l := math.min(five_l, low)
+        five_c := close
+        five_max_1m := math.max(five_max_1m, one_min_impulse)
+
+// === Detect fills / closes ============================================
+// Parent fill. The exact historical fill is still TradingView's emulator;
+// this state just makes child order placement causal after a parent is live.
+if not parent_live and strategy.position_size != 0
+    if f_has_open("L1")
+        parent_live := true
+        active_side := 1
+        active_mode := "v2b"
+        active_target := v2b_long_target
+        active_parent_stop := rl
+        active_child_stop := f_child_stop(rh, rl, active_side)
+        parent_fill_sod := sod
+        v2b_armed := false
+    else if f_has_open("S1")
+        parent_live := true
+        active_side := -1
+        active_mode := "v2b"
+        active_target := v2b_short_target
+        active_parent_stop := rh
+        active_child_stop := f_child_stop(rh, rl, active_side)
+        parent_fill_sod := sod
+        v2b_armed := false
+    else if f_has_open("FL1")
+        parent_live := true
+        active_side := 1
+        active_mode := "v2d"
+        active_target := v2d_long_target
+        active_parent_stop := v2d_long_stop
+        active_child_stop := f_child_stop(rh, rl, active_side)
+        parent_fill_sod := sod
+        v2d_long_armed := false
+    else if f_has_open("FS1")
+        parent_live := true
+        active_side := -1
+        active_mode := "v2d"
+        active_target := v2d_short_target
+        active_parent_stop := v2d_short_stop
+        active_child_stop := f_child_stop(rh, rl, active_side)
+        parent_fill_sod := sod
+        v2d_short_armed := false
+
+if parent_live
+    child1_was_filled := child1_was_filled or math.abs(strategy.position_size) >= 2
+    child2_was_filled := child2_was_filled or math.abs(strategy.position_size) >= 3
+    if (child1_was_filled and math.abs(strategy.position_size) < 2) or (child2_was_filled and math.abs(strategy.position_size) < 3)
+        strategy.cancel("LC1")
+        strategy.cancel("LC2")
+        strategy.cancel("SC1")
+        strategy.cancel("SC2")
+        pending_child := false
+
+// Parent position fully flat: mark side complete and reset child state.
+if parent_live and strategy.position_size == 0
+    if active_side == 1
+        tradedLong := true
+    if active_side == -1
+        tradedShort := true
+    parent_live := false
+    active_side := 0
+    active_mode := ""
+    active_target := na
+    active_parent_stop := na
+    active_child_stop := na
+    parent_fill_sod := na
+    child1_ordered := false
+    child2_ordered := false
+    child1_was_filled := false
+    child2_was_filled := false
+    pending_child := false
+    v2b_armed := false
+    strategy.cancel("LC1")
+    strategy.cancel("LC2")
+    strategy.cancel("SC1")
+    strategy.cancel("SC2")
+
+// === Parent entry logic ===============================================
+rv = not na(rh) and not na(rl) ? rh - rl : na
+
+needArm_v2b = regime_v2b_today
+           and after_range and not is_eod
+           and not v2b_armed
+           and strategy.position_size == 0
+           and not na(rv) and rv > 0
+           and not (tradedLong and tradedShort)
+
+if needArm_v2b
+    longE  = rh + trigger_buf * tick
+    shortE = rl - trigger_buf * tick
+    v2b_long_target := rh + rv * risk_R
+    v2b_short_target := rl - rv * risk_R
+    if not tradedLong
+        strategy.entry("L1", strategy.long, stop=longE, comment="v2b L1")
+        strategy.exit("L1X", from_entry="L1", stop=rl, limit=v2b_long_target, comment="L1 exit")
+    if not tradedShort
+        strategy.entry("S1", strategy.short, stop=shortE, comment="v2b S1")
+        strategy.exit("S1X", from_entry="S1", stop=rh, limit=v2b_short_target, comment="S1 exit")
+    v2b_armed := true
+
+in_v2d_window = not regime_v2b_today
+             and after_range and not is_eod
+             and not na(rv) and rv > 0
+             and strategy.position_size == 0
+
+bool breakout_this_bar = false
+if in_v2d_window
+    long_break_trig = rh + trigger_buf * tick
+    short_break_trig = rl - trigger_buf * tick
+    if not long_break_seen and high >= long_break_trig
+        long_break_seen := true
+        breakout_this_bar := true
+        if not tradedShort
+            v2d_short_armed := true
+    if not short_break_seen and low <= short_break_trig
+        short_break_seen := true
+        breakout_this_bar := true
+        if not tradedLong
+            v2d_long_armed := true
+
+needArm_v2d = in_v2d_window and not breakout_this_bar and (v2d_short_armed or v2d_long_armed) and not (tradedLong and tradedShort)
+
+if needArm_v2d
+    shortFadeE = rh - trigger_buf * tick
+    longFadeE = rl + trigger_buf * tick
+    v2d_short_target := rl
+    v2d_long_target := rh
+    v2d_short_stop := rh + rv
+    v2d_long_stop := rl - rv
+    if v2d_short_armed and not tradedShort
+        strategy.entry("FS1", strategy.short, stop=shortFadeE, comment="v2d FS1")
+        strategy.exit("FS1X", from_entry="FS1", stop=v2d_short_stop, limit=v2d_short_target, comment="FS1 exit")
+    if v2d_long_armed and not tradedLong
+        strategy.entry("FL1", strategy.long, stop=longFadeE, comment="v2d FL1")
+        strategy.exit("FL1X", from_entry="FL1", stop=v2d_long_stop, limit=v2d_long_target, comment="FL1 exit")
+
+// OCO cancellation for parent entries.
+if strategy.position_size > 0
+    strategy.cancel("S1")
+    strategy.cancel("FS1")
+else if strategy.position_size < 0
+    strategy.cancel("L1")
+    strategy.cancel("FL1")
+
+// === Child scale-ins ===================================================
+can_eval_child = parent_live
+              and five_complete
+              and not is_eod
+              and not pending_child
+              and not na(parent_fill_sod)
+              and done5_start_sod > parent_fill_sod
+              and max_child_adds > 0
+
+if can_eval_child
+    isLongChild = active_side == 1 and f_long_child_signal(done5_o, done5_h, done5_l, done5_c, rh)
+    isShortChild = active_side == -1 and f_short_child_signal(done5_o, done5_h, done5_l, done5_c, rl)
+    signal = isLongChild or isShortChild
+    distToTarget = active_side == 1 ? active_target - done5_c : done5_c - active_target
+    minutesAfterParent = (done5_start_sod - parent_fill_sod) / 60.0
+    filtersPass = not enable_filters or (distToTarget >= min_dist_target and minutesAfterParent <= max_minutes_after_parent and rv >= min_or_range and rv <= max_or_range and done5_impulse <= max_1m_impulse)
+    if signal and filtersPass
+        wantChild1 = max_child_adds >= 1 and not child1_ordered and not child1_was_filled
+        wantChild2 = max_child_adds >= 2 and child1_was_filled and math.abs(strategy.position_size) >= 2 and not child2_ordered and not child2_was_filled
+        if active_side == 1 and wantChild1
+            strategy.entry("LC1", strategy.long, limit=done5_c, comment="child LC1")
+            strategy.exit("LC1X", from_entry="LC1", stop=active_child_stop, limit=active_target, comment="LC1 exit")
+            child1_ordered := true
+            pending_child := true
+        else if active_side == -1 and wantChild1
+            strategy.entry("SC1", strategy.short, limit=done5_c, comment="child SC1")
+            strategy.exit("SC1X", from_entry="SC1", stop=active_child_stop, limit=active_target, comment="SC1 exit")
+            child1_ordered := true
+            pending_child := true
+        else if active_side == 1 and wantChild2
+            strategy.entry("LC2", strategy.long, limit=done5_c, comment="child LC2")
+            strategy.exit("LC2X", from_entry="LC2", stop=active_child_stop, limit=active_target, comment="LC2 exit")
+            child2_ordered := true
+            pending_child := true
+        else if active_side == -1 and wantChild2
+            strategy.entry("SC2", strategy.short, limit=done5_c, comment="child SC2")
+            strategy.exit("SC2X", from_entry="SC2", stop=active_child_stop, limit=active_target, comment="SC2 exit")
+            child2_ordered := true
+            pending_child := true
+        if show_child_marks and (wantChild1 or wantChild2)
+            label.new(bar_index, done5_c, active_side == 1 ? "LC" : "SC",
+                 style=active_side == 1 ? label.style_label_up : label.style_label_down,
+                 color=color.new(color.yellow, 0), textcolor=color.black, size=size.tiny)
+
+// Once a pending child has filled, allow a later completed 5m bar to arm child2.
+if pending_child and parent_live
+    if (child1_ordered and math.abs(strategy.position_size) >= 2) or (child2_ordered and math.abs(strategy.position_size) >= 3)
+        pending_child := false
+
+// === EOD force-close / cancel =========================================
+if is_eod and strategy.position_size != 0
+    strategy.close_all(comment="EOD")
+
+if is_eod
+    strategy.cancel("L1")
+    strategy.cancel("S1")
+    strategy.cancel("FL1")
+    strategy.cancel("FS1")
+    strategy.cancel("LC1")
+    strategy.cancel("LC2")
+    strategy.cancel("SC1")
+    strategy.cancel("SC2")
+
+// === Visuals ===========================================================
+plot(show_levels and (in_range or after_range) ? rh : na,
+     "Range High", color=color.new(color.lime, 0), linewidth=1, style=plot.style_linebr)
+plot(show_levels and (in_range or after_range) ? rl : na,
+     "Range Low", color=color.new(color.red, 0), linewidth=1, style=plot.style_linebr)
+plot(show_levels and parent_live ? active_target : na,
+     "Active Target", color=color.new(color.aqua, 25), linewidth=1, style=plot.style_linebr)
+plot(show_levels and parent_live ? active_parent_stop : na,
+     "Parent Stop", color=color.new(color.red, 40), linewidth=1, style=plot.style_linebr)
+plot(show_levels and parent_live and max_child_adds > 0 ? active_child_stop : na,
+     "Child Stop", color=color.new(color.orange, 35), linewidth=1, style=plot.style_linebr)
+
+bgcolor(in_range ? color.new(color.blue, 90) : na, title="Opening Range")
+bgcolor(is_eod ? color.new(color.gray, 90) : na, title="EOD Window")
+bgcolor(after_range and not regime_v2b_today ? color.new(color.orange, 92) : na,
+     title="V2D regime active")
+
+if show_regime and barstate.islast
+    var label rgl = na
+    label.delete(rgl)
+    txt = regime_v2b_today ? "REGIME: v2b BREAKOUT + CHILD" : "REGIME: v2d FADE"
+    rgl := label.new(bar_index, high, txt,
+         style=label.style_label_down,
+         color=regime_v2b_today ? color.green : color.orange,
+         textcolor=color.white, size=size.normal)
+
+// =============================================================================
+// VALIDATION NOTES
+// =============================================================================
+//  1. Run on a 1-minute MNQ chart.
+//  2. Recreate the TradingView strategy alert after every code/input change.
+//  3. Start paper testing with max child adds = 1.
+//  4. Compare against Python:
+//       python3 potions/mnq/v2d/orb_adaptive_50_150_child.py \
+//         --max-child-adds 1 --child-engine chronological --stress-report
+//  5. Log parent fills, child candidates, child orders, child fills, cancels,
+//     and actual Tradovate slippage before increasing size.
+// =============================================================================

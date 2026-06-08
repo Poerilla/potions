@@ -1,0 +1,188 @@
+// =============================================================================
+//  15-Min Opening Range Breakout — v2b Pre-Placed OCO Stops
+//                                    (BRACKET-THEN-REVERSE)
+// =============================================================================
+//  Live-execution model matching v2b Python backtest at
+//  potions/scripts/step2_preplaced_stops.py.
+//
+//  Logic (per session, per day):
+//    1. Define opening range during a configurable window (default 9:30-9:44 NY).
+//    2. At the bar AFTER the range window closes, place an OCO pair:
+//         BUY STOP at  Range_High + 1 tick
+//         SELL STOP at Range_Low  - 1 tick
+//    3. First trigger fills (the other is canceled by Pine).
+//    4. Attach bracket exit: target = Entry ± Range, stop = opposite range
+//       boundary.
+//    5. After a trade closes, re-arm ONLY THE OPPOSITE-direction stop.
+//       The same-direction stop is NOT re-armed (this is the "bracket-then-
+//       reverse" rule). Maximum 1 Long + 1 Short per day, in either order.
+//    6. Force-close any open position N minutes before session end.
+//
+//  Why bracket-then-reverse:
+//    The previous v2 implementation re-armed both stops, which inflated
+//    backtest P/L by ~7x via impossible same-direction re-fills (price
+//    had moved past the trigger). v2b only re-arms the opposite side so
+//    every fill is achievable in real Tradovate / stop-market routing.
+//
+//  Honest v2b backtest (1 contract, net of $1.50 RT, 2021-03 -> 2026-04):
+//    MNQ NY     1,991 trades  54.0% win  +$15,877  max DD -$4,716
+//    MNQ London 2,473 trades  52%   win  -$1,738   max DD -$5,328  (NEGATIVE)
+//    MYM NY     2,627 trades  52.0% win  -$1,620   max DD -$6,564  (NEGATIVE)
+//    MYM London 3,265 trades  53%   win  -$3,840   max DD -$4,381  (NEGATIVE)
+//
+//  ONLY MNQ NY IS PROFITABLE in the honest backtest. Recommend trading
+//  only MNQ NY in live execution. Defaults are set for MNQ NY.
+//
+//  Use chart timeframe = 1m for accurate intrabar stop trigger simulation.
+// =============================================================================
+//@version=5
+strategy("MNQ ORB v2 — Pre-Placed OCO Stops", overlay=true,
+     default_qty_type=strategy.fixed, default_qty_value=1,
+     initial_capital=10000,
+     commission_type=strategy.commission.cash_per_contract,
+     commission_value=0.75,           // per side ($1.50 round-turn)
+     slippage=1,                      // 1 tick
+     pyramiding=0,
+     currency=currency.USD,
+     calc_on_every_tick=false,
+     process_orders_on_close=false)
+
+// === Inputs ============================================================
+sess_tz       = "America/New_York"
+
+grpRange      = "Opening Range"
+rs_h          = input.int(9,  "Range start hour", group=grpRange, minval=0, maxval=23)
+rs_m          = input.int(30, "Range start min",  group=grpRange, minval=0, maxval=59)
+re_h          = input.int(9,  "Range end hour",   group=grpRange, minval=0, maxval=23)
+re_m          = input.int(45, "Range end min",    group=grpRange, minval=0, maxval=59)
+
+grpSession    = "Session"
+eod_h         = input.int(15, "Force-close hour", group=grpSession, minval=0, maxval=23)
+eod_m         = input.int(55, "Force-close min",  group=grpSession, minval=0, maxval=59)
+max_trd       = input.int(2,  "Max trades/day",   group=grpSession, minval=1, maxval=4)
+
+grpEntry      = "Entry / Risk"
+trigger_buf   = input.int(1, "Trigger ticks beyond range",  group=grpEntry, minval=0,
+                           tooltip="Buy-stop at RH + N ticks, sell-stop at RL - N ticks")
+risk_R        = input.float(1.0, "Reward:Risk multiplier", group=grpEntry, minval=0.25, step=0.25,
+                              tooltip="Target = Entry ± (Range × R). Default 1.0 = 1R.")
+
+grpDisplay    = "Display"
+show_levels   = input.bool(true, "Plot range/target/stop lines", group=grpDisplay)
+
+tick          = syminfo.mintick
+
+// === Time helpers (New York) ==========================================
+sod = (hour(time, sess_tz) * 60 + minute(time, sess_tz)) * 60 + second(time, sess_tz)
+rs  = (rs_h  * 60 + rs_m)  * 60
+re_ = (re_h  * 60 + re_m)  * 60
+eod = (eod_h * 60 + eod_m) * 60
+
+in_range    = sod >= rs and sod < re_
+after_range = sod >= re_ and sod < eod
+is_eod      = sod >= eod
+
+// New session detection: works for any session window in NY tz.
+// We mark a "new session" at the start of each new day in NY time.
+ny_day      = math.floor(time(timeframe.period, "0930-1600", sess_tz) / (24 * 60 * 60 * 1000))
+new_session = ta.change(dayofmonth(time, sess_tz)) != 0
+
+// === Range state (reset daily) ========================================
+var float rh           = na
+var float rl           = na
+var int   tradesToday  = 0
+var bool  armed        = false
+var bool  tradedLong   = false   // bracket-then-reverse: track which sides used
+var bool  tradedShort  = false
+
+if new_session
+    rh          := na
+    rl          := na
+    tradesToday := 0
+    armed       := false
+    tradedLong  := false
+    tradedShort := false
+
+if in_range
+    rh := na(rh) ? high : math.max(rh, high)
+    rl := na(rl) ? low  : math.min(rl, low)
+
+// Trade was just closed this bar — record which side
+trade_just_closed = strategy.closedtrades > nz(strategy.closedtrades[1], 0)
+if trade_just_closed
+    tradesToday += 1
+    armed := false
+    closed_id = strategy.closedtrades.entry_id(strategy.closedtrades - 1)
+    if closed_id == "L"
+        tradedLong := true
+    if closed_id == "S"
+        tradedShort := true
+
+// === Arm OCO stops (bracket-then-reverse) ============================
+needArm = after_range
+       and not is_eod
+       and not armed
+       and tradesToday < max_trd
+       and strategy.position_size == 0
+       and not na(rh) and not na(rl)
+       and (rh - rl) > 0
+       and not (tradedLong and tradedShort)   // both sides used → done
+
+if needArm
+    rv     = rh - rl
+    longE  = rh + (trigger_buf * tick)
+    shortE = rl - (trigger_buf * tick)
+    longT  = rh + (rv * risk_R)
+    shortT = rl - (rv * risk_R)
+    if not tradedLong
+        strategy.entry("L",  strategy.long,  stop=longE,  comment="Long stop")
+        strategy.exit ("LX", from_entry="L", stop=rl,     limit=longT,  comment="L exit")
+    if not tradedShort
+        strategy.entry("S",  strategy.short, stop=shortE, comment="Short stop")
+        strategy.exit ("SX", from_entry="S", stop=rh,     limit=shortT, comment="S exit")
+    armed := true
+
+// OCO: when one entry fills, cancel the other entry leg
+if strategy.position_size > 0
+    strategy.cancel("S")
+else if strategy.position_size < 0
+    strategy.cancel("L")
+
+// === EOD force-close ==================================================
+if is_eod and strategy.position_size != 0
+    strategy.close_all(comment="EOD")
+
+// Cancel any leftover working orders at EOD so they don't carry overnight
+if is_eod
+    strategy.cancel("L")
+    strategy.cancel("S")
+
+// === Visuals ==========================================================
+plot(show_levels and (in_range or after_range) ? rh : na,
+     "Range High", color=color.new(color.lime, 0), linewidth=1, style=plot.style_linebr)
+plot(show_levels and (in_range or after_range) ? rl : na,
+     "Range Low",  color=color.new(color.red, 0),  linewidth=1, style=plot.style_linebr)
+
+// Show prospective target/stop while armed (long side as visual reference)
+plot(show_levels and armed and not na(rh) ? rh + (rh - rl) * risk_R : na,
+     "Long Target", color=color.new(color.aqua, 70), linewidth=1, style=plot.style_circles)
+plot(show_levels and armed and not na(rl) ? rl - (rh - rl) * risk_R : na,
+     "Short Target", color=color.new(color.fuchsia, 70), linewidth=1, style=plot.style_circles)
+
+// Range band shading
+bgcolor(in_range ? color.new(color.blue, 90) : na, title="Opening Range Window")
+bgcolor(is_eod   ? color.new(color.gray, 90) : na, title="EOD Window")
+
+// =============================================================================
+// SESSION PRESETS — set the inputs in the strategy settings panel:
+//
+//   MNQ NY        → Range 09:30-09:45, Force-close 15:55, Symbol: MNQ1!
+//   MNQ London    → Range 02:00-02:15, Force-close 10:55, Symbol: MNQ1!
+//   MYM NY        → Range 09:30-09:45, Force-close 15:55, Symbol: MYM1!
+//   MYM London    → Range 02:00-02:15, Force-close 10:55, Symbol: MYM1!
+//
+// For Tradovate routing:
+//   - Order type = Stop-Market (NOT Stop-Limit)
+//   - Connect Tradovate via TV broker panel
+//   - Use chart timeframe 1m for accurate intrabar fills
+// =============================================================================

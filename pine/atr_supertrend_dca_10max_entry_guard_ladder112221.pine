@@ -1,0 +1,252 @@
+// =============================================================================
+//  ATR Supertrend DCA - 10 Max / 1,1,2,2,2 Ladder / Entry Guard
+// =============================================================================
+//  Lower-heat live-test harness for the ATR Supertrend DCA family.
+//
+//  Python references:
+//    MNQ daily-primary:
+//      mnq/case_studies/atr_supertrend_dca_long_biweekly_10max_weekly_flat_entry_guard_ladder112221/
+//    MNQ weekly-primary:
+//      mnq/case_studies/atr_supertrend_weekly_primary_biweekly_10max_entry_guard_ladder112221/
+//
+//  Core rules:
+//    - Long only.
+//    - Primary signal timeframe is selectable: Daily or Weekly.
+//    - Uses confirmed higher-timeframe Supertrend ATR(14) x 3.
+//    - Enter after a confirmed primary bullish flip.
+//    - Position-size ladder by scale event: 1, 1, 2, 2, 2, then 1s.
+//    - Add on every 2nd eligible Friday. Default add schedule is a
+//      once-per-Friday market-style add on the chart's first Friday bar.
+//      Exact 15:50 ET timing remains available for intraday live testing.
+//    - Max position = 10 contracts.
+//    - Initial-entry guard: by default uses confirmed daily closes. If a
+//      completed daily close falls below the first fill price, flatten on the
+//      next intraday bar. If a completed daily close reclaims the same guard
+//      while trend remains bullish, re-enter and restart scaling.
+//      The guard is not allowed to act on the same daily session as a fresh
+//      entry or a fresh guard-pause signal.
+//    - Daily-primary mode can also flatten when completed weekly Supertrend
+//      is bearish, matching the Python weekly-flat variant.
+//
+//  Causality:
+//    request.security() requests use [1] on the higher timeframe with
+//    lookahead_on. This exposes only the last completed daily/weekly
+//    Supertrend state to lower-timeframe bars.
+//
+//  Recommended chart:
+//    Use 1-minute or 5-minute MNQ/MYM/NQ active contract chart for exact
+//    15:50 ET adds. Daily charts can use the once-per-Friday fallback.
+// =============================================================================
+//@version=5
+//@strategy_alert_message {{strategy.order.alert_message}}
+strategy("ATR Supertrend DCA 10max Ladder112221 Entry Guard", overlay=true,
+     default_qty_type=strategy.fixed, default_qty_value=1,
+     initial_capital=50000,
+     commission_type=strategy.commission.cash_per_contract,
+     commission_value=0.75,
+     slippage=1,
+     pyramiding=10,
+     currency=currency.USD,
+     calc_on_every_tick=false,
+     calc_on_order_fills=false,
+     process_orders_on_close=false)
+
+// === Inputs ============================================================
+sess_tz = "America/New_York"
+
+grpSig = "Signal"
+signal_tf_choice = input.string("Daily", "Primary signal timeframe", group=grpSig, options=["Daily", "Weekly"])
+atr_len = input.int(14, "ATR length", group=grpSig, minval=1)
+atr_mult = input.float(3.0, "ATR multiplier", group=grpSig, minval=0.1, step=0.1)
+daily_use_weekly_flat = input.bool(false, "Daily mode: flatten when weekly Supertrend bearish", group=grpSig)
+
+grpSizing = "Sizing"
+max_contracts = input.int(10, "Max contracts", group=grpSizing, minval=1, maxval=20)
+add_interval_weeks = input.int(2, "Eligible Fridays per add", group=grpSizing, minval=1, maxval=8)
+
+grpTime = "Add Time"
+add_schedule = input.string("Once per Friday", "Add schedule", group=grpTime,
+     options=["Once per Friday", "Exact 15:50 ET"])
+add_hour = input.int(15, "Friday add hour", group=grpTime, minval=0, maxval=23)
+add_minute = input.int(50, "Friday add minute", group=grpTime, minval=0, maxval=59)
+daily_add_fallback = input.bool(true, "Daily chart: add on Friday close", group=grpTime)
+
+grpRisk = "Risk / Guard"
+use_entry_guard = input.bool(true, "Use initial-entry close guard", group=grpRisk)
+guard_eval = input.string("Confirmed daily close", "Entry guard evaluation", group=grpRisk,
+     options=["Confirmed daily close", "Chart close"])
+
+grpDisplay = "Display"
+show_stops = input.bool(true, "Plot daily/weekly Supertrend stops", group=grpDisplay)
+show_add_markers = input.bool(true, "Show add-check markers", group=grpDisplay)
+show_labels = input.bool(true, "Show state label", group=grpDisplay)
+
+// === Confirmed HTF Supertrend ========================================
+f_confirmed_supertrend() =>
+    [st, dir] = ta.supertrend(atr_mult, atr_len)
+    [st[1], dir[1]]
+
+[daily_stop, daily_dir] = request.security(syminfo.tickerid, "D", f_confirmed_supertrend(),
+     lookahead=barmerge.lookahead_on)
+[weekly_stop, weekly_dir] = request.security(syminfo.tickerid, "W", f_confirmed_supertrend(),
+     lookahead=barmerge.lookahead_on)
+daily_confirmed_close = request.security(syminfo.tickerid, "D", close[1],
+     lookahead=barmerge.lookahead_on)
+
+sig_stop = signal_tf_choice == "Weekly" ? weekly_stop : daily_stop
+sig_dir = signal_tf_choice == "Weekly" ? weekly_dir : daily_dir
+sig_up = sig_dir < 0
+sig_down = sig_dir > 0
+weekly_up = weekly_dir < 0
+weekly_down = weekly_dir > 0
+
+primary_flip_up = sig_up and not sig_up[1]
+primary_flip_down = sig_down and not sig_down[1]
+weekly_allows_long = signal_tf_choice == "Weekly" ? sig_up : (not daily_use_weekly_flat or not weekly_down)
+
+// === Time helpers ======================================================
+bar_dow = timeframe.isintraday ? dayofweek(time, sess_tz) : dayofweek(time_close, sess_tz)
+is_friday = bar_dow == dayofweek.friday
+at_add_time = is_friday and hour(time, sess_tz) == add_hour and minute(time, sess_tz) == add_minute
+daily_chart_add_bar = daily_add_fallback and not timeframe.isintraday and is_friday and barstate.isconfirmed
+new_daily_bar = ta.change(time("D")) != 0
+daily_guard_bar = timeframe.isintraday ? new_daily_bar : barstate.isconfirmed
+
+// === State =============================================================
+var float entry_guard = na
+var bool guard_paused = false
+var int eligible_add_count = 0
+var int scale_event_count = 0
+var int entry_day_time = na
+var int guard_pause_day_time = na
+var int last_friday_add_check_day = na
+
+pos_size = math.abs(strategy.position_size)
+flat = strategy.position_size == 0
+long_open = strategy.position_size > 0
+just_opened = long_open and strategy.position_size[1] <= 0
+just_closed = flat and strategy.position_size[1] > 0
+
+if just_opened
+    entry_guard := na(entry_guard) ? strategy.position_avg_price : entry_guard
+    entry_day_time := time("D")
+
+if just_closed and not guard_paused
+    entry_guard := na
+    entry_day_time := na
+    guard_pause_day_time := na
+    eligible_add_count := 0
+    scale_event_count := 0
+
+// === Sizing ============================================================
+f_ladder_qty(int event_idx) =>
+    event_idx == 0 ? 1 :
+     event_idx == 1 ? 1 :
+     event_idx == 2 ? 2 :
+     event_idx == 3 ? 2 :
+     event_idx == 4 ? 2 : 1
+
+// === Alert helpers =====================================================
+f_msg(string event, string reason, float qty) =>
+    '{"system":"atr_supertrend_dca","variant":"ladder112221","event":"' + event +
+     '","reason":"' + reason +
+     '","symbol":"{{ticker}}","qty":' + str.tostring(qty) +
+     ',"position_size":"{{strategy.position_size}}","order_price":"{{strategy.order.price}}"}'
+
+// === Entries ===========================================================
+can_start = flat and weekly_allows_long
+guard_reference_close = guard_eval == "Confirmed daily close" ? daily_confirmed_close : close
+guard_can_act = guard_eval == "Confirmed daily close" ? daily_guard_bar : true
+guard_after_entry_day = na(entry_day_time) or time("D") > entry_day_time
+guard_after_pause_day = na(guard_pause_day_time) or time("D") > guard_pause_day_time
+
+if can_start and not guard_paused and primary_flip_up
+    qty = math.min(f_ladder_qty(0), max_contracts)
+    strategy.entry("L", strategy.long, qty=qty, comment="Primary bull flip",
+         alert_message=f_msg("entry", "primary_bull_flip", qty))
+    entry_guard := na
+    eligible_add_count := 0
+    scale_event_count := 1
+
+if can_start and guard_paused and use_entry_guard and not na(entry_guard) and sig_up and guard_can_act and guard_after_pause_day and guard_reference_close > entry_guard
+    qty = math.min(f_ladder_qty(0), max_contracts)
+    strategy.entry("L", strategy.long, qty=qty, comment="Entry guard reclaim",
+         alert_message=f_msg("entry", "entry_guard_reclaim", qty))
+    guard_paused := false
+    guard_pause_day_time := na
+    eligible_add_count := 0
+    scale_event_count := 1
+
+// === Adds ==============================================================
+friday_day_key = timeframe.isintraday ? time("D") : time
+once_friday_add_bar = is_friday and (na(last_friday_add_check_day) or friday_day_key != last_friday_add_check_day)
+exact_add_bar = timeframe.isintraday ? at_add_time : daily_chart_add_bar
+add_trigger = add_schedule == "Once per Friday" ? once_friday_add_bar : exact_add_bar
+add_ok = long_open and add_trigger and sig_up and weekly_allows_long and close > sig_stop and (not use_entry_guard or na(entry_guard) or close > entry_guard)
+add_due = add_ok and ((eligible_add_count + 1) % add_interval_weeks == 0) and pos_size < max_contracts
+if add_schedule == "Once per Friday" and add_trigger
+    last_friday_add_check_day := friday_day_key
+if add_ok
+    eligible_add_count += 1
+    should_add = eligible_add_count % add_interval_weeks == 0 and pos_size < max_contracts
+    if should_add
+        qty = math.min(f_ladder_qty(scale_event_count), max_contracts - pos_size)
+        if qty > 0
+            strategy.entry("L", strategy.long, qty=qty, comment="Friday ladder add",
+                 alert_message=f_msg("entry", "friday_1550_ladder_add", qty))
+            scale_event_count += 1
+
+// === Exits =============================================================
+guard_exit = long_open and use_entry_guard and sig_up and not na(entry_guard) and guard_can_act and guard_after_entry_day and guard_reference_close < entry_guard
+weekly_flat_exit = long_open and signal_tf_choice == "Daily" and daily_use_weekly_flat and weekly_down
+primary_bear_exit = long_open and primary_flip_down
+
+if weekly_flat_exit
+    strategy.close_all(comment="Weekly bearish exit", alert_message=f_msg("exit", "weekly_bearish", pos_size))
+    guard_paused := false
+    entry_guard := na
+    entry_day_time := na
+    guard_pause_day_time := na
+else if primary_bear_exit
+    strategy.close_all(comment="Primary bearish exit", alert_message=f_msg("exit", "primary_bearish", pos_size))
+    guard_paused := false
+    entry_guard := na
+    entry_day_time := na
+    guard_pause_day_time := na
+else if guard_exit
+    strategy.close_all(comment="Initial entry guard", alert_message=f_msg("exit", "initial_entry_guard", pos_size))
+    guard_paused := true
+    guard_pause_day_time := time("D")
+
+if flat and sig_down and guard_can_act
+    guard_paused := false
+    entry_guard := na
+    entry_day_time := na
+    guard_pause_day_time := na
+
+// === Plots =============================================================
+plot(show_stops and daily_dir < 0 ? daily_stop : na, "Daily ATR up stop", color=color.aqua, linewidth=1)
+plot(show_stops and daily_dir > 0 ? daily_stop : na, "Daily ATR down stop", color=color.orange, linewidth=1)
+plot(show_stops and weekly_dir < 0 ? weekly_stop : na, "Weekly ATR up stop", color=color.lime, linewidth=2, style=plot.style_linebr)
+plot(show_stops and weekly_dir > 0 ? weekly_stop : na, "Weekly ATR down stop", color=color.red, linewidth=2, style=plot.style_linebr)
+plot(show_stops and not na(entry_guard) ? entry_guard : na, "Initial entry guard", color=color.yellow, linewidth=1, style=plot.style_linebr)
+plotshape(show_add_markers and long_open and add_trigger, "Friday add check", style=shape.circle,
+     location=location.belowbar, color=color.new(color.blue, 0), size=size.tiny, text="add?")
+plotshape(show_add_markers and add_due, "Friday add due", style=shape.triangleup,
+     location=location.belowbar, color=color.new(color.lime, 0), size=size.tiny, text="add")
+
+if show_labels and barstate.islast
+    var label state_label = na
+    label.delete(state_label)
+    txt = "ATR DCA ladder112221\nSignal: " + signal_tf_choice +
+      "\nPrimary: " + (sig_up ? "Bullish" : sig_down ? "Bearish" : "n/a") +
+      "\nWeekly: " + (weekly_up ? "Bullish" : weekly_down ? "Bearish" : "n/a") +
+      "\nGuard: " + (na(entry_guard) ? "n/a" : str.tostring(entry_guard, format.mintick)) +
+      "\nGuard eval: " + guard_eval +
+      "\nPaused: " + str.tostring(guard_paused) +
+      "\nAdd schedule: " + add_schedule +
+      "\nAdd trigger: " + (add_trigger ? "yes" : "no") +
+      "\nEligible add count: " + str.tostring(eligible_add_count) +
+      "\nScale event count: " + str.tostring(scale_event_count)
+    state_label := label.new(bar_index, high, txt, style=label.style_label_down,
+         textcolor=color.white, color=color.new(color.black, 15))

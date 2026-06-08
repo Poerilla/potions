@@ -1,0 +1,28 @@
+// =============================================================================
+//  Weekly ATR Supertrend overlay (indicator only)
+// =============================================================================
+//  Use on the **same daily chart** as ``yearly_orb_scaleout3_range_close.pine``.
+//  Keeps ``request.security`` out of the strategy so Strategy Tester does not
+//  flag generic look-ahead cautions for HTF pulls.
+//
+//  Causal: ``lookahead=barmerge.lookahead_off`` (completed HTF bars only).
+//@version=5
+indicator("YORB — Weekly ST overlay", overlay=true, max_lines_count=500, max_labels_count=500)
+
+grp = "Weekly Supertrend"
+wk_len = input.int(14, "ATR length", group=grp, minval=1)
+wk_mult = input.float(3.0, "Factor", group=grp, minval=0.1, step=0.1)
+
+[wk_st, wk_dir] = request.security(
+     syminfo.tickerid,
+     "W",
+     ta.supertrend(wk_mult, wk_len),
+     gaps=barmerge.gaps_off,
+     lookahead=barmerge.lookahead_off)
+
+plot(
+     wk_st,
+     "Weekly ST",
+     color=wk_dir == 1 ? color.new(#00BCD4, 5) : color.new(#FF9800, 5),
+     linewidth=2,
+     style=plot.style_linebr)

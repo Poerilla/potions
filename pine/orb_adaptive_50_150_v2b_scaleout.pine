@@ -1,0 +1,293 @@
+// =============================================================================
+//  MNQ ORB - Adaptive 50/150 v2b-only scaleout
+// =============================================================================
+//  Current research leader from the MNQ study track.
+//
+//  Causal regime gate:
+//     Prior daily SMA50 > prior daily SMA150 -> trade v2b breakout
+//     Prior daily SMA50 <= prior daily SMA150 -> skip the day
+//
+//  v2b scaleout leg:
+//     At 09:45 ET, place OCO stop pairs:
+//        L1 + L2 BUY STOP  @ Range_High + 1 tick
+//        S1 + S2 SELL STOP @ Range_Low  - 1 tick
+//     Initial stop = opposite opening-range boundary.
+//     L1/S1 exits at TP1 = RH + Range / RL - Range.
+//     L2/S2 runner exits at TP2 = RH + 2*Range / RL - 2*Range.
+//     After TP1 fills, runner stop moves to entry.
+//
+//  Bracket-then-reverse:
+//     Max one Long campaign and one Short campaign per day. After the first
+//     full campaign closes, only the opposite side may arm.
+//
+//  TradingView slippage:
+//     Pine requires default slippage in strategy(). It is set to 1 tick here
+//     to match the existing Pine scripts. Adjust it in Strategy Properties
+//     for backtest/paper slippage tests.
+//
+//  Use 1-minute chart timeframe for closest parity with Python.
+// =============================================================================
+//@version=5
+strategy("MNQ ORB Adaptive 50/150 v2b-only Scaleout", overlay=true,
+     default_qty_type=strategy.fixed, default_qty_value=1,
+     initial_capital=15000,
+     commission_type=strategy.commission.cash_per_contract,
+     commission_value=0.75,           // per side ($1.50 round-turn)
+     slippage=1,                      // default: 1 tick; adjust in Strategy Properties
+     pyramiding=2,
+     currency=currency.USD,
+     calc_on_every_tick=false,
+     calc_on_order_fills=true,
+     process_orders_on_close=false)
+
+// === Inputs ============================================================
+sess_tz       = "America/New_York"
+
+grpRange      = "Opening Range"
+rs_h          = input.int(9,  "Range start hour", group=grpRange, minval=0, maxval=23)
+rs_m          = input.int(30, "Range start min",  group=grpRange, minval=0, maxval=59)
+re_h          = input.int(9,  "Range end hour",   group=grpRange, minval=0, maxval=23)
+re_m          = input.int(45, "Range end min",    group=grpRange, minval=0, maxval=59)
+
+grpSession    = "Session"
+eod_h         = input.int(15, "Force-close hour", group=grpSession, minval=0, maxval=23)
+eod_m         = input.int(59, "Force-close min",  group=grpSession, minval=0, maxval=59)
+
+grpEntry      = "Entry / Risk"
+trigger_buf   = input.int(1, "Trigger ticks beyond range", group=grpEntry, minval=0,
+                           tooltip="Buy-stop at RH + N ticks, sell-stop at RL - N ticks.")
+tp1_R         = input.float(1.0, "TP1 range multiple", group=grpEntry, minval=0.25, step=0.25)
+tp2_R         = input.float(2.0, "TP2 range multiple", group=grpEntry, minval=0.50, step=0.25)
+
+grpRegime     = "Regime Indicator"
+ma_fast_len   = input.int(50,  "Fast MA length (days)", group=grpRegime, minval=1)
+ma_slow_len   = input.int(150, "Slow MA length (days)", group=grpRegime, minval=1)
+
+grpDisplay    = "Display"
+show_levels   = input.bool(true, "Plot range/target/stop lines", group=grpDisplay)
+show_regime   = input.bool(true, "Show regime label", group=grpDisplay)
+
+tick          = syminfo.mintick
+
+// === Daily MA regime indicator =======================================
+// The [1] inside request.security makes the value prior-day only.
+ma_fast = request.security(syminfo.tickerid, "D",
+              ta.sma(close, ma_fast_len)[1],
+              lookahead=barmerge.lookahead_off)
+ma_slow = request.security(syminfo.tickerid, "D",
+              ta.sma(close, ma_slow_len)[1],
+              lookahead=barmerge.lookahead_off)
+
+regime_v2b = not na(ma_fast) and not na(ma_slow) and ma_fast > ma_slow
+
+// === Time helpers ======================================================
+sod = (hour(time, sess_tz) * 60 + minute(time, sess_tz)) * 60 + second(time, sess_tz)
+rs  = (rs_h  * 60 + rs_m)  * 60
+re_ = (re_h  * 60 + re_m)  * 60
+eod = (eod_h * 60 + eod_m) * 60
+
+in_range    = sod >= rs and sod < re_
+after_range = sod >= re_ and sod < eod
+is_eod      = sod >= eod
+new_session = ta.change(dayofmonth(time, sess_tz)) != 0
+
+// === Session state =====================================================
+var float rh = na
+var float rl = na
+
+var bool tradedLong = false
+var bool tradedShort = false
+var bool armed = false
+var bool regime_v2b_today = false
+
+var bool long_tp1_hit = false
+var bool short_tp1_hit = false
+
+var float long_entry = na
+var float long_stop = na
+var float long_tp1 = na
+var float long_tp2 = na
+
+var float short_entry = na
+var float short_stop = na
+var float short_tp1 = na
+var float short_tp2 = na
+
+if new_session
+    rh := na
+    rl := na
+    tradedLong := false
+    tradedShort := false
+    armed := false
+    long_tp1_hit := false
+    short_tp1_hit := false
+    long_entry := na
+    long_stop := na
+    long_tp1 := na
+    long_tp2 := na
+    short_entry := na
+    short_stop := na
+    short_tp1 := na
+    short_tp2 := na
+    regime_v2b_today := regime_v2b
+
+if in_range
+    rh := na(rh) ? high : math.max(rh, high)
+    rl := na(rl) ? low : math.min(rl, low)
+
+// === Closed-trade state updates =======================================
+trade_just_closed = strategy.closedtrades > nz(strategy.closedtrades[1], 0)
+if trade_just_closed
+    last_idx = strategy.closedtrades - 1
+    last_id = strategy.closedtrades.entry_id(last_idx)
+    last_px = strategy.closedtrades.exit_price(last_idx)
+    if last_id == "L1" and not na(long_tp1) and last_px >= long_tp1 - tick * 0.5
+        long_tp1_hit := true
+    if last_id == "S1" and not na(short_tp1) and last_px <= short_tp1 + tick * 0.5
+        short_tp1_hit := true
+
+new_long = strategy.position_size > 0 and nz(strategy.position_size[1], 0) == 0
+new_short = strategy.position_size < 0 and nz(strategy.position_size[1], 0) == 0
+flat_now = strategy.position_size == 0 and nz(strategy.position_size[1], 0) != 0
+
+if new_long
+    tradedLong := true
+    strategy.cancel("S1")
+    strategy.cancel("S2")
+
+if new_short
+    tradedShort := true
+    strategy.cancel("L1")
+    strategy.cancel("L2")
+
+if flat_now
+    armed := false
+    long_tp1_hit := false
+    short_tp1_hit := false
+
+// === Arm v2b-only OCO scaleout ========================================
+can_trade_today = regime_v2b_today
+range_ready = not na(rh) and not na(rl) and (rh - rl) > 0
+need_arm = can_trade_today
+       and after_range
+       and not is_eod
+       and not armed
+       and strategy.position_size == 0
+       and range_ready
+       and not (tradedLong and tradedShort)
+
+if need_arm
+    rv = rh - rl
+    long_entry := rh + trigger_buf * tick
+    long_stop := rl
+    long_tp1 := rh + rv * tp1_R
+    long_tp2 := rh + rv * tp2_R
+    short_entry := rl - trigger_buf * tick
+    short_stop := rh
+    short_tp1 := rl - rv * tp1_R
+    short_tp2 := rl - rv * tp2_R
+    long_tp1_hit := false
+    short_tp1_hit := false
+
+    if not tradedLong
+        strategy.entry("L1", strategy.long, qty=1, stop=long_entry,
+             oca_name="orb_entry_1", oca_type=strategy.oca.cancel, comment="v2b L1")
+        strategy.entry("L2", strategy.long, qty=1, stop=long_entry,
+             oca_name="orb_entry_2", oca_type=strategy.oca.cancel, comment="v2b L2")
+        strategy.exit("L1X", from_entry="L1", stop=long_stop, limit=long_tp1, comment="L1 TP1/SL")
+        strategy.exit("L2X", from_entry="L2", stop=long_stop, limit=long_tp2, comment="L2 TP2/SL")
+
+    if not tradedShort
+        strategy.entry("S1", strategy.short, qty=1, stop=short_entry,
+             oca_name="orb_entry_1", oca_type=strategy.oca.cancel, comment="v2b S1")
+        strategy.entry("S2", strategy.short, qty=1, stop=short_entry,
+             oca_name="orb_entry_2", oca_type=strategy.oca.cancel, comment="v2b S2")
+        strategy.exit("S1X", from_entry="S1", stop=short_stop, limit=short_tp1, comment="S1 TP1/SL")
+        strategy.exit("S2X", from_entry="S2", stop=short_stop, limit=short_tp2, comment="S2 TP2/SL")
+
+    armed := true
+
+// Keep runner exits updated. After TP1, runner stop moves to entry.
+if not na(long_tp2)
+    strategy.exit("L2X", from_entry="L2",
+         stop=long_tp1_hit ? long_entry : long_stop,
+         limit=long_tp2,
+         comment=long_tp1_hit ? "L2 TP2/BE" : "L2 TP2/SL")
+
+if not na(short_tp2)
+    strategy.exit("S2X", from_entry="S2",
+         stop=short_tp1_hit ? short_entry : short_stop,
+         limit=short_tp2,
+         comment=short_tp1_hit ? "S2 TP2/BE" : "S2 TP2/SL")
+
+// OCO cleanup after fills.
+if strategy.position_size > 0
+    strategy.cancel("S1")
+    strategy.cancel("S2")
+else if strategy.position_size < 0
+    strategy.cancel("L1")
+    strategy.cancel("L2")
+
+// === EOD force-close ==================================================
+if is_eod and strategy.position_size != 0
+    strategy.close_all(comment="EOD")
+
+if is_eod
+    strategy.cancel("L1")
+    strategy.cancel("L2")
+    strategy.cancel("S1")
+    strategy.cancel("S2")
+    armed := false
+
+// === Visuals ==========================================================
+plot(show_levels and (in_range or after_range) ? rh : na,
+     "Range High", color=color.new(color.lime, 0), linewidth=1, style=plot.style_linebr)
+plot(show_levels and (in_range or after_range) ? rl : na,
+     "Range Low", color=color.new(color.red, 0), linewidth=1, style=plot.style_linebr)
+
+plot(show_levels and after_range and can_trade_today and not na(long_tp1) ? long_tp1 : na,
+     "Long TP1", color=color.new(color.aqua, 40), linewidth=1, style=plot.style_circles)
+plot(show_levels and after_range and can_trade_today and not na(long_tp2) ? long_tp2 : na,
+     "Long TP2", color=color.new(color.aqua, 0), linewidth=1, style=plot.style_circles)
+plot(show_levels and after_range and can_trade_today and not na(short_tp1) ? short_tp1 : na,
+     "Short TP1", color=color.new(color.fuchsia, 40), linewidth=1, style=plot.style_circles)
+plot(show_levels and after_range and can_trade_today and not na(short_tp2) ? short_tp2 : na,
+     "Short TP2", color=color.new(color.fuchsia, 0), linewidth=1, style=plot.style_circles)
+
+float runner_stop_plot = na
+if strategy.position_size > 0 and long_tp1_hit
+    runner_stop_plot := long_entry
+else if strategy.position_size < 0 and short_tp1_hit
+    runner_stop_plot := short_entry
+plot(show_levels ? runner_stop_plot : na,
+     "Runner Stop", color=color.new(color.yellow, 0), linewidth=2, style=plot.style_linebr)
+
+bgcolor(in_range ? color.new(color.blue, 90) : na, title="Opening Range")
+bgcolor(after_range and not can_trade_today ? color.new(color.orange, 92) : na, title="Regime skip")
+bgcolor(is_eod ? color.new(color.gray, 90) : na, title="EOD Window")
+
+if show_regime and barstate.islast
+    var label rgl = na
+    label.delete(rgl)
+    txt = can_trade_today ? "REGIME: v2b SCALEOUT (50>150)" : "REGIME: SKIP (50<=150)"
+    rgl := label.new(bar_index, high, txt,
+         style=label.style_label_down,
+         color=can_trade_today ? color.green : color.orange,
+         textcolor=color.white,
+         size=size.normal)
+
+// =============================================================================
+// LIVE / PAPER SETUP NOTES
+// =============================================================================
+//   Symbol:     MNQ1! or active Tradovate MNQ contract
+//   Timeframe:  1 minute
+//   Broker:     Tradovate paper/live through TradingView
+//   Slippage:   Strategy Properties -> Slippage. Script default is 1 tick.
+//   Orders:     stop-market entries; bracket exits through strategy.exit.
+//
+//   Validate in TradingView Strategy Tester first, then paper trade. Compare
+//   trade dates, directions, entry prices, TP1, runner exits, and regime state
+//   against:
+//     potions/mnq/v2d/README_adaptive_50_150_scaleout.md
+//     potions/mnq/case_studies/monthly_orb/ADAPTIVE_SCALEOUT_MONTHLY_BIAS_RESIM.md
+// =============================================================================
