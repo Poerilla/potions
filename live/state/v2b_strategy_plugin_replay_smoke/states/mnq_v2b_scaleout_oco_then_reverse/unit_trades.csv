@@ -1,0 +1,15 @@
+candidate,trade_id,unit_id,direction,entry_ts,entry_price,exit_ts,exit_price,exit_reason,net_usd
+mnq_v2b_scaleout_oco_then_reverse,mnq_v2b_scaleout_oco_then_reverse_20210304_01,1,Short,2021-03-04T09:47:00-05:00,12649.25,2021-03-04T10:07:00-05:00,12534.00,tp1,229.00
+mnq_v2b_scaleout_oco_then_reverse,mnq_v2b_scaleout_oco_then_reverse_20210304_01,2,Short,2021-03-04T09:47:00-05:00,12649.25,2021-03-04T10:35:00-05:00,12649.25,runner_stop,-1.50
+mnq_v2b_scaleout_oco_then_reverse,mnq_v2b_scaleout_oco_then_reverse_20210304_02,3,Long,2021-03-04T11:02:00-05:00,12765.25,2021-03-04T12:21:00-05:00,12649.50,wide_stop,-233.00
+mnq_v2b_scaleout_oco_then_reverse,mnq_v2b_scaleout_oco_then_reverse_20210304_02,4,Long,2021-03-04T11:02:00-05:00,12765.25,2021-03-04T12:21:00-05:00,12649.50,wide_stop,-233.00
+mnq_v2b_scaleout_oco_then_reverse,mnq_v2b_scaleout_oco_then_reverse_20210305_01,5,Short,2021-03-05T09:49:00-05:00,12446.00,2021-03-05T11:12:00-05:00,12286.50,tp1,317.50
+mnq_v2b_scaleout_oco_then_reverse,mnq_v2b_scaleout_oco_then_reverse_20210305_01,6,Short,2021-03-05T09:49:00-05:00,12446.00,2021-03-05T12:28:00-05:00,12446.00,runner_stop,-1.50
+mnq_v2b_scaleout_oco_then_reverse,mnq_v2b_scaleout_oco_then_reverse_20210305_02,7,Long,2021-03-05T13:37:00-05:00,12606.25,2021-03-05T15:59:00-05:00,12661.50,eod_close,109.00
+mnq_v2b_scaleout_oco_then_reverse,mnq_v2b_scaleout_oco_then_reverse_20210305_02,8,Long,2021-03-05T13:37:00-05:00,12606.25,2021-03-05T15:59:00-05:00,12661.50,eod_close,109.00
+mnq_v2b_scaleout_oco_then_reverse,mnq_v2b_scaleout_oco_then_reverse_20210308_01,10,Long,2021-03-08T09:45:00-05:00,12686.25,2021-03-08T11:50:00-05:00,12526.50,wide_stop,-321.00
+mnq_v2b_scaleout_oco_then_reverse,mnq_v2b_scaleout_oco_then_reverse_20210308_01,9,Long,2021-03-08T09:45:00-05:00,12686.25,2021-03-08T11:50:00-05:00,12526.50,wide_stop,-321.00
+mnq_v2b_scaleout_oco_then_reverse,mnq_v2b_scaleout_oco_then_reverse_20210308_02,11,Short,2021-03-08T11:51:00-05:00,12526.25,2021-03-08T15:05:00-05:00,12367.00,tp1,317.00
+mnq_v2b_scaleout_oco_then_reverse,mnq_v2b_scaleout_oco_then_reverse_20210308_02,12,Short,2021-03-08T11:51:00-05:00,12526.25,2021-03-08T15:59:00-05:00,12300.50,eod_close,450.00
+mnq_v2b_scaleout_oco_then_reverse,mnq_v2b_scaleout_oco_then_reverse_20210309_01,13,Long,2021-03-09T09:49:00-05:00,12652.50,2021-03-09T10:01:00-05:00,12717.50,tp1,128.50
+mnq_v2b_scaleout_oco_then_reverse,mnq_v2b_scaleout_oco_then_reverse_20210309_01,14,Long,2021-03-09T09:49:00-05:00,12652.50,2021-03-09T12:12:00-05:00,12782.75,tp2,259.00

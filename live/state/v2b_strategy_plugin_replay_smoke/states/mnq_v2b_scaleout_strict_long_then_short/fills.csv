@@ -1,0 +1,16 @@
+fill_id,broker_order_id,intent_id,strategy_id,trade_id,instrument,account_mode,side,quantity,price,ts,reason
+fill_92681231ee6e,ord_18ba0859a5e3,intent_94fd5be4f50f,mnq_v2b_scaleout_strict_long_then_short,mnq_v2b_scaleout_strict_long_then_short_20210304_01,MNQ,paper,buy,2,12765.25,2021-03-04T11:02:00-05:00,entry
+fill_b625e4043180,ord_ab7eb4b60cef,intent_0d10dfb2ee28,mnq_v2b_scaleout_strict_long_then_short,mnq_v2b_scaleout_strict_long_then_short_20210304_01,MNQ,paper,sell,2,12649.5,2021-03-04T12:21:00-05:00,wide_stop
+fill_da5a738c7a8e,ord_c29e9d3106c6,intent_f309a8df08e5,mnq_v2b_scaleout_strict_long_then_short,mnq_v2b_scaleout_strict_long_then_short_20210304_02,MNQ,paper,sell,2,12649.25,2021-03-04T12:22:00-05:00,entry
+fill_23dff1368438,ord_8d1abd9306a4,intent_3e7e00dc2401,mnq_v2b_scaleout_strict_long_then_short,mnq_v2b_scaleout_strict_long_then_short_20210304_02,MNQ,paper,buy,1,12534.0,2021-03-04T12:35:00-05:00,tp1
+fill_0c38c3dfbaee,ord_5f080abd902d,intent_378597c58bf6,mnq_v2b_scaleout_strict_long_then_short,mnq_v2b_scaleout_strict_long_then_short_20210304_02,MNQ,paper,buy,1,12418.5,2021-03-04T13:15:00-05:00,tp2
+fill_b0ef34e261a5,ord_1db74895f672,intent_6ed941846b6f,mnq_v2b_scaleout_strict_long_then_short,mnq_v2b_scaleout_strict_long_then_short_20210305_01,MNQ,paper,buy,2,12606.25,2021-03-05T13:37:00-05:00,entry
+fill_0ad5ec094d60,ord_44df85a82a94,intent_e1a0a73ba1bf,mnq_v2b_scaleout_strict_long_then_short,mnq_v2b_scaleout_strict_long_then_short_20210305_01,MNQ,paper,sell,2,12661.5,2021-03-05T15:59:00-05:00,eod_close
+fill_a78d3ab218d2,ord_594697dfa110,intent_075d7c985d94,mnq_v2b_scaleout_strict_long_then_short,mnq_v2b_scaleout_strict_long_then_short_20210308_01,MNQ,paper,buy,2,12686.25,2021-03-08T09:45:00-05:00,entry
+fill_a4019a062e3c,ord_786f0d4f7a9d,intent_29b83d7918c7,mnq_v2b_scaleout_strict_long_then_short,mnq_v2b_scaleout_strict_long_then_short_20210308_01,MNQ,paper,sell,2,12526.5,2021-03-08T11:50:00-05:00,wide_stop
+fill_9ca714c6976e,ord_4f1bb89df1f8,intent_c9009e8597ae,mnq_v2b_scaleout_strict_long_then_short,mnq_v2b_scaleout_strict_long_then_short_20210308_02,MNQ,paper,sell,2,12526.25,2021-03-08T11:51:00-05:00,entry
+fill_2e2ef8642f1d,ord_4e340c926c75,intent_79a348c84ec7,mnq_v2b_scaleout_strict_long_then_short,mnq_v2b_scaleout_strict_long_then_short_20210308_02,MNQ,paper,buy,1,12367.0,2021-03-08T15:05:00-05:00,tp1
+fill_04bb1c139ae5,ord_d9b276a78f59,intent_16adbdf6fc9f,mnq_v2b_scaleout_strict_long_then_short,mnq_v2b_scaleout_strict_long_then_short_20210308_02,MNQ,paper,buy,1,12300.5,2021-03-08T15:59:00-05:00,eod_close
+fill_4b70772f6a9e,ord_3a7a5858a3cb,intent_cca83821cf23,mnq_v2b_scaleout_strict_long_then_short,mnq_v2b_scaleout_strict_long_then_short_20210309_01,MNQ,paper,buy,2,12652.5,2021-03-09T09:49:00-05:00,entry
+fill_4be814aa3a1d,ord_e38ac9eda218,intent_7a816e592966,mnq_v2b_scaleout_strict_long_then_short,mnq_v2b_scaleout_strict_long_then_short_20210309_01,MNQ,paper,sell,1,12717.5,2021-03-09T10:01:00-05:00,tp1
+fill_c466513e8ee3,ord_35dd1e839b0d,intent_04eebc828cb2,mnq_v2b_scaleout_strict_long_then_short,mnq_v2b_scaleout_strict_long_then_short_20210309_01,MNQ,paper,sell,1,12782.75,2021-03-09T12:12:00-05:00,tp2

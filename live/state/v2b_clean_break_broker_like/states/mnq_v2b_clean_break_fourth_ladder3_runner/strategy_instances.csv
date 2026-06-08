@@ -1,0 +1,2 @@
+strategy_id,strategy_type,version,instrument,broker_instrument,account_mode,enabled,timeframes,max_contracts,max_open_orders,config_json
+mnq_v2b_clean_break_fourth_ladder3_runner,v2b_clean_break,v1,MNQ,MNQ,paper,true,5m,3,16,"{""entry_offset_ticks"": 2, ""entry_qty"": 3, ""market"": ""mnq"", ""record_levels"": false, ""required_break_num"": 1, ""size_model"": ""ladder3_runner"", ""stop_mode"": ""boundary"", ""variant"": ""fourth_ladder3_runner""}"

@@ -1,0 +1,16 @@
+candidate,trade_id,unit_id,direction,entry_ts,entry_price,exit_ts,exit_price,exit_reason,net_usd
+mnq_v2b_clean_break_bullish_2r_rl_stop,mnq_v2b_clean_break_bullish_2r_rl_stop_20210308_01,1,Long,2021-03-08T09:45:00-05:00,12686.50,2021-03-08T09:45:00-05:00,12618.75,failed_clean_close,-137.00
+mnq_v2b_clean_break_bullish_2r_rl_stop,mnq_v2b_clean_break_bullish_2r_rl_stop_20210309_01,2,Long,2021-03-09T09:45:00-05:00,12652.75,2021-03-09T12:10:00-05:00,12783.25,target,259.50
+mnq_v2b_clean_break_bullish_2r_rl_stop,mnq_v2b_clean_break_bullish_2r_rl_stop_20210310_01,3,Long,2021-03-10T09:50:00-05:00,12969.75,2021-03-10T09:50:00-05:00,12968.75,failed_clean_close,-3.50
+mnq_v2b_clean_break_bullish_2r_rl_stop,mnq_v2b_clean_break_bullish_2r_rl_stop_20210312_01,4,Long,2021-03-12T09:50:00-05:00,12865.75,2021-03-12T10:25:00-05:00,12789.00,stop,-155.00
+mnq_v2b_clean_break_bullish_2r_rl_stop,mnq_v2b_clean_break_bullish_2r_rl_stop_20210315_01,5,Long,2021-03-15T09:50:00-04:00,12942.00,2021-03-15T11:30:00-04:00,12887.50,stop,-110.50
+mnq_v2b_clean_break_bullish_2r_rl_stop,mnq_v2b_clean_break_bullish_2r_rl_stop_20210316_01,6,Long,2021-03-16T09:45:00-04:00,13190.50,2021-03-16T14:25:00-04:00,13132.25,stop,-118.00
+mnq_v2b_clean_break_bullish_2r_rl_stop,mnq_v2b_clean_break_bullish_2r_rl_stop_20210317_01,7,Long,2021-03-17T09:45:00-04:00,13016.25,2021-03-17T14:40:00-04:00,13179.25,target,324.50
+mnq_v2b_clean_break_bullish_2r_rl_stop,mnq_v2b_clean_break_bullish_2r_rl_stop_20210322_01,8,Long,2021-03-22T09:50:00-04:00,12993.00,2021-03-22T12:20:00-04:00,13122.50,target,257.50
+mnq_v2b_clean_break_bullish_2r_rl_stop,mnq_v2b_clean_break_bullish_2r_rl_stop_20210325_01,9,Long,2021-03-25T10:00:00-04:00,12803.50,2021-03-25T10:45:00-04:00,12688.25,stop,-232.00
+mnq_v2b_clean_break_bullish_2r_rl_stop,mnq_v2b_clean_break_bullish_2r_rl_stop_20210326_01,10,Long,2021-03-26T09:45:00-04:00,12821.25,2021-03-26T14:05:00-04:00,12754.00,stop,-136.00
+mnq_v2b_clean_break_bullish_2r_rl_stop,mnq_v2b_clean_break_bullish_2r_rl_stop_20210331_01,11,Long,2021-03-31T09:45:00-04:00,13016.00,2021-03-31T12:30:00-04:00,13141.00,target,248.50
+mnq_v2b_clean_break_bullish_2r_rl_stop,mnq_v2b_clean_break_bullish_2r_rl_stop_20210401_01,12,Long,2021-04-01T09:45:00-04:00,13294.50,2021-04-01T09:45:00-04:00,13282.75,failed_clean_close,-25.00
+mnq_v2b_clean_break_bullish_2r_rl_stop,mnq_v2b_clean_break_bullish_2r_rl_stop_20210405_01,13,Long,2021-04-05T09:45:00-04:00,13446.50,2021-04-05T10:30:00-04:00,13520.00,target,145.50
+mnq_v2b_clean_break_bullish_2r_rl_stop,mnq_v2b_clean_break_bullish_2r_rl_stop_20210406_01,14,Long,2021-04-06T09:45:00-04:00,13586.50,2021-04-06T09:45:00-04:00,13570.75,failed_clean_close,-33.00
+mnq_v2b_clean_break_bullish_2r_rl_stop,mnq_v2b_clean_break_bullish_2r_rl_stop_20210407_01,15,Long,2021-04-07T09:45:00-04:00,13561.00,2021-04-07T15:55:00-04:00,13604.50,eod_close,85.50

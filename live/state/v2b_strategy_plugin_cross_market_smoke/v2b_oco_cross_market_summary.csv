@@ -1,0 +1,3 @@
+market,instrument,strategy_id,state_root,regime_days,units,trades,net_usd,closed_dd_usd,intrabar_stress_dd_usd,max_open_units,win_rate_pct,profit_factor,net_over_stress_dd
+mym,MYM,mym_v2b_scaleout_oco_then_reverse,potions/live/state/v2b_strategy_plugin_cross_market_smoke/states/mym_v2b_scaleout_oco_then_reverse,5,14,7,495.88,-582.50,-588.50,2,64.29,2.494,0.84
+nq,NQ,nq_v2b_scaleout_oco_then_reverse,potions/live/state/v2b_strategy_plugin_cross_market_smoke/states/nq_v2b_scaleout_oco_then_reverse,5,14,7,8309.00,-11077.50,-11377.50,2,57.14,1.755,0.73

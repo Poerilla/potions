@@ -1,0 +1,11 @@
+candidate,trade_id,unit_id,direction,entry_ts,entry_price,exit_ts,exit_price,exit_reason,net_usd
+mnq_v2b_clean_break_fourth_boundary_2r,mnq_v2b_clean_break_fourth_boundary_2r_20210308_01,1,Long,2021-03-08T09:45:00-05:00,12686.50,2021-03-08T09:45:00-05:00,12618.75,failed_clean_close,-137.00
+mnq_v2b_clean_break_fourth_boundary_2r,mnq_v2b_clean_break_fourth_boundary_2r_20210309_01,2,Long,2021-03-09T09:45:00-05:00,12652.75,2021-03-09T09:50:00-05:00,12652.25,boundary_stop,-2.50
+mnq_v2b_clean_break_fourth_boundary_2r,mnq_v2b_clean_break_fourth_boundary_2r_20210316_01,3,Long,2021-03-16T09:45:00-04:00,13190.50,2021-03-16T12:20:00-04:00,13190.00,boundary_stop,-2.50
+mnq_v2b_clean_break_fourth_boundary_2r,mnq_v2b_clean_break_fourth_boundary_2r_20210317_01,4,Long,2021-03-17T09:45:00-04:00,13016.25,2021-03-17T09:50:00-04:00,13015.75,boundary_stop,-2.50
+mnq_v2b_clean_break_fourth_boundary_2r,mnq_v2b_clean_break_fourth_boundary_2r_20210326_01,5,Long,2021-03-26T09:45:00-04:00,12821.25,2021-03-26T09:50:00-04:00,12820.75,boundary_stop,-2.50
+mnq_v2b_clean_break_fourth_boundary_2r,mnq_v2b_clean_break_fourth_boundary_2r_20210331_01,6,Long,2021-03-31T09:45:00-04:00,13016.00,2021-03-31T12:30:00-04:00,13141.00,target,248.50
+mnq_v2b_clean_break_fourth_boundary_2r,mnq_v2b_clean_break_fourth_boundary_2r_20210401_01,7,Long,2021-04-01T09:45:00-04:00,13294.50,2021-04-01T09:45:00-04:00,13282.75,failed_clean_close,-25.00
+mnq_v2b_clean_break_fourth_boundary_2r,mnq_v2b_clean_break_fourth_boundary_2r_20210405_01,8,Long,2021-04-05T09:45:00-04:00,13446.50,2021-04-05T10:30:00-04:00,13520.00,target,145.50
+mnq_v2b_clean_break_fourth_boundary_2r,mnq_v2b_clean_break_fourth_boundary_2r_20210406_01,9,Long,2021-04-06T09:45:00-04:00,13586.50,2021-04-06T09:45:00-04:00,13570.75,failed_clean_close,-33.00
+mnq_v2b_clean_break_fourth_boundary_2r,mnq_v2b_clean_break_fourth_boundary_2r_20210407_01,10,Long,2021-04-07T09:45:00-04:00,13561.00,2021-04-07T12:30:00-04:00,13560.50,boundary_stop,-2.50
