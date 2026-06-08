@@ -1,0 +1,4 @@
+market,winning_trades,avg_mae_dd_pts,median_mae_dd_pts,p90_mae_dd_pts,max_mae_dd_pts,avg_profit_pts,csv
+NQ,175,20.298571428571428,18.75,41.074999999999996,48.875,126.86714285714285,audits/nq_weekly_mid_ma500_bias/winning_trade_mae_dd_pts.csv
+YM,140,24.00357142857143,22.0,45.050000000000004,49.0,233.22857142857143,audits/ym_weekly_mid_ma500_bias/winning_trade_mae_dd_pts.csv
+MNQ,69,22.115942028985508,20.25,43.9,49.5,225.15398550724638,audits/mnq_weekly_mid_ma500_bias/winning_trade_mae_dd_pts.csv

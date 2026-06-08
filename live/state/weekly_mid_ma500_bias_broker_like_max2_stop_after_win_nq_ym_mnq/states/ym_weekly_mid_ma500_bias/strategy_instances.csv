@@ -1,0 +1,2 @@
+strategy_id,strategy_type,version,instrument,broker_instrument,account_mode,enabled,timeframes,max_contracts,max_open_orders,config_json
+ym_weekly_mid_ma500_bias,weekly_mid_ma500_bias,v1,YM,YM,paper,true,15m,1,12,"{""entry_qty"": 1, ""ma_window"": 500, ""max_trades_per_week"": 2, ""record_levels"": false, ""risk_pts"": 50.0, ""stop_after_weekly_win"": true, ""target_pts"": 300.0}"

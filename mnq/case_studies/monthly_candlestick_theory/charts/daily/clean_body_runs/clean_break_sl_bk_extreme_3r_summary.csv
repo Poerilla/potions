@@ -1,0 +1,4 @@
+direction,tp_mult,sl_type,active_setups,resolved,open_eom,tp,sl,hit_rate_pct,avg_risk_pts,avg_rr_ratio,avg_mae_pts,avg_mae_r_risk,avg_mae_r_base,max_mae_pts,avg_days_tp,avg_days_sl,total_pnl_pts,max_dd_pts
+bullish,3.0,breakout_candle_extreme,28,26,2,13,13,50.0,194.88,4.367,169.18,0.935,1.326,839.5,2.8,6.4,774.25,-1481.25
+bearish,3.0,breakout_candle_extreme,7,6,1,4,2,66.67,421.17,2.536,218.79,0.862,1.012,423.0,3.5,3.0,2819.25,-180.75
+all,3.0,breakout_candle_extreme,35,32,3,17,15,53.12,237.31,4.024,178.48,0.921,1.267,839.5,2.9,5.9,3593.5,-1108.0
