@@ -1,0 +1,33 @@
+Loading hourly bars once...
+Loading DBN /home/tester/hsm/potions/ym/raw/glbx-mdp3-20100606-20260506.ohlcv-1m.dbn.zst (YM) ...
+  4,943 NY dates with bars
+  94,906 hourly bars
+Running 18 variants in one combined Engine replay...
+  combined replayed 10000/94906 bars
+  combined replayed 20000/94906 bars
+  combined replayed 30000/94906 bars
+  combined replayed 40000/94906 bars
+  combined replayed 50000/94906 bars
+  combined replayed 60000/94906 bars
+  combined replayed 70000/94906 bars
+  combined replayed 80000/94906 bars
+  combined replayed 90000/94906 bars
+  base_1x_50sl_150tp Net=$1,046,705.86 Stress=$-292,980.00 Net/Stress=3.57
+  ma_directional_current Net=$1,046,705.86 Stress=$-292,980.00 Net/Stress=3.57
+  ma_directional_prior Net=$1,046,705.86 Stress=$-292,980.00 Net/Stress=3.57
+  ma_bull_prior_only Net=$1,046,705.86 Stress=$-292,980.00 Net/Stress=3.57
+  ma_bear_prior_only Net=$1,046,705.86 Stress=$-292,980.00 Net/Stress=3.57
+  close_against_entry_next_open Net=$1,046,705.86 Stress=$-292,980.00 Net/Stress=3.57
+  st_flip_exit_next_open Net=$1,046,705.86 Stress=$-292,980.00 Net/Stress=3.57
+  pmc_cross_exit_next_open Net=$1,046,705.86 Stress=$-292,980.00 Net/Stress=3.57
+  ma_directional_prior_close_against Net=$1,046,705.86 Stress=$-292,980.00 Net/Stress=3.57
+  sl40_tp120_3r Net=$1,046,705.86 Stress=$-292,980.00 Net/Stress=3.57
+  sl40_tp150_fixed Net=$1,046,705.86 Stress=$-292,980.00 Net/Stress=3.57
+  sl35_tp105_3r Net=$1,046,705.86 Stress=$-292,980.00 Net/Stress=3.57
+  sl35_tp150_fixed Net=$1,046,705.86 Stress=$-292,980.00 Net/Stress=3.57
+  sl25_tp75_3r Net=$1,046,705.86 Stress=$-292,980.00 Net/Stress=3.57
+  sl25_tp150_fixed Net=$1,046,705.86 Stress=$-292,980.00 Net/Stress=3.57
+  scaleout2_tp3r_runner6r Net=$1,046,705.86 Stress=$-292,980.00 Net/Stress=3.57
+  scaleout2_tp3r_runner6r_ma_directional_prior Net=$1,046,705.86 Stress=$-292,980.00 Net/Stress=3.57
+  scaleout2_tp3r_runner6r_close_against Net=$1,046,705.86 Stress=$-292,980.00 Net/Stress=3.57
+Wrote /home/tester/hsm/potions/live/state/hourly_st_pmc_strategyplugin_variants/SUMMARY.md

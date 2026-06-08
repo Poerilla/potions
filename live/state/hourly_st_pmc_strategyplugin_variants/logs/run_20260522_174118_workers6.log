@@ -1,0 +1,14 @@
+Loading hourly bars once...
+Loading DBN /home/tester/hsm/potions/ym/raw/glbx-mdp3-20100606-20260506.ohlcv-1m.dbn.zst (YM) ...
+  4,943 NY dates with bars
+  94,906 hourly bars
+Running 18 variants with 6 workers...
+  ma_bear_prior_only replayed 20000/94906 bars
+  ma_bull_prior_only replayed 20000/94906 bars
+  ma_directional_current replayed 20000/94906 bars
+  ma_directional_prior replayed 20000/94906 bars
+  base_1x_50sl_150tp replayed 20000/94906 bars
+  close_against_entry_next_open replayed 20000/94906 bars
+  ma_bear_prior_only replayed 40000/94906 bars
+  ma_bull_prior_only replayed 40000/94906 bars
+  ma_directional_current replayed 40000/94906 bars

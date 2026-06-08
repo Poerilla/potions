@@ -1,0 +1,2 @@
+market,instrument,strategy_id,state_root,regime_days,units,trades,net_usd,closed_dd_usd,intrabar_stress_dd_usd,max_open_units,win_rate_pct,profit_factor,net_over_stress_dd
+mes,MES,mes_v2b_scaleout_oco_then_reverse,potions/live/state/v2b_strategy_plugin_cross_market_mes_csv/states/mes_v2b_scaleout_oco_then_reverse,517,1338,670,1466.75,-5507.75,-5517.75,2,42.83,1.036,0.27
