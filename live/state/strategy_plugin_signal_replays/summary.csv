@@ -1,0 +1,8 @@
+candidate,slug,units,trades,net_usd,close_mtm_dd_usd,intrabar_mtm_dd_usd,max_open_units,net_over_stress_dd
+ATR daily ladder 1/1/2/2/2 / 10-max,mnq_atr_daily_ladder112221_10max,162,52,147280.00,-23408.50,-25610.00,10,5.75
+ATR daily 3-initial / 1-add / 10-max,mnq_atr_daily_3initial_10max,233,52,160401.50,-28647.50,-29264.00,10,5.48
+Yearly ORB scaleout3 live-runtime replay,mnq_yearly_orb_scaleout3_live_runtime,72,24,39216.62,-12546.00,-13378.50,3,2.93
+ATR weekly 2-initial / 3-add / 6-max,mnq_atr_weekly_2initial_3add_6max,54,17,119427.00,-40691.50,-42806.50,6,2.79
+ATR weekly 3-initial / 1-add / 10-max,mnq_atr_weekly_3initial_10max,84,17,152430.50,-76638.50,-80653.00,10,1.89
+ATR weekly ladder 1/1/2/2/2 / 10-max,mnq_atr_weekly_ladder112221_10max,61,17,146241.00,-75065.00,-81597.50,10,1.79
+ATR daily weekly-flat 5-max,mnq_atr_daily_weekly_flat_5max,103,28,33721.00,-22849.50,-23466.00,5,1.44
