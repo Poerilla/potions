@@ -1,0 +1,2 @@
+slug,candidate,instrument,events,max_intrabar_stress_dd_usd,p50_abs_dd_usd,p75_abs_dd_usd,p90_abs_dd_usd,p95_abs_dd_usd,p99_abs_dd_usd,events_ge_50pct_max,events_ge_75pct_max,events_ge_90pct_max,tail_signal
+ym_atr_weekly_2initial_3add_6max,YM ATR weekly 2-initial / 3-add / 6-max,YM,293,-245550.00,3120.00,7050.00,15972.00,39262.00,132957.60,4,2,1,largest stress is elevated but recurring

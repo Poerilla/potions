@@ -1,0 +1,2 @@
+strategy_id,strategy_type,version,instrument,broker_instrument,account_mode,enabled,timeframes,max_contracts,max_open_orders,config_json
+mnq_wo_gap_reversal,wo_gap_reversal,v1,MNQ,MNQ,paper,true,1h,2,12,"{""gap_pct"": 0.55, ""max_fill_wait_bars"": 6, ""max_trades_per_week"": 2, ""record_levels"": false, ""runner_qty"": 1, ""runner_target_pts"": 300.0, ""short_only"": false, ""stop_after_win"": true, ""stop_pts"": 50.0, ""tick_size"": 0.25, ""tp1_pts"": 50.0, ""tp1_qty"": 1, ""use_swing_filter"": true}"

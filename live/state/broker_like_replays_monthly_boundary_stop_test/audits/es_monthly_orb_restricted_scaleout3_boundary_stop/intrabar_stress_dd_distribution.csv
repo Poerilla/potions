@@ -1,0 +1,2 @@
+slug,candidate,instrument,events,max_intrabar_stress_dd_usd,p50_abs_dd_usd,p75_abs_dd_usd,p90_abs_dd_usd,p95_abs_dd_usd,p99_abs_dd_usd,events_ge_50pct_max,events_ge_75pct_max,events_ge_90pct_max,tail_signal
+es_monthly_orb_restricted_scaleout3_boundary_stop,ES Monthly ORB restricted scaleout3 boundary-stop entry,ES,217,-95793.75,2925.00,6325.00,16647.50,26410.62,57933.75,6,1,1,max stress is an outlier

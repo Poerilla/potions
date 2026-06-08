@@ -1,0 +1,4 @@
+event_id,peak_ts,start_ts,trough_ts,recover_ts,duration_bars,trough_intrabar_dd_usd,recovered
+1,2020-09-03,2020-09-04,2020-09-04,2020-09-04,1,-997.50,true
+2,2020-09-04,2020-09-06,2020-09-07,2020-09-07,2,-708.75,true
+3,2020-09-07,2020-09-08,2022-09-13,,915,-7143.75,false

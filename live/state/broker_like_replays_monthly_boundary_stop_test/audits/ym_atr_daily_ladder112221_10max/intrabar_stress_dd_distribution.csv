@@ -1,0 +1,2 @@
+slug,candidate,instrument,events,max_intrabar_stress_dd_usd,p50_abs_dd_usd,p75_abs_dd_usd,p90_abs_dd_usd,p95_abs_dd_usd,p99_abs_dd_usd,events_ge_50pct_max,events_ge_75pct_max,events_ge_90pct_max,tail_signal
+ym_atr_daily_ladder112221_10max,YM ATR daily ladder 1/1/2/2/2 10-max,YM,72,-224330.00,4645.00,11760.00,17950.00,38095.75,157029.10,2,1,1,max stress is an outlier

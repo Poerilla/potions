@@ -1,0 +1,2 @@
+slug,candidate,instrument,events,max_intrabar_stress_dd_usd,p50_abs_dd_usd,p75_abs_dd_usd,p90_abs_dd_usd,p95_abs_dd_usd,p99_abs_dd_usd,events_ge_50pct_max,events_ge_75pct_max,events_ge_90pct_max,tail_signal
+es_atr_daily_3initial_10max,ES ATR daily 3-initial 10-max,ES,120,-275712.50,10875.00,21131.25,39071.25,72676.87,181661.25,3,1,1,max stress is an outlier

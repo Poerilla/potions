@@ -1,0 +1,2 @@
+slug,candidate,instrument,events,max_intrabar_stress_dd_usd,p50_abs_dd_usd,p75_abs_dd_usd,p90_abs_dd_usd,p95_abs_dd_usd,p99_abs_dd_usd,events_ge_50pct_max,events_ge_75pct_max,events_ge_90pct_max,tail_signal
+nq_atr_daily_3initial_10max,NQ ATR daily 3-initial 10-max,NQ,212,-308655.00,15375.00,35707.50,73562.00,111026.25,257071.40,7,4,1,large stress recurs

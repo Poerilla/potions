@@ -1,0 +1,2 @@
+slug,candidate,instrument,events,max_intrabar_stress_dd_usd,p50_abs_dd_usd,p75_abs_dd_usd,p90_abs_dd_usd,p95_abs_dd_usd,p99_abs_dd_usd,events_ge_50pct_max,events_ge_75pct_max,events_ge_90pct_max,tail_signal
+nq_atr_daily_ladder112221_10max,NQ ATR daily ladder 1/1/2/2/2 10-max,NQ,170,-255950.00,18002.50,39862.50,75798.00,132796.00,236730.80,10,5,3,large stress recurs

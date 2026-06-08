@@ -1,0 +1,2 @@
+slug,candidate,instrument,events,max_intrabar_stress_dd_usd,p50_abs_dd_usd,p75_abs_dd_usd,p90_abs_dd_usd,p95_abs_dd_usd,p99_abs_dd_usd,events_ge_50pct_max,events_ge_75pct_max,events_ge_90pct_max,tail_signal
+es_atr_weekly_2initial_3add_6max,ES ATR weekly 2-initial / 3-add / 6-max,ES,306,-199637.50,6300.00,13106.25,34762.50,59962.50,163558.12,10,5,2,large stress recurs
