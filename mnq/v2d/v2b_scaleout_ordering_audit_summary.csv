@@ -1,0 +1,4 @@
+scenario,days_with_legs,legs,net,closed_dd,mtm_dd,mtm_pct,net_mtm,win_pct,pf,median,notes
+long_priority_scanner,961,1302,83245.0,2729.5,3130.0,3.7334,26.5958,59.6774,1.6,101.25,Current benchmark; Long gets whole-day priority before Short scanner.
+oco_bracket_reverse,961,1441,35210.5,5190.0,5482.0,15.1537,6.4229,54.823,1.1884,73.0,"Broker-like OCO first campaign, then opposite side can re-arm."
+long_then_short_strict,737,1078,19600.0,6330.5,6672.5,33.0436,2.9374,53.3395,1.1457,53.75,Executable literal: Short only after a filled Long exits.
