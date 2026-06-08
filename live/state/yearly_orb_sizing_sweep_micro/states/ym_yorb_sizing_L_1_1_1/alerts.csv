@@ -1,0 +1,498 @@
+alert_id,strategy_id,level,message,payload_json,status,created_at
+alert_bd2736a2bed6,ym_yorb_sizing_L_1_1_1,order_pending_verification,Yearly ORB long retest order intent created,{},sent,2026-05-21T21:23:33Z
+alert_c26ad8075c0f,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 1 YM,{},sent,2026-05-21T21:23:33Z
+alert_91beb062cd07,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 1 YM,{},sent,2026-05-21T21:23:33Z
+alert_b4e5bfbd0a7f,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 1 YM,{},sent,2026-05-21T21:23:33Z
+alert_0550f14da6b8,ym_yorb_sizing_L_1_1_1,info,Yearly ORB range-close exit requested,{},sent,2026-05-21T21:23:33Z
+alert_1b44b4a4264b,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted sell 2 YM,{},sent,2026-05-21T21:23:33Z
+alert_16ad12811c88,ym_yorb_sizing_L_1_1_1,order_pending_verification,Yearly ORB long retest order intent created,{},sent,2026-05-21T21:23:33Z
+alert_ace4351bf105,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 1 YM,{},sent,2026-05-21T21:23:33Z
+alert_8f2841a83b01,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 1 YM,{},sent,2026-05-21T21:23:33Z
+alert_32790db54d29,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 1 YM,{},sent,2026-05-21T21:23:33Z
+alert_fe1fa2fd822e,ym_yorb_sizing_L_1_1_1,info,Yearly ORB range-close exit requested,{},sent,2026-05-21T21:23:33Z
+alert_d60e2b945d78,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted sell 3 YM,{},sent,2026-05-21T21:23:33Z
+alert_671cc7c7a603,ym_yorb_sizing_L_1_1_1,order_pending_verification,Yearly ORB long retest order intent created,{},sent,2026-05-21T21:23:33Z
+alert_6fc2572325b9,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 1 YM,{},sent,2026-05-21T21:23:33Z
+alert_efb7772dcae8,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 1 YM,{},sent,2026-05-21T21:23:33Z
+alert_0ca624fabee3,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 1 YM,{},sent,2026-05-21T21:23:33Z
+alert_36059537305b,ym_yorb_sizing_L_1_1_1,info,Yearly ORB range-close exit requested,{},sent,2026-05-21T21:23:33Z
+alert_7be8aa910283,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted sell 3 YM,{},sent,2026-05-21T21:23:33Z
+alert_6e77e93f0273,ym_yorb_sizing_L_1_1_1,order_pending_verification,Yearly ORB long retest order intent created,{},sent,2026-05-21T21:23:33Z
+alert_72e96d654d8e,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 1 YM,{},sent,2026-05-21T21:23:33Z
+alert_45ead1809f9c,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 1 YM,{},sent,2026-05-21T21:23:33Z
+alert_e459433a9348,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 1 YM,{},sent,2026-05-21T21:23:33Z
+alert_91b3b9ae5e1e,ym_yorb_sizing_L_1_1_1,info,Yearly ORB range-close exit requested,{},sent,2026-05-21T21:23:33Z
+alert_6a341bb079a2,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted sell 3 YM,{},sent,2026-05-21T21:23:33Z
+alert_8b5d373a9e44,ym_yorb_sizing_L_1_1_1,order_pending_verification,Yearly ORB long retest order intent created,{},sent,2026-05-21T21:23:33Z
+alert_be67c2325889,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 1 YM,{},sent,2026-05-21T21:23:33Z
+alert_bad565f08827,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 1 YM,{},sent,2026-05-21T21:23:33Z
+alert_d58184c2532e,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 1 YM,{},sent,2026-05-21T21:23:33Z
+alert_827adca21454,ym_yorb_sizing_L_1_1_1,info,Yearly ORB range-close exit requested,{},sent,2026-05-21T21:23:33Z
+alert_1c25d51ad999,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted sell 3 YM,{},sent,2026-05-21T21:23:33Z
+alert_62742db0167d,ym_yorb_sizing_L_1_1_1,order_pending_verification,Yearly ORB short retest order intent created,{},sent,2026-05-21T21:23:33Z
+alert_3b9d219766cd,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted sell 1 YM,{},sent,2026-05-21T21:23:33Z
+alert_bfba635b0b0a,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted sell 1 YM,{},sent,2026-05-21T21:23:33Z
+alert_4d07ea8278eb,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted sell 1 YM,{},sent,2026-05-21T21:23:33Z
+alert_b9afe996c86b,ym_yorb_sizing_L_1_1_1,info,Modified order ord_499cd4f45c3e,{},sent,2026-05-21T21:23:34Z
+alert_380121279d8a,ym_yorb_sizing_L_1_1_1,order_pending_verification,Yearly ORB short retest order intent created,{},sent,2026-05-21T21:23:34Z
+alert_70293efd19a9,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted sell 1 YM,{},sent,2026-05-21T21:23:34Z
+alert_fcc693ed16f0,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted sell 1 YM,{},sent,2026-05-21T21:23:34Z
+alert_e62f46b6f49c,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted sell 1 YM,{},sent,2026-05-21T21:23:34Z
+alert_985c9411278f,ym_yorb_sizing_L_1_1_1,info,Modified order ord_9cbb7db51733,{},sent,2026-05-21T21:23:34Z
+alert_2ec5e9884989,ym_yorb_sizing_L_1_1_1,order_pending_verification,Yearly ORB short retest order intent created,{},sent,2026-05-21T21:23:34Z
+alert_49b3b35e5b8d,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted sell 1 YM,{},sent,2026-05-21T21:23:34Z
+alert_bc49235474e0,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted sell 1 YM,{},sent,2026-05-21T21:23:34Z
+alert_d6ddc5af2e43,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted sell 1 YM,{},sent,2026-05-21T21:23:34Z
+alert_dc8f883511f5,ym_yorb_sizing_L_1_1_1,info,Yearly ORB range-close exit requested,{},sent,2026-05-21T21:23:34Z
+alert_93b12477668d,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 2 YM,{},sent,2026-05-21T21:23:34Z
+alert_c861473f7b84,ym_yorb_sizing_L_1_1_1,order_pending_verification,Yearly ORB short retest order intent created,{},sent,2026-05-21T21:23:34Z
+alert_d2736d9b4fe9,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted sell 1 YM,{},sent,2026-05-21T21:23:34Z
+alert_5cd12dada6fa,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted sell 1 YM,{},sent,2026-05-21T21:23:34Z
+alert_37bfa8aab78b,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted sell 1 YM,{},sent,2026-05-21T21:23:34Z
+alert_94d374f3207e,ym_yorb_sizing_L_1_1_1,info,Yearly ORB range-close exit requested,{},sent,2026-05-21T21:23:34Z
+alert_2acbc5a0ac05,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 3 YM,{},sent,2026-05-21T21:23:34Z
+alert_d656f2a901f7,ym_yorb_sizing_L_1_1_1,order_pending_verification,Yearly ORB short retest order intent created,{},sent,2026-05-21T21:23:35Z
+alert_4faff8310b02,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted sell 1 YM,{},sent,2026-05-21T21:23:35Z
+alert_6761ed28d04f,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted sell 1 YM,{},sent,2026-05-21T21:23:35Z
+alert_cc40ea69e9fe,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted sell 1 YM,{},sent,2026-05-21T21:23:35Z
+alert_87cf2c0da214,ym_yorb_sizing_L_1_1_1,info,Yearly ORB range-close exit requested,{},sent,2026-05-21T21:23:35Z
+alert_2db77f8d444f,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 3 YM,{},sent,2026-05-21T21:23:35Z
+alert_a9f952b1deab,ym_yorb_sizing_L_1_1_1,order_pending_verification,Yearly ORB long retest order intent created,{},sent,2026-05-21T21:23:35Z
+alert_71db5ec9d740,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 1 YM,{},sent,2026-05-21T21:23:35Z
+alert_a585725905f8,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 1 YM,{},sent,2026-05-21T21:23:35Z
+alert_c05b526621cc,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 1 YM,{},sent,2026-05-21T21:23:35Z
+alert_d1d558ecef25,ym_yorb_sizing_L_1_1_1,info,Yearly ORB range-close exit requested,{},sent,2026-05-21T21:23:35Z
+alert_d621baa8cd8a,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted sell 3 YM,{},sent,2026-05-21T21:23:35Z
+alert_0108b858de1d,ym_yorb_sizing_L_1_1_1,order_pending_verification,Yearly ORB long retest order intent created,{},sent,2026-05-21T21:23:35Z
+alert_34803cb98980,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 1 YM,{},sent,2026-05-21T21:23:35Z
+alert_65fe4d8f5bc3,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 1 YM,{},sent,2026-05-21T21:23:35Z
+alert_04f2d7443890,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 1 YM,{},sent,2026-05-21T21:23:35Z
+alert_18f808e7162d,ym_yorb_sizing_L_1_1_1,info,Yearly ORB range-close exit requested,{},sent,2026-05-21T21:23:35Z
+alert_6d4a122f1a9c,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted sell 3 YM,{},sent,2026-05-21T21:23:35Z
+alert_0133ca87af86,ym_yorb_sizing_L_1_1_1,order_pending_verification,Yearly ORB long retest order intent created,{},sent,2026-05-21T21:23:36Z
+alert_29a0caa3cac5,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 1 YM,{},sent,2026-05-21T21:23:36Z
+alert_86d00a92af59,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 1 YM,{},sent,2026-05-21T21:23:36Z
+alert_76367a1e0106,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 1 YM,{},sent,2026-05-21T21:23:36Z
+alert_a719d025314b,ym_yorb_sizing_L_1_1_1,info,Yearly ORB range-close exit requested,{},sent,2026-05-21T21:23:36Z
+alert_e4b697731129,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted sell 3 YM,{},sent,2026-05-21T21:23:36Z
+alert_d0eb3b1d3657,ym_yorb_sizing_L_1_1_1,order_pending_verification,Yearly ORB long retest order intent created,{},sent,2026-05-21T21:23:36Z
+alert_5cd88cbef3c2,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 1 YM,{},sent,2026-05-21T21:23:36Z
+alert_b95457e6ba49,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 1 YM,{},sent,2026-05-21T21:23:36Z
+alert_45b817353206,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 1 YM,{},sent,2026-05-21T21:23:36Z
+alert_2984803de63a,ym_yorb_sizing_L_1_1_1,info,Yearly ORB range-close exit requested,{},sent,2026-05-21T21:23:36Z
+alert_dc656398138d,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted sell 3 YM,{},sent,2026-05-21T21:23:36Z
+alert_d9ba111d8147,ym_yorb_sizing_L_1_1_1,order_pending_verification,Yearly ORB long retest order intent created,{},sent,2026-05-21T21:23:36Z
+alert_d2e4af18469a,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 1 YM,{},sent,2026-05-21T21:23:36Z
+alert_7a9faff64a7f,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 1 YM,{},sent,2026-05-21T21:23:36Z
+alert_13aeb8d0109a,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 1 YM,{},sent,2026-05-21T21:23:36Z
+alert_8f99b8bcff92,ym_yorb_sizing_L_1_1_1,info,Yearly ORB range-close exit requested,{},sent,2026-05-21T21:23:36Z
+alert_f25e01472fe7,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted sell 3 YM,{},sent,2026-05-21T21:23:36Z
+alert_f20969f16eb9,ym_yorb_sizing_L_1_1_1,order_pending_verification,Yearly ORB long retest order intent created,{},sent,2026-05-21T21:23:36Z
+alert_b56d6f802f8e,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 1 YM,{},sent,2026-05-21T21:23:36Z
+alert_3b17e6c53e56,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 1 YM,{},sent,2026-05-21T21:23:36Z
+alert_65019d0a2bf6,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 1 YM,{},sent,2026-05-21T21:23:36Z
+alert_afa175087ffa,ym_yorb_sizing_L_1_1_1,info,Yearly ORB range-close exit requested,{},sent,2026-05-21T21:23:36Z
+alert_18c7596c3191,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted sell 3 YM,{},sent,2026-05-21T21:23:36Z
+alert_ec77107186c9,ym_yorb_sizing_L_1_1_1,order_pending_verification,Yearly ORB long retest order intent created,{},sent,2026-05-21T21:23:36Z
+alert_fd0a34665fb1,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 1 YM,{},sent,2026-05-21T21:23:36Z
+alert_d4d7911238d5,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 1 YM,{},sent,2026-05-21T21:23:36Z
+alert_294a2b6d8a89,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 1 YM,{},sent,2026-05-21T21:23:36Z
+alert_781f78dc1354,ym_yorb_sizing_L_1_1_1,info,Yearly ORB range-close exit requested,{},sent,2026-05-21T21:23:36Z
+alert_32a7ffcddbcb,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted sell 3 YM,{},sent,2026-05-21T21:23:36Z
+alert_a3cc640b6909,ym_yorb_sizing_L_1_1_1,order_pending_verification,Yearly ORB long retest order intent created,{},sent,2026-05-21T21:23:36Z
+alert_88f72d8843d5,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 1 YM,{},sent,2026-05-21T21:23:36Z
+alert_ee7f1d98e0d3,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 1 YM,{},sent,2026-05-21T21:23:36Z
+alert_6569dd9fe9cf,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 1 YM,{},sent,2026-05-21T21:23:36Z
+alert_2d57832db426,ym_yorb_sizing_L_1_1_1,order_pending_verification,Yearly ORB long retest order intent created,{},sent,2026-05-21T21:23:37Z
+alert_cc5c2fba3d7f,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 1 YM,{},sent,2026-05-21T21:23:37Z
+alert_75bef0af6764,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 1 YM,{},sent,2026-05-21T21:23:37Z
+alert_dc0ab9296076,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 1 YM,{},sent,2026-05-21T21:23:37Z
+alert_48c79fefd317,ym_yorb_sizing_L_1_1_1,info,Yearly ORB range-close exit requested,{},sent,2026-05-21T21:23:37Z
+alert_fe514c87afb3,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted sell 3 YM,{},sent,2026-05-21T21:23:37Z
+alert_7aea7edbdd35,ym_yorb_sizing_L_1_1_1,order_pending_verification,Yearly ORB long retest order intent created,{},sent,2026-05-21T21:23:37Z
+alert_fc7fbb223297,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 1 YM,{},sent,2026-05-21T21:23:37Z
+alert_4c34bfb197cf,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 1 YM,{},sent,2026-05-21T21:23:37Z
+alert_762fd6157100,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 1 YM,{},sent,2026-05-21T21:23:37Z
+alert_6b20a9858b29,ym_yorb_sizing_L_1_1_1,order_pending_verification,Yearly ORB long retest order intent created,{},sent,2026-05-21T21:23:38Z
+alert_9f7188b23810,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 1 YM,{},sent,2026-05-21T21:23:38Z
+alert_9b14c2bab7a2,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 1 YM,{},sent,2026-05-21T21:23:38Z
+alert_1e950d07cd9d,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 1 YM,{},sent,2026-05-21T21:23:38Z
+alert_8dcf9670c774,ym_yorb_sizing_L_1_1_1,info,Yearly ORB range-close exit requested,{},sent,2026-05-21T21:23:38Z
+alert_bd78ac5a9e44,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted sell 3 YM,{},sent,2026-05-21T21:23:38Z
+alert_e82f637c11d7,ym_yorb_sizing_L_1_1_1,order_pending_verification,Yearly ORB long retest order intent created,{},sent,2026-05-21T21:23:38Z
+alert_de2d0099348e,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 1 YM,{},sent,2026-05-21T21:23:38Z
+alert_85e8ebab4dae,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 1 YM,{},sent,2026-05-21T21:23:38Z
+alert_7d0fa419beaa,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 1 YM,{},sent,2026-05-21T21:23:38Z
+alert_0d85952d1331,ym_yorb_sizing_L_1_1_1,info,Modified order ord_36348b6386a1,{},sent,2026-05-21T21:23:38Z
+alert_4b14ea748cdc,ym_yorb_sizing_L_1_1_1,info,Cancelled order ord_36348b6386a1,{},sent,2026-05-21T21:23:38Z
+alert_3d0b89583a2f,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted sell 1 YM,{},sent,2026-05-21T21:23:38Z
+alert_1db5ed28d7b4,ym_yorb_sizing_L_1_1_1,order_pending_verification,Yearly ORB long retest order intent created,{},sent,2026-05-21T21:23:39Z
+alert_86dd96a35260,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 1 YM,{},sent,2026-05-21T21:23:39Z
+alert_06f8a893894d,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 1 YM,{},sent,2026-05-21T21:23:39Z
+alert_05a6a01290c8,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 1 YM,{},sent,2026-05-21T21:23:39Z
+alert_c3471b98b715,ym_yorb_sizing_L_1_1_1,info,Yearly ORB range-close exit requested,{},sent,2026-05-21T21:23:39Z
+alert_1913503c37c1,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted sell 3 YM,{},sent,2026-05-21T21:23:39Z
+alert_7eebb507217c,ym_yorb_sizing_L_1_1_1,order_pending_verification,Yearly ORB long retest order intent created,{},sent,2026-05-21T21:23:39Z
+alert_3876dd1c52b2,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 1 YM,{},sent,2026-05-21T21:23:39Z
+alert_50eca63cc34e,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 1 YM,{},sent,2026-05-21T21:23:39Z
+alert_4360decc56fa,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 1 YM,{},sent,2026-05-21T21:23:39Z
+alert_583588a8e68e,ym_yorb_sizing_L_1_1_1,info,Yearly ORB range-close exit requested,{},sent,2026-05-21T21:23:39Z
+alert_5c6f3820e922,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted sell 3 YM,{},sent,2026-05-21T21:23:39Z
+alert_15be01fe791b,ym_yorb_sizing_L_1_1_1,order_pending_verification,Yearly ORB long retest order intent created,{},sent,2026-05-21T21:23:40Z
+alert_4165dc8ad307,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 1 YM,{},sent,2026-05-21T21:23:40Z
+alert_74acdbff9827,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 1 YM,{},sent,2026-05-21T21:23:40Z
+alert_e79172e8bd77,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 1 YM,{},sent,2026-05-21T21:23:40Z
+alert_e2bb178c5790,ym_yorb_sizing_L_1_1_1,info,Yearly ORB range-close exit requested,{},sent,2026-05-21T21:23:40Z
+alert_5b58b9e0bb39,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted sell 3 YM,{},sent,2026-05-21T21:23:40Z
+alert_f0ef89b67908,ym_yorb_sizing_L_1_1_1,order_pending_verification,Yearly ORB long retest order intent created,{},sent,2026-05-21T21:23:40Z
+alert_c4b1603e6209,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 1 YM,{},sent,2026-05-21T21:23:40Z
+alert_75c86097a51b,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 1 YM,{},sent,2026-05-21T21:23:40Z
+alert_a90c3459818b,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 1 YM,{},sent,2026-05-21T21:23:40Z
+alert_1ecbc93df0dd,ym_yorb_sizing_L_1_1_1,info,Yearly ORB range-close exit requested,{},sent,2026-05-21T21:23:40Z
+alert_fcfeea6bfc40,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted sell 2 YM,{},sent,2026-05-21T21:23:40Z
+alert_5b792b79dc83,ym_yorb_sizing_L_1_1_1,order_pending_verification,Yearly ORB long retest order intent created,{},sent,2026-05-21T21:23:40Z
+alert_7b4df68722ff,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 1 YM,{},sent,2026-05-21T21:23:40Z
+alert_c19656014311,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 1 YM,{},sent,2026-05-21T21:23:40Z
+alert_e1a0386c17ef,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 1 YM,{},sent,2026-05-21T21:23:40Z
+alert_1c26ed966cc2,ym_yorb_sizing_L_1_1_1,info,Yearly ORB range-close exit requested,{},sent,2026-05-21T21:23:40Z
+alert_91f47a17a3f1,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted sell 2 YM,{},sent,2026-05-21T21:23:40Z
+alert_dc6fa0a7c0a9,ym_yorb_sizing_L_1_1_1,order_pending_verification,Yearly ORB long retest order intent created,{},sent,2026-05-21T21:23:40Z
+alert_1c3009156267,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 1 YM,{},sent,2026-05-21T21:23:40Z
+alert_153060d66372,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 1 YM,{},sent,2026-05-21T21:23:40Z
+alert_659f0f22f435,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 1 YM,{},sent,2026-05-21T21:23:40Z
+alert_782410274a64,ym_yorb_sizing_L_1_1_1,info,Yearly ORB range-close exit requested,{},sent,2026-05-21T21:23:41Z
+alert_2b1788ab5fbe,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted sell 3 YM,{},sent,2026-05-21T21:23:41Z
+alert_f2cb5afcdfb7,ym_yorb_sizing_L_1_1_1,order_pending_verification,Yearly ORB long retest order intent created,{},sent,2026-05-21T21:23:41Z
+alert_7f0a120e2688,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 1 YM,{},sent,2026-05-21T21:23:41Z
+alert_b712ddfade74,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 1 YM,{},sent,2026-05-21T21:23:41Z
+alert_a7ca79e7a3f7,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 1 YM,{},sent,2026-05-21T21:23:41Z
+alert_e44a5533baf0,ym_yorb_sizing_L_1_1_1,order_pending_verification,Yearly ORB long retest order intent created,{},sent,2026-05-21T21:23:42Z
+alert_a93e57d28fba,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 1 YM,{},sent,2026-05-21T21:23:42Z
+alert_d3be9c6029ff,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 1 YM,{},sent,2026-05-21T21:23:42Z
+alert_38ecd3c90f58,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 1 YM,{},sent,2026-05-21T21:23:42Z
+alert_bfc069888dae,ym_yorb_sizing_L_1_1_1,info,Yearly ORB range-close exit requested,{},sent,2026-05-21T21:23:42Z
+alert_f5f86c7dc909,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted sell 3 YM,{},sent,2026-05-21T21:23:42Z
+alert_c443134d09cb,ym_yorb_sizing_L_1_1_1,order_pending_verification,Yearly ORB short retest order intent created,{},sent,2026-05-21T21:23:42Z
+alert_580158a7c9a9,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted sell 1 YM,{},sent,2026-05-21T21:23:42Z
+alert_d73fb7a1e16d,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted sell 1 YM,{},sent,2026-05-21T21:23:42Z
+alert_4d3e3436683d,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted sell 1 YM,{},sent,2026-05-21T21:23:42Z
+alert_5379069740b8,ym_yorb_sizing_L_1_1_1,info,Yearly ORB range-close exit requested,{},sent,2026-05-21T21:23:43Z
+alert_95c4e24e6d9a,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 3 YM,{},sent,2026-05-21T21:23:43Z
+alert_739b6eccb86a,ym_yorb_sizing_L_1_1_1,order_pending_verification,Yearly ORB short retest order intent created,{},sent,2026-05-21T21:23:43Z
+alert_07f8f5868d99,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted sell 1 YM,{},sent,2026-05-21T21:23:43Z
+alert_b81dbfe7b8ed,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted sell 1 YM,{},sent,2026-05-21T21:23:43Z
+alert_8c094ce8a34d,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted sell 1 YM,{},sent,2026-05-21T21:23:43Z
+alert_e0e24d2c1261,ym_yorb_sizing_L_1_1_1,info,Yearly ORB range-close exit requested,{},sent,2026-05-21T21:23:43Z
+alert_472abc56b9b9,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 3 YM,{},sent,2026-05-21T21:23:43Z
+alert_c9632765dc27,ym_yorb_sizing_L_1_1_1,order_pending_verification,Yearly ORB short retest order intent created,{},sent,2026-05-21T21:23:43Z
+alert_8ba47bd571b7,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted sell 1 YM,{},sent,2026-05-21T21:23:43Z
+alert_37b249e2ab03,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted sell 1 YM,{},sent,2026-05-21T21:23:43Z
+alert_8780b5c8ca2c,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted sell 1 YM,{},sent,2026-05-21T21:23:43Z
+alert_608ae590a4b6,ym_yorb_sizing_L_1_1_1,info,Yearly ORB range-close exit requested,{},sent,2026-05-21T21:23:43Z
+alert_c9831f6852cc,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 3 YM,{},sent,2026-05-21T21:23:43Z
+alert_92a5f66884db,ym_yorb_sizing_L_1_1_1,order_pending_verification,Yearly ORB long retest order intent created,{},sent,2026-05-21T21:23:45Z
+alert_44cb69545c65,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 1 YM,{},sent,2026-05-21T21:23:45Z
+alert_468bb6164655,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 1 YM,{},sent,2026-05-21T21:23:45Z
+alert_a484f06f4f4c,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 1 YM,{},sent,2026-05-21T21:23:45Z
+alert_25a457210004,ym_yorb_sizing_L_1_1_1,info,Yearly ORB range-close exit requested,{},sent,2026-05-21T21:23:45Z
+alert_039cb67874b0,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted sell 3 YM,{},sent,2026-05-21T21:23:45Z
+alert_f1434a03a7e9,ym_yorb_sizing_L_1_1_1,order_pending_verification,Yearly ORB long retest order intent created,{},sent,2026-05-21T21:23:45Z
+alert_39e6b2a76ddc,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 1 YM,{},sent,2026-05-21T21:23:45Z
+alert_215a86197f95,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 1 YM,{},sent,2026-05-21T21:23:45Z
+alert_4dc3a66d9768,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 1 YM,{},sent,2026-05-21T21:23:45Z
+alert_daf97ac4d272,ym_yorb_sizing_L_1_1_1,info,Yearly ORB range-close exit requested,{},sent,2026-05-21T21:23:45Z
+alert_936da31354e7,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted sell 3 YM,{},sent,2026-05-21T21:23:45Z
+alert_08e79040cc30,ym_yorb_sizing_L_1_1_1,order_pending_verification,Yearly ORB long retest order intent created,{},sent,2026-05-21T21:23:45Z
+alert_0ba38ba6420a,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 1 YM,{},sent,2026-05-21T21:23:45Z
+alert_d958162d5dbd,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 1 YM,{},sent,2026-05-21T21:23:45Z
+alert_3884f09aee3b,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 1 YM,{},sent,2026-05-21T21:23:45Z
+alert_fae213e321e2,ym_yorb_sizing_L_1_1_1,info,Yearly ORB range-close exit requested,{},sent,2026-05-21T21:23:45Z
+alert_d8c8dd8463e2,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted sell 3 YM,{},sent,2026-05-21T21:23:45Z
+alert_5a2107e06103,ym_yorb_sizing_L_1_1_1,order_pending_verification,Yearly ORB long retest order intent created,{},sent,2026-05-21T21:23:45Z
+alert_8911494bacbb,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 1 YM,{},sent,2026-05-21T21:23:45Z
+alert_aa2024973d11,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 1 YM,{},sent,2026-05-21T21:23:46Z
+alert_60832c138fbb,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 1 YM,{},sent,2026-05-21T21:23:46Z
+alert_8a7f5c481e77,ym_yorb_sizing_L_1_1_1,info,Yearly ORB range-close exit requested,{},sent,2026-05-21T21:23:46Z
+alert_57662ca63b4e,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted sell 3 YM,{},sent,2026-05-21T21:23:46Z
+alert_46b1580b365d,ym_yorb_sizing_L_1_1_1,order_pending_verification,Yearly ORB long retest order intent created,{},sent,2026-05-21T21:23:46Z
+alert_2a70465763ec,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 1 YM,{},sent,2026-05-21T21:23:46Z
+alert_7289deee9a9d,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 1 YM,{},sent,2026-05-21T21:23:46Z
+alert_59a1f08909bb,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 1 YM,{},sent,2026-05-21T21:23:46Z
+alert_25f0856886b6,ym_yorb_sizing_L_1_1_1,info,Yearly ORB range-close exit requested,{},sent,2026-05-21T21:23:46Z
+alert_51261780788d,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted sell 3 YM,{},sent,2026-05-21T21:23:46Z
+alert_90a470623ea7,ym_yorb_sizing_L_1_1_1,order_pending_verification,Yearly ORB long retest order intent created,{},sent,2026-05-21T21:23:46Z
+alert_605af3b0a350,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 1 YM,{},sent,2026-05-21T21:23:46Z
+alert_1de73cfebc88,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 1 YM,{},sent,2026-05-21T21:23:46Z
+alert_1b363e946c5e,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 1 YM,{},sent,2026-05-21T21:23:46Z
+alert_099cf7f6b559,ym_yorb_sizing_L_1_1_1,info,Yearly ORB range-close exit requested,{},sent,2026-05-21T21:23:46Z
+alert_f34086ef1af2,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted sell 3 YM,{},sent,2026-05-21T21:23:46Z
+alert_973830040bc7,ym_yorb_sizing_L_1_1_1,order_pending_verification,Yearly ORB long retest order intent created,{},sent,2026-05-21T21:23:46Z
+alert_a6b29849f843,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 1 YM,{},sent,2026-05-21T21:23:47Z
+alert_052867ff8137,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 1 YM,{},sent,2026-05-21T21:23:47Z
+alert_ad90e41342d5,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 1 YM,{},sent,2026-05-21T21:23:47Z
+alert_7516f8a586c1,ym_yorb_sizing_L_1_1_1,order_pending_verification,Yearly ORB long retest order intent created,{},sent,2026-05-21T21:23:47Z
+alert_0a41b6aa9d3b,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 1 YM,{},sent,2026-05-21T21:23:47Z
+alert_f87d62c69a0d,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 1 YM,{},sent,2026-05-21T21:23:47Z
+alert_0dfb62e9fc06,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 1 YM,{},sent,2026-05-21T21:23:47Z
+alert_a403fbc77f61,ym_yorb_sizing_L_1_1_1,info,Cancelled order ord_76faf20d747a,{},sent,2026-05-21T21:23:48Z
+alert_69d4bc9b44d6,ym_yorb_sizing_L_1_1_1,info,Cancelled order ord_180281e08fb0,{},sent,2026-05-21T21:23:48Z
+alert_c72f08808a36,ym_yorb_sizing_L_1_1_1,info,Cancelled order ord_0d586632bcb5,{},sent,2026-05-21T21:23:48Z
+alert_6fdaf152aad3,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted sell 2 YM,{},sent,2026-05-21T21:23:48Z
+alert_48fe02452478,ym_yorb_sizing_L_1_1_1,order_pending_verification,Yearly ORB long retest order intent created,{},sent,2026-05-21T21:23:49Z
+alert_f169d455e73a,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 1 YM,{},sent,2026-05-21T21:23:50Z
+alert_769c8820559c,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 1 YM,{},sent,2026-05-21T21:23:50Z
+alert_8043d2518b32,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 1 YM,{},sent,2026-05-21T21:23:50Z
+alert_e7bfce2d8ef5,ym_yorb_sizing_L_1_1_1,info,Yearly ORB range-close exit requested,{},sent,2026-05-21T21:23:50Z
+alert_1b5b5b8ef5eb,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted sell 3 YM,{},sent,2026-05-21T21:23:50Z
+alert_8a38e38120fb,ym_yorb_sizing_L_1_1_1,order_pending_verification,Yearly ORB long retest order intent created,{},sent,2026-05-21T21:23:50Z
+alert_94308339641d,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 1 YM,{},sent,2026-05-21T21:23:50Z
+alert_db1850ea49b3,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 1 YM,{},sent,2026-05-21T21:23:50Z
+alert_667ab2d617aa,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 1 YM,{},sent,2026-05-21T21:23:50Z
+alert_164634ea9180,ym_yorb_sizing_L_1_1_1,info,Yearly ORB range-close exit requested,{},sent,2026-05-21T21:23:50Z
+alert_dcf708d870b9,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted sell 3 YM,{},sent,2026-05-21T21:23:50Z
+alert_236680a0263f,ym_yorb_sizing_L_1_1_1,order_pending_verification,Yearly ORB long retest order intent created,{},sent,2026-05-21T21:23:50Z
+alert_0c18c35a787f,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 1 YM,{},sent,2026-05-21T21:23:50Z
+alert_6241f07de2e2,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 1 YM,{},sent,2026-05-21T21:23:50Z
+alert_8dfb3d3b4926,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 1 YM,{},sent,2026-05-21T21:23:50Z
+alert_b5f4f986de55,ym_yorb_sizing_L_1_1_1,info,Modified order ord_666e8f0a389c,{},sent,2026-05-21T21:23:51Z
+alert_81354962ccc3,ym_yorb_sizing_L_1_1_1,info,Cancelled order ord_666e8f0a389c,{},sent,2026-05-21T21:23:51Z
+alert_b381cdf54a53,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted sell 1 YM,{},sent,2026-05-21T21:23:51Z
+alert_8bfa3556acdc,ym_yorb_sizing_L_1_1_1,order_pending_verification,Yearly ORB long retest order intent created,{},sent,2026-05-21T21:23:53Z
+alert_7afd51cdc93c,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 1 YM,{},sent,2026-05-21T21:23:53Z
+alert_ce337c979348,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 1 YM,{},sent,2026-05-21T21:23:53Z
+alert_e745479c4a0a,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 1 YM,{},sent,2026-05-21T21:23:53Z
+alert_e62c2a2175dc,ym_yorb_sizing_L_1_1_1,info,Yearly ORB range-close exit requested,{},sent,2026-05-21T21:23:53Z
+alert_9acc468a1cd4,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted sell 3 YM,{},sent,2026-05-21T21:23:54Z
+alert_f10a9609f2db,ym_yorb_sizing_L_1_1_1,order_pending_verification,Yearly ORB long retest order intent created,{},sent,2026-05-21T21:23:54Z
+alert_cba58b5d6dbf,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 1 YM,{},sent,2026-05-21T21:23:54Z
+alert_f7d081932d02,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 1 YM,{},sent,2026-05-21T21:23:54Z
+alert_2692aa882afc,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 1 YM,{},sent,2026-05-21T21:23:54Z
+alert_63422a9d9077,ym_yorb_sizing_L_1_1_1,info,Yearly ORB range-close exit requested,{},sent,2026-05-21T21:23:54Z
+alert_c830bef4c865,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted sell 3 YM,{},sent,2026-05-21T21:23:54Z
+alert_e005ac11c61a,ym_yorb_sizing_L_1_1_1,order_pending_verification,Yearly ORB short retest order intent created,{},sent,2026-05-21T21:23:54Z
+alert_ff4de5600e60,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted sell 1 YM,{},sent,2026-05-21T21:23:54Z
+alert_e3ee5ff60bdd,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted sell 1 YM,{},sent,2026-05-21T21:23:54Z
+alert_39fdd1e72fce,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted sell 1 YM,{},sent,2026-05-21T21:23:54Z
+alert_f3b5c61d67c6,ym_yorb_sizing_L_1_1_1,info,Yearly ORB range-close exit requested,{},sent,2026-05-21T21:23:54Z
+alert_3b7774f5f67f,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 2 YM,{},sent,2026-05-21T21:23:54Z
+alert_0d9f4877e2c0,ym_yorb_sizing_L_1_1_1,order_pending_verification,Yearly ORB long retest order intent created,{},sent,2026-05-21T21:23:57Z
+alert_72b6b092a033,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 1 YM,{},sent,2026-05-21T21:23:57Z
+alert_16748f58e05b,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 1 YM,{},sent,2026-05-21T21:23:57Z
+alert_53bfbb538905,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 1 YM,{},sent,2026-05-21T21:23:57Z
+alert_a85aa8bbf5b3,ym_yorb_sizing_L_1_1_1,info,Yearly ORB range-close exit requested,{},sent,2026-05-21T21:23:57Z
+alert_f5dbe269e97d,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted sell 3 YM,{},sent,2026-05-21T21:23:57Z
+alert_dc5a6f2924dc,ym_yorb_sizing_L_1_1_1,order_pending_verification,Yearly ORB long retest order intent created,{},sent,2026-05-21T21:23:57Z
+alert_307a6a98791e,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 1 YM,{},sent,2026-05-21T21:23:57Z
+alert_d0642895c8e7,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 1 YM,{},sent,2026-05-21T21:23:57Z
+alert_dac3e0fa3d91,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 1 YM,{},sent,2026-05-21T21:23:57Z
+alert_a130d5b43383,ym_yorb_sizing_L_1_1_1,info,Yearly ORB range-close exit requested,{},sent,2026-05-21T21:23:58Z
+alert_bbd4630193ad,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted sell 3 YM,{},sent,2026-05-21T21:23:58Z
+alert_77a9c42e50e0,ym_yorb_sizing_L_1_1_1,order_pending_verification,Yearly ORB long retest order intent created,{},sent,2026-05-21T21:23:58Z
+alert_379aab1a4aa3,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 1 YM,{},sent,2026-05-21T21:23:58Z
+alert_ec99b15cbdde,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 1 YM,{},sent,2026-05-21T21:23:58Z
+alert_01c5ced30f6b,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 1 YM,{},sent,2026-05-21T21:23:58Z
+alert_580102d8d50e,ym_yorb_sizing_L_1_1_1,order_pending_verification,Yearly ORB long retest order intent created,{},sent,2026-05-21T21:23:58Z
+alert_d27c0c246f5e,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 1 YM,{},sent,2026-05-21T21:23:58Z
+alert_0da5f3f00096,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 1 YM,{},sent,2026-05-21T21:23:58Z
+alert_7995196b82ae,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 1 YM,{},sent,2026-05-21T21:23:58Z
+alert_506d07d2c60c,ym_yorb_sizing_L_1_1_1,order_pending_verification,Yearly ORB long retest order intent created,{},sent,2026-05-21T21:23:59Z
+alert_f8e54672de31,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 1 YM,{},sent,2026-05-21T21:23:59Z
+alert_5b70fb84ed4b,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 1 YM,{},sent,2026-05-21T21:23:59Z
+alert_972264e61193,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 1 YM,{},sent,2026-05-21T21:23:59Z
+alert_140227d04b2f,ym_yorb_sizing_L_1_1_1,order_pending_verification,Yearly ORB long retest order intent created,{},sent,2026-05-21T21:23:59Z
+alert_7bcc12df9dbf,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 1 YM,{},sent,2026-05-21T21:23:59Z
+alert_0c73d0912c1f,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 1 YM,{},sent,2026-05-21T21:23:59Z
+alert_73b3d4681b2b,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 1 YM,{},sent,2026-05-21T21:23:59Z
+alert_37df028917bc,ym_yorb_sizing_L_1_1_1,info,Yearly ORB range-close exit requested,{},sent,2026-05-21T21:23:59Z
+alert_2b2ae044185b,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted sell 3 YM,{},sent,2026-05-21T21:23:59Z
+alert_b752586b3c91,ym_yorb_sizing_L_1_1_1,order_pending_verification,Yearly ORB long retest order intent created,{},sent,2026-05-21T21:23:59Z
+alert_30ceafc35ea3,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 1 YM,{},sent,2026-05-21T21:24:00Z
+alert_cced5c38ad5a,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 1 YM,{},sent,2026-05-21T21:24:00Z
+alert_651ea4796408,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 1 YM,{},sent,2026-05-21T21:24:00Z
+alert_e29466c88cd5,ym_yorb_sizing_L_1_1_1,order_pending_verification,Yearly ORB long retest order intent created,{},sent,2026-05-21T21:24:00Z
+alert_c5a5aed03e38,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 1 YM,{},sent,2026-05-21T21:24:00Z
+alert_3f758398e236,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 1 YM,{},sent,2026-05-21T21:24:00Z
+alert_c8b4a0d20fae,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 1 YM,{},sent,2026-05-21T21:24:00Z
+alert_270d7a052ff2,ym_yorb_sizing_L_1_1_1,info,Yearly ORB range-close exit requested,{},sent,2026-05-21T21:24:00Z
+alert_f47de2f49abe,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted sell 3 YM,{},sent,2026-05-21T21:24:00Z
+alert_ace9a4ebbab3,ym_yorb_sizing_L_1_1_1,order_pending_verification,Yearly ORB long retest order intent created,{},sent,2026-05-21T21:24:00Z
+alert_8fca960bc4dc,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 1 YM,{},sent,2026-05-21T21:24:00Z
+alert_09e8b520406d,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 1 YM,{},sent,2026-05-21T21:24:00Z
+alert_1973854affc5,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 1 YM,{},sent,2026-05-21T21:24:00Z
+alert_81493bbb4b4d,ym_yorb_sizing_L_1_1_1,info,Yearly ORB range-close exit requested,{},sent,2026-05-21T21:24:01Z
+alert_bec35f896b81,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted sell 3 YM,{},sent,2026-05-21T21:24:01Z
+alert_991a9afdc023,ym_yorb_sizing_L_1_1_1,order_pending_verification,Yearly ORB long retest order intent created,{},sent,2026-05-21T21:24:01Z
+alert_88c7e79a92cc,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 1 YM,{},sent,2026-05-21T21:24:01Z
+alert_7445c3bb01ae,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 1 YM,{},sent,2026-05-21T21:24:01Z
+alert_c8c924fa8ac8,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 1 YM,{},sent,2026-05-21T21:24:01Z
+alert_8cd595f7cdc5,ym_yorb_sizing_L_1_1_1,info,Yearly ORB range-close exit requested,{},sent,2026-05-21T21:24:01Z
+alert_6edf7e381829,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted sell 3 YM,{},sent,2026-05-21T21:24:01Z
+alert_cc2e614e551c,ym_yorb_sizing_L_1_1_1,order_pending_verification,Yearly ORB long retest order intent created,{},sent,2026-05-21T21:24:01Z
+alert_6f15e9c5beba,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 1 YM,{},sent,2026-05-21T21:24:01Z
+alert_eb1ba7b53df4,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 1 YM,{},sent,2026-05-21T21:24:01Z
+alert_5a26c65f8dc2,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 1 YM,{},sent,2026-05-21T21:24:01Z
+alert_054ee03df63e,ym_yorb_sizing_L_1_1_1,info,Yearly ORB range-close exit requested,{},sent,2026-05-21T21:24:02Z
+alert_372de86b008a,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted sell 3 YM,{},sent,2026-05-21T21:24:02Z
+alert_c2cd4502541c,ym_yorb_sizing_L_1_1_1,order_pending_verification,Yearly ORB long retest order intent created,{},sent,2026-05-21T21:24:02Z
+alert_6280e69d6c9f,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 1 YM,{},sent,2026-05-21T21:24:02Z
+alert_9c41db7509dc,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 1 YM,{},sent,2026-05-21T21:24:02Z
+alert_1cb102437e93,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 1 YM,{},sent,2026-05-21T21:24:02Z
+alert_0c7421479e7a,ym_yorb_sizing_L_1_1_1,order_pending_verification,Yearly ORB long retest order intent created,{},sent,2026-05-21T21:24:05Z
+alert_cb9099de61bf,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 1 YM,{},sent,2026-05-21T21:24:05Z
+alert_2b3446ab51ae,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 1 YM,{},sent,2026-05-21T21:24:05Z
+alert_27ed53a4d12a,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 1 YM,{},sent,2026-05-21T21:24:05Z
+alert_b70aff562c07,ym_yorb_sizing_L_1_1_1,info,Yearly ORB range-close exit requested,{},sent,2026-05-21T21:24:05Z
+alert_f9bc63ee55dd,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted sell 3 YM,{},sent,2026-05-21T21:24:05Z
+alert_a61929329d67,ym_yorb_sizing_L_1_1_1,order_pending_verification,Yearly ORB long retest order intent created,{},sent,2026-05-21T21:24:05Z
+alert_3396c2f6b1f9,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 1 YM,{},sent,2026-05-21T21:24:05Z
+alert_198aefbebc67,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 1 YM,{},sent,2026-05-21T21:24:05Z
+alert_5fef374d08da,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 1 YM,{},sent,2026-05-21T21:24:05Z
+alert_0135a8e46ef2,ym_yorb_sizing_L_1_1_1,info,Cancelled order ord_4ca2e159f6bf,{},sent,2026-05-21T21:24:06Z
+alert_9e8b772dfb2e,ym_yorb_sizing_L_1_1_1,info,Cancelled order ord_0d3ef45ad5f9,{},sent,2026-05-21T21:24:06Z
+alert_fd1368777662,ym_yorb_sizing_L_1_1_1,info,Cancelled order ord_5bc3e1284e3b,{},sent,2026-05-21T21:24:06Z
+alert_04fd4d1fc7ab,ym_yorb_sizing_L_1_1_1,info,Cancelled order ord_d5d1e4536f17,{},sent,2026-05-21T21:24:06Z
+alert_f021f4084c3d,ym_yorb_sizing_L_1_1_1,info,Cancelled order ord_6a9a45451b1d,{},sent,2026-05-21T21:24:06Z
+alert_f9a71f97e62f,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted sell 3 YM,{},sent,2026-05-21T21:24:06Z
+alert_5cd43861b55e,ym_yorb_sizing_L_1_1_1,order_pending_verification,Yearly ORB long retest order intent created,{},sent,2026-05-21T21:24:09Z
+alert_6ddbebfb5d7a,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 1 YM,{},sent,2026-05-21T21:24:09Z
+alert_30f2de68022f,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 1 YM,{},sent,2026-05-21T21:24:09Z
+alert_283a0467ee7c,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 1 YM,{},sent,2026-05-21T21:24:09Z
+alert_2186cd1713c7,ym_yorb_sizing_L_1_1_1,info,Yearly ORB range-close exit requested,{},sent,2026-05-21T21:24:10Z
+alert_a960699e6410,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted sell 3 YM,{},sent,2026-05-21T21:24:10Z
+alert_eed14081260e,ym_yorb_sizing_L_1_1_1,order_pending_verification,Yearly ORB long retest order intent created,{},sent,2026-05-21T21:24:10Z
+alert_73789256db43,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 1 YM,{},sent,2026-05-21T21:24:10Z
+alert_a948fe290ecc,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 1 YM,{},sent,2026-05-21T21:24:10Z
+alert_518ae6d84529,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 1 YM,{},sent,2026-05-21T21:24:10Z
+alert_9c8f9e5ae342,ym_yorb_sizing_L_1_1_1,order_pending_verification,Yearly ORB short retest order intent created,{},sent,2026-05-21T21:24:13Z
+alert_39b6cc9c5604,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted sell 1 YM,{},sent,2026-05-21T21:24:13Z
+alert_cd5d3aa3d00c,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted sell 1 YM,{},sent,2026-05-21T21:24:13Z
+alert_9bf4e1b5b3ee,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted sell 1 YM,{},sent,2026-05-21T21:24:13Z
+alert_46bd40042bf8,ym_yorb_sizing_L_1_1_1,info,Yearly ORB range-close exit requested,{},sent,2026-05-21T21:24:13Z
+alert_c6c87d42506e,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 3 YM,{},sent,2026-05-21T21:24:13Z
+alert_91d5f74021e3,ym_yorb_sizing_L_1_1_1,order_pending_verification,Yearly ORB short retest order intent created,{},sent,2026-05-21T21:24:13Z
+alert_2fd5c66bd054,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted sell 1 YM,{},sent,2026-05-21T21:24:13Z
+alert_ca5335797c48,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted sell 1 YM,{},sent,2026-05-21T21:24:14Z
+alert_f93c225eb7d8,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted sell 1 YM,{},sent,2026-05-21T21:24:14Z
+alert_a6c56b0d1248,ym_yorb_sizing_L_1_1_1,info,Yearly ORB range-close exit requested,{},sent,2026-05-21T21:24:14Z
+alert_c577b2a2c04a,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 3 YM,{},sent,2026-05-21T21:24:14Z
+alert_7e512dfe6c2a,ym_yorb_sizing_L_1_1_1,order_pending_verification,Yearly ORB short retest order intent created,{},sent,2026-05-21T21:24:14Z
+alert_e1d6e84fe42b,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted sell 1 YM,{},sent,2026-05-21T21:24:14Z
+alert_cb4687360858,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted sell 1 YM,{},sent,2026-05-21T21:24:14Z
+alert_7708adf5e52a,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted sell 1 YM,{},sent,2026-05-21T21:24:14Z
+alert_0c77cda166f1,ym_yorb_sizing_L_1_1_1,info,Yearly ORB range-close exit requested,{},sent,2026-05-21T21:24:14Z
+alert_b329133993e4,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 3 YM,{},sent,2026-05-21T21:24:14Z
+alert_7facd9159400,ym_yorb_sizing_L_1_1_1,order_pending_verification,Yearly ORB short retest order intent created,{},sent,2026-05-21T21:24:15Z
+alert_b0786da45d8e,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted sell 1 YM,{},sent,2026-05-21T21:24:15Z
+alert_e1ef991f20d7,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted sell 1 YM,{},sent,2026-05-21T21:24:15Z
+alert_139c90b516a7,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted sell 1 YM,{},sent,2026-05-21T21:24:15Z
+alert_532e0a4fd6a0,ym_yorb_sizing_L_1_1_1,info,Yearly ORB range-close exit requested,{},sent,2026-05-21T21:24:15Z
+alert_7aa9f7e53951,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 2 YM,{},sent,2026-05-21T21:24:15Z
+alert_0b1ac6ea27b1,ym_yorb_sizing_L_1_1_1,order_pending_verification,Yearly ORB short retest order intent created,{},sent,2026-05-21T21:24:15Z
+alert_a6f058f7247f,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted sell 1 YM,{},sent,2026-05-21T21:24:15Z
+alert_35c216ec7c21,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted sell 1 YM,{},sent,2026-05-21T21:24:15Z
+alert_35bf733540c5,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted sell 1 YM,{},sent,2026-05-21T21:24:15Z
+alert_9b2afaf79bc3,ym_yorb_sizing_L_1_1_1,info,Yearly ORB range-close exit requested,{},sent,2026-05-21T21:24:16Z
+alert_95c553a4b9f6,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 3 YM,{},sent,2026-05-21T21:24:16Z
+alert_07475589431d,ym_yorb_sizing_L_1_1_1,order_pending_verification,Yearly ORB short retest order intent created,{},sent,2026-05-21T21:24:16Z
+alert_b0de5e1a8944,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted sell 1 YM,{},sent,2026-05-21T21:24:16Z
+alert_0a9a5e951c8f,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted sell 1 YM,{},sent,2026-05-21T21:24:16Z
+alert_d8cc0f99d914,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted sell 1 YM,{},sent,2026-05-21T21:24:16Z
+alert_bfd5d639599e,ym_yorb_sizing_L_1_1_1,info,Yearly ORB range-close exit requested,{},sent,2026-05-21T21:24:16Z
+alert_0bb4819d0719,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 3 YM,{},sent,2026-05-21T21:24:16Z
+alert_d7c274401168,ym_yorb_sizing_L_1_1_1,order_pending_verification,Yearly ORB long retest order intent created,{},sent,2026-05-21T21:24:20Z
+alert_2fa1e488f0ae,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 1 YM,{},sent,2026-05-21T21:24:20Z
+alert_61c2ac46cb8b,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 1 YM,{},sent,2026-05-21T21:24:20Z
+alert_42f99e7144b6,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 1 YM,{},sent,2026-05-21T21:24:20Z
+alert_10b40b62336b,ym_yorb_sizing_L_1_1_1,info,Yearly ORB range-close exit requested,{},sent,2026-05-21T21:24:20Z
+alert_3f0d21b1800c,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted sell 3 YM,{},sent,2026-05-21T21:24:20Z
+alert_a74f4a6fd710,ym_yorb_sizing_L_1_1_1,order_pending_verification,Yearly ORB long retest order intent created,{},sent,2026-05-21T21:24:20Z
+alert_b44bb0293512,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 1 YM,{},sent,2026-05-21T21:24:20Z
+alert_c18ff8beb8b0,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 1 YM,{},sent,2026-05-21T21:24:20Z
+alert_d53817bca499,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 1 YM,{},sent,2026-05-21T21:24:20Z
+alert_339af5f5c0cf,ym_yorb_sizing_L_1_1_1,info,Yearly ORB range-close exit requested,{},sent,2026-05-21T21:24:21Z
+alert_fb03c943636b,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted sell 3 YM,{},sent,2026-05-21T21:24:21Z
+alert_e601ab2d5436,ym_yorb_sizing_L_1_1_1,order_pending_verification,Yearly ORB long retest order intent created,{},sent,2026-05-21T21:24:21Z
+alert_044c63ad690d,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 1 YM,{},sent,2026-05-21T21:24:21Z
+alert_af503d5a0642,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 1 YM,{},sent,2026-05-21T21:24:21Z
+alert_30179de54b74,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 1 YM,{},sent,2026-05-21T21:24:21Z
+alert_852b9af2ec77,ym_yorb_sizing_L_1_1_1,info,Yearly ORB range-close exit requested,{},sent,2026-05-21T21:24:21Z
+alert_7165d6bbf707,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted sell 3 YM,{},sent,2026-05-21T21:24:21Z
+alert_0ca2bbed719e,ym_yorb_sizing_L_1_1_1,order_pending_verification,Yearly ORB long retest order intent created,{},sent,2026-05-21T21:24:21Z
+alert_e719c37a1371,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 1 YM,{},sent,2026-05-21T21:24:21Z
+alert_8eaacc4ba140,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 1 YM,{},sent,2026-05-21T21:24:22Z
+alert_79fbcd1039d2,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 1 YM,{},sent,2026-05-21T21:24:22Z
+alert_5c195ad68880,ym_yorb_sizing_L_1_1_1,info,Yearly ORB range-close exit requested,{},sent,2026-05-21T21:24:22Z
+alert_42ecaea2c8ef,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted sell 3 YM,{},sent,2026-05-21T21:24:23Z
+alert_0304a16a847f,ym_yorb_sizing_L_1_1_1,order_pending_verification,Yearly ORB long retest order intent created,{},sent,2026-05-21T21:24:23Z
+alert_e56c2c004a7d,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 1 YM,{},sent,2026-05-21T21:24:23Z
+alert_cbea0d7be548,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 1 YM,{},sent,2026-05-21T21:24:23Z
+alert_973bb4bda386,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 1 YM,{},sent,2026-05-21T21:24:23Z
+alert_ef073ef7ce2a,ym_yorb_sizing_L_1_1_1,info,Yearly ORB range-close exit requested,{},sent,2026-05-21T21:24:23Z
+alert_930dc2a50e6d,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted sell 3 YM,{},sent,2026-05-21T21:24:23Z
+alert_655eb0b4cdd3,ym_yorb_sizing_L_1_1_1,order_pending_verification,Yearly ORB long retest order intent created,{},sent,2026-05-21T21:24:23Z
+alert_7ddf586d1880,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 1 YM,{},sent,2026-05-21T21:24:23Z
+alert_ba40556e597e,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 1 YM,{},sent,2026-05-21T21:24:23Z
+alert_57656efb0452,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 1 YM,{},sent,2026-05-21T21:24:23Z
+alert_64d6e9d97f49,ym_yorb_sizing_L_1_1_1,info,Yearly ORB range-close exit requested,{},sent,2026-05-21T21:24:24Z
+alert_4d0580000e8e,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted sell 3 YM,{},sent,2026-05-21T21:24:24Z
+alert_c844128ea721,ym_yorb_sizing_L_1_1_1,order_pending_verification,Yearly ORB long retest order intent created,{},sent,2026-05-21T21:24:24Z
+alert_48d8a4354130,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 1 YM,{},sent,2026-05-21T21:24:24Z
+alert_8162a1095f26,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 1 YM,{},sent,2026-05-21T21:24:24Z
+alert_87a108bbcd42,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 1 YM,{},sent,2026-05-21T21:24:24Z
+alert_6a6984b6ecf9,ym_yorb_sizing_L_1_1_1,info,Yearly ORB range-close exit requested,{},sent,2026-05-21T21:24:24Z
+alert_b54c56a87b99,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted sell 3 YM,{},sent,2026-05-21T21:24:24Z
+alert_595a15c58953,ym_yorb_sizing_L_1_1_1,order_pending_verification,Yearly ORB long retest order intent created,{},sent,2026-05-21T21:24:25Z
+alert_37dc608b0956,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 1 YM,{},sent,2026-05-21T21:24:25Z
+alert_98bcba4d4293,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 1 YM,{},sent,2026-05-21T21:24:25Z
+alert_a22998e0de1d,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 1 YM,{},sent,2026-05-21T21:24:25Z
+alert_86efb048a53b,ym_yorb_sizing_L_1_1_1,order_pending_verification,Yearly ORB long retest order intent created,{},sent,2026-05-21T21:24:28Z
+alert_a63a06fa3fd6,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 1 YM,{},sent,2026-05-21T21:24:28Z
+alert_3f04bedc9d14,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 1 YM,{},sent,2026-05-21T21:24:28Z
+alert_609ed16aec77,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 1 YM,{},sent,2026-05-21T21:24:28Z
+alert_ce06860cc89f,ym_yorb_sizing_L_1_1_1,info,Yearly ORB range-close exit requested,{},sent,2026-05-21T21:24:29Z
+alert_37fe4f0d4574,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted sell 2 YM,{},sent,2026-05-21T21:24:29Z
+alert_e9d9906748db,ym_yorb_sizing_L_1_1_1,order_pending_verification,Yearly ORB long retest order intent created,{},sent,2026-05-21T21:24:29Z
+alert_e385b63f02f3,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 1 YM,{},sent,2026-05-21T21:24:29Z
+alert_b48cd9cf5db6,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 1 YM,{},sent,2026-05-21T21:24:29Z
+alert_dc8b313e2e14,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 1 YM,{},sent,2026-05-21T21:24:29Z
+alert_0cb214910759,ym_yorb_sizing_L_1_1_1,info,Yearly ORB range-close exit requested,{},sent,2026-05-21T21:24:29Z
+alert_8ba62a3a4bc4,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted sell 2 YM,{},sent,2026-05-21T21:24:29Z
+alert_7525d47fccf8,ym_yorb_sizing_L_1_1_1,order_pending_verification,Yearly ORB long retest order intent created,{},sent,2026-05-21T21:24:30Z
+alert_dc3e390a3d72,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 1 YM,{},sent,2026-05-21T21:24:30Z
+alert_d907c4d5d6aa,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 1 YM,{},sent,2026-05-21T21:24:30Z
+alert_e0aa94f51111,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 1 YM,{},sent,2026-05-21T21:24:30Z
+alert_eae66857c650,ym_yorb_sizing_L_1_1_1,info,Yearly ORB range-close exit requested,{},sent,2026-05-21T21:24:30Z
+alert_4f55d5f9a105,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted sell 3 YM,{},sent,2026-05-21T21:24:30Z
+alert_b863b3268e44,ym_yorb_sizing_L_1_1_1,order_pending_verification,Yearly ORB long retest order intent created,{},sent,2026-05-21T21:24:30Z
+alert_242ffd703ff3,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 1 YM,{},sent,2026-05-21T21:24:30Z
+alert_456fdb3d2fda,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 1 YM,{},sent,2026-05-21T21:24:30Z
+alert_62c3e382c68e,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 1 YM,{},sent,2026-05-21T21:24:30Z
+alert_348ca2b1aeb3,ym_yorb_sizing_L_1_1_1,info,Modified order ord_b72fe3601d6e,{},sent,2026-05-21T21:24:31Z
+alert_8c217fafc31d,ym_yorb_sizing_L_1_1_1,info,Cancelled order ord_b72fe3601d6e,{},sent,2026-05-21T21:24:32Z
+alert_5ba451f65506,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted sell 1 YM,{},sent,2026-05-21T21:24:32Z
+alert_87ff8b9d38a7,ym_yorb_sizing_L_1_1_1,order_pending_verification,Yearly ORB short retest order intent created,{},sent,2026-05-21T21:24:35Z
+alert_40149c0e1991,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted sell 1 YM,{},sent,2026-05-21T21:24:35Z
+alert_962e3f07e238,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted sell 1 YM,{},sent,2026-05-21T21:24:35Z
+alert_d245db7b9a51,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted sell 1 YM,{},sent,2026-05-21T21:24:35Z
+alert_84ebaae35470,ym_yorb_sizing_L_1_1_1,info,Yearly ORB range-close exit requested,{},sent,2026-05-21T21:24:36Z
+alert_07e589a06c14,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 2 YM,{},sent,2026-05-21T21:24:36Z
+alert_60028b53ec84,ym_yorb_sizing_L_1_1_1,order_pending_verification,Yearly ORB short retest order intent created,{},sent,2026-05-21T21:24:36Z
+alert_dad467989172,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted sell 1 YM,{},sent,2026-05-21T21:24:36Z
+alert_cef237b187e3,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted sell 1 YM,{},sent,2026-05-21T21:24:36Z
+alert_8f27e9231415,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted sell 1 YM,{},sent,2026-05-21T21:24:36Z
+alert_62a3d58a2e5f,ym_yorb_sizing_L_1_1_1,info,Yearly ORB range-close exit requested,{},sent,2026-05-21T21:24:36Z
+alert_62abad11ceb8,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 2 YM,{},sent,2026-05-21T21:24:36Z
+alert_63e7c037ade0,ym_yorb_sizing_L_1_1_1,order_pending_verification,Yearly ORB long retest order intent created,{},sent,2026-05-21T21:24:37Z
+alert_116104ee7720,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 1 YM,{},sent,2026-05-21T21:24:37Z
+alert_8b5abc8f61b6,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 1 YM,{},sent,2026-05-21T21:24:37Z
+alert_7e1ef719a2c8,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 1 YM,{},sent,2026-05-21T21:24:37Z
+alert_28efc6e1f2c7,ym_yorb_sizing_L_1_1_1,info,Yearly ORB range-close exit requested,{},sent,2026-05-21T21:24:37Z
+alert_5d6082657f3e,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted sell 3 YM,{},sent,2026-05-21T21:24:37Z
+alert_707344f247cf,ym_yorb_sizing_L_1_1_1,order_pending_verification,Yearly ORB long retest order intent created,{},sent,2026-05-21T21:24:37Z
+alert_c720b45fcfff,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 1 YM,{},sent,2026-05-21T21:24:37Z
+alert_ed44d8b1b7c3,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 1 YM,{},sent,2026-05-21T21:24:37Z
+alert_3cdbfafa86aa,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted buy 1 YM,{},sent,2026-05-21T21:24:37Z
+alert_9c2eff126711,ym_yorb_sizing_L_1_1_1,info,Cancelled order ord_20ce32ab3472,{},sent,2026-05-21T21:24:38Z
+alert_32d9af887315,ym_yorb_sizing_L_1_1_1,info,Cancelled order ord_0625d336d0b3,{},sent,2026-05-21T21:24:38Z
+alert_74ec490499b1,ym_yorb_sizing_L_1_1_1,info,Cancelled order ord_57de04e5e5e1,{},sent,2026-05-21T21:24:38Z
+alert_274b74e6ce64,ym_yorb_sizing_L_1_1_1,order_submitted,Submitted sell 2 YM,{},sent,2026-05-21T21:24:38Z
