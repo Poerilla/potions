@@ -1,0 +1,4 @@
+rank,market,instrument,slug,label,mode,entry_qty,tp1_qty,tp2_qty,runner_qty,regime_days,units,trades,net_usd,closed_dd_usd,intrabar_stress_dd_usd,max_open_units,win_rate_pct,profit_factor,net_over_stress_dd,notes
+1,nq,NQ,S_1_0_1,"1/0/1 (entry 2, TP1 + runner)",oco_then_reverse,2,1,0,1,1164,2761,1385,326203.50,-45705.00,-45995.00,2,44.11,1.177,7.09,"Start-small runner candidate: 1 TP1 unit plus 1 runner, no TP2 bucket."
+2,mnq,MNQ,S_1_0_1,"1/0/1 (entry 2, TP1 + runner)",oco_then_reverse,2,1,0,1,1164,2756,1383,27869.00,-4643.50,-4698.50,2,43.90,1.149,5.93,"Start-small runner candidate: 1 TP1 unit plus 1 runner, no TP2 bucket."
+3,mym,MYM,S_1_0_1,"1/0/1 (entry 2, TP1 + runner)",oco_then_reverse,2,1,0,1,1160,2735,1374,-1511.00,-9478.62,-9482.62,2,43.11,0.981,-0.16,"Start-small runner candidate: 1 TP1 unit plus 1 runner, no TP2 bucket."

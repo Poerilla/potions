@@ -1,0 +1,5 @@
+ticker,strategy,touch_mode,sizing_mode,ending_equity,ending_vs_basic_dca,max_dd,net_over_dd
+GOOGL,basic_dca_open,,,4802540.861860936,0.0,-934019.280701315,4.86022179162339
+GOOGL,combined_signal_unfiltered,first_touch_per_month,rolling_5y_rate,4462507.937583645,-340032.9242772907,-866342.7098072106,4.847398021642234
+QQQ,basic_dca_open,,,2728555.744451279,0.0,-478447.77306236594,5.153239043564097
+QQQ,combined_signal_unfiltered,first_touch_per_month,rolling_5y_rate,2481256.0089939013,-247299.7354573775,-430164.6123509689,5.156760796455378

@@ -1,0 +1,10 @@
+candidate,slug,units,trades,net_usd,close_mtm_dd_usd,intrabar_mtm_dd_usd,max_open_units,net_over_intrabar_dd
+Yearly ORB scaleout3 live-runtime replay,mnq_yearly_orb_scaleout3_live_runtime,72,24,39216.62,-12546.00,-13378.50,3,2.93
+ATR Supertrend weekly-primary 10max 3-initial,mnq_atr_weekly_primary_10max_3initial,226,49,303214.00,-18681.00,-20383.50,10,14.88
+ATR Supertrend weekly-primary 10max ladder 1/1/2/2/2,mnq_atr_weekly_primary_10max_ladder112221,161,49,263784.50,-17120.00,-19280.00,10,13.68
+ATR Supertrend daily-primary 10max 3-initial entry guard,mnq_atr_daily_primary_10max_3initial_entry_guard,253,60,235057.00,-16415.00,-17352.00,10,13.55
+ATR Supertrend daily-primary 10max ladder 1/1/2/2/2 entry guard,mnq_atr_daily_primary_10max_ladder112221_entry_guard,167,60,223187.00,-17120.00,-19280.00,10,11.58
+ATR Supertrend daily weekly-flat 10max,mnq_atr_daily_weekly_flat_10max,125,30,188414.00,-16415.00,-16790.00,10,11.22
+ATR Supertrend daily weekly-flat 5max,mnq_atr_daily_weekly_flat_5max,99,30,155056.50,-11907.50,-12212.50,5,12.70
+Monthly ORB restricted scaleout3,mnq_monthly_orb_restricted_scaleout3,417,81,105154.00,-9032.00,-12058.00,3,8.72
+Monthly ORB overlap range breakout daily-ST retest x5,mnq_monthly_orb_overlap_daily_st_retest5,83,23,87586.28,-17995.04,-18946.04,12,4.62
