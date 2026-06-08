@@ -1,0 +1,588 @@
+chart,week,side,breakout_idx,gap_idx,entry_idx,result,pts,entry,exit,stop_pts,event,bar_idx,note
+charts/2023/2023-01-09.png,2023-01-09,short,3.0,3.0,4.0,stop_both,-100.0,11147.0,11197.0,50.0,,,
+charts/2023/2023-01-09.png,2023-01-09,long,5.0,5.0,7.0,tp1+be,50.0,11147.0,11147.0,50.0,,,
+charts/2023/2023-01-09.png,2023-01-09,short,,,,,,,,50.0,pre_gap,1.0,trade above WO
+charts/2023/2023-01-09.png,2023-01-09,short,,,,,,,,50.0,breakout_short,3.0,55% gap down through WO
+charts/2023/2023-01-09.png,2023-01-09,short,,,,,,,,50.0,retest_touch,4.0,bar+1 touches WO
+charts/2023/2023-01-09.png,2023-01-09,long,,,,,,,,50.0,pre_gap,4.0,trade below WO
+charts/2023/2023-01-09.png,2023-01-09,long,,,,,,,,50.0,breakout_long,5.0,55% gap up through WO
+charts/2023/2023-01-09.png,2023-01-09,long,,,,,,,,50.0,retest_touch,7.0,bar+2 touches WO
+charts/2023/2023-01-30.png,2023-01-30,long,,,,,,,,50.0,pre_gap,1.0,trade below WO
+charts/2023/2023-01-30.png,2023-01-30,long,,,,,,,,50.0,breakout_long,63.0,55% gap up through WO
+charts/2023/2023-01-30.png,2023-01-30,long,,,,,,,,50.0,skip,63.0,swing high @ bar 67 before WO retest
+charts/2023/2023-02-06.png,2023-02-06,long,37.0,37.0,38.0,stop_both,-100.0,12573.0,12523.0,50.0,,,
+charts/2023/2023-02-06.png,2023-02-06,short,,,,,,,,50.0,skip,2.0,no full O+C above WO before gap
+charts/2023/2023-02-06.png,2023-02-06,long,,,,,,,,50.0,pre_gap,3.0,trade below WO
+charts/2023/2023-02-06.png,2023-02-06,long,,,,,,,,50.0,breakout_long,37.0,55% gap up through WO
+charts/2023/2023-02-06.png,2023-02-06,long,,,,,,,,50.0,retest_touch,38.0,bar+1 touches WO
+charts/2023/2023-02-27.png,2023-02-27,short,,,,,,,,50.0,skip,1.0,no full O+C above WO before gap
+charts/2023/2023-02-27.png,2023-02-27,long,,,,,,,,50.0,pre_gap,2.0,trade below WO
+charts/2023/2023-02-27.png,2023-02-27,long,,,,,,,,50.0,breakout_long,3.0,55% gap up through WO
+charts/2023/2023-02-27.png,2023-02-27,long,,,,,,,,50.0,no_fill,3.0,no WO retest within 6 bars after gap
+charts/2023/2023-03-06.png,2023-03-06,short,25.0,25.0,28.0,tp1+target,350.0,12363.5,12063.5,50.0,,,
+charts/2023/2023-03-06.png,2023-03-06,short,,,,,,,,50.0,pre_gap,10.0,trade above WO
+charts/2023/2023-03-06.png,2023-03-06,short,,,,,,,,50.0,breakout_short,25.0,55% gap down through WO
+charts/2023/2023-03-06.png,2023-03-06,short,,,,,,,,50.0,retest_touch,28.0,bar+3 touches WO
+charts/2023/2023-03-13.png,2023-03-13,short,6.0,6.0,7.0,stop_both,-100.0,12046.25,12096.25,50.0,,,
+charts/2023/2023-03-13.png,2023-03-13,short,,,,,,,,50.0,pre_gap,1.0,trade above WO
+charts/2023/2023-03-13.png,2023-03-13,short,,,,,,,,50.0,breakout_short,6.0,55% gap down through WO
+charts/2023/2023-03-13.png,2023-03-13,short,,,,,,,,50.0,retest_touch,7.0,bar+1 touches WO
+charts/2023/2023-03-13.png,2023-03-13,long,,,,,,,,50.0,skip,7.0,no full O+C below WO before gap
+charts/2023/2023-03-20.png,2023-03-20,long,17.0,17.0,18.0,tp1+target,350.0,12691.0,12991.0,50.0,,,
+charts/2023/2023-03-20.png,2023-03-20,long,,,,,,,,50.0,pre_gap,1.0,trade below WO
+charts/2023/2023-03-20.png,2023-03-20,long,,,,,,,,50.0,breakout_long,17.0,55% gap up through WO
+charts/2023/2023-03-20.png,2023-03-20,long,,,,,,,,50.0,retest_touch,18.0,bar+1 touches WO
+charts/2023/2023-03-27.png,2023-03-27,short,4.0,4.0,6.0,tp1+be,50.0,12921.0,12921.0,50.0,,,
+charts/2023/2023-03-27.png,2023-03-27,short,,,,,,,,50.0,pre_gap,1.0,trade above WO
+charts/2023/2023-03-27.png,2023-03-27,short,,,,,,,,50.0,breakout_short,4.0,55% gap down through WO
+charts/2023/2023-03-27.png,2023-03-27,short,,,,,,,,50.0,retest_touch,6.0,bar+2 touches WO
+charts/2023/2023-04-03.png,2023-04-03,short,39.0,39.0,40.0,tp1+eod,123.0,13214.25,13141.25,50.0,,,
+charts/2023/2023-04-03.png,2023-04-03,long,,,,,,,,50.0,skip,6.0,no full O+C below WO before gap
+charts/2023/2023-04-03.png,2023-04-03,short,,,,,,,,50.0,pre_gap,1.0,trade above WO
+charts/2023/2023-04-03.png,2023-04-03,short,,,,,,,,50.0,breakout_short,39.0,55% gap down through WO
+charts/2023/2023-04-03.png,2023-04-03,short,,,,,,,,50.0,retest_touch,40.0,bar+1 touches WO
+charts/2023/2023-04-10.png,2023-04-10,long,85.0,85.0,86.0,tp1+be,50.0,13141.0,13141.0,50.0,,,
+charts/2023/2023-04-10.png,2023-04-10,short,,,,,,,,50.0,pre_gap,6.0,trade above WO
+charts/2023/2023-04-10.png,2023-04-10,short,,,,,,,,50.0,breakout_short,8.0,55% gap down through WO
+charts/2023/2023-04-10.png,2023-04-10,short,,,,,,,,50.0,skip,8.0,swing low @ bar 10 before WO retest
+charts/2023/2023-04-10.png,2023-04-10,long,,,,,,,,50.0,pre_gap,1.0,trade below WO
+charts/2023/2023-04-10.png,2023-04-10,long,,,,,,,,50.0,breakout_long,85.0,55% gap up through WO
+charts/2023/2023-04-10.png,2023-04-10,long,,,,,,,,50.0,retest_touch,86.0,bar+1 touches WO
+charts/2023/2023-04-17.png,2023-04-17,long,2.0,2.0,3.0,stop_both,-100.0,13183.75,13133.75,50.0,,,
+charts/2023/2023-04-17.png,2023-04-17,short,6.0,6.0,7.0,tp1+be,50.0,13183.75,13183.75,50.0,,,
+charts/2023/2023-04-17.png,2023-04-17,long,,,,,,,,50.0,pre_gap,1.0,trade below WO
+charts/2023/2023-04-17.png,2023-04-17,long,,,,,,,,50.0,breakout_long,2.0,55% gap up through WO
+charts/2023/2023-04-17.png,2023-04-17,long,,,,,,,,50.0,retest_touch,3.0,bar+1 touches WO
+charts/2023/2023-04-17.png,2023-04-17,short,,,,,,,,50.0,pre_gap,3.0,trade above WO
+charts/2023/2023-04-17.png,2023-04-17,short,,,,,,,,50.0,breakout_short,6.0,55% gap down through WO
+charts/2023/2023-04-17.png,2023-04-17,short,,,,,,,,50.0,retest_touch,7.0,bar+1 touches WO
+charts/2023/2023-04-24.png,2023-04-24,long,16.0,16.0,17.0,stop_both,-100.0,13055.25,13005.25,50.0,,,
+charts/2023/2023-04-24.png,2023-04-24,long,,,,,,,,50.0,pre_gap,1.0,trade below WO
+charts/2023/2023-04-24.png,2023-04-24,long,,,,,,,,50.0,breakout_long,16.0,55% gap up through WO
+charts/2023/2023-04-24.png,2023-04-24,long,,,,,,,,50.0,retest_touch,17.0,bar+1 touches WO
+charts/2023/2023-05-01.png,2023-05-01,long,2.0,2.0,3.0,stop_both,-100.0,13335.25,13285.25,50.0,,,
+charts/2023/2023-05-01.png,2023-05-01,long,,,,,,,,50.0,pre_gap,1.0,trade below WO
+charts/2023/2023-05-01.png,2023-05-01,long,,,,,,,,50.0,breakout_long,2.0,55% gap up through WO
+charts/2023/2023-05-01.png,2023-05-01,long,,,,,,,,50.0,retest_touch,3.0,bar+1 touches WO
+charts/2023/2023-05-01.png,2023-05-01,short,,,,,,,,50.0,pre_gap,3.0,trade above WO
+charts/2023/2023-05-01.png,2023-05-01,short,,,,,,,,50.0,breakout_short,15.0,55% gap down through WO
+charts/2023/2023-05-01.png,2023-05-01,short,,,,,,,,50.0,skip,15.0,swing low @ bar 18 before WO retest
+charts/2023/2023-05-08.png,2023-05-08,short,62.0,62.0,63.0,stop_both,-100.0,13322.75,13372.75,50.0,,,
+charts/2023/2023-05-08.png,2023-05-08,short,,,,,,,,50.0,pre_gap,13.0,trade above WO
+charts/2023/2023-05-08.png,2023-05-08,short,,,,,,,,50.0,breakout_short,62.0,55% gap down through WO
+charts/2023/2023-05-08.png,2023-05-08,short,,,,,,,,50.0,retest_touch,63.0,bar+1 touches WO
+charts/2023/2023-05-08.png,2023-05-08,long,,,,,,,,50.0,pre_gap,1.0,trade below WO
+charts/2023/2023-05-08.png,2023-05-08,long,,,,,,,,50.0,breakout_long,63.0,55% gap up through WO
+charts/2023/2023-05-08.png,2023-05-08,long,,,,,,,,50.0,no_fill,63.0,no WO retest within 6 bars after gap
+charts/2023/2023-05-22.png,2023-05-22,long,4.0,4.0,5.0,tp1+be,50.0,13864.25,13864.25,50.0,,,
+charts/2023/2023-05-22.png,2023-05-22,long,,,,,,,,50.0,pre_gap,3.0,trade below WO
+charts/2023/2023-05-22.png,2023-05-22,long,,,,,,,,50.0,breakout_long,4.0,55% gap up through WO
+charts/2023/2023-05-22.png,2023-05-22,long,,,,,,,,50.0,retest_touch,5.0,bar+1 touches WO
+charts/2023/2023-05-29.png,2023-05-29,long,23.0,23.0,24.0,tp1+be,50.0,14399.5,14399.5,50.0,,,
+charts/2023/2023-05-29.png,2023-05-29,long,,,,,,,,50.0,pre_gap,1.0,trade below WO
+charts/2023/2023-05-29.png,2023-05-29,long,,,,,,,,50.0,breakout_long,23.0,55% gap up through WO
+charts/2023/2023-05-29.png,2023-05-29,long,,,,,,,,50.0,retest_touch,24.0,bar+1 touches WO
+charts/2023/2023-06-05.png,2023-06-05,long,35.0,35.0,36.0,tp1+be,50.0,14542.75,14542.75,50.0,,,
+charts/2023/2023-06-05.png,2023-06-05,short,,,,,,,,50.0,skip,6.0,no full O+C above WO before gap
+charts/2023/2023-06-05.png,2023-06-05,long,,,,,,,,50.0,pre_gap,1.0,trade below WO
+charts/2023/2023-06-05.png,2023-06-05,long,,,,,,,,50.0,breakout_long,35.0,55% gap up through WO
+charts/2023/2023-06-05.png,2023-06-05,long,,,,,,,,50.0,retest_touch,36.0,bar+1 touches WO
+charts/2023/2023-06-26.png,2023-06-26,long,59.0,59.0,61.0,tp1+be,50.0,15105.0,15105.0,50.0,,,
+charts/2023/2023-06-26.png,2023-06-26,short,,,,,,,,50.0,skip,11.0,no full O+C above WO before gap
+charts/2023/2023-06-26.png,2023-06-26,long,,,,,,,,50.0,pre_gap,1.0,trade below WO
+charts/2023/2023-06-26.png,2023-06-26,long,,,,,,,,50.0,breakout_long,59.0,55% gap up through WO
+charts/2023/2023-06-26.png,2023-06-26,long,,,,,,,,50.0,retest_touch,61.0,bar+2 touches WO
+charts/2023/2023-07-03.png,2023-07-03,short,16.0,16.0,17.0,tp1+be,50.0,15344.0,15344.0,50.0,,,
+charts/2023/2023-07-03.png,2023-07-03,short,,,,,,,,50.0,pre_gap,1.0,trade above WO
+charts/2023/2023-07-03.png,2023-07-03,short,,,,,,,,50.0,breakout_short,16.0,55% gap down through WO
+charts/2023/2023-07-03.png,2023-07-03,short,,,,,,,,50.0,retest_touch,17.0,bar+1 touches WO
+charts/2023/2023-07-17.png,2023-07-17,short,,,,,,,,50.0,pre_gap,3.0,trade above WO
+charts/2023/2023-07-17.png,2023-07-17,short,,,,,,,,50.0,breakout_short,106.0,55% gap down through WO
+charts/2023/2023-07-17.png,2023-07-17,short,,,,,,,,50.0,skip,106.0,swing low @ bar 109 before WO retest
+charts/2023/2023-07-24.png,2023-07-24,short,10.0,10.0,11.0,tp1+be,50.0,15557.25,15557.25,50.0,,,
+charts/2023/2023-07-24.png,2023-07-24,long,,,,,,,,50.0,pre_gap,1.0,trade below WO
+charts/2023/2023-07-24.png,2023-07-24,long,,,,,,,,50.0,breakout_long,4.0,55% gap up through WO
+charts/2023/2023-07-24.png,2023-07-24,long,,,,,,,,50.0,skip,4.0,swing high @ bar 6 before WO retest
+charts/2023/2023-07-24.png,2023-07-24,short,,,,,,,,50.0,pre_gap,5.0,trade above WO
+charts/2023/2023-07-24.png,2023-07-24,short,,,,,,,,50.0,breakout_short,10.0,55% gap down through WO
+charts/2023/2023-07-24.png,2023-07-24,short,,,,,,,,50.0,retest_touch,11.0,bar+1 touches WO
+charts/2023/2023-07-31.png,2023-07-31,long,11.0,11.0,14.0,tp1+be,50.0,15815.0,15815.0,50.0,,,
+charts/2023/2023-07-31.png,2023-07-31,long,,,,,,,,50.0,pre_gap,1.0,trade below WO
+charts/2023/2023-07-31.png,2023-07-31,long,,,,,,,,50.0,breakout_long,11.0,55% gap up through WO
+charts/2023/2023-07-31.png,2023-07-31,long,,,,,,,,50.0,retest_touch,14.0,bar+3 touches WO
+charts/2023/2023-08-07.png,2023-08-07,short,24.0,24.0,25.0,tp1+be,50.0,15439.0,15439.0,50.0,,,
+charts/2023/2023-08-07.png,2023-08-07,short,,,,,,,,50.0,pre_gap,15.0,trade above WO
+charts/2023/2023-08-07.png,2023-08-07,short,,,,,,,,50.0,breakout_short,24.0,55% gap down through WO
+charts/2023/2023-08-07.png,2023-08-07,short,,,,,,,,50.0,retest_touch,25.0,bar+1 touches WO
+charts/2023/2023-08-21.png,2023-08-21,long,,,,,,,,50.0,pre_gap,1.0,trade below WO
+charts/2023/2023-08-21.png,2023-08-21,long,,,,,,,,50.0,breakout_long,4.0,55% gap up through WO
+charts/2023/2023-08-21.png,2023-08-21,long,,,,,,,,50.0,no_fill,4.0,no WO retest within 6 bars after gap
+charts/2023/2023-09-04.png,2023-09-04,long,,,,,,,,50.0,pre_gap,1.0,trade below WO
+charts/2023/2023-09-04.png,2023-09-04,long,,,,,,,,50.0,breakout_long,3.0,55% gap up through WO
+charts/2023/2023-09-04.png,2023-09-04,long,,,,,,,,50.0,skip,3.0,swing high @ bar 5 before WO retest
+charts/2023/2023-09-11.png,2023-09-11,long,,,,,,,,50.0,skip,1.0,no full O+C below WO before gap
+charts/2023/2023-09-11.png,2023-09-11,short,,,,,,,,50.0,pre_gap,2.0,trade above WO
+charts/2023/2023-09-11.png,2023-09-11,short,,,,,,,,50.0,breakout_short,39.0,55% gap down through WO
+charts/2023/2023-09-11.png,2023-09-11,short,,,,,,,,50.0,skip,39.0,swing low @ bar 43 before WO retest
+charts/2023/2023-09-18.png,2023-09-18,short,8.0,8.0,10.0,tp1+be,50.0,15406.5,15406.5,50.0,,,
+charts/2023/2023-09-18.png,2023-09-18,short,,,,,,,,50.0,pre_gap,1.0,trade above WO
+charts/2023/2023-09-18.png,2023-09-18,short,,,,,,,,50.0,breakout_short,8.0,55% gap down through WO
+charts/2023/2023-09-18.png,2023-09-18,short,,,,,,,,50.0,retest_touch,10.0,bar+2 touches WO
+charts/2023/2023-09-25.png,2023-09-25,short,2.0,2.0,3.0,tp1+be,50.0,14917.5,14917.5,50.0,,,
+charts/2023/2023-09-25.png,2023-09-25,short,,,,,,,,50.0,pre_gap,1.0,trade above WO
+charts/2023/2023-09-25.png,2023-09-25,short,,,,,,,,50.0,breakout_short,2.0,55% gap down through WO
+charts/2023/2023-09-25.png,2023-09-25,short,,,,,,,,50.0,retest_touch,3.0,bar+1 touches WO
+charts/2023/2023-10-02.png,2023-10-02,long,23.0,23.0,24.0,stop_both,-100.0,14982.0,14932.0,50.0,,,
+charts/2023/2023-10-02.png,2023-10-02,short,,,,,,,,50.0,skip,5.0,no full O+C above WO before gap
+charts/2023/2023-10-02.png,2023-10-02,long,,,,,,,,50.0,pre_gap,1.0,trade below WO
+charts/2023/2023-10-02.png,2023-10-02,long,,,,,,,,50.0,breakout_long,23.0,55% gap up through WO
+charts/2023/2023-10-02.png,2023-10-02,long,,,,,,,,50.0,retest_touch,24.0,bar+1 touches WO
+charts/2023/2023-10-09.png,2023-10-09,long,2.0,2.0,3.0,stop_both,-100.0,15000.75,14950.75,50.0,,,
+charts/2023/2023-10-09.png,2023-10-09,short,8.0,8.0,9.0,stop_both,-100.0,15000.75,15050.75,50.0,,,
+charts/2023/2023-10-09.png,2023-10-09,long,,,,,,,,50.0,pre_gap,1.0,trade below WO
+charts/2023/2023-10-09.png,2023-10-09,long,,,,,,,,50.0,breakout_long,2.0,55% gap up through WO
+charts/2023/2023-10-09.png,2023-10-09,long,,,,,,,,50.0,retest_touch,3.0,bar+1 touches WO
+charts/2023/2023-10-09.png,2023-10-09,short,,,,,,,,50.0,pre_gap,5.0,trade above WO
+charts/2023/2023-10-09.png,2023-10-09,short,,,,,,,,50.0,breakout_short,8.0,55% gap down through WO
+charts/2023/2023-10-09.png,2023-10-09,short,,,,,,,,50.0,retest_touch,9.0,bar+1 touches WO
+charts/2023/2023-10-16.png,2023-10-16,short,3.0,3.0,4.0,tp1+be,50.0,15161.25,15161.25,50.0,,,
+charts/2023/2023-10-16.png,2023-10-16,short,,,,,,,,50.0,pre_gap,1.0,trade above WO
+charts/2023/2023-10-16.png,2023-10-16,short,,,,,,,,50.0,breakout_short,3.0,55% gap down through WO
+charts/2023/2023-10-16.png,2023-10-16,short,,,,,,,,50.0,retest_touch,4.0,bar+1 touches WO
+charts/2023/2023-10-23.png,2023-10-23,short,,,,,,,,50.0,pre_gap,1.0,trade above WO
+charts/2023/2023-10-23.png,2023-10-23,short,,,,,,,,50.0,breakout_short,4.0,55% gap down through WO
+charts/2023/2023-10-23.png,2023-10-23,short,,,,,,,,50.0,skip,4.0,swing low @ bar 6 before WO retest
+charts/2023/2023-10-30.png,2023-10-30,short,26.0,26.0,27.0,stop_both,-100.0,14336.0,14386.0,50.0,,,
+charts/2023/2023-10-30.png,2023-10-30,long,,,,,,,,50.0,skip,14.0,no full O+C below WO before gap
+charts/2023/2023-10-30.png,2023-10-30,short,,,,,,,,50.0,pre_gap,2.0,trade above WO
+charts/2023/2023-10-30.png,2023-10-30,short,,,,,,,,50.0,breakout_short,26.0,55% gap down through WO
+charts/2023/2023-10-30.png,2023-10-30,short,,,,,,,,50.0,retest_touch,27.0,bar+1 touches WO
+charts/2023/2023-11-06.png,2023-11-06,long,2.0,2.0,3.0,tp1+be,50.0,15185.25,15185.25,50.0,,,
+charts/2023/2023-11-06.png,2023-11-06,long,,,,,,,,50.0,pre_gap,1.0,trade below WO
+charts/2023/2023-11-06.png,2023-11-06,long,,,,,,,,50.0,breakout_long,2.0,55% gap up through WO
+charts/2023/2023-11-06.png,2023-11-06,long,,,,,,,,50.0,retest_touch,3.0,bar+1 touches WO
+charts/2023/2023-11-13.png,2023-11-13,short,10.0,10.0,11.0,stop_both,-100.0,15516.75,15566.75,50.0,,,
+charts/2023/2023-11-13.png,2023-11-13,long,,,,,,,,50.0,skip,1.0,no full O+C below WO before gap
+charts/2023/2023-11-13.png,2023-11-13,short,,,,,,,,50.0,pre_gap,2.0,trade above WO
+charts/2023/2023-11-13.png,2023-11-13,short,,,,,,,,50.0,breakout_short,10.0,55% gap down through WO
+charts/2023/2023-11-13.png,2023-11-13,short,,,,,,,,50.0,retest_touch,11.0,bar+1 touches WO
+charts/2023/2023-11-20.png,2023-11-20,short,,,,,,,,50.0,skip,1.0,no full O+C above WO before gap
+charts/2023/2023-11-20.png,2023-11-20,long,,,,,,,,50.0,pre_gap,2.0,trade below WO
+charts/2023/2023-11-20.png,2023-11-20,long,,,,,,,,50.0,breakout_long,3.0,55% gap up through WO
+charts/2023/2023-11-20.png,2023-11-20,long,,,,,,,,50.0,skip,3.0,swing high @ bar 5 before WO retest
+charts/2023/2023-12-04.png,2023-12-04,long,51.0,51.0,52.0,tp1+be,50.0,15971.25,15971.25,50.0,,,
+charts/2023/2023-12-04.png,2023-12-04,short,,,,,,,,50.0,skip,3.0,no full O+C above WO before gap
+charts/2023/2023-12-04.png,2023-12-04,long,,,,,,,,50.0,pre_gap,6.0,trade below WO
+charts/2023/2023-12-04.png,2023-12-04,long,,,,,,,,50.0,breakout_long,51.0,55% gap up through WO
+charts/2023/2023-12-04.png,2023-12-04,long,,,,,,,,50.0,retest_touch,52.0,bar+1 touches WO
+charts/2023/2023-12-18.png,2023-12-18,short,3.0,3.0,4.0,stop_both,-100.0,16841.5,16891.5,50.0,,,
+charts/2023/2023-12-18.png,2023-12-18,long,9.0,9.0,10.0,tp1+be,50.0,16841.5,16841.5,50.0,,,
+charts/2023/2023-12-18.png,2023-12-18,short,,,,,,,,50.0,pre_gap,1.0,trade above WO
+charts/2023/2023-12-18.png,2023-12-18,short,,,,,,,,50.0,breakout_short,3.0,55% gap down through WO
+charts/2023/2023-12-18.png,2023-12-18,short,,,,,,,,50.0,retest_touch,4.0,bar+1 touches WO
+charts/2023/2023-12-18.png,2023-12-18,long,,,,,,,,50.0,pre_gap,4.0,trade below WO
+charts/2023/2023-12-18.png,2023-12-18,long,,,,,,,,50.0,breakout_long,9.0,55% gap up through WO
+charts/2023/2023-12-18.png,2023-12-18,long,,,,,,,,50.0,retest_touch,10.0,bar+1 touches WO
+charts/2024/2024-01-01.png,2024-01-01,long,,,,,,,,50.0,skip,1.0,no full O+C below WO before gap
+charts/2024/2024-01-01.png,2024-01-01,short,,,,,,,,50.0,pre_gap,2.0,trade above WO
+charts/2024/2024-01-01.png,2024-01-01,short,,,,,,,,50.0,breakout_short,11.0,55% gap down through WO
+charts/2024/2024-01-01.png,2024-01-01,short,,,,,,,,50.0,no_fill,11.0,no WO retest within 6 bars after gap
+charts/2024/2024-01-08.png,2024-01-08,short,4.0,4.0,6.0,stop_both,-100.0,16441.0,16491.0,50.0,,,
+charts/2024/2024-01-08.png,2024-01-08,short,,,,,,,,50.0,pre_gap,1.0,trade above WO
+charts/2024/2024-01-08.png,2024-01-08,short,,,,,,,,50.0,breakout_short,4.0,55% gap down through WO
+charts/2024/2024-01-08.png,2024-01-08,short,,,,,,,,50.0,retest_touch,6.0,bar+2 touches WO
+charts/2024/2024-01-22.png,2024-01-22,long,8.0,8.0,9.0,stop_both,-100.0,17548.0,17498.0,50.0,,,
+charts/2024/2024-01-22.png,2024-01-22,short,,,,,,,,50.0,skip,1.0,no full O+C above WO before gap
+charts/2024/2024-01-22.png,2024-01-22,long,,,,,,,,50.0,pre_gap,2.0,trade below WO
+charts/2024/2024-01-22.png,2024-01-22,long,,,,,,,,50.0,breakout_long,8.0,55% gap up through WO
+charts/2024/2024-01-22.png,2024-01-22,long,,,,,,,,50.0,retest_touch,9.0,bar+1 touches WO
+charts/2024/2024-01-29.png,2024-01-29,short,11.0,11.0,12.0,stop_both,-100.0,17539.75,17589.75,50.0,,,
+charts/2024/2024-01-29.png,2024-01-29,short,,,,,,,,50.0,pre_gap,3.0,trade above WO
+charts/2024/2024-01-29.png,2024-01-29,short,,,,,,,,50.0,breakout_short,11.0,55% gap down through WO
+charts/2024/2024-01-29.png,2024-01-29,short,,,,,,,,50.0,retest_touch,12.0,bar+1 touches WO
+charts/2024/2024-01-29.png,2024-01-29,long,,,,,,,,50.0,pre_gap,1.0,trade below WO
+charts/2024/2024-01-29.png,2024-01-29,long,,,,,,,,50.0,breakout_long,12.0,55% gap up through WO
+charts/2024/2024-01-29.png,2024-01-29,long,,,,,,,,50.0,skip,12.0,swing high @ bar 16 before WO retest
+charts/2024/2024-02-05.png,2024-02-05,short,,,,,,,,50.0,pre_gap,1.0,trade above WO
+charts/2024/2024-02-05.png,2024-02-05,short,,,,,,,,50.0,breakout_short,47.0,55% gap down through WO
+charts/2024/2024-02-05.png,2024-02-05,short,,,,,,,,50.0,skip,47.0,swing low @ bar 50 before WO retest
+charts/2024/2024-02-05.png,2024-02-05,long,,,,,,,,50.0,pre_gap,12.0,trade below WO
+charts/2024/2024-02-05.png,2024-02-05,long,,,,,,,,50.0,breakout_long,56.0,55% gap up through WO
+charts/2024/2024-02-05.png,2024-02-05,long,,,,,,,,50.0,skip,56.0,swing high @ bar 59 before WO retest
+charts/2024/2024-02-12.png,2024-02-12,long,,,,,,,,50.0,pre_gap,1.0,trade below WO
+charts/2024/2024-02-12.png,2024-02-12,long,,,,,,,,50.0,breakout_long,3.0,55% gap up through WO
+charts/2024/2024-02-12.png,2024-02-12,long,,,,,,,,50.0,skip,3.0,swing high @ bar 5 before WO retest
+charts/2024/2024-02-26.png,2024-02-26,long,4.0,4.0,5.0,tp1+be,50.0,17947.0,17947.0,50.0,,,
+charts/2024/2024-02-26.png,2024-02-26,long,,,,,,,,50.0,pre_gap,3.0,trade below WO
+charts/2024/2024-02-26.png,2024-02-26,long,,,,,,,,50.0,breakout_long,4.0,55% gap up through WO
+charts/2024/2024-02-26.png,2024-02-26,long,,,,,,,,50.0,retest_touch,5.0,bar+1 touches WO
+charts/2024/2024-03-04.png,2024-03-04,long,3.0,3.0,4.0,stop_both,-100.0,18353.0,18303.0,50.0,,,
+charts/2024/2024-03-04.png,2024-03-04,long,,,,,,,,50.0,pre_gap,1.0,trade below WO
+charts/2024/2024-03-04.png,2024-03-04,long,,,,,,,,50.0,breakout_long,3.0,55% gap up through WO
+charts/2024/2024-03-04.png,2024-03-04,long,,,,,,,,50.0,retest_touch,4.0,bar+1 touches WO
+charts/2024/2024-03-04.png,2024-03-04,short,,,,,,,,50.0,pre_gap,4.0,trade above WO
+charts/2024/2024-03-04.png,2024-03-04,short,,,,,,,,50.0,breakout_short,5.0,55% gap down through WO
+charts/2024/2024-03-04.png,2024-03-04,short,,,,,,,,50.0,skip,5.0,swing low @ bar 7 before WO retest
+charts/2024/2024-03-18.png,2024-03-18,short,34.0,34.0,35.0,tp1+be,50.0,18121.75,18121.75,50.0,,,
+charts/2024/2024-03-18.png,2024-03-18,long,,,,,,,,50.0,skip,33.0,no full O+C below WO before gap
+charts/2024/2024-03-18.png,2024-03-18,short,,,,,,,,50.0,pre_gap,1.0,trade above WO
+charts/2024/2024-03-18.png,2024-03-18,short,,,,,,,,50.0,breakout_short,34.0,55% gap down through WO
+charts/2024/2024-03-18.png,2024-03-18,short,,,,,,,,50.0,retest_touch,35.0,bar+1 touches WO
+charts/2024/2024-03-25.png,2024-03-25,long,29.0,29.0,33.0,stop_both,-100.0,18574.0,18524.0,50.0,,,
+charts/2024/2024-03-25.png,2024-03-25,short,,,,,,,,50.0,skip,1.0,no full O+C above WO before gap
+charts/2024/2024-03-25.png,2024-03-25,long,,,,,,,,50.0,pre_gap,2.0,trade below WO
+charts/2024/2024-03-25.png,2024-03-25,long,,,,,,,,50.0,breakout_long,29.0,55% gap up through WO
+charts/2024/2024-03-25.png,2024-03-25,long,,,,,,,,50.0,retest_touch,33.0,bar+4 touches WO
+charts/2024/2024-04-01.png,2024-04-01,short,8.0,8.0,10.0,tp1+be,50.0,18573.25,18573.25,50.0,,,
+charts/2024/2024-04-01.png,2024-04-01,long,,,,,,,,50.0,skip,7.0,no full O+C below WO before gap
+charts/2024/2024-04-01.png,2024-04-01,short,,,,,,,,50.0,pre_gap,1.0,trade above WO
+charts/2024/2024-04-01.png,2024-04-01,short,,,,,,,,50.0,breakout_short,8.0,55% gap down through WO
+charts/2024/2024-04-01.png,2024-04-01,short,,,,,,,,50.0,retest_touch,10.0,bar+2 touches WO
+charts/2024/2024-04-08.png,2024-04-08,long,9.0,9.0,10.0,stop_both,-100.0,18324.0,18274.0,50.0,,,
+charts/2024/2024-04-08.png,2024-04-08,short,35.0,35.0,40.0,stop_both,-100.0,18324.0,18374.0,50.0,,,
+charts/2024/2024-04-08.png,2024-04-08,long,,,,,,,,50.0,pre_gap,1.0,trade below WO
+charts/2024/2024-04-08.png,2024-04-08,long,,,,,,,,50.0,breakout_long,9.0,55% gap up through WO
+charts/2024/2024-04-08.png,2024-04-08,long,,,,,,,,50.0,retest_touch,10.0,bar+1 touches WO
+charts/2024/2024-04-08.png,2024-04-08,short,,,,,,,,50.0,pre_gap,33.0,trade above WO
+charts/2024/2024-04-08.png,2024-04-08,short,,,,,,,,50.0,breakout_short,35.0,55% gap down through WO
+charts/2024/2024-04-08.png,2024-04-08,short,,,,,,,,50.0,retest_touch,40.0,bar+5 touches WO
+charts/2024/2024-04-29.png,2024-04-29,short,5.0,5.0,6.0,tp1+be,50.0,17901.5,17901.5,50.0,,,
+charts/2024/2024-04-29.png,2024-04-29,short,,,,,,,,50.0,pre_gap,1.0,trade above WO
+charts/2024/2024-04-29.png,2024-04-29,short,,,,,,,,50.0,breakout_short,5.0,55% gap down through WO
+charts/2024/2024-04-29.png,2024-04-29,short,,,,,,,,50.0,retest_touch,6.0,bar+1 touches WO
+charts/2024/2024-05-06.png,2024-05-06,long,3.0,3.0,4.0,tp1+target,350.0,18004.25,18304.25,50.0,,,
+charts/2024/2024-05-06.png,2024-05-06,short,,,,,,,,50.0,skip,1.0,no full O+C above WO before gap
+charts/2024/2024-05-06.png,2024-05-06,long,,,,,,,,50.0,pre_gap,2.0,trade below WO
+charts/2024/2024-05-06.png,2024-05-06,long,,,,,,,,50.0,breakout_long,3.0,55% gap up through WO
+charts/2024/2024-05-06.png,2024-05-06,long,,,,,,,,50.0,retest_touch,4.0,bar+1 touches WO
+charts/2024/2024-05-20.png,2024-05-20,long,7.0,7.0,8.0,tp1+target,350.0,18675.25,18975.25,50.0,,,
+charts/2024/2024-05-20.png,2024-05-20,long,,,,,,,,50.0,pre_gap,1.0,trade below WO
+charts/2024/2024-05-20.png,2024-05-20,long,,,,,,,,50.0,breakout_long,7.0,55% gap up through WO
+charts/2024/2024-05-20.png,2024-05-20,long,,,,,,,,50.0,retest_touch,8.0,bar+1 touches WO
+charts/2024/2024-05-27.png,2024-05-27,short,49.0,49.0,55.0,tp1+target,350.0,18850.25,18550.25,50.0,,,
+charts/2024/2024-05-27.png,2024-05-27,short,,,,,,,,50.0,pre_gap,1.0,trade above WO
+charts/2024/2024-05-27.png,2024-05-27,short,,,,,,,,50.0,breakout_short,49.0,55% gap down through WO
+charts/2024/2024-06-03.png,2024-06-03,short,26.0,26.0,27.0,tp1+be,50.0,18644.5,18644.5,50.0,,,
+charts/2024/2024-06-03.png,2024-06-03,long,,,,,,,,50.0,skip,5.0,no full O+C below WO before gap
+charts/2024/2024-06-03.png,2024-06-03,short,,,,,,,,50.0,pre_gap,6.0,trade above WO
+charts/2024/2024-06-03.png,2024-06-03,short,,,,,,,,50.0,breakout_short,26.0,55% gap down through WO
+charts/2024/2024-06-03.png,2024-06-03,short,,,,,,,,50.0,retest_touch,27.0,bar+1 touches WO
+charts/2024/2024-06-10.png,2024-06-10,short,,,,,,,,50.0,pre_gap,1.0,trade above WO
+charts/2024/2024-06-10.png,2024-06-10,short,,,,,,,,50.0,breakout_short,3.0,55% gap down through WO
+charts/2024/2024-06-10.png,2024-06-10,short,,,,,,,,50.0,retest_touch,8.0,bar+5 touches WO
+charts/2024/2024-06-10.png,2024-06-10,short,,,,,,,,50.0,skip,3.0,swing low @ bar 6 before WO retest
+charts/2024/2024-06-17.png,2024-06-17,short,,,,,,,,50.0,skip,1.0,no full O+C above WO before gap
+charts/2024/2024-06-17.png,2024-06-17,long,,,,,,,,50.0,pre_gap,2.0,trade below WO
+charts/2024/2024-06-17.png,2024-06-17,long,,,,,,,,50.0,breakout_long,11.0,55% gap up through WO
+charts/2024/2024-06-17.png,2024-06-17,long,,,,,,,,50.0,skip,11.0,swing high @ bar 15 before WO retest
+charts/2024/2024-06-24.png,2024-06-24,short,,,,,,,,50.0,pre_gap,1.0,trade above WO
+charts/2024/2024-06-24.png,2024-06-24,short,,,,,,,,50.0,breakout_short,11.0,55% gap down through WO
+charts/2024/2024-06-24.png,2024-06-24,short,,,,,,,,50.0,no_fill,11.0,no WO retest within 6 bars after gap
+charts/2024/2024-06-24.png,2024-06-24,long,,,,,,,,50.0,pre_gap,9.0,trade below WO
+charts/2024/2024-06-24.png,2024-06-24,long,,,,,,,,50.0,breakout_long,40.0,55% gap up through WO
+charts/2024/2024-06-24.png,2024-06-24,long,,,,,,,,50.0,skip,40.0,swing high @ bar 43 before WO retest
+charts/2024/2024-07-01.png,2024-07-01,short,,,,,,,,50.0,pre_gap,3.0,trade above WO
+charts/2024/2024-07-01.png,2024-07-01,short,,,,,,,,50.0,breakout_short,4.0,55% gap down through WO
+charts/2024/2024-07-01.png,2024-07-01,short,,,,,,,,50.0,skip,4.0,swing low @ bar 6 before WO retest
+charts/2024/2024-07-01.png,2024-07-01,long,,,,,,,,50.0,pre_gap,1.0,trade below WO
+charts/2024/2024-07-01.png,2024-07-01,long,,,,,,,,50.0,breakout_long,34.0,55% gap up through WO
+charts/2024/2024-07-01.png,2024-07-01,long,,,,,,,,50.0,skip,34.0,swing high @ bar 36 before WO retest
+charts/2024/2024-07-08.png,2024-07-08,long,,,,,,,,50.0,pre_gap,1.0,trade below WO
+charts/2024/2024-07-08.png,2024-07-08,long,,,,,,,,50.0,breakout_long,4.0,55% gap up through WO
+charts/2024/2024-07-08.png,2024-07-08,long,,,,,,,,50.0,skip,4.0,swing high @ bar 6 before WO retest
+charts/2024/2024-07-15.png,2024-07-15,short,35.0,35.0,36.0,tp1+be,50.0,20572.0,20572.0,50.0,,,
+charts/2024/2024-07-15.png,2024-07-15,long,,,,,,,,50.0,skip,15.0,no full O+C below WO before gap
+charts/2024/2024-07-15.png,2024-07-15,short,,,,,,,,50.0,pre_gap,1.0,trade above WO
+charts/2024/2024-07-15.png,2024-07-15,short,,,,,,,,50.0,breakout_short,35.0,55% gap down through WO
+charts/2024/2024-07-15.png,2024-07-15,short,,,,,,,,50.0,retest_touch,36.0,bar+1 touches WO
+charts/2024/2024-07-29.png,2024-07-29,short,4.0,4.0,7.0,stop_both,-100.0,19287.75,19337.75,50.0,,,
+charts/2024/2024-07-29.png,2024-07-29,long,8.0,8.0,10.0,stop_both,-100.0,19287.75,19237.75,50.0,,,
+charts/2024/2024-07-29.png,2024-07-29,short,,,,,,,,50.0,pre_gap,1.0,trade above WO
+charts/2024/2024-07-29.png,2024-07-29,short,,,,,,,,50.0,breakout_short,4.0,55% gap down through WO
+charts/2024/2024-07-29.png,2024-07-29,short,,,,,,,,50.0,retest_touch,7.0,bar+3 touches WO
+charts/2024/2024-07-29.png,2024-07-29,long,,,,,,,,50.0,pre_gap,5.0,trade below WO
+charts/2024/2024-07-29.png,2024-07-29,long,,,,,,,,50.0,breakout_long,8.0,55% gap up through WO
+charts/2024/2024-07-29.png,2024-07-29,long,,,,,,,,50.0,retest_touch,10.0,bar+2 touches WO
+charts/2024/2024-08-05.png,2024-08-05,long,31.0,31.0,33.0,stop_both,-100.0,18115.5,18065.5,50.0,,,
+charts/2024/2024-08-05.png,2024-08-05,short,63.0,63.0,64.0,tp1+target,350.0,18115.5,17815.5,50.0,,,
+charts/2024/2024-08-05.png,2024-08-05,long,,,,,,,,50.0,pre_gap,1.0,trade below WO
+charts/2024/2024-08-05.png,2024-08-05,long,,,,,,,,50.0,breakout_long,31.0,55% gap up through WO
+charts/2024/2024-08-05.png,2024-08-05,long,,,,,,,,50.0,retest_touch,33.0,bar+2 touches WO
+charts/2024/2024-08-05.png,2024-08-05,short,,,,,,,,50.0,pre_gap,18.0,trade above WO
+charts/2024/2024-08-05.png,2024-08-05,short,,,,,,,,50.0,breakout_short,63.0,55% gap down through WO
+charts/2024/2024-08-05.png,2024-08-05,short,,,,,,,,50.0,retest_touch,64.0,bar+1 touches WO
+charts/2024/2024-08-12.png,2024-08-12,long,8.0,8.0,9.0,stop_both,-100.0,18654.25,18604.25,50.0,,,
+charts/2024/2024-08-12.png,2024-08-12,short,10.0,10.0,11.0,stop_both,-100.0,18654.25,18704.25,50.0,,,
+charts/2024/2024-08-12.png,2024-08-12,long,,,,,,,,50.0,pre_gap,1.0,trade below WO
+charts/2024/2024-08-12.png,2024-08-12,long,,,,,,,,50.0,breakout_long,8.0,55% gap up through WO
+charts/2024/2024-08-12.png,2024-08-12,long,,,,,,,,50.0,retest_touch,9.0,bar+1 touches WO
+charts/2024/2024-08-12.png,2024-08-12,short,,,,,,,,50.0,pre_gap,9.0,trade above WO
+charts/2024/2024-08-12.png,2024-08-12,short,,,,,,,,50.0,breakout_short,10.0,55% gap down through WO
+charts/2024/2024-08-12.png,2024-08-12,short,,,,,,,,50.0,retest_touch,11.0,bar+1 touches WO
+charts/2024/2024-08-19.png,2024-08-19,short,86.0,86.0,87.0,tp1+be,50.0,19661.25,19661.25,50.0,,,
+charts/2024/2024-08-19.png,2024-08-19,short,,,,,,,,50.0,pre_gap,14.0,trade above WO
+charts/2024/2024-08-19.png,2024-08-19,short,,,,,,,,50.0,breakout_short,86.0,55% gap down through WO
+charts/2024/2024-08-19.png,2024-08-19,short,,,,,,,,50.0,retest_touch,87.0,bar+1 touches WO
+charts/2024/2024-08-26.png,2024-08-26,short,8.0,8.0,10.0,tp1+target,350.0,19792.0,19492.0,50.0,,,
+charts/2024/2024-08-26.png,2024-08-26,short,,,,,,,,50.0,pre_gap,4.0,trade above WO
+charts/2024/2024-08-26.png,2024-08-26,short,,,,,,,,50.0,breakout_short,8.0,55% gap down through WO
+charts/2024/2024-08-26.png,2024-08-26,short,,,,,,,,50.0,retest_touch,10.0,bar+2 touches WO
+charts/2024/2024-09-02.png,2024-09-02,long,24.0,24.0,25.0,stop_both,-100.0,19596.0,19546.0,50.0,,,
+charts/2024/2024-09-02.png,2024-09-02,long,,,,,,,,50.0,pre_gap,1.0,trade below WO
+charts/2024/2024-09-02.png,2024-09-02,long,,,,,,,,50.0,breakout_long,24.0,55% gap up through WO
+charts/2024/2024-09-02.png,2024-09-02,long,,,,,,,,50.0,retest_touch,25.0,bar+1 touches WO
+charts/2024/2024-09-02.png,2024-09-02,short,,,,,,,,50.0,pre_gap,8.0,trade above WO
+charts/2024/2024-09-02.png,2024-09-02,short,,,,,,,,50.0,breakout_short,25.0,55% gap down through WO
+charts/2024/2024-09-02.png,2024-09-02,short,,,,,,,,50.0,no_fill,25.0,no WO retest within 6 bars after gap
+charts/2024/2024-09-23.png,2024-09-23,long,40.0,40.0,45.0,stop_both,-100.0,20149.25,20099.25,50.0,,,
+charts/2024/2024-09-23.png,2024-09-23,short,,,,,,,,50.0,skip,30.0,no full O+C above WO before gap
+charts/2024/2024-09-23.png,2024-09-23,long,,,,,,,,50.0,pre_gap,1.0,trade below WO
+charts/2024/2024-09-23.png,2024-09-23,long,,,,,,,,50.0,breakout_long,40.0,55% gap up through WO
+charts/2024/2024-09-23.png,2024-09-23,long,,,,,,,,50.0,retest_touch,45.0,bar+5 touches WO
+charts/2024/2024-09-30.png,2024-09-30,short,2.0,2.0,3.0,stop_both,-100.0,20189.5,20239.5,50.0,,,
+charts/2024/2024-09-30.png,2024-09-30,short,,,,,,,,50.0,pre_gap,1.0,trade above WO
+charts/2024/2024-09-30.png,2024-09-30,short,,,,,,,,50.0,breakout_short,2.0,55% gap down through WO
+charts/2024/2024-09-30.png,2024-09-30,short,,,,,,,,50.0,retest_touch,3.0,bar+1 touches WO
+charts/2024/2024-09-30.png,2024-09-30,long,,,,,,,,50.0,skip,6.0,no full O+C below WO before gap
+charts/2024/2024-10-14.png,2024-10-14,short,,,,,,,,50.0,pre_gap,1.0,trade above WO
+charts/2024/2024-10-14.png,2024-10-14,short,,,,,,,,50.0,breakout_short,93.0,55% gap down through WO
+charts/2024/2024-10-14.png,2024-10-14,short,,,,,,,,50.0,retest_touch,98.0,bar+5 touches WO
+charts/2024/2024-10-14.png,2024-10-14,short,,,,,,,,50.0,skip,93.0,swing low @ bar 96 before WO retest
+charts/2024/2024-10-28.png,2024-10-28,long,,,,,,,,50.0,skip,1.0,no full O+C below WO before gap
+charts/2024/2024-10-28.png,2024-10-28,short,,,,,,,,50.0,pre_gap,5.0,trade above WO
+charts/2024/2024-10-28.png,2024-10-28,short,,,,,,,,50.0,breakout_short,10.0,55% gap down through WO
+charts/2024/2024-10-28.png,2024-10-28,short,,,,,,,,50.0,no_fill,10.0,no WO retest within 6 bars after gap
+charts/2024/2024-11-04.png,2024-11-04,short,,,,,,,,50.0,pre_gap,1.0,trade above WO
+charts/2024/2024-11-04.png,2024-11-04,short,,,,,,,,50.0,breakout_short,3.0,55% gap down through WO
+charts/2024/2024-11-04.png,2024-11-04,short,,,,,,,,50.0,no_fill,3.0,no WO retest within 6 bars after gap
+charts/2024/2024-11-11.png,2024-11-11,long,,,,,,,,50.0,skip,7.0,no full O+C below WO before gap
+charts/2024/2024-11-11.png,2024-11-11,short,,,,,,,,50.0,pre_gap,1.0,trade above WO
+charts/2024/2024-11-11.png,2024-11-11,short,,,,,,,,50.0,breakout_short,10.0,55% gap down through WO
+charts/2024/2024-11-11.png,2024-11-11,short,,,,,,,,50.0,skip,10.0,swing low @ bar 14 before WO retest
+charts/2024/2024-11-18.png,2024-11-18,short,3.0,3.0,4.0,tp1+be,50.0,20633.5,20633.5,50.0,,,
+charts/2024/2024-11-18.png,2024-11-18,short,,,,,,,,50.0,pre_gap,1.0,trade above WO
+charts/2024/2024-11-18.png,2024-11-18,short,,,,,,,,50.0,breakout_short,3.0,55% gap down through WO
+charts/2024/2024-11-18.png,2024-11-18,short,,,,,,,,50.0,retest_touch,4.0,bar+1 touches WO
+charts/2024/2024-11-25.png,2024-11-25,short,2.0,2.0,3.0,stop_both,-100.0,20961.0,21011.0,50.0,,,
+charts/2024/2024-11-25.png,2024-11-25,short,,,,,,,,50.0,pre_gap,1.0,trade above WO
+charts/2024/2024-11-25.png,2024-11-25,short,,,,,,,,50.0,breakout_short,2.0,55% gap down through WO
+charts/2024/2024-11-25.png,2024-11-25,short,,,,,,,,50.0,retest_touch,3.0,bar+1 touches WO
+charts/2024/2024-11-25.png,2024-11-25,long,,,,,,,,50.0,skip,9.0,no full O+C below WO before gap
+charts/2024/2024-12-16.png,2024-12-16,short,,,,,,,,50.0,pre_gap,3.0,trade above WO
+charts/2024/2024-12-16.png,2024-12-16,short,,,,,,,,50.0,breakout_short,64.0,55% gap down through WO
+charts/2024/2024-12-16.png,2024-12-16,short,,,,,,,,50.0,skip,64.0,swing low @ bar 67 before WO retest
+charts/2024/2024-12-23.png,2024-12-23,short,5.0,5.0,6.0,tp1+be,50.0,21678.75,21678.75,50.0,,,
+charts/2024/2024-12-23.png,2024-12-23,short,,,,,,,,50.0,pre_gap,1.0,trade above WO
+charts/2024/2024-12-23.png,2024-12-23,short,,,,,,,,50.0,breakout_short,5.0,55% gap down through WO
+charts/2024/2024-12-23.png,2024-12-23,short,,,,,,,,50.0,retest_touch,6.0,bar+1 touches WO
+charts/2025/2025-01-06.png,2025-01-06,short,36.0,36.0,38.0,tp1+target,350.0,21508.75,21208.75,50.0,,,
+charts/2025/2025-01-06.png,2025-01-06,short,,,,,,,,50.0,pre_gap,1.0,trade above WO
+charts/2025/2025-01-06.png,2025-01-06,short,,,,,,,,50.0,breakout_short,36.0,55% gap down through WO
+charts/2025/2025-01-06.png,2025-01-06,short,,,,,,,,50.0,retest_touch,38.0,bar+2 touches WO
+charts/2025/2025-01-13.png,2025-01-13,long,38.0,38.0,39.0,tp1+be,50.0,20888.0,20888.0,50.0,,,
+charts/2025/2025-01-13.png,2025-01-13,short,,,,,,,,50.0,pre_gap,1.0,trade above WO
+charts/2025/2025-01-13.png,2025-01-13,short,,,,,,,,50.0,breakout_short,4.0,55% gap down through WO
+charts/2025/2025-01-13.png,2025-01-13,short,,,,,,,,50.0,skip,4.0,swing low @ bar 8 before WO retest
+charts/2025/2025-01-13.png,2025-01-13,long,,,,,,,,50.0,pre_gap,5.0,trade below WO
+charts/2025/2025-01-13.png,2025-01-13,long,,,,,,,,50.0,breakout_long,38.0,55% gap up through WO
+charts/2025/2025-01-13.png,2025-01-13,long,,,,,,,,50.0,retest_touch,39.0,bar+1 touches WO
+charts/2025/2025-01-20.png,2025-01-20,short,112.0,112.0,114.0,eod_both,67.5,21559.75,21526.0,50.0,,,
+charts/2025/2025-01-20.png,2025-01-20,short,,,,,,,,50.0,pre_gap,1.0,trade above WO
+charts/2025/2025-01-20.png,2025-01-20,short,,,,,,,,50.0,breakout_short,112.0,55% gap down through WO
+charts/2025/2025-01-20.png,2025-01-20,short,,,,,,,,50.0,retest_touch,114.0,bar+2 touches WO
+charts/2025/2025-01-27.png,2025-01-27,short,59.0,59.0,61.0,tp1+be,50.0,21526.0,21526.0,50.0,,,
+charts/2025/2025-01-27.png,2025-01-27,short,,,,,,,,50.0,pre_gap,38.0,trade above WO
+charts/2025/2025-01-27.png,2025-01-27,short,,,,,,,,50.0,breakout_short,59.0,55% gap down through WO
+charts/2025/2025-01-27.png,2025-01-27,short,,,,,,,,50.0,retest_touch,61.0,bar+2 touches WO
+charts/2025/2025-02-17.png,2025-02-17,short,3.0,3.0,6.0,tp1+be,50.0,22259.25,22259.25,50.0,,,
+charts/2025/2025-02-17.png,2025-02-17,short,,,,,,,,50.0,pre_gap,1.0,trade above WO
+charts/2025/2025-02-17.png,2025-02-17,short,,,,,,,,50.0,breakout_short,3.0,55% gap down through WO
+charts/2025/2025-02-17.png,2025-02-17,short,,,,,,,,50.0,retest_touch,6.0,bar+3 touches WO
+charts/2025/2025-02-24.png,2025-02-24,short,3.0,3.0,5.0,tp1+target,350.0,21787.75,21487.75,50.0,,,
+charts/2025/2025-02-24.png,2025-02-24,short,,,,,,,,50.0,pre_gap,2.0,trade above WO
+charts/2025/2025-02-24.png,2025-02-24,short,,,,,,,,50.0,breakout_short,3.0,55% gap down through WO
+charts/2025/2025-02-24.png,2025-02-24,short,,,,,,,,50.0,retest_touch,5.0,bar+2 touches WO
+charts/2025/2025-03-17.png,2025-03-17,long,,,,,,,,50.0,pre_gap,1.0,trade below WO
+charts/2025/2025-03-17.png,2025-03-17,long,,,,,,,,50.0,breakout_long,5.0,55% gap up through WO
+charts/2025/2025-03-17.png,2025-03-17,long,,,,,,,,50.0,no_fill,5.0,no WO retest within 6 bars after gap
+charts/2025/2025-03-24.png,2025-03-24,short,76.0,76.0,77.0,tp1+be,50.0,20114.25,20114.25,50.0,,,
+charts/2025/2025-03-24.png,2025-03-24,short,,,,,,,,50.0,pre_gap,3.0,trade above WO
+charts/2025/2025-03-24.png,2025-03-24,short,,,,,,,,50.0,breakout_short,76.0,55% gap down through WO
+charts/2025/2025-03-24.png,2025-03-24,short,,,,,,,,50.0,retest_touch,77.0,bar+1 touches WO
+charts/2025/2025-03-31.png,2025-03-31,short,10.0,10.0,12.0,tp1+be,50.0,19224.75,19224.75,50.0,,,
+charts/2025/2025-03-31.png,2025-03-31,short,,,,,,,,50.0,pre_gap,2.0,trade above WO
+charts/2025/2025-03-31.png,2025-03-31,short,,,,,,,,50.0,breakout_short,10.0,55% gap down through WO
+charts/2025/2025-03-31.png,2025-03-31,short,,,,,,,,50.0,retest_touch,12.0,bar+2 touches WO
+charts/2025/2025-04-07.png,2025-04-07,short,49.0,49.0,50.0,tp1+be,50.0,16880.75,16880.75,50.0,,,
+charts/2025/2025-04-07.png,2025-04-07,short,,,,,,,,50.0,pre_gap,7.0,trade above WO
+charts/2025/2025-04-07.png,2025-04-07,short,,,,,,,,50.0,breakout_short,49.0,55% gap down through WO
+charts/2025/2025-04-07.png,2025-04-07,short,,,,,,,,50.0,retest_touch,50.0,bar+1 touches WO
+charts/2025/2025-04-14.png,2025-04-14,short,12.0,12.0,16.0,tp1+be,50.0,19052.0,19052.0,50.0,,,
+charts/2025/2025-04-14.png,2025-04-14,long,,,,,,,,50.0,skip,11.0,no full O+C below WO before gap
+charts/2025/2025-04-14.png,2025-04-14,short,,,,,,,,50.0,pre_gap,1.0,trade above WO
+charts/2025/2025-04-14.png,2025-04-14,short,,,,,,,,50.0,breakout_short,12.0,55% gap down through WO
+charts/2025/2025-04-14.png,2025-04-14,short,,,,,,,,50.0,retest_touch,16.0,bar+4 touches WO
+charts/2025/2025-04-21.png,2025-04-21,short,,,,,,,,50.0,pre_gap,1.0,trade above WO
+charts/2025/2025-04-21.png,2025-04-21,short,,,,,,,,50.0,breakout_short,4.0,55% gap down through WO
+charts/2025/2025-04-21.png,2025-04-21,short,,,,,,,,50.0,skip,4.0,swing low @ bar 6 before WO retest
+charts/2025/2025-04-28.png,2025-04-28,short,12.0,12.0,15.0,tp1+be,50.0,19418.5,19418.5,50.0,,,
+charts/2025/2025-04-28.png,2025-04-28,short,,,,,,,,50.0,pre_gap,3.0,trade above WO
+charts/2025/2025-04-28.png,2025-04-28,short,,,,,,,,50.0,breakout_short,12.0,55% gap down through WO
+charts/2025/2025-04-28.png,2025-04-28,short,,,,,,,,50.0,retest_touch,15.0,bar+3 touches WO
+charts/2025/2025-05-05.png,2025-05-05,long,10.0,10.0,11.0,tp1+be,50.0,20032.75,20032.75,50.0,,,
+charts/2025/2025-05-05.png,2025-05-05,long,,,,,,,,50.0,pre_gap,6.0,trade below WO
+charts/2025/2025-05-05.png,2025-05-05,long,,,,,,,,50.0,breakout_long,10.0,55% gap up through WO
+charts/2025/2025-05-05.png,2025-05-05,long,,,,,,,,50.0,retest_touch,11.0,bar+1 touches WO
+charts/2025/2025-05-19.png,2025-05-19,short,85.0,85.0,86.0,tp1+be,50.0,21261.25,21261.25,50.0,,,
+charts/2025/2025-05-19.png,2025-05-19,long,,,,,,,,50.0,pre_gap,1.0,trade below WO
+charts/2025/2025-05-19.png,2025-05-19,long,,,,,,,,50.0,breakout_long,10.0,55% gap up through WO
+charts/2025/2025-05-19.png,2025-05-19,long,,,,,,,,50.0,skip,10.0,swing high @ bar 14 before WO retest
+charts/2025/2025-05-19.png,2025-05-19,short,,,,,,,,50.0,pre_gap,11.0,trade above WO
+charts/2025/2025-05-19.png,2025-05-19,short,,,,,,,,50.0,breakout_short,85.0,55% gap down through WO
+charts/2025/2025-05-19.png,2025-05-19,short,,,,,,,,50.0,retest_touch,86.0,bar+1 touches WO
+charts/2025/2025-06-02.png,2025-06-02,long,,,,,,,,50.0,pre_gap,1.0,trade below WO
+charts/2025/2025-06-02.png,2025-06-02,long,,,,,,,,50.0,breakout_long,11.0,55% gap up through WO
+charts/2025/2025-06-02.png,2025-06-02,long,,,,,,,,50.0,no_fill,11.0,no WO retest within 6 bars after gap
+charts/2025/2025-06-09.png,2025-06-09,short,,,,,,,,50.0,pre_gap,1.0,trade above WO
+charts/2025/2025-06-09.png,2025-06-09,short,,,,,,,,50.0,breakout_short,93.0,55% gap down through WO
+charts/2025/2025-06-09.png,2025-06-09,short,,,,,,,,50.0,skip,93.0,swing low @ bar 95 before WO retest
+charts/2025/2025-06-30.png,2025-06-30,short,10.0,10.0,13.0,tp1+be,50.0,22861.0,22861.0,50.0,,,
+charts/2025/2025-06-30.png,2025-06-30,short,,,,,,,,50.0,pre_gap,1.0,trade above WO
+charts/2025/2025-06-30.png,2025-06-30,short,,,,,,,,50.0,breakout_short,10.0,55% gap down through WO
+charts/2025/2025-06-30.png,2025-06-30,short,,,,,,,,50.0,retest_touch,13.0,bar+3 touches WO
+charts/2025/2025-07-07.png,2025-07-07,long,58.0,58.0,59.0,tp1+be,50.0,22956.75,22956.75,50.0,,,
+charts/2025/2025-07-07.png,2025-07-07,long,,,,,,,,50.0,pre_gap,2.0,trade below WO
+charts/2025/2025-07-07.png,2025-07-07,long,,,,,,,,50.0,breakout_long,58.0,55% gap up through WO
+charts/2025/2025-07-07.png,2025-07-07,long,,,,,,,,50.0,retest_touch,59.0,bar+1 touches WO
+charts/2025/2025-07-14.png,2025-07-14,short,2.0,2.0,4.0,tp1+be,50.0,22856.0,22856.0,50.0,,,
+charts/2025/2025-07-14.png,2025-07-14,short,,,,,,,,50.0,pre_gap,1.0,trade above WO
+charts/2025/2025-07-14.png,2025-07-14,short,,,,,,,,50.0,breakout_short,2.0,55% gap down through WO
+charts/2025/2025-07-14.png,2025-07-14,short,,,,,,,,50.0,retest_touch,4.0,bar+2 touches WO
+charts/2025/2025-07-21.png,2025-07-21,long,,,,,,,,50.0,skip,1.0,no full O+C below WO before gap
+charts/2025/2025-07-21.png,2025-07-21,short,,,,,,,,50.0,pre_gap,2.0,trade above WO
+charts/2025/2025-07-21.png,2025-07-21,short,,,,,,,,50.0,breakout_short,34.0,55% gap down through WO
+charts/2025/2025-07-21.png,2025-07-21,short,,,,,,,,50.0,retest_touch,39.0,bar+5 touches WO
+charts/2025/2025-07-21.png,2025-07-21,short,,,,,,,,50.0,skip,34.0,swing low @ bar 37 before WO retest
+charts/2025/2025-07-28.png,2025-07-28,long,,,,,,,,50.0,skip,1.0,no full O+C below WO before gap
+charts/2025/2025-07-28.png,2025-07-28,short,,,,,,,,50.0,pre_gap,2.0,trade above WO
+charts/2025/2025-07-28.png,2025-07-28,short,,,,,,,,50.0,breakout_short,86.0,55% gap down through WO
+charts/2025/2025-07-28.png,2025-07-28,short,,,,,,,,50.0,skip,86.0,swing low @ bar 89 before WO retest
+charts/2025/2025-08-25.png,2025-08-25,long,11.0,11.0,16.0,stop_both,-100.0,23524.5,23474.5,50.0,,,
+charts/2025/2025-08-25.png,2025-08-25,short,,,,,,,,50.0,pre_gap,1.0,trade above WO
+charts/2025/2025-08-25.png,2025-08-25,short,,,,,,,,50.0,breakout_short,5.0,55% gap down through WO
+charts/2025/2025-08-25.png,2025-08-25,short,,,,,,,,50.0,retest_touch,10.0,bar+5 touches WO
+charts/2025/2025-08-25.png,2025-08-25,short,,,,,,,,50.0,skip,5.0,swing low @ bar 7 before WO retest
+charts/2025/2025-08-25.png,2025-08-25,long,,,,,,,,50.0,pre_gap,6.0,trade below WO
+charts/2025/2025-08-25.png,2025-08-25,long,,,,,,,,50.0,breakout_long,11.0,55% gap up through WO
+charts/2025/2025-08-25.png,2025-08-25,long,,,,,,,,50.0,retest_touch,16.0,bar+5 touches WO
+charts/2025/2025-09-01.png,2025-09-01,long,65.0,65.0,68.0,tp1+be,50.0,23463.75,23463.75,50.0,,,
+charts/2025/2025-09-01.png,2025-09-01,short,,,,,,,,50.0,pre_gap,5.0,trade above WO
+charts/2025/2025-09-01.png,2025-09-01,short,,,,,,,,50.0,breakout_short,18.0,55% gap down through WO
+charts/2025/2025-09-01.png,2025-09-01,short,,,,,,,,50.0,skip,18.0,swing low @ bar 22 before WO retest
+charts/2025/2025-09-01.png,2025-09-01,long,,,,,,,,50.0,pre_gap,1.0,trade below WO
+charts/2025/2025-09-01.png,2025-09-01,long,,,,,,,,50.0,breakout_long,65.0,55% gap up through WO
+charts/2025/2025-09-01.png,2025-09-01,long,,,,,,,,50.0,retest_touch,68.0,bar+3 touches WO
+charts/2025/2025-09-08.png,2025-09-08,long,3.0,3.0,5.0,tp1+be,50.0,23741.5,23741.5,50.0,,,
+charts/2025/2025-09-08.png,2025-09-08,long,,,,,,,,50.0,pre_gap,2.0,trade below WO
+charts/2025/2025-09-08.png,2025-09-08,long,,,,,,,,50.0,breakout_long,3.0,55% gap up through WO
+charts/2025/2025-09-08.png,2025-09-08,long,,,,,,,,50.0,retest_touch,5.0,bar+2 touches WO
+charts/2025/2025-09-22.png,2025-09-22,long,50.0,50.0,52.0,tp1+be,50.0,24852.25,24852.25,50.0,,,
+charts/2025/2025-09-22.png,2025-09-22,short,,,,,,,,50.0,pre_gap,1.0,trade above WO
+charts/2025/2025-09-22.png,2025-09-22,short,,,,,,,,50.0,breakout_short,2.0,55% gap down through WO
+charts/2025/2025-09-22.png,2025-09-22,short,,,,,,,,50.0,skip,2.0,swing low @ bar 4 before WO retest
+charts/2025/2025-09-22.png,2025-09-22,long,,,,,,,,50.0,pre_gap,3.0,trade below WO
+charts/2025/2025-09-22.png,2025-09-22,long,,,,,,,,50.0,breakout_long,50.0,55% gap up through WO
+charts/2025/2025-09-22.png,2025-09-22,long,,,,,,,,50.0,retest_touch,52.0,bar+2 touches WO
+charts/2025/2025-09-29.png,2025-09-29,short,28.0,28.0,29.0,tp1+be,50.0,24809.25,24809.25,50.0,,,
+charts/2025/2025-09-29.png,2025-09-29,short,,,,,,,,50.0,pre_gap,1.0,trade above WO
+charts/2025/2025-09-29.png,2025-09-29,short,,,,,,,,50.0,breakout_short,28.0,55% gap down through WO
+charts/2025/2025-09-29.png,2025-09-29,short,,,,,,,,50.0,retest_touch,29.0,bar+1 touches WO
+charts/2025/2025-10-06.png,2025-10-06,short,50.0,50.0,52.0,stop_both,-100.0,25082.5,25132.5,50.0,,,
+charts/2025/2025-10-06.png,2025-10-06,short,,,,,,,,50.0,pre_gap,1.0,trade above WO
+charts/2025/2025-10-06.png,2025-10-06,short,,,,,,,,50.0,breakout_short,50.0,55% gap down through WO
+charts/2025/2025-10-06.png,2025-10-06,short,,,,,,,,50.0,retest_touch,52.0,bar+2 touches WO
+charts/2025/2025-10-06.png,2025-10-06,long,,,,,,,,50.0,pre_gap,37.0,trade below WO
+charts/2025/2025-10-06.png,2025-10-06,long,,,,,,,,50.0,breakout_long,58.0,55% gap up through WO
+charts/2025/2025-10-06.png,2025-10-06,long,,,,,,,,50.0,no_fill,58.0,no WO retest within 6 bars after gap
+charts/2025/2025-10-13.png,2025-10-13,long,,,,,,,,50.0,skip,12.0,no full O+C below WO before gap
+charts/2025/2025-10-13.png,2025-10-13,short,,,,,,,,50.0,pre_gap,2.0,trade above WO
+charts/2025/2025-10-13.png,2025-10-13,short,,,,,,,,50.0,breakout_short,26.0,55% gap down through WO
+charts/2025/2025-10-13.png,2025-10-13,short,,,,,,,,50.0,skip,26.0,swing low @ bar 29 before WO retest
+charts/2025/2025-10-20.png,2025-10-20,short,61.0,61.0,64.0,tp1+be,50.0,25054.25,25054.25,50.0,,,
+charts/2025/2025-10-20.png,2025-10-20,long,,,,,,,,50.0,skip,8.0,no full O+C below WO before gap
+charts/2025/2025-10-20.png,2025-10-20,short,,,,,,,,50.0,pre_gap,1.0,trade above WO
+charts/2025/2025-10-20.png,2025-10-20,short,,,,,,,,50.0,breakout_short,61.0,55% gap down through WO
+charts/2025/2025-10-20.png,2025-10-20,short,,,,,,,,50.0,retest_touch,64.0,bar+3 touches WO
+charts/2025/2025-11-03.png,2025-11-03,short,2.0,2.0,4.0,tp1+be,50.0,26073.75,26073.75,50.0,,,
+charts/2025/2025-11-03.png,2025-11-03,short,,,,,,,,50.0,pre_gap,1.0,trade above WO
+charts/2025/2025-11-03.png,2025-11-03,short,,,,,,,,50.0,breakout_short,2.0,55% gap down through WO
+charts/2025/2025-11-03.png,2025-11-03,short,,,,,,,,50.0,retest_touch,4.0,bar+2 touches WO
+charts/2025/2025-11-10.png,2025-11-10,short,82.0,82.0,83.0,tp1+target,350.0,25465.0,25165.0,50.0,,,
+charts/2025/2025-11-10.png,2025-11-10,short,,,,,,,,50.0,pre_gap,1.0,trade above WO
+charts/2025/2025-11-10.png,2025-11-10,short,,,,,,,,50.0,breakout_short,82.0,55% gap down through WO
+charts/2025/2025-11-10.png,2025-11-10,short,,,,,,,,50.0,retest_touch,83.0,bar+1 touches WO
+charts/2025/2025-11-17.png,2025-11-17,long,3.0,3.0,6.0,stop_both,-100.0,25261.75,25211.75,50.0,,,
+charts/2025/2025-11-17.png,2025-11-17,long,,,,,,,,50.0,pre_gap,2.0,trade below WO
+charts/2025/2025-11-17.png,2025-11-17,long,,,,,,,,50.0,breakout_long,3.0,55% gap up through WO
+charts/2025/2025-11-17.png,2025-11-17,long,,,,,,,,50.0,retest_touch,6.0,bar+3 touches WO
+charts/2025/2025-11-17.png,2025-11-17,short,,,,,,,,50.0,pre_gap,4.0,trade above WO
+charts/2025/2025-11-17.png,2025-11-17,short,,,,,,,,50.0,breakout_short,6.0,55% gap down through WO
+charts/2025/2025-11-17.png,2025-11-17,short,,,,,,,,50.0,skip,6.0,swing low @ bar 10 before WO retest
+charts/2025/2025-12-01.png,2025-12-01,long,2.0,2.0,3.0,tp1+be,50.0,25256.5,25256.5,50.0,,,
+charts/2025/2025-12-01.png,2025-12-01,long,,,,,,,,50.0,pre_gap,1.0,trade below WO
+charts/2025/2025-12-01.png,2025-12-01,long,,,,,,,,50.0,breakout_long,2.0,55% gap up through WO
+charts/2025/2025-12-01.png,2025-12-01,long,,,,,,,,50.0,retest_touch,3.0,bar+1 touches WO
+charts/2025/2025-12-08.png,2025-12-08,short,2.0,2.0,3.0,stop_both,-100.0,25789.75,25839.75,50.0,,,
+charts/2025/2025-12-08.png,2025-12-08,short,,,,,,,,50.0,pre_gap,1.0,trade above WO
+charts/2025/2025-12-08.png,2025-12-08,short,,,,,,,,50.0,breakout_short,2.0,55% gap down through WO
+charts/2025/2025-12-08.png,2025-12-08,short,,,,,,,,50.0,retest_touch,3.0,bar+1 touches WO
+charts/2025/2025-12-08.png,2025-12-08,long,,,,,,,,50.0,skip,3.0,no full O+C below WO before gap
+charts/2025/2025-12-15.png,2025-12-15,long,31.0,31.0,33.0,tp1+be,50.0,25254.25,25254.25,50.0,,,
+charts/2025/2025-12-15.png,2025-12-15,long,,,,,,,,50.0,pre_gap,21.0,trade below WO
+charts/2025/2025-12-15.png,2025-12-15,long,,,,,,,,50.0,breakout_long,31.0,55% gap up through WO
+charts/2025/2025-12-15.png,2025-12-15,long,,,,,,,,50.0,retest_touch,33.0,bar+2 touches WO
+charts/2025/2025-12-22.png,2025-12-22,long,12.0,12.0,14.0,tp1+be,50.0,25686.0,25686.0,50.0,,,
+charts/2025/2025-12-22.png,2025-12-22,long,,,,,,,,50.0,pre_gap,1.0,trade below WO
+charts/2025/2025-12-22.png,2025-12-22,long,,,,,,,,50.0,breakout_long,12.0,55% gap up through WO
+charts/2025/2025-12-22.png,2025-12-22,long,,,,,,,,50.0,retest_touch,14.0,bar+2 touches WO
+charts/2026/2026-01-12.png,2026-01-12,long,56.0,56.0,57.0,tp1+be,50.0,25735.25,25735.25,50.0,,,
+charts/2026/2026-01-12.png,2026-01-12,long,,,,,,,,50.0,pre_gap,1.0,trade below WO
+charts/2026/2026-01-12.png,2026-01-12,long,,,,,,,,50.0,breakout_long,56.0,55% gap up through WO
+charts/2026/2026-01-12.png,2026-01-12,long,,,,,,,,50.0,retest_touch,57.0,bar+1 touches WO
+charts/2026/2026-01-19.png,2026-01-19,long,17.0,17.0,20.0,stop_both,-100.0,25390.25,25340.25,50.0,,,
+charts/2026/2026-01-19.png,2026-01-19,short,,,,,,,,50.0,skip,5.0,no full O+C above WO before gap
+charts/2026/2026-01-19.png,2026-01-19,long,,,,,,,,50.0,pre_gap,3.0,trade below WO
+charts/2026/2026-01-19.png,2026-01-19,long,,,,,,,,50.0,breakout_long,17.0,55% gap up through WO
+charts/2026/2026-01-19.png,2026-01-19,long,,,,,,,,50.0,retest_touch,20.0,bar+3 touches WO
+charts/2026/2026-02-02.png,2026-02-02,short,58.0,58.0,59.0,tp1+target,350.0,25281.75,24981.75,50.0,,,
+charts/2026/2026-02-02.png,2026-02-02,long,,,,,,,,50.0,pre_gap,2.0,trade below WO
+charts/2026/2026-02-02.png,2026-02-02,long,,,,,,,,50.0,breakout_long,3.0,55% gap up through WO
+charts/2026/2026-02-02.png,2026-02-02,long,,,,,,,,50.0,no_fill,3.0,no WO retest within 6 bars after gap
+charts/2026/2026-02-02.png,2026-02-02,short,,,,,,,,50.0,pre_gap,4.0,trade above WO
+charts/2026/2026-02-02.png,2026-02-02,short,,,,,,,,50.0,breakout_short,58.0,55% gap down through WO
+charts/2026/2026-02-02.png,2026-02-02,short,,,,,,,,50.0,retest_touch,59.0,bar+1 touches WO
+charts/2026/2026-02-09.png,2026-02-09,short,60.0,60.0,61.0,stop_both,-100.0,25211.5,25261.5,50.0,,,
+charts/2026/2026-02-09.png,2026-02-09,long,61.0,61.0,62.0,tp1+be,50.0,25211.5,25211.5,50.0,,,
+charts/2026/2026-02-09.png,2026-02-09,short,,,,,,,,50.0,pre_gap,12.0,trade above WO
+charts/2026/2026-02-09.png,2026-02-09,short,,,,,,,,50.0,breakout_short,60.0,55% gap down through WO
+charts/2026/2026-02-09.png,2026-02-09,short,,,,,,,,50.0,retest_touch,61.0,bar+1 touches WO
+charts/2026/2026-02-09.png,2026-02-09,long,,,,,,,,50.0,pre_gap,1.0,trade below WO
+charts/2026/2026-02-09.png,2026-02-09,long,,,,,,,,50.0,breakout_long,61.0,55% gap up through WO
+charts/2026/2026-02-09.png,2026-02-09,long,,,,,,,,50.0,retest_touch,62.0,bar+1 touches WO
+charts/2026/2026-02-16.png,2026-02-16,short,,,,,,,,50.0,pre_gap,3.0,trade above WO
+charts/2026/2026-02-16.png,2026-02-16,short,,,,,,,,50.0,breakout_short,10.0,55% gap down through WO
+charts/2026/2026-02-16.png,2026-02-16,short,,,,,,,,50.0,retest_touch,15.0,bar+5 touches WO
+charts/2026/2026-02-16.png,2026-02-16,short,,,,,,,,50.0,skip,10.0,swing low @ bar 12 before WO retest
+charts/2026/2026-02-16.png,2026-02-16,long,,,,,,,,50.0,pre_gap,1.0,trade below WO
+charts/2026/2026-02-16.png,2026-02-16,long,,,,,,,,50.0,breakout_long,47.0,55% gap up through WO
+charts/2026/2026-02-16.png,2026-02-16,long,,,,,,,,50.0,skip,47.0,swing high @ bar 49 before WO retest
+charts/2026/2026-02-23.png,2026-02-23,long,,,,,,,,50.0,pre_gap,1.0,trade below WO
+charts/2026/2026-02-23.png,2026-02-23,long,,,,,,,,50.0,breakout_long,2.0,55% gap up through WO
+charts/2026/2026-02-23.png,2026-02-23,long,,,,,,,,50.0,skip,2.0,swing high @ bar 5 before WO retest
+charts/2026/2026-02-23.png,2026-02-23,short,,,,,,,,50.0,pre_gap,3.0,trade above WO
+charts/2026/2026-02-23.png,2026-02-23,short,,,,,,,,50.0,breakout_short,11.0,55% gap down through WO
+charts/2026/2026-02-23.png,2026-02-23,short,,,,,,,,50.0,no_fill,11.0,no WO retest within 6 bars after gap
+charts/2026/2026-03-02.png,2026-03-02,short,39.0,39.0,40.0,tp1+be,50.0,24788.75,24788.75,50.0,,,
+charts/2026/2026-03-02.png,2026-03-02,short,,,,,,,,50.0,pre_gap,11.0,trade above WO
+charts/2026/2026-03-02.png,2026-03-02,short,,,,,,,,50.0,breakout_short,39.0,55% gap down through WO
+charts/2026/2026-03-02.png,2026-03-02,short,,,,,,,,50.0,retest_touch,40.0,bar+1 touches WO
