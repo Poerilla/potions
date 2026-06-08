@@ -1,0 +1,2 @@
+strategy_id,strategy_type,version,instrument,broker_instrument,account_mode,enabled,timeframes,max_contracts,max_open_orders,config_json
+nq_atr_sizing_ladder12221_6max_intv2,atr_supertrend_dca,v1,NQ,NQ,paper,true,D,6,64,"{""add_interval"": 2, ""add_on_friday_close"": true, ""add_qty"": 1, ""daily_use_weekly_flat"": false, ""initial_qty"": 1, ""ladder"": [1, 2, 2, 2, 1], ""max_contracts"": 6, ""record_levels"": false, ""schedule"": ""ladder112221"", ""signal_tf"": ""weekly"", ""use_entry_guard"": true}"
