@@ -1,0 +1,15 @@
+# MNQ overlap range winners
+
+- [003_2019-12-12_long_win.png](003_2019-12-12_long_win.png)
+- [004_2020-03-08_short_win.png](004_2020-03-08_short_win.png)
+- [006_2020-12-02_long_win.png](006_2020-12-02_long_win.png)
+- [008_2022-01-13_short_win.png](008_2022-01-13_short_win.png)
+- [009_2022-06-09_short_win.png](009_2022-06-09_short_win.png)
+- [011_2023-03-30_long_win.png](011_2023-03-30_long_win.png)
+- [012_2023-08-09_short_win.png](012_2023-08-09_short_win.png)
+- [014_2023-11-07_long_win.png](014_2023-11-07_long_win.png)
+- [015_2024-04-15_short_win.png](015_2024-04-15_short_win.png)
+- [016_2024-05-15_long_win.png](016_2024-05-15_long_win.png)
+- [017_2024-09-18_long_win.png](017_2024-09-18_long_win.png)
+- [020_2025-05-11_long_win.png](020_2025-05-11_long_win.png)
+- [021_2025-08-06_long_win.png](021_2025-08-06_long_win.png)
