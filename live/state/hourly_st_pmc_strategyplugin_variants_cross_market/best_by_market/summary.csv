@@ -1,0 +1,6 @@
+market,instrument,variant,strategy_id,units,trades,net_usd,closed_dd_usd,intrabar_stress_dd_usd,max_open_units,win_rate_pct,profit_factor,net_over_stress,state_root
+nq,NQ,sl25_tp75_3r,nq_hourly_st_pmc_sl25_tp75_3r,1683,1683,144520.68,-22787.18,-24635.31,1,29.77,1.2384,5.8664,potions/live/state/hourly_st_pmc_strategyplugin_variants_cross_market/nq/combined_state
+mnq,MNQ,sl25_tp75_3r,mnq_hourly_st_pmc_sl25_tp75_3r,1036,1036,10922.44,-1578.58,-2462.00,1,31.47,1.2914,4.4364,potions/live/state/hourly_st_pmc_strategyplugin_variants_cross_market/mnq/combined_state
+mym,MYM,base_1x_50sl_150tp,mym_hourly_st_pmc_base_1x_50sl_150tp,950,950,6051.23,-1283.00,-1365.50,1,33.37,1.3508,4.4315,potions/live/state/hourly_st_pmc_strategyplugin_variants_cross_market/mym/combined_state
+mes,MES,close_against_entry_next_open,mes_hourly_st_pmc_close_against_entry_next_open,333,333,5525.45,-2385.17,-2393.92,1,9.01,1.3954,2.3081,potions/live/state/hourly_st_pmc_strategyplugin_variants_cross_market/mes/combined_state
+es,ES,ma_bull_prior_only,es_hourly_st_pmc_ma_bull_prior_only,223,223,96230.50,-44467.94,-45174.28,1,29.60,1.2414,2.1302,potions/live/state/hourly_st_pmc_strategyplugin_variants_cross_market/es/combined_state
