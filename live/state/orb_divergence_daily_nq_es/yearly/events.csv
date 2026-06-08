@@ -1,0 +1,14 @@
+regime,ts,period_key,kind,side,leader,lagger,leader_breakout_price,lagger_break_ts,lag_days,fakeout
+yearly,2011-06-16T00:00:00,2011,divergent_low,down,NQ,ES,2176.5000,2011-08-03T00:00:00,48,1
+yearly,2012-04-03T00:00:00,2012,divergent_high,up,NQ,ES,2791.5000,2012-08-21T00:00:00,140,1
+yearly,2014-04-04T00:00:00,2014,divergent_high,up,ES,NQ,1892.5000,2014-06-02T00:00:00,59,1
+yearly,2014-04-15T00:00:00,2014,divergent_low,down,NQ,ES,3404.7500,,,1
+yearly,2015-04-23T00:00:00,2015,divergent_high,up,NQ,ES,4497.2500,2015-04-27T00:00:00,4,0
+yearly,2015-08-21T00:00:00,2015,divergent_low,down,ES,NQ,1967.2500,2015-08-24T00:00:00,3,0
+yearly,2016-04-01T00:00:00,2016,divergent_high,up,ES,NQ,2067.0000,2016-07-14T00:00:00,104,1
+yearly,2017-04-03T00:00:00,2017,divergent_high,up,NQ,ES,5455.0000,2017-05-07T00:00:00,34,1
+yearly,2018-06-06T00:00:00,2018,divergent_high,up,NQ,ES,7222.2500,2018-08-26T00:00:00,81,1
+yearly,2020-06-05T00:00:00,2020,divergent_high,up,NQ,ES,9846.2500,2020-08-23T00:00:00,79,0
+yearly,2021-04-01T00:00:00,2021,divergent_high,up,ES,NQ,4017.0000,2021-04-13T00:00:00,12,0
+yearly,2022-04-26T00:00:00,2022,divergent_low,down,NQ,ES,12801.5000,2022-05-02T00:00:00,6,1
+yearly,2023-04-04T00:00:00,2023,divergent_high,up,NQ,ES,13348.7500,2023-05-18T00:00:00,44,1

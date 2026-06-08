@@ -1,0 +1,19 @@
+# NQ restricted stop-limit cycle short charts
+
+- [2010/](2010/INDEX.md) — 3 periods, +85.2 pts
+- [2011/](2011/INDEX.md) — 10 periods, -465.0 pts
+- [2012/](2012/INDEX.md) — 7 periods, +720.0 pts
+- [2013/](2013/INDEX.md) — 7 periods, -860.1 pts
+- [2014/](2014/INDEX.md) — 10 periods, +79.0 pts
+- [2015/](2015/INDEX.md) — 9 periods, +75.4 pts
+- [2016/](2016/INDEX.md) — 9 periods, +167.0 pts
+- [2017/](2017/INDEX.md) — 7 periods, -745.4 pts
+- [2018/](2018/INDEX.md) — 8 periods, +1090.2 pts
+- [2019/](2019/INDEX.md) — 6 periods, -968.8 pts
+- [2020/](2020/INDEX.md) — 8 periods, +155.8 pts
+- [2021/](2021/INDEX.md) — 8 periods, -3611.0 pts
+- [2022/](2022/INDEX.md) — 11 periods, +5955.8 pts
+- [2023/](2023/INDEX.md) — 9 periods, -3900.4 pts
+- [2024/](2024/INDEX.md) — 6 periods, -4040.6 pts
+- [2025/](2025/INDEX.md) — 8 periods, +184.0 pts
+- [2026/](2026/INDEX.md) — 3 periods, +1124.2 pts

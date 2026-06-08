@@ -1,0 +1,4 @@
+method,monthly_overlap_events,matched_pairs,matched_with_known_fakeout,both_fakeout,both_fakeout_rate_pct,monthly_fakeout_rate_pct,v2b_fakeout_rate_pct
+same leader+side within 2 days,20,1,1,0,0.0,0.0,0.0
+same leader+side in same month,20,3,3,2,66.67,66.67,100.0
+same side in same month,20,5,5,3,60.0,80.0,80.0

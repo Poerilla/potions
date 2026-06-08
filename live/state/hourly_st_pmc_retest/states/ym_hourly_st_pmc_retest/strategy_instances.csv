@@ -1,0 +1,2 @@
+strategy_id,strategy_type,version,instrument,broker_instrument,account_mode,enabled,timeframes,max_contracts,max_open_orders,config_json
+ym_hourly_st_pmc_retest,hourly_st_pmc_retest,v1,YM,YM,paper,true,1h,1,8,"{""daily_bars_path"": ""/home/tester/hsm/potions/ym/ym_daily.csv"", ""entry_qty"": 1, ""record_levels"": false, ""stop_pts"": 50.0, ""target_pts"": 150.0, ""tick_size"": 1.0}"
