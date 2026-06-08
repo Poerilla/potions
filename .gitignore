@@ -1,0 +1,12 @@
+**/__pycache__/
+**/.pytest_cache/
+**/.mypy_cache/
+**/.ruff_cache/
+
+# Large raw market data (kept locally, excluded from GitHub)
+**/raw/**/*.dbn.zst
+**/raw/**/*.zip
+**/*_1min_raw.csv
+**/glbx-mdp3-*-*.ohlcv-1m.csv
+live/state/**/events/alerts.jsonl
+live/state/**/alerts.csv
