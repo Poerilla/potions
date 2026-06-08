@@ -1,0 +1,2 @@
+strategy_id,strategy_type,version,instrument,broker_instrument,account_mode,enabled,timeframes,max_contracts,max_open_orders,config_json
+ym_monthly_orb_restricted_scaleout3,monthly_orb_restricted_scaleout3,v1,YM,YM,paper,true,D,3,64,"{""allow_shorts"": true, ""batch_qty"": 1, ""max_trades_per_month"": 2, ""or_sessions"": 3, ""record_levels"": false}"

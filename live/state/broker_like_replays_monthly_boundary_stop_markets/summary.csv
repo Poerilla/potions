@@ -1,0 +1,13 @@
+candidate,slug,instrument,units,trades,net_usd,close_mtm_dd_usd,intrabar_mtm_dd_usd,max_open_units,net_over_stress_dd
+ES Monthly ORB restricted scaleout3 boundary-stop entry,es_monthly_orb_restricted_scaleout3_boundary_stop,ES,12,4,281075.00,-62075.00,-66162.50,3,4.25
+ES Monthly ORB restricted scaleout3,es_monthly_orb_restricted_scaleout3,ES,54,18,246453.12,-62075.00,-66162.50,3,3.72
+NQ Monthly ORB restricted scaleout3 boundary-stop entry,nq_monthly_orb_restricted_scaleout3_boundary_stop,NQ,18,6,446207.50,-117565.00,-122080.00,3,3.66
+NQ Monthly ORB restricted scaleout3,nq_monthly_orb_restricted_scaleout3,NQ,30,10,430465.00,-117565.00,-122080.00,3,3.53
+YM Monthly ORB restricted scaleout3,ym_monthly_orb_restricted_scaleout3,YM,54,18,179658.75,-56275.00,-56795.00,3,3.16
+MNQ Monthly ORB restricted scaleout3 boundary-stop entry,mnq_monthly_orb_restricted_scaleout3_boundary_stop,MNQ,15,5,37605.50,-11756.00,-12208.50,3,3.08
+MES Monthly ORB restricted scaleout3,mes_monthly_orb_restricted_scaleout3,MES,24,8,2901.88,-7821.25,-8350.00,3,0.35
+MNQ Monthly ORB restricted scaleout3,mnq_monthly_orb_restricted_scaleout3,MNQ,108,36,2425.62,-34230.12,-34398.12,3,0.07
+MYM Monthly ORB restricted scaleout3,mym_monthly_orb_restricted_scaleout3,MYM,108,36,-724.50,-15699.50,-16356.50,3,-0.04
+MES Monthly ORB restricted scaleout3 boundary-stop entry,mes_monthly_orb_restricted_scaleout3_boundary_stop,MES,21,7,-17611.88,-38936.25,-39266.25,3,-0.45
+MYM Monthly ORB restricted scaleout3 boundary-stop entry,mym_monthly_orb_restricted_scaleout3_boundary_stop,MYM,18,6,-27342.75,-48244.50,-48570.00,3,-0.56
+YM Monthly ORB restricted scaleout3 boundary-stop entry,ym_monthly_orb_restricted_scaleout3_boundary_stop,YM,6,2,-602942.50,-612810.00,-616650.00,3,-0.98

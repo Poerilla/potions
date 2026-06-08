@@ -1,0 +1,632 @@
+alert_id,strategy_id,level,message,payload_json,status,created_at
+alert_7c73994ba5ef,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MNQ,{},sent,2026-05-19T15:11:28Z
+alert_13f7b0906fe6,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MNQ,{},sent,2026-05-19T15:11:28Z
+alert_16a32e440b49,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MNQ,{},sent,2026-05-19T15:11:28Z
+alert_5cf2ebb74ecb,mnq_monthly_orb_restricted_scaleout3,info,Modified order ord_8c203bb6fc52,{},sent,2026-05-19T15:11:28Z
+alert_a8a6a078c449,mnq_monthly_orb_restricted_scaleout3,info,Monthly ORB month-end flatten requested,{},sent,2026-05-19T15:11:28Z
+alert_6d2ef72cd903,mnq_monthly_orb_restricted_scaleout3,info,Cancelled order ord_8c203bb6fc52,{},sent,2026-05-19T15:11:28Z
+alert_030ec89ef4b2,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:11:28Z
+alert_cbbf04a4af40,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:11:28Z
+alert_1e0b41a7d718,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:11:28Z
+alert_6c09187cf855,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:11:28Z
+alert_b7de4bd056d5,mnq_monthly_orb_restricted_scaleout3,info,Modified order ord_2ad9d48ad898,{},sent,2026-05-19T15:11:28Z
+alert_a23ae0f8a7e3,mnq_monthly_orb_restricted_scaleout3,info,Monthly ORB month-end flatten requested,{},sent,2026-05-19T15:11:28Z
+alert_3836698c8a57,mnq_monthly_orb_restricted_scaleout3,info,Cancelled order ord_2ad9d48ad898,{},sent,2026-05-19T15:11:28Z
+alert_e180fade72ed,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MNQ,{},sent,2026-05-19T15:11:28Z
+alert_827fc0e8ba7d,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:11:29Z
+alert_4ba70f73093d,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:11:29Z
+alert_13b9c41255dd,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:11:29Z
+alert_4aa11958dd2e,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:11:29Z
+alert_a87e74ebd6a8,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:11:29Z
+alert_13169d77dd3a,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:11:29Z
+alert_0308b6ccb7d4,mnq_monthly_orb_restricted_scaleout3,info,Modified order ord_3a4e2967f401,{},sent,2026-05-19T15:11:29Z
+alert_080beefa0169,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MNQ,{},sent,2026-05-19T15:11:29Z
+alert_13072bb557ea,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MNQ,{},sent,2026-05-19T15:11:29Z
+alert_1ac67a104bac,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MNQ,{},sent,2026-05-19T15:11:29Z
+alert_e5a1f4c5d2d1,mnq_monthly_orb_restricted_scaleout3,info,Monthly ORB month-end flatten requested,{},sent,2026-05-19T15:11:29Z
+alert_722792240ac0,mnq_monthly_orb_restricted_scaleout3,info,Cancelled order ord_abd87d415dac,{},sent,2026-05-19T15:11:29Z
+alert_3763ff54b761,mnq_monthly_orb_restricted_scaleout3,info,Cancelled order ord_34d097be2d0f,{},sent,2026-05-19T15:11:29Z
+alert_b4dcd3d32c70,mnq_monthly_orb_restricted_scaleout3,info,Cancelled order ord_34824720441a,{},sent,2026-05-19T15:11:29Z
+alert_f7d494fe9ba0,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 2 MNQ,{},sent,2026-05-19T15:11:29Z
+alert_a3922d2a1f2c,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:11:29Z
+alert_5e4aa1bfd456,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:11:29Z
+alert_6897e29c02d3,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:11:29Z
+alert_2faf2cca33ab,mnq_monthly_orb_restricted_scaleout3,info,Modified order ord_c611ad01f929,{},sent,2026-05-19T15:11:29Z
+alert_bc19d4650eba,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:11:29Z
+alert_fdfe08015935,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:11:29Z
+alert_62f495214759,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:11:29Z
+alert_ed2d2d2db7c3,mnq_monthly_orb_restricted_scaleout3,info,Monthly ORB month-end flatten requested,{},sent,2026-05-19T15:11:29Z
+alert_171a667c6650,mnq_monthly_orb_restricted_scaleout3,info,Cancelled order ord_1bb2217a2c23,{},sent,2026-05-19T15:11:29Z
+alert_e95bc00c9f81,mnq_monthly_orb_restricted_scaleout3,info,Cancelled order ord_1c0f05c1db74,{},sent,2026-05-19T15:11:29Z
+alert_9eeaa0281666,mnq_monthly_orb_restricted_scaleout3,info,Cancelled order ord_15fb94945ab6,{},sent,2026-05-19T15:11:29Z
+alert_d954549ad5ef,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 2 MNQ,{},sent,2026-05-19T15:11:29Z
+alert_a8c1066aac00,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:11:29Z
+alert_ecdf2260901c,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:11:29Z
+alert_851230fa8377,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:11:29Z
+alert_26cc668ec208,mnq_monthly_orb_restricted_scaleout3,info,Modified order ord_17a0a1a3b99a,{},sent,2026-05-19T15:11:29Z
+alert_d6453f32f42e,mnq_monthly_orb_restricted_scaleout3,info,Monthly ORB month-end flatten requested,{},sent,2026-05-19T15:11:29Z
+alert_09d6f67ec410,mnq_monthly_orb_restricted_scaleout3,info,Cancelled order ord_17a0a1a3b99a,{},sent,2026-05-19T15:11:29Z
+alert_d8c494374ec8,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MNQ,{},sent,2026-05-19T15:11:29Z
+alert_79ef7e4a0de1,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:11:30Z
+alert_7e20ed7a3125,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:11:30Z
+alert_be6e42d36193,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:11:30Z
+alert_0b1d532121a3,mnq_monthly_orb_restricted_scaleout3,info,Cancelled order ord_535a82eb7be9,{},sent,2026-05-19T15:11:30Z
+alert_f423b92b2af6,mnq_monthly_orb_restricted_scaleout3,info,Cancelled order ord_7e19d1772622,{},sent,2026-05-19T15:11:30Z
+alert_408baa16815d,mnq_monthly_orb_restricted_scaleout3,info,Cancelled order ord_d11ab5572408,{},sent,2026-05-19T15:11:30Z
+alert_8402ca809905,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:11:30Z
+alert_0b69589a3624,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:11:30Z
+alert_aa657d9b7efa,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:11:30Z
+alert_96c119628fa3,mnq_monthly_orb_restricted_scaleout3,info,Cancelled order ord_fa0274f23154,{},sent,2026-05-19T15:11:30Z
+alert_82af0ab2d18e,mnq_monthly_orb_restricted_scaleout3,info,Cancelled order ord_23bcc8da70fe,{},sent,2026-05-19T15:11:30Z
+alert_f62d1275936e,mnq_monthly_orb_restricted_scaleout3,info,Cancelled order ord_fd83ee4869f3,{},sent,2026-05-19T15:11:30Z
+alert_98d9f76e7694,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:11:30Z
+alert_e046fccf284f,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:11:30Z
+alert_3300b8c4c035,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:11:30Z
+alert_25aab2a94c61,mnq_monthly_orb_restricted_scaleout3,info,Modified order ord_be82d0496a51,{},sent,2026-05-19T15:11:30Z
+alert_0a0bd16dd1c1,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MNQ,{},sent,2026-05-19T15:11:30Z
+alert_927ba0acda8b,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MNQ,{},sent,2026-05-19T15:11:30Z
+alert_4fedc3ce9848,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MNQ,{},sent,2026-05-19T15:11:30Z
+alert_71e6955d1145,mnq_monthly_orb_restricted_scaleout3,info,Modified order ord_6036ceff5e53,{},sent,2026-05-19T15:11:30Z
+alert_55b880496588,mnq_monthly_orb_restricted_scaleout3,info,Monthly ORB month-end flatten requested,{},sent,2026-05-19T15:11:30Z
+alert_2964f0986d4e,mnq_monthly_orb_restricted_scaleout3,info,Cancelled order ord_6036ceff5e53,{},sent,2026-05-19T15:11:30Z
+alert_1fbb840c354b,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:11:30Z
+alert_ab8259a91938,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MNQ,{},sent,2026-05-19T15:11:30Z
+alert_c2ed6d17690e,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MNQ,{},sent,2026-05-19T15:11:30Z
+alert_438b9d254e45,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MNQ,{},sent,2026-05-19T15:11:30Z
+alert_6a831e908bed,mnq_monthly_orb_restricted_scaleout3,info,Modified order ord_c8897d07b14c,{},sent,2026-05-19T15:11:30Z
+alert_546a4fc7773b,mnq_monthly_orb_restricted_scaleout3,info,Monthly ORB month-end flatten requested,{},sent,2026-05-19T15:11:31Z
+alert_e6229b258dce,mnq_monthly_orb_restricted_scaleout3,info,Cancelled order ord_c8897d07b14c,{},sent,2026-05-19T15:11:31Z
+alert_7aa82c343fb5,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:11:31Z
+alert_2c13ec3483eb,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:11:31Z
+alert_03a8cbae1ad8,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:11:31Z
+alert_4d82e5781e39,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:11:31Z
+alert_6d4a1b1f4efc,mnq_monthly_orb_restricted_scaleout3,info,Cancelled order ord_77168872283e,{},sent,2026-05-19T15:11:31Z
+alert_33229902858a,mnq_monthly_orb_restricted_scaleout3,info,Cancelled order ord_dbe723eb3193,{},sent,2026-05-19T15:11:31Z
+alert_6cd7ac3bf217,mnq_monthly_orb_restricted_scaleout3,info,Cancelled order ord_de50b2848976,{},sent,2026-05-19T15:11:31Z
+alert_10913d3d478f,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:11:31Z
+alert_0c44fe541b33,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:11:31Z
+alert_42e55865c3f6,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:11:31Z
+alert_bbccdb9e8379,mnq_monthly_orb_restricted_scaleout3,info,Modified order ord_0964af32b784,{},sent,2026-05-19T15:11:31Z
+alert_fe70045b3056,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:11:31Z
+alert_55ddf71640e7,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:11:31Z
+alert_332aaa304dfd,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:11:31Z
+alert_2c1523637203,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:11:31Z
+alert_62aeb496f886,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:11:31Z
+alert_0848d554d1d5,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:11:31Z
+alert_441d43f9cee2,mnq_monthly_orb_restricted_scaleout3,info,Cancelled order ord_0e2baf7ac444,{},sent,2026-05-19T15:11:32Z
+alert_b20bfbf78867,mnq_monthly_orb_restricted_scaleout3,info,Cancelled order ord_7ba52e01b488,{},sent,2026-05-19T15:11:32Z
+alert_0addc87e805f,mnq_monthly_orb_restricted_scaleout3,info,Cancelled order ord_ec1eef91f47a,{},sent,2026-05-19T15:11:32Z
+alert_df8e35e560aa,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:11:32Z
+alert_3faa24561a7f,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:11:32Z
+alert_bdb56ebc14c4,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:11:32Z
+alert_88ac8918e40e,mnq_monthly_orb_restricted_scaleout3,info,Modified order ord_354d75089976,{},sent,2026-05-19T15:11:32Z
+alert_2986e6c92fab,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:11:32Z
+alert_ad96fa98106e,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:11:32Z
+alert_a862a0ef3998,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:11:32Z
+alert_9475b3804005,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:11:32Z
+alert_2b31d2c43056,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:11:32Z
+alert_19dac5739d06,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:11:32Z
+alert_739f4520d14f,mnq_monthly_orb_restricted_scaleout3,info,Modified order ord_6a5156bbdce3,{},sent,2026-05-19T15:11:33Z
+alert_88ecdedc2b01,mnq_monthly_orb_restricted_scaleout3,info,Monthly ORB month-end flatten requested,{},sent,2026-05-19T15:11:33Z
+alert_17061e0f1956,mnq_monthly_orb_restricted_scaleout3,info,Cancelled order ord_6a5156bbdce3,{},sent,2026-05-19T15:11:33Z
+alert_07a7894b746a,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MNQ,{},sent,2026-05-19T15:11:33Z
+alert_aab16fc6dc68,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MNQ,{},sent,2026-05-19T15:11:33Z
+alert_118c645dec89,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MNQ,{},sent,2026-05-19T15:11:33Z
+alert_af1ecd88869c,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MNQ,{},sent,2026-05-19T15:11:33Z
+alert_53534df9e4e9,mnq_monthly_orb_restricted_scaleout3,info,Modified order ord_e333776aa9b1,{},sent,2026-05-19T15:11:33Z
+alert_da2aa68ea24f,mnq_monthly_orb_restricted_scaleout3,info,Monthly ORB month-end flatten requested,{},sent,2026-05-19T15:11:33Z
+alert_5dbac12749ae,mnq_monthly_orb_restricted_scaleout3,info,Cancelled order ord_e333776aa9b1,{},sent,2026-05-19T15:11:33Z
+alert_e3d544ce8e1a,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:11:33Z
+alert_966073d97e1e,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:11:34Z
+alert_bc1465e839cd,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:11:34Z
+alert_0d8c4d222d27,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:11:34Z
+alert_a4972712887c,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MNQ,{},sent,2026-05-19T15:11:34Z
+alert_c51e99e8f001,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MNQ,{},sent,2026-05-19T15:11:34Z
+alert_ad7a64c0b511,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MNQ,{},sent,2026-05-19T15:11:34Z
+alert_6ddb4c13b6fe,mnq_monthly_orb_restricted_scaleout3,info,Monthly ORB month-end flatten requested,{},sent,2026-05-19T15:11:34Z
+alert_59fda6691d53,mnq_monthly_orb_restricted_scaleout3,info,Cancelled order ord_3ed916831efe,{},sent,2026-05-19T15:11:34Z
+alert_313e851ef7b2,mnq_monthly_orb_restricted_scaleout3,info,Cancelled order ord_4668e0e8e6de,{},sent,2026-05-19T15:11:34Z
+alert_92df1c70cc1b,mnq_monthly_orb_restricted_scaleout3,info,Cancelled order ord_d9bbbae10201,{},sent,2026-05-19T15:11:34Z
+alert_4bd77a06f06f,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 2 MNQ,{},sent,2026-05-19T15:11:34Z
+alert_b384dc9d42d9,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:11:34Z
+alert_63e6b2b5b5d8,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:11:34Z
+alert_b8b94c575700,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:11:34Z
+alert_a93002787e0f,mnq_monthly_orb_restricted_scaleout3,info,Cancelled order ord_241990b25ebb,{},sent,2026-05-19T15:11:34Z
+alert_ad26e15fecc9,mnq_monthly_orb_restricted_scaleout3,info,Cancelled order ord_d6195e5ab3bc,{},sent,2026-05-19T15:11:34Z
+alert_45af5d6d6c00,mnq_monthly_orb_restricted_scaleout3,info,Cancelled order ord_8bb75e2d9cfd,{},sent,2026-05-19T15:11:34Z
+alert_2a6af9e60475,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:11:35Z
+alert_7ce462373b99,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:11:35Z
+alert_775ae455b80d,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:11:35Z
+alert_3628ea2a0f7f,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:11:35Z
+alert_eeaeeb0004a8,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:11:35Z
+alert_478ee0c62064,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:11:35Z
+alert_8eac7cd9ba8f,mnq_monthly_orb_restricted_scaleout3,info,Modified order ord_902f07adcac5,{},sent,2026-05-19T15:11:35Z
+alert_879166cb67c4,mnq_monthly_orb_restricted_scaleout3,info,Monthly ORB month-end flatten requested,{},sent,2026-05-19T15:11:35Z
+alert_87a5d2e2fdf3,mnq_monthly_orb_restricted_scaleout3,info,Cancelled order ord_902f07adcac5,{},sent,2026-05-19T15:11:35Z
+alert_b18dbffd52e5,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MNQ,{},sent,2026-05-19T15:11:35Z
+alert_8726f1a8f829,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:11:35Z
+alert_53575004c332,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:11:35Z
+alert_ebd1a7dd5f75,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:11:35Z
+alert_5d729b1171b5,mnq_monthly_orb_restricted_scaleout3,info,Modified order ord_94debc312c68,{},sent,2026-05-19T15:11:36Z
+alert_91d8a9c57c4d,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:11:36Z
+alert_51dc9cbf059b,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:11:36Z
+alert_2c830dcd1536,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:11:36Z
+alert_9dcf28b11a8f,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MNQ,{},sent,2026-05-19T15:11:36Z
+alert_fa57adde8ff0,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MNQ,{},sent,2026-05-19T15:11:36Z
+alert_ec8199fdf963,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MNQ,{},sent,2026-05-19T15:11:36Z
+alert_4156c0e6cac0,mnq_monthly_orb_restricted_scaleout3,info,Monthly ORB month-end flatten requested,{},sent,2026-05-19T15:11:37Z
+alert_03c0822e0ed6,mnq_monthly_orb_restricted_scaleout3,info,Cancelled order ord_3b5d5c6ec4ee,{},sent,2026-05-19T15:11:37Z
+alert_58d15f2a1820,mnq_monthly_orb_restricted_scaleout3,info,Cancelled order ord_a49e55521f45,{},sent,2026-05-19T15:11:37Z
+alert_d38eaa85ba07,mnq_monthly_orb_restricted_scaleout3,info,Cancelled order ord_49c336eaee41,{},sent,2026-05-19T15:11:37Z
+alert_4f98ee2fe7c7,mnq_monthly_orb_restricted_scaleout3,info,Cancelled order ord_e5980ef21ac1,{},sent,2026-05-19T15:11:37Z
+alert_493839f3a39b,mnq_monthly_orb_restricted_scaleout3,info,Cancelled order ord_7dab33a0e52e,{},sent,2026-05-19T15:11:37Z
+alert_d67a9e30052a,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 3 MNQ,{},sent,2026-05-19T15:11:37Z
+alert_d10545dd8fdb,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MNQ,{},sent,2026-05-19T15:11:37Z
+alert_7af16aba0dae,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MNQ,{},sent,2026-05-19T15:11:37Z
+alert_994b60f67727,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MNQ,{},sent,2026-05-19T15:11:37Z
+alert_e390a3bb6561,mnq_monthly_orb_restricted_scaleout3,info,Monthly ORB month-end flatten requested,{},sent,2026-05-19T15:11:37Z
+alert_1b1e3fa44dee,mnq_monthly_orb_restricted_scaleout3,info,Cancelled order ord_0aafd5d7a8b4,{},sent,2026-05-19T15:11:37Z
+alert_1e89f86e5816,mnq_monthly_orb_restricted_scaleout3,info,Cancelled order ord_9b40c0e5b018,{},sent,2026-05-19T15:11:37Z
+alert_66bc1b1bcb69,mnq_monthly_orb_restricted_scaleout3,info,Cancelled order ord_d9760de6448f,{},sent,2026-05-19T15:11:37Z
+alert_a8f82c7d4f26,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 2 MNQ,{},sent,2026-05-19T15:11:37Z
+alert_51f7f75cfabd,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:11:37Z
+alert_e7f9b6542923,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:11:37Z
+alert_a55256fbfa4f,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:11:37Z
+alert_4496940f338a,mnq_monthly_orb_restricted_scaleout3,info,Cancelled order ord_bcac8834e5e1,{},sent,2026-05-19T15:11:38Z
+alert_e0d6e8ae69f2,mnq_monthly_orb_restricted_scaleout3,info,Cancelled order ord_9a16e27f9c17,{},sent,2026-05-19T15:11:38Z
+alert_f4ab6ac2aa4a,mnq_monthly_orb_restricted_scaleout3,info,Cancelled order ord_0b8e7bc58292,{},sent,2026-05-19T15:11:38Z
+alert_63c8a63e4fcd,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MNQ,{},sent,2026-05-19T15:11:38Z
+alert_f9f7a351b916,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MNQ,{},sent,2026-05-19T15:11:38Z
+alert_a73e2cd96170,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MNQ,{},sent,2026-05-19T15:11:38Z
+alert_d8da93749475,mnq_monthly_orb_restricted_scaleout3,info,Monthly ORB month-end flatten requested,{},sent,2026-05-19T15:11:38Z
+alert_eaf4a31298df,mnq_monthly_orb_restricted_scaleout3,info,Cancelled order ord_3ca7bc87f566,{},sent,2026-05-19T15:11:38Z
+alert_b92efd6edc0a,mnq_monthly_orb_restricted_scaleout3,info,Cancelled order ord_f64171f42a0c,{},sent,2026-05-19T15:11:38Z
+alert_e0adaab69281,mnq_monthly_orb_restricted_scaleout3,info,Cancelled order ord_ab38f1a793c2,{},sent,2026-05-19T15:11:38Z
+alert_fc06d1aa8e96,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 2 MNQ,{},sent,2026-05-19T15:11:38Z
+alert_01d05e2435a1,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:11:39Z
+alert_8b635b2d0792,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:11:39Z
+alert_279b441fe2bd,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:11:39Z
+alert_89e0ad96e95f,mnq_monthly_orb_restricted_scaleout3,info,Modified order ord_25254137305b,{},sent,2026-05-19T15:11:39Z
+alert_bd7d889f3265,mnq_monthly_orb_restricted_scaleout3,info,Monthly ORB month-end flatten requested,{},sent,2026-05-19T15:11:39Z
+alert_01f7697d211b,mnq_monthly_orb_restricted_scaleout3,info,Cancelled order ord_25254137305b,{},sent,2026-05-19T15:11:39Z
+alert_c856712c3512,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MNQ,{},sent,2026-05-19T15:11:39Z
+alert_fb9cdeb4a5a5,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:11:39Z
+alert_a2c4e747b9b9,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:11:39Z
+alert_f67b514e5d87,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:11:39Z
+alert_953e1ddb0cba,mnq_monthly_orb_restricted_scaleout3,info,Modified order ord_865200085d14,{},sent,2026-05-19T15:11:40Z
+alert_7ab7a75d8ff0,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:11:40Z
+alert_b6e4d029164c,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:11:40Z
+alert_701f4e301c33,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:11:40Z
+alert_0ce35671d9fb,mnq_monthly_orb_restricted_scaleout3,info,Modified order ord_427cce6d2536,{},sent,2026-05-19T15:11:40Z
+alert_aa55335b1625,mnq_monthly_orb_restricted_scaleout3,info,Monthly ORB month-end flatten requested,{},sent,2026-05-19T15:11:40Z
+alert_203440554912,mnq_monthly_orb_restricted_scaleout3,info,Cancelled order ord_427cce6d2536,{},sent,2026-05-19T15:11:40Z
+alert_e0b68db2c09b,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MNQ,{},sent,2026-05-19T15:11:40Z
+alert_9035972370e5,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:11:40Z
+alert_a277f776b2ae,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:11:40Z
+alert_7ee8baeab2e8,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:11:40Z
+alert_fc8c793b83bd,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MNQ,{},sent,2026-05-19T15:11:41Z
+alert_d40028883ebe,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MNQ,{},sent,2026-05-19T15:11:41Z
+alert_06154a5bddc7,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MNQ,{},sent,2026-05-19T15:11:41Z
+alert_2ef6d69fa1f8,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MNQ,{},sent,2026-05-19T15:11:42Z
+alert_becc1b7a1881,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MNQ,{},sent,2026-05-19T15:11:42Z
+alert_440be938625f,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MNQ,{},sent,2026-05-19T15:11:42Z
+alert_41e075b1bc49,mnq_monthly_orb_restricted_scaleout3,info,Modified order ord_b77725ba6c37,{},sent,2026-05-19T15:11:42Z
+alert_f7190a6913ec,mnq_monthly_orb_restricted_scaleout3,info,Monthly ORB month-end flatten requested,{},sent,2026-05-19T15:11:42Z
+alert_7275a24b3b13,mnq_monthly_orb_restricted_scaleout3,info,Cancelled order ord_b77725ba6c37,{},sent,2026-05-19T15:11:42Z
+alert_19d2cbf8361e,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:11:42Z
+alert_fc5ba4676402,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:11:42Z
+alert_c05149889ef2,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:11:42Z
+alert_7c70a102979e,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:11:42Z
+alert_fcff4c14a3ce,mnq_monthly_orb_restricted_scaleout3,info,Modified order ord_3e1af2a51a9b,{},sent,2026-05-19T15:11:43Z
+alert_af4547ec8322,mnq_monthly_orb_restricted_scaleout3,info,Monthly ORB month-end flatten requested,{},sent,2026-05-19T15:11:43Z
+alert_cfc8a766f6f0,mnq_monthly_orb_restricted_scaleout3,info,Cancelled order ord_3e1af2a51a9b,{},sent,2026-05-19T15:11:43Z
+alert_7b144a6daa30,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MNQ,{},sent,2026-05-19T15:11:43Z
+alert_e0d0593fd80f,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:11:43Z
+alert_8b18163554f2,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:11:43Z
+alert_1322a3dcef43,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:11:43Z
+alert_307e008d0a5d,mnq_monthly_orb_restricted_scaleout3,info,Modified order ord_5ededc9fd734,{},sent,2026-05-19T15:11:44Z
+alert_4e9a798f182a,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:11:44Z
+alert_d5af98287536,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:11:44Z
+alert_1af23a22aebb,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:11:44Z
+alert_aa01015a9e6f,mnq_monthly_orb_restricted_scaleout3,info,Monthly ORB month-end flatten requested,{},sent,2026-05-19T15:11:44Z
+alert_9aebc445c080,mnq_monthly_orb_restricted_scaleout3,info,Cancelled order ord_9733317efa0b,{},sent,2026-05-19T15:11:44Z
+alert_24a0484c5822,mnq_monthly_orb_restricted_scaleout3,info,Cancelled order ord_8b1671097966,{},sent,2026-05-19T15:11:44Z
+alert_4b915b11c3ed,mnq_monthly_orb_restricted_scaleout3,info,Cancelled order ord_447bc2d249ce,{},sent,2026-05-19T15:11:44Z
+alert_c656fee4d3ab,mnq_monthly_orb_restricted_scaleout3,info,Cancelled order ord_19ea9216bcac,{},sent,2026-05-19T15:11:44Z
+alert_ad98be4db94c,mnq_monthly_orb_restricted_scaleout3,info,Cancelled order ord_61ed6548f32c,{},sent,2026-05-19T15:11:44Z
+alert_ef806df6a042,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 3 MNQ,{},sent,2026-05-19T15:11:44Z
+alert_96e975681e6d,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:11:45Z
+alert_9db103c234bd,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:11:45Z
+alert_3c2afe94f055,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:11:45Z
+alert_c5825064d5f5,mnq_monthly_orb_restricted_scaleout3,info,Monthly ORB month-end flatten requested,{},sent,2026-05-19T15:11:45Z
+alert_935c0a8756ed,mnq_monthly_orb_restricted_scaleout3,info,Cancelled order ord_ac331f9b1559,{},sent,2026-05-19T15:11:45Z
+alert_87d869e18b68,mnq_monthly_orb_restricted_scaleout3,info,Cancelled order ord_6649dcefb8e7,{},sent,2026-05-19T15:11:45Z
+alert_e221f0892e28,mnq_monthly_orb_restricted_scaleout3,info,Cancelled order ord_71883a71bf2a,{},sent,2026-05-19T15:11:45Z
+alert_fc3bda3c4a02,mnq_monthly_orb_restricted_scaleout3,info,Cancelled order ord_174175613146,{},sent,2026-05-19T15:11:45Z
+alert_ac193b0646dd,mnq_monthly_orb_restricted_scaleout3,info,Cancelled order ord_cb7494747b18,{},sent,2026-05-19T15:11:45Z
+alert_2e25e0d06b5a,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 3 MNQ,{},sent,2026-05-19T15:11:45Z
+alert_f7d55c6308fe,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MNQ,{},sent,2026-05-19T15:11:45Z
+alert_dc68808b72d9,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MNQ,{},sent,2026-05-19T15:11:45Z
+alert_62900f8fc6e5,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MNQ,{},sent,2026-05-19T15:11:45Z
+alert_65e0eb0e3f81,mnq_monthly_orb_restricted_scaleout3,info,Cancelled order ord_4f151d0f6e5d,{},sent,2026-05-19T15:11:46Z
+alert_a4f84b85ba6b,mnq_monthly_orb_restricted_scaleout3,info,Cancelled order ord_943b064ca4fa,{},sent,2026-05-19T15:11:46Z
+alert_932ecb4b262e,mnq_monthly_orb_restricted_scaleout3,info,Cancelled order ord_9ab6aacbbee9,{},sent,2026-05-19T15:11:46Z
+alert_ac380f569e36,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MNQ,{},sent,2026-05-19T15:11:46Z
+alert_41c0e0ff0c05,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MNQ,{},sent,2026-05-19T15:11:46Z
+alert_632b7e4a3553,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MNQ,{},sent,2026-05-19T15:11:46Z
+alert_f603f661f7e3,mnq_monthly_orb_restricted_scaleout3,info,Modified order ord_2a8483469248,{},sent,2026-05-19T15:11:47Z
+alert_9e161f57dda6,mnq_monthly_orb_restricted_scaleout3,info,Monthly ORB month-end flatten requested,{},sent,2026-05-19T15:11:47Z
+alert_586f6b8c396b,mnq_monthly_orb_restricted_scaleout3,info,Cancelled order ord_2a8483469248,{},sent,2026-05-19T15:11:47Z
+alert_66eb26ec13f4,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:11:47Z
+alert_4907e595a4e0,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MNQ,{},sent,2026-05-19T15:11:47Z
+alert_6730d71ea3e8,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MNQ,{},sent,2026-05-19T15:11:47Z
+alert_4f60f0351162,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MNQ,{},sent,2026-05-19T15:11:47Z
+alert_6241a824af99,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:11:48Z
+alert_7bf95f64a654,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:11:48Z
+alert_f17abee1d60d,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:11:48Z
+alert_b25adc45be45,mnq_monthly_orb_restricted_scaleout3,info,Modified order ord_d50531ad1390,{},sent,2026-05-19T15:11:48Z
+alert_8632ee10d9ba,mnq_monthly_orb_restricted_scaleout3,info,Monthly ORB month-end flatten requested,{},sent,2026-05-19T15:11:48Z
+alert_113203468c06,mnq_monthly_orb_restricted_scaleout3,info,Cancelled order ord_d50531ad1390,{},sent,2026-05-19T15:11:48Z
+alert_bae90d70c45d,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MNQ,{},sent,2026-05-19T15:11:48Z
+alert_2ac3fc6d21be,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MNQ,{},sent,2026-05-19T15:11:48Z
+alert_58dc68ae6681,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MNQ,{},sent,2026-05-19T15:11:48Z
+alert_7a1e7a55437a,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MNQ,{},sent,2026-05-19T15:11:48Z
+alert_94f49215fe6c,mnq_monthly_orb_restricted_scaleout3,info,Cancelled order ord_2496bb9ecba6,{},sent,2026-05-19T15:11:49Z
+alert_717d23901955,mnq_monthly_orb_restricted_scaleout3,info,Cancelled order ord_09cffa8b0943,{},sent,2026-05-19T15:11:49Z
+alert_af48302fcc01,mnq_monthly_orb_restricted_scaleout3,info,Cancelled order ord_92d6871c1829,{},sent,2026-05-19T15:11:49Z
+alert_876339aa5d52,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:11:49Z
+alert_e3c23b3b2482,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:11:49Z
+alert_957f41739523,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:11:49Z
+alert_7824d719d925,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MNQ,{},sent,2026-05-19T15:11:50Z
+alert_6d082b6b87d5,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MNQ,{},sent,2026-05-19T15:11:50Z
+alert_e80dfb8475f5,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MNQ,{},sent,2026-05-19T15:11:50Z
+alert_f4692b139b5a,mnq_monthly_orb_restricted_scaleout3,info,Monthly ORB month-end flatten requested,{},sent,2026-05-19T15:11:50Z
+alert_ecc0a9444d36,mnq_monthly_orb_restricted_scaleout3,info,Cancelled order ord_ce536485cdbf,{},sent,2026-05-19T15:11:50Z
+alert_bde47d3eb375,mnq_monthly_orb_restricted_scaleout3,info,Cancelled order ord_cbca92686a50,{},sent,2026-05-19T15:11:50Z
+alert_abb904cd70cc,mnq_monthly_orb_restricted_scaleout3,info,Cancelled order ord_c750b8b29b1e,{},sent,2026-05-19T15:11:50Z
+alert_a40c46c3a87a,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 2 MNQ,{},sent,2026-05-19T15:11:50Z
+alert_5270f9c5bca5,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MNQ,{},sent,2026-05-19T15:11:51Z
+alert_f7eb596de912,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MNQ,{},sent,2026-05-19T15:11:51Z
+alert_c2a18cbcc72c,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MNQ,{},sent,2026-05-19T15:11:51Z
+alert_7490c57643dc,mnq_monthly_orb_restricted_scaleout3,info,Cancelled order ord_35e1ea1d59cc,{},sent,2026-05-19T15:11:51Z
+alert_55da59de08ef,mnq_monthly_orb_restricted_scaleout3,info,Cancelled order ord_2bd3c8490fa1,{},sent,2026-05-19T15:11:51Z
+alert_24eb7c0dfc31,mnq_monthly_orb_restricted_scaleout3,info,Cancelled order ord_40a80bd05e84,{},sent,2026-05-19T15:11:51Z
+alert_0c89f0c113df,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:11:51Z
+alert_4a134d769ab3,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:11:51Z
+alert_a8c79cde3e3a,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:11:51Z
+alert_6ef3c2517c7d,mnq_monthly_orb_restricted_scaleout3,info,Modified order ord_60d2589db2aa,{},sent,2026-05-19T15:11:52Z
+alert_6917ce9331b4,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:11:52Z
+alert_f178d2bcf594,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:11:52Z
+alert_4aed5150712b,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:11:52Z
+alert_5e9e9ae5e81f,mnq_monthly_orb_restricted_scaleout3,info,Modified order ord_4c659a5952ff,{},sent,2026-05-19T15:11:52Z
+alert_b990dcba8ee9,mnq_monthly_orb_restricted_scaleout3,info,Monthly ORB month-end flatten requested,{},sent,2026-05-19T15:11:53Z
+alert_5ba76c9ef1ea,mnq_monthly_orb_restricted_scaleout3,info,Cancelled order ord_4c659a5952ff,{},sent,2026-05-19T15:11:53Z
+alert_6d599cb64a24,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MNQ,{},sent,2026-05-19T15:11:53Z
+alert_ff455304af97,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:11:53Z
+alert_04d5002e69d5,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:11:53Z
+alert_952ab3c61b0e,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:11:53Z
+alert_3a56dfcf780d,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MNQ,{},sent,2026-05-19T15:11:54Z
+alert_8fb63822f3ca,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MNQ,{},sent,2026-05-19T15:11:54Z
+alert_8e75cafebcfa,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MNQ,{},sent,2026-05-19T15:11:54Z
+alert_270258f09b25,mnq_monthly_orb_restricted_scaleout3,info,Cancelled order ord_6af6646c1833,{},sent,2026-05-19T15:11:54Z
+alert_353166613f64,mnq_monthly_orb_restricted_scaleout3,info,Cancelled order ord_6fac5cbf0e85,{},sent,2026-05-19T15:11:54Z
+alert_83bdfada30c2,mnq_monthly_orb_restricted_scaleout3,info,Cancelled order ord_313dd24e3a27,{},sent,2026-05-19T15:11:54Z
+alert_78b3016ee2cf,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MNQ,{},sent,2026-05-19T15:11:54Z
+alert_739ca8a13af5,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MNQ,{},sent,2026-05-19T15:11:54Z
+alert_89d1a4f1316a,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MNQ,{},sent,2026-05-19T15:11:54Z
+alert_39dde186bbaf,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:11:55Z
+alert_28b02cb057c6,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:11:55Z
+alert_c3b36561545d,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:11:55Z
+alert_fe2d1d9dc1dd,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:11:56Z
+alert_319cd4f36d87,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:11:56Z
+alert_eaa71860e7cf,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:11:56Z
+alert_7cd53236a9e1,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MNQ,{},sent,2026-05-19T15:11:56Z
+alert_80711fcea496,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MNQ,{},sent,2026-05-19T15:11:56Z
+alert_23f596fcd05c,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MNQ,{},sent,2026-05-19T15:11:56Z
+alert_67e200580488,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:11:58Z
+alert_479eb23ac3d8,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:11:58Z
+alert_9bc9b4f657a0,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:11:58Z
+alert_83f8ec28c3bf,mnq_monthly_orb_restricted_scaleout3,info,Monthly ORB month-end flatten requested,{},sent,2026-05-19T15:11:58Z
+alert_3933beffd93c,mnq_monthly_orb_restricted_scaleout3,info,Cancelled order ord_8eaf8095464b,{},sent,2026-05-19T15:11:58Z
+alert_45e2c243eecb,mnq_monthly_orb_restricted_scaleout3,info,Cancelled order ord_65474ba4dcb7,{},sent,2026-05-19T15:11:58Z
+alert_05b2066d4593,mnq_monthly_orb_restricted_scaleout3,info,Cancelled order ord_30daaa8bb84e,{},sent,2026-05-19T15:11:58Z
+alert_280164001c66,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 2 MNQ,{},sent,2026-05-19T15:11:58Z
+alert_dfa75c8456fe,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MNQ,{},sent,2026-05-19T15:11:59Z
+alert_b008ab6dc53c,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MNQ,{},sent,2026-05-19T15:11:59Z
+alert_6813c297b8f7,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MNQ,{},sent,2026-05-19T15:11:59Z
+alert_2e3fce1e916a,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MNQ,{},sent,2026-05-19T15:11:59Z
+alert_0414c794aa7e,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MNQ,{},sent,2026-05-19T15:11:59Z
+alert_9a9aed17035d,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MNQ,{},sent,2026-05-19T15:11:59Z
+alert_f38537fe9215,mnq_monthly_orb_restricted_scaleout3,info,Cancelled order ord_6334c5e783bb,{},sent,2026-05-19T15:12:00Z
+alert_48cd9d730fee,mnq_monthly_orb_restricted_scaleout3,info,Cancelled order ord_1b4c948b9302,{},sent,2026-05-19T15:12:00Z
+alert_f8d7f9c0f077,mnq_monthly_orb_restricted_scaleout3,info,Cancelled order ord_1f36978af77c,{},sent,2026-05-19T15:12:00Z
+alert_89c38030f1b4,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MNQ,{},sent,2026-05-19T15:12:00Z
+alert_dbde8e5c5062,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MNQ,{},sent,2026-05-19T15:12:00Z
+alert_b862fba9cc11,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MNQ,{},sent,2026-05-19T15:12:00Z
+alert_c8b0b9a96ec3,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:12:01Z
+alert_520859f2614c,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:12:01Z
+alert_6731298d109e,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:12:01Z
+alert_d94364d5fdb5,mnq_monthly_orb_restricted_scaleout3,info,Cancelled order ord_cfe407409eb0,{},sent,2026-05-19T15:12:01Z
+alert_e6a857190f19,mnq_monthly_orb_restricted_scaleout3,info,Cancelled order ord_b5e362438166,{},sent,2026-05-19T15:12:01Z
+alert_bc9ffaead940,mnq_monthly_orb_restricted_scaleout3,info,Cancelled order ord_8f10efc74f94,{},sent,2026-05-19T15:12:01Z
+alert_45c2793ee911,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MNQ,{},sent,2026-05-19T15:12:02Z
+alert_6ba6217b1299,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MNQ,{},sent,2026-05-19T15:12:02Z
+alert_1538792e696d,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MNQ,{},sent,2026-05-19T15:12:02Z
+alert_919089ad9fc5,mnq_monthly_orb_restricted_scaleout3,info,Monthly ORB month-end flatten requested,{},sent,2026-05-19T15:12:02Z
+alert_bc0bff9a9272,mnq_monthly_orb_restricted_scaleout3,info,Cancelled order ord_3e52923cb0f6,{},sent,2026-05-19T15:12:02Z
+alert_b753b90f2071,mnq_monthly_orb_restricted_scaleout3,info,Cancelled order ord_05c36e3b74c2,{},sent,2026-05-19T15:12:02Z
+alert_84bacc477a41,mnq_monthly_orb_restricted_scaleout3,info,Cancelled order ord_4e83d2efb324,{},sent,2026-05-19T15:12:02Z
+alert_6a354d705ef7,mnq_monthly_orb_restricted_scaleout3,info,Cancelled order ord_b1542db4308d,{},sent,2026-05-19T15:12:02Z
+alert_2c3e6f5c0d07,mnq_monthly_orb_restricted_scaleout3,info,Cancelled order ord_080478b0b674,{},sent,2026-05-19T15:12:02Z
+alert_cad91b579599,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 3 MNQ,{},sent,2026-05-19T15:12:03Z
+alert_30ce7854f8f2,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:12:03Z
+alert_f9fa1ae85635,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:12:03Z
+alert_074c4f7d672e,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:12:03Z
+alert_f0a11fcca5e1,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:12:04Z
+alert_69eb5f72ca63,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:12:04Z
+alert_2e21a9be1025,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:12:04Z
+alert_54a3ec8b70dd,mnq_monthly_orb_restricted_scaleout3,info,Modified order ord_88f9f9f62361,{},sent,2026-05-19T15:12:04Z
+alert_d75437d98d0d,mnq_monthly_orb_restricted_scaleout3,info,Monthly ORB month-end flatten requested,{},sent,2026-05-19T15:12:04Z
+alert_b6d458fb550d,mnq_monthly_orb_restricted_scaleout3,info,Cancelled order ord_88f9f9f62361,{},sent,2026-05-19T15:12:04Z
+alert_dfdc9c0955e1,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MNQ,{},sent,2026-05-19T15:12:04Z
+alert_b93175606783,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MNQ,{},sent,2026-05-19T15:12:05Z
+alert_11a65e9e17da,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MNQ,{},sent,2026-05-19T15:12:05Z
+alert_6b19ecde5133,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MNQ,{},sent,2026-05-19T15:12:05Z
+alert_747853180765,mnq_monthly_orb_restricted_scaleout3,info,Modified order ord_9191c2b9d9a5,{},sent,2026-05-19T15:12:05Z
+alert_2c25cb7fa25c,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MNQ,{},sent,2026-05-19T15:12:06Z
+alert_97057e9d22fe,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MNQ,{},sent,2026-05-19T15:12:06Z
+alert_e76c4b3808d0,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MNQ,{},sent,2026-05-19T15:12:06Z
+alert_ac63432fb300,mnq_monthly_orb_restricted_scaleout3,info,Modified order ord_4e9bba8c0f11,{},sent,2026-05-19T15:12:07Z
+alert_c7c253a0fbde,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:12:07Z
+alert_7c729923a8e3,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:12:07Z
+alert_31284fc38154,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:12:07Z
+alert_6d7e040970fe,mnq_monthly_orb_restricted_scaleout3,info,Modified order ord_6b4c790570ff,{},sent,2026-05-19T15:12:08Z
+alert_8a99e641b5a7,mnq_monthly_orb_restricted_scaleout3,info,Monthly ORB month-end flatten requested,{},sent,2026-05-19T15:12:08Z
+alert_f167e4bd280f,mnq_monthly_orb_restricted_scaleout3,info,Cancelled order ord_6b4c790570ff,{},sent,2026-05-19T15:12:08Z
+alert_a4276ccec4a3,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MNQ,{},sent,2026-05-19T15:12:08Z
+alert_740613e92053,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:12:09Z
+alert_1c6383858cc1,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:12:09Z
+alert_eea077ed67d9,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:12:09Z
+alert_a41c91e5b3ef,mnq_monthly_orb_restricted_scaleout3,info,Cancelled order ord_5077271473f8,{},sent,2026-05-19T15:12:09Z
+alert_e2e8e01db44e,mnq_monthly_orb_restricted_scaleout3,info,Cancelled order ord_4280cbc76909,{},sent,2026-05-19T15:12:09Z
+alert_39727ac04f7f,mnq_monthly_orb_restricted_scaleout3,info,Cancelled order ord_803acf023289,{},sent,2026-05-19T15:12:09Z
+alert_8b3a01ad1e3d,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MNQ,{},sent,2026-05-19T15:12:09Z
+alert_289389e7cbd7,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MNQ,{},sent,2026-05-19T15:12:09Z
+alert_13b905ac8134,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MNQ,{},sent,2026-05-19T15:12:09Z
+alert_947874e39ecb,mnq_monthly_orb_restricted_scaleout3,info,Modified order ord_93d6251d933f,{},sent,2026-05-19T15:12:10Z
+alert_11ffe69f6375,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:12:10Z
+alert_666f319a4e57,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:12:10Z
+alert_8aa991a41c61,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:12:10Z
+alert_639460020dd7,mnq_monthly_orb_restricted_scaleout3,info,Cancelled order ord_5227c275710e,{},sent,2026-05-19T15:12:11Z
+alert_2781f4a5dc20,mnq_monthly_orb_restricted_scaleout3,info,Cancelled order ord_0b69af2b0d72,{},sent,2026-05-19T15:12:11Z
+alert_be4f20450b42,mnq_monthly_orb_restricted_scaleout3,info,Cancelled order ord_e70913dd4fff,{},sent,2026-05-19T15:12:11Z
+alert_8ef053f3e0b6,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MNQ,{},sent,2026-05-19T15:12:11Z
+alert_e18df1d6111f,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MNQ,{},sent,2026-05-19T15:12:11Z
+alert_746b2cd10ca2,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MNQ,{},sent,2026-05-19T15:12:11Z
+alert_b6c5491b0ba7,mnq_monthly_orb_restricted_scaleout3,info,Modified order ord_80da9f53669d,{},sent,2026-05-19T15:12:12Z
+alert_0bf12fca0372,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MNQ,{},sent,2026-05-19T15:12:12Z
+alert_f18eb4e5560b,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MNQ,{},sent,2026-05-19T15:12:13Z
+alert_62b24be0d580,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MNQ,{},sent,2026-05-19T15:12:13Z
+alert_e68685aafd89,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:12:13Z
+alert_ca20901564e7,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:12:13Z
+alert_154c56bce743,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:12:13Z
+alert_e4069b387283,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:12:15Z
+alert_e511cf51b177,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:12:15Z
+alert_6c42ecec5d44,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:12:15Z
+alert_80c8c6929d84,mnq_monthly_orb_restricted_scaleout3,info,Modified order ord_675b70267522,{},sent,2026-05-19T15:12:15Z
+alert_d12aa4f2db68,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MNQ,{},sent,2026-05-19T15:12:16Z
+alert_63713759ed8c,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MNQ,{},sent,2026-05-19T15:12:16Z
+alert_6c044965a769,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MNQ,{},sent,2026-05-19T15:12:16Z
+alert_c83082543163,mnq_monthly_orb_restricted_scaleout3,info,Modified order ord_9eb445258410,{},sent,2026-05-19T15:12:16Z
+alert_e9d4639b85c4,mnq_monthly_orb_restricted_scaleout3,info,Monthly ORB month-end flatten requested,{},sent,2026-05-19T15:12:16Z
+alert_88f9b00bf618,mnq_monthly_orb_restricted_scaleout3,info,Cancelled order ord_9eb445258410,{},sent,2026-05-19T15:12:17Z
+alert_ec8d4f28b9a7,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:12:17Z
+alert_f5e352c5442e,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:12:17Z
+alert_e61455cde559,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:12:17Z
+alert_fa7962071278,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:12:17Z
+alert_46f7b99e538c,mnq_monthly_orb_restricted_scaleout3,info,Modified order ord_f557b580af4d,{},sent,2026-05-19T15:12:18Z
+alert_0c3b4c982c1b,mnq_monthly_orb_restricted_scaleout3,info,Monthly ORB month-end flatten requested,{},sent,2026-05-19T15:12:18Z
+alert_ed31fec84512,mnq_monthly_orb_restricted_scaleout3,info,Cancelled order ord_f557b580af4d,{},sent,2026-05-19T15:12:18Z
+alert_598be38660b0,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MNQ,{},sent,2026-05-19T15:12:18Z
+alert_cb386c303430,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:12:19Z
+alert_d3862c31e08a,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:12:19Z
+alert_13e9222ea08e,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:12:19Z
+alert_0942f920ed2a,mnq_monthly_orb_restricted_scaleout3,info,Cancelled order ord_b55f230b1a76,{},sent,2026-05-19T15:12:19Z
+alert_9c961fa1cde7,mnq_monthly_orb_restricted_scaleout3,info,Cancelled order ord_2b98106d7aec,{},sent,2026-05-19T15:12:19Z
+alert_358c205f6808,mnq_monthly_orb_restricted_scaleout3,info,Cancelled order ord_8a4d9ca79a14,{},sent,2026-05-19T15:12:19Z
+alert_0a8adcc3b0e9,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MNQ,{},sent,2026-05-19T15:12:19Z
+alert_c9cef3bcb654,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MNQ,{},sent,2026-05-19T15:12:20Z
+alert_cf2b0baf9c32,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MNQ,{},sent,2026-05-19T15:12:20Z
+alert_bdf70f655407,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:12:21Z
+alert_3fa94f6520b2,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:12:21Z
+alert_acca4d578de1,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:12:21Z
+alert_a910d8dd44a3,mnq_monthly_orb_restricted_scaleout3,info,Cancelled order ord_40db1b2ab18c,{},sent,2026-05-19T15:12:21Z
+alert_c2facb582767,mnq_monthly_orb_restricted_scaleout3,info,Cancelled order ord_95fc43e05b6b,{},sent,2026-05-19T15:12:21Z
+alert_59b4bf41fe51,mnq_monthly_orb_restricted_scaleout3,info,Cancelled order ord_f398101aefed,{},sent,2026-05-19T15:12:21Z
+alert_c662084805ac,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:12:21Z
+alert_2cbd440fda03,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:12:21Z
+alert_04a2904c6bf4,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:12:21Z
+alert_afcd33fb5d9e,mnq_monthly_orb_restricted_scaleout3,info,Monthly ORB month-end flatten requested,{},sent,2026-05-19T15:12:23Z
+alert_283ebed3895c,mnq_monthly_orb_restricted_scaleout3,info,Cancelled order ord_a3f4800dc58f,{},sent,2026-05-19T15:12:23Z
+alert_cb68ae1c2717,mnq_monthly_orb_restricted_scaleout3,info,Cancelled order ord_52102e613bdc,{},sent,2026-05-19T15:12:23Z
+alert_83ebbb0d3021,mnq_monthly_orb_restricted_scaleout3,info,Cancelled order ord_82628eb072c3,{},sent,2026-05-19T15:12:23Z
+alert_e4718fea03c5,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 2 MNQ,{},sent,2026-05-19T15:12:23Z
+alert_a0198e22fb97,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MNQ,{},sent,2026-05-19T15:12:23Z
+alert_db6aafedd9a3,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MNQ,{},sent,2026-05-19T15:12:23Z
+alert_172afb2dbab3,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MNQ,{},sent,2026-05-19T15:12:23Z
+alert_7a1bae89f63d,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:12:24Z
+alert_1020e52f149e,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:12:24Z
+alert_0617ea2ec33b,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:12:24Z
+alert_9fb5fc4a4d40,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MNQ,{},sent,2026-05-19T15:12:25Z
+alert_459b9f6f55da,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MNQ,{},sent,2026-05-19T15:12:25Z
+alert_bc24a5fb6e13,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MNQ,{},sent,2026-05-19T15:12:25Z
+alert_28dbf0d8c516,mnq_monthly_orb_restricted_scaleout3,info,Modified order ord_a9f3ce89b310,{},sent,2026-05-19T15:12:26Z
+alert_0d03e22e3bf3,mnq_monthly_orb_restricted_scaleout3,info,Monthly ORB month-end flatten requested,{},sent,2026-05-19T15:12:27Z
+alert_44e055b3b38f,mnq_monthly_orb_restricted_scaleout3,info,Cancelled order ord_a9f3ce89b310,{},sent,2026-05-19T15:12:27Z
+alert_448fbbdf3e57,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:12:27Z
+alert_0c1f838b8620,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:12:27Z
+alert_066afb02691f,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:12:27Z
+alert_8c7f01a5377d,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:12:27Z
+alert_cd2c6955c1dc,mnq_monthly_orb_restricted_scaleout3,info,Cancelled order ord_110603e8883f,{},sent,2026-05-19T15:12:28Z
+alert_0dd7615d7421,mnq_monthly_orb_restricted_scaleout3,info,Cancelled order ord_9ca10a7f7fb6,{},sent,2026-05-19T15:12:28Z
+alert_f1cfe528ff6e,mnq_monthly_orb_restricted_scaleout3,info,Cancelled order ord_a17e0731c749,{},sent,2026-05-19T15:12:28Z
+alert_0ed97c69b1fa,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:12:28Z
+alert_20430db09f57,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:12:28Z
+alert_f91b232e4059,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:12:28Z
+alert_55023f7e019a,mnq_monthly_orb_restricted_scaleout3,info,Cancelled order ord_a08e1e052c42,{},sent,2026-05-19T15:12:29Z
+alert_c6b4d2f37194,mnq_monthly_orb_restricted_scaleout3,info,Cancelled order ord_752e9d1b271f,{},sent,2026-05-19T15:12:29Z
+alert_cca745efa34d,mnq_monthly_orb_restricted_scaleout3,info,Cancelled order ord_190f80deeb78,{},sent,2026-05-19T15:12:29Z
+alert_8257c3c701be,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:12:29Z
+alert_2b0709f1d550,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:12:29Z
+alert_564a6b665f34,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:12:29Z
+alert_b19eeb1beff7,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MNQ,{},sent,2026-05-19T15:12:31Z
+alert_942163c68cd0,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MNQ,{},sent,2026-05-19T15:12:31Z
+alert_94fe5bb0eb74,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MNQ,{},sent,2026-05-19T15:12:31Z
+alert_59e533bdd144,mnq_monthly_orb_restricted_scaleout3,info,Modified order ord_fda19f05a0b5,{},sent,2026-05-19T15:12:31Z
+alert_96f90f3f8221,mnq_monthly_orb_restricted_scaleout3,info,Monthly ORB month-end flatten requested,{},sent,2026-05-19T15:12:32Z
+alert_3024b700784f,mnq_monthly_orb_restricted_scaleout3,info,Cancelled order ord_fda19f05a0b5,{},sent,2026-05-19T15:12:32Z
+alert_3af1ccf0df4c,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:12:32Z
+alert_1b1df55476ce,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MNQ,{},sent,2026-05-19T15:12:32Z
+alert_e58799813df0,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MNQ,{},sent,2026-05-19T15:12:32Z
+alert_615dea508ded,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MNQ,{},sent,2026-05-19T15:12:32Z
+alert_ba8a7a4d9d0d,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:12:33Z
+alert_25951e7e4b8c,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:12:33Z
+alert_18e2019d6494,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:12:33Z
+alert_9cabbfc79a5a,mnq_monthly_orb_restricted_scaleout3,info,Monthly ORB month-end flatten requested,{},sent,2026-05-19T15:12:34Z
+alert_92a5be7c0179,mnq_monthly_orb_restricted_scaleout3,info,Cancelled order ord_ef6e00da0d70,{},sent,2026-05-19T15:12:34Z
+alert_726737544c6c,mnq_monthly_orb_restricted_scaleout3,info,Cancelled order ord_ae5829715e25,{},sent,2026-05-19T15:12:34Z
+alert_23233e6b70f8,mnq_monthly_orb_restricted_scaleout3,info,Cancelled order ord_f09289d4c8fc,{},sent,2026-05-19T15:12:34Z
+alert_8eeaa48160b1,mnq_monthly_orb_restricted_scaleout3,info,Cancelled order ord_50a0f62af4cd,{},sent,2026-05-19T15:12:34Z
+alert_548f1948e87a,mnq_monthly_orb_restricted_scaleout3,info,Cancelled order ord_720ec859d9a1,{},sent,2026-05-19T15:12:34Z
+alert_7a8b8442894a,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 3 MNQ,{},sent,2026-05-19T15:12:34Z
+alert_69940b9e6b06,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MNQ,{},sent,2026-05-19T15:12:35Z
+alert_5393bf4a87b6,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MNQ,{},sent,2026-05-19T15:12:35Z
+alert_292079f473c8,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MNQ,{},sent,2026-05-19T15:12:35Z
+alert_cf1ac7f20afb,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:12:36Z
+alert_cb36ea644d68,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:12:36Z
+alert_6d7af6f0c806,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:12:36Z
+alert_b419df63d25a,mnq_monthly_orb_restricted_scaleout3,info,Modified order ord_6233799d211f,{},sent,2026-05-19T15:12:37Z
+alert_b10609606bd0,mnq_monthly_orb_restricted_scaleout3,info,Monthly ORB month-end flatten requested,{},sent,2026-05-19T15:12:37Z
+alert_bd529064c0e9,mnq_monthly_orb_restricted_scaleout3,info,Cancelled order ord_6233799d211f,{},sent,2026-05-19T15:12:37Z
+alert_09be6e463659,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MNQ,{},sent,2026-05-19T15:12:37Z
+alert_ba095151af1b,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:12:37Z
+alert_38f0b492da9d,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:12:37Z
+alert_af09911b9e16,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:12:38Z
+alert_7099ba5fb1b3,mnq_monthly_orb_restricted_scaleout3,info,Monthly ORB month-end flatten requested,{},sent,2026-05-19T15:12:39Z
+alert_8d0355fb4f2e,mnq_monthly_orb_restricted_scaleout3,info,Cancelled order ord_d568a90e46bd,{},sent,2026-05-19T15:12:39Z
+alert_f440a450e32c,mnq_monthly_orb_restricted_scaleout3,info,Cancelled order ord_421ad7d8b532,{},sent,2026-05-19T15:12:39Z
+alert_f511e7d47d2b,mnq_monthly_orb_restricted_scaleout3,info,Cancelled order ord_1d765f7d707e,{},sent,2026-05-19T15:12:39Z
+alert_5764b8a226b0,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 2 MNQ,{},sent,2026-05-19T15:12:39Z
+alert_db8f567c9f4d,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:12:39Z
+alert_01cb14b75df8,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:12:39Z
+alert_4c53d0758dda,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:12:39Z
+alert_e5a65a687266,mnq_monthly_orb_restricted_scaleout3,info,Cancelled order ord_b3a015e64f53,{},sent,2026-05-19T15:12:40Z
+alert_6d6dfbfb8adf,mnq_monthly_orb_restricted_scaleout3,info,Cancelled order ord_9df7a9bd05cc,{},sent,2026-05-19T15:12:40Z
+alert_5dc1605a8b3d,mnq_monthly_orb_restricted_scaleout3,info,Cancelled order ord_ee96ac49e3fe,{},sent,2026-05-19T15:12:40Z
+alert_5ab245f32f5b,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:12:40Z
+alert_beb5d393f447,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:12:40Z
+alert_78bac9f97b80,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:12:41Z
+alert_9decdb7d7a5c,mnq_monthly_orb_restricted_scaleout3,info,Modified order ord_aff06c280fce,{},sent,2026-05-19T15:12:42Z
+alert_4486615a3b53,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:12:42Z
+alert_34467613a58f,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:12:42Z
+alert_002623f381e8,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:12:42Z
+alert_7a35dfe11a3c,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MNQ,{},sent,2026-05-19T15:12:43Z
+alert_15e8a20968c2,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MNQ,{},sent,2026-05-19T15:12:44Z
+alert_17f32e56fa97,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MNQ,{},sent,2026-05-19T15:12:44Z
+alert_9478cc19001d,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:12:45Z
+alert_874dfb6a7b32,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:12:45Z
+alert_807ed19c463a,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:12:45Z
+alert_36bb956b5d55,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MNQ,{},sent,2026-05-19T15:12:47Z
+alert_569e4daaf0d1,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MNQ,{},sent,2026-05-19T15:12:47Z
+alert_59ae8b24754e,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MNQ,{},sent,2026-05-19T15:12:47Z
+alert_7a50f2f1cc0e,mnq_monthly_orb_restricted_scaleout3,info,Monthly ORB month-end flatten requested,{},sent,2026-05-19T15:12:47Z
+alert_c43f3428dfe2,mnq_monthly_orb_restricted_scaleout3,info,Cancelled order ord_c7a768ac55d2,{},sent,2026-05-19T15:12:47Z
+alert_ee7b497d6ade,mnq_monthly_orb_restricted_scaleout3,info,Cancelled order ord_183c52814b75,{},sent,2026-05-19T15:12:47Z
+alert_c1dcd0a20bb3,mnq_monthly_orb_restricted_scaleout3,info,Cancelled order ord_09f6a1d4682e,{},sent,2026-05-19T15:12:47Z
+alert_65f18f629187,mnq_monthly_orb_restricted_scaleout3,info,Cancelled order ord_e49ad3da4487,{},sent,2026-05-19T15:12:47Z
+alert_8e108ce7c33b,mnq_monthly_orb_restricted_scaleout3,info,Cancelled order ord_e3e1762172e0,{},sent,2026-05-19T15:12:47Z
+alert_e1e20db2b8bf,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 3 MNQ,{},sent,2026-05-19T15:12:47Z
+alert_7fdb8f030722,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MNQ,{},sent,2026-05-19T15:12:48Z
+alert_f7015f9b55df,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MNQ,{},sent,2026-05-19T15:12:48Z
+alert_10f63e59bf28,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MNQ,{},sent,2026-05-19T15:12:48Z
+alert_cef6c54c2ca6,mnq_monthly_orb_restricted_scaleout3,info,Modified order ord_d79049228a63,{},sent,2026-05-19T15:12:49Z
+alert_19ad9c53aa80,mnq_monthly_orb_restricted_scaleout3,info,Monthly ORB month-end flatten requested,{},sent,2026-05-19T15:12:49Z
+alert_f13fd1b8cd2b,mnq_monthly_orb_restricted_scaleout3,info,Cancelled order ord_d79049228a63,{},sent,2026-05-19T15:12:50Z
+alert_ad0d18e8ecde,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:12:50Z
+alert_75264da77c98,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MNQ,{},sent,2026-05-19T15:12:50Z
+alert_093d7dfb65c4,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MNQ,{},sent,2026-05-19T15:12:50Z
+alert_fcaded0f6fbc,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MNQ,{},sent,2026-05-19T15:12:50Z
+alert_e10b85c85ee7,mnq_monthly_orb_restricted_scaleout3,info,Monthly ORB month-end flatten requested,{},sent,2026-05-19T15:12:51Z
+alert_c2b49ad387b1,mnq_monthly_orb_restricted_scaleout3,info,Cancelled order ord_f70d813cd3c6,{},sent,2026-05-19T15:12:51Z
+alert_21d48947d298,mnq_monthly_orb_restricted_scaleout3,info,Cancelled order ord_9012ccc9c3b6,{},sent,2026-05-19T15:12:51Z
+alert_1083eb253292,mnq_monthly_orb_restricted_scaleout3,info,Cancelled order ord_c99424dc9e4a,{},sent,2026-05-19T15:12:52Z
+alert_15022bbf1a2c,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 2 MNQ,{},sent,2026-05-19T15:12:52Z
+alert_3e3c5b62bd06,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:12:52Z
+alert_ddea1dfc20ff,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:12:52Z
+alert_80e081a2ea33,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:12:52Z
+alert_c8aeaaf03a80,mnq_monthly_orb_restricted_scaleout3,info,Cancelled order ord_fa41fc4f0ae0,{},sent,2026-05-19T15:12:53Z
+alert_cd9e2de74cd8,mnq_monthly_orb_restricted_scaleout3,info,Cancelled order ord_27d2ffb32437,{},sent,2026-05-19T15:12:53Z
+alert_d6ffd5067a19,mnq_monthly_orb_restricted_scaleout3,info,Cancelled order ord_2d4597ccf824,{},sent,2026-05-19T15:12:53Z
+alert_2f4f96a9df7c,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:12:53Z
+alert_a513fa7e7a5f,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:12:53Z
+alert_a90de582980c,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:12:54Z
+alert_de4f23f5e910,mnq_monthly_orb_restricted_scaleout3,info,Modified order ord_386d8c6cff85,{},sent,2026-05-19T15:12:55Z
+alert_9270fe169cd9,mnq_monthly_orb_restricted_scaleout3,info,Monthly ORB month-end flatten requested,{},sent,2026-05-19T15:12:55Z
+alert_62c35f944b5a,mnq_monthly_orb_restricted_scaleout3,info,Cancelled order ord_386d8c6cff85,{},sent,2026-05-19T15:12:55Z
+alert_4dbe93d48fe6,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MNQ,{},sent,2026-05-19T15:12:55Z
+alert_50c4a791687c,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:12:56Z
+alert_e095e7f2bc35,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:12:56Z
+alert_bb5de437c9c7,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:12:56Z
+alert_d933f6a679dd,mnq_monthly_orb_restricted_scaleout3,info,Cancelled order ord_7c835340610a,{},sent,2026-05-19T15:12:57Z
+alert_67eb942133b5,mnq_monthly_orb_restricted_scaleout3,info,Cancelled order ord_67fa10e4c19b,{},sent,2026-05-19T15:12:57Z
+alert_659575e2c23a,mnq_monthly_orb_restricted_scaleout3,info,Cancelled order ord_cf54b5d3baa8,{},sent,2026-05-19T15:12:57Z
+alert_6b9116bceba2,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:12:57Z
+alert_e184e4349199,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:12:57Z
+alert_eaa8d6cd87e4,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:12:57Z
+alert_2f2bab921662,mnq_monthly_orb_restricted_scaleout3,info,Modified order ord_099b7a90d23a,{},sent,2026-05-19T15:12:58Z
+alert_94ac1e9e1cfb,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:12:59Z
+alert_ddd4d9843aeb,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:12:59Z
+alert_404ba5771e8f,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:12:59Z
+alert_48b1062a7779,mnq_monthly_orb_restricted_scaleout3,info,Cancelled order ord_10c9b36bbad0,{},sent,2026-05-19T15:12:59Z
+alert_dec9f52a8d0d,mnq_monthly_orb_restricted_scaleout3,info,Cancelled order ord_9bad33fd8900,{},sent,2026-05-19T15:12:59Z
+alert_1ccb7337c1bf,mnq_monthly_orb_restricted_scaleout3,info,Cancelled order ord_49846a9122b6,{},sent,2026-05-19T15:12:59Z
+alert_683309c0a5ba,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:12:59Z
+alert_fb66a0513267,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:12:59Z
+alert_58cc7a59b940,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:12:59Z
+alert_a400d0d5ee8d,mnq_monthly_orb_restricted_scaleout3,info,Modified order ord_ddd5d6c8784a,{},sent,2026-05-19T15:13:00Z
+alert_ced8abb795ef,mnq_monthly_orb_restricted_scaleout3,info,Monthly ORB month-end flatten requested,{},sent,2026-05-19T15:13:01Z
+alert_51b849ec63af,mnq_monthly_orb_restricted_scaleout3,info,Cancelled order ord_ddd5d6c8784a,{},sent,2026-05-19T15:13:01Z
+alert_9ed9f67fab21,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MNQ,{},sent,2026-05-19T15:13:01Z
+alert_6a4e016ffe61,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:13:02Z
+alert_22e6caccd5fd,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:13:02Z
+alert_a1465fb72c6b,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:13:02Z
+alert_e8162f2f9310,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MNQ,{},sent,2026-05-19T15:13:03Z
+alert_1b41ab6db7b9,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MNQ,{},sent,2026-05-19T15:13:03Z
+alert_fc16cd66599b,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MNQ,{},sent,2026-05-19T15:13:03Z
+alert_df216acd5601,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MNQ,{},sent,2026-05-19T15:13:05Z
+alert_6b3cfb0197c9,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MNQ,{},sent,2026-05-19T15:13:05Z
+alert_21688cc82c96,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MNQ,{},sent,2026-05-19T15:13:05Z
+alert_db7ff5650152,mnq_monthly_orb_restricted_scaleout3,info,Modified order ord_9c9506f30660,{},sent,2026-05-19T15:13:06Z
+alert_e204995fbb80,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:13:07Z
+alert_1d5669e41a50,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:13:07Z
+alert_e63cd6cbb9b5,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:13:07Z
+alert_aa022b20ef8a,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MNQ,{},sent,2026-05-19T15:13:08Z
+alert_e966c5a7a395,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MNQ,{},sent,2026-05-19T15:13:08Z
+alert_a71b0c077db3,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MNQ,{},sent,2026-05-19T15:13:08Z
+alert_6c3bedba2f5a,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:13:10Z
+alert_1d10d4fe06cc,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:13:10Z
+alert_2a49943f76d5,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:13:10Z
+alert_872f2fdaa9eb,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MNQ,{},sent,2026-05-19T15:13:11Z
+alert_570450151fc5,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MNQ,{},sent,2026-05-19T15:13:11Z
+alert_13c270ec1dfe,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MNQ,{},sent,2026-05-19T15:13:12Z
+alert_b9624f023313,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MNQ,{},sent,2026-05-19T15:13:13Z
+alert_b79ef9546497,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MNQ,{},sent,2026-05-19T15:13:13Z
+alert_b17a0e0e0632,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted sell 1 MNQ,{},sent,2026-05-19T15:13:13Z
+alert_1960e761ebba,mnq_monthly_orb_restricted_scaleout3,info,Monthly ORB month-end flatten requested,{},sent,2026-05-19T15:13:15Z
+alert_e5ef83238b24,mnq_monthly_orb_restricted_scaleout3,info,Cancelled order ord_6190eed67326,{},sent,2026-05-19T15:13:15Z
+alert_c1c074451a8c,mnq_monthly_orb_restricted_scaleout3,info,Cancelled order ord_6b9a9007755c,{},sent,2026-05-19T15:13:15Z
+alert_373dcaa01841,mnq_monthly_orb_restricted_scaleout3,info,Cancelled order ord_59c1161b916d,{},sent,2026-05-19T15:13:15Z
+alert_b9ce63849d04,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 2 MNQ,{},sent,2026-05-19T15:13:15Z
+alert_11619ccb69dc,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:13:16Z
+alert_0ff80b7ef2fc,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:13:16Z
+alert_4415873cc923,mnq_monthly_orb_restricted_scaleout3,order_submitted,Submitted buy 1 MNQ,{},sent,2026-05-19T15:13:16Z

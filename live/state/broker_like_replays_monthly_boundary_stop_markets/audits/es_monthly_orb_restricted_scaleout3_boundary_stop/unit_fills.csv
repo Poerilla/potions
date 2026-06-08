@@ -1,0 +1,13 @@
+candidate,trade_id,unit_id,direction,entry_ts,entry_price,exit_ts,exit_price,exit_reason,points,usd
+es_monthly_orb_restricted_scaleout3_boundary_stop,es_monthly_orb_restricted_scaleout3_boundary_stop_201006_01,1,Long,2010-06-09,1070.750000,2010-06-10,1078.125000,target,7.375000,368.75
+es_monthly_orb_restricted_scaleout3_boundary_stop,es_monthly_orb_restricted_scaleout3_boundary_stop_201006_01,2,Long,2010-06-09,1070.750000,2010-06-14,1100.250000,target,29.500000,1475.00
+es_monthly_orb_restricted_scaleout3_boundary_stop,es_monthly_orb_restricted_scaleout3_boundary_stop_201006_01,3,Long,2010-06-09,1070.750000,2010-06-24,1070.750000,stop,0.000000,0.00
+es_monthly_orb_restricted_scaleout3_boundary_stop,es_monthly_orb_restricted_scaleout3_boundary_stop_201006_02,4,Long,2010-06-25,1070.750000,2010-06-28,1078.125000,target,7.375000,368.75
+es_monthly_orb_restricted_scaleout3_boundary_stop,es_monthly_orb_restricted_scaleout3_boundary_stop_201006_02,5,Long,2010-06-25,1070.750000,2010-06-29,1041.250000,stop,-29.500000,-1475.00
+es_monthly_orb_restricted_scaleout3_boundary_stop,es_monthly_orb_restricted_scaleout3_boundary_stop_201006_02,6,Long,2010-06-25,1070.750000,2010-06-29,1041.250000,stop,-29.500000,-1475.00
+es_monthly_orb_restricted_scaleout3_boundary_stop,es_monthly_orb_restricted_scaleout3_boundary_stop_201006_03,7,Short,2010-06-30,1041.250000,2010-07-01,1033.875000,target,7.375000,368.75
+es_monthly_orb_restricted_scaleout3_boundary_stop,es_monthly_orb_restricted_scaleout3_boundary_stop_201006_03,8,Short,2010-06-30,1041.250000,2010-07-01,1011.750000,target,29.500000,1475.00
+es_monthly_orb_restricted_scaleout3_boundary_stop,es_monthly_orb_restricted_scaleout3_boundary_stop_201006_03,9,Short,2010-06-30,1041.250000,2010-07-09,1070.750000,stop,-29.500000,-1475.00
+es_monthly_orb_restricted_scaleout3_boundary_stop,es_monthly_orb_restricted_scaleout3_boundary_stop_201007_01,10,Long,2010-07-11,1032.500000,2010-07-12,1039.125000,target,6.625000,331.25
+es_monthly_orb_restricted_scaleout3_boundary_stop,es_monthly_orb_restricted_scaleout3_boundary_stop_201007_01,11,Long,2010-07-11,1032.500000,2010-07-12,1059.000000,target,26.500000,1325.00
+es_monthly_orb_restricted_scaleout3_boundary_stop,es_monthly_orb_restricted_scaleout3_boundary_stop_201007_01,12,Long,2010-07-11,1032.500000,2026-03-08,6628.250000,open_mark,5595.750000,279787.50
