@@ -1,0 +1,39 @@
+rank,market,instrument,slug,label,entry_mode,range_close_inside_frac,tp25_qty,tp_qty,runner_qty,total_qty,units,trades,net_usd,closed_dd_usd,intrabar_stress_dd_usd,max_open_units,net_over_stress_dd,notes
+1,nq,NQ,L_4_1_1,limit_retest 4/1/1,limit_retest,,4,1,1,6,408,68,1417383.00,-125836.00,-128766.00,6,11.01,"Heavy quick exit, light TP and runner."
+2,nq,NQ,L_5_2_1,limit_retest 5/2/1,limit_retest,,5,2,1,8,544,68,1920829.00,-175597.50,-179992.50,8,10.67,Extreme front-loading.
+3,nq,NQ,L_4_2_1,limit_retest 4/2/1,limit_retest,,4,2,1,7,476,68,1731806.00,-164524.50,-169809.50,7,10.20,"User's pick: front-load 4 scale-out, 2 at TP, 1 runner."
+4,nq,NQ,L_2_1_1,limit_retest 2/1/1,limit_retest,,2,1,1,4,272,68,1039337.00,-105263.00,-108283.00,4,9.60,Mildly front-loaded.
+5,nq,NQ,L_4_2_2,limit_retest 4/2/2,limit_retest,,4,2,2,8,544,68,2078674.00,-210526.00,-216566.00,8,9.60,User's pick with bigger runner.
+6,nq,NQ,L_3_2_1,limit_retest 3/2/1,limit_retest,,3,2,1,6,408,68,1542783.00,-157894.50,-162424.50,6,9.50,Steeper front-load than user's pick.
+7,nq,NQ,L_3_1_3,limit_retest 3/1/3,limit_retest,,3,1,3,7,476,68,1922096.00,-207580.00,-213440.00,7,9.01,Front and runner heavy; thin middle.
+8,mnq,MNQ,L_4_1_1,limit_retest 4/1/1,limit_retest,,4,1,1,6,144,24,108526.50,-12551.50,-12850.50,6,8.45,"Heavy quick exit, light TP and runner."
+9,mnq,MNQ,L_5_2_1,limit_retest 5/2/1,limit_retest,,5,2,1,8,192,24,147934.12,-17516.38,-17964.88,8,8.23,Extreme front-loading.
+10,nq,NQ,L_1_1_1,limit_retest 1/1/1 (baseline),limit_retest,,1,1,1,3,204,68,850314.00,-103790.00,-106720.00,3,7.97,Existing production yearly ORB scaleout3 row.
+11,nq,NQ,L_2_2_2,limit_retest 2/2/2,limit_retest,,2,2,2,6,408,68,1700628.00,-207580.00,-213440.00,6,7.97,Doubled baseline; 6 total contracts.
+12,nq,NQ,L_3_3_3,limit_retest 3/3/3,limit_retest,,3,3,3,9,612,68,2550942.00,-311370.00,-320160.00,9,7.97,Tripled baseline; 9 total contracts.
+13,mnq,MNQ,L_4_2_1,limit_retest 4/2/1,limit_retest,,4,2,1,7,168,24,134406.00,-16443.50,-17007.00,7,7.90,"User's pick: front-load 4 scale-out, 2 at TP, 1 runner."
+14,mnq,MNQ,L_2_1_1,limit_retest 2/1/1,limit_retest,,2,1,1,4,96,24,81470.25,-10521.00,-10843.00,4,7.51,Mildly front-loaded.
+15,mnq,MNQ,L_4_2_2,limit_retest 4/2/2,limit_retest,,4,2,2,8,192,24,162940.50,-21042.00,-21686.00,8,7.51,User's pick with bigger runner.
+16,nq,NQ,L_2_2_4,limit_retest 2/2/4,limit_retest,,2,2,4,8,544,68,2394364.00,-311370.00,-320160.00,8,7.48,Balanced with extra runner weight.
+17,mnq,MNQ,L_3_2_1,limit_retest 3/2/1,limit_retest,,3,2,1,6,144,24,120877.88,-15781.50,-16264.50,6,7.43,Steeper front-load than user's pick.
+18,nq,NQ,L_2_4_1,limit_retest 2/4/1,limit_retest,,2,4,1,7,476,68,1982606.00,-259475.00,-266800.00,7,7.43,Heavy on full-TP exit.
+19,nq,NQ,L_1_1_3,limit_retest 1/1/3,limit_retest,,1,1,3,5,340,68,1544050.00,-207580.00,-213440.00,5,7.23,"Modest scaleouts, larger runner for trend."
+20,mnq,MNQ,L_3_1_3,limit_retest 3/1/3,limit_retest,,3,1,3,7,168,24,152067.38,-20740.00,-21338.00,7,7.13,Front and runner heavy; thin middle.
+21,nq,NQ,L_1_2_4,limit_retest 1/2/4,limit_retest,,1,2,4,7,476,68,2205341.00,-311370.00,-320160.00,7,6.89,Back-loaded; big runner.
+22,nq,NQ,L_1_3_3,limit_retest 1/3/3,limit_retest,,1,3,3,7,476,68,2172896.00,-311370.00,-320160.00,7,6.79,TP-heavy with sizable runner.
+23,nq,NQ,O_4_2_1_rc20,oco_stop 4/2/1 + 20% range-close,oco_stop,0.20,4,2,1,7,322,46,1426707.00,-198666.00,-211815.00,7,6.74,User's pick as OCO stop entry.
+24,mnq,MNQ,L_1_1_1,limit_retest 1/1/1 (baseline),limit_retest,,1,1,1,3,72,24,67942.12,-10370.00,-10669.00,3,6.37,Existing production yearly ORB scaleout3 row.
+25,mnq,MNQ,L_2_2_2,limit_retest 2/2/2,limit_retest,,2,2,2,6,144,24,135884.25,-20740.00,-21338.00,6,6.37,Doubled baseline; 6 total contracts.
+26,mnq,MNQ,L_3_3_3,limit_retest 3/3/3,limit_retest,,3,3,3,9,216,24,203826.38,-31110.00,-32007.00,9,6.37,Tripled baseline; 9 total contracts.
+27,mnq,MNQ,O_4_2_1_rc20,oco_stop 4/2/1 + 20% range-close,oco_stop,0.20,4,2,1,7,70,10,128977.50,-19828.00,-21211.50,7,6.08,User's pick as OCO stop entry.
+28,mnq,MNQ,L_2_2_4,limit_retest 2/2/4,limit_retest,,2,2,4,8,192,24,192953.25,-31110.00,-32007.00,8,6.03,Balanced with extra runner weight.
+29,mnq,MNQ,L_2_4_1,limit_retest 2/4/1,limit_retest,,2,4,1,7,168,24,159108.75,-25925.00,-26672.50,7,5.97,Heavy on full-TP exit.
+30,mnq,MNQ,L_1_1_3,limit_retest 1/1/3,limit_retest,,1,1,3,5,120,24,125011.12,-20740.00,-21338.00,5,5.86,"Modest scaleouts, larger runner for trend."
+31,mnq,MNQ,L_1_2_4,limit_retest 1/2/4,limit_retest,,1,2,4,7,168,24,179425.12,-31110.00,-32007.00,7,5.61,Back-loaded; big runner.
+32,mnq,MNQ,L_1_3_3,limit_retest 1/3/3,limit_retest,,1,3,3,7,168,24,176770.12,-31110.00,-32007.00,7,5.52,TP-heavy with sizable runner.
+33,nq,NQ,O_1_1_1_rc20,oco_stop 1/1/1 + 20% range-close,oco_stop,0.20,1,1,1,3,138,46,741289.25,-127940.00,-141210.00,3,5.25,Current OCO+20% production row.
+34,mnq,MNQ,O_1_1_1_rc20,oco_stop 1/1/1 + 20% range-close,oco_stop,0.20,1,1,1,3,30,10,66845.25,-12785.00,-14141.00,3,4.73,Current OCO+20% production row.
+35,nq,NQ,L_4_2_1_rc20,limit_retest 4/2/1 + 20% range-close,limit_retest,0.20,4,2,1,7,273,39,1014680.50,-209374.50,-214659.50,7,4.73,User's pick with 20% range-close.
+36,mnq,MNQ,L_4_2_1_rc20,limit_retest 4/2/1 + 20% range-close,limit_retest,0.20,4,2,1,7,84,12,92827.00,-20922.50,-21486.00,7,4.32,User's pick with 20% range-close.
+37,nq,NQ,L_1_1_1_rc20,limit_retest 1/1/1 + 20% range-close,limit_retest,0.20,1,1,1,3,117,39,516948.25,-128533.00,-141210.00,3,3.66,Baseline plus the 20% range-close exit.
+38,mnq,MNQ,L_1_1_1_rc20,limit_retest 1/1/1 + 20% range-close,limit_retest,0.20,1,1,1,3,36,12,48136.62,-12845.00,-14141.00,3,3.40,Baseline plus the 20% range-close exit.
