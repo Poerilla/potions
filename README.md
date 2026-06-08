@@ -1,142 +1,280 @@
-# Potions — Futures ORB Strategy Research
+# Potions - Futures, ORB, and ETF Strategy Research
 
-Opening Range Breakout research and execution models for CME micro index
-futures (MNQ, MYM, MES, and related).
+This workspace is the research and replay lab for the MNQ/NQ ORB family,
+cross-market futures systems, and ETF accumulation studies. The detailed source
+of truth is the strategy tracker:
 
-## Current canonical model: **v2 — pre-placed OCO stop entry**
+- Main tracker: [`mnq/case_studies/STRATEGY_TRACKER.md`](mnq/case_studies/STRATEGY_TRACKER.md)
+- Fair capital benchmark: [`mnq/case_studies/fair_benchmark_comparison/TOP_STRATS.md`](mnq/case_studies/fair_benchmark_comparison/TOP_STRATS.md)
+- Broker realism notes: [`live/CHANGE_LOG.md`](live/CHANGE_LOG.md)
+- Start-small execution plan: [`live/specs/START_SMALL_BROKER_EXECUTION_PLAN.md`](live/specs/START_SMALL_BROKER_EXECUTION_PLAN.md)
 
-At 9:45 ET (end of the 15-min opening range), place two resting stop
-orders at the exchange:
-- BUY STOP at `Range_High + 1 tick`
-- SELL STOP at `Range_Low - 1 tick`
+## Current Status
 
-First one to trigger fills, the other auto-cancels (OCO). Attach bracket
-exit: target = `Entry ± Range`, stop = opposite range boundary. Re-arm
-after each trade closes (max 2 trades/day). Force-close at 15:55 ET.
+**Production-canonical ORB plumbing remains `scripts/step2_preplaced_stops.py`.**
+It is the original OCO stop-entry model: place buy-stop/sell-stop around the
+opening range, OCO the unfilled peer, bracket the fill, optionally reverse after
+the first campaign exits, and flatten near the end of session. Keep this as the
+reference implementation for the simple ORB execution lifecycle.
 
-See `scripts/validation.md` for the full rules, v1 → v2 migration
-context, performance tables, and live-execution notes.
+**Research ranking has moved beyond the old v2b headline.** The old MNQ
+adaptive v2b `$83k` scanner result is now treated as a diagnostic because it was
+long-priority ordering, not a broker/Pine OCO book. Current ranking uses strict
+`StrategyPlugin`/`Engine`/`PaperBroker` replays with the 2026-05-20 realism
+baseline.
 
-## Current research leader: **adaptive 50/150 v2b-only scaleout**
+**First live/paper plumbing target is small on purpose:** MNQ v2b TP1-only
+`1/0/0`, max one open unit. It is not the highest-return row; its job is to
+prove cloud runtime, live 1m feed, 5m OR state, OCO order lifecycle, fill
+reconciliation, and EOD flattening before larger v2b or higher-timeframe systems
+are funded.
 
-The current best execution-test candidate from the MNQ research track is
-the **v2b-only adaptive scaleout**:
+## Live Replay System
 
-- Use prior-day **MA50 > MA150** as a causal gate.
-- When true, trade the v2b breakout only; when false, skip the day.
-- Trade **2 contracts**: one exits at TP1, one runner targets TP2 with
-  stop moved to entry after TP1.
-- No v2d fade arm and no child scale-ins.
+The current automation-runtime standard is the flat-file live replay path:
 
-Latest MNQ strict re-sim: **1,430 legs**, **$35,847.00 net**,
-**-$5,190.00 max DD**, **55.03% win rate**, **1.19 PF**.
-Longer NQ confirmation over 2010-2026: **4,739 legs**,
-**$414,773.00 net**, **-$100,010.00 max DD**, **51.89% win rate**,
-**1.13 PF**.
+- `live/strategies/`: strategy plugins emit orders only after confirming bars
+  are complete.
+- `live/engine.py` / `Engine`: feeds historical bars, persists strategy state,
+  and routes orders.
+- `live/paper_broker.py` / `PaperBroker`: applies broker-like fills, OCO
+  collapse, slippage, fees, gap-through stop logic, and intrabar stress
+  projection.
+- `live/state/`: replay outputs, summaries, unit tapes, audits, and chart packs.
 
-Read next:
+The 2026-05-20 realism baseline used by the current ranked tables:
 
-- MNQ rules and candidate note: `mnq/v2d/README_adaptive_50_150_scaleout.md`
-- NQ long-sample confirmation: `nq/v2d/NQ_ADAPTIVE_50_150_V2B_SCALEOUT.md`
-- TradingView / Tradovate paper script: `pine/orb_adaptive_50_150_v2b_scaleout.pine`
-- Strategy comparison tracker: `mnq/case_studies/STRATEGY_TRACKER.md`
+- 1-tick adverse slippage on market and stop fills.
+- Gapped-through stops fill at the worse of stop or bar open.
+- Stops are evaluated before limits in same-bar ambiguity.
+- `$1.50` fee per closed unit in audit rows.
+- OCO peers are collapsed in risk projection.
 
-## Monthly ORB research (higher timeframe)
+## Ranking Sources
 
-- **Baseline + range-close restricted** monthly ORB (Python + Pine harness): `mnq/case_studies/monthly_orb/MONTHLY_ORB_RESTRICTED.md`, script `scripts/monthly_orb_restricted.py`.
-- **Monthly ORB + weekly ATR Supertrend runner** (2-lot scale sim: scalp + runner, long-only, weekly filter): `scripts/monthly_orb_st_runner.py` → `mnq/mnq_monthly_orb_st_runner.csv`, `nq/nq_monthly_orb_st_runner.csv`. See `mnq/case_studies/STRATEGY_TRACKER.md` for latest headline numbers.
-- **Monthly swing Fib retracement charts** (61.8% default from swing high after bullish context, first daily touch as green vertical, weekly Supertrend + yearly OR levels, **one PNG per calendar year**): `python mnq/case_studies/monthly_orb/build_monthly_fib_retrace_charts.py` (MNQ default); use `--daily nq/nq_daily.csv --out-root nq/case_studies/monthly_orb/fib_retrace_yearly --title-tag NQ` for NQ. Output index: `mnq/case_studies/monthly_orb/fib_retrace_yearly/INDEX.md`.
+Use these layers in order:
 
-## Folder layout
+1. **Strict delayed-arming prior-opposed ST+PMC -> v2b gate**: highest current
+   Net/Stress rows, but kept separate until tick reconstruction resolves
+   same-minute/pre-arm-touch questions.
+2. **Max 3x-stress normalized benchmark**: exact apples-to-apples capital math
+   from `TOP_STRATS.md`.
+3. **Generated broker-like replay table**: standard `StrategyPlugin` rows after
+   realism, excluding the separate prior-opposed family.
+4. **Research/artifact studies**: useful for ideas, sizing, and chart review,
+   but not promotion rows unless rebuilt through the plugin/broker path.
+
+## Strict Prior-Opposed Gate Ranking
+
+Rule family: v2b only arms after the same-session, same-market hourly ST+PMC
+has already entered in the opposite direction. These are real delayed-arming
+`StrategyPlugin` replays with 0 fill-book causality violations, but they are not
+tick-proven yet.
+
+| Rank | Market | Campaigns | Units | Net | Stress DD | Net/Stress | Output |
+|---:|---|---:|---:|---:|---:|---:|---|
+| 1 | NQ | 352 | 1,760 | $1,184,585 | -$53,847 | **22.00** | [`live/state/nq_v2b_prior_opposed_stpmc_broker_like/INDEX.md`](live/state/nq_v2b_prior_opposed_stpmc_broker_like/INDEX.md) |
+| 2 | MNQ | 353 | 1,765 | $113,548 | -$5,418 | **20.96** | [`live/state/mnq_v2b_prior_opposed_stpmc_broker_like/INDEX.md`](live/state/mnq_v2b_prior_opposed_stpmc_broker_like/INDEX.md) |
+| 3 | YM | 347 | 1,735 | $320,190 | -$26,835 | **11.93** | [`live/state/ym_v2b_prior_opposed_stpmc_broker_like/INDEX.md`](live/state/ym_v2b_prior_opposed_stpmc_broker_like/INDEX.md) |
+| 4 | ES | 245 | 1,225 | $348,688 | -$33,164 | **10.51** | [`live/state/es_v2b_prior_opposed_stpmc_broker_like/INDEX.md`](live/state/es_v2b_prior_opposed_stpmc_broker_like/INDEX.md) |
+| 5 | MYM | 333 | 1,665 | $26,054 | -$2,665 | **9.78** | [`live/state/mym_v2b_prior_opposed_stpmc_broker_like/INDEX.md`](live/state/mym_v2b_prior_opposed_stpmc_broker_like/INDEX.md) |
+
+Execution scrutiny for this family:
+[`live/state/v2b_prior_opposed_execution_scrutiny/INDEX.md`](live/state/v2b_prior_opposed_execution_scrutiny/INDEX.md).
+All five markets have tiny 1m complete-miss buckets, but same-minute and
+pre-arm-touch campaigns still need tick/broker reconstruction before live
+funding.
+
+## Capital-Normalized Ranking
+
+The fair benchmark now uses the largest 3x-stress requirement in the selected
+set as the common starting capital. Current anchor: **$927,206**, set by NQ ATR
+daily 3-initial 10-max. Fractional books are allowed here because this is
+comparison math, not an executable order plan.
+
+| Rank | Strategy | Scale | Scaled Net | Return | Stress DD | Net/DD |
+|---:|---|---:|---:|---:|---:|---:|
+| 1 | NQ v2b prior-opposed ST+PMC gate `S_1_1_3` | 5.74x | $6,799,226 | 733.3% | -$309,068 | **22.00** |
+| 2 | ES Yearly ORB scaleout3 | 7.65x | $2,514,650 | 271.2% | -$309,068 | **8.14** |
+| 3 | NQ Yearly ORB scaleout3 | 2.90x | $2,462,568 | 265.6% | -$309,068 | **7.97** |
+| 4 | YM Yearly ORB scaleout3 | 7.76x | $2,241,789 | 241.8% | -$309,068 | **7.25** |
+| 5 | MNQ Yearly ORB scaleout3 | 28.97x | $1,968,204 | 212.3% | -$309,068 | **6.37** |
+| 6 | NQ ATR daily ladder 1/1/2/2/2 10-max | 1.21x | $1,898,416 | 204.7% | -$309,068 | **6.14** |
+| 7 | MNQ ATR daily ladder 1/1/2/2/2 10-max | 12.07x | $1,772,528 | 191.2% | -$309,068 | **5.74** |
+| 8 | NQ ATR daily 3-initial 10-max | 1.00x | $1,717,280 | 185.2% | -$309,068 | **5.56** |
+| 9 | MNQ ATR daily 3-initial 10-max | 10.53x | $1,682,936 | 181.5% | -$309,068 | **5.45** |
+
+Practical `$1,000,000` whole-book ranking is also in
+[`TOP_STRATS.md`](mnq/case_studies/fair_benchmark_comparison/TOP_STRATS.md).
+At `$1M`, the NQ prior-opposed gate leads with 6 books, `$7,107,510` net,
+710.8% return, and 22.00 Net/DD.
+
+## Broker-Like Replay Leaders
+
+Generated `broker_like_replays` rows after the 2026-05-20 realism baseline,
+excluding the separate prior-opposed family:
+
+| Rank | Candidate | Market | Net | Stress DD | Max Units | Net/Stress |
+|---:|---|---|---:|---:|---:|---:|
+| 1 | Yearly ORB scaleout3 | ES | $328,728 | -$40,403 | 3 | **8.14** |
+| 2 | Yearly ORB scaleout3 | NQ | $850,314 | -$106,720 | 3 | **7.97** |
+| 3 | Yearly ORB scaleout3 | YM | $288,757 | -$39,810 | 3 | **7.25** |
+| 4 | Yearly ORB scaleout3 | MNQ | $67,942 | -$10,669 | 3 | **6.37** |
+| 5 | ATR daily ladder 1/1/2/2/2 10-max | NQ | $1,572,142 | -$255,950 | 10 | **6.14** |
+| 6 | Hourly ST + PMC 25/75 3R | NQ | $144,521 | -$24,635 | 1 | **5.87** |
+| 7 | ATR daily ladder 1/1/2/2/2 10-max | MNQ | $146,875 | -$25,610 | 10 | **5.74** |
+| 8 | YM hourly ST + PMC prior-bull gate | YM | $38,828 | -$6,974 | 1 | **5.57** |
+| 9 | ATR daily 3-initial 10-max | NQ | $1,717,281 | -$309,069 | 10 | **5.56** |
+| 10 | ATR daily 3-initial 10-max | MNQ | $159,819 | -$29,351 | 10 | **5.45** |
+
+Full generated table:
+[`live/state/broker_like_replays/SUMMARY.md`](live/state/broker_like_replays/SUMMARY.md).
+
+## Instrument Read
+
+| Instrument | Current read |
+|---|---|
+| MNQ | First live plumbing target is v2b TP1-only `1/0/0`. Strong research rows include prior-opposed v2b (**$113,548 / -$5,418 / 20.96**), yearly ORB (**$67,942 / -$10,669 / 6.37**), and ATR daily ladder (**$146,875 / -$25,610 / 5.74**). |
+| NQ | Strongest overall market. Prior-opposed v2b is the top row (**$1.18M / -$53.8k / 22.00**). Yearly ORB, v2b `S_1_1_3`, ATR daily, and hourly ST+PMC all confirm, but stress is much larger than MNQ. |
+| ES | Best generated broker-like yearly ORB row (**$328,728 / -$40,403 / 8.14**) and strict prior-opposed confirmation (**$348,688 / -$33,164 / 10.51**). Monthly overlap and raw v2b weakened sharply under stop gap-through realism. |
+| YM | Prior-opposed confirms (**$320,190 / -$26,835 / 11.93**) and yearly ORB is strong (**$288,757 / -$39,810 / 7.25**). Plain v2b remains weak under realism. |
+| MYM | Prior-opposed is the best micro Dow expression (**$26,054 / -$2,665 / 9.78**). Yearly ORB is modest but positive; old MYM ATR weekly-primary promotion is revoked because of the daily/weekly ATR mapper bug. |
+| MES | Partial coverage and generally weak. MES has some positive WO-gap and ATR-weekly rows, but yearly ORB and monthly/overlap rows are not promotion-grade under current data. |
+| QQQ / ETFs | QQQ monthly DCA, yearly ORB, RSI timing, OBV, market-structure, 2-month-low sidecars, DJD, BTCC, AMZN, DIA, SHOP, and GOOGL studies live mostly under `nq/case_studies/`. QQQ DCA is a serious passive benchmark, but top futures rows beat it under the max-stress normalized comparison. |
+
+## Research Families
+
+### V2B ORB
+
+- Canonical OCO stop-entry implementation: `scripts/step2_preplaced_stops.py`
+- Mature intraday plugin: `live/strategies/v2b_scaleout.py`
+- All-day best sizing: NQ/MNQ `S_1_1_3` back-loaded runner variant.
+- First live-plumbing target: MNQ `1/0/0`, TP1 only, max one open unit.
+- Prior-opposed gate: strongest research family, but still tick-confirmation
+  required before live funding.
+
+Key outputs:
+
+- [`live/state/v2b_strategy_plugin_cross_market_requested/V2B_OCO_CROSS_MARKET_COMMON_WINDOW.md`](live/state/v2b_strategy_plugin_cross_market_requested/V2B_OCO_CROSS_MARKET_COMMON_WINDOW.md)
+- [`live/state/v2b_sizing_sweep/SUMMARY.md`](live/state/v2b_sizing_sweep/SUMMARY.md)
+- [`live/state/v2b_tp1_only_quick_study/MNQ_1_0_0_STATS.md`](live/state/v2b_tp1_only_quick_study/MNQ_1_0_0_STATS.md)
+
+### Yearly ORB
+
+The current generated broker-like leader family. Rule family: Jan-Mar yearly
+range, Apr-Dec entries, scaleout3 exits, inside-range swing stop, and realism
+baseline fills.
+
+Best generated rows: ES 8.14, NQ 7.97, YM 7.25, MNQ 6.37 Net/Stress. Sizing
+sweep shows front-loaded ladders dominate; `L_4_2_1` is the user-friendly
+promotion shape, while `L_4_1_1` often wins pure efficiency.
+
+Key outputs:
+
+- [`live/state/yearly_orb_sizing_sweep_all/SUMMARY.md`](live/state/yearly_orb_sizing_sweep_all/SUMMARY.md)
+- [`live/state/yearly_orb_range_close_20pct_test/SUMMARY.md`](live/state/yearly_orb_range_close_20pct_test/SUMMARY.md)
+- [`mnq/case_studies/YEARLY_ORB_RESEARCH_NOTES.md`](mnq/case_studies/YEARLY_ORB_RESEARCH_NOTES.md)
+
+### ATR Supertrend / DCA
+
+Daily ATR rows remain strong on MNQ/NQ in broker-like replay, especially the
+ladder `1/1/2/2/2` 10-max variant. Weekly ATR rows are retained but generally
+carry more heat. The old MYM weekly-primary promotion is revoked because the
+local weekly mapper had been resolving daily ATR columns.
+
+Key files:
+
+- [`pine/atr_supertrend_dca_10max_entry_guard_3initial.pine`](pine/atr_supertrend_dca_10max_entry_guard_3initial.pine)
+- [`mym/case_studies/atr_supertrend_daily_primary_no_weekly_flat_3initial_causal/README.md`](mym/case_studies/atr_supertrend_daily_primary_no_weekly_flat_3initial_causal/README.md)
+- [`mym/case_studies/atr_supertrend_actual_weekly_primary_3initial_causal/README.md`](mym/case_studies/atr_supertrend_actual_weekly_primary_3initial_causal/README.md)
+
+### Hourly ST + Prior-Month Close
+
+True plugin sweep across MNQ, NQ, ES, MES, MYM, and YM. NQ 25/75 3R is the
+strongest expression (**$144,521 / -$24,635 / 5.87**). YM has useful variants
+with prior-bull gate and 40/120 3R. MYM base 50/150 is surprisingly efficient
+but small.
+
+Key outputs:
+
+- [`live/state/hourly_st_pmc_strategyplugin_variants_cross_market/SUMMARY.md`](live/state/hourly_st_pmc_strategyplugin_variants_cross_market/SUMMARY.md)
+- [`live/state/hourly_st_pmc_strategyplugin_variants/SUMMARY.md`](live/state/hourly_st_pmc_strategyplugin_variants/SUMMARY.md)
+
+### Monthly ORB / Overlap / Boundary Stops
+
+Monthly restricted and boundary-stop variants were demoted hard by stop
+gap-through realism. Monthly overlap daily-ST retest x5 still has meaningful
+NQ/MNQ rows but no longer leads. Treat these as research branches until rebuilt
+with tighter intraday sequencing and a better stop model.
+
+Key outputs:
+
+- [`live/state/monthly_overlap_st_retest_broker_like/SUMMARY.md`](live/state/monthly_overlap_st_retest_broker_like/SUMMARY.md)
+- [`mnq/case_studies/monthly_orb/MONTHLY_ORB_RESTRICTED.md`](mnq/case_studies/monthly_orb/MONTHLY_ORB_RESTRICTED.md)
+- [`mnq/case_studies/monthly_orb/MONTHLY_ORB_RESTRICTED_STOP_LIMIT_CYCLE.md`](mnq/case_studies/monthly_orb/MONTHLY_ORB_RESTRICTED_STOP_LIMIT_CYCLE.md)
+
+### WO Gap Reversal
+
+Weekly 1h gap-reversal plugin. Positive on ES, NQ, MES, and MNQ, but below
+yearly ORB, ATR daily, and prior-opposed v2b. Best row: ES
+`$120,647 / -$45,687 / 2.64`.
+
+Key output:
+[`live/state/wo_gap_reversal_broker_like/INDEX.md`](live/state/wo_gap_reversal_broker_like/INDEX.md)
+
+### ETF / Passive / Stock Accumulation
+
+ETF work is kept in this repo because QQQ/SPY/DIA are the passive benchmark for
+futures capital efficiency. Main conclusions:
+
+- QQQ monthly DCA is a serious passive baseline, but not the top strategy under
+  max-stress normalized futures comparison.
+- QQQ yearly ORB is useful as an ETF timing sleeve; DCA-core + stop-breakout
+  cash sweep is the highest-net QQQ yearly-ORB hybrid in that study.
+- OBV bearish-cross timing generally trims heat but does not beat blind monthly
+  DCA.
+- 2-month-low signals work better as **extra cash sidecars** than as DCA
+  replacements.
+- GOOGL monthly RSI70 deferral is a real research candidate; GOOGL/QQQ 70/30
+  monthly-DCA + LHLL-RSI<50 bulk improves on combined signal rows but still does
+  not beat plain monthly DCA.
+
+Key outputs:
+
+- [`nq/case_studies/qqq_yearly_orb_study/INDEX.md`](nq/case_studies/qqq_yearly_orb_study/INDEX.md)
+- [`nq/case_studies/qqq_smoothed_rsi_reliability/INDEX.md`](nq/case_studies/qqq_smoothed_rsi_reliability/INDEX.md)
+- [`nq/case_studies/qqq_sliding_2m_low_limit_dca_study/EXTRA_500_OVERLAY.md`](nq/case_studies/qqq_sliding_2m_low_limit_dca_study/EXTRA_500_OVERLAY.md)
+- [`nq/case_studies/googl_qqq_weekly_rsi50_cash_regime_study/INDEX.md`](nq/case_studies/googl_qqq_weekly_rsi50_cash_regime_study/INDEX.md)
+- [`nq/case_studies/top_index_obv_yearly_rotation/YEARLY_ROTATION.md`](nq/case_studies/top_index_obv_yearly_rotation/YEARLY_ROTATION.md)
+
+## Folder Map
 
 | Path | Contents |
 |---|---|
-| `scripts/` | v2 canonical backtest + utilities (`step2_preplaced_stops.py`, `to_excel.py`, `validation.md`) |
-| `mnq/` | MNQ 1-min DBN, 5-min RTH bars, v1 + v2 results, xlsx |
-| `mym/` | MYM 1-min DBN, v1 + v2 results, xlsx |
-| `ym/` | YM daily CSV + case studies; **MNQ + VX daily panel** chart — see `ym/README.md` |
-| `vx/` | VX (CBF) Databento drops + `vx_front_daily.csv`; export script for the MNQ/VX panel — see `ym/README.md` |
-| `nq/` | NQ NY v2b / v2d / adaptive 50/150 |
-| `es/` | ES NY v2b / v2d / adaptive (`es/raw/*.ohlcv-1m*.dbn.zst`, `es/v2d/`) |
-| `mes/` | MES 1m + legacy v1-style CSVs |
-| `combined_orb/` | v2 London + NY session backtests; v2d session fades; **adaptive 50/150** CSV builder |
-| `mnq/v2d/` | v2d fades, adaptive MNQ NY merge, regime chart script |
-| `mnq/v1_limit/` | **Research:** v1b limit ORB from 5m bars + adaptive v1b+v2d merge (not live-canonical) |
-| `mnq/v2e/` | **Research:** v2b levels + **London limit** 5-lot sim, per-leg CSV, **London-sweep** charts; see `mnq/v2e/README.md` |
-| `orb-portfolio/` | v2 Monte Carlo; **`--adaptive`** triad (MNQ NY + MNQ London + MYM NY) |
-| `pine/` | TradingView — **`orb_adaptive_50_150.pine`** (canonical live) |
-| `case_studies/` | v2b per-year charts; **`adaptive_by_year/`** for adaptive 50/150 (v2b+v2d); **`mnq/case_studies/monthly_orb/fib_retrace_yearly/`** monthly-swing Fib + weekly ST yearly PNGs |
-| `volatility/` | Range-size vs outcome analysis |
-| `archived/` | v1 scripts and results preserved for history |
+| `scripts/` | Research builders, legacy ORB scripts, ETF studies, chart builders. |
+| `live/` | StrategyPlugin runtime, engine, paper broker, replay drivers, state outputs. |
+| `mnq/` | MNQ source data, case studies, strategy tracker, v2d/v2e branches. |
+| `nq/` | NQ futures studies plus most QQQ/ETF/GOOGL research outputs. |
+| `es/`, `ym/`, `mym/`, `mes/` | Cross-market futures data and case-study outputs. |
+| `pine/` | TradingView paper-test and parity scripts. |
+| `combined_orb/`, `orb-portfolio/` | Older multi-session portfolio research. |
+| `archived/` | Historical v1/v1b scripts and stale artifacts retained for audit. |
 
-## Quick start
+## Common Commands
 
 ```bash
-# Run the v2 backtest end-to-end (1-min DBN → trade-by-trade results CSV)
+# Original canonical OCO stop-entry ORB backtest.
 python scripts/step2_preplaced_stops.py --product MNQ
-python scripts/step2_preplaced_stops.py --product MNQ --open-range-minutes 5  # 5m ORB -> mnq/mnq_orb_results_stops_5m.csv
 python scripts/step2_preplaced_stops.py --product MYM
-python scripts/step2_preplaced_stops.py --product ES   # needs es/raw 1m DBN
-python es/v2d/build_adaptive_es_50_150.py
 
-# Render formatted Excel workbooks from the v2 CSVs
-python scripts/to_excel.py           # both products
-python scripts/to_excel.py --product MNQ
+# Current fair capital benchmark.
+python scripts/top_strat_fair_benchmark.py
+
+# Current GOOGL/QQQ RSI50 cash-regime and 70/30 hybrid study.
+python scripts/googl_qqq_weekly_rsi50_cash_regime_study.py
 ```
 
-## CANONICAL LIVE STRATEGY: v2b/v2d adaptive 50/150 MA cross
-
-> **2026-04-25**: discovered that the v2b "breakout" strategy can be
-> meaningfully improved by switching to v2d ("fade the breakout") when
-> the daily 50-day MA crosses below the 150-day MA. This regime indicator
-> survives 16-year walk-forward on NQ and beats v2b alone in MNQ
-> in-sample. See `mnq/v2d/` for the detailed analysis.
-
-| | v2b alone | **v2b/v2d 50/150 adaptive** | Δ |
-|---|---|---|---|
-| MNQ trades (5 yr) | 1,991 | 1,919 | similar |
-| Win rate | 54.0% | **54.1%** | identical |
-| Net P/L | $15,877 | **$18,885** | **+19%** |
-| Annual avg | $3,020 | **$3,690** | +22% |
-| Max DD | $4,716 | **$3,542** | **−25%** |
-| Calmar | 0.64 | **1.05** | +64% |
-
-The Pine implementation is `pine/orb_adaptive_50_150.pine`.
-
-**Multi-session adaptive (Python):** after `combined_orb/scripts/london_ny_orb_v2d_fade.py` and `build_adaptive_50_150_portfolio.py`, see `orb-portfolio/README.md` (~**+$20.5k** combined 1×1×1 vs raw v2b-only portfolio).
-
-## v2b honest performance summary (1 contract, net of $1.50 RT fee)
-
-> **2026-04-25 revision**: the previously-reported v2 numbers were
-> inflated ~7× by a same-direction re-entry bug. Honest v2b numbers
-> below show the strategy is only marginally profitable on MNQ NY
-> and **net negative on the other three strategies**. See
-> `scripts/validation.md` for the full v2a→v2b correction context.
-
-| Strategy | History | Trades | Win% | Net $ | Annual | Max DD |
-|---|---|---|---|---|---|---|
-| **MNQ NY** | 2021-03 → 2026-04 | **1,991** | **54.0%** | **+$15,877** | **~$3.1k/yr** | **−$4,716** |
-| MNQ London | 2021-03 → 2026-04 | 2,473 | 52% | −$1,738 | net loss | −$5,328 |
-| MYM NY | 2019-05 → 2026-03 | 2,627 | 52.0% | −$1,620 | net loss | −$6,564 |
-| MYM London | 2019-05 → 2026-03 | 3,265 | 53% | −$3,840 | net loss | −$4,381 |
-| Portfolio: 1 of each | 2021-03 → 2026-04 | 10,364 | ~53% | +$8,683 | ~$1.7k/yr | −$8,536 |
-
-**Under raw v2b-only**, only MNQ NY is net positive; the other three
-sessions add trades but drag dollar P/L (`orb-portfolio/README.md`).
-Under **adaptive 50/150** (same MNQ daily regime for each leg), MNQ
-London + MYM NY flip to v2d in chop and the **combined triad** is
-net-positive in backtest — still higher variance and more operational
-complexity than MNQ NY alone.
-
-## v1 status
-
-- **Archived v1a** (`archived/`) used an unrealistic same-bar limit fill;
-  do not use those numbers for sizing.
-- **v1b** (honest next-bar limit) lives in `archived/v1_scripts/`; the
-  active **retest** pipeline is `mnq/v1_limit/` (5m bars, `Net_$`, optional
-  adaptive v1b+v2d). That path is for comparison only; **live canonical**
-  remains v2b+v2d adaptive in Pine.
-
-See `archived/README.md` for the detailed v1→v2 diff.
-# vorlage
-# potions
+For current promotion decisions, read
+[`mnq/case_studies/STRATEGY_TRACKER.md`](mnq/case_studies/STRATEGY_TRACKER.md)
+before using any older README inside a case-study folder. Many older folders
+preserve pre-realism or artifact results for audit only.
