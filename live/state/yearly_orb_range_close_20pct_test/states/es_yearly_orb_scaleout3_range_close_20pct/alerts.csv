@@ -1,0 +1,410 @@
+alert_id,strategy_id,level,message,payload_json,status,created_at
+alert_44e7135b7b72,es_yearly_orb_scaleout3_range_close_20pct,order_pending_verification,Yearly ORB OCO stop entry intents created,{},sent,2026-05-20T14:07:11Z
+alert_9f5c983dab5a,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted buy 3 ES,{},sent,2026-05-20T14:07:11Z
+alert_51c4284b2375,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted sell 3 ES,{},sent,2026-05-20T14:07:11Z
+alert_0db4c9d7d32c,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted sell 3 ES,{},sent,2026-05-20T14:07:11Z
+alert_cffab55928f3,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted sell 1 ES,{},sent,2026-05-20T14:07:11Z
+alert_9c823e954e3e,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted sell 1 ES,{},sent,2026-05-20T14:07:11Z
+alert_c5ef318a2bff,es_yearly_orb_scaleout3_range_close_20pct,info,Yearly ORB range-close exit requested,{},sent,2026-05-20T14:07:11Z
+alert_397a5680c75e,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted sell 2 ES,{},sent,2026-05-20T14:07:11Z
+alert_65268eefea11,es_yearly_orb_scaleout3_range_close_20pct,order_pending_verification,Yearly ORB OCO stop entry intents created,{},sent,2026-05-20T14:07:11Z
+alert_12f873ae8eeb,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted buy 3 ES,{},sent,2026-05-20T14:07:11Z
+alert_e99c2d8e8740,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted sell 3 ES,{},sent,2026-05-20T14:07:11Z
+alert_9fb9e0d0e269,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted sell 3 ES,{},sent,2026-05-20T14:07:11Z
+alert_d13d58bf0127,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted sell 1 ES,{},sent,2026-05-20T14:07:11Z
+alert_d7543e7cf3ff,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted sell 1 ES,{},sent,2026-05-20T14:07:11Z
+alert_26911d5b88de,es_yearly_orb_scaleout3_range_close_20pct,order_pending_verification,Yearly ORB OCO stop entry intents created,{},sent,2026-05-20T14:07:11Z
+alert_2ac507fa2293,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted buy 3 ES,{},sent,2026-05-20T14:07:11Z
+alert_f8cddf355e84,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted sell 3 ES,{},sent,2026-05-20T14:07:11Z
+alert_6a4c8f694f0b,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted sell 3 ES,{},sent,2026-05-20T14:07:11Z
+alert_7fea32ee5698,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted sell 1 ES,{},sent,2026-05-20T14:07:11Z
+alert_7368e8fab941,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted sell 1 ES,{},sent,2026-05-20T14:07:11Z
+alert_ea6dff61d35c,es_yearly_orb_scaleout3_range_close_20pct,info,Yearly ORB range-close exit requested,{},sent,2026-05-20T14:07:11Z
+alert_6847d1c492d6,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted sell 3 ES,{},sent,2026-05-20T14:07:11Z
+alert_63f28d94ef3a,es_yearly_orb_scaleout3_range_close_20pct,order_pending_verification,Yearly ORB OCO stop entry intents created,{},sent,2026-05-20T14:07:11Z
+alert_f4e76803bd0d,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted buy 3 ES,{},sent,2026-05-20T14:07:11Z
+alert_b9e8ce93b506,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted sell 3 ES,{},sent,2026-05-20T14:07:11Z
+alert_7bb0032bf824,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted sell 3 ES,{},sent,2026-05-20T14:07:11Z
+alert_50ccc10e6c2e,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted sell 1 ES,{},sent,2026-05-20T14:07:11Z
+alert_7960fad71b65,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted sell 1 ES,{},sent,2026-05-20T14:07:11Z
+alert_2159ef63b26d,es_yearly_orb_scaleout3_range_close_20pct,order_pending_verification,Yearly ORB OCO stop entry intents created,{},sent,2026-05-20T14:07:11Z
+alert_1cebafd42bdf,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted buy 3 ES,{},sent,2026-05-20T14:07:11Z
+alert_50181402b3e0,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted sell 3 ES,{},sent,2026-05-20T14:07:11Z
+alert_21d5535db7ab,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted sell 3 ES,{},sent,2026-05-20T14:07:11Z
+alert_0cb0cf65fbb8,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted sell 1 ES,{},sent,2026-05-20T14:07:11Z
+alert_88cb4ffe4a36,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted sell 1 ES,{},sent,2026-05-20T14:07:11Z
+alert_5603522879ee,es_yearly_orb_scaleout3_range_close_20pct,info,Yearly ORB range-close exit requested,{},sent,2026-05-20T14:07:11Z
+alert_6aadbd73b58a,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted sell 3 ES,{},sent,2026-05-20T14:07:11Z
+alert_abac1590bfc0,es_yearly_orb_scaleout3_range_close_20pct,order_pending_verification,Yearly ORB OCO stop entry intents created,{},sent,2026-05-20T14:07:11Z
+alert_722542c1ceb1,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted buy 3 ES,{},sent,2026-05-20T14:07:11Z
+alert_c7d592acd354,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted sell 3 ES,{},sent,2026-05-20T14:07:11Z
+alert_328b2beeb5fe,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted buy 3 ES,{},sent,2026-05-20T14:07:11Z
+alert_8e98ab888b11,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted buy 1 ES,{},sent,2026-05-20T14:07:11Z
+alert_1c805eb33e59,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted buy 1 ES,{},sent,2026-05-20T14:07:11Z
+alert_6b7f210575c5,es_yearly_orb_scaleout3_range_close_20pct,info,Modified order ord_f0b9670f3e64,{},sent,2026-05-20T14:07:11Z
+alert_ae318fe3f18b,es_yearly_orb_scaleout3_range_close_20pct,order_pending_verification,Yearly ORB OCO stop entry intents created,{},sent,2026-05-20T14:07:11Z
+alert_4af6741333f3,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted buy 3 ES,{},sent,2026-05-20T14:07:11Z
+alert_ea62b39ecb3b,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted sell 3 ES,{},sent,2026-05-20T14:07:11Z
+alert_e70909376948,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted buy 3 ES,{},sent,2026-05-20T14:07:11Z
+alert_dda0c204bf46,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted buy 1 ES,{},sent,2026-05-20T14:07:11Z
+alert_9e75765f9d0f,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted buy 1 ES,{},sent,2026-05-20T14:07:11Z
+alert_9ec7ae496827,es_yearly_orb_scaleout3_range_close_20pct,info,Yearly ORB range-close exit requested,{},sent,2026-05-20T14:07:11Z
+alert_79ba1a94a0fb,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted buy 3 ES,{},sent,2026-05-20T14:07:11Z
+alert_2f8bf58d85e6,es_yearly_orb_scaleout3_range_close_20pct,order_pending_verification,Yearly ORB OCO stop entry intents created,{},sent,2026-05-20T14:07:11Z
+alert_1165bee095bf,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted buy 3 ES,{},sent,2026-05-20T14:07:11Z
+alert_1788d40133f3,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted sell 3 ES,{},sent,2026-05-20T14:07:11Z
+alert_2cdc4a1dfcc6,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted buy 3 ES,{},sent,2026-05-20T14:07:11Z
+alert_edfa7b1c38bc,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted buy 1 ES,{},sent,2026-05-20T14:07:11Z
+alert_a31fefb8ca12,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted buy 1 ES,{},sent,2026-05-20T14:07:11Z
+alert_4982ae004432,es_yearly_orb_scaleout3_range_close_20pct,info,Yearly ORB range-close exit requested,{},sent,2026-05-20T14:07:11Z
+alert_b0324f32ffc6,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted buy 2 ES,{},sent,2026-05-20T14:07:11Z
+alert_8627491bcc70,es_yearly_orb_scaleout3_range_close_20pct,order_pending_verification,Yearly ORB OCO stop entry intents created,{},sent,2026-05-20T14:07:11Z
+alert_2e6a4201e839,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted buy 3 ES,{},sent,2026-05-20T14:07:11Z
+alert_c95daf72f03b,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted sell 3 ES,{},sent,2026-05-20T14:07:11Z
+alert_8ad18e6e0d3f,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted buy 3 ES,{},sent,2026-05-20T14:07:11Z
+alert_d449f3b136a3,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted buy 1 ES,{},sent,2026-05-20T14:07:11Z
+alert_68ad05ba7e42,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted buy 1 ES,{},sent,2026-05-20T14:07:11Z
+alert_eebe65e59873,es_yearly_orb_scaleout3_range_close_20pct,info,Yearly ORB range-close exit requested,{},sent,2026-05-20T14:07:11Z
+alert_bc5688c46a20,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted buy 3 ES,{},sent,2026-05-20T14:07:11Z
+alert_a8cb024e5570,es_yearly_orb_scaleout3_range_close_20pct,order_pending_verification,Yearly ORB OCO stop entry intents created,{},sent,2026-05-20T14:07:11Z
+alert_686c70135482,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted buy 3 ES,{},sent,2026-05-20T14:07:11Z
+alert_8addba461478,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted sell 3 ES,{},sent,2026-05-20T14:07:11Z
+alert_c565cf7052c8,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted buy 3 ES,{},sent,2026-05-20T14:07:11Z
+alert_cee2f07c542c,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted buy 1 ES,{},sent,2026-05-20T14:07:11Z
+alert_ee531720f331,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted buy 1 ES,{},sent,2026-05-20T14:07:11Z
+alert_659d9e254dec,es_yearly_orb_scaleout3_range_close_20pct,info,Yearly ORB range-close exit requested,{},sent,2026-05-20T14:07:11Z
+alert_bd973bf35141,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted buy 2 ES,{},sent,2026-05-20T14:07:11Z
+alert_0ba020a01ff7,es_yearly_orb_scaleout3_range_close_20pct,order_pending_verification,Yearly ORB OCO stop entry intents created,{},sent,2026-05-20T14:07:11Z
+alert_9190d39a189c,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted buy 3 ES,{},sent,2026-05-20T14:07:11Z
+alert_fb889c4ebeeb,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted sell 3 ES,{},sent,2026-05-20T14:07:11Z
+alert_c7434cdd7fba,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted buy 3 ES,{},sent,2026-05-20T14:07:11Z
+alert_d0500182d764,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted buy 1 ES,{},sent,2026-05-20T14:07:11Z
+alert_8c7fe7e28abe,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted buy 1 ES,{},sent,2026-05-20T14:07:11Z
+alert_8ba4f5a4c60c,es_yearly_orb_scaleout3_range_close_20pct,info,Cancelled order ord_f0b9670f3e64,{},sent,2026-05-20T14:07:11Z
+alert_08075ccbb027,es_yearly_orb_scaleout3_range_close_20pct,info,Cancelled order ord_40b7c8df80eb,{},sent,2026-05-20T14:07:11Z
+alert_257c8bbef2ce,es_yearly_orb_scaleout3_range_close_20pct,order_pending_verification,Yearly ORB OCO stop entry intents created,{},sent,2026-05-20T14:07:12Z
+alert_b5042f7cb6d8,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted buy 3 ES,{},sent,2026-05-20T14:07:12Z
+alert_8dc19d594982,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted sell 3 ES,{},sent,2026-05-20T14:07:12Z
+alert_887875e79d65,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted sell 3 ES,{},sent,2026-05-20T14:07:12Z
+alert_2b84d86eed58,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted sell 1 ES,{},sent,2026-05-20T14:07:12Z
+alert_6f707eb41b1d,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted sell 1 ES,{},sent,2026-05-20T14:07:12Z
+alert_f0c1f2667bc6,es_yearly_orb_scaleout3_range_close_20pct,order_pending_verification,Yearly ORB OCO stop entry intents created,{},sent,2026-05-20T14:07:12Z
+alert_07690e344b96,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted buy 3 ES,{},sent,2026-05-20T14:07:12Z
+alert_3895f34f32cd,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted sell 3 ES,{},sent,2026-05-20T14:07:12Z
+alert_45a3da3e0694,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted sell 3 ES,{},sent,2026-05-20T14:07:12Z
+alert_ce10e2e5ed86,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted sell 1 ES,{},sent,2026-05-20T14:07:12Z
+alert_2277787a5269,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted sell 1 ES,{},sent,2026-05-20T14:07:12Z
+alert_bfc933c7f836,es_yearly_orb_scaleout3_range_close_20pct,order_pending_verification,Yearly ORB OCO stop entry intents created,{},sent,2026-05-20T14:07:12Z
+alert_3c4dace33f9d,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted buy 3 ES,{},sent,2026-05-20T14:07:12Z
+alert_22c39f278376,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted sell 3 ES,{},sent,2026-05-20T14:07:12Z
+alert_5b139225c9af,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted sell 3 ES,{},sent,2026-05-20T14:07:12Z
+alert_772a3d119eef,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted sell 1 ES,{},sent,2026-05-20T14:07:12Z
+alert_0d965de89789,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted sell 1 ES,{},sent,2026-05-20T14:07:12Z
+alert_de9d96cf2aff,es_yearly_orb_scaleout3_range_close_20pct,order_pending_verification,Yearly ORB OCO stop entry intents created,{},sent,2026-05-20T14:07:12Z
+alert_c2f0329c0ac9,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted buy 3 ES,{},sent,2026-05-20T14:07:12Z
+alert_6e0d158431df,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted sell 3 ES,{},sent,2026-05-20T14:07:12Z
+alert_1382849619fa,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted sell 3 ES,{},sent,2026-05-20T14:07:12Z
+alert_2d9ba8d0919a,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted sell 1 ES,{},sent,2026-05-20T14:07:12Z
+alert_d03e3dfe6388,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted sell 1 ES,{},sent,2026-05-20T14:07:12Z
+alert_1603286a51a8,es_yearly_orb_scaleout3_range_close_20pct,order_pending_verification,Yearly ORB OCO stop entry intents created,{},sent,2026-05-20T14:07:12Z
+alert_327499945d6a,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted buy 3 ES,{},sent,2026-05-20T14:07:12Z
+alert_83a2f20a748a,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted sell 3 ES,{},sent,2026-05-20T14:07:12Z
+alert_f771321211f2,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted sell 3 ES,{},sent,2026-05-20T14:07:12Z
+alert_44b933b8d7d3,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted sell 1 ES,{},sent,2026-05-20T14:07:12Z
+alert_8d107bd54cb4,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted sell 1 ES,{},sent,2026-05-20T14:07:12Z
+alert_e0ddee6e26e0,es_yearly_orb_scaleout3_range_close_20pct,info,Cancelled order ord_a553fd087c3c,{},sent,2026-05-20T14:07:12Z
+alert_a00010cf6e30,es_yearly_orb_scaleout3_range_close_20pct,info,Cancelled order ord_14e91610b2a7,{},sent,2026-05-20T14:07:12Z
+alert_46a4f2798799,es_yearly_orb_scaleout3_range_close_20pct,info,Cancelled order ord_44de90eaeb33,{},sent,2026-05-20T14:07:12Z
+alert_08cb3613d234,es_yearly_orb_scaleout3_range_close_20pct,info,Cancelled order ord_375ab82a3fc9,{},sent,2026-05-20T14:07:12Z
+alert_00d821cae122,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted sell 3 ES,{},sent,2026-05-20T14:07:12Z
+alert_23f67c223a14,es_yearly_orb_scaleout3_range_close_20pct,order_pending_verification,Yearly ORB OCO stop entry intents created,{},sent,2026-05-20T14:07:13Z
+alert_39645b76bbfb,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted buy 3 ES,{},sent,2026-05-20T14:07:13Z
+alert_348c7e533f95,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted sell 3 ES,{},sent,2026-05-20T14:07:13Z
+alert_df2616200185,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted sell 3 ES,{},sent,2026-05-20T14:07:13Z
+alert_12efaea2fa01,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted sell 1 ES,{},sent,2026-05-20T14:07:13Z
+alert_f23d210069d2,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted sell 1 ES,{},sent,2026-05-20T14:07:13Z
+alert_bc69e2801518,es_yearly_orb_scaleout3_range_close_20pct,order_pending_verification,Yearly ORB OCO stop entry intents created,{},sent,2026-05-20T14:07:13Z
+alert_1262afdc66ed,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted buy 3 ES,{},sent,2026-05-20T14:07:13Z
+alert_3c5081586a5c,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted sell 3 ES,{},sent,2026-05-20T14:07:13Z
+alert_19c3155fd5d8,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted sell 3 ES,{},sent,2026-05-20T14:07:13Z
+alert_c0d2ee57b3f2,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted sell 1 ES,{},sent,2026-05-20T14:07:13Z
+alert_584396a6b8a2,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted sell 1 ES,{},sent,2026-05-20T14:07:13Z
+alert_b92a25cf04d4,es_yearly_orb_scaleout3_range_close_20pct,order_pending_verification,Yearly ORB OCO stop entry intents created,{},sent,2026-05-20T14:07:13Z
+alert_f7253f0b79eb,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted buy 3 ES,{},sent,2026-05-20T14:07:13Z
+alert_e4e255626283,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted sell 3 ES,{},sent,2026-05-20T14:07:13Z
+alert_f3825c578f38,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted sell 3 ES,{},sent,2026-05-20T14:07:13Z
+alert_0ee5f1c72bb0,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted sell 1 ES,{},sent,2026-05-20T14:07:13Z
+alert_480873eb53dd,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted sell 1 ES,{},sent,2026-05-20T14:07:13Z
+alert_131e6d424795,es_yearly_orb_scaleout3_range_close_20pct,info,Modified order ord_76af22aa591b,{},sent,2026-05-20T14:07:13Z
+alert_f54cad753f4c,es_yearly_orb_scaleout3_range_close_20pct,info,Cancelled order ord_76af22aa591b,{},sent,2026-05-20T14:07:13Z
+alert_883e5b24640f,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted sell 1 ES,{},sent,2026-05-20T14:07:13Z
+alert_d4a01f39b465,es_yearly_orb_scaleout3_range_close_20pct,order_pending_verification,Yearly ORB OCO stop entry intents created,{},sent,2026-05-20T14:07:14Z
+alert_1ba178bc574e,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted buy 3 ES,{},sent,2026-05-20T14:07:14Z
+alert_ea7942cbbba2,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted sell 3 ES,{},sent,2026-05-20T14:07:14Z
+alert_94c025c41c14,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted sell 3 ES,{},sent,2026-05-20T14:07:14Z
+alert_890868f21f1a,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted sell 1 ES,{},sent,2026-05-20T14:07:14Z
+alert_9764fa12fcdf,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted sell 1 ES,{},sent,2026-05-20T14:07:14Z
+alert_b678032960e3,es_yearly_orb_scaleout3_range_close_20pct,info,Yearly ORB range-close exit requested,{},sent,2026-05-20T14:07:14Z
+alert_e6e3e5aece3f,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted sell 3 ES,{},sent,2026-05-20T14:07:14Z
+alert_ca1a585f4480,es_yearly_orb_scaleout3_range_close_20pct,order_pending_verification,Yearly ORB OCO stop entry intents created,{},sent,2026-05-20T14:07:14Z
+alert_a4c09987f5a4,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted buy 3 ES,{},sent,2026-05-20T14:07:14Z
+alert_7a1816a69041,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted sell 3 ES,{},sent,2026-05-20T14:07:14Z
+alert_6c0e2b9c67aa,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted sell 3 ES,{},sent,2026-05-20T14:07:14Z
+alert_c39e96702e1d,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted sell 1 ES,{},sent,2026-05-20T14:07:14Z
+alert_7733f5b09d64,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted sell 1 ES,{},sent,2026-05-20T14:07:14Z
+alert_146443622a99,es_yearly_orb_scaleout3_range_close_20pct,order_pending_verification,Yearly ORB OCO stop entry intents created,{},sent,2026-05-20T14:07:14Z
+alert_c7bc19f00595,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted buy 3 ES,{},sent,2026-05-20T14:07:14Z
+alert_21a43fc43bf0,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted sell 3 ES,{},sent,2026-05-20T14:07:15Z
+alert_0cc03a87b9d6,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted sell 3 ES,{},sent,2026-05-20T14:07:15Z
+alert_756eb1752f73,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted sell 1 ES,{},sent,2026-05-20T14:07:15Z
+alert_7ac89a434a4b,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted sell 1 ES,{},sent,2026-05-20T14:07:15Z
+alert_6e42e8f47ce4,es_yearly_orb_scaleout3_range_close_20pct,order_pending_verification,Yearly ORB OCO stop entry intents created,{},sent,2026-05-20T14:07:15Z
+alert_d1beb01baf37,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted buy 3 ES,{},sent,2026-05-20T14:07:15Z
+alert_e8679a68d1ed,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted sell 3 ES,{},sent,2026-05-20T14:07:15Z
+alert_89218b0fb078,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted sell 3 ES,{},sent,2026-05-20T14:07:15Z
+alert_f428b78ac36e,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted sell 1 ES,{},sent,2026-05-20T14:07:15Z
+alert_5f317cb91461,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted sell 1 ES,{},sent,2026-05-20T14:07:15Z
+alert_cb349b39def5,es_yearly_orb_scaleout3_range_close_20pct,order_pending_verification,Yearly ORB OCO stop entry intents created,{},sent,2026-05-20T14:07:15Z
+alert_604b6c9ff689,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted buy 3 ES,{},sent,2026-05-20T14:07:15Z
+alert_142b062a4416,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted sell 3 ES,{},sent,2026-05-20T14:07:15Z
+alert_b783e9287090,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted sell 3 ES,{},sent,2026-05-20T14:07:15Z
+alert_863e539ebe4d,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted sell 1 ES,{},sent,2026-05-20T14:07:15Z
+alert_2efcdcb667d3,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted sell 1 ES,{},sent,2026-05-20T14:07:15Z
+alert_3372b76177be,es_yearly_orb_scaleout3_range_close_20pct,info,Modified order ord_305790f630e0,{},sent,2026-05-20T14:07:15Z
+alert_d1b89fedf853,es_yearly_orb_scaleout3_range_close_20pct,info,Cancelled order ord_873a549ff784,{},sent,2026-05-20T14:07:15Z
+alert_c30737c08d52,es_yearly_orb_scaleout3_range_close_20pct,info,Cancelled order ord_305790f630e0,{},sent,2026-05-20T14:07:15Z
+alert_37eedcc38cb3,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted sell 1 ES,{},sent,2026-05-20T14:07:15Z
+alert_027415a10f5c,es_yearly_orb_scaleout3_range_close_20pct,order_pending_verification,Yearly ORB OCO stop entry intents created,{},sent,2026-05-20T14:07:16Z
+alert_8b375682a43a,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted buy 3 ES,{},sent,2026-05-20T14:07:16Z
+alert_990b3c73eff2,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted sell 3 ES,{},sent,2026-05-20T14:07:16Z
+alert_2caa6794f1a3,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted sell 3 ES,{},sent,2026-05-20T14:07:16Z
+alert_ac2822f1da48,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted sell 1 ES,{},sent,2026-05-20T14:07:16Z
+alert_e2af34e33035,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted sell 1 ES,{},sent,2026-05-20T14:07:16Z
+alert_4f17ef3e6d20,es_yearly_orb_scaleout3_range_close_20pct,order_pending_verification,Yearly ORB OCO stop entry intents created,{},sent,2026-05-20T14:07:16Z
+alert_49a5c620968a,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted buy 3 ES,{},sent,2026-05-20T14:07:16Z
+alert_b745580e52d3,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted sell 3 ES,{},sent,2026-05-20T14:07:16Z
+alert_b8a91218563f,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted sell 3 ES,{},sent,2026-05-20T14:07:16Z
+alert_74bfc495e6ab,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted sell 1 ES,{},sent,2026-05-20T14:07:16Z
+alert_fe7e97dab27d,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted sell 1 ES,{},sent,2026-05-20T14:07:16Z
+alert_e873d021f3bd,es_yearly_orb_scaleout3_range_close_20pct,order_pending_verification,Yearly ORB OCO stop entry intents created,{},sent,2026-05-20T14:07:16Z
+alert_d416688fc3e5,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted buy 3 ES,{},sent,2026-05-20T14:07:16Z
+alert_d97ec294c87f,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted sell 3 ES,{},sent,2026-05-20T14:07:16Z
+alert_6d3e5d9905a8,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted sell 3 ES,{},sent,2026-05-20T14:07:16Z
+alert_166626c1313a,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted sell 1 ES,{},sent,2026-05-20T14:07:16Z
+alert_149e236b40bf,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted sell 1 ES,{},sent,2026-05-20T14:07:16Z
+alert_42e7ffee35de,es_yearly_orb_scaleout3_range_close_20pct,order_pending_verification,Yearly ORB OCO stop entry intents created,{},sent,2026-05-20T14:07:16Z
+alert_ab92fa337713,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted buy 3 ES,{},sent,2026-05-20T14:07:17Z
+alert_95845e8dba61,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted sell 3 ES,{},sent,2026-05-20T14:07:17Z
+alert_8744ec4baae7,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted sell 3 ES,{},sent,2026-05-20T14:07:17Z
+alert_66e63f58dcc2,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted sell 1 ES,{},sent,2026-05-20T14:07:17Z
+alert_77b2f3fd7607,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted sell 1 ES,{},sent,2026-05-20T14:07:17Z
+alert_4c1521143f3f,es_yearly_orb_scaleout3_range_close_20pct,info,Yearly ORB range-close exit requested,{},sent,2026-05-20T14:07:17Z
+alert_62957bfd2d30,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted sell 3 ES,{},sent,2026-05-20T14:07:17Z
+alert_bde34ae57bc0,es_yearly_orb_scaleout3_range_close_20pct,order_pending_verification,Yearly ORB OCO stop entry intents created,{},sent,2026-05-20T14:07:17Z
+alert_c2ca8ba937a2,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted buy 3 ES,{},sent,2026-05-20T14:07:17Z
+alert_ca50162bca8f,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted sell 3 ES,{},sent,2026-05-20T14:07:17Z
+alert_e2d054abe4b1,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted buy 3 ES,{},sent,2026-05-20T14:07:17Z
+alert_0a5210546936,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted buy 1 ES,{},sent,2026-05-20T14:07:17Z
+alert_774a113e4501,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted buy 1 ES,{},sent,2026-05-20T14:07:17Z
+alert_0d669a44a704,es_yearly_orb_scaleout3_range_close_20pct,info,Yearly ORB range-close exit requested,{},sent,2026-05-20T14:07:17Z
+alert_ee87277700c1,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted buy 2 ES,{},sent,2026-05-20T14:07:17Z
+alert_bbc59200975d,es_yearly_orb_scaleout3_range_close_20pct,order_pending_verification,Yearly ORB OCO stop entry intents created,{},sent,2026-05-20T14:07:17Z
+alert_cbb4b9139f93,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted buy 3 ES,{},sent,2026-05-20T14:07:17Z
+alert_1a1b0ef0046b,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted sell 3 ES,{},sent,2026-05-20T14:07:17Z
+alert_9384d873a020,es_yearly_orb_scaleout3_range_close_20pct,order_pending_verification,Yearly ORB OCO stop entry intents created,{},sent,2026-05-20T14:07:18Z
+alert_0957d75e60fa,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted buy 3 ES,{},sent,2026-05-20T14:07:19Z
+alert_66b800ee1531,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted sell 3 ES,{},sent,2026-05-20T14:07:19Z
+alert_1b17716759f2,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted sell 3 ES,{},sent,2026-05-20T14:07:19Z
+alert_dd3c95a3d505,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted sell 1 ES,{},sent,2026-05-20T14:07:19Z
+alert_fafcbf54bc54,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted sell 1 ES,{},sent,2026-05-20T14:07:19Z
+alert_ff12edf14b70,es_yearly_orb_scaleout3_range_close_20pct,order_pending_verification,Yearly ORB OCO stop entry intents created,{},sent,2026-05-20T14:07:19Z
+alert_b1ba946821f4,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted buy 3 ES,{},sent,2026-05-20T14:07:19Z
+alert_27710a150fe9,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted sell 3 ES,{},sent,2026-05-20T14:07:19Z
+alert_084e74856dba,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted sell 3 ES,{},sent,2026-05-20T14:07:19Z
+alert_70b36b5ca7b7,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted sell 1 ES,{},sent,2026-05-20T14:07:19Z
+alert_fc3330831a9a,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted sell 1 ES,{},sent,2026-05-20T14:07:19Z
+alert_ab96731fae8e,es_yearly_orb_scaleout3_range_close_20pct,info,Cancelled order ord_b5cecf12886c,{},sent,2026-05-20T14:07:19Z
+alert_e427a9b79d31,es_yearly_orb_scaleout3_range_close_20pct,info,Cancelled order ord_3ce28aad9aa5,{},sent,2026-05-20T14:07:19Z
+alert_fa0ae973f382,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted sell 2 ES,{},sent,2026-05-20T14:07:19Z
+alert_ebf282146510,es_yearly_orb_scaleout3_range_close_20pct,order_pending_verification,Yearly ORB OCO stop entry intents created,{},sent,2026-05-20T14:07:21Z
+alert_fa88d0e89ff8,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted buy 3 ES,{},sent,2026-05-20T14:07:21Z
+alert_95866d9113a6,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted sell 3 ES,{},sent,2026-05-20T14:07:21Z
+alert_380085da2173,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted sell 3 ES,{},sent,2026-05-20T14:07:21Z
+alert_bf391b269c2a,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted sell 1 ES,{},sent,2026-05-20T14:07:21Z
+alert_85128d92ebe0,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted sell 1 ES,{},sent,2026-05-20T14:07:21Z
+alert_30058af55be7,es_yearly_orb_scaleout3_range_close_20pct,order_pending_verification,Yearly ORB OCO stop entry intents created,{},sent,2026-05-20T14:07:21Z
+alert_eb76242ba077,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted buy 3 ES,{},sent,2026-05-20T14:07:21Z
+alert_8de43841ee26,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted sell 3 ES,{},sent,2026-05-20T14:07:21Z
+alert_3ea54ad0c9e4,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted sell 3 ES,{},sent,2026-05-20T14:07:21Z
+alert_e213c4201793,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted sell 1 ES,{},sent,2026-05-20T14:07:21Z
+alert_8bfa3fc86354,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted sell 1 ES,{},sent,2026-05-20T14:07:21Z
+alert_a89e995c1826,es_yearly_orb_scaleout3_range_close_20pct,info,Modified order ord_bc3cd64d8f13,{},sent,2026-05-20T14:07:21Z
+alert_1290671f7970,es_yearly_orb_scaleout3_range_close_20pct,info,Cancelled order ord_bc3cd64d8f13,{},sent,2026-05-20T14:07:21Z
+alert_55541dfb9fc8,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted sell 1 ES,{},sent,2026-05-20T14:07:21Z
+alert_c1bb443240da,es_yearly_orb_scaleout3_range_close_20pct,order_pending_verification,Yearly ORB OCO stop entry intents created,{},sent,2026-05-20T14:07:23Z
+alert_d0a447825290,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted buy 3 ES,{},sent,2026-05-20T14:07:23Z
+alert_a45acbd681bb,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted sell 3 ES,{},sent,2026-05-20T14:07:23Z
+alert_c1599e1526c6,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted sell 3 ES,{},sent,2026-05-20T14:07:23Z
+alert_c74beccc3246,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted sell 1 ES,{},sent,2026-05-20T14:07:23Z
+alert_dd3fc6619782,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted sell 1 ES,{},sent,2026-05-20T14:07:23Z
+alert_dbbd753ef979,es_yearly_orb_scaleout3_range_close_20pct,order_pending_verification,Yearly ORB OCO stop entry intents created,{},sent,2026-05-20T14:07:23Z
+alert_5457854c6e63,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted buy 3 ES,{},sent,2026-05-20T14:07:23Z
+alert_722ecc45a365,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted sell 3 ES,{},sent,2026-05-20T14:07:23Z
+alert_7c73efbe834c,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted buy 3 ES,{},sent,2026-05-20T14:07:23Z
+alert_e97c4725b708,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted buy 1 ES,{},sent,2026-05-20T14:07:23Z
+alert_f457372ad399,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted buy 1 ES,{},sent,2026-05-20T14:07:23Z
+alert_e9eea4c14ce2,es_yearly_orb_scaleout3_range_close_20pct,info,Cancelled order ord_992cab8a9f32,{},sent,2026-05-20T14:07:23Z
+alert_b19d7e443caf,es_yearly_orb_scaleout3_range_close_20pct,info,Cancelled order ord_1c4fa0fa0338,{},sent,2026-05-20T14:07:23Z
+alert_2d63228298f5,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted buy 2 ES,{},sent,2026-05-20T14:07:23Z
+alert_cd55b71fc879,es_yearly_orb_scaleout3_range_close_20pct,order_pending_verification,Yearly ORB OCO stop entry intents created,{},sent,2026-05-20T14:07:26Z
+alert_5035ae3ae5c1,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted buy 3 ES,{},sent,2026-05-20T14:07:26Z
+alert_498230c78096,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted sell 3 ES,{},sent,2026-05-20T14:07:26Z
+alert_33f0dd6b601d,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted sell 3 ES,{},sent,2026-05-20T14:07:26Z
+alert_12055fc00c46,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted sell 1 ES,{},sent,2026-05-20T14:07:26Z
+alert_7d77965a33ca,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted sell 1 ES,{},sent,2026-05-20T14:07:26Z
+alert_0ef4617c88fb,es_yearly_orb_scaleout3_range_close_20pct,order_pending_verification,Yearly ORB OCO stop entry intents created,{},sent,2026-05-20T14:07:26Z
+alert_4bb6299e4a0b,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted buy 3 ES,{},sent,2026-05-20T14:07:26Z
+alert_9c76bcfe89a7,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted sell 3 ES,{},sent,2026-05-20T14:07:26Z
+alert_dd2e1bc72d10,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted sell 3 ES,{},sent,2026-05-20T14:07:26Z
+alert_871cb2d94ff3,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted sell 1 ES,{},sent,2026-05-20T14:07:26Z
+alert_f8a74f6ef30a,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted sell 1 ES,{},sent,2026-05-20T14:07:26Z
+alert_ef272e1d08b6,es_yearly_orb_scaleout3_range_close_20pct,info,Cancelled order ord_ce099369e679,{},sent,2026-05-20T14:07:26Z
+alert_aa4a9e409af1,es_yearly_orb_scaleout3_range_close_20pct,info,Cancelled order ord_06efb866dc8f,{},sent,2026-05-20T14:07:26Z
+alert_f6ae9ac7d9c2,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted sell 2 ES,{},sent,2026-05-20T14:07:26Z
+alert_69ff8f1d30de,es_yearly_orb_scaleout3_range_close_20pct,order_pending_verification,Yearly ORB OCO stop entry intents created,{},sent,2026-05-20T14:07:28Z
+alert_b8deb1284a3d,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted buy 3 ES,{},sent,2026-05-20T14:07:29Z
+alert_e858dbe2164b,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted sell 3 ES,{},sent,2026-05-20T14:07:29Z
+alert_cfb8aba3d1ad,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted sell 3 ES,{},sent,2026-05-20T14:07:29Z
+alert_a3d70d2f093c,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted sell 1 ES,{},sent,2026-05-20T14:07:29Z
+alert_e396a138255d,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted sell 1 ES,{},sent,2026-05-20T14:07:29Z
+alert_0ff03e899675,es_yearly_orb_scaleout3_range_close_20pct,order_pending_verification,Yearly ORB OCO stop entry intents created,{},sent,2026-05-20T14:07:29Z
+alert_0e2c1c09c57d,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted buy 3 ES,{},sent,2026-05-20T14:07:29Z
+alert_f54309cd4627,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted sell 3 ES,{},sent,2026-05-20T14:07:29Z
+alert_578796acc54b,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted sell 3 ES,{},sent,2026-05-20T14:07:29Z
+alert_080bcc22fbbd,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted sell 1 ES,{},sent,2026-05-20T14:07:29Z
+alert_51a7d2580298,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted sell 1 ES,{},sent,2026-05-20T14:07:29Z
+alert_6f1cc887d03f,es_yearly_orb_scaleout3_range_close_20pct,order_pending_verification,Yearly ORB OCO stop entry intents created,{},sent,2026-05-20T14:07:29Z
+alert_cb3c6a8ee113,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted buy 3 ES,{},sent,2026-05-20T14:07:29Z
+alert_ad73e0fb3efb,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted sell 3 ES,{},sent,2026-05-20T14:07:29Z
+alert_d235e36c9a64,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted sell 3 ES,{},sent,2026-05-20T14:07:29Z
+alert_afe563e9974e,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted sell 1 ES,{},sent,2026-05-20T14:07:29Z
+alert_1715eaf364e2,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted sell 1 ES,{},sent,2026-05-20T14:07:29Z
+alert_a1619971ca64,es_yearly_orb_scaleout3_range_close_20pct,order_pending_verification,Yearly ORB OCO stop entry intents created,{},sent,2026-05-20T14:07:29Z
+alert_6863fd98d817,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted buy 3 ES,{},sent,2026-05-20T14:07:29Z
+alert_3b19c02fbea4,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted sell 3 ES,{},sent,2026-05-20T14:07:29Z
+alert_e7ce54e493ce,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted sell 3 ES,{},sent,2026-05-20T14:07:29Z
+alert_fe1bc60594dd,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted sell 1 ES,{},sent,2026-05-20T14:07:29Z
+alert_ce07b6a4b813,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted sell 1 ES,{},sent,2026-05-20T14:07:29Z
+alert_b86c6ab9c10b,es_yearly_orb_scaleout3_range_close_20pct,order_pending_verification,Yearly ORB OCO stop entry intents created,{},sent,2026-05-20T14:07:29Z
+alert_f170f6245a60,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted buy 3 ES,{},sent,2026-05-20T14:07:29Z
+alert_23bf44138386,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted sell 3 ES,{},sent,2026-05-20T14:07:29Z
+alert_49af4f8be31f,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted sell 3 ES,{},sent,2026-05-20T14:07:29Z
+alert_efe5823ac01f,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted sell 1 ES,{},sent,2026-05-20T14:07:29Z
+alert_8a5f763983ff,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted sell 1 ES,{},sent,2026-05-20T14:07:29Z
+alert_6400fd89bacb,es_yearly_orb_scaleout3_range_close_20pct,info,Cancelled order ord_54e0d10d4d32,{},sent,2026-05-20T14:07:29Z
+alert_eaec1fb4aadd,es_yearly_orb_scaleout3_range_close_20pct,info,Cancelled order ord_b70a94d58a6a,{},sent,2026-05-20T14:07:30Z
+alert_10e59abf0f97,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted sell 2 ES,{},sent,2026-05-20T14:07:30Z
+alert_0b2a1f3fb3fc,es_yearly_orb_scaleout3_range_close_20pct,order_pending_verification,Yearly ORB OCO stop entry intents created,{},sent,2026-05-20T14:07:32Z
+alert_d59721a125fd,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted buy 3 ES,{},sent,2026-05-20T14:07:32Z
+alert_2de804348512,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted sell 3 ES,{},sent,2026-05-20T14:07:32Z
+alert_c18825b910b2,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted sell 3 ES,{},sent,2026-05-20T14:07:32Z
+alert_a965959288b1,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted sell 1 ES,{},sent,2026-05-20T14:07:32Z
+alert_ad11b6487a83,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted sell 1 ES,{},sent,2026-05-20T14:07:32Z
+alert_e0193f7876b6,es_yearly_orb_scaleout3_range_close_20pct,info,Modified order ord_86fd8d7d318f,{},sent,2026-05-20T14:07:32Z
+alert_d11690f36d45,es_yearly_orb_scaleout3_range_close_20pct,info,Cancelled order ord_86fd8d7d318f,{},sent,2026-05-20T14:07:33Z
+alert_04b6265ffa24,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted sell 1 ES,{},sent,2026-05-20T14:07:33Z
+alert_ee9f0bc1a203,es_yearly_orb_scaleout3_range_close_20pct,order_pending_verification,Yearly ORB OCO stop entry intents created,{},sent,2026-05-20T14:07:35Z
+alert_242f144924e8,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted buy 3 ES,{},sent,2026-05-20T14:07:35Z
+alert_8565a2dc4218,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted sell 3 ES,{},sent,2026-05-20T14:07:35Z
+alert_55eb981e0d1d,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted buy 3 ES,{},sent,2026-05-20T14:07:36Z
+alert_b73dc6c8c89c,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted buy 1 ES,{},sent,2026-05-20T14:07:36Z
+alert_68546f0b912a,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted buy 1 ES,{},sent,2026-05-20T14:07:36Z
+alert_a69ef37f0f7a,es_yearly_orb_scaleout3_range_close_20pct,info,Yearly ORB range-close exit requested,{},sent,2026-05-20T14:07:36Z
+alert_aad56ff853fa,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted buy 3 ES,{},sent,2026-05-20T14:07:36Z
+alert_2065c7d6928f,es_yearly_orb_scaleout3_range_close_20pct,order_pending_verification,Yearly ORB OCO stop entry intents created,{},sent,2026-05-20T14:07:36Z
+alert_9e3db5223219,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted buy 3 ES,{},sent,2026-05-20T14:07:36Z
+alert_684874a2b54a,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted sell 3 ES,{},sent,2026-05-20T14:07:36Z
+alert_1ef672637f6a,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted buy 3 ES,{},sent,2026-05-20T14:07:36Z
+alert_d88a05f8397b,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted buy 1 ES,{},sent,2026-05-20T14:07:36Z
+alert_a31b36ab484b,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted buy 1 ES,{},sent,2026-05-20T14:07:36Z
+alert_d9c51878697d,es_yearly_orb_scaleout3_range_close_20pct,info,Yearly ORB range-close exit requested,{},sent,2026-05-20T14:07:36Z
+alert_68ef3b1b38c5,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted buy 2 ES,{},sent,2026-05-20T14:07:36Z
+alert_9a415948a9c7,es_yearly_orb_scaleout3_range_close_20pct,order_pending_verification,Yearly ORB OCO stop entry intents created,{},sent,2026-05-20T14:07:36Z
+alert_c4fd32a25fc3,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted buy 3 ES,{},sent,2026-05-20T14:07:36Z
+alert_8bc8f08ce4dc,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted sell 3 ES,{},sent,2026-05-20T14:07:36Z
+alert_6424ff39113a,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted buy 3 ES,{},sent,2026-05-20T14:07:36Z
+alert_34afe4caa70a,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted buy 1 ES,{},sent,2026-05-20T14:07:36Z
+alert_57ca7ce2b86b,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted buy 1 ES,{},sent,2026-05-20T14:07:36Z
+alert_fd4cfaec783c,es_yearly_orb_scaleout3_range_close_20pct,info,Cancelled order ord_0823dde17bb3,{},sent,2026-05-20T14:07:36Z
+alert_ee8fd8b0d590,es_yearly_orb_scaleout3_range_close_20pct,info,Cancelled order ord_2c020e506eef,{},sent,2026-05-20T14:07:36Z
+alert_d0deb41934f7,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted buy 2 ES,{},sent,2026-05-20T14:07:36Z
+alert_df9368a88dc1,es_yearly_orb_scaleout3_range_close_20pct,order_pending_verification,Yearly ORB OCO stop entry intents created,{},sent,2026-05-20T14:07:39Z
+alert_a0a419bb5327,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted buy 3 ES,{},sent,2026-05-20T14:07:39Z
+alert_e8cf8d5d30a6,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted sell 3 ES,{},sent,2026-05-20T14:07:39Z
+alert_59fe50964dc8,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted sell 3 ES,{},sent,2026-05-20T14:07:39Z
+alert_782ac3345e14,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted sell 1 ES,{},sent,2026-05-20T14:07:40Z
+alert_8bb96d2dc15e,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted sell 1 ES,{},sent,2026-05-20T14:07:40Z
+alert_5b7def34ecda,es_yearly_orb_scaleout3_range_close_20pct,order_pending_verification,Yearly ORB OCO stop entry intents created,{},sent,2026-05-20T14:07:40Z
+alert_e56a9ea50c31,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted buy 3 ES,{},sent,2026-05-20T14:07:40Z
+alert_fca5b8922d42,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted sell 3 ES,{},sent,2026-05-20T14:07:40Z
+alert_3824913d83b1,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted sell 3 ES,{},sent,2026-05-20T14:07:40Z
+alert_c0309f14a3df,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted sell 1 ES,{},sent,2026-05-20T14:07:40Z
+alert_34d2139dece0,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted sell 1 ES,{},sent,2026-05-20T14:07:40Z
+alert_dd91a0adbdab,es_yearly_orb_scaleout3_range_close_20pct,info,Modified order ord_eed00e7e3b8f,{},sent,2026-05-20T14:07:40Z
+alert_4999bbc94b55,es_yearly_orb_scaleout3_range_close_20pct,order_pending_verification,Yearly ORB OCO stop entry intents created,{},sent,2026-05-20T14:07:40Z
+alert_047d45cea7ba,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted buy 3 ES,{},sent,2026-05-20T14:07:40Z
+alert_1bc4b937ace2,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted sell 3 ES,{},sent,2026-05-20T14:07:40Z
+alert_38dff06d2baf,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted sell 3 ES,{},sent,2026-05-20T14:07:40Z
+alert_168d40978f75,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted sell 1 ES,{},sent,2026-05-20T14:07:40Z
+alert_d39b644272d8,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted sell 1 ES,{},sent,2026-05-20T14:07:40Z
+alert_805243db1deb,es_yearly_orb_scaleout3_range_close_20pct,info,Modified order ord_722a26688a96,{},sent,2026-05-20T14:07:40Z
+alert_61d9ea2b23f3,es_yearly_orb_scaleout3_range_close_20pct,info,Cancelled order ord_eed00e7e3b8f,{},sent,2026-05-20T14:07:40Z
+alert_ebdb5b02588e,es_yearly_orb_scaleout3_range_close_20pct,info,Cancelled order ord_722a26688a96,{},sent,2026-05-20T14:07:40Z
+alert_edecbd116529,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted sell 1 ES,{},sent,2026-05-20T14:07:40Z
+alert_9e48eb147245,es_yearly_orb_scaleout3_range_close_20pct,order_pending_verification,Yearly ORB OCO stop entry intents created,{},sent,2026-05-20T14:07:44Z
+alert_1c1de03677c0,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted buy 3 ES,{},sent,2026-05-20T14:07:44Z
+alert_4bd9915f09e8,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted sell 3 ES,{},sent,2026-05-20T14:07:44Z
+alert_b34d115c28a3,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted sell 3 ES,{},sent,2026-05-20T14:07:44Z
+alert_c9a543f62be2,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted sell 1 ES,{},sent,2026-05-20T14:07:44Z
+alert_56d7ec7206b2,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted sell 1 ES,{},sent,2026-05-20T14:07:44Z
+alert_e5c17b8cbc61,es_yearly_orb_scaleout3_range_close_20pct,order_pending_verification,Yearly ORB OCO stop entry intents created,{},sent,2026-05-20T14:07:44Z
+alert_c053fa99144f,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted buy 3 ES,{},sent,2026-05-20T14:07:44Z
+alert_ac2fed67d44d,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted sell 3 ES,{},sent,2026-05-20T14:07:44Z
+alert_964ee37ab7f2,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted sell 3 ES,{},sent,2026-05-20T14:07:44Z
+alert_0926750120a0,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted sell 1 ES,{},sent,2026-05-20T14:07:44Z
+alert_914126e4f66e,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted sell 1 ES,{},sent,2026-05-20T14:07:44Z
+alert_921b95eb473f,es_yearly_orb_scaleout3_range_close_20pct,order_pending_verification,Yearly ORB OCO stop entry intents created,{},sent,2026-05-20T14:07:44Z
+alert_af598eeb632f,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted buy 3 ES,{},sent,2026-05-20T14:07:44Z
+alert_d2bfd86a4275,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted sell 3 ES,{},sent,2026-05-20T14:07:44Z
+alert_51613b1f9924,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted sell 3 ES,{},sent,2026-05-20T14:07:44Z
+alert_3595b3bb10d7,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted sell 1 ES,{},sent,2026-05-20T14:07:44Z
+alert_f7aa264da0d2,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted sell 1 ES,{},sent,2026-05-20T14:07:44Z
+alert_c0cc0ed806de,es_yearly_orb_scaleout3_range_close_20pct,info,Modified order ord_5320a602dce7,{},sent,2026-05-20T14:07:44Z
+alert_324340024ab1,es_yearly_orb_scaleout3_range_close_20pct,info,Cancelled order ord_1dd151d623b5,{},sent,2026-05-20T14:07:44Z
+alert_08660e19cd75,es_yearly_orb_scaleout3_range_close_20pct,info,Cancelled order ord_5320a602dce7,{},sent,2026-05-20T14:07:44Z
+alert_badb4f69e081,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted sell 1 ES,{},sent,2026-05-20T14:07:44Z
+alert_43650f1e7de8,es_yearly_orb_scaleout3_range_close_20pct,order_pending_verification,Yearly ORB OCO stop entry intents created,{},sent,2026-05-20T14:07:48Z
+alert_4e74bd2b781f,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted buy 3 ES,{},sent,2026-05-20T14:07:48Z
+alert_cb952868adcf,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted sell 3 ES,{},sent,2026-05-20T14:07:48Z
+alert_2c5b90cf202d,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted buy 3 ES,{},sent,2026-05-20T14:07:48Z
+alert_4e05625f9744,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted buy 1 ES,{},sent,2026-05-20T14:07:48Z
+alert_58a4e9091093,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted buy 1 ES,{},sent,2026-05-20T14:07:48Z
+alert_e4c4dbf32c70,es_yearly_orb_scaleout3_range_close_20pct,info,Modified order ord_24d6c183081b,{},sent,2026-05-20T14:07:48Z
+alert_e5e15a7ac16b,es_yearly_orb_scaleout3_range_close_20pct,order_pending_verification,Yearly ORB OCO stop entry intents created,{},sent,2026-05-20T14:07:48Z
+alert_a4fdbd7762f9,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted buy 3 ES,{},sent,2026-05-20T14:07:48Z
+alert_4664fcc92406,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted sell 3 ES,{},sent,2026-05-20T14:07:48Z
+alert_100cfc896600,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted buy 3 ES,{},sent,2026-05-20T14:07:48Z
+alert_266fd569df22,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted buy 1 ES,{},sent,2026-05-20T14:07:48Z
+alert_9738c7d4b87c,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted buy 1 ES,{},sent,2026-05-20T14:07:48Z
+alert_61c7a4cb5e32,es_yearly_orb_scaleout3_range_close_20pct,info,Yearly ORB range-close exit requested,{},sent,2026-05-20T14:07:48Z
+alert_4b1d5bc5635f,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted buy 2 ES,{},sent,2026-05-20T14:07:48Z
+alert_fa1c15a0100a,es_yearly_orb_scaleout3_range_close_20pct,order_pending_verification,Yearly ORB OCO stop entry intents created,{},sent,2026-05-20T14:07:49Z
+alert_31542d948516,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted buy 3 ES,{},sent,2026-05-20T14:07:49Z
+alert_47057cc1b41d,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted sell 3 ES,{},sent,2026-05-20T14:07:49Z
+alert_08e25ae8c0c5,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted sell 3 ES,{},sent,2026-05-20T14:07:49Z
+alert_caba0d8742e6,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted sell 1 ES,{},sent,2026-05-20T14:07:49Z
+alert_f5210e1ca648,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted sell 1 ES,{},sent,2026-05-20T14:07:49Z
+alert_7bcb9fb115b0,es_yearly_orb_scaleout3_range_close_20pct,info,Modified order ord_0a867162ecda,{},sent,2026-05-20T14:07:49Z
+alert_dd30bcc91bc8,es_yearly_orb_scaleout3_range_close_20pct,info,Cancelled order ord_24d6c183081b,{},sent,2026-05-20T14:07:49Z
+alert_570f44d9674e,es_yearly_orb_scaleout3_range_close_20pct,info,Cancelled order ord_0a867162ecda,{},sent,2026-05-20T14:07:49Z
+alert_b76befe0b72c,es_yearly_orb_scaleout3_range_close_20pct,order_submitted,Submitted sell 1 ES,{},sent,2026-05-20T14:07:49Z

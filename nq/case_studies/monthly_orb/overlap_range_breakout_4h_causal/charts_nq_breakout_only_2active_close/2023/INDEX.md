@@ -1,0 +1,6 @@
+# NQ overlap range 4h causal Breakout only (2 active max) close: 2023
+
+- Cluster 34: 2023-02+2023-03, 1 packages, +3910.4 pts, Win, [cluster_34_2023-02_2023-03_win.png](cluster_34_2023-02_2023-03_win.png)
+- Cluster 35: 2023-04+2023-05, 2 packages, +2282.0 pts, Win, [cluster_35_2023-04_2023-05_win.png](cluster_35_2023-04_2023-05_win.png)
+- Cluster 36: 2023-07+2023-08+2023-09, 0 packages, +0.0 pts, No-op, [cluster_36_2023-07_2023-08_2023-09_no-op.png](cluster_36_2023-07_2023-08_2023-09_no-op.png)
+- Cluster 37: 2023-10+2023-11, 1 packages, +2862.1 pts, Win, [cluster_37_2023-10_2023-11_win.png](cluster_37_2023-10_2023-11_win.png)
