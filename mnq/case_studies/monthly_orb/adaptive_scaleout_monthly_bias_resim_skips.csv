@@ -1,0 +1,10 @@
+policy,legs_simulated,skipped_by_policy,skipped_by_fill_or_data
+baseline,1831,0,88
+monthly_outside_only,1079,788,52
+monthly_aligned_only,547,1366,6
+monthly_opposed_only,578,1335,6
+v2b_outside_only_v2d_unchanged,1242,589,88
+v2d_outside_only_v2b_unchanged,1668,199,52
+v2d_aligned_only_v2b_unchanged,1563,350,6
+v2d_opposed_only_v2b_unchanged,1581,332,6
+diagnostic_v2b_opposed_v2d_aligned,560,1353,6

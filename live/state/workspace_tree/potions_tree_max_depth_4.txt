@@ -1,0 +1,4059 @@
+Workspace tree: /home/tester/hsm/potions
+Max depth: 4
+Generated: 2026-05-21T10:18:10
+
+Directories shown: 1339
+Files shown: 1611
+Deep branches marked omitted: 1100
+
+potions/
+|-- .pytest_cache/
+|   |-- v/
+|   |   `-- cache/
+|   |       |-- lastfailed
+|   |       |-- nodeids
+|   |       `-- stepwise
+|   |-- .gitignore
+|   `-- README.md
+|-- archived/
+|   |-- v1_results/
+|   |   |-- combined_orb_results.v1.csv
+|   |   |-- london_orb_results.v1.csv
+|   |   |-- mes_orb_results.v1.csv
+|   |   |-- mnq_orb_results.pre_april_update.v1.csv
+|   |   |-- mnq_orb_results.v1.csv
+|   |   |-- mnq_orb_results.v1.xlsx
+|   |   |-- mnq_orb_results_fixed_limit.v1.csv
+|   |   |-- mym_orb_results.v1.csv
+|   |   |-- nq_orb_results.v1.csv
+|   |   `-- ny_orb_results.v1.csv
+|   |-- v1_scripts/
+|   |   |-- london_ny_orb.py
+|   |   |-- monte_carlo.py
+|   |   |-- process_nq_15min_orb.py
+|   |   |-- step1_to_5min.py
+|   |   |-- step2_fixed_next_bar_entry.py
+|   |   |-- step2_range_trades.py
+|   |   |-- to_excel.py
+|   |   `-- update_mnq_15min_orb.py
+|   |-- v2a_results/
+|   |   |-- mnq_london_orb_results.v2a.csv
+|   |   |-- mnq_ny_combined_orb_results.v2a.csv
+|   |   |-- mnq_ny_orb_results.v2a.csv
+|   |   |-- mnq_ny_orb_results.v2a.xlsx
+|   |   |-- mym_london_orb_results.v2a.csv
+|   |   |-- mym_ny_combined_orb_results.v2a.csv
+|   |   |-- mym_ny_orb_results.v2a.csv
+|   |   `-- mym_ny_orb_results.v2a.xlsx
+|   `-- README.md
+|-- combined_orb/
+|   |-- scripts/
+|   |   |-- build_adaptive_50_150_portfolio.py
+|   |   |-- london_ny_orb.py
+|   |   |-- london_ny_orb_stops.py
+|   |   `-- london_ny_orb_v2d_fade.py
+|   |-- combined_orb_results_stops.csv
+|   |-- london_orb_results_stops.csv
+|   |-- london_orb_results_v2d.csv
+|   |-- mnq_london_adaptive_50_150.csv
+|   |-- mym_combined_orb_results_stops.csv
+|   |-- mym_london_orb_results_stops.csv
+|   |-- mym_london_orb_results_v2d.csv
+|   |-- mym_ny_adaptive_50_150.csv
+|   |-- mym_ny_orb_results_stops.csv
+|   |-- mym_ny_orb_results_v2d.csv
+|   |-- ny_orb_results_stops.csv
+|   |-- ny_orb_results_v2d.csv
+|   `-- README.md
+|-- data/
+|   `-- benchmarks/
+|       |-- DIA_2016-01-01_2025-12-31_yahoo_daily.csv
+|       |-- DIA_2020-01-01_2025-12-31_yahoo_daily.csv
+|       |-- QQQ_2016-01-01_2025-12-31_yahoo_daily.csv
+|       |-- QQQ_2020-01-01_2025-12-31_yahoo_daily.csv
+|       |-- SPY_2016-01-01_2025-12-31_yahoo_daily.csv
+|       `-- SPY_2020-01-01_2025-12-31_yahoo_daily.csv
+|-- es/
+|   |-- case_studies/
+|   |   |-- atr_supertrend_equity_scaling/
+|   |   |   |-- daily_3initial/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- daily_ladder112221/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- weekly_3initial/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- weekly_ladder112221/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   `-- README.md
+|   |   `-- yearly_orb_swing_stop_scaleout3_inside_range_swing_range_close/
+|   |       |-- 2011/
+|   |       |   `-- ... deeper entries omitted by max-depth
+|   |       |-- 2012/
+|   |       |   `-- ... deeper entries omitted by max-depth
+|   |       |-- 2013/
+|   |       |   `-- ... deeper entries omitted by max-depth
+|   |       |-- 2014/
+|   |       |   `-- ... deeper entries omitted by max-depth
+|   |       |-- 2015/
+|   |       |   `-- ... deeper entries omitted by max-depth
+|   |       |-- 2016/
+|   |       |   `-- ... deeper entries omitted by max-depth
+|   |       |-- 2017/
+|   |       |   `-- ... deeper entries omitted by max-depth
+|   |       |-- 2018/
+|   |       |   `-- ... deeper entries omitted by max-depth
+|   |       |-- 2019/
+|   |       |   `-- ... deeper entries omitted by max-depth
+|   |       |-- 2020/
+|   |       |   `-- ... deeper entries omitted by max-depth
+|   |       |-- 2021/
+|   |       |   `-- ... deeper entries omitted by max-depth
+|   |       |-- 2022/
+|   |       |   `-- ... deeper entries omitted by max-depth
+|   |       |-- 2023/
+|   |       |   `-- ... deeper entries omitted by max-depth
+|   |       |-- 2024/
+|   |       |   `-- ... deeper entries omitted by max-depth
+|   |       |-- 2025/
+|   |       |   `-- ... deeper entries omitted by max-depth
+|   |       `-- INDEX.md
+|   |-- data/
+|   |   `-- es_front_month_4h_from_1m.csv
+|   |-- raw/
+|   |   |-- glbx-mdp3-20100606-20260308.ohlcv-1d (es).dbn.zst
+|   |   `-- glbx-mdp3-20100606-20260425.ohlcv-1m.dbn.zst
+|   |-- v2d/
+|   |   |-- build_adaptive_es_50_150.py
+|   |   |-- es_orb_results_adaptive_50_150.csv
+|   |   `-- es_orb_results_v2d.csv
+|   |-- es_daily.csv
+|   |-- es_monthly_orb.csv
+|   |-- es_monthly_orb.xlsx
+|   |-- es_orb_results_stops.csv
+|   |-- es_quarterly_orb.csv
+|   |-- es_quarterly_orb.xlsx
+|   |-- es_yearly_orb.csv
+|   |-- es_yearly_orb.xlsx
+|   `-- es_yearly_orb_swing_stop_scaleout3_inside_range_swing_range_close.csv
+|-- live/
+|   |-- __pycache__/
+|   |   |-- __init__.cpython-38.pyc
+|   |   |-- broker.cpython-38.pyc
+|   |   |-- broker_like_replays.cpython-38.pyc
+|   |   |-- broker_realism_validation.cpython-38.pyc
+|   |   |-- build_broker_like_replay_detail_charts.cpython-38.pyc
+|   |   |-- build_monthly_overlap_st_retest_charts.cpython-38.pyc
+|   |   |-- build_v2b_strategy_charts.cpython-38.pyc
+|   |   |-- build_yearly_orb_edge_bleed_report.cpython-38.pyc
+|   |   |-- cli.cpython-38.pyc
+|   |   |-- drawdown_distribution.cpython-38.pyc
+|   |   |-- engine.cpython-38.pyc
+|   |   |-- health.cpython-38.pyc
+|   |   |-- jobs.cpython-38.pyc
+|   |   |-- manager.cpython-38.pyc
+|   |   |-- models.cpython-38.pyc
+|   |   |-- monthly_orb_overlap_st_retest_replay.cpython-38.pyc
+|   |   |-- notifications.cpython-38.pyc
+|   |   |-- orb_divergence_study.cpython-38.pyc
+|   |   |-- registry.cpython-38.pyc
+|   |   |-- replay_audit.cpython-38.pyc
+|   |   |-- reporting.cpython-38.pyc
+|   |   |-- risk.cpython-38.pyc
+|   |   |-- signal_replays.cpython-38.pyc
+|   |   |-- smt_divergence_study.cpython-38.pyc
+|   |   |-- store.cpython-38.pyc
+|   |   |-- v2b_clean_break_replays.cpython-38.pyc
+|   |   |-- v2b_family_replays.cpython-38.pyc
+|   |   |-- v2b_strategy_cross_market_replay.cpython-38.pyc
+|   |   |-- v2b_strategy_replay.cpython-38.pyc
+|   |   |-- v2d_broker_like_replays.cpython-38.pyc
+|   |   `-- verification.cpython-38.pyc
+|   |-- state/
+|   |   |-- broker_like_replays/
+|   |   |   |-- audits/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- charts/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- states/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- theoretical_reference/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- summary.csv
+|   |   |   |-- SUMMARY.md
+|   |   |   |-- summary_before_realism_fixes.csv
+|   |   |   `-- SUMMARY_before_realism_fixes.md
+|   |   |-- broker_like_replays_monthly_boundary_stop_markets/
+|   |   |   |-- audits/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- charts/
+|   |   |   |-- states/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- theoretical_reference/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- summary.csv
+|   |   |   `-- SUMMARY.md
+|   |   |-- broker_like_replays_monthly_boundary_stop_test/
+|   |   |   |-- audits/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- bars/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- charts/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- same_period_as_mnq/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- states/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- theoretical_reference/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- v2b_family/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- intrabar_stress_dd_distribution_summary.csv
+|   |   |   |-- INTRABAR_STRESS_DD_DISTRIBUTIONS.md
+|   |   |   |-- summary.csv
+|   |   |   `-- SUMMARY.md
+|   |   |-- broker_realism_validation/
+|   |   |   |-- charts/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- README.md
+|   |   |   `-- results.csv
+|   |   |-- candidate_mtm_audits/
+|   |   |   |-- mnq_atr_daily_primary_10max_3initial_entry_guard/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- mnq_atr_daily_primary_10max_ladder112221_entry_guard/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- mnq_atr_daily_weekly_flat_10max/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- mnq_atr_daily_weekly_flat_5max/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- mnq_atr_weekly_primary_10max_3initial/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- mnq_atr_weekly_primary_10max_ladder112221/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- mnq_monthly_orb_overlap_daily_st_retest5/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- mnq_monthly_orb_restricted_scaleout3/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- mnq_yearly_orb_scaleout3_live_runtime/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- summary.csv
+|   |   |   `-- SUMMARY.md
+|   |   |-- mnq_yearly_orb_paper_replay/
+|   |   |   |-- bars/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- events/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- outbox/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- reports/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- alerts.csv
+|   |   |   |-- fills.csv
+|   |   |   |-- health.json
+|   |   |   |-- jobs.csv
+|   |   |   |-- levels.csv
+|   |   |   |-- order_intents.csv
+|   |   |   |-- orders.csv
+|   |   |   |-- pending_verifications.csv
+|   |   |   |-- positions.csv
+|   |   |   |-- strategy_instances.csv
+|   |   |   `-- strategy_state.csv
+|   |   |-- monthly_overlap_st_retest_broker_like/
+|   |   |   |-- audits/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- charts/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- states/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- summary.csv
+|   |   |   |-- SUMMARY.md
+|   |   |   |-- summary_before_realism_fixes.csv
+|   |   |   `-- SUMMARY_before_realism_fixes.md
+|   |   |-- orb_divergence_daily_nq_es/
+|   |   |   |-- monthly/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- v2b/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- yearly/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- crossref_monthly_v2b_matches.csv
+|   |   |   |-- crossref_monthly_v2b_method_summary.csv
+|   |   |   |-- crossref_monthly_v2b_same_month.csv
+|   |   |   |-- crossref_monthly_v2b_summary.csv
+|   |   |   |-- events_all.csv
+|   |   |   |-- INDEX.md
+|   |   |   `-- summary_all.csv
+|   |   |-- smt_divergence_4h_nq_es/
+|   |   |   |-- charts/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- events.csv
+|   |   |   |-- INDEX.md
+|   |   |   `-- summary.csv
+|   |   |-- smt_divergence_daily_nq_es/
+|   |   |   |-- charts/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- events.csv
+|   |   |   |-- INDEX.md
+|   |   |   `-- summary.csv
+|   |   |-- strategy_plugin_signal_replays/
+|   |   |   |-- audits/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- mnq_atr_daily_3initial_10max/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- mnq_atr_daily_ladder112221_10max/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- mnq_atr_daily_weekly_flat_5max/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- mnq_atr_weekly_2initial_3add_6max/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- mnq_atr_weekly_3initial_10max/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- mnq_atr_weekly_ladder112221_10max/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- summary.csv
+|   |   |   `-- SUMMARY.md
+|   |   |-- tmp_atr_speed/
+|   |   |   |-- bars/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- events/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- outbox/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- reports/
+|   |   |   |-- alerts.csv
+|   |   |   |-- fills.csv
+|   |   |   |-- health.json
+|   |   |   |-- jobs.csv
+|   |   |   |-- levels.csv
+|   |   |   |-- order_intents.csv
+|   |   |   |-- orders.csv
+|   |   |   |-- pending_verifications.csv
+|   |   |   |-- positions.csv
+|   |   |   |-- strategy_instances.csv
+|   |   |   `-- strategy_state.csv
+|   |   |-- tmp_audit/
+|   |   |   `-- monthly_test/
+|   |   |       `-- ... deeper entries omitted by max-depth
+|   |   |-- tmp_monthly_restricted_test/
+|   |   |   |-- bars/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- events/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- outbox/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- reports/
+|   |   |   |-- alerts.csv
+|   |   |   |-- fills.csv
+|   |   |   |-- health.json
+|   |   |   |-- jobs.csv
+|   |   |   |-- levels.csv
+|   |   |   |-- order_intents.csv
+|   |   |   |-- orders.csv
+|   |   |   |-- pending_verifications.csv
+|   |   |   |-- positions.csv
+|   |   |   |-- strategy_instances.csv
+|   |   |   `-- strategy_state.csv
+|   |   |-- tmp_monthly_speed/
+|   |   |   |-- bars/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- events/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- outbox/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- reports/
+|   |   |   |-- alerts.csv
+|   |   |   |-- fills.csv
+|   |   |   |-- health.json
+|   |   |   |-- jobs.csv
+|   |   |   |-- levels.csv
+|   |   |   |-- order_intents.csv
+|   |   |   |-- orders.csv
+|   |   |   |-- pending_verifications.csv
+|   |   |   |-- positions.csv
+|   |   |   |-- strategy_instances.csv
+|   |   |   `-- strategy_state.csv
+|   |   |-- v2b_clean_break_broker_like/
+|   |   |   |-- states/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- V2B_CLEAN_BREAK_BROKER_LIKE.md
+|   |   |   |-- V2B_CLEAN_BREAK_BROKER_LIKE_before_realism_fixes.md
+|   |   |   |-- v2b_clean_break_broker_like_summary.csv
+|   |   |   `-- v2b_clean_break_broker_like_summary_before_realism_fixes.csv
+|   |   |-- v2b_clean_break_broker_like_smoke/
+|   |   |   |-- states/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- V2B_CLEAN_BREAK_BROKER_LIKE.md
+|   |   |   `-- v2b_clean_break_broker_like_summary.csv
+|   |   |-- v2b_strategy_plugin_cross_market/
+|   |   |   |-- states/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- V2B_OCO_CROSS_MARKET_REPLAY.md
+|   |   |   `-- v2b_oco_cross_market_summary.csv
+|   |   |-- v2b_strategy_plugin_cross_market_mes_csv/
+|   |   |   |-- states/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- V2B_OCO_CROSS_MARKET_REPLAY.md
+|   |   |   `-- v2b_oco_cross_market_summary.csv
+|   |   |-- v2b_strategy_plugin_cross_market_requested/
+|   |   |   |-- charts/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- states/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- V2B_OCO_CROSS_MARKET_COMMON_WINDOW.md
+|   |   |   |-- V2B_OCO_CROSS_MARKET_COMMON_WINDOW_before_realism_fixes.md
+|   |   |   |-- v2b_oco_cross_market_common_window_summary.csv
+|   |   |   |-- v2b_oco_cross_market_common_window_summary_before_realism_fixes.csv
+|   |   |   |-- V2B_OCO_CROSS_MARKET_REPLAY.md
+|   |   |   |-- V2B_OCO_CROSS_MARKET_REPLAY_before_realism_fixes.md
+|   |   |   |-- v2b_oco_cross_market_summary.csv
+|   |   |   `-- v2b_oco_cross_market_summary_before_realism_fixes.csv
+|   |   |-- v2b_strategy_plugin_cross_market_smoke/
+|   |   |   |-- states/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- V2B_OCO_CROSS_MARKET_REPLAY.md
+|   |   |   `-- v2b_oco_cross_market_summary.csv
+|   |   |-- v2b_strategy_plugin_replay/
+|   |   |   |-- charts/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- states/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- V2B_STRATEGY_PLUGIN_REPLAY.md
+|   |   |   |-- V2B_STRATEGY_PLUGIN_REPLAY_before_realism_fixes.md
+|   |   |   |-- v2b_strategy_plugin_summary.csv
+|   |   |   `-- v2b_strategy_plugin_summary_before_realism_fixes.csv
+|   |   |-- v2b_strategy_plugin_replay_smoke/
+|   |   |   |-- states/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- V2B_STRATEGY_PLUGIN_REPLAY.md
+|   |   |   `-- v2b_strategy_plugin_summary.csv
+|   |   |-- workspace_tree/
+|   |   |-- yearly_orb_range_close_20pct_test/
+|   |   |   |-- audits/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- charts/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- states/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- theoretical_reference/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- COMPARISON.md
+|   |   |   |-- summary.csv
+|   |   |   `-- SUMMARY.md
+|   |   |-- yearly_orb_portfolio_check.csv
+|   |   `-- yearly_orb_portfolio_check_enriched.csv
+|   |-- strategies/
+|   |   |-- __pycache__/
+|   |   |   |-- __init__.cpython-38.pyc
+|   |   |   |-- atr_supertrend_dca.cpython-38.pyc
+|   |   |   |-- base.cpython-38.pyc
+|   |   |   |-- monthly_orb_overlap_st_retest.cpython-38.pyc
+|   |   |   |-- monthly_orb_restricted_scaleout3.cpython-38.pyc
+|   |   |   |-- v2b_clean_break.cpython-38.pyc
+|   |   |   |-- v2b_scaleout.cpython-38.pyc
+|   |   |   `-- yearly_orb.cpython-38.pyc
+|   |   |-- __init__.py
+|   |   |-- atr_supertrend_dca.py
+|   |   |-- base.py
+|   |   |-- monthly_orb_overlap_st_retest.py
+|   |   |-- monthly_orb_restricted_scaleout3.py
+|   |   |-- v2b_clean_break.py
+|   |   |-- v2b_scaleout.py
+|   |   `-- yearly_orb.py
+|   |-- tests/
+|   |   |-- __pycache__/
+|   |   |   |-- test_broker_realism.cpython-38-PYTEST.pyc
+|   |   |   `-- test_live_runtime.cpython-38-PYTEST.pyc
+|   |   |-- test_broker_realism.py
+|   |   `-- test_live_runtime.py
+|   |-- __init__.py
+|   |-- broker.py
+|   |-- broker_like_replays.py
+|   |-- broker_realism_validation.py
+|   |-- build_broker_like_replay_detail_charts.py
+|   |-- build_monthly_overlap_st_retest_charts.py
+|   |-- build_v2b_strategy_charts.py
+|   |-- build_yearly_orb_edge_bleed_report.py
+|   |-- CHANGE_LOG.md
+|   |-- cli.py
+|   |-- drawdown_distribution.py
+|   |-- engine.py
+|   |-- health.py
+|   |-- jobs.py
+|   |-- manager.py
+|   |-- models.py
+|   |-- monthly_orb_overlap_st_retest_replay.py
+|   |-- notifications.py
+|   |-- orb_divergence_study.py
+|   |-- README.md
+|   |-- registry.py
+|   |-- replay_audit.py
+|   |-- reporting.py
+|   |-- risk.py
+|   |-- signal_replays.py
+|   |-- smt_divergence_study.py
+|   |-- store.py
+|   |-- v2b_clean_break_replays.py
+|   |-- v2b_family_replays.py
+|   |-- v2b_strategy_cross_market_replay.py
+|   |-- v2b_strategy_replay.py
+|   |-- v2d_broker_like_replays.py
+|   |-- verification.py
+|   `-- YEARLY_ORB_MNQ_PAPER_REPLAY.md
+|-- mes/
+|   |-- case_studies/
+|   |   |-- atr_supertrend_equity_scaling_es_proxy/
+|   |   |   |-- weekly_3initial/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- weekly_ladder112221/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   `-- README.md
+|   |   |-- atr_supertrend_weekly_primary_3initial_es_proxy/
+|   |   |   |-- 2010/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2011/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2012/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2013/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2014/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2015/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2016/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2017/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2018/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2019/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2020/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2021/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2022/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2023/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2024/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2025/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2026/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- equity.csv
+|   |   |   |-- README.md
+|   |   |   |-- trades.csv
+|   |   |   `-- units.csv
+|   |   `-- atr_supertrend_weekly_primary_ladder112221_es_proxy/
+|   |       |-- 2010/
+|   |       |   `-- ... deeper entries omitted by max-depth
+|   |       |-- 2011/
+|   |       |   `-- ... deeper entries omitted by max-depth
+|   |       |-- 2012/
+|   |       |   `-- ... deeper entries omitted by max-depth
+|   |       |-- 2013/
+|   |       |   `-- ... deeper entries omitted by max-depth
+|   |       |-- 2014/
+|   |       |   `-- ... deeper entries omitted by max-depth
+|   |       |-- 2015/
+|   |       |   `-- ... deeper entries omitted by max-depth
+|   |       |-- 2016/
+|   |       |   `-- ... deeper entries omitted by max-depth
+|   |       |-- 2017/
+|   |       |   `-- ... deeper entries omitted by max-depth
+|   |       |-- 2018/
+|   |       |   `-- ... deeper entries omitted by max-depth
+|   |       |-- 2019/
+|   |       |   `-- ... deeper entries omitted by max-depth
+|   |       |-- 2020/
+|   |       |   `-- ... deeper entries omitted by max-depth
+|   |       |-- 2021/
+|   |       |   `-- ... deeper entries omitted by max-depth
+|   |       |-- 2022/
+|   |       |   `-- ... deeper entries omitted by max-depth
+|   |       |-- 2023/
+|   |       |   `-- ... deeper entries omitted by max-depth
+|   |       |-- 2024/
+|   |       |   `-- ... deeper entries omitted by max-depth
+|   |       |-- 2025/
+|   |       |   `-- ... deeper entries omitted by max-depth
+|   |       |-- 2026/
+|   |       |   `-- ... deeper entries omitted by max-depth
+|   |       |-- equity.csv
+|   |       |-- README.md
+|   |       |-- trades.csv
+|   |       `-- units.csv
+|   |-- data/
+|   |   `-- mes_front_month_4h_from_1m.csv
+|   |-- raw/
+|   |   `-- glbx-mdp3-20100606-20260308.ohlcv-1m (mym-mes).dbn.zst
+|   |-- mes_1min_raw.csv
+|   |-- mes_5min_rth.csv
+|   |-- mes_daily.csv
+|   `-- mes_orb_results.csv
+|-- mnq/
+|   |-- .cache/
+|   |   `-- annotate_1m_london_rth.parquet
+|   |-- adaptive_experiment/
+|   |   |-- __pycache__/
+|   |   |   `-- backtest_clean_break_adaptive.cpython-38.pyc
+|   |   |-- backtest_clean_break_adaptive.py
+|   |   |-- backtest_strict_clean_full.py
+|   |   |-- build_adaptive_50_150_60pct.py
+|   |   |-- mnq_adaptive_clean_break_2sl_5ct_v2d2ct.csv
+|   |   |-- mnq_orb_results_adaptive_50_150_60pct.csv
+|   |   |-- mnq_orb_results_stops_60pct.csv
+|   |   |-- mnq_strict_clean_2sl_5ct_full.csv
+|   |   `-- step2_limit_60_retrace.py
+|   |-- case_studies/
+|   |   |-- __pycache__/
+|   |   |   |-- build_random_samples.cpython-38.pyc
+|   |   |   |-- build_random_samples_ladder.cpython-38.pyc
+|   |   |   |-- build_random_samples_swept_orb.cpython-38.pyc
+|   |   |   `-- sim_london_limit_scaleout.cpython-38.pyc
+|   |   |-- adaptive_by_year/
+|   |   |   |-- 2021/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2022/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2023/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2024/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2025/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2026/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   `-- SUMMARY.md
+|   |   |-- adaptive_c/
+|   |   |   |-- 2024-01-15.png
+|   |   |   |-- 2024-01-29.png
+|   |   |   |-- 2024-03-11.png
+|   |   |   |-- 2024-04-15.png
+|   |   |   |-- 2024-07-25.png
+|   |   |   |-- 2024-09-24.png
+|   |   |   |-- 2024-11-22.png
+|   |   |   |-- 2024-11-28.png
+|   |   |   |-- 2024-12-26.png
+|   |   |   |-- 2025-01-08.png
+|   |   |   |-- 2025-03-11.png
+|   |   |   |-- 2025-03-18.png
+|   |   |   |-- 2025-03-28.png
+|   |   |   |-- 2025-04-02.png
+|   |   |   |-- 2025-04-03.png
+|   |   |   |-- 2025-04-07.png
+|   |   |   |-- 2025-04-08.png
+|   |   |   |-- 2025-04-09.png
+|   |   |   |-- 2025-04-28.png
+|   |   |   |-- 2025-04-29.png
+|   |   |   |-- 2025-04-30.png
+|   |   |   |-- 2025-05-02.png
+|   |   |   |-- 2025-05-08.png
+|   |   |   |-- 2025-05-09.png
+|   |   |   |-- 2025-05-15.png
+|   |   |   |-- 2025-05-16.png
+|   |   |   |-- 2025-05-21.png
+|   |   |   |-- 2025-06-02.png
+|   |   |   |-- 2025-06-03.png
+|   |   |   |-- 2025-06-16.png
+|   |   |   |-- 2025-07-24.png
+|   |   |   |-- 2025-08-12.png
+|   |   |   |-- 2025-08-13.png
+|   |   |   |-- 2025-09-29.png
+|   |   |   |-- 2025-10-20.png
+|   |   |   |-- 2026-02-19.png
+|   |   |   |-- INDEX.md
+|   |   |   `-- README.md
+|   |   |-- atr_lingering_bull_stop_short_100pt/
+|   |   |   |-- charts/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- audit.csv
+|   |   |   |-- README.md
+|   |   |   `-- trades.csv
+|   |   |-- atr_lingering_bull_stop_short_300tp_200sl_multi/
+|   |   |   |-- charts/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- audit.csv
+|   |   |   |-- README.md
+|   |   |   `-- trades.csv
+|   |   |-- atr_supertrend_biweekly_primary_3initial/
+|   |   |   |-- charts/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   `-- trades.csv
+|   |   |-- atr_supertrend_biweekly_primary_3initial_adaptive/
+|   |   |   |-- charts/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- README.md
+|   |   |   `-- trades.csv
+|   |   |-- atr_supertrend_dca_both_biweekly_5max/
+|   |   |   |-- 2019/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2020/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2021/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2022/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2023/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2024/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2025/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2026/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- equity.csv
+|   |   |   |-- README.md
+|   |   |   |-- trades.csv
+|   |   |   `-- units.csv
+|   |   |-- atr_supertrend_dca_long/
+|   |   |   |-- 2019/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2020/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2021/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2022/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2023/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2024/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2025/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2026/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- equity.csv
+|   |   |   |-- README.md
+|   |   |   |-- trades.csv
+|   |   |   `-- units.csv
+|   |   |-- atr_supertrend_dca_long_biweekly_10max_weekly_flat/
+|   |   |   |-- 2019/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2020/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2021/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2022/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2023/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2024/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2025/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2026/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- equity.csv
+|   |   |   |-- README.md
+|   |   |   |-- trades.csv
+|   |   |   `-- units.csv
+|   |   |-- atr_supertrend_dca_long_biweekly_10max_weekly_flat_entry_guard/
+|   |   |   |-- 2019/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2020/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2021/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2022/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2023/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2024/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2025/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2026/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- equity.csv
+|   |   |   |-- README.md
+|   |   |   |-- trades.csv
+|   |   |   `-- units.csv
+|   |   |-- atr_supertrend_dca_long_biweekly_10max_weekly_flat_entry_guard_3initial/
+|   |   |   |-- 2019/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2020/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2021/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2022/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2023/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2024/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2025/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2026/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- equity.csv
+|   |   |   |-- README.md
+|   |   |   |-- trades.csv
+|   |   |   `-- units.csv
+|   |   |-- atr_supertrend_dca_long_biweekly_10max_weekly_flat_entry_guard_3initial_yorb/
+|   |   |   |-- 2019/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2020/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2021/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2022/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2023/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2024/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2025/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2026/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- equity.csv
+|   |   |   |-- README.md
+|   |   |   |-- trades.csv
+|   |   |   `-- units.csv
+|   |   |-- atr_supertrend_dca_long_biweekly_10max_weekly_flat_entry_guard_ladder112221/
+|   |   |   |-- 2019/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2020/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2021/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2022/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2023/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2024/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2025/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2026/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- equity.csv
+|   |   |   |-- README.md
+|   |   |   |-- trades.csv
+|   |   |   `-- units.csv
+|   |   |-- atr_supertrend_dca_long_biweekly_10max_weekly_flat_entry_guard_ladder112221_yorb/
+|   |   |   |-- 2019/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2020/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2021/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2022/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2023/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2024/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2025/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2026/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- equity.csv
+|   |   |   |-- README.md
+|   |   |   |-- trades.csv
+|   |   |   `-- units.csv
+|   |   |-- atr_supertrend_dca_long_biweekly_5max/
+|   |   |   |-- 2019/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2020/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2021/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2022/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2023/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2024/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2025/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2026/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- equity.csv
+|   |   |   |-- README.md
+|   |   |   |-- trades.csv
+|   |   |   `-- units.csv
+|   |   |-- atr_supertrend_dca_long_biweekly_5max_prior_bearish_guard/
+|   |   |   |-- 2019/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2020/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2021/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2022/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2023/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2024/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2025/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2026/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- equity.csv
+|   |   |   |-- README.md
+|   |   |   |-- trades.csv
+|   |   |   `-- units.csv
+|   |   |-- atr_supertrend_dca_long_biweekly_5max_weekly_flat/
+|   |   |   |-- 2019/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2020/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2021/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2022/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2023/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2024/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2025/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2026/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- equity.csv
+|   |   |   |-- README.md
+|   |   |   |-- trades.csv
+|   |   |   `-- units.csv
+|   |   |-- atr_supertrend_dca_long_biweekly_5max_weekly_flat_prior_bearish_guard/
+|   |   |   |-- 2019/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2020/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2021/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2022/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2023/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2024/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2025/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2026/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- equity.csv
+|   |   |   |-- README.md
+|   |   |   |-- trades.csv
+|   |   |   `-- units.csv
+|   |   |-- atr_supertrend_dca_long_biweekly_5max_weekly_not_bearish/
+|   |   |   |-- 2019/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2020/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2021/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2022/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2023/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2024/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2025/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2026/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- equity.csv
+|   |   |   |-- README.md
+|   |   |   |-- trades.csv
+|   |   |   `-- units.csv
+|   |   |-- atr_supertrend_dca_long_biweekly_uncapped_weekly_flat/
+|   |   |   |-- 2019/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2020/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2021/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2022/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2023/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2024/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2025/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2026/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- equity.csv
+|   |   |   |-- README.md
+|   |   |   |-- trades.csv
+|   |   |   `-- units.csv
+|   |   |-- atr_supertrend_equity_scaling/
+|   |   |   |-- daily_3initial/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- daily_ladder112221/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- weekly_3initial/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- weekly_ladder112221/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   `-- README.md
+|   |   |-- atr_supertrend_htf_visuals/
+|   |   |   |-- weekly_monthly_combo/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   `-- INDEX.md
+|   |   |-- atr_supertrend_mnq_mym_pairing/
+|   |   |   |-- daily_3initial_combined_daily.csv
+|   |   |   |-- daily_ladder112221_combined_daily.csv
+|   |   |   |-- README.md
+|   |   |   |-- summary.csv
+|   |   |   |-- weekly_3initial_combined_daily.csv
+|   |   |   `-- weekly_ladder112221_combined_daily.csv
+|   |   |-- atr_supertrend_timeframe_conflict_analysis/
+|   |   |   |-- charts/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- conflicts_biweekly_vs_daily.csv
+|   |   |   |-- conflicts_biweekly_vs_weekly.csv
+|   |   |   `-- daily_all_timeframes.csv
+|   |   |-- atr_supertrend_weekly_primary_biweekly_10max_entry_guard_3initial/
+|   |   |   |-- 2019/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2020/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2021/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2022/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2023/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2024/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2025/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2026/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- charts/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- volume_charts/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- equity.csv
+|   |   |   |-- README.md
+|   |   |   |-- trades.csv
+|   |   |   `-- units.csv
+|   |   |-- atr_supertrend_weekly_primary_biweekly_10max_entry_guard_3initial_yorb/
+|   |   |   |-- 2019/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2020/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2021/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2022/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2023/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2024/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2025/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2026/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- equity.csv
+|   |   |   |-- README.md
+|   |   |   |-- trades.csv
+|   |   |   `-- units.csv
+|   |   |-- atr_supertrend_weekly_primary_biweekly_10max_entry_guard_ladder112221/
+|   |   |   |-- 2019/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2020/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2021/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2022/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2023/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2024/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2025/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2026/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- equity.csv
+|   |   |   |-- README.md
+|   |   |   |-- trades.csv
+|   |   |   `-- units.csv
+|   |   |-- atr_supertrend_weekly_primary_biweekly_10max_entry_guard_ladder112221_yorb/
+|   |   |   |-- 2019/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2020/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2021/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2022/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2023/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2024/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2025/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2026/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- equity.csv
+|   |   |   |-- README.md
+|   |   |   |-- trades.csv
+|   |   |   `-- units.csv
+|   |   |-- breakout_close_limit_random_samples/
+|   |   |   |-- 2024-01-10.png
+|   |   |   |-- 2024-02-06.png
+|   |   |   |-- 2024-02-07.png
+|   |   |   |-- 2024-02-08.png
+|   |   |   |-- 2024-02-09.png
+|   |   |   |-- 2024-02-13.png
+|   |   |   |-- 2024-02-14.png
+|   |   |   |-- 2024-02-15.png
+|   |   |   |-- 2024-02-16.png
+|   |   |   |-- 2024-03-04.png
+|   |   |   |-- 2024-03-06.png
+|   |   |   |-- 2024-04-24.png
+|   |   |   |-- 2024-04-29.png
+|   |   |   |-- 2024-05-07.png
+|   |   |   |-- 2024-05-10.png
+|   |   |   |-- 2024-05-14.png
+|   |   |   |-- 2024-05-15.png
+|   |   |   |-- 2024-05-17.png
+|   |   |   |-- 2024-05-21.png
+|   |   |   |-- 2024-05-27.png
+|   |   |   |-- 2024-05-28.png
+|   |   |   |-- 2024-06-03.png
+|   |   |   |-- 2024-06-11.png
+|   |   |   |-- 2024-06-18.png
+|   |   |   |-- 2024-06-28.png
+|   |   |   |-- 2024-07-05.png
+|   |   |   |-- 2024-07-19.png
+|   |   |   |-- 2024-07-26.png
+|   |   |   |-- 2024-08-13.png
+|   |   |   |-- 2024-08-19.png
+|   |   |   |-- 2024-08-21.png
+|   |   |   |-- 2024-08-27.png
+|   |   |   |-- 2024-10-14.png
+|   |   |   |-- 2024-10-24.png
+|   |   |   |-- 2024-11-06.png
+|   |   |   |-- 2024-11-11.png
+|   |   |   |-- 2024-11-13.png
+|   |   |   |-- 2024-11-18.png
+|   |   |   |-- 2024-11-21.png
+|   |   |   |-- 2024-11-25.png
+|   |   |   |-- 2024-11-28.png
+|   |   |   |-- 2024-12-02.png
+|   |   |   |-- 2024-12-16.png
+|   |   |   |-- 2024-12-18.png
+|   |   |   |-- 2025-01-03.png
+|   |   |   |-- 2025-01-20.png
+|   |   |   |-- 2025-02-03.png
+|   |   |   |-- 2025-02-04.png
+|   |   |   |-- 2025-02-07.png
+|   |   |   |-- 2025-02-18.png
+|   |   |   |-- 2025-02-21.png
+|   |   |   |-- 2025-03-03.png
+|   |   |   |-- 2025-03-19.png
+|   |   |   |-- 2025-05-05.png
+|   |   |   |-- 2025-05-09.png
+|   |   |   |-- 2025-05-15.png
+|   |   |   |-- 2025-05-23.png
+|   |   |   |-- 2025-05-30.png
+|   |   |   |-- 2025-06-05.png
+|   |   |   |-- 2025-06-10.png
+|   |   |   |-- 2025-06-27.png
+|   |   |   |-- 2025-07-02.png
+|   |   |   |-- 2025-07-03.png
+|   |   |   |-- 2025-07-07.png
+|   |   |   |-- 2025-07-25.png
+|   |   |   |-- 2025-07-29.png
+|   |   |   |-- 2025-09-01.png
+|   |   |   |-- 2025-09-04.png
+|   |   |   |-- 2025-09-26.png
+|   |   |   |-- 2025-10-01.png
+|   |   |   |-- 2025-10-13.png
+|   |   |   |-- 2025-10-28.png
+|   |   |   |-- 2025-11-10.png
+|   |   |   |-- 2025-11-25.png
+|   |   |   |-- 2026-01-06.png
+|   |   |   |-- 2026-02-05.png
+|   |   |   |-- 2026-02-19.png
+|   |   |   |-- 2026-03-04.png
+|   |   |   |-- 2026-03-13.png
+|   |   |   |-- 2026-03-24.png
+|   |   |   |-- 2026-03-26.png
+|   |   |   |-- 2026-04-07.png
+|   |   |   |-- 2026-04-16.png
+|   |   |   `-- INDEX.md
+|   |   |-- by_year/
+|   |   |   |-- 2021/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2022/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2023/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2024/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2025/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2026/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   `-- SUMMARY.md
+|   |   |-- cross_market_capital_efficiency/
+|   |   |   |-- atr_supertrend_cross_market_summary.csv
+|   |   |   |-- README.md
+|   |   |   `-- yearly_orb_cross_market_scaling_summary.csv
+|   |   |-- daily_candlestick_theory/
+|   |   |   |-- README.md
+|   |   |   |-- setups.csv
+|   |   |   |-- strat_2r_summary.csv
+|   |   |   |-- strat_2r_trades.csv
+|   |   |   |-- strat_3r_summary.csv
+|   |   |   |-- strat_3r_trades.csv
+|   |   |   `-- summary.csv
+|   |   |-- fair_benchmark_comparison/
+|   |   |   |-- 5050_qqq_dia_buy_and_hold_50k_daily.csv
+|   |   |   |-- dia_buy_and_hold_50k_daily.csv
+|   |   |   |-- qqq_buy_and_hold_50k_daily.csv
+|   |   |   |-- README.md
+|   |   |   |-- SCALING_10Y.md
+|   |   |   |-- scaling_10y_capital_sensitivity.csv
+|   |   |   |-- scaling_10y_summary.csv
+|   |   |   |-- spy_buy_and_hold_50k_daily.csv
+|   |   |   |-- summary.csv
+|   |   |   |-- yearly_orb_mnq_mym_portfolio_3xdd_annual_scale_50k_daily.csv
+|   |   |   |-- yearly_orb_mnq_mym_portfolio_fixed_1bundle_50k_daily.csv
+|   |   |   |-- yearly_orb_mnq_standalone_3xdd_annual_scale_50k_daily.csv
+|   |   |   |-- yearly_orb_mnq_standalone_entry_resized_3xdd_10y_daily.csv
+|   |   |   |-- yearly_orb_mnq_standalone_fixed_1bundle_50k_daily.csv
+|   |   |   `-- yearly_orb_nq_standalone_entry_resized_3xdd_10y_daily.csv
+|   |   |-- gap_analysis/
+|   |   |   |-- big_filled_weekly_gap_1h/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- big_unfilled_weekly_gap_1h/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- weekly_gap_4h/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- weekly_gap_candidate_short_delivery_222_eod_be/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- weekly_gap_delivery_break_close_half3_tp1_2/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- weekly_gap_delivery_change_strategy_big/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- weekly_gap_delivery_swing_sequence_big_2week/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- weekly_gap_delivery_swing_sequence_big_3week/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- weekly_gap_fill_strategy_big/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- weekly_gap_fill_strategy_big_be_tp1/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- weekly_gap_fill_strategy_big_break_be_boundary_close/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- weekly_gap_fill_strategy_big_swing_be_boundary_close/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- weekly_gap_live_candidate_short_delivery_half3_tp1/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- weekly_gap_size_yorb/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- CROSS_MARKET_SUMMARY.md
+|   |   |   |-- daily_gap_fills.csv
+|   |   |   |-- README.md
+|   |   |   |-- weekly_gap_fills.csv
+|   |   |   `-- WEEKLY_GAP_SIZE_YORB_SUMMARY.md
+|   |   |-- midnight_open_hourly_charts/
+|   |   |   |-- __pycache__/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- charts/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- charts_atr_cross_opp/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- charts_atr_fade_touch/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- charts_atr_fade_touch_15m/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- charts_c3_session_study/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- charts_c3_swing_orb_fade/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- charts_weekly_baseline_1d/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- profiles_atr_fade_touch_15m/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- analyze_atr_fade_touch_excursions.py
+|   |   |   |-- backtest_c3_swing_orb_fade.py
+|   |   |   |-- backtest_c3_swing_orb_fade_diag_mnq.csv
+|   |   |   |-- backtest_c3_swing_orb_fade_trades_mnq.csv
+|   |   |   |-- backtest_midnight_open_flip.py
+|   |   |   |-- backtest_midnight_open_flip_trades.csv
+|   |   |   |-- backtest_midnight_open_flip_trades_mnq.csv
+|   |   |   |-- backtest_midnight_open_flip_trades_mnq_atr_cross.csv
+|   |   |   |-- backtest_midnight_open_flip_trades_mnq_atr_cross_opp.csv
+|   |   |   |-- backtest_midnight_open_flip_trades_mnq_atr_fade_touch.csv
+|   |   |   |-- backtest_midnight_open_flip_trades_mnq_atr_fade_touch_reclaim.csv
+|   |   |   |-- backtest_midnight_open_flip_trades_mnq_baseline.csv
+|   |   |   |-- backtest_midnight_open_flip_trades_mnq_baseline_sl11.csv
+|   |   |   |-- backtest_midnight_open_flip_trades_mnq_baseline_sl11_opp.csv
+|   |   |   |-- backtest_midnight_open_flip_trades_mnq_v2b_only.csv
+|   |   |   |-- backtest_midnight_open_flip_trades_mnq_v2b_tp.csv
+|   |   |   |-- backtest_midnight_open_flip_trades_mnq_weekly_baseline.csv
+|   |   |   |-- backtest_midnight_open_flip_trades_mnq_weekly_baseline_1d.csv
+|   |   |   |-- backtest_midnight_open_flip_trades_mnq_weekly_baseline_4h.csv
+|   |   |   |-- backtest_midnight_open_flip_trades_nq.csv
+|   |   |   |-- build_atr_cross_opp_charts.py
+|   |   |   |-- build_atr_fade_touch_charts.py
+|   |   |   |-- build_atr_fade_touch_charts_15m.py
+|   |   |   |-- build_c3_session_study_charts.py
+|   |   |   |-- build_c3_swing_orb_fade_charts.py
+|   |   |   |-- build_midnight_open_hourly_charts.py
+|   |   |   |-- build_weekly_baseline_1d_charts.py
+|   |   |   |-- chart_draw.py
+|   |   |   |-- compare_c3_vs_v2d_metrics.py
+|   |   |   |-- compare_v2b_on_c3_days.py
+|   |   |   |-- profile_atr_fade_touch_15m.py
+|   |   |   `-- sweep_atr_fade_entry_mae.py
+|   |   |-- monthly_candles/
+|   |   |   |-- c3_marked/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- years/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- full_history.png
+|   |   |   |-- INDEX.md
+|   |   |   `-- monthly_candles.csv
+|   |   |-- monthly_candlestick_theory/
+|   |   |   |-- charts/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- monthly_candles.csv
+|   |   |   |-- README.md
+|   |   |   |-- setups.csv
+|   |   |   |-- strat_2r_summary.csv
+|   |   |   |-- strat_2r_trades.csv
+|   |   |   |-- strat_3r_summary.csv
+|   |   |   |-- strat_3r_trades.csv
+|   |   |   |-- strat_clean_body_2r_summary.csv
+|   |   |   |-- strat_clean_body_2r_trades.csv
+|   |   |   |-- strat_clean_body_3r_summary.csv
+|   |   |   |-- strat_clean_body_3r_trades.csv
+|   |   |   |-- strat_summary.csv
+|   |   |   |-- strat_swept_opposing_2r_summary.csv
+|   |   |   |-- strat_swept_opposing_2r_trades.csv
+|   |   |   |-- strat_swept_opposing_3r_summary.csv
+|   |   |   |-- strat_swept_opposing_3r_trades.csv
+|   |   |   |-- strat_trades.csv
+|   |   |   `-- summary.csv
+|   |   |-- monthly_interactions/
+|   |   |   |-- 2021/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2022/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2023/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2024/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2025/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2026/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- build_monthly_interactions.py
+|   |   |   `-- INDEX.md
+|   |   |-- monthly_orb/
+|   |   |   |-- 2019/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2020/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2021/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2022/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2023/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2024/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2025/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2026/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 4h_breakout_diagnostics/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- __pycache__/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- baseline_4h_swing_stop/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- baseline_restricted/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- baseline_restricted_4h_close_entry/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- baseline_restricted_scaleout3/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- baseline_restricted_scaleout3_4h_close_entry/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- baseline_scaleout3_4h_swing_stop/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- daily_close_breakout_diagnostics/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- fib_retrace_yearly/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- inside_candle_open_restricted/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- inside_candle_open_unrestricted/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- inside_range_stop_ladder3_range_targets_cancel_stale_unrestricted_intraday/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- inside_restricted_boundary_close_scaleout_tp1_wide_stop_intraday/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- inside_source_stop_ladder3_range_targets_cancel_stale_restricted_intraday/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- inside_source_stop_ladder3_range_targets_unrestricted_intraday/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- inside_source_stop_ladder3_unrestricted_intraday/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- inside_source_stop_scaleout_2r_intraday/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- monthly_orb_yearly_range_lines/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- overlap_range_breakout/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- overlap_range_breakout_4h_causal/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- quarterly_panels/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- restricted_stop_limit_cycle/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- restricted_stop_limit_cycle_4h_causal/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- restricted_stop_limit_cycle_4h_causal_variants/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- restricted_stop_limit_cycle_short/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- ADAPTIVE_CHILD_MONTHLY_BIAS.md
+|   |   |   |-- adaptive_child_monthly_bias_annotated.csv
+|   |   |   |-- adaptive_child_monthly_bias_summary.csv
+|   |   |   |-- ADAPTIVE_SCALEOUT_MONTHLY_BIAS.md
+|   |   |   |-- adaptive_scaleout_monthly_bias_annotated.csv
+|   |   |   |-- ADAPTIVE_SCALEOUT_MONTHLY_BIAS_RESIM.md
+|   |   |   |-- adaptive_scaleout_monthly_bias_resim_legs.csv
+|   |   |   |-- adaptive_scaleout_monthly_bias_resim_skips.csv
+|   |   |   |-- adaptive_scaleout_monthly_bias_resim_summary.csv
+|   |   |   |-- adaptive_scaleout_monthly_bias_summary.csv
+|   |   |   |-- analyze_adaptive_child_monthly_bias.py
+|   |   |   |-- analyze_adaptive_scaleout_monthly_bias.py
+|   |   |   |-- build_baseline_restricted_charts.py
+|   |   |   |-- build_baseline_restricted_scaleout3_charts.py
+|   |   |   |-- build_inside_candle_open_restricted_charts.py
+|   |   |   |-- build_ladder3_intraday_charts.py
+|   |   |   |-- build_monthly_fib_retrace_charts.py
+|   |   |   |-- build_monthly_orb_charts.py
+|   |   |   |-- build_quarterly_panel_charts.py
+|   |   |   |-- CATASTROPHE_STOP_SWEEP.md
+|   |   |   |-- INDEX.md
+|   |   |   |-- INSIDE_CANDLE_SOURCE_STOP_R_STUDY.md
+|   |   |   |-- INSIDE_CANDLE_SOURCE_STOP_SCALEOUT_STUDY.md
+|   |   |   |-- INSIDE_RANGE_TARGET_LADDER_CANCEL_STALE_LIMIT_STUDY.md
+|   |   |   |-- INSIDE_RESTRICTED_BOUNDARY_CLOSE_SCALEOUT_TP1_WIDE_STOP_STUDY.md
+|   |   |   |-- INSIDE_RESTRICTED_SL_HALF_CLOSE_SCALEOUT_TP1_WIDE_STOP_STUDY.md
+|   |   |   |-- INSIDE_SOURCE_STOP_LADDER3_INTRADAY_STUDY.md
+|   |   |   |-- INSIDE_SOURCE_STOP_LADDER3_RANGE_TARGETS_INTRADAY_STUDY.md
+|   |   |   |-- INTRADAY_VALIDATION_AND_BEST_VARIANT.md
+|   |   |   |-- METRICS_SCALEOUT3.md
+|   |   |   |-- monthly_bias_by_day.csv
+|   |   |   |-- MONTHLY_ORB_4H_BREAKOUT_DIAGNOSTICS.md
+|   |   |   |-- MONTHLY_ORB_4H_CLOSE_ENTRY.md
+|   |   |   |-- MONTHLY_ORB_4H_SWING_STOP.md
+|   |   |   |-- MONTHLY_ORB_4H_TRADE_STUDIES.md
+|   |   |   |-- MONTHLY_ORB_CLOSE_ENTRY.md
+|   |   |   |-- MONTHLY_ORB_DAILY_CLOSE_BREAKOUT_DIAGNOSTICS.md
+|   |   |   |-- MONTHLY_ORB_DAILY_CLOSE_SCALEOUT4.md
+|   |   |   |-- MONTHLY_ORB_OVERLAP_RANGE_BREAKOUT.md
+|   |   |   |-- MONTHLY_ORB_OVERLAP_RANGE_BREAKOUT_SENSITIVITY.md
+|   |   |   |-- MONTHLY_ORB_RESTRICTED.md
+|   |   |   |-- MONTHLY_ORB_RESTRICTED_STOP_LIMIT_CYCLE.md
+|   |   |   |-- MONTHLY_ORB_RESTRICTED_STOP_LIMIT_CYCLE_SHORT.md
+|   |   |   `-- run_adaptive_50_150_scaleout_monthly_bias.py
+|   |   |-- open_limit/
+|   |   |   |-- 2024-01-10.png
+|   |   |   |-- 2024-01-26.png
+|   |   |   |-- 2024-01-30.png
+|   |   |   |-- 2024-02-01.png
+|   |   |   |-- 2024-02-05.png
+|   |   |   |-- 2024-02-15.png
+|   |   |   |-- 2024-04-02.png
+|   |   |   |-- 2024-04-10.png
+|   |   |   |-- 2024-04-12.png
+|   |   |   |-- 2024-04-22.png
+|   |   |   |-- 2024-05-06.png
+|   |   |   |-- 2024-05-17.png
+|   |   |   |-- 2024-06-11.png
+|   |   |   |-- 2024-06-27.png
+|   |   |   |-- 2024-07-01.png
+|   |   |   |-- 2024-08-20.png
+|   |   |   |-- 2024-09-10.png
+|   |   |   |-- 2024-09-11.png
+|   |   |   |-- 2024-09-12.png
+|   |   |   |-- 2024-09-17.png
+|   |   |   |-- 2024-09-24.png
+|   |   |   |-- 2024-10-10.png
+|   |   |   |-- 2024-10-30.png
+|   |   |   |-- 2024-11-14.png
+|   |   |   |-- 2024-11-20.png
+|   |   |   |-- 2025-02-03.png
+|   |   |   |-- 2025-02-06.png
+|   |   |   |-- 2025-02-17.png
+|   |   |   |-- 2025-03-07.png
+|   |   |   |-- 2025-04-10.png
+|   |   |   |-- 2025-05-22.png
+|   |   |   |-- 2025-05-28.png
+|   |   |   |-- 2025-06-25.png
+|   |   |   |-- 2025-07-07.png
+|   |   |   |-- 2025-09-02.png
+|   |   |   |-- 2025-10-15.png
+|   |   |   |-- 2025-10-24.png
+|   |   |   |-- 2025-11-17.png
+|   |   |   |-- 2025-12-23.png
+|   |   |   |-- 2025-12-26.png
+|   |   |   |-- 2026-01-13.png
+|   |   |   |-- 2026-01-15.png
+|   |   |   |-- 2026-03-13.png
+|   |   |   |-- 2026-03-23.png
+|   |   |   |-- INDEX.md
+|   |   |   `-- mnq_orb_open_limit.csv
+|   |   |-- profit_half_scaling_20k/
+|   |   |   |-- forward_2026_5y_aggressive.csv
+|   |   |   |-- forward_2026_5y_conservative.csv
+|   |   |   |-- forward_2026_5y_moderate.csv
+|   |   |   |-- historical_2020_aggressive.csv
+|   |   |   |-- historical_2020_conservative.csv
+|   |   |   |-- historical_2020_moderate.csv
+|   |   |   |-- meta.csv
+|   |   |   `-- README.md
+|   |   |-- random_samples/
+|   |   |   |-- 2024-01-10.png
+|   |   |   |-- 2024-02-06.png
+|   |   |   |-- 2024-02-08.png
+|   |   |   |-- 2024-02-13.png
+|   |   |   |-- 2024-02-15.png
+|   |   |   |-- 2024-03-04.png
+|   |   |   |-- 2024-04-24.png
+|   |   |   |-- 2024-05-07.png
+|   |   |   |-- 2024-05-14.png
+|   |   |   |-- 2024-05-15.png
+|   |   |   |-- 2024-05-21.png
+|   |   |   |-- 2024-05-28.png
+|   |   |   |-- 2024-06-11.png
+|   |   |   |-- 2024-06-28.png
+|   |   |   |-- 2024-07-19.png
+|   |   |   |-- 2024-08-13.png
+|   |   |   |-- 2024-08-19.png
+|   |   |   |-- 2024-10-14.png
+|   |   |   |-- 2024-11-06.png
+|   |   |   |-- 2024-11-11.png
+|   |   |   |-- 2024-11-13.png
+|   |   |   |-- 2024-11-18.png
+|   |   |   |-- 2024-12-02.png
+|   |   |   |-- 2024-12-18.png
+|   |   |   |-- 2025-01-20.png
+|   |   |   |-- 2025-02-04.png
+|   |   |   |-- 2025-02-07.png
+|   |   |   |-- 2025-03-03.png
+|   |   |   |-- 2025-05-05.png
+|   |   |   |-- 2025-05-09.png
+|   |   |   |-- 2025-05-15.png
+|   |   |   |-- 2025-06-05.png
+|   |   |   |-- 2025-06-10.png
+|   |   |   |-- 2025-07-03.png
+|   |   |   |-- 2025-07-07.png
+|   |   |   |-- 2025-09-01.png
+|   |   |   |-- 2025-09-04.png
+|   |   |   |-- 2025-10-13.png
+|   |   |   |-- 2025-10-28.png
+|   |   |   |-- 2026-01-05.png
+|   |   |   |-- 2026-02-18.png
+|   |   |   |-- 2026-03-03.png
+|   |   |   |-- 2026-03-12.png
+|   |   |   |-- 2026-03-25.png
+|   |   |   `-- INDEX.md
+|   |   |-- swept_liquidity_orb_breakout/
+|   |   |   |-- __pycache__/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- charts/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- child_ladder_trade_samples/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- ladder_charts/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- ladder_trade_samples/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- analyze_avg_pullback_to_tp1.py
+|   |   |   |-- compare_max_contracts.py
+|   |   |   |-- generate_loss_charts.py
+|   |   |   |-- mnq_swept_orb_breakout.csv
+|   |   |   |-- README.md
+|   |   |   |-- resim_entry_offset_fixed_sl.py
+|   |   |   |-- resim_scale_in_ladder.py
+|   |   |   `-- sweep_orb_backtest.py
+|   |   |-- v2b_c/
+|   |   |   |-- __pycache__/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- experiments/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2024-01-29.png
+|   |   |   |-- 2024-02-26.png
+|   |   |   |-- 2024-03-12.png
+|   |   |   |-- 2024-03-25.png
+|   |   |   |-- 2024-03-28.png
+|   |   |   |-- 2024-04-03.png
+|   |   |   |-- 2024-05-20.png
+|   |   |   |-- 2024-06-04.png
+|   |   |   |-- 2024-06-28.png
+|   |   |   |-- 2024-07-04.png
+|   |   |   |-- 2024-07-26.png
+|   |   |   |-- 2024-08-09.png
+|   |   |   |-- 2024-08-20.png
+|   |   |   |-- 2024-09-11.png
+|   |   |   |-- 2024-09-19.png
+|   |   |   |-- 2025-01-30.png
+|   |   |   |-- 2025-02-19.png
+|   |   |   |-- 2025-06-20.png
+|   |   |   |-- 2025-06-25.png
+|   |   |   |-- 2025-06-30.png
+|   |   |   |-- 2025-07-01.png
+|   |   |   |-- 2025-07-16.png
+|   |   |   |-- 2025-07-25.png
+|   |   |   |-- 2025-09-18.png
+|   |   |   |-- 2025-09-22.png
+|   |   |   |-- 2025-10-20.png
+|   |   |   |-- 2025-10-31.png
+|   |   |   |-- 2025-12-18.png
+|   |   |   |-- 2025-12-23.png
+|   |   |   |-- 2026-01-06.png
+|   |   |   |-- 2026-01-14.png
+|   |   |   |-- 2026-01-16.png
+|   |   |   |-- 2026-03-05.png
+|   |   |   |-- 2026-04-15.png
+|   |   |   |-- 2026-04-17.png
+|   |   |   |-- 2026-04-22.png
+|   |   |   |-- build_case_studies.py
+|   |   |   |-- INDEX.md
+|   |   |   `-- README.md
+|   |   |-- v2b_child/
+|   |   |   |-- __pycache__/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- ADAPTIVE_INSIDE_V2B_STUDY.md
+|   |   |   |-- compare_v2b_side_by_side.py
+|   |   |   |-- mnq_orb_open_limit_v2b_child.csv
+|   |   |   |-- mnq_orb_open_limit_v2b_child_3max.csv
+|   |   |   |-- mnq_orb_step2_match.csv
+|   |   |   |-- orb_open_limit_v2b_child.py
+|   |   |   |-- README.md
+|   |   |   `-- report_adaptive_v2bc.py
+|   |   |-- v2b_clean_break_4th_candle_boundary_stop/
+|   |   |   |-- charts/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   `-- README.md
+|   |   |-- v2b_clean_break_4th_candle_ladder3_runner/
+|   |   |   `-- README.md
+|   |   |-- v2b_clean_break_bullish/
+|   |   |   |-- charts/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   `-- README.md
+|   |   |-- v2b_equity_scaling/
+|   |   |   |-- mnq_adaptive_50_150_child_3max/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- mnq_adaptive_50_150_v2b_only_scaleout/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- mnq_full_adaptive_50_150_scaleout/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- mnq_monthly_aligned_v2d_v2b_unchanged_scaleout/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- mnq_v2b_child_1add/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- mnq_v2b_child_3max/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- mnq_v2b_tier1_only/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- nq_adaptive_50_150_v2b_only_scaleout/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- nq_all_v2b_days_scaleout/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- README.md
+|   |   |   `-- summary.csv
+|   |   |-- v2b_m/
+|   |   |   |-- __pycache__/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- charts/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- limit_retest/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- v2b_m_so/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- annotate_monthly_interaction_flags.py
+|   |   |   |-- build_v2b_m_charts.py
+|   |   |   |-- engine.py
+|   |   |   |-- README.md
+|   |   |   |-- run_v2b_m.py
+|   |   |   `-- v2b_m_legs.csv
+|   |   |-- v2b_m_child/
+|   |   |   |-- README.md
+|   |   |   `-- run_v2b_m_child.py
+|   |   |-- v2d_regime_case_studies/
+|   |   |   |-- losers/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- winners/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- build_v2d_winners_losers.py
+|   |   |   |-- INDEX.md
+|   |   |   `-- README.md
+|   |   |-- yearly_orb/
+|   |   |   |-- 2020/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2021/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2022/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2023/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2024/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2025/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- build_yearly_orb_charts.py
+|   |   |   `-- INDEX.md
+|   |   |-- yearly_orb_atr_touch_15m/
+|   |   |   |-- bearish_breakout/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- bullish_breakout/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- atr_touch_15m.csv
+|   |   |   `-- INDEX.md
+|   |   |-- yearly_orb_breakout_1h_context/
+|   |   |   |-- 2020/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2021/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2022/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2023/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2024/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2025/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   `-- INDEX.md
+|   |   |-- yearly_orb_delivery_scalein_inside_range_swing_range_close/
+|   |   |   |-- 2020/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2021/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2022/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2023/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2024/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2025/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   `-- INDEX.md
+|   |   |-- yearly_orb_delivery_scalein_weekly_swings_inside_range_swing_range_close/
+|   |   |   |-- 2020/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2021/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2022/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2023/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2024/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2025/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   `-- INDEX.md
+|   |   |-- yearly_orb_delivery_visual_research/
+|   |   |   |-- delivery_state_by_year/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- scalein_samples/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   `-- INDEX.md
+|   |   |-- yearly_orb_delivery_visual_research_weekly_swings/
+|   |   |   |-- delivery_state_by_year_weekly_swings/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   `-- INDEX.md
+|   |   |-- yearly_orb_equity_scaling/
+|   |   |   |-- es/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- mnq/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- mnq_mym_pair/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- mym/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- nq/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- ym/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   `-- summary.csv
+|   |   |-- yearly_orb_mnq_mym_portfolio/
+|   |   |   |-- mnq1_mym4_annual.csv
+|   |   |   |-- mnq1_mym4_daily_stress_equity.csv
+|   |   |   |-- mnq1_mym4_market_stats.csv
+|   |   |   |-- mnq1_mym4_summary.csv
+|   |   |   |-- mnq1_mym4_trades.csv
+|   |   |   |-- mnq1_mym4_worst_closed_dd_episode.csv
+|   |   |   |-- mnq1_mym4_worst_overlap_heat.csv
+|   |   |   `-- README.md
+|   |   |-- yearly_orb_next_day_5m/
+|   |   |   |-- 2020/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2021/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2022/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2023/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2024/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2025/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   `-- INDEX.md
+|   |   |-- yearly_orb_next_open_trail/
+|   |   |   |-- 2020/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2021/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2022/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2023/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2024/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2025/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   `-- INDEX.md
+|   |   |-- yearly_orb_repeated_outside_next_open_trail/
+|   |   |   |-- 2020/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2021/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2022/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2023/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2024/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2025/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   `-- INDEX.md
+|   |   |-- yearly_orb_swing_stop_scaleout3_close_entry_range_close/
+|   |   |   |-- 2020/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2021/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2022/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2023/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2024/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2025/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   `-- INDEX.md
+|   |   |-- yearly_orb_swing_stop_scaleout3_close_entry_runner/
+|   |   |   |-- 2020/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2021/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2022/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2023/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2024/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2025/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   `-- INDEX.md
+|   |   |-- yearly_orb_swing_stop_scaleout3_inside_range_swing_range_close/
+|   |   |   |-- 2020/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2021/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2022/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2023/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2024/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2025/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- monthly_retracement_32/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- monthly_retracement_68/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- weekly_candles/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- weekly_candles_volume/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- INDEX.md
+|   |   |   `-- ONE_PAGE_RUNDOWN.md
+|   |   |-- yearly_orb_swing_stop_scaleout3_range_close/
+|   |   |   |-- 2020/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2021/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2022/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2023/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2024/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2025/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   `-- INDEX.md
+|   |   |-- yearly_orb_swing_stop_scaleout3_runner/
+|   |   |   |-- 2020/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2021/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2022/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2023/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2024/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2025/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   `-- INDEX.md
+|   |   |-- yearly_orb_swing_stop_unlimited/
+|   |   |   |-- 2020/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2021/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2022/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2023/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2024/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2025/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   `-- INDEX.md
+|   |   |-- yearly_orb_v2b_bias_filter/
+|   |   |   |-- combined_summary.csv
+|   |   |   |-- INDEX.md
+|   |   |   |-- mnq_adaptive_v2b_scaleout_yearly_orb_bias.csv
+|   |   |   |-- mnq_adaptive_v2b_scaleout_yearly_orb_bias_summary.csv
+|   |   |   |-- mnq_adaptive_v2b_scaleout_yearly_orb_close_bias.csv
+|   |   |   |-- mnq_adaptive_v2b_scaleout_yearly_orb_tagged.csv
+|   |   |   |-- nq_adaptive_v2b_scaleout_yearly_orb_bias.csv
+|   |   |   |-- nq_adaptive_v2b_scaleout_yearly_orb_bias_summary.csv
+|   |   |   |-- nq_adaptive_v2b_scaleout_yearly_orb_close_bias.csv
+|   |   |   `-- nq_adaptive_v2b_scaleout_yearly_orb_tagged.csv
+|   |   |-- build_case_studies.py
+|   |   |-- build_random_samples.py
+|   |   |-- build_random_samples_breakout_close_limit.py
+|   |   |-- build_random_samples_ladder.py
+|   |   |-- build_random_samples_open_limit.py
+|   |   |-- build_random_samples_swept_orb.py
+|   |   |-- build_year_samples.py
+|   |   |-- case1_loss_then_win.png
+|   |   |-- case2_double_long_win.png
+|   |   |-- case3_big_range_windfall.png
+|   |   |-- case4_double_loss_whipsaw.png
+|   |   |-- case5_eod_close.png
+|   |   |-- case6_single_trade_win.png
+|   |   |-- README.md
+|   |   |-- STRATEGY_TRACKER.md
+|   |   |-- STRATEGY_TRACKER_before_realism_fixes.md
+|   |   |-- top_strategy_candidate_metrics.csv
+|   |   |-- yearly_orb_breakout_1h_context.csv
+|   |   |-- yearly_orb_cross_market_all_summary.csv
+|   |   |-- yearly_orb_cross_market_scaleout3_inside_range_summary.csv
+|   |   |-- yearly_orb_cross_market_scaleout3_inside_range_summary.md
+|   |   |-- yearly_orb_inside_range_swing_comparison.csv
+|   |   |-- yearly_orb_next_day_5m.csv
+|   |   |-- yearly_orb_next_open_trail_summary.csv
+|   |   |-- YEARLY_ORB_RESEARCH_NOTES.md
+|   |   |-- yearly_orb_research_summary.csv
+|   |   |-- yearly_orb_scaleout3_boundary_range_close_trade_report.md
+|   |   `-- yearly_orb_scaleout3_inside_range_swing_trade_report.md
+|   |-- data/
+|   |   |-- london_vs_prior_week_daily.csv
+|   |   `-- mnq_front_month_4h_from_1m.csv
+|   |-- experiments/
+|   |   |-- __pycache__/
+|   |   |   `-- orb_open_limit_v2b.cpython-38.pyc
+|   |   |-- breakout_close_limit_scaleout.py
+|   |   |-- mnq_breakout_close_limit_scaleout.csv
+|   |   `-- orb_open_limit_v2b.py
+|   |-- lib/
+|   |   |-- __pycache__/
+|   |   |   |-- __init__.cpython-38.pyc
+|   |   |   `-- execution.cpython-38.pyc
+|   |   |-- __init__.py
+|   |   |-- execution.py
+|   |   `-- mnq_roll_calendar.csv
+|   |-- raw/
+|   |   |-- extracted/
+|   |   |   |-- glbx-mdp3-20260420.bbo-1m.dbn.zst
+|   |   |   `-- metadata.json
+|   |   |-- extracted_new/
+|   |   |   |-- condition.json
+|   |   |   |-- glbx-mdp3-20100606-20260423.ohlcv-1m.dbn.zst
+|   |   |   |-- manifest.json
+|   |   |   `-- metadata.json
+|   |   |-- condition.json
+|   |   |-- GLBX-20260424-L9TMWHGKL9.zip
+|   |   |-- GLBX-20260424-W6V8KK4HRJ.zip
+|   |   |-- GLBX-20260427-9BYTKUJJ4B.zip
+|   |   |-- glbx-mdp3-20100606-20260308.ohlcv-1d.dbn.zst
+|   |   |-- glbx-mdp3-20100606-20260426.ohlcv-1d.dbn.zst
+|   |   |-- glbx-mdp3-20210304-20260303.ohlcv-1m.csv
+|   |   |-- manifest.json
+|   |   |-- metadata.json
+|   |   `-- Super Trend + ICT - Openning Range.csv
+|   |-- rules/
+|   |   |-- __pycache__/
+|   |   |   |-- __init__.cpython-38.pyc
+|   |   |   |-- monthly_interaction_cross.cpython-38.pyc
+|   |   |   |-- monthly_opening_range_bias.cpython-38.pyc
+|   |   |   `-- v2e_causal.cpython-38.pyc
+|   |   |-- __init__.py
+|   |   |-- monthly_interaction_cross.py
+|   |   |-- monthly_opening_range_bias.py
+|   |   `-- v2e_causal.py
+|   |-- scripts/
+|   |   |-- __pycache__/
+|   |   |   |-- plot_daily_prior_month_levels.cpython-38.pyc
+|   |   |   `-- test_v2b_monthly_orb_bias.cpython-38.pyc
+|   |   |-- analyze_london_vs_prior_week.py
+|   |   |-- analyze_pw_fade_eod_sl_sweep.py
+|   |   |-- plot_daily_prior_month_levels.py
+|   |   `-- test_v2b_monthly_orb_bias.py
+|   |-- v1_limit/
+|   |   |-- build_adaptive_v1_50_150.py
+|   |   |-- mnq_orb_results_adaptive_v1_v2d_50_150.csv
+|   |   |-- mnq_orb_results_v1b_limit.csv
+|   |   `-- run_v1b_from_5min.py
+|   |-- v2c/
+|   |   |-- analyze_stop_tightness.py
+|   |   |-- v2c_stop_sweep.csv
+|   |   |-- v2c_stop_sweep.txt
+|   |   `-- v2c_trade_excursions.csv
+|   |-- v2d/
+|   |   |-- __pycache__/
+|   |   |   |-- benchmark_v2b_scaleout_candidates.cpython-38.pyc
+|   |   |   |-- benchmark_v2b_scaleout_multiproduct.cpython-38.pyc
+|   |   |   |-- mtm_v2b_scaleout.cpython-38.pyc
+|   |   |   |-- paper_replay_v2b_scaleout_ordering.cpython-38.pyc
+|   |   |   `-- run_adaptive_50_150_scaleout.cpython-38.pyc
+|   |   |-- case_studies/
+|   |   |   |-- 2021-03-23.png
+|   |   |   |-- 2021-05-19.png
+|   |   |   |-- 2021-05-25.png
+|   |   |   |-- 2021-06-03.png
+|   |   |   |-- 2021-06-11.png
+|   |   |   |-- 2021-11-23.png
+|   |   |   |-- 2021-12-10.png
+|   |   |   |-- 2022-01-06.png
+|   |   |   |-- 2022-02-03.png
+|   |   |   |-- 2022-04-29.png
+|   |   |   |-- 2022-06-27.png
+|   |   |   |-- 2022-10-19.png
+|   |   |   |-- 2022-12-19.png
+|   |   |   |-- 2022-12-23.png
+|   |   |   |-- 2023-01-04.png
+|   |   |   |-- 2023-01-31.png
+|   |   |   |-- 2023-03-07.png
+|   |   |   |-- 2023-06-06.png
+|   |   |   |-- 2023-06-14.png
+|   |   |   |-- 2023-12-13.png
+|   |   |   |-- 2024-08-06.png
+|   |   |   |-- 2024-08-13.png
+|   |   |   |-- 2024-08-14.png
+|   |   |   |-- 2024-10-30.png
+|   |   |   |-- 2025-04-22.png
+|   |   |   |-- 2025-08-18.png
+|   |   |   |-- 2025-10-03.png
+|   |   |   |-- 2025-12-26.png
+|   |   |   |-- 2025-12-31.png
+|   |   |   |-- 2026-02-04.png
+|   |   |   `-- INDEX.md
+|   |   |-- charts_v2b_scaleout_trade_candles/
+|   |   |   |-- 2021.png
+|   |   |   |-- 2022.png
+|   |   |   |-- 2023.png
+|   |   |   |-- 2024.png
+|   |   |   |-- 2025.png
+|   |   |   |-- 2026.png
+|   |   |   `-- INDEX.md
+|   |   |-- mnq_daily_prior_month_chart_6mo/
+|   |   |   |-- 2019-05-05_2019-11-04.png
+|   |   |   |-- 2019-11-05_2020-05-04.png
+|   |   |   |-- 2020-05-05_2020-11-04.png
+|   |   |   |-- 2020-11-05_2021-05-04.png
+|   |   |   |-- 2021-05-05_2021-11-04.png
+|   |   |   |-- 2021-11-05_2022-05-04.png
+|   |   |   |-- 2022-05-05_2022-11-04.png
+|   |   |   |-- 2022-11-06_2023-05-04.png
+|   |   |   |-- 2023-05-05_2023-11-03.png
+|   |   |   |-- 2023-11-05_2024-05-03.png
+|   |   |   |-- 2024-05-05_2024-11-04.png
+|   |   |   |-- 2024-11-05_2025-05-04.png
+|   |   |   |-- 2025-05-05_2025-11-04.png
+|   |   |   `-- 2025-11-05_2026-04-26.png
+|   |   |-- adaptive_50_150_scaleout_legs.csv
+|   |   |-- adaptive_lookback_sweep.csv
+|   |   |-- benchmark_v2b_scaleout_candidates.py
+|   |   |-- benchmark_v2b_scaleout_multiproduct.py
+|   |   |-- benchmark_v2d_scaleout_multiproduct.py
+|   |   |-- build_adaptive_trades.py
+|   |   |-- build_adaptive_year_samples.py
+|   |   |-- build_v2d_samples.py
+|   |   |-- chart_v2b_scaleout_yearly_trade_candles.py
+|   |   |-- lookback_sweep.csv
+|   |   |-- lookback_sweep.py
+|   |   |-- lookback_sweep.txt
+|   |   |-- lookback_walkforward.csv
+|   |   |-- ma_cross_full_sweep_mnq.csv
+|   |   |-- ma_cross_sweep.csv
+|   |   |-- ma_cross_sweep.py
+|   |   |-- ma_cross_sweep.txt
+|   |   |-- ma_cross_walkforward_mnq.csv
+|   |   |-- manual_overlay_chart.png
+|   |   |-- manual_overlay_chart.py
+|   |   |-- mnq_daily_prior_month_chart.png
+|   |   |-- mnq_orb_results_adaptive_50_150.csv
+|   |   |-- mnq_orb_results_adaptive_50_150_child_3max.csv
+|   |   |-- mnq_orb_results_adaptive_50_150_inside_v2b_close_child_3max.csv
+|   |   |-- mnq_orb_results_adaptive_50_150_inside_v2b_close_child_3max.csv.parent_cancels.csv
+|   |   |-- mnq_orb_results_v2d.csv
+|   |   |-- mtm_v2b_scaleout.py
+|   |   |-- orb_adaptive_50_150_child.py
+|   |   |-- orb_adaptive_50_150_inside_v2b_child.py
+|   |   |-- paper_replay_v2b_scaleout_ordering.py
+|   |   |-- README_adaptive_50_150_scaleout.md
+|   |   |-- regime_chart.png
+|   |   |-- regime_overlay.py
+|   |   |-- regime_switch_sweep.csv
+|   |   |-- regime_switch_sweep.py
+|   |   |-- regime_switch_sweep.txt
+|   |   |-- run_adaptive_50_150_scaleout.py
+|   |   |-- sizing_sweep.csv
+|   |   |-- sizing_sweep.py
+|   |   |-- sizing_sweep.txt
+|   |   |-- v2b_scaleout_legs_equity.csv
+|   |   |-- v2b_scaleout_legs_ohlc.csv
+|   |   |-- V2B_SCALEOUT_ORDERING_AUDIT.md
+|   |   |-- v2b_scaleout_ordering_audit_summary.csv
+|   |   |-- v2b_scaleout_ordering_audit_summary_legs.csv
+|   |   |-- v2e_bias_filter.csv
+|   |   |-- v2e_bias_filter.py
+|   |   `-- weekly_rebalance.py
+|   |-- v2e/
+|   |   |-- bearish/
+|   |   |   |-- case_studies/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- data/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   `-- scripts/
+|   |   |       `-- ... deeper entries omitted by max-depth
+|   |   |-- case_studies/
+|   |   |   |-- causal_live/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- causal_live_15m/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- causal_live_15m_close_confirm/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- causal_live_reentry/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- london_breakout_child_charts/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- pattern_b_causal_research/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- pattern_b_causal_research_adaptive_levels/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   `-- temp/
+|   |   |       `-- ... deeper entries omitted by max-depth
+|   |   |-- daily/
+|   |   |   |-- bearish/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- charts/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- scripts/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   `-- README.md
+|   |   |-- data/
+|   |   |   |-- adaptive_hybrid_10pt_5v2d2.csv
+|   |   |   |-- clean_break_manifest.csv
+|   |   |   |-- mnq_v2e_causal_live.audit.csv
+|   |   |   |-- mnq_v2e_causal_live.csv
+|   |   |   |-- mnq_v2e_causal_live.csv.legacy_compare.csv
+|   |   |   |-- mnq_v2e_causal_live_15m.audit.csv
+|   |   |   |-- mnq_v2e_causal_live_15m.csv
+|   |   |   |-- mnq_v2e_causal_live_15m.csv.legacy_compare.csv
+|   |   |   |-- mnq_v2e_causal_live_15m_close_confirm.audit.csv
+|   |   |   |-- mnq_v2e_causal_live_15m_close_confirm.csv
+|   |   |   |-- mnq_v2e_causal_live_15m_close_confirm.csv.legacy_compare.csv
+|   |   |   |-- mnq_v2e_causal_live_reentry.audit.csv
+|   |   |   |-- mnq_v2e_causal_live_reentry.csv
+|   |   |   |-- mnq_v2e_causal_live_reentry.csv.legacy_compare.csv
+|   |   |   |-- mnq_v2e_london_sweep_breaker.csv
+|   |   |   |-- mnq_v2e_per_leg.csv
+|   |   |   |-- mnq_v2e_strict_clean_trades.csv
+|   |   |   |-- v2e_monte_friction_dd.png
+|   |   |   |-- v2e_monte_friction_equity.png
+|   |   |   |-- v2e_monte_friction_final.png
+|   |   |   |-- v2e_monte_friction_meta.json
+|   |   |   |-- v2e_monte_friction_stats.csv
+|   |   |   `-- v2e_risk_snapshot.json
+|   |   |-- scripts/
+|   |   |   |-- __pycache__/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- analyze_clean_break_predictors.py
+|   |   |   |-- analyze_london_child_after_sweep_equity.py
+|   |   |   |-- analyze_london_sweep_monthly_bias.py
+|   |   |   |-- analyze_london_sweep_timings.py
+|   |   |   |-- analyze_offset_entry_equity.py
+|   |   |   |-- analyze_offset_stack_equity.py
+|   |   |   |-- analyze_v2e_side_selection.py
+|   |   |   |-- analyze_winner_mae_child.py
+|   |   |   |-- backtest_london_sweep_breaker.py
+|   |   |   |-- build_all_v2e_case_studies.py
+|   |   |   |-- build_case_studies_adaptive_60pct.py
+|   |   |   |-- build_case_studies_strict_clean_wins.py
+|   |   |   |-- build_fib62_adaptive_levels_charts.py
+|   |   |   |-- build_fib62_filled_trade_charts.py
+|   |   |   |-- build_london_breakout_child_charts.py
+|   |   |   |-- build_london_sweep_charts.py
+|   |   |   |-- build_london_sweep_temp_charts.py
+|   |   |   |-- build_pattern_b_causal_research_charts.py
+|   |   |   |-- count_clean_break_v2b.py
+|   |   |   |-- experiment_piercer_5m_close_over_breaker.py
+|   |   |   |-- london_breakout_child.py
+|   |   |   |-- monte_carlo_v2e_friction.py
+|   |   |   |-- pattern_b_london_causal.py
+|   |   |   |-- prior_week_levels.py
+|   |   |   |-- side_v2b_replay_1m.py
+|   |   |   |-- sim_london_child_after_sweep.py
+|   |   |   |-- sim_london_limit_scaleout.py
+|   |   |   |-- sim_london_offset_entry.py
+|   |   |   |-- sim_london_offset_stack_entry.py
+|   |   |   |-- sim_v2e_all.py
+|   |   |   |-- study_london_post_open_paths_and_causal_v2e.py
+|   |   |   |-- study_r_multiple_scaleout.py
+|   |   |   |-- study_rth_london_high_fib62_adaptive_levels.py
+|   |   |   |-- study_rth_london_high_fib62_limit_long.py
+|   |   |   |-- v2e_causal_live_sim.py
+|   |   |   `-- v2e_grounding_report.py
+|   |   `-- README.md
+|   |-- EXECUTION_HARDENING_AND_FEATURES.md
+|   |-- mnq_5min_rth.csv
+|   |-- mnq_daily.csv
+|   |-- mnq_monthly_orb.csv
+|   |-- mnq_monthly_orb.xlsx
+|   |-- mnq_monthly_orb_4h_breakout_diagnostics.csv
+|   |-- mnq_monthly_orb_4h_swing_stop.csv
+|   |-- mnq_monthly_orb_boundary_retest.csv
+|   |-- mnq_monthly_orb_boundary_retest_restricted.csv
+|   |-- mnq_monthly_orb_clean_break_rank3_scaleout_runner.csv
+|   |-- mnq_monthly_orb_clean_break_rank3_skips.csv
+|   |-- mnq_monthly_orb_close_entry.csv
+|   |-- mnq_monthly_orb_close_entry_2x_breakout_stop.csv
+|   |-- mnq_monthly_orb_close_entry_boundary_candle_stop.csv
+|   |-- mnq_monthly_orb_close_entry_breakout_stop.csv
+|   |-- mnq_monthly_orb_close_entry_near_boundary_stop.csv
+|   |-- mnq_monthly_orb_close_entry_restricted.csv
+|   |-- mnq_monthly_orb_close_entry_restricted_2x_breakout_stop.csv
+|   |-- mnq_monthly_orb_close_entry_restricted_boundary_candle_stop.csv
+|   |-- mnq_monthly_orb_close_entry_restricted_breakout_stop.csv
+|   |-- mnq_monthly_orb_close_entry_restricted_near_boundary_stop.csv
+|   |-- mnq_monthly_orb_daily_close_breakout_diagnostics.csv
+|   |-- mnq_monthly_orb_daily_close_scaleout4.csv
+|   |-- mnq_monthly_orb_daily_close_scaleout4_skips.csv
+|   |-- mnq_monthly_orb_inside_candle_open.csv
+|   |-- mnq_monthly_orb_inside_candle_open_restricted.csv
+|   |-- mnq_monthly_orb_inside_candle_open_restricted_source_stop.csv
+|   |-- mnq_monthly_orb_inside_candle_open_restricted_source_stop_r_detail.csv
+|   |-- mnq_monthly_orb_inside_candle_open_restricted_source_stop_scaleout_2r.csv
+|   |-- mnq_monthly_orb_inside_candle_open_restricted_source_stop_scaleout_3r.csv
+|   |-- mnq_monthly_orb_inside_candle_open_source_stop.csv
+|   |-- mnq_monthly_orb_inside_candle_open_source_stop_r_detail.csv
+|   |-- mnq_monthly_orb_inside_candle_open_source_stop_scaleout_2r.csv
+|   |-- mnq_monthly_orb_inside_candle_open_source_stop_scaleout_3r.csv
+|   |-- mnq_monthly_orb_inside_range_stop_ladder3_range_targets_cancel_stale_cancelled_limits_intraday.csv
+|   |-- mnq_monthly_orb_inside_range_stop_ladder3_range_targets_cancel_stale_intraday.csv
+|   |-- mnq_monthly_orb_inside_restricted_boundary_close_scaleout_tp1_wide_stop_cancelled_limits_intraday.csv
+|   |-- mnq_monthly_orb_inside_restricted_boundary_close_scaleout_tp1_wide_stop_intraday.csv
+|   |-- mnq_monthly_orb_inside_restricted_sl_half_close_scaleout_tp1_wide_stop_cancelled_limits_intraday.csv
+|   |-- mnq_monthly_orb_inside_restricted_sl_half_close_scaleout_tp1_wide_stop_intraday.csv
+|   |-- mnq_monthly_orb_inside_restricted_source_stop_ladder3_intraday.csv
+|   |-- mnq_monthly_orb_inside_restricted_source_stop_ladder3_range_targets_cancel_stale_cancelled_limits_intraday.csv
+|   |-- mnq_monthly_orb_inside_restricted_source_stop_ladder3_range_targets_cancel_stale_intraday.csv
+|   |-- mnq_monthly_orb_inside_restricted_source_stop_ladder3_range_targets_intraday.csv
+|   |-- mnq_monthly_orb_inside_restricted_source_stop_scaleout_2r_intraday.csv
+|   |-- mnq_monthly_orb_inside_restricted_source_stop_scaleout_3r_intraday.csv
+|   |-- mnq_monthly_orb_inside_source_stop_ladder3_intraday.csv
+|   |-- mnq_monthly_orb_inside_source_stop_ladder3_range_targets_intraday.csv
+|   |-- mnq_monthly_orb_inside_source_stop_scaleout_2r_intraday.csv
+|   |-- mnq_monthly_orb_inside_source_stop_scaleout_3r_intraday.csv
+|   |-- mnq_monthly_orb_overlap_range_breakout.csv
+|   |-- mnq_monthly_orb_overlap_range_breakout_events.csv
+|   |-- mnq_monthly_orb_restricted.csv
+|   |-- mnq_monthly_orb_restricted_4h_close_entry.csv
+|   |-- mnq_monthly_orb_restricted_scaleout3.csv
+|   |-- mnq_monthly_orb_restricted_scaleout3_4h_close_entry.csv
+|   |-- mnq_monthly_orb_restricted_stop_limit_cycle.csv
+|   |-- mnq_monthly_orb_restricted_stop_limit_cycle_events.csv
+|   |-- mnq_monthly_orb_restricted_stop_limit_cycle_short.csv
+|   |-- mnq_monthly_orb_restricted_stop_limit_cycle_short_events.csv
+|   |-- mnq_monthly_orb_scaleout3_4h_swing_stop.csv
+|   |-- mnq_monthly_orb_simple_4h_opposing_stop.csv
+|   |-- mnq_monthly_orb_st_runner.csv
+|   |-- mnq_orb_results.csv
+|   |-- mnq_orb_results.prior.csv
+|   |-- mnq_orb_results.xlsx
+|   |-- mnq_orb_results_fixed.csv
+|   |-- mnq_orb_results_stops.csv
+|   |-- mnq_orb_results_stops.xlsx
+|   |-- mnq_orb_results_stops_5m.csv
+|   |-- mnq_orb_results_stops_annotated.csv
+|   |-- mnq_quarterly_orb.csv
+|   |-- mnq_quarterly_orb.xlsx
+|   |-- mnq_v2b_clean_break_4th_candle_boundary_stop.csv
+|   |-- mnq_v2b_clean_break_4th_candle_ladder3_runner.csv
+|   |-- mnq_v2b_clean_break_bullish.csv
+|   |-- mnq_yearly_orb.csv
+|   |-- mnq_yearly_orb.xlsx
+|   |-- mnq_yearly_orb_delivery_scalein_inside_range_swing_range_close.csv
+|   |-- mnq_yearly_orb_delivery_scalein_inside_range_swing_range_close_addons.csv
+|   |-- mnq_yearly_orb_delivery_scalein_weekly_swings_inside_range_swing_range_close.csv
+|   |-- mnq_yearly_orb_delivery_scalein_weekly_swings_inside_range_swing_range_close_addons.csv
+|   |-- mnq_yearly_orb_next_open_trail.csv
+|   |-- mnq_yearly_orb_repeated_outside_next_open_trail.csv
+|   |-- mnq_yearly_orb_swing_stop_scaleout3_close_entry_range_close.csv
+|   |-- mnq_yearly_orb_swing_stop_scaleout3_close_entry_runner.csv
+|   |-- mnq_yearly_orb_swing_stop_scaleout3_inside_range_swing_range_close.csv
+|   |-- mnq_yearly_orb_swing_stop_scaleout3_range_close.csv
+|   |-- mnq_yearly_orb_swing_stop_scaleout3_runner.csv
+|   `-- mnq_yearly_orb_swing_stop_unlimited.csv
+|-- mym/
+|   |-- case_studies/
+|   |   |-- atr_supertrend_actual_weekly_primary_3initial_causal/
+|   |   |   |-- 2019/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2020/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2021/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2022/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2023/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2024/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2025/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2026/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- equity.csv
+|   |   |   |-- README.md
+|   |   |   |-- trades.csv
+|   |   |   `-- units.csv
+|   |   |-- atr_supertrend_daily_primary_no_weekly_flat_3initial_causal/
+|   |   |   |-- 2019/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2020/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2021/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2022/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2023/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2024/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2025/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2026/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- equity.csv
+|   |   |   |-- README.md
+|   |   |   |-- trades.csv
+|   |   |   `-- units.csv
+|   |   |-- atr_supertrend_equity_scaling/
+|   |   |   |-- daily_3initial/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- daily_ladder112221/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- weekly_3initial/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- weekly_ladder112221/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   `-- README.md
+|   |   |-- atr_supertrend_fixed_no_scaling/
+|   |   |   |-- daily_3initial/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- daily_ladder112221/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- weekly_3initial/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- weekly_ladder112221/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- README.md
+|   |   |   `-- summary.csv
+|   |   `-- yearly_orb_swing_stop_scaleout3_inside_range_swing_range_close/
+|   |       |-- 2020/
+|   |       |   `-- ... deeper entries omitted by max-depth
+|   |       |-- 2021/
+|   |       |   `-- ... deeper entries omitted by max-depth
+|   |       |-- 2022/
+|   |       |   `-- ... deeper entries omitted by max-depth
+|   |       |-- 2023/
+|   |       |   `-- ... deeper entries omitted by max-depth
+|   |       |-- 2024/
+|   |       |   `-- ... deeper entries omitted by max-depth
+|   |       |-- 2025/
+|   |       |   `-- ... deeper entries omitted by max-depth
+|   |       `-- INDEX.md
+|   |-- data/
+|   |   `-- mym_front_month_4h_from_1m.csv
+|   |-- raw/
+|   |   `-- glbx-mdp3-20100606-20260308.ohlcv-1m (mym).dbn.zst
+|   |-- mym_5min_rth.csv
+|   |-- mym_daily.csv
+|   |-- mym_orb_results.csv
+|   |-- mym_orb_results_stops.csv
+|   |-- mym_orb_results_stops.xlsx
+|   `-- mym_yearly_orb_swing_stop_scaleout3_inside_range_swing_range_close.csv
+|-- nq/
+|   |-- case_studies/
+|   |   |-- atr_bearish_flip_r_study/
+|   |   |   |-- daily_weekly_context_summary.csv
+|   |   |   |-- flip_targets.csv
+|   |   |   |-- flips.csv
+|   |   |   |-- README.md
+|   |   |   `-- summary.csv
+|   |   |-- atr_lingering_bull_stop_short_100pt/
+|   |   |   |-- charts/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- audit.csv
+|   |   |   |-- README.md
+|   |   |   `-- trades.csv
+|   |   |-- atr_lingering_bull_stop_short_300tp_200sl_multi/
+|   |   |   |-- charts/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- audit.csv
+|   |   |   |-- README.md
+|   |   |   `-- trades.csv
+|   |   |-- atr_supertrend_biweekly_primary_3initial/
+|   |   |   |-- charts/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   `-- trades.csv
+|   |   |-- atr_supertrend_biweekly_primary_3initial_adaptive/
+|   |   |   |-- charts/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- README.md
+|   |   |   `-- trades.csv
+|   |   |-- atr_supertrend_dca_both_biweekly_5max/
+|   |   |   |-- 2010/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2011/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2012/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2013/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2014/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2015/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2016/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2017/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2018/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2019/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2020/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2021/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2022/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2023/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2024/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2025/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2026/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- equity.csv
+|   |   |   |-- README.md
+|   |   |   |-- trades.csv
+|   |   |   `-- units.csv
+|   |   |-- atr_supertrend_dca_long/
+|   |   |   |-- 2010/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2011/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2012/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2013/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2014/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2015/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2016/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2017/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2018/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2019/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2020/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2021/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2022/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2023/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2024/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2025/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2026/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- equity.csv
+|   |   |   |-- README.md
+|   |   |   |-- trades.csv
+|   |   |   `-- units.csv
+|   |   |-- atr_supertrend_dca_long_biweekly_10max_weekly_flat/
+|   |   |   |-- 2010/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2011/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2012/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2013/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2014/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2015/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2016/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2017/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2018/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2019/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2020/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2021/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2022/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2023/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2024/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2025/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2026/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- equity.csv
+|   |   |   |-- README.md
+|   |   |   |-- trades.csv
+|   |   |   `-- units.csv
+|   |   |-- atr_supertrend_dca_long_biweekly_10max_weekly_flat_entry_guard/
+|   |   |   |-- 2010/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2011/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2012/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2013/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2014/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2015/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2016/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2017/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2018/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2019/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2020/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2021/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2022/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2023/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2024/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2025/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2026/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- equity.csv
+|   |   |   |-- README.md
+|   |   |   |-- trades.csv
+|   |   |   `-- units.csv
+|   |   |-- atr_supertrend_dca_long_biweekly_10max_weekly_flat_entry_guard_3initial/
+|   |   |   |-- 2010/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2011/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2012/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2013/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2014/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2015/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2016/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2017/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2018/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2019/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2020/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2021/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2022/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2023/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2024/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2025/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2026/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- equity.csv
+|   |   |   |-- README.md
+|   |   |   |-- trades.csv
+|   |   |   `-- units.csv
+|   |   |-- atr_supertrend_dca_long_biweekly_10max_weekly_flat_entry_guard_3initial_yorb/
+|   |   |   |-- 2010/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2011/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2012/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2013/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2014/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2015/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2016/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2017/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2018/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2019/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2020/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2021/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2022/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2023/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2024/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2025/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2026/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- equity.csv
+|   |   |   |-- README.md
+|   |   |   |-- trades.csv
+|   |   |   `-- units.csv
+|   |   |-- atr_supertrend_dca_long_biweekly_10max_weekly_flat_entry_guard_ladder112221/
+|   |   |   |-- 2010/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2011/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2012/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2013/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2014/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2015/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2016/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2017/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2018/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2019/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2020/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2021/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2022/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2023/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2024/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2025/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2026/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- equity.csv
+|   |   |   |-- README.md
+|   |   |   |-- trades.csv
+|   |   |   `-- units.csv
+|   |   |-- atr_supertrend_dca_long_biweekly_10max_weekly_flat_entry_guard_ladder112221_yorb/
+|   |   |   |-- 2010/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2011/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2012/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2013/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2014/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2015/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2016/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2017/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2018/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2019/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2020/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2021/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2022/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2023/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2024/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2025/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2026/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- equity.csv
+|   |   |   |-- README.md
+|   |   |   |-- trades.csv
+|   |   |   `-- units.csv
+|   |   |-- atr_supertrend_dca_long_biweekly_5max/
+|   |   |   |-- 2010/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2011/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2012/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2013/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2014/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2015/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2016/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2017/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2018/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2019/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2020/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2021/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2022/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2023/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2024/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2025/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2026/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- equity.csv
+|   |   |   |-- README.md
+|   |   |   |-- trades.csv
+|   |   |   `-- units.csv
+|   |   |-- atr_supertrend_dca_long_biweekly_5max_prior_bearish_guard/
+|   |   |   |-- 2010/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2011/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2012/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2013/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2014/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2015/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2016/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2017/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2018/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2019/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2020/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2021/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2022/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2023/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2024/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2025/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2026/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- equity.csv
+|   |   |   |-- README.md
+|   |   |   |-- trades.csv
+|   |   |   `-- units.csv
+|   |   |-- atr_supertrend_dca_long_biweekly_5max_weekly_flat/
+|   |   |   |-- 2010/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2011/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2012/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2013/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2014/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2015/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2016/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2017/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2018/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2019/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2020/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2021/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2022/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2023/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2024/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2025/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2026/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- equity.csv
+|   |   |   |-- README.md
+|   |   |   |-- trades.csv
+|   |   |   `-- units.csv
+|   |   |-- atr_supertrend_dca_long_biweekly_5max_weekly_flat_prior_bearish_guard/
+|   |   |   |-- 2010/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2011/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2012/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2013/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2014/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2015/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2016/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2017/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2018/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2019/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2020/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2021/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2022/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2023/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2024/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2025/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2026/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- equity.csv
+|   |   |   |-- README.md
+|   |   |   |-- trades.csv
+|   |   |   `-- units.csv
+|   |   |-- atr_supertrend_dca_long_biweekly_5max_weekly_not_bearish/
+|   |   |   |-- 2010/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2011/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2012/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2013/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2014/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2015/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2016/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2017/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2018/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2019/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2020/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2021/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2022/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2023/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2024/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2025/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2026/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- equity.csv
+|   |   |   |-- README.md
+|   |   |   |-- trades.csv
+|   |   |   `-- units.csv
+|   |   |-- atr_supertrend_dca_long_biweekly_uncapped_weekly_flat/
+|   |   |   |-- 2010/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2011/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2012/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2013/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2014/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2015/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2016/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2017/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2018/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2019/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2020/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2021/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2022/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2023/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2024/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2025/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2026/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- equity.csv
+|   |   |   |-- README.md
+|   |   |   |-- trades.csv
+|   |   |   `-- units.csv
+|   |   |-- atr_supertrend_equity_scaling/
+|   |   |   |-- daily_3initial/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- daily_ladder112221/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- weekly_3initial/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- weekly_ladder112221/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   `-- README.md
+|   |   |-- atr_supertrend_htf_visuals/
+|   |   |   |-- biweekly/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- biweekly_trend_windows/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- monthly/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- monthly_trend_windows/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- weekly_monthly_combo/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   `-- INDEX.md
+|   |   |-- atr_supertrend_timeframe_conflict_analysis/
+|   |   |   |-- charts/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- conflicts_biweekly_vs_daily.csv
+|   |   |   |-- conflicts_biweekly_vs_weekly.csv
+|   |   |   `-- daily_all_timeframes.csv
+|   |   |-- atr_supertrend_weekly_primary_biweekly_10max_entry_guard_3initial/
+|   |   |   |-- 2010/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2011/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2012/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2013/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2014/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2015/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2016/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2017/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2018/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2019/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2020/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2021/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2022/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2023/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2024/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2025/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2026/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- charts/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- volume_charts/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- equity.csv
+|   |   |   |-- README.md
+|   |   |   |-- trades.csv
+|   |   |   `-- units.csv
+|   |   |-- atr_supertrend_weekly_primary_biweekly_10max_entry_guard_3initial_yorb/
+|   |   |   |-- 2010/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2011/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2012/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2013/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2014/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2015/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2016/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2017/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2018/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2019/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2020/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2021/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2022/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2023/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2024/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2025/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2026/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- equity.csv
+|   |   |   |-- README.md
+|   |   |   |-- trades.csv
+|   |   |   `-- units.csv
+|   |   |-- atr_supertrend_weekly_primary_biweekly_10max_entry_guard_ladder112221/
+|   |   |   |-- 2010/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2011/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2012/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2013/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2014/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2015/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2016/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2017/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2018/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2019/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2020/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2021/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2022/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2023/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2024/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2025/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2026/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- equity.csv
+|   |   |   |-- README.md
+|   |   |   |-- trades.csv
+|   |   |   `-- units.csv
+|   |   |-- atr_supertrend_weekly_primary_biweekly_10max_entry_guard_ladder112221_yorb/
+|   |   |   |-- 2010/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2011/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2012/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2013/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2014/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2015/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2016/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2017/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2018/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2019/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2020/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2021/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2022/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2023/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2024/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2025/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2026/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- equity.csv
+|   |   |   |-- README.md
+|   |   |   |-- trades.csv
+|   |   |   `-- units.csv
+|   |   |-- by_year/
+|   |   |   |-- 2010/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2011/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2012/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2013/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2014/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2015/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2016/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2017/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2018/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2019/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2020/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2021/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2022/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2023/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2024/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2025/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2026/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   `-- SUMMARY.md
+|   |   |-- daily_candlestick_theory/
+|   |   |   |-- README.md
+|   |   |   |-- setups.csv
+|   |   |   |-- strat_2r_summary.csv
+|   |   |   |-- strat_2r_trades.csv
+|   |   |   |-- strat_3r_summary.csv
+|   |   |   |-- strat_3r_trades.csv
+|   |   |   `-- summary.csv
+|   |   |-- gap_analysis/
+|   |   |   |-- big_filled_weekly_gap_1h/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- big_unfilled_weekly_gap_1h/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- weekly_gap_4h/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- weekly_gap_candidate_short_delivery_222_eod_be/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- weekly_gap_delivery_break_close_half3_tp1_2/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- weekly_gap_delivery_change_strategy_big/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- weekly_gap_delivery_swing_sequence_big_2week/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- weekly_gap_delivery_swing_sequence_big_3week/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- weekly_gap_fill_strategy_big/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- weekly_gap_fill_strategy_big_be_tp1/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- weekly_gap_fill_strategy_big_break_be_boundary_close/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- weekly_gap_fill_strategy_big_swing_be_boundary_close/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- weekly_gap_live_candidate_short_delivery_half3_tp1/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- weekly_gap_size_yorb/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- daily_gap_fills.csv
+|   |   |   |-- README.md
+|   |   |   `-- weekly_gap_fills.csv
+|   |   |-- monthly_candles/
+|   |   |   |-- c3_marked/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- years/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- full_history.png
+|   |   |   |-- INDEX.md
+|   |   |   `-- monthly_candles.csv
+|   |   |-- monthly_candlestick_theory/
+|   |   |   |-- charts/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- monthly_candles.csv
+|   |   |   |-- README.md
+|   |   |   |-- setups.csv
+|   |   |   |-- strat_2r_summary.csv
+|   |   |   |-- strat_2r_trades.csv
+|   |   |   |-- strat_3r_summary.csv
+|   |   |   |-- strat_3r_trades.csv
+|   |   |   |-- strat_clean_body_2r_summary.csv
+|   |   |   |-- strat_clean_body_2r_trades.csv
+|   |   |   |-- strat_clean_body_3r_summary.csv
+|   |   |   |-- strat_clean_body_3r_trades.csv
+|   |   |   |-- strat_summary.csv
+|   |   |   |-- strat_swept_opposing_2r_summary.csv
+|   |   |   |-- strat_swept_opposing_2r_trades.csv
+|   |   |   |-- strat_swept_opposing_3r_summary.csv
+|   |   |   |-- strat_swept_opposing_3r_trades.csv
+|   |   |   |-- strat_trades.csv
+|   |   |   `-- summary.csv
+|   |   |-- monthly_orb/
+|   |   |   |-- baseline_restricted_scaleout3/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- fib_retrace_yearly/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- monthly_orb_yearly_range_lines/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- overlap_range_breakout/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- overlap_range_breakout_4h_causal/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- restricted_stop_limit_cycle/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- restricted_stop_limit_cycle_short/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- INDEX.md
+|   |   |   |-- MONTHLY_ORB_DAILY_CLOSE_SCALEOUT4.md
+|   |   |   |-- MONTHLY_ORB_OVERLAP_RANGE_BREAKOUT.md
+|   |   |   |-- MONTHLY_ORB_OVERLAP_RANGE_BREAKOUT_SENSITIVITY.md
+|   |   |   |-- MONTHLY_ORB_RESTRICTED_STOP_LIMIT_CYCLE.md
+|   |   |   `-- MONTHLY_ORB_RESTRICTED_STOP_LIMIT_CYCLE_SHORT.md
+|   |   |-- yearly_orb/
+|   |   |   |-- 2011/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2012/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2013/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2014/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2015/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2016/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2017/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2018/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2019/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2020/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2021/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2022/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2023/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2024/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2025/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   `-- INDEX.md
+|   |   |-- yearly_orb_breakout_1h_context/
+|   |   |   |-- 2011/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2012/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2013/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2014/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2015/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2016/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2018/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2019/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2020/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2021/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2022/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2023/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2024/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2025/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   `-- INDEX.md
+|   |   |-- yearly_orb_delivery_scalein_inside_range_swing_range_close/
+|   |   |   |-- 2011/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2012/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2013/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2014/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2015/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2016/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2017/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2018/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2019/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2020/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2021/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2022/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2023/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2024/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2025/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   `-- INDEX.md
+|   |   |-- yearly_orb_delivery_scalein_weekly_swings_inside_range_swing_range_close/
+|   |   |   |-- 2011/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2012/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2013/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2014/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2015/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2016/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2017/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2018/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2019/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2020/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2021/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2022/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2023/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2024/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2025/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   `-- INDEX.md
+|   |   |-- yearly_orb_delivery_visual_research/
+|   |   |   |-- delivery_state_by_year/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- scalein_samples/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   `-- INDEX.md
+|   |   |-- yearly_orb_delivery_visual_research_weekly_swings/
+|   |   |   |-- delivery_state_by_year_weekly_swings/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   `-- INDEX.md
+|   |   |-- yearly_orb_next_day_5m/
+|   |   |   |-- 2011/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2012/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2013/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2014/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2015/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2016/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2018/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2019/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2020/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2021/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2022/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2023/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2024/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2025/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   `-- INDEX.md
+|   |   |-- yearly_orb_next_open_trail/
+|   |   |   |-- 2011/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2012/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2013/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2014/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2015/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2016/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2017/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2018/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2019/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2020/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2021/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2022/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2023/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2024/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2025/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   `-- INDEX.md
+|   |   |-- yearly_orb_repeated_outside_next_open_trail/
+|   |   |   |-- 2011/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2012/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2013/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2014/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2015/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2016/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2017/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2018/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2019/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2020/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2021/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2022/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2023/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2024/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2025/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   `-- INDEX.md
+|   |   |-- yearly_orb_swing_stop_scaleout3_close_entry_range_close/
+|   |   |   |-- 2011/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2012/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2013/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2014/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2015/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2016/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2017/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2018/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2019/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2020/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2021/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2022/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2023/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2024/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2025/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   `-- INDEX.md
+|   |   |-- yearly_orb_swing_stop_scaleout3_close_entry_runner/
+|   |   |   |-- 2011/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2012/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2013/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2014/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2015/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2016/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2017/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2018/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2019/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2020/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2021/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2022/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2023/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2024/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2025/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   `-- INDEX.md
+|   |   |-- yearly_orb_swing_stop_scaleout3_inside_range_swing_range_close/
+|   |   |   |-- 2011/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2012/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2013/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2014/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2015/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2016/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2017/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2018/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2019/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2020/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2021/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2022/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2023/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2024/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2025/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- weekly_candles/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- weekly_candles_volume/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   `-- INDEX.md
+|   |   |-- yearly_orb_swing_stop_scaleout3_range_close/
+|   |   |   |-- 2011/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2012/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2013/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2014/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2015/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2016/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2017/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2018/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2019/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2020/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2021/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2022/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2023/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2024/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2025/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   `-- INDEX.md
+|   |   |-- yearly_orb_swing_stop_scaleout3_runner/
+|   |   |   |-- 2011/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2012/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2013/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2014/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2015/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2016/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2017/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2018/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2019/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2020/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2021/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2022/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2023/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2024/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2025/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   `-- INDEX.md
+|   |   |-- yearly_orb_swing_stop_unlimited/
+|   |   |   |-- 2011/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2012/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2013/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2014/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2015/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2016/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2017/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2018/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2019/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2020/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2021/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2022/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2023/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2024/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- 2025/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   `-- INDEX.md
+|   |   |-- yearly_orb_breakout_1h_context.csv
+|   |   `-- yearly_orb_next_day_5m.csv
+|   |-- data/
+|   |   `-- nq_front_month_4h_from_1m.csv
+|   |-- raw/
+|   |   |-- glbx-mdp3-20100606-20260308.ohlcv-1d (nq).dbn.zst
+|   |   `-- glbx-mdp3-20100606-20260308.ohlcv-1m.dbn.zst
+|   |-- v2d/
+|   |   |-- __pycache__/
+|   |   |   `-- run_adaptive_50_150_v2b_scaleout.cpython-38.pyc
+|   |   |-- ma_cross_full_sweep_nq.csv
+|   |   |-- ma_cross_walkforward_nq.csv
+|   |   |-- nq_adaptive_50_150_v2b_scaleout.csv
+|   |   |-- NQ_ADAPTIVE_50_150_V2B_SCALEOUT.md
+|   |   |-- nq_adaptive_50_150_v2b_scaleout.skips.csv
+|   |   |-- nq_adaptive_50_150_v2b_scaleout.summary.csv
+|   |   |-- nq_orb_results_v2d.csv
+|   |   `-- run_adaptive_50_150_v2b_scaleout.py
+|   |-- nq_5min_rth.csv
+|   |-- nq_daily.csv
+|   |-- nq_monthly_orb.csv
+|   |-- nq_monthly_orb.xlsx
+|   |-- nq_monthly_orb_boundary_retest.csv
+|   |-- nq_monthly_orb_boundary_retest_restricted.csv
+|   |-- nq_monthly_orb_close_entry.csv
+|   |-- nq_monthly_orb_close_entry_2x_breakout_stop.csv
+|   |-- nq_monthly_orb_close_entry_boundary_candle_stop.csv
+|   |-- nq_monthly_orb_close_entry_breakout_stop.csv
+|   |-- nq_monthly_orb_close_entry_near_boundary_stop.csv
+|   |-- nq_monthly_orb_close_entry_restricted.csv
+|   |-- nq_monthly_orb_close_entry_restricted_2x_breakout_stop.csv
+|   |-- nq_monthly_orb_close_entry_restricted_boundary_candle_stop.csv
+|   |-- nq_monthly_orb_close_entry_restricted_breakout_stop.csv
+|   |-- nq_monthly_orb_close_entry_restricted_near_boundary_stop.csv
+|   |-- nq_monthly_orb_daily_close_scaleout4.csv
+|   |-- nq_monthly_orb_daily_close_scaleout4_skips.csv
+|   |-- nq_monthly_orb_inside_candle_open.csv
+|   |-- nq_monthly_orb_inside_candle_open_restricted.csv
+|   |-- nq_monthly_orb_inside_candle_open_restricted_source_stop.csv
+|   |-- nq_monthly_orb_inside_candle_open_restricted_source_stop_r_detail.csv
+|   |-- nq_monthly_orb_inside_candle_open_restricted_source_stop_scaleout_2r.csv
+|   |-- nq_monthly_orb_inside_candle_open_restricted_source_stop_scaleout_3r.csv
+|   |-- nq_monthly_orb_inside_candle_open_source_stop.csv
+|   |-- nq_monthly_orb_inside_candle_open_source_stop_r_detail.csv
+|   |-- nq_monthly_orb_inside_candle_open_source_stop_scaleout_2r.csv
+|   |-- nq_monthly_orb_inside_candle_open_source_stop_scaleout_3r.csv
+|   |-- nq_monthly_orb_overlap_range_breakout.csv
+|   |-- nq_monthly_orb_overlap_range_breakout_events.csv
+|   |-- nq_monthly_orb_restricted.csv
+|   |-- nq_monthly_orb_restricted_scaleout3.csv
+|   |-- nq_monthly_orb_restricted_stop_limit_cycle.csv
+|   |-- nq_monthly_orb_restricted_stop_limit_cycle_events.csv
+|   |-- nq_monthly_orb_restricted_stop_limit_cycle_short.csv
+|   |-- nq_monthly_orb_restricted_stop_limit_cycle_short_events.csv
+|   |-- nq_monthly_orb_st_runner.csv
+|   |-- nq_orb_results.csv
+|   |-- nq_orb_results_stops.csv
+|   |-- nq_quarterly_orb.csv
+|   |-- nq_quarterly_orb.xlsx
+|   |-- nq_v2b_clean_break_4th_candle_boundary_stop.csv
+|   |-- nq_v2b_clean_break_4th_candle_ladder3_runner.csv
+|   |-- nq_v2b_clean_break_bullish.csv
+|   |-- nq_yearly_orb.csv
+|   |-- nq_yearly_orb.xlsx
+|   |-- nq_yearly_orb_delivery_scalein_inside_range_swing_range_close.csv
+|   |-- nq_yearly_orb_delivery_scalein_inside_range_swing_range_close_addons.csv
+|   |-- nq_yearly_orb_delivery_scalein_weekly_swings_inside_range_swing_range_close.csv
+|   |-- nq_yearly_orb_delivery_scalein_weekly_swings_inside_range_swing_range_close_addons.csv
+|   |-- nq_yearly_orb_next_open_trail.csv
+|   |-- nq_yearly_orb_repeated_outside_next_open_trail.csv
+|   |-- nq_yearly_orb_swing_stop_scaleout3_close_entry_range_close.csv
+|   |-- nq_yearly_orb_swing_stop_scaleout3_close_entry_runner.csv
+|   |-- nq_yearly_orb_swing_stop_scaleout3_inside_range_swing_range_close.csv
+|   |-- nq_yearly_orb_swing_stop_scaleout3_range_close.csv
+|   |-- nq_yearly_orb_swing_stop_scaleout3_runner.csv
+|   `-- nq_yearly_orb_swing_stop_unlimited.csv
+|-- orb-portfolio/
+|   |-- adaptive_portfolio_combined_50_150.csv
+|   |-- bias_aligned_chart.png
+|   |-- bias_aligned_results.csv
+|   |-- capital_requirements.csv
+|   |-- monte_carlo.py
+|   |-- monte_carlo_drawdown.png
+|   |-- monte_carlo_equity.png
+|   |-- monte_carlo_final_pl.png
+|   |-- monte_carlo_stats.csv
+|   |-- portfolio_equity.csv
+|   |-- portfolio_equity_chart.png
+|   |-- portfolio_simulation.md
+|   `-- README.md
+|-- pine/
+|   |-- case_studies/
+|   |-- atr_supertrend_dca_10max_entry_guard_3initial.pine
+|   |-- atr_supertrend_dca_10max_entry_guard_ladder112221.pine
+|   |-- monthly_orb_restricted.pine
+|   |-- orb_adaptive_50_150.pine
+|   |-- orb_adaptive_50_150_child.pine
+|   |-- orb_adaptive_50_150_v2b_scaleout.pine
+|   |-- orb_v2_preplaced_stops.pine
+|   |-- README.md
+|   |-- yearly_orb_scaleout3_range_close.pine
+|   `-- yearly_orb_weekly_st_overlay.pine
+|-- scripts/
+|   |-- __pycache__/
+|   |   |-- annotate_mnq_v2b_range_context.cpython-38.pyc
+|   |   |-- atr_bearish_flip_r_study.cpython-38.pyc
+|   |   |-- atr_lingering_bull_stop_short.cpython-38.pyc
+|   |   |-- atr_mnq_mym_pairing.cpython-38.pyc
+|   |   |-- atr_supertrend_dca_long.cpython-38.pyc
+|   |   |-- atr_supertrend_equity_scaling.cpython-38.pyc
+|   |   |-- atr_supertrend_fixed_mym_summary.cpython-38.pyc
+|   |   |-- atr_supertrend_volume_sidecar_charts.cpython-38.pyc
+|   |   |-- atr_weekly_monthly_combo_charts.cpython-38.pyc
+|   |   |-- build_mnq_c3_4h_context_charts.cpython-38.pyc
+|   |   |-- build_monthly_candle_archive.cpython-38.pyc
+|   |   |-- build_monthly_candle_c3_marked.cpython-38.pyc
+|   |   |-- chart_monthly_c3_5m_atr_trades.cpython-38.pyc
+|   |   |-- chart_monthly_c3_c2_limit_trades.cpython-38.pyc
+|   |   |-- chart_v2b_clean_break_4th_candle_outcomes.cpython-38.pyc
+|   |   |-- chart_v2b_clean_break_bullish.cpython-38.pyc
+|   |   |-- daily_orb.cpython-38.pyc
+|   |   |-- fair_benchmark_comparison.cpython-38.pyc
+|   |   |-- fair_benchmark_scaling_10y.cpython-38.pyc
+|   |   |-- hourly_gap_fill_analysis.cpython-38.pyc
+|   |   |-- monthly_c3_4h_reclaim_5m_atr_study.cpython-38.pyc
+|   |   |-- monthly_c3_c2_close_limit_4h.cpython-38.pyc
+|   |   |-- monthly_candlestick_theory_study.cpython-38.pyc
+|   |   |-- monthly_orb_4h_breakout_diagnostics.cpython-38.pyc
+|   |   |-- monthly_orb_4h_close_entry.cpython-38.pyc
+|   |   |-- monthly_orb_4h_trade_studies.cpython-38.pyc
+|   |   |-- monthly_orb_close_entry.cpython-38.pyc
+|   |   |-- monthly_orb_daily_close_scaleout4.cpython-38.pyc
+|   |   |-- monthly_orb_inside_source_stop_scaleout.cpython-38.pyc
+|   |   |-- monthly_orb_intraday_boundary_close_scaleout.cpython-38.pyc
+|   |   |-- monthly_orb_intraday_ladder3_range_cancel_validate.cpython-38.pyc
+|   |   |-- monthly_orb_intraday_ladder3_range_validate.cpython-38.pyc
+|   |   |-- monthly_orb_intraday_ladder3_validate.cpython-38.pyc
+|   |   |-- monthly_orb_intraday_scaleout_validate.cpython-38.pyc
+|   |   |-- monthly_orb_intraday_sl_half_close_scaleout.cpython-38.pyc
+|   |   |-- monthly_orb_overlap_range_breakout.cpython-38.pyc
+|   |   |-- monthly_orb_overlap_range_breakout_4h_causal.cpython-38.pyc
+|   |   |-- monthly_orb_restricted.cpython-38.pyc
+|   |   |-- monthly_orb_restricted_stop_limit_cycle.cpython-38.pyc
+|   |   |-- monthly_orb_restricted_stop_limit_cycle_4h_causal.cpython-38.pyc
+|   |   |-- monthly_orb_restricted_stop_limit_cycle_short.cpython-38.pyc
+|   |   |-- redraw_atr_supertrend_charts.cpython-38.pyc
+|   |   |-- step2_preplaced_stops.cpython-38.pyc
+|   |   |-- step2_preplaced_stops_v2d_fade.cpython-38.pyc
+|   |   |-- strategy_volume_profiles.cpython-38.pyc
+|   |   |-- v2b_clean_break_4th_candle_boundary_stop.cpython-38.pyc
+|   |   |-- v2b_clean_break_4th_candle_ladder3_runner.cpython-38.pyc
+|   |   |-- v2b_clean_break_bullish.cpython-38.pyc
+|   |   |-- v2b_equity_scaling.cpython-38.pyc
+|   |   |-- weekly_big_filled_gap_1h_charts.cpython-38.pyc
+|   |   |-- weekly_gap_delivery_change_strategy.cpython-38.pyc
+|   |   |-- weekly_gap_fill_strategy.cpython-38.pyc
+|   |   |-- weekly_gap_size_yorb_analysis.cpython-38.pyc
+|   |   |-- yearly_orb_atr_touch_15m_charts.cpython-38.pyc
+|   |   |-- yearly_orb_breakout_1h_context_charts.cpython-38.pyc
+|   |   |-- yearly_orb_delivery_research_charts.cpython-38.pyc
+|   |   |-- yearly_orb_delivery_scalein_study.cpython-38.pyc
+|   |   |-- yearly_orb_equity_scaling.cpython-38.pyc
+|   |   |-- yearly_orb_monthly_retracement_68_charts.cpython-38.pyc
+|   |   |-- yearly_orb_swing_stop_scaleout3.cpython-38.pyc
+|   |   |-- yearly_orb_swing_stop_unlimited.cpython-38.pyc
+|   |   `-- yearly_orb_weekly_candle_charts.cpython-38.pyc
+|   |-- annotate_mnq_v2b_range_context.py
+|   |-- atr_bearish_flip_r_study.py
+|   |-- atr_lingering_bull_stop_short.py
+|   |-- atr_mnq_mym_pairing.py
+|   |-- atr_supertrend_dca_long.py
+|   |-- atr_supertrend_equity_scaling.py
+|   |-- atr_supertrend_fixed_mym_summary.py
+|   |-- atr_supertrend_volume_sidecar_charts.py
+|   |-- atr_weekly_monthly_combo_charts.py
+|   |-- bias_aligned.py
+|   |-- build_mnq_c3_4h_context_charts.py
+|   |-- build_monthly_candle_archive.py
+|   |-- build_monthly_candle_c3_marked.py
+|   |-- build_year_samples.py
+|   |-- chart_monthly_c3_c2_limit_trades.py
+|   |-- chart_v2b_clean_break_4th_candle_outcomes.py
+|   |-- chart_v2b_clean_break_bullish.py
+|   |-- compare_ranges.py
+|   |-- cross_check_manual.py
+|   |-- daily_candlestick_theory_study.py
+|   |-- daily_orb.py
+|   |-- fair_benchmark_comparison.py
+|   |-- fair_benchmark_scaling_10y.py
+|   |-- filter_v2b_scaleout_yearly_orb_bias.py
+|   |-- hourly_gap_fill_analysis.py
+|   |-- ma_cross_walkforward.py
+|   |-- mnq_profit_half_scaling_sim.py
+|   |-- monthly_c3_c2_close_limit_4h.py
+|   |-- monthly_candlestick_theory_study.py
+|   |-- monthly_orb_4h_breakout_diagnostics.py
+|   |-- monthly_orb_4h_close_entry.py
+|   |-- monthly_orb_4h_trade_studies.py
+|   |-- monthly_orb_close_entry.py
+|   |-- monthly_orb_daily_close_scaleout4.py
+|   |-- monthly_orb_inside_source_stop_scaleout.py
+|   |-- monthly_orb_intraday_boundary_close_scaleout.py
+|   |-- monthly_orb_intraday_ladder3_range_cancel_validate.py
+|   |-- monthly_orb_intraday_ladder3_range_validate.py
+|   |-- monthly_orb_intraday_ladder3_validate.py
+|   |-- monthly_orb_intraday_scaleout_validate.py
+|   |-- monthly_orb_intraday_sl_half_close_scaleout.py
+|   |-- monthly_orb_overlap_range_breakout.py
+|   |-- monthly_orb_overlap_range_breakout_4h_causal.py
+|   |-- monthly_orb_restricted.py
+|   |-- monthly_orb_restricted_scaleout3.py
+|   |-- monthly_orb_restricted_stop_limit_cycle.py
+|   |-- monthly_orb_restricted_stop_limit_cycle_4h_causal.py
+|   |-- monthly_orb_restricted_stop_limit_cycle_short.py
+|   |-- monthly_orb_st_runner.py
+|   |-- process_nq_15min_orb.py
+|   |-- range_vs_outcome.py
+|   |-- redraw_atr_supertrend_charts.py
+|   |-- step0_daily_csv.py
+|   |-- step1_to_5min.py
+|   |-- step2_fixed_next_bar_entry.py
+|   |-- step2_preplaced_stops.py
+|   |-- step2_preplaced_stops_v2d_fade.py
+|   |-- step2_range_trades.py
+|   |-- strategy_volume_profiles.py
+|   |-- to_excel.py
+|   |-- update_mnq_15min_orb.py
+|   |-- v2b_clean_break_4th_candle_boundary_stop.py
+|   |-- v2b_clean_break_4th_candle_ladder3_runner.py
+|   |-- v2b_clean_break_bullish.py
+|   |-- v2b_equity_scaling.py
+|   |-- validation.md
+|   |-- weekly_big_filled_gap_1h_charts.py
+|   |-- weekly_gap_delivery_change_strategy.py
+|   |-- weekly_gap_fill_strategy.py
+|   |-- weekly_gap_size_yorb_analysis.py
+|   |-- yearly_breakout_vs_return.py
+|   |-- yearly_orb_atr_touch_15m_charts.py
+|   |-- yearly_orb_breakout_1h_context_charts.py
+|   |-- yearly_orb_delivery_research_charts.py
+|   |-- yearly_orb_delivery_scalein_study.py
+|   |-- yearly_orb_equity_scaling.py
+|   |-- yearly_orb_monthly_retracement_68_charts.py
+|   |-- yearly_orb_next_day_5m_charts.py
+|   |-- yearly_orb_next_open_trail.py
+|   |-- yearly_orb_swing_stop_scaleout3.py
+|   |-- yearly_orb_swing_stop_unlimited.py
+|   `-- yearly_orb_weekly_candle_charts.py
+|-- volatility/
+|   |-- mnq_decile_stats.csv
+|   |-- mnq_range_analysis.png
+|   |-- nq_decile_stats.csv
+|   |-- nq_range_analysis.png
+|   |-- range_quintile_stats.csv
+|   |-- README.md
+|   `-- yearly_breakout_vs_return.csv
+|-- vx/
+|   |-- raw/
+|   |   |-- condition.json
+|   |   |-- manifest.json
+|   |   |-- metadata.json
+|   |   |-- XCBF-20260512-UD3ET7NT39.zip
+|   |   `-- xcbf-pitch-20181104-20260511.ohlcv-1d.dbn.zst
+|   |-- export_vx_front_daily.py
+|   `-- vx_front_daily.csv
+|-- ym/
+|   |-- case_studies/
+|   |   |-- atr_supertrend_equity_scaling/
+|   |   |   |-- daily_3initial/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- daily_ladder112221/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- weekly_3initial/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   |-- weekly_ladder112221/
+|   |   |   |   `-- ... deeper entries omitted by max-depth
+|   |   |   `-- README.md
+|   |   `-- yearly_orb_swing_stop_scaleout3_inside_range_swing_range_close/
+|   |       |-- 2011/
+|   |       |   `-- ... deeper entries omitted by max-depth
+|   |       |-- 2012/
+|   |       |   `-- ... deeper entries omitted by max-depth
+|   |       |-- 2013/
+|   |       |   `-- ... deeper entries omitted by max-depth
+|   |       |-- 2014/
+|   |       |   `-- ... deeper entries omitted by max-depth
+|   |       |-- 2015/
+|   |       |   `-- ... deeper entries omitted by max-depth
+|   |       |-- 2016/
+|   |       |   `-- ... deeper entries omitted by max-depth
+|   |       |-- 2017/
+|   |       |   `-- ... deeper entries omitted by max-depth
+|   |       |-- 2018/
+|   |       |   `-- ... deeper entries omitted by max-depth
+|   |       |-- 2019/
+|   |       |   `-- ... deeper entries omitted by max-depth
+|   |       |-- 2020/
+|   |       |   `-- ... deeper entries omitted by max-depth
+|   |       |-- 2021/
+|   |       |   `-- ... deeper entries omitted by max-depth
+|   |       |-- 2022/
+|   |       |   `-- ... deeper entries omitted by max-depth
+|   |       |-- 2023/
+|   |       |   `-- ... deeper entries omitted by max-depth
+|   |       |-- 2024/
+|   |       |   `-- ... deeper entries omitted by max-depth
+|   |       |-- 2025/
+|   |       |   `-- ... deeper entries omitted by max-depth
+|   |       |-- 2026/
+|   |       |   `-- ... deeper entries omitted by max-depth
+|   |       `-- INDEX.md
+|   |-- data/
+|   |   `-- ym_front_month_4h_from_1m.csv
+|   |-- raw/
+|   |   |-- GLBX-20260507-9LMFR8HKG8.zip
+|   |   |-- GLBX-20260507-JGBMUTLWN5.zip
+|   |   |-- GLBX-20260507-JVKVS3F4RS.zip
+|   |   |-- glbx-mdp3-20100606-20260506.ohlcv-1d.dbn.zst
+|   |   `-- glbx-mdp3-20100606-20260506.ohlcv-1m.dbn.zst
+|   |-- mnq_vx_daily_ma50_150.png
+|   |-- plot_mnq_vx_daily_panel.py
+|   |-- README.md
+|   |-- ym_daily.csv
+|   `-- ym_yearly_orb_swing_stop_scaleout3_inside_range_swing_range_close.csv
+`-- README.md

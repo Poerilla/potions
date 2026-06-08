@@ -1,0 +1,21 @@
+rank,market,instrument,slug,label,mode,entry_qty,tp1_qty,tp2_qty,runner_qty,regime_days,units,trades,net_usd,closed_dd_usd,intrabar_stress_dd_usd,max_open_units,win_rate_pct,profit_factor,net_over_stress_dd,notes
+1,es,ES,S_4_1_1,4/1/1 (entry 6),oco_then_reverse,6,4,1,1,1195,9097,1519,-45720.50,-337942.00,-338842.00,6,44.27,0.985,-0.13,"Heavy quick exit, light TP2 and runner."
+2,es,ES,S_5_2_1,5/2/1 (entry 8),oco_then_reverse,8,5,2,1,1195,12131,1519,-64921.50,-449844.00,-451044.00,8,43.67,0.984,-0.14,Extreme front-loading.
+3,es,ES,S_3_1_1,3/1/1 (entry 5),oco_then_reverse,5,3,1,1,1195,7578,1519,-40754.50,-280035.50,-280785.50,5,42.77,0.984,-0.15,Mildly front-loaded.
+4,es,ES,S_4_2_1,4/2/1 (entry 7),oco_then_reverse,7,4,2,1,1195,10612,1519,-59955.50,-392514.00,-393564.00,7,42.52,0.983,-0.15,"User's pick: front-load 4 at TP1, 2 at TP2, 1 runner."
+5,es,ES,S_2_1_2,2/1/2 (entry 5),oco_then_reverse,5,2,1,2,1195,7565,1519,-47510.00,-276641.50,-277641.50,5,37.70,0.981,-0.17,Balanced front + runner; thin TP2.
+6,es,ES,S_1_1_1,"1/1/1 (entry 3, baseline with runner)",oco_then_reverse,3,1,1,1,1195,4540,1519,-30822.50,-165716.50,-166166.50,3,36.76,0.980,-0.19,Baseline + 1 runner contract.
+7,es,ES,S_2_2_2,2/2/2 (entry 6),oco_then_reverse,6,2,2,2,1195,9080,1519,-61645.00,-331433.00,-332333.00,6,36.76,0.980,-0.19,Symmetric scaling with equal runner.
+8,es,ES,S_1_1_3,"1/1/3 (entry 5, big runner)",oco_then_reverse,5,1,1,3,1195,7552,1519,-54265.50,-278632.50,-279632.50,5,32.61,0.979,-0.19,"Modest scaleouts, larger runner for trend."
+9,mes,MES,S_1_1_3,"1/1/3 (entry 5, big runner)",oco_then_reverse,5,1,1,3,517,3294,661,-3916.00,-18833.25,-18839.50,5,34.03,0.964,-0.21,"Modest scaleouts, larger runner for trend."
+10,es,ES,S_1_1_0,"1/1/0 (entry 2, no runner)",oco_then_reverse,2,1,1,0,1195,3061,1533,-27929.00,-114720.00,-115020.00,2,41.72,0.973,-0.24,Current production v2b scaleout 1+1 with no runner.
+11,es,ES,S_2_2_0,"2/2/0 (entry 4, no runner)",oco_then_reverse,4,2,2,0,1195,6122,1533,-55858.00,-229440.00,-230040.00,4,41.72,0.973,-0.24,Doubled baseline; no runner.
+12,mes,MES,S_2_1_2,2/1/2 (entry 5),oco_then_reverse,5,2,1,2,517,3297,661,-4598.00,-18308.75,-18315.00,5,38.94,0.958,-0.25,Balanced front + runner; thin TP2.
+13,mes,MES,S_2_2_2,2/2/2 (entry 6),oco_then_reverse,6,2,2,2,517,3956,661,-6239.00,-22190.50,-22198.00,6,37.87,0.952,-0.28,Symmetric scaling with equal runner.
+14,mes,MES,S_1_1_1,"1/1/1 (entry 3, baseline with runner)",oco_then_reverse,3,1,1,1,517,1978,661,-3263.25,-11239.00,-11242.75,3,37.82,0.950,-0.29,Baseline + 1 runner contract.
+15,mes,MES,S_4_1_1,4/1/1 (entry 6),oco_then_reverse,6,4,1,1,517,3961,661,-6360.25,-21208.25,-21215.75,6,45.34,0.951,-0.30,"Heavy quick exit, light TP2 and runner."
+16,mes,MES,S_3_1_1,3/1/1 (entry 5),oco_then_reverse,5,3,1,1,517,3300,661,-5566.25,-18070.50,-18076.75,5,43.76,0.949,-0.31,Mildly front-loaded.
+17,mes,MES,S_5_2_1,5/2/1 (entry 8),oco_then_reverse,8,5,2,1,517,5281,661,-9091.50,-28378.00,-28388.00,8,44.65,0.947,-0.32,Extreme front-loading.
+18,mes,MES,S_4_2_1,4/2/1 (entry 7),oco_then_reverse,7,4,2,1,517,4620,661,-8405.00,-25404.25,-25413.00,7,43.40,0.945,-0.33,"User's pick: front-load 4 at TP1, 2 at TP2, 1 runner."
+19,mes,MES,S_2_2_0,"2/2/0 (entry 4, no runner)",oco_then_reverse,4,2,2,0,517,2644,662,-5378.50,-14368.50,-14373.50,4,42.59,0.938,-0.37,Doubled baseline; no runner.
+20,mes,MES,S_1_1_0,"1/1/0 (entry 2, no runner)",oco_then_reverse,2,1,1,0,517,1322,662,-2796.75,-7291.75,-7294.25,2,42.51,0.936,-0.38,Current production v2b scaleout 1+1 with no runner.

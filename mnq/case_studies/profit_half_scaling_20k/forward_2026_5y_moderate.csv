@@ -1,0 +1,6 @@
+year,start_equity,sizing_budget_start,bundles,contracts,eff_r_per_bundle,year_net,year_closed_dd,year_stress_dd,end_equity,sizing_budget_end,projection_note
+2026,20000.0,20000.0,1,3,15193.2,11346.94,,,31346.94,25673.47,synthetic year P&L = 11347 * bundles (hist σ 1-bundle ≈ 3726)
+2027,31346.94,25673.47,1,3,15193.2,11346.94,,,42693.88,31346.94,synthetic year P&L = 11347 * bundles (hist σ 1-bundle ≈ 3726)
+2028,42693.88,31346.94,2,6,15193.2,22693.88,,,65387.75,42693.88,synthetic year P&L = 11347 * bundles (hist σ 1-bundle ≈ 3726)
+2029,65387.75,42693.88,2,6,15193.2,22693.88,,,88081.62,54040.81,synthetic year P&L = 11347 * bundles (hist σ 1-bundle ≈ 3726)
+2030,88081.62,54040.81,3,9,15193.2,34040.81,,,122122.44,71061.22,synthetic year P&L = 11347 * bundles (hist σ 1-bundle ≈ 3726)

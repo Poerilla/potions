@@ -1,0 +1,13 @@
+Market,Variant,Sample,Trades,Wins,Losses,Win Rate,Net Contract Pts,Net $,Max DD Contract Pts,Max DD $,Net/DD,Avg MAE $,Worst MAE $,CSV
+MNQ,1-unit swing-stop,2020-2025,10,6,4,60.0,11780.0,23560.0,-1560.0,-3120.0,7.551282051282051,1218.35,4038.5,potions/mnq/mnq_yearly_orb_swing_stop_unlimited.csv
+MNQ,scaleout3 boundary runner,2020-2025,10,6,4,60.0,31471.875,62943.75,-2284.1875,-4568.375,13.778148685254603,2814.15,8077.0,potions/mnq/mnq_yearly_orb_swing_stop_scaleout3_runner.csv
+MNQ,scaleout3 boundary range-close any swing,2020-2025,26,10,16,38.46153846153847,27683.75,55367.5,-1222.5,-2445.0,22.64519427402863,795.5769230769231,2212.5,potions/mnq/mnq_yearly_orb_swing_stop_scaleout3_range_close.csv
+MNQ,scaleout3 boundary range-close inside-range swing,2020-2025,26,10,16,38.46153846153847,34040.8125,68081.625,-1512.75,-3025.5,22.50260287555776,795.5769230769231,2212.5,potions/mnq/mnq_yearly_orb_swing_stop_scaleout3_inside_range_swing_range_close.csv
+MNQ,scaleout3 close-entry runner,2020-2025,13,5,8,38.46153846153847,19693.4375,39386.875,-2501.3125,-5002.625,7.873241548187202,2776.6923076923076,8463.0,potions/mnq/mnq_yearly_orb_swing_stop_scaleout3_close_entry_runner.csv
+MNQ,scaleout3 close-entry range-close,2020-2025,26,6,20,23.076923076923077,18474.75,36949.5,-2406.75,-4813.5,7.676223122468058,1433.826923076923,5377.5,potions/mnq/mnq_yearly_orb_swing_stop_scaleout3_close_entry_range_close.csv
+NQ,1-unit swing-stop,2011-2025,35,12,23,34.285714285714285,11385.75,227715.0,-1622.25,-32445.0,7.018492834026815,5751.571428571428,40385.0,potions/nq/nq_yearly_orb_swing_stop_unlimited.csv
+NQ,scaleout3 boundary runner,2011-2025,33,13,20,39.39393939393939,31598.5,631970.0,-3148.75,-62975.0,10.035252084160382,14637.121212121212,80770.0,potions/nq/nq_yearly_orb_swing_stop_scaleout3_runner.csv
+NQ,scaleout3 boundary range-close any swing,2011-2025,72,25,47,34.72222222222222,31984.875,639697.5,-1224.75,-24495.0,26.11543172075934,4695.208333333333,22065.0,potions/nq/nq_yearly_orb_swing_stop_scaleout3_range_close.csv
+NQ,scaleout3 boundary range-close inside-range swing,2011-2025,71,23,48,32.3943661971831,37937.6875,758753.75,-1510.5,-30210.0,25.115979808010593,4779.507042253521,22065.0,potions/nq/nq_yearly_orb_swing_stop_scaleout3_inside_range_swing_range_close.csv
+NQ,scaleout3 close-entry runner,2011-2025,41,14,27,34.146341463414636,19068.3125,381366.25,-3105.0,-62100.0,6.14116344605475,14738.41463414634,84750.0,potions/nq/nq_yearly_orb_swing_stop_scaleout3_close_entry_runner.csv
+NQ,scaleout3 close-entry range-close,2011-2025,74,17,57,22.972972972972975,20159.0625,403181.25,-2403.0,-48060.0,8.389122971285893,7861.68918918919,53580.0,potions/nq/nq_yearly_orb_swing_stop_scaleout3_close_entry_range_close.csv
