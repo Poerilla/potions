@@ -1,0 +1,3 @@
+name,trades,net,closed_dd,win_rate,pf,avg_net,targets,stops,flips,weeks,active_weeks,max_units,rearm_when_protected,risk_pts,target_pts,protect_trigger_pts,protect_profit_pts,index
+single_unit,7668,-105169.24000000008,-105140.30000000044,11.528429838288993,0.8972667141435872,-13.715341679707887,158,1234,6083,821,707,1,False,25.0,200.0,100.0,10.0,/home/tester/hsm/potions/live/state/nq_ma500_weekly_retest/single_unit/INDEX.md
+protected_rearm_max3,7760,-117333.44000000012,-117304.50000000063,11.649484536082474,0.8876459542363107,-15.120288659793829,159,1278,6129,821,707,3,True,25.0,200.0,100.0,10.0,/home/tester/hsm/potions/live/state/nq_ma500_weekly_retest/protected_rearm_max3/INDEX.md
