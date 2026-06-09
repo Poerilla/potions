@@ -10,3 +10,7 @@
 **/glbx-mdp3-*-*.ohlcv-1m.csv
 live/state/**/events/alerts.jsonl
 live/state/**/alerts.csv
+
+# Bundled large-file archive (upload to Drive/S3 separately)
+data/potions_large_files.tar.zst
+data/potions_large_files.manifest
