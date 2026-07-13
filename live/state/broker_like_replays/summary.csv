@@ -22,22 +22,22 @@ MYM Yearly ORB scaleout3 20% range-close,mym_yearly_orb_scaleout3_range_close_20
 ES ATR daily ladder 1/1/2/2/2 10-max,es_atr_daily_ladder112221_10max,ES,417,148,448399.50,-240399.50,-246499.50,10,1.82
 YM ATR daily 3-initial 10-max,ym_atr_daily_3initial_10max,YM,611,145,289998.50,-162760.00,-166754.50,10,1.74
 YM ATR weekly 2-initial / 3-add / 6-max,ym_atr_weekly_2initial_3add_6max,YM,157,49,406094.50,-231969.50,-246159.50,6,1.65
-MES Monthly ORB restricted scaleout3 boundary-stop entry,mes_monthly_orb_restricted_scaleout3_boundary_stop,MES,333,111,11065.81,-7563.75,-8170.50,3,1.35
 MYM ATR weekly 2-initial / 3-add / 6-max,mym_atr_weekly_2initial_3add_6max,MYM,83,27,24726.50,-18963.00,-19032.00,6,1.30
 MYM ATR daily 3-initial 10-max,mym_atr_daily_3initial_10max,MYM,249,58,16016.50,-12351.00,-13278.00,10,1.21
+MYM Monthly ORB restricted scaleout3 boundary-stop entry,mym_monthly_orb_restricted_scaleout3_boundary_stop,MYM,573,191,9436.25,-7467.88,-8030.12,3,1.18
 MES Yearly ORB scaleout3 20% range-close,mes_yearly_orb_scaleout3_range_close_20pct,MES,33,11,9878.31,-7633.50,-8545.50,3,1.16
-YM Monthly ORB restricted scaleout3 boundary-stop entry,ym_monthly_orb_restricted_scaleout3_boundary_stop,YM,1320,440,92597.50,-79478.00,-84545.50,3,1.10
-MYM Monthly ORB restricted scaleout3 boundary-stop entry,mym_monthly_orb_restricted_scaleout3_boundary_stop,MYM,573,191,7639.50,-7467.88,-8030.12,3,0.95
+YM Monthly ORB restricted scaleout3 boundary-stop entry,ym_monthly_orb_restricted_scaleout3_boundary_stop,YM,1317,439,93420.75,-79478.00,-84545.50,3,1.10
+MES Monthly ORB restricted scaleout3 boundary-stop entry,mes_monthly_orb_restricted_scaleout3_boundary_stop,MES,336,112,9685.06,-9229.50,-9836.25,3,0.98
 NQ Monthly ORB restricted scaleout3,nq_monthly_orb_restricted_scaleout3,NQ,687,229,173383.25,-198062.00,-201682.00,3,0.86
 MES Yearly ORB scaleout3,mes_yearly_orb_scaleout3,MES,36,12,1954.75,-2616.00,-2859.00,3,0.68
 MYM Monthly ORB restricted scaleout3,mym_monthly_orb_restricted_scaleout3,MYM,288,96,5470.88,-9320.75,-9977.75,3,0.55
 MES Monthly ORB restricted scaleout3,mes_monthly_orb_restricted_scaleout3,MES,171,57,3820.06,-6932.87,-7390.37,3,0.52
 MNQ Monthly ORB restricted scaleout3 boundary-stop entry,mnq_monthly_orb_restricted_scaleout3_boundary_stop,MNQ,555,185,10755.38,-20536.00,-21705.38,3,0.50
 YM ATR daily ladder 1/1/2/2/2 10-max,ym_atr_daily_ladder112221_10max,YM,408,145,101693.00,-223105.50,-225220.50,10,0.45
-NQ Monthly ORB restricted scaleout3 boundary-stop entry,nq_monthly_orb_restricted_scaleout3_boundary_stop,NQ,1302,434,95097.00,-201943.75,-213575.75,3,0.45
 MNQ Monthly ORB restricted scaleout3,mnq_monthly_orb_restricted_scaleout3,MNQ,291,97,8848.88,-19968.62,-20334.62,3,0.44
+NQ Monthly ORB restricted scaleout3 boundary-stop entry,nq_monthly_orb_restricted_scaleout3_boundary_stop,NQ,1308,436,80948.00,-201943.75,-213575.75,3,0.38
 ES Monthly ORB restricted scaleout3,es_monthly_orb_restricted_scaleout3,ES,672,224,28207.62,-96566.87,-97016.87,3,0.29
+ES Monthly ORB restricted scaleout3 boundary-stop entry,es_monthly_orb_restricted_scaleout3_boundary_stop,ES,1305,435,26530.00,-154439.88,-171539.88,3,0.15
 MYM ATR daily ladder 1/1/2/2/2 10-max,mym_atr_daily_ladder112221_10max,MYM,173,58,2366.50,-19284.50,-19707.50,10,0.12
-ES Monthly ORB restricted scaleout3 boundary-stop entry,es_monthly_orb_restricted_scaleout3_boundary_stop,ES,1305,435,19173.75,-154439.88,-171539.88,3,0.11
 MES ATR daily 3-initial 10-max,mes_atr_daily_3initial_10max,MES,172,41,1719.50,-27553.25,-27935.75,10,0.06
 MES ATR daily ladder 1/1/2/2/2 10-max,mes_atr_daily_ladder112221_10max,MES,112,41,-1831.75,-24104.50,-24714.50,10,-0.07

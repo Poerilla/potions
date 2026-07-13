@@ -5,13 +5,13 @@
 | Source | `potions/live/state/broker_like_replays/states/ym_monthly_orb_restricted_scaleout3_boundary_stop/fills.csv` |
 | Bar source | `potions/live/state/broker_like_replays/states/ym_monthly_orb_restricted_scaleout3_boundary_stop/bars/YM_D.csv` |
 | Bar window | `2010-06-06` to `2026-05-06` |
-| Units | 1320 |
-| Trade groups | 440 |
-| Winning units | 512 |
-| Losing units | 808 |
-| Net points | 18915.50 |
+| Units | 1317 |
+| Trade groups | 439 |
+| Winning units | 511 |
+| Losing units | 806 |
+| Net points | 19079.25 |
 | Point value | $5.00 |
-| Net dollars | $92,597.50 |
+| Net dollars | $93,420.75 |
 | Close MTM DD | $-79,478.00 |
 | Intrabar stress MTM DD | $-84,545.50 |
 | Max open units | 3 |

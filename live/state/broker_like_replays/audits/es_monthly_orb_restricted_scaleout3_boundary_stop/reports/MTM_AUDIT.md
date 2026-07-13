@@ -7,14 +7,14 @@
 | Bar window | `2010-06-06` to `2026-03-08` |
 | Units | 1305 |
 | Trade groups | 435 |
-| Winning units | 510 |
-| Losing units | 793 |
-| Net points | 422.62 |
+| Winning units | 512 |
+| Losing units | 791 |
+| Net points | 569.75 |
 | Point value | $50.00 |
-| Net dollars | $19,173.75 |
+| Net dollars | $26,530.00 |
 | Close MTM DD | $-154,439.88 |
 | Intrabar stress MTM DD | $-171,539.88 |
 | Max open units | 3 |
-| Net / intrabar stress DD | 0.11 |
+| Net / intrabar stress DD | 0.15 |
 
 Notes: Broker-like daily StrategyPlugin replay. After the monthly OR forms, resting boundary stop entries try to catch clean breaks; failed breaks flatten when close retraces 25% back into the OR. Open units marked at final replay close. Slippage=1 tick(s), fee=$1.50/unit.

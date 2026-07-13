@@ -29,23 +29,23 @@ Realism knobs: `slippage_ticks=1`, `fee_per_unit=$1.50`, stop gap-through enable
 | 21 | ES ATR daily ladder 1/1/2/2/2 10-max | ES | 417 | 148 | $448,399.50 | $-240,399.50 | $-246,499.50 | 10 | 1.82 |
 | 22 | YM ATR daily 3-initial 10-max | YM | 611 | 145 | $289,998.50 | $-162,760.00 | $-166,754.50 | 10 | 1.74 |
 | 23 | YM ATR weekly 2-initial / 3-add / 6-max | YM | 157 | 49 | $406,094.50 | $-231,969.50 | $-246,159.50 | 6 | 1.65 |
-| 24 | MES Monthly ORB restricted scaleout3 boundary-stop entry | MES | 333 | 111 | $11,065.81 | $-7,563.75 | $-8,170.50 | 3 | 1.35 |
-| 25 | MYM ATR weekly 2-initial / 3-add / 6-max | MYM | 83 | 27 | $24,726.50 | $-18,963.00 | $-19,032.00 | 6 | 1.30 |
-| 26 | MYM ATR daily 3-initial 10-max | MYM | 249 | 58 | $16,016.50 | $-12,351.00 | $-13,278.00 | 10 | 1.21 |
+| 24 | MYM ATR weekly 2-initial / 3-add / 6-max | MYM | 83 | 27 | $24,726.50 | $-18,963.00 | $-19,032.00 | 6 | 1.30 |
+| 25 | MYM ATR daily 3-initial 10-max | MYM | 249 | 58 | $16,016.50 | $-12,351.00 | $-13,278.00 | 10 | 1.21 |
+| 26 | MYM Monthly ORB restricted scaleout3 boundary-stop entry | MYM | 573 | 191 | $9,436.25 | $-7,467.88 | $-8,030.12 | 3 | 1.18 |
 | 27 | MES Yearly ORB scaleout3 20% range-close | MES | 33 | 11 | $9,878.31 | $-7,633.50 | $-8,545.50 | 3 | 1.16 |
-| 28 | YM Monthly ORB restricted scaleout3 boundary-stop entry | YM | 1320 | 440 | $92,597.50 | $-79,478.00 | $-84,545.50 | 3 | 1.10 |
-| 29 | MYM Monthly ORB restricted scaleout3 boundary-stop entry | MYM | 573 | 191 | $7,639.50 | $-7,467.88 | $-8,030.12 | 3 | 0.95 |
+| 28 | YM Monthly ORB restricted scaleout3 boundary-stop entry | YM | 1317 | 439 | $93,420.75 | $-79,478.00 | $-84,545.50 | 3 | 1.10 |
+| 29 | MES Monthly ORB restricted scaleout3 boundary-stop entry | MES | 336 | 112 | $9,685.06 | $-9,229.50 | $-9,836.25 | 3 | 0.98 |
 | 30 | NQ Monthly ORB restricted scaleout3 | NQ | 687 | 229 | $173,383.25 | $-198,062.00 | $-201,682.00 | 3 | 0.86 |
 | 31 | MES Yearly ORB scaleout3 | MES | 36 | 12 | $1,954.75 | $-2,616.00 | $-2,859.00 | 3 | 0.68 |
 | 32 | MYM Monthly ORB restricted scaleout3 | MYM | 288 | 96 | $5,470.88 | $-9,320.75 | $-9,977.75 | 3 | 0.55 |
 | 33 | MES Monthly ORB restricted scaleout3 | MES | 171 | 57 | $3,820.06 | $-6,932.87 | $-7,390.37 | 3 | 0.52 |
 | 34 | MNQ Monthly ORB restricted scaleout3 boundary-stop entry | MNQ | 555 | 185 | $10,755.38 | $-20,536.00 | $-21,705.38 | 3 | 0.50 |
 | 35 | YM ATR daily ladder 1/1/2/2/2 10-max | YM | 408 | 145 | $101,693.00 | $-223,105.50 | $-225,220.50 | 10 | 0.45 |
-| 36 | NQ Monthly ORB restricted scaleout3 boundary-stop entry | NQ | 1302 | 434 | $95,097.00 | $-201,943.75 | $-213,575.75 | 3 | 0.45 |
-| 37 | MNQ Monthly ORB restricted scaleout3 | MNQ | 291 | 97 | $8,848.88 | $-19,968.62 | $-20,334.62 | 3 | 0.44 |
+| 36 | MNQ Monthly ORB restricted scaleout3 | MNQ | 291 | 97 | $8,848.88 | $-19,968.62 | $-20,334.62 | 3 | 0.44 |
+| 37 | NQ Monthly ORB restricted scaleout3 boundary-stop entry | NQ | 1308 | 436 | $80,948.00 | $-201,943.75 | $-213,575.75 | 3 | 0.38 |
 | 38 | ES Monthly ORB restricted scaleout3 | ES | 672 | 224 | $28,207.62 | $-96,566.87 | $-97,016.87 | 3 | 0.29 |
-| 39 | MYM ATR daily ladder 1/1/2/2/2 10-max | MYM | 173 | 58 | $2,366.50 | $-19,284.50 | $-19,707.50 | 10 | 0.12 |
-| 40 | ES Monthly ORB restricted scaleout3 boundary-stop entry | ES | 1305 | 435 | $19,173.75 | $-154,439.88 | $-171,539.88 | 3 | 0.11 |
+| 39 | ES Monthly ORB restricted scaleout3 boundary-stop entry | ES | 1305 | 435 | $26,530.00 | $-154,439.88 | $-171,539.88 | 3 | 0.15 |
+| 40 | MYM ATR daily ladder 1/1/2/2/2 10-max | MYM | 173 | 58 | $2,366.50 | $-19,284.50 | $-19,707.50 | 10 | 0.12 |
 | 41 | MES ATR daily 3-initial 10-max | MES | 172 | 41 | $1,719.50 | $-27,553.25 | $-27,935.75 | 10 | 0.06 |
 | 42 | MES ATR daily ladder 1/1/2/2/2 10-max | MES | 112 | 41 | $-1,831.75 | $-24,104.50 | $-24,714.50 | 10 | -0.07 |
 
