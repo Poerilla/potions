@@ -38,12 +38,12 @@ MARKET_CONFIGS = {
     "mnq": {
         "instrument": "MNQ",
         "daily": REPO / "mnq" / "mnq_daily.csv",
-        "dbn": REPO / "mnq" / "raw" / "extracted_new" / "glbx-mdp3-20100606-20260423.ohlcv-1m.dbn.zst",
+        "dbn": REPO / "mnq" / "raw" / "glbx-mdp3-20210304-20260303.ohlcv-1m.csv",
     },
     "nq": {
         "instrument": "NQ",
         "daily": REPO / "nq" / "nq_daily.csv",
-        "dbn": REPO / "nq" / "raw" / "glbx-mdp3-20100606-20260308.ohlcv-1m.dbn.zst",
+        "dbn": REPO / "nq" / "raw" / "glbx-mdp3-20100606-20260616.ohlcv-1m.dbn.zst",
     },
     "es": {
         "instrument": "ES",

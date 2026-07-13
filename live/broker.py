@@ -17,6 +17,8 @@ from .models import (
     parse_int,
     utc_now_iso,
 )
+from .directional_path import pessimistic_limit_fill_allowed
+from .spread_model import SpreadModel
 from .store import FlatFileStore
 
 
@@ -93,6 +95,10 @@ class PaperBroker(BaseBroker):
     - ``strict_moc``: if True, ``market_close`` orders only fill on a bar whose
       timestamp matches ``order.live_after_ts`` (prevents accidental same-bar
       lookahead from intraday strategies). Daily strategies are unaffected.
+    - ``spread_model``: optional synthetic half-spread overlay for last-sale OHLC.
+    - ``directional_adverse_path``: when True, block limit fills that would be
+      unreachable on the conservative open->extreme path when a paired stop
+      would trigger first.
     """
 
     def __init__(
@@ -101,6 +107,8 @@ class PaperBroker(BaseBroker):
         slippage_ticks: float = 0.0,
         tick_size: Optional[Dict[str, float]] = None,
         strict_moc: bool = False,
+        spread_model: Optional[SpreadModel] = None,
+        directional_adverse_path: bool = True,
         log_events: bool = True,
         persist_modifications: bool = True,
     ):
@@ -111,6 +119,8 @@ class PaperBroker(BaseBroker):
         if tick_size:
             self.tick_size.update({k.upper(): float(v) for k, v in tick_size.items()})
         self.strict_moc = bool(strict_moc)
+        self.spread_model = spread_model
+        self.directional_adverse_path = bool(directional_adverse_path)
         self.log_events = bool(log_events)
         self.persist_modifications = bool(persist_modifications)
         self._orders_cache: Dict[str, BrokerOrder] = {order.broker_order_id: order for order in self.store.load_orders()}
@@ -335,6 +345,9 @@ class PaperBroker(BaseBroker):
                     self.cancel_order(order.broker_order_id, reason="reduce_only_wrong_side")
                     continue
                 fill_qty = min(order.remaining_quantity, abs(pos_qty))
+            pos_qty = self._position_qty(order.strategy_id, order.instrument, order.account_mode)
+            if not self._directional_fill_allowed(order, bar, pos_qty):
+                continue
             price = self._fill_price(order, bar)
             if price is None:
                 continue
@@ -368,6 +381,17 @@ class PaperBroker(BaseBroker):
         base = self._base_fill_price(order, bar)
         if base is None:
             return None
+        if self.spread_model is not None and order.order_type in {"market", "market_close", "stop", "limit"}:
+            tick = self.tick_size.get(order.instrument.upper(), 0.25)
+            model = SpreadModel(
+                tick_size=tick,
+                rth_half_spread_ticks=self.spread_model.rth_half_spread_ticks,
+                eth_half_spread_ticks=self.spread_model.eth_half_spread_ticks,
+                open_widen_half_spread_ticks=self.spread_model.open_widen_half_spread_ticks,
+                low_volume_threshold=self.spread_model.low_volume_threshold,
+                low_volume_multiplier=self.spread_model.low_volume_multiplier,
+            )
+            base = model.adjust_fill_price(order.side, base, bar)
         if order.order_type in {"market", "market_close", "stop"} and self.slippage_ticks > 0:
             tick = self.tick_size.get(order.instrument.upper(), 0.25)
             slip = self.slippage_ticks * tick
@@ -384,12 +408,16 @@ class PaperBroker(BaseBroker):
         if order.order_type == "limit":
             if order.limit_price is None:
                 return None
-            if order.side == "buy" and bar.low <= order.limit_price:
-                # Favorable gap-down on buy-limit: pessimistic broker still gives
-                # the limit price (no price improvement modeled).
-                return order.limit_price
-            if order.side == "sell" and bar.high >= order.limit_price:
-                return order.limit_price
+            touched = False
+            if self.spread_model is not None:
+                touched = self.spread_model.limit_touch_ok(order.side, bar, order.limit_price)
+            elif order.side == "buy":
+                touched = bar.low <= order.limit_price
+            else:
+                touched = bar.high >= order.limit_price
+            if not touched:
+                return None
+            return order.limit_price
         if order.order_type == "stop":
             if order.stop_price is None:
                 return None
@@ -400,6 +428,40 @@ class PaperBroker(BaseBroker):
             if order.side == "sell" and bar.low <= order.stop_price:
                 return min(order.stop_price, bar.open)
         return None
+
+    def _directional_fill_allowed(self, order: BrokerOrder, bar: Bar, position_qty: int) -> bool:
+        if not self.directional_adverse_path or order.order_type != "limit":
+            return True
+        peer_stop, peer_target = self._oco_peer_prices(order)
+        return pessimistic_limit_fill_allowed(
+            order,
+            bar,
+            position_qty=position_qty,
+            peer_stop_price=peer_stop,
+            peer_target_price=peer_target,
+        )
+
+    def _oco_peer_prices(self, order: BrokerOrder) -> tuple[Optional[float], Optional[float]]:
+        if not order.oco_group:
+            return None, None
+        stop_price: Optional[float] = None
+        target_price: Optional[float] = None
+        for peer in self._orders_cache.values():
+            if peer.broker_order_id == order.broker_order_id:
+                continue
+            if peer.oco_group != order.oco_group:
+                continue
+            if peer.status not in {"submitted", "partially_filled"}:
+                continue
+            if peer.order_type == "stop" and peer.stop_price is not None:
+                stop_price = peer.stop_price
+            if peer.order_type == "limit" and peer.limit_price is not None:
+                target_price = peer.limit_price
+        if order.order_type == "stop" and order.stop_price is not None:
+            stop_price = order.stop_price
+        if order.order_type == "limit" and order.limit_price is not None:
+            target_price = order.limit_price
+        return stop_price, target_price
 
     def _fill_order(self, order: BrokerOrder, price: float, ts: str, fill_qty: Optional[int] = None) -> Fill:
         fill_qty = fill_qty if fill_qty is not None else order.remaining_quantity

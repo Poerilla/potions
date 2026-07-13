@@ -8,6 +8,7 @@ from ..models import (
     Alert,
     Bar,
     CancelIntent,
+    FeatureSnapshot,
     LevelUpdate,
     ModifyIntent,
     OrderIntent,
@@ -15,6 +16,7 @@ from ..models import (
     new_id,
 )
 from .base import StrategyContext, StrategyPlugin
+from .features import feature_snapshot
 
 
 class YearlyOrbScaleout3Strategy(StrategyPlugin):
@@ -116,6 +118,7 @@ class YearlyOrbScaleout3Strategy(StrategyPlugin):
         modifies: List[ModifyIntent] = []
         levels: List[LevelUpdate] = []
         alerts: List[Alert] = []
+        causal_features: List[FeatureSnapshot] = []
 
         if state.get("new_year_reset_needed"):
             if context.position_quantity != 0:
@@ -133,11 +136,14 @@ class YearlyOrbScaleout3Strategy(StrategyPlugin):
         yor_high = _to_float(state.get("yor_high"))
         yor_low = _to_float(state.get("yor_low"))
         range_ready = yor_high is not None and yor_low is not None and yor_high > yor_low
+        if range_ready:
+            causal_features.append(self._range_feature(bar.ts, state, yor_high, yor_low))
         range_close_exit = bool(
             range_ready and self._range_close_exit(bar.close, context.position_quantity, state, yor_high, yor_low)
         )
 
         if range_ready and context.position_quantity != 0 and range_close_exit:
+            causal_features.append(self._range_close_feature(bar, state, yor_high, yor_low))
             orders.append(self._close_position_intent(context, "range_close"))
             alerts.append(Alert.create(self.instance.strategy_id, "info", "Yearly ORB range-close exit requested"))
 
@@ -176,16 +182,21 @@ class YearlyOrbScaleout3Strategy(StrategyPlugin):
             pivot_inside = float(b1["high"]) <= yor_high and float(b1["low"]) >= yor_low
             if pivot_inside and float(b1["low"]) < float(b2["low"]) and float(b1["low"]) <= bar.low:
                 state["last_inside_swing_low"] = float(b1["low"])
+                causal_features.append(self._swing_feature(bar.ts, "inside_swing_low", b1, yor_high, yor_low))
             if pivot_inside and float(b1["high"]) > float(b2["high"]) and float(b1["high"]) >= bar.high:
                 state["last_inside_swing_high"] = float(b1["high"])
+                causal_features.append(self._swing_feature(bar.ts, "inside_swing_high", b1, yor_high, yor_low))
 
         if self._in_or_window(month):
             yor_high = bar.high if yor_high is None else max(yor_high, bar.high)
             yor_low = bar.low if yor_low is None else min(yor_low, bar.low)
             state["yor_high"] = yor_high
             state["yor_low"] = yor_low
+            state["yor_available_ts"] = bar.ts
             levels.extend(self._range_levels(bar.ts, yor_high, yor_low))
             range_ready = yor_high is not None and yor_low is not None and yor_high > yor_low
+            if range_ready:
+                causal_features.append(self._range_feature(bar.ts, state, yor_high, yor_low))
 
         has_open_entry_order = any(not o.reduce_only for o in context.strategy_open_orders)
         flat = context.position_quantity == 0 and not has_open_entry_order
@@ -193,6 +204,7 @@ class YearlyOrbScaleout3Strategy(StrategyPlugin):
             if self._entry_mode() == "oco_stop":
                 oco_orders = self._oco_entry_orders(bar.ts, yor_high, yor_low, state)
                 if oco_orders:
+                    causal_features.append(self._entry_gate_feature(bar, state, yor_high, yor_low, "oco_stop", True))
                     orders.extend(oco_orders)
                     alerts.append(
                         Alert.create(
@@ -210,11 +222,15 @@ class YearlyOrbScaleout3Strategy(StrategyPlugin):
                     not self.config["require_fresh_break"] or prior_close is None or prior_close >= yor_low
                 )
                 if fresh_long and _to_float(state.get("last_inside_swing_low")) is not None:
+                    causal_features.append(self._entry_gate_feature(bar, state, yor_high, yor_low, "long_limit_retest", True, prior_close))
                     orders.extend(self._entry_ladder("long", bar.ts, yor_high, yor_low, state))
                     alerts.append(Alert.create(self.instance.strategy_id, "order_pending_verification", "Yearly ORB long retest order intent created"))
                 elif fresh_short and _to_float(state.get("last_inside_swing_high")) is not None:
+                    causal_features.append(self._entry_gate_feature(bar, state, yor_high, yor_low, "short_limit_retest", True, prior_close))
                     orders.extend(self._entry_ladder("short", bar.ts, yor_high, yor_low, state))
                     alerts.append(Alert.create(self.instance.strategy_id, "order_pending_verification", "Yearly ORB short retest order intent created"))
+                else:
+                    causal_features.append(self._entry_gate_feature(bar, state, yor_high, yor_low, "limit_retest", False, prior_close))
 
         prior_bars.append(
             {
@@ -228,7 +244,7 @@ class YearlyOrbScaleout3Strategy(StrategyPlugin):
         state["last_bars"] = prior_bars[-3:]
         self.state = state
         self.save_state()
-        return StrategyActions(orders, cancels, modifies, levels, alerts)
+        return StrategyActions(orders, cancels, modifies, levels, alerts, causal_features)
 
     def _state_for_year(self, year: int) -> Dict[str, Any]:
         current = self.state or {}
@@ -237,6 +253,7 @@ class YearlyOrbScaleout3Strategy(StrategyPlugin):
                 "year": year,
                 "yor_high": None,
                 "yor_low": None,
+                "yor_available_ts": "",
                 "last_inside_swing_low": None,
                 "last_inside_swing_high": None,
                 "last_bars": [],
@@ -255,6 +272,104 @@ class YearlyOrbScaleout3Strategy(StrategyPlugin):
             LevelUpdate(self.instance.strategy_id, self.instance.instrument, "yearly_orb_high", high, ts),
             LevelUpdate(self.instance.strategy_id, self.instance.instrument, "yearly_orb_low", low, ts),
         ]
+
+    def _range_feature(self, ts: str, state: Dict[str, Any], high: float, low: float) -> FeatureSnapshot:
+        return feature_snapshot(
+            self.instance,
+            "yearly_orb_range",
+            ts,
+            event_ts=str(state.get("yor_available_ts") or ts),
+            available_at_ts=str(state.get("yor_available_ts") or ts),
+            source="completed_daily_jan_mar_range",
+            value_ref="%.8f/%.8f" % (high, low),
+            metadata={
+                "year": state.get("year"),
+                "or_start_month": self.config.get("or_start_month"),
+                "or_end_month": self.config.get("or_end_month"),
+                "range_value": high - low,
+                "entry_mode": self._entry_mode(),
+            },
+        )
+
+    def _swing_feature(
+        self,
+        current_bar_ts: str,
+        feature_name: str,
+        pivot_bar: Dict[str, Any],
+        yor_high: float,
+        yor_low: float,
+    ) -> FeatureSnapshot:
+        price = pivot_bar["low"] if feature_name == "inside_swing_low" else pivot_bar["high"]
+        return feature_snapshot(
+            self.instance,
+            "yearly_orb_%s" % feature_name,
+            current_bar_ts,
+            event_ts=str(pivot_bar["ts"]),
+            available_at_ts=current_bar_ts,
+            source="confirmed_daily_inside_range_pivot",
+            value_ref=price,
+            metadata={
+                "pivot_ts": pivot_bar["ts"],
+                "pivot_open": pivot_bar["open"],
+                "pivot_high": pivot_bar["high"],
+                "pivot_low": pivot_bar["low"],
+                "pivot_close": pivot_bar["close"],
+                "yearly_or_high": yor_high,
+                "yearly_or_low": yor_low,
+            },
+        )
+
+    def _entry_gate_feature(
+        self,
+        bar: Bar,
+        state: Dict[str, Any],
+        yor_high: float,
+        yor_low: float,
+        gate: str,
+        allowed: bool,
+        prior_close: Optional[float] = None,
+    ) -> FeatureSnapshot:
+        prior_bars = list(state.get("last_bars", []))
+        prior_ts = str(prior_bars[-1]["ts"]) if prior_bars else bar.ts
+        return feature_snapshot(
+            self.instance,
+            "yearly_orb_entry_gate",
+            bar.ts,
+            event_ts=prior_ts,
+            available_at_ts=bar.ts,
+            source="yearly_orb_scaleout3.entry_rules",
+            value_ref="%s:%s" % (gate, "allowed" if allowed else "blocked"),
+            metadata={
+                "year": state.get("year"),
+                "gate": gate,
+                "allowed": allowed,
+                "bar_close": bar.close,
+                "prior_close": prior_close,
+                "yor_high": yor_high,
+                "yor_low": yor_low,
+                "last_inside_swing_low": state.get("last_inside_swing_low"),
+                "last_inside_swing_high": state.get("last_inside_swing_high"),
+                "require_fresh_break": self.config.get("require_fresh_break"),
+                "entry_mode": self._entry_mode(),
+            },
+        )
+
+    def _range_close_feature(self, bar: Bar, state: Dict[str, Any], yor_high: float, yor_low: float) -> FeatureSnapshot:
+        return feature_snapshot(
+            self.instance,
+            "yearly_orb_range_close_exit",
+            bar.ts,
+            source="yearly_orb_scaleout3.range_close",
+            value_ref=bar.close,
+            metadata={
+                "year": state.get("year"),
+                "bar_close": bar.close,
+                "yor_high": yor_high,
+                "yor_low": yor_low,
+                "inside_frac": self.config.get("range_close_inside_frac"),
+                "active_direction": state.get("active_direction"),
+            },
+        )
 
     def _entry_ladder(self, direction: str, ts: str, yor_high: float, yor_low: float, state: Dict[str, Any]) -> List[OrderIntent]:
         rng = yor_high - yor_low

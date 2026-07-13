@@ -5,7 +5,7 @@ import csv
 import json
 import math
 import shutil
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
 from datetime import date
 from pathlib import Path
 from typing import Dict, List, Optional
@@ -15,6 +15,8 @@ import pandas as pd
 from .engine import Engine
 from .models import Bar, StrategyInstance, as_row
 from .replay_audit import POINT_VALUES
+from .replay_manifest import write_run_manifest
+from .replay_realism import hardened_replay_engine_kwargs
 from .store import FlatFileStore
 from .v2b_strategy_cross_market_replay import MARKETS, _regime_dates, _rth_bars, load_1m_by_ny_date_any
 from .v2b_strategy_replay import AuditBar, fast_intraday_audit, units_from_v2b_fills
@@ -54,6 +56,7 @@ class Result:
     causality_violations: int
     long_trades: int
     short_trades: int
+    start_date: date
 
 
 def load_st_events(fills_path: Path, strategy_id: str) -> Dict[str, List[Dict[str, str]]]:
@@ -79,6 +82,7 @@ def summarize_units(
     market: str,
     regime_days: int,
     st_events: Dict[str, List[Dict[str, str]]],
+    start_date: date,
 ) -> Result:
     units = units_from_v2b_fills(state_root / "fills.csv", strategy_id)
     audit = fast_intraday_audit(
@@ -124,6 +128,7 @@ def summarize_units(
         causality_violations=int(validation["causality_violations"]),
         long_trades=sum(1 for side in side_by_trade.values() if side == "long"),
         short_trades=sum(1 for side in side_by_trade.values() if side == "short"),
+        start_date=start_date,
     )
 
 
@@ -179,9 +184,13 @@ def run(
     *,
     st_fills_path: Optional[Path] = None,
     st_strategy_id: Optional[str] = None,
+    start: date = date(2021, 3, 4),
+    dbn_path: Optional[Path] = None,
 ) -> Result:
     market = market.lower()
     cfg = MARKETS[market]
+    if dbn_path is not None:
+        cfg = replace(cfg, dbn_path=dbn_path)
     instrument = cfg.instrument
     output_root.mkdir(parents=True, exist_ok=True)
     strategy_id = f"{market}_v2b_prior_opposed_stpmc_only_S_1_1_3"
@@ -198,7 +207,7 @@ def run(
     )
     print("Loading %s 1m bars..." % instrument, flush=True)
     gby = load_1m_by_ny_date_any(cfg.dbn_path.resolve(), cfg.market)
-    regime_dates = _regime_dates(cfg, gby, start=date(2021, 3, 4))
+    regime_dates = _regime_dates(cfg, gby, start=start)
     regime_dates = [d for d in regime_dates if _has_full_rth_close(gby.get(d), d)]
     regime_dates_iso = [d.isoformat() for d in regime_dates]
 
@@ -224,7 +233,7 @@ def run(
                 "tp2_qty": 1,
                 "tick_size": 0.25,
                 "use_regime_filter": True,
-                "start": "2021-03-04",
+                "start": start.isoformat(),
                 "regime_dates": regime_dates_iso,
                 "record_levels": False,
                 "dynamic_sizing_events": st_events,
@@ -237,7 +246,12 @@ def run(
         ),
     )
     store.write_table("strategy_instances", [as_row(instance)])
-    engine = Engine(store=store, persist_bars=False, persist_health=False, slippage_ticks=1.0)
+    engine = Engine(
+        store=store,
+        persist_bars=False,
+        persist_health=False,
+        **hardened_replay_engine_kwargs(slippage_ticks=1.0),
+    )
     audit_bars: List[AuditBar] = []
     for idx, day in enumerate(regime_dates, start=1):
         df = _rth_bars(gby.get(day), day)
@@ -271,8 +285,18 @@ def run(
         market=market,
         regime_days=len(regime_dates),
         st_events=st_events,
+        start_date=start,
     )
     write_report(output_root, result)
+    write_run_manifest(
+        output_root,
+        data_inputs=[cfg.dbn_path, st_fills],
+        output_paths=[output_root / "summary.csv", output_root / "INDEX.md", state_root / "fills.csv", state_root / "orders.csv"],
+        strategy_config={"strategy_id": strategy_id, "market": market, "start": start.isoformat(), "entry_qty": 5, "sizing": "S_1_1_3"},
+        broker_realism_config={"slippage_ticks": 1.0, "fee_per_unit": 1.50, "directional_adverse_path": True, "spread_model": "default"},
+        causality_mode="audit",
+        extra={"driver": "nq_v2b_prior_opposed_replay", "causality_violations": result.causality_violations},
+    )
     return result
 
 
@@ -280,6 +304,7 @@ def write_report(output_root: Path, result: Result) -> None:
     rows = [
         {
             "strategy_id": result.strategy_id,
+            "start_date": result.start_date.isoformat(),
             "trades": str(result.trades),
             "units": str(result.units),
             "net_usd": "%.2f" % result.net_usd,
@@ -321,6 +346,7 @@ def write_report(output_root: Path, result: Result) -> None:
         "## Causality",
         "",
         "- Regime sessions replayed: **%d**" % result.regime_days,
+        "- Replay start: **%s**" % result.start_date.isoformat(),
         "- Prior-opposite entries found: **%d / %d**" % (result.prior_opposite_entries, result.trades),
         "- Causal violations: **%d**" % result.causality_violations,
         "- Direction mix: **%d long / %d short**" % (result.long_trades, result.short_trades),
@@ -339,8 +365,14 @@ def main(argv: Optional[List[str]] = None) -> int:
     parser.add_argument("--output-root", type=Path, default=None)
     parser.add_argument("--st-fills", type=Path, default=None)
     parser.add_argument("--st-strategy-id", default=None)
+    parser.add_argument("--start", default="2021-03-04", help="First NY session date to consider, YYYY-MM-DD.")
+    parser.add_argument("--dbn-path", type=Path, default=None, help="Override the configured 1m DBN/CSV source path.")
     parser.add_argument("--no-force", action="store_true")
     args = parser.parse_args(argv)
+    try:
+        start = date.fromisoformat(args.start)
+    except ValueError as exc:
+        raise SystemExit("--start must be YYYY-MM-DD") from exc
     output_root = args.output_root or _default_output_root(args.market)
     result = run(
         output_root,
@@ -348,6 +380,8 @@ def main(argv: Optional[List[str]] = None) -> int:
         market=args.market,
         st_fills_path=args.st_fills,
         st_strategy_id=args.st_strategy_id,
+        start=start,
+        dbn_path=args.dbn_path,
     )
     print("Wrote %s (Net/Stress %.2f)" % (output_root / "INDEX.md", result.net_stress))
     return 0

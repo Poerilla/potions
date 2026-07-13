@@ -150,6 +150,32 @@ TABLE_SCHEMAS: Dict[str, Sequence[str]] = {
         "created_at",
         "approved_at",
     ),
+    "feature_snapshots": (
+        "feature_name",
+        "strategy_id",
+        "instrument",
+        "event_ts",
+        "available_at_ts",
+        "current_bar_ts",
+        "source",
+        "value_ref",
+        "metadata_json",
+    ),
+    "causality_violations": (
+        "violation_id",
+        "strategy_id",
+        "instrument",
+        "violation_type",
+        "current_bar_ts",
+        "offending_ts",
+        "severity",
+        "action_taken",
+        "feature_name",
+        "intent_id",
+        "scrutiny_classification",
+        "details_json",
+        "created_at",
+    ),
 }
 
 BAR_SCHEMA = ("instrument", "timeframe", "ts", "open", "high", "low", "close", "volume", "complete", "source")
@@ -274,6 +300,7 @@ class FlatFileStore:
         row = dict(payload)
         row.setdefault("ts", utc_now_iso())
         path = self.events_dir / ("%s.jsonl" % stream)
+        path.parent.mkdir(parents=True, exist_ok=True)
         with path.open("a", encoding="utf-8") as fh:
             fh.write(json.dumps(row, sort_keys=True) + "\n")
 

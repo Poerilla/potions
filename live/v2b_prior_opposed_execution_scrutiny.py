@@ -10,9 +10,11 @@ from typing import Dict, Iterable, List, Optional, Sequence
 import pandas as pd
 
 from .broker import DEFAULT_TICK_SIZE
+from .execution_scrutiny import classify_execution_row
 from .nq_v2b_prior_opposed_replay import DEFAULT_ST_STRATEGY_IDS, PRIOR_OPPOSED_MARKETS, default_st_fills_path
 from .nq_v2b_prior_opposed_robustness_audit import max_drawdown, profit_factor, stop_slippage_audit
 from .replay_audit import POINT_VALUES
+from .replay_manifest import write_run_manifest
 from .v2b_st_pmc_alignment_study import REPO
 from .v2b_strategy_cross_market_replay import MARKETS, _rth_bars, load_1m_by_ny_date_any
 
@@ -333,10 +335,31 @@ def write_market_report(
 ) -> None:
     cfg.output_dir.mkdir(parents=True, exist_ok=True)
     timing_out = timing.copy()
+    timing_out["scrutiny_classification"] = timing_out.apply(lambda row: classify_execution_row(row.to_dict()), axis=1)
     for col in timing_out.columns:
         if pd.api.types.is_datetime64_any_dtype(timing_out[col]):
             timing_out[col] = timing_out[col].astype(str)
     timing_out.to_csv(cfg.output_dir / "historical_timing_report.csv", index=False)
+    scrutiny_cols = [
+        col
+        for col in [
+            "campaign_id",
+            "date",
+            "side",
+            "entry_ts",
+            "v2b_order_active_time",
+            "first_breakout_touch_time",
+            "latency_risk",
+            "scrutiny_classification",
+            "pre_arm_breakout_touch",
+            "late_fill_estimate_1m",
+            "post_fill_level_retest_before_exit",
+            "opposite_gate_known_before_v2b",
+            "net",
+        ]
+        if col in timing_out.columns
+    ]
+    timing_out[scrutiny_cols].to_csv(cfg.output_dir / "execution_scrutiny.csv", index=False)
     latency.to_csv(cfg.output_dir / "latency_summary.csv", index=False)
     delays.to_csv(cfg.output_dir / "delay_sensitivity_summary.csv", index=False)
     retests.to_csv(cfg.output_dir / "retest_summary.csv", index=False)
@@ -351,6 +374,7 @@ def write_market_report(
     later_retest = int((not_safe["late_fill_estimate_1m"].astype(str) == "later_level_retest").sum())
     trigger_only = int((not_safe["late_fill_estimate_1m"].astype(str) == "later_trigger_touch_only").sum())
     no_later_touch = int((not_safe["late_fill_estimate_1m"].astype(str) == "no_later_touch_in_1m").sum())
+    classification_counts = timing_out["scrutiny_classification"].value_counts().to_dict()
     lines = [
         "# %s Prior-Opposed ST+PMC v2b Execution Scrutiny" % cfg.instrument,
         "",
@@ -372,6 +396,13 @@ def write_market_report(
             trigger_only,
             no_later_touch,
             len(manifest),
+        ),
+        "",
+        "Classification: **%s OK / %s NEEDS_TICK / %s VIOLATION_RISK**."
+        % (
+            classification_counts.get("OK", 0),
+            classification_counts.get("NEEDS_TICK", 0),
+            classification_counts.get("VIOLATION_RISK", 0),
         ),
         "",
         "## Read",
@@ -396,6 +427,7 @@ def write_market_report(
             "## Files",
             "",
             "- `historical_timing_report.csv`",
+            "- `execution_scrutiny.csv`",
             "- `latency_summary.csv`",
             "- `delay_sensitivity_summary.csv`",
             "- `retest_summary.csv`",
@@ -437,7 +469,11 @@ def write_root_report(output_root: Path, market_rows: Dict[str, pd.DataFrame]) -
     ordered_markets = [market for market in PRIOR_OPPOSED_MARKETS if market in market_rows]
     for market in ordered_markets:
         timing = market_rows[market]
+        if "scrutiny_classification" not in timing.columns:
+            timing = timing.copy()
+            timing["scrutiny_classification"] = timing.apply(lambda row: classify_execution_row(row.to_dict()), axis=1)
         pnl = pd.to_numeric(timing["net"], errors="coerce").fillna(0.0)
+        classification_counts = timing["scrutiny_classification"].value_counts().to_dict()
         rows.append(
             {
                 "market": market.upper(),
@@ -449,6 +485,9 @@ def write_root_report(output_root: Path, market_rows: Dict[str, pd.DataFrame]) -
                 "safe": int((timing["latency_risk"].astype(str) == "safe").sum()),
                 "ambiguous_same_1m_bar": int((timing["latency_risk"].astype(str) == "ambiguous_same_1m_bar").sum()),
                 "pre_arm_breakout_touch": int((timing["latency_risk"].astype(str) == "pre_arm_breakout_touch").sum()),
+                "scrutiny_ok": int(classification_counts.get("OK", 0)),
+                "scrutiny_needs_tick": int(classification_counts.get("NEEDS_TICK", 0)),
+                "scrutiny_violation_risk": int(classification_counts.get("VIOLATION_RISK", 0)),
                 "later_level_retest": int(
                     (
                         (timing["latency_risk"].astype(str) != "safe")
@@ -497,6 +536,28 @@ def write_root_report(output_root: Path, market_rows: Dict[str, pd.DataFrame]) -
                 miss=row["no_later_touch_in_1m"],
             )
         )
+    if rows:
+        lines.extend(
+            [
+                "",
+                "## Standardized Scrutiny Classification",
+                "",
+                "| Market | OK | NEEDS_TICK | VIOLATION_RISK | Tick-critical % |",
+                "|---|---:|---:|---:|---:|",
+            ]
+        )
+        for row in rows:
+            tick_critical = row["scrutiny_needs_tick"] + row["scrutiny_violation_risk"]
+            pct = 100.0 * tick_critical / row["campaigns"] if row["campaigns"] else 0.0
+            lines.append(
+                "| {market} | {ok} | {needs} | {risk} | {pct:.1f}% |".format(
+                    market=row["market"],
+                    ok=row["scrutiny_ok"],
+                    needs=row["scrutiny_needs_tick"],
+                    risk=row["scrutiny_violation_risk"],
+                    pct=pct,
+                )
+            )
     lines.extend(
         [
             "",
@@ -510,6 +571,22 @@ def write_root_report(output_root: Path, market_rows: Dict[str, pd.DataFrame]) -
         if (output_root / market / "SCRUTINY_REPORT.md").exists():
             lines.append("- %s: [`%s/SCRUTINY_REPORT.md`](%s/SCRUTINY_REPORT.md)" % (market.upper(), market, market))
     (output_root / "INDEX.md").write_text("\n".join(lines) + "\n", encoding="utf-8")
+    output_paths = [output_root / "summary.csv", output_root / "INDEX.md"]
+    for market in PRIOR_OPPOSED_MARKETS:
+        output_paths.extend(
+            [
+                output_root / market / "execution_scrutiny.csv",
+                output_root / market / "historical_timing_report.csv",
+                output_root / market / "tick_replay_manifest.csv",
+            ]
+        )
+    write_run_manifest(
+        output_root,
+        output_paths=output_paths,
+        strategy_config={"driver": "v2b_prior_opposed_execution_scrutiny", "markets": PRIOR_OPPOSED_MARKETS},
+        causality_mode="audit",
+        extra={"scrutiny_schema": "OK_NEEDS_TICK_VIOLATION_RISK"},
+    )
 
 
 def _latest_prior_stpmc(st_events: pd.DataFrame, session: str, v2b_side: str, active_ts: pd.Timestamp) -> Dict[str, object]:

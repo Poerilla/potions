@@ -13,9 +13,11 @@ from typing import Dict, Iterable, List, Optional, Sequence
 
 import pandas as pd
 
+from .bars import rth_bars
 from .engine import Engine
 from .models import Bar, StrategyInstance, as_row
 from .replay_audit import POINT_VALUES, Unit
+from .replay_realism import hardened_replay_engine_kwargs
 from .store import FlatFileStore
 from .v2b_strategy_replay import AuditBar, fast_intraday_audit, money, units_from_v2b_fills
 
@@ -46,14 +48,14 @@ MARKETS: Dict[str, MarketConfig] = {
         "mnq",
         "MNQ",
         REPO / "mnq" / "mnq_daily.csv",
-        REPO / "mnq" / "raw" / "extracted_new" / "glbx-mdp3-20100606-20260423.ohlcv-1m.dbn.zst",
+        REPO / "mnq" / "raw" / "glbx-mdp3-20210304-20260303.ohlcv-1m.csv",
         date(2021, 3, 4),
     ),
     "nq": MarketConfig(
         "nq",
         "NQ",
         REPO / "nq" / "nq_daily.csv",
-        REPO / "nq" / "raw" / "glbx-mdp3-20100606-20260308.ohlcv-1m.dbn.zst",
+        REPO / "nq" / "raw" / "glbx-mdp3-20100606-20260616.ohlcv-1m.dbn.zst",
     ),
     "ym": MarketConfig(
         "ym",
@@ -174,12 +176,12 @@ def run_market(
         store=store,
         persist_bars=False,
         persist_health=False,
-        slippage_ticks=DEFAULT_SLIPPAGE_TICKS,
+        **hardened_replay_engine_kwargs(slippage_ticks=DEFAULT_SLIPPAGE_TICKS),
     )
 
     audit_bars: List[AuditBar] = []
     for idx, day in enumerate(regime_dates, start=1):
-        df = _rth_bars(gby.get(day), day)
+        df = rth_bars(gby.get(day), day, dense=True)
         if df.empty:
             continue
         for ts, row in df.iterrows():
@@ -271,15 +273,8 @@ def load_1m_by_ny_date_any(path: Path, market: str) -> Dict[date, pd.DataFrame]:
 
 
 def _rth_bars(df: Optional[pd.DataFrame], session_day: date) -> pd.DataFrame:
-    if df is None or df.empty:
-        return pd.DataFrame()
-    return df[
-        df.index.map(
-            lambda ts: ts.date() == session_day
-            and ts.time() >= pd.Timestamp("09:30").time()
-            and ts.time() < pd.Timestamp("16:00").time()
-        )
-    ].sort_index()
+    """Backward-compatible alias; prefer :func:`potions.live.bars.rth_bars`."""
+    return rth_bars(df, session_day, dense=True)
 
 
 def write_summary(output_root: Path, results: Sequence[ReplayResult]) -> None:

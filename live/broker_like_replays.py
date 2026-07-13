@@ -11,6 +11,7 @@ from typing import Dict, List, Optional
 from .engine import Engine, bars_from_csv
 from .models import StrategyInstance, as_row
 from .reporting import generate_market_close_report
+from .replay_manifest import write_run_manifest
 from .replay_audit import (
     AuditResult,
     POINT_VALUES,
@@ -201,7 +202,7 @@ def run_broker_like_replays(
             state_root = states_root / f"{market.market}_{spec.slug}"
             if force and state_root.exists():
                 shutil.rmtree(state_root)
-            state = FlatFileStore(state_root)
+            state = FlatFileStore(state_root, defer_table_writes=True)
             state.ensure()
             strategy_id = f"{market.market}_{spec.slug}"
             instance = StrategyInstance(
@@ -219,6 +220,7 @@ def run_broker_like_replays(
             )
             state.upsert_row("strategy_instances", "strategy_id", as_row(instance))
             Engine(store=state, slippage_ticks=slippage_ticks).replay_bars(bars)
+            state.flush_tables()
             generate_market_close_report(state, bars[-1].ts[:10])
             replay_bars = read_bars(state_root / "bars" / f"{market.instrument}_D.csv", "ts")
             units = units_from_live_fills(
@@ -249,6 +251,14 @@ def run_broker_like_replays(
 
     _write_summary(output_root, results, slippage_ticks=slippage_ticks, fee_per_unit=fee_per_unit)
     _write_atr_comparison_chart(output_root, charts_root)
+    write_run_manifest(
+        output_root,
+        data_inputs=[market.daily_path for market in MARKETS if market.daily_path.exists()],
+        output_paths=[output_root / "summary.csv", output_root / "SUMMARY.md", charts_root / "INDEX.md"],
+        broker_realism_config={"slippage_ticks": slippage_ticks, "fee_per_unit": fee_per_unit, "stop_gap_through": True, "stop_first": True},
+        causality_mode="audit",
+        extra={"driver": "broker_like_replays", "result_count": len(results)},
+    )
     return results
 
 

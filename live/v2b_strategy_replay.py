@@ -14,9 +14,11 @@ from typing import Dict, Iterable, List, Optional
 import numpy as np
 import pandas as pd
 
+from .bars import rth_bars
 from .engine import Engine
 from .models import Bar, StrategyInstance, as_row
 from .replay_audit import POINT_VALUES, Unit
+from .replay_realism import hardened_replay_engine_kwargs
 from .store import FlatFileStore
 
 
@@ -103,13 +105,18 @@ def run(output_root: Path, dbn: Path, modes: List[str], max_days: Optional[int] 
             ),
         )
         store.write_table("strategy_instances", [as_row(instance)])
-        engine = Engine(store=store, persist_bars=False, persist_health=False, slippage_ticks=DEFAULT_SLIPPAGE_TICKS)
+        engine = Engine(
+            store=store,
+            persist_bars=False,
+            persist_health=False,
+            **hardened_replay_engine_kwargs(slippage_ticks=DEFAULT_SLIPPAGE_TICKS),
+        )
 
         audit_bars: List[AuditBar] = []
         print("Replaying %s..." % mode, flush=True)
         for idx, day_s in enumerate(regime_dates, start=1):
             day = date.fromisoformat(day_s)
-            df = _rth_bars(gby.get(day), day)
+            df = rth_bars(gby.get(day), day, dense=True)
             if df.empty:
                 continue
             for ts, row in df.iterrows():
@@ -272,11 +279,7 @@ class AuditBar:
 
 
 def _rth_bars(df: Optional[pd.DataFrame], session_day: date) -> pd.DataFrame:
-    if df is None or df.empty:
-        return pd.DataFrame()
-    return df[
-        df.index.map(lambda ts: ts.date() == session_day and ts.time() >= pd.Timestamp("09:30").time() and ts.time() < pd.Timestamp("16:00").time())
-    ].sort_index()
+    return rth_bars(df, session_day, dense=True)
 
 
 def fast_intraday_audit(

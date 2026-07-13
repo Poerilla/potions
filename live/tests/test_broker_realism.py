@@ -8,6 +8,7 @@ from potions.live.models import Bar, OrderIntent, StrategyInstance
 from potions.live.replay_audit import Bar as AuditBar
 from potions.live.replay_audit import Unit, audit_units
 from potions.live.risk import RiskManager
+from potions.live.spread_model import SpreadModel
 from potions.live.store import FlatFileStore
 
 
@@ -227,5 +228,87 @@ def test_audit_units_subtracts_per_unit_fee_from_net_and_equity_curve():
         assert result.net_usd == 18.5
         equity_csv = (root / "fee_test" / "equity_curve.csv").read_text()
         assert "9.250000" in equity_csv
+    finally:
+        tmp.cleanup()
+
+
+def test_spread_model_makes_market_buy_more_expensive():
+    tmp, store = make_store()
+    try:
+        spread = SpreadModel(rth_half_spread_ticks=1.0, tick_size=0.25)
+        broker = PaperBroker(store, slippage_ticks=1, tick_size={"MNQ": 0.25}, spread_model=spread)
+        entry = OrderIntent.create(
+            "s1",
+            "spread_entry",
+            "MNQ",
+            "paper",
+            "buy",
+            "market",
+            1,
+            live_after_ts="2026-01-01T09:30:00-05:00",
+            requires_verification=False,
+        )
+        broker.submit_order_intent(entry)
+        fills = broker.process_bar(Bar("MNQ", "1m", "2026-01-01T10:00:00-05:00", 100.0, 101.0, 99.5, 100.5, volume=500))
+        assert len(fills) == 1
+        assert fills[0].price == 100.5
+    finally:
+        tmp.cleanup()
+
+
+def test_directional_path_blocks_limit_when_stop_would_hit_first():
+    tmp, store = make_store()
+    try:
+        broker = PaperBroker(store, slippage_ticks=0, tick_size={"MNQ": 0.25}, directional_adverse_path=True)
+        entry = OrderIntent.create(
+            "s1",
+            "dir_path",
+            "MNQ",
+            "paper",
+            "buy",
+            "market",
+            1,
+            live_after_ts="2026-01-01T09:30:00-05:00",
+            requires_verification=False,
+        )
+        broker.submit_order_intent(entry)
+        broker.process_bar(Bar("MNQ", "1m", "2026-01-01T09:31:00-05:00", 100.0, 101.0, 99.5, 100.5))
+
+        stop = OrderIntent.create(
+            "s1",
+            "dir_path",
+            "MNQ",
+            "paper",
+            "sell",
+            "stop",
+            1,
+            stop_price=98.0,
+            reduce_only=True,
+            bracket_role="stop",
+            oco_group="exit_oco",
+            live_after_ts="2026-01-01T09:31:00-05:00",
+            requires_verification=False,
+        )
+        target = OrderIntent.create(
+            "s1",
+            "dir_path",
+            "MNQ",
+            "paper",
+            "sell",
+            "limit",
+            1,
+            limit_price=104.0,
+            reduce_only=True,
+            bracket_role="target",
+            oco_group="exit_oco",
+            live_after_ts="2026-01-01T09:31:00-05:00",
+            requires_verification=False,
+        )
+        broker.submit_order_intent(target)
+        broker.submit_order_intent(stop)
+
+        fills = broker.process_bar(Bar("MNQ", "1m", "2026-01-01T09:32:00-05:00", 100.5, 105.0, 97.5, 103.0))
+        assert len(fills) == 1
+        assert fills[0].reason == "stop"
     finally:
         tmp.cleanup()

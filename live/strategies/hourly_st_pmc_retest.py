@@ -6,9 +6,10 @@ from datetime import date
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple
 
-from ..models import Alert, Bar, CancelIntent, LevelUpdate, ModifyIntent, OrderIntent, StrategyActions
+from ..models import Alert, Bar, CancelIntent, FeatureSnapshot, LevelUpdate, ModifyIntent, OrderIntent, StrategyActions
 from .atr_supertrend_dca import TrendPoint
 from .base import StrategyContext, StrategyPlugin
+from .features import feature_snapshot
 
 
 class HourlyStPmcRetestStrategy(StrategyPlugin):
@@ -48,6 +49,7 @@ class HourlyStPmcRetestStrategy(StrategyPlugin):
             self.config.update(json.loads(instance.config_json or "{}"))
         except json.JSONDecodeError:
             pass
+        self._pmc_ts_map: Dict[Tuple[int, int], str] = {}
         self._pmc_map = self._load_prev_month_close_map()
         self._hourly_cache: Optional[List[Bar]] = None
         self._st_processed = 0
@@ -130,6 +132,7 @@ class HourlyStPmcRetestStrategy(StrategyPlugin):
         cancels: List[CancelIntent] = []
         modifies: List[ModifyIntent] = []
         levels: List[LevelUpdate] = []
+        causal_features: List[FeatureSnapshot] = self._signal_features(bar, pmc, now, ma_context)
 
         if bool(self.config.get("record_levels")):
             levels.append(
@@ -181,7 +184,7 @@ class HourlyStPmcRetestStrategy(StrategyPlugin):
             if state_changed:
                 self.state = state
                 self.save_state()
-            return StrategyActions(orders, cancels, [], levels, [])
+            return StrategyActions(orders, cancels, [], levels, [], causal_features)
 
         if state.get("active_trade_id"):
             state["active_trade_id"] = ""
@@ -190,13 +193,14 @@ class HourlyStPmcRetestStrategy(StrategyPlugin):
             self.save_state()
 
         desired = self._desired_entry(bar.close, pmc, now, ma_context)
+        causal_features.append(self._entry_gate_feature(bar, pmc, now, ma_context, desired))
         if desired is None:
             cancels.extend(self._cancel_entry_limits(context, "regime_off"))
             if state.get("pending_entry_trade_id"):
                 state["pending_entry_trade_id"] = ""
                 self.state = state
                 self.save_state()
-            return StrategyActions([], cancels, [], levels, [])
+            return StrategyActions([], cancels, [], levels, [], causal_features)
 
         side, limit_px, stop_px, target_px = desired
         desired_buckets = self._entry_buckets(side, limit_px, stop_px, target_px)
@@ -211,7 +215,7 @@ class HourlyStPmcRetestStrategy(StrategyPlugin):
                 for order in existing_limits
             )
             if same_side and same_price and roles == desired_roles and len(existing_limits) == len(desired_buckets):
-                return StrategyActions([], [], [], levels, [])
+                return StrategyActions([], [], [], levels, [], causal_features)
             if same_side and roles == desired_roles and len(existing_limits) == len(desired_buckets):
                 state["pending_entry_trade_id"] = existing_limits[0].trade_id
                 by_role = {order.bracket_role or "entry": order for order in existing_limits}
@@ -230,7 +234,7 @@ class HourlyStPmcRetestStrategy(StrategyPlugin):
                     )
                 self.state = state
                 self.save_state()
-                return StrategyActions([], [], modifies, levels, [])
+                return StrategyActions([], [], modifies, levels, [], causal_features)
 
         cancels.extend(self._cancel_entry_limits(context, "refresh_entry"))
         trade_id = self._next_trade_id(state)
@@ -256,7 +260,83 @@ class HourlyStPmcRetestStrategy(StrategyPlugin):
             )
         self.state = state
         self.save_state()
-        return StrategyActions(orders, cancels, [], levels, [])
+        return StrategyActions(orders, cancels, [], levels, [], causal_features)
+
+    def _signal_features(
+        self,
+        bar: Bar,
+        pmc: float,
+        point: TrendPoint,
+        ma_context: Dict[str, str],
+    ) -> List[FeatureSnapshot]:
+        pmc_event_ts = self._pmc_event_ts(bar.ts)
+        return [
+            feature_snapshot(
+                self.instance,
+                "hourly_st_pmc_signal",
+                bar.ts,
+                event_ts=point.ts,
+                available_at_ts=bar.ts,
+                source="completed_1h_supertrend_and_pmc",
+                value_ref="bull" if point.bullish else "bear",
+                metadata={
+                    "bar_close": bar.close,
+                    "supertrend_stop": point.stop,
+                    "supertrend_bullish": point.bullish,
+                    "prev_month_close": pmc,
+                    "close_above_pmc": bar.close > pmc,
+                    "ma_context": ma_context,
+                    "ma_filter": self.config.get("ma_filter"),
+                    "atr_len": self.config.get("atr_len"),
+                    "atr_mult": self.config.get("atr_mult"),
+                },
+            ),
+            feature_snapshot(
+                self.instance,
+                "prev_month_close",
+                bar.ts,
+                event_ts=pmc_event_ts or bar.ts,
+                available_at_ts=pmc_event_ts or bar.ts,
+                source="daily_bars_path.prior_month_close",
+                value_ref=pmc,
+                metadata={"pmc_event_ts": pmc_event_ts, "daily_bars_path": self.config.get("daily_bars_path")},
+            ),
+        ]
+
+    def _entry_gate_feature(
+        self,
+        bar: Bar,
+        pmc: float,
+        point: TrendPoint,
+        ma_context: Dict[str, str],
+        desired: Optional[Tuple[str, float, float, float]],
+    ) -> FeatureSnapshot:
+        if desired is None:
+            side = ""
+            value_ref = "blocked"
+            limit_px = stop_px = target_px = None
+        else:
+            side, limit_px, stop_px, target_px = desired
+            value_ref = "%s:allowed" % side
+        return feature_snapshot(
+            self.instance,
+            "hourly_st_pmc_entry_gate",
+            bar.ts,
+            source="hourly_st_pmc_retest.entry_rules",
+            value_ref=value_ref,
+            metadata={
+                "side": side,
+                "limit_price": limit_px,
+                "stop_price": stop_px,
+                "target_price": target_px,
+                "bar_close": bar.close,
+                "prev_month_close": pmc,
+                "supertrend_stop": point.stop,
+                "supertrend_bullish": point.bullish,
+                "ma_context": ma_context,
+                "ma_filter": self.config.get("ma_filter"),
+            },
+        )
 
     def _desired_entry(
         self,
@@ -381,19 +461,25 @@ class HourlyStPmcRetestStrategy(StrategyPlugin):
                 d = date.fromisoformat(str(row["date"])[:10])
                 rows.append((d, float(row["close"])))
         rows.sort(key=lambda item: item[0])
-        by_month: Dict[Tuple[int, int], float] = {}
+        by_month: Dict[Tuple[int, int], Tuple[date, float]] = {}
         for d, close in rows:
-            by_month[(d.year, d.month)] = close
+            by_month[(d.year, d.month)] = (d, close)
         out: Dict[Tuple[int, int], float] = {}
         for (y, m) in by_month:
             py, pm = (y, m - 1) if m > 1 else (y - 1, 12)
             if (py, pm) in by_month:
-                out[(y, m)] = by_month[(py, pm)]
+                prev_day, prev_close = by_month[(py, pm)]
+                out[(y, m)] = prev_close
+                self._pmc_ts_map[(y, m)] = prev_day.isoformat()
         return out
 
     def _prev_month_close(self, ts: str) -> Optional[float]:
         d = _parse_date(ts)
         return self._pmc_map.get((d.year, d.month))
+
+    def _pmc_event_ts(self, ts: str) -> str:
+        d = _parse_date(ts)
+        return self._pmc_ts_map.get((d.year, d.month), "")
 
     def _hourly_bars(self, bar: Bar) -> List[Bar]:
         if self._hourly_cache is None:

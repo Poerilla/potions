@@ -42,6 +42,42 @@ full-RTH-session filter after the YM/MYM first pass exposed two early-close /
 holiday entries with no normal 15:55 flatten. The cleaned ES/YM/MYM fill books
 have zero entry-without-exit campaigns.
 
+## NQ Full-History Rerun Status
+
+The current promotion / execution-scrutiny baseline remains the **2021-03-04
+through 2026-03-06** window so it stays aligned with the cross-market common
+window. The restored long-history NQ raw file was separately replayed as a
+standalone broker-like run using `--start 2010-06-06` and `--dbn-path
+nq/raw/glbx-mdp3-20100606-20260616.ohlcv-1m.dbn.zst`.
+
+Output:
+`live/state/nq_v2b_prior_opposed_stpmc_full_history_raw/INDEX.md`. The
+supporting NQ daily regime file and NQ hourly ST+PMC gate fills currently run
+through **2026-03-08 / 2026-03-05**, so the effective validated window is
+2010-06-06 through early March 2026 even though the raw DBN extends to
+2026-06-16.
+
+Full-history broker-like result: **877 campaigns / 4,385 units**,
+**$1,713,277.50 net**, **-$53,172 closed DD**, **-$53,847 intrabar stress DD**,
+**64.77% win**, **2.427 PF**, **31.82 Net/Stress**, with **877 / 877**
+prior-opposite entries and **0 causal violations**. Compared with the banked
+2021-start row (**352 campaigns / $1,184,585 / -$53,847 stress / 22.00**), the
+added pre-2021 section contributes **525 campaigns** and **$528,692.50 net**
+without deepening the full-window closed or intrabar stress drawdown. The
+earlier history is positive but less efficient than the post-2021 segment:
+2013 and 2017 are the weakest pre-2021 years, while 2020 is the strongest.
+
+A non-broker-like CSV diagnostic was run from the legacy full-history NQ v2b
+scaleout tape and the existing full-history NQ hourly ST+PMC fills. It is only a
+directional smell test, not a replacement for the delayed-arming
+`Engine + PaperBroker` replay. Output:
+`live/state/nq_v2b_prior_opposed_stpmc_full_history_csv_diagnostic/INDEX.md`.
+That diagnostic finds **498 matching v2b rows from 2011-01-17 through
+2026-03-02**, **$320,096 net**, **-$16,952 closed DD**, **61.7% row win**,
+**2.00 PF**, and **18.88 Net/closed-DD**. The same-start 2021-03-04 slice is
+**191 rows / $208,162 / -$16,952 / 12.28**, which should not be compared
+directly to the 5-unit broker-like replay.
+
 ## Live Feed Boundary
 
 `PersistedLiveFeedAdapter` is the new provider-neutral boundary for websocket

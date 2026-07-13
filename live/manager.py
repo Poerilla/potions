@@ -3,6 +3,7 @@ from __future__ import annotations
 from typing import Dict, Iterable, List
 
 from .broker import BaseBroker
+from .causality import CausalityGuard
 from .models import Alert, Bar, Fill, OrderIntent, StrategyActions, StrategyInstance, as_row
 from .notifications import NotificationSink
 from .registry import StrategyRegistry
@@ -22,6 +23,7 @@ class StrategyManager:
         notifications: NotificationSink,
         registry: StrategyRegistry = None,
         emit_order_alerts: bool = True,
+        causality_guard: CausalityGuard = None,
     ):
         self.store = store
         self.broker = broker
@@ -30,6 +32,8 @@ class StrategyManager:
         self.notifications = notifications
         self.registry = registry or StrategyRegistry()
         self.emit_order_alerts = emit_order_alerts
+        self.causality_guard = causality_guard
+        self._current_bar: Bar = None
         self.plugins: Dict[str, StrategyPlugin] = {}
         self.reload()
 
@@ -49,12 +53,15 @@ class StrategyManager:
                 continue
             context = self._context(plugin.instance)
             try:
+                self._current_bar = bar
                 actions = plugin.on_bar_close(bar, context)
                 self._apply_actions(plugin.instance, actions)
                 all_actions.append(actions)
             except Exception as exc:  # keep the loop alive; surface as alert.
                 alert = Alert.create(plugin.instance.strategy_id, "engine_error", "Strategy error: %s" % exc)
                 self._emit_alert(alert)
+            finally:
+                self._current_bar = None
         return StrategyActions.combine(all_actions)
 
     def on_fills(self, fills: Iterable[Fill]) -> None:
@@ -85,6 +92,10 @@ class StrategyManager:
         )
 
     def _apply_actions(self, instance: StrategyInstance, actions: StrategyActions) -> None:
+        if self.causality_guard is not None and actions.causal_features and self._current_bar is not None:
+            self.causality_guard.record_features(actions.causal_features, self._current_bar)
+        elif actions.causal_features:
+            self.store.append_rows("feature_snapshots", [as_row(feature) for feature in actions.causal_features])
         for level in actions.level_updates:
             self.store.add_level(level)
         for alert in actions.alerts:
@@ -115,6 +126,18 @@ class StrategyManager:
             self._handle_order_intent(instance, intent)
 
     def _handle_order_intent(self, instance: StrategyInstance, intent: OrderIntent) -> None:
+        if self.causality_guard is not None:
+            decision = self.causality_guard.validate_order_intent(instance, intent, self._current_bar)
+            if not decision.allowed:
+                self.store.upsert_row("order_intents", "intent_id", dict(as_row(intent), status="causality_blocked"))
+                self._emit_alert(
+                    Alert.create(
+                        intent.strategy_id,
+                        "causality_block",
+                        "Order blocked by causality guard: %s" % ",".join(v.violation_type for v in decision.violations),
+                    )
+                )
+                return
         decision = self.risk.validate_order_intent(instance, intent)
         if not decision.allowed:
             self.store.upsert_row("order_intents", "intent_id", dict(as_row(intent), status="risk_blocked"))

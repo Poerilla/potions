@@ -381,6 +381,36 @@ class VerificationRequest:
 
 
 @dataclass(frozen=True)
+class FeatureSnapshot:
+    feature_name: str
+    strategy_id: str
+    instrument: str
+    event_ts: str
+    available_at_ts: str
+    current_bar_ts: str
+    source: str = ""
+    value_ref: str = ""
+    metadata_json: str = "{}"
+
+
+@dataclass(frozen=True)
+class CausalViolation:
+    violation_id: str
+    strategy_id: str
+    instrument: str
+    violation_type: str
+    current_bar_ts: str
+    offending_ts: str
+    severity: str
+    action_taken: str
+    feature_name: str = ""
+    intent_id: str = ""
+    scrutiny_classification: str = ""
+    details_json: str = "{}"
+    created_at: str = ""
+
+
+@dataclass(frozen=True)
 class CancelIntent:
     strategy_id: str
     broker_order_id: str
@@ -406,6 +436,7 @@ class StrategyActions:
     modify_intents: Sequence[ModifyIntent]
     level_updates: Sequence[LevelUpdate]
     alerts: Sequence[Alert]
+    causal_features: Sequence[FeatureSnapshot] = ()
 
     @classmethod
     def empty(cls) -> "StrategyActions":
@@ -418,10 +449,12 @@ class StrategyActions:
         modifies: List[ModifyIntent] = []
         levels: List[LevelUpdate] = []
         alerts: List[Alert] = []
+        causal_features: List[FeatureSnapshot] = []
         for action in actions:
             orders.extend(action.order_intents)
             cancels.extend(action.cancel_intents)
             modifies.extend(action.modify_intents)
             levels.extend(action.level_updates)
             alerts.extend(action.alerts)
-        return cls(orders, cancels, modifies, levels, alerts)
+            causal_features.extend(action.causal_features)
+        return cls(orders, cancels, modifies, levels, alerts, causal_features)

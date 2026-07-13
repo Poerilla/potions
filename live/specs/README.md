@@ -6,7 +6,12 @@ Persistent implementation specs for moving `potions/live/` from broker-like repl
 
 - [Market Data Feed Requirements](MARKET_DATA_FEEDS.md)
 - [Tradovate Market Data Feed](TRADOVATE_MARKET_DATA_FEED.md)
+- [Tradovate Adapter](TRADOVATE_ADAPTER.md)
+- [Operational Fault Protocol](OPERATIONAL_FAULT_PROTOCOL.md)
+- [Platform Hardening Upgrades](PLATFORM_HARDENING_UPGRADES.md)
+- [KDB+ Migration Plan](KDB_MIGRATION_PLAN.md)
 - [Databento Market Data Feed](DATABENTO_MARKET_DATA_FEED.md)
+- [CQG WebAPI Adapter](CQG_WEBAPI_ADAPTER.md)
 - [Start-Small Broker Execution Plan](START_SMALL_BROKER_EXECUTION_PLAN.md)
 - [Start-Small Cloud Bootstrap](START_SMALL_CLOUD_BOOTSTRAP.md)
 
@@ -20,15 +25,16 @@ The runtime should support two independent but reconciled streams:
 The safest first live-paper route is:
 
 - Use **one feed provider** to build completed 1m/5m/daily bars.
-- Use **Tradovate paper/demo** only for order routing, fills, position reconciliation, and emergency flattening.
+- Use **Tradovate demo/sim first** for order routing, fills, position reconciliation, and emergency flattening.
+- Keep CQG as a deferred secondary adapter path.
 - Keep broker-side protective orders active after entry so feed outages cannot leave the account naked.
 
 ## Source Notes
 
 As of 2026-05-22:
 
-- Tradovate order/account endpoints are covered by `live/openapi.json`.
-- Tradovate live market data is not described by that OpenAPI file; it is a separate WebSocket API.
+- Tradovate order/account endpoints and WebSocket protocol notes are covered by `live/openapi.json`.
+- Tradovate market data uses the WebSocket/chart flow described in that same checked-in spec.
 - Databento live data uses its Python/Raw Live API, with `GLBX.MDP3` as the relevant CME Globex dataset family for NQ/MNQ/ES/MES/YM/MYM-style futures work.
 
 Primary references checked:

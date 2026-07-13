@@ -4,8 +4,9 @@ import json
 from datetime import date, datetime, time
 from typing import Any, Dict, Iterable, List, Optional, Sequence
 
-from ..models import Alert, Bar, CancelIntent, LevelUpdate, OrderIntent, StrategyActions, new_id
+from ..models import Alert, Bar, CancelIntent, FeatureSnapshot, LevelUpdate, OrderIntent, StrategyActions, new_id
 from .base import StrategyContext, StrategyPlugin
+from .features import feature_snapshot
 
 
 class V2BScaleoutStrategy(StrategyPlugin):
@@ -157,6 +158,7 @@ class V2BScaleoutStrategy(StrategyPlugin):
         cancels: List[CancelIntent] = []
         levels: List[LevelUpdate] = []
         alerts: List[Alert] = []
+        causal_features: List[FeatureSnapshot] = []
 
         if not self._in_rth(t):
             self._commit_state(state)
@@ -169,7 +171,7 @@ class V2BScaleoutStrategy(StrategyPlugin):
             state["done"] = True
             state["phase"] = "eod"
             self._commit_state(state)
-            return StrategyActions(orders, cancels, [], levels, alerts)
+            return StrategyActions(orders, cancels, [], levels, alerts, causal_features)
 
         if t < self._time("or_end"):
             state["or_count"] = int(state.get("or_count", 0)) + 1
@@ -181,21 +183,28 @@ class V2BScaleoutStrategy(StrategyPlugin):
                 state["or_finalized"] = True
                 state["phase"] = "armed" if self._regime_ok(session) else "regime_skip"
                 state["regime_ok"] = self._regime_ok(session)
+                causal_features.extend(self._opening_range_features(bar.ts, state))
                 if state["regime_ok"]:
+                    directions = ["Long"] if str(self.config.get("mode", "oco_then_reverse")) == "strict_long_then_short" else ["Long", "Short"]
+                    causal_features.extend(self._entry_gate_features(bar.ts, state, directions))
                     orders.extend(self._arm_initial_entries(bar.ts, state))
-                    alerts.append(Alert.create(self.instance.strategy_id, "info", "v2b opening range armed"))
+                    if not bool(self.config.get("suppress_alerts")):
+                        alerts.append(Alert.create(self.instance.strategy_id, "info", "v2b opening range armed"))
             self._commit_state(state)
-            return StrategyActions(orders, cancels, [], levels, alerts)
+            return StrategyActions(orders, cancels, [], levels, alerts, causal_features)
 
         if bool(self.config.get("record_levels")):
             levels.extend(self._levels(bar.ts, state))
 
         if state.get("regime_ok") and not state.get("done") and not state.get("current_leg_open") and int(state.get("legs_done", 0)) == 0:
             if not self._has_open_entry_order(context):
+                causal_features.extend(self._opening_range_features(bar.ts, state))
+                directions = ["Long"] if str(self.config.get("mode", "oco_then_reverse")) == "strict_long_then_short" else ["Long", "Short"]
+                causal_features.extend(self._entry_gate_features(bar.ts, state, directions))
                 orders.extend(self._arm_initial_entries(bar.ts, state))
 
         self._commit_state(state)
-        return StrategyActions(orders, cancels, [], levels, alerts)
+        return StrategyActions(orders, cancels, [], levels, alerts, causal_features)
 
     def _state(self) -> Dict[str, Any]:
         state = dict(self.state or {})
@@ -309,6 +318,77 @@ class V2BScaleoutStrategy(StrategyPlugin):
         state["entry_armed"] = sorted(armed)
         return out
 
+    def _opening_range_features(self, ts: str, state: Dict[str, Any]) -> List[FeatureSnapshot]:
+        range_high = _to_float(state.get("or_high"))
+        range_low = _to_float(state.get("or_low"))
+        if range_high is None or range_low is None:
+            return []
+        return [
+            feature_snapshot(
+                self.instance,
+                "v2b_opening_range",
+                ts,
+                source="completed_1m_opening_range",
+                value_ref="%.8f/%.8f" % (range_high, range_low),
+                metadata={
+                    "session": state.get("session_date"),
+                    "or_count": state.get("or_count"),
+                    "or_finalized": state.get("or_finalized"),
+                    "range_value": range_high - range_low,
+                    "regime_ok": state.get("regime_ok"),
+                    "mode": self.config.get("mode"),
+                },
+            ),
+            feature_snapshot(
+                self.instance,
+                "v2b_regime_filter",
+                ts,
+                event_ts=str(state.get("session_date") or ts),
+                source="config.regime_dates",
+                value_ref=str(bool(state.get("regime_ok"))),
+                metadata={
+                    "use_regime_filter": self.config.get("use_regime_filter"),
+                    "require_regime_dates": self.config.get("require_regime_dates"),
+                    "regime_dates_count": len(self._regime_dates),
+                },
+            ),
+        ]
+
+    def _entry_gate_features(self, ts: str, state: Dict[str, Any], directions: Sequence[str]) -> List[FeatureSnapshot]:
+        range_high = _to_float(state.get("or_high"))
+        range_low = _to_float(state.get("or_low"))
+        if range_high is None or range_low is None or range_high <= range_low:
+            return []
+        out: List[FeatureSnapshot] = []
+        armed = set(str(x) for x in state.get("entry_armed", []))
+        for direction in directions:
+            prior_event = self._prior_opposite_event_for_entry(ts, direction)
+            sizing = self._sizing_for_entry(ts, direction)
+            allowed = direction not in armed and sizing is not None
+            event_ts = str(prior_event.get("ts")) if prior_event else ts
+            out.append(
+                feature_snapshot(
+                    self.instance,
+                    "v2b_entry_gate",
+                    ts,
+                    event_ts=event_ts,
+                    available_at_ts=event_ts if prior_event else ts,
+                    source="v2b_scaleout.dynamic_sizing_events" if prior_event else "v2b_scaleout.opening_range",
+                    value_ref="%s:%s" % (direction, "allowed" if allowed else "blocked"),
+                    metadata={
+                        "direction": direction,
+                        "already_armed": direction in armed,
+                        "prior_opposite_only": self.config.get("prior_opposite_only"),
+                        "has_prior_opposite_event": prior_event is not None,
+                        "prior_event": prior_event or {},
+                        "sizing": sizing or {},
+                        "range_high": range_high,
+                        "range_low": range_low,
+                    },
+                )
+            )
+        return out
+
     def _entry_order(self, trade_id: str, direction: str, ts: str, range_high: float, range_low: float, oco: str, quantity: int) -> OrderIntent:
         tick = float(self.config["tick_size"])
         if direction == "Long":
@@ -342,7 +422,7 @@ class V2BScaleoutStrategy(StrategyPlugin):
         }
         if not self.config.get("dynamic_sizing_events"):
             return base
-        has_prior_opposite = self._has_prior_opposite_event(ts, direction)
+        has_prior_opposite = self._prior_opposite_event_for_entry(ts, direction) is not None
         if bool(self.config.get("prior_opposite_only")) and not has_prior_opposite:
             return None
         if has_prior_opposite and self.config.get("prior_opposite_entry_qty") is not None:
@@ -354,18 +434,23 @@ class V2BScaleoutStrategy(StrategyPlugin):
         return base
 
     def _has_prior_opposite_event(self, ts: str, direction: str) -> bool:
+        return self._prior_opposite_event_for_entry(ts, direction) is not None
+
+    def _prior_opposite_event_for_entry(self, ts: str, direction: str) -> Optional[Dict[str, Any]]:
         dt = _parse_dt(ts)
         session = dt.date().isoformat()
         wanted = "short" if direction == "Long" else "long"
         events = (self.config.get("dynamic_sizing_events") or {}).get(session, [])
+        best: Optional[Dict[str, Any]] = None
         for event in events:
             try:
                 event_ts = _parse_dt(str(event.get("ts") or ""))
             except Exception:
                 continue
             if str(event.get("side") or "").lower() == wanted and event_ts < dt:
-                return True
-        return False
+                if best is None or event_ts > _parse_dt(str(best.get("ts") or "")):
+                    best = dict(event)
+        return best
 
     def _initial_exit_orders(self, trade_id: str, direction: str, state: Dict[str, Any]) -> List[OrderIntent]:
         params = self._params(direction, state)

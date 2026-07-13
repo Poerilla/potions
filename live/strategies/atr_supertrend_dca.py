@@ -5,8 +5,9 @@ from dataclasses import dataclass
 from datetime import date, datetime
 from typing import Any, Dict, Iterable, List, Optional
 
-from ..models import Alert, Bar, LevelUpdate, OrderIntent, StrategyActions, new_id
+from ..models import Alert, Bar, FeatureSnapshot, LevelUpdate, OrderIntent, StrategyActions, new_id
 from .base import StrategyContext, StrategyPlugin
+from .features import feature_snapshot
 
 
 @dataclass(frozen=True)
@@ -99,6 +100,17 @@ class AtrSupertrendDcaStrategy(StrategyPlugin):
 
         orders: List[OrderIntent] = []
         levels: List[LevelUpdate] = []
+        causal_features: List[FeatureSnapshot] = self._signal_features(
+            bar,
+            daily_now,
+            daily_prev,
+            weekly_now,
+            weekly_prev,
+            sig_now,
+            sig_prev,
+            state,
+            weekly_allows_long,
+        )
         if bool(self.config.get("record_levels")):
             levels.append(
                 LevelUpdate(self.instance.strategy_id, self.instance.instrument, "daily_supertrend_stop", daily_now.stop, bar.ts)
@@ -205,7 +217,71 @@ class AtrSupertrendDcaStrategy(StrategyPlugin):
             [],
             levels,
             [Alert.create(self.instance.strategy_id, "order_submitted", "ATR Supertrend intent created") for _ in orders],
+            causal_features,
         )
+
+    def _signal_features(
+        self,
+        bar: Bar,
+        daily_now: TrendPoint,
+        daily_prev: TrendPoint,
+        weekly_now: Optional[TrendPoint],
+        weekly_prev: Optional[TrendPoint],
+        sig_now: TrendPoint,
+        sig_prev: TrendPoint,
+        state: Dict[str, Any],
+        weekly_allows_long: bool,
+    ) -> List[FeatureSnapshot]:
+        signal_tf = str(self.config["signal_tf"]).lower()
+        guard = _to_float(state.get("entry_guard"))
+        primary_flip_up = sig_now.bullish and not sig_prev.bullish
+        primary_flip_down = (not sig_now.bullish) and sig_prev.bullish
+        return [
+            feature_snapshot(
+                self.instance,
+                "atr_supertrend_signal",
+                bar.ts,
+                event_ts=sig_now.ts,
+                available_at_ts=bar.ts,
+                source="%s_supertrend_completed_bars" % signal_tf,
+                value_ref="bull" if sig_now.bullish else "bear",
+                metadata={
+                    "signal_tf": signal_tf,
+                    "signal_stop": sig_now.stop,
+                    "signal_prev_stop": sig_prev.stop,
+                    "primary_flip_up": primary_flip_up,
+                    "primary_flip_down": primary_flip_down,
+                    "daily_stop": daily_now.stop,
+                    "daily_bullish": daily_now.bullish,
+                    "daily_prev_stop": daily_prev.stop,
+                    "daily_prev_bullish": daily_prev.bullish,
+                    "weekly_stop": weekly_now.stop if weekly_now else None,
+                    "weekly_bullish": weekly_now.bullish if weekly_now else None,
+                    "weekly_prev_stop": weekly_prev.stop if weekly_prev else None,
+                    "weekly_prev_bullish": weekly_prev.bullish if weekly_prev else None,
+                    "weekly_allows_long": weekly_allows_long,
+                    "atr_len": self.config.get("atr_len"),
+                    "atr_mult": self.config.get("atr_mult"),
+                },
+            ),
+            feature_snapshot(
+                self.instance,
+                "atr_entry_guard",
+                bar.ts,
+                event_ts=str(state.get("entry_day") or bar.ts),
+                available_at_ts=bar.ts,
+                source="atr_supertrend_dca.entry_guard_state",
+                value_ref=guard if guard is not None else "",
+                metadata={
+                    "use_entry_guard": self.config.get("use_entry_guard"),
+                    "guard_paused": state.get("guard_paused"),
+                    "guard_pause_day": state.get("guard_pause_day"),
+                    "entry_day": state.get("entry_day"),
+                    "entry_guard": guard,
+                    "bar_close": bar.close,
+                },
+            ),
+        ]
 
     def _state(self) -> Dict[str, Any]:
         state = dict(self.state or {})

@@ -5,6 +5,7 @@ from typing import Dict, List, Optional
 
 from .models import OrderIntent, StrategyInstance
 from .store import FlatFileStore
+from .supervisor import RuntimeSupervisor
 
 
 @dataclass(frozen=True)
@@ -14,12 +15,15 @@ class RiskDecision:
 
 
 class RiskManager:
-    def __init__(self, store: FlatFileStore):
+    def __init__(self, store: FlatFileStore, supervisor: Optional[RuntimeSupervisor] = None):
         self.store = store
+        self.supervisor = supervisor
 
     def validate_order_intent(self, instance: StrategyInstance, intent: OrderIntent) -> RiskDecision:
         if not instance.enabled:
             return RiskDecision(False, "strategy_disabled")
+        if self.supervisor is not None and not self.supervisor.entries_allowed(intent):
+            return RiskDecision(False, "runtime_%s" % self.supervisor.block_reason(intent))
         if intent.instrument != instance.instrument:
             return RiskDecision(False, "instrument_mismatch")
         if intent.account_mode not in {"paper", "live"}:
