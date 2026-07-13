@@ -14,3 +14,7 @@ live/state/**/alerts.csv
 # Bundled large-file archive (upload to Drive/S3 separately)
 data/potions_large_files.tar.zst
 data/potions_large_files.manifest
+
+# Oversized generated state dumps (GitHub free: 100MB hard limit)
+**/feature_snapshots.csv
+live/state/**/event_universe/*_eligible_events.csv
