@@ -1,0 +1,14 @@
+{
+  "slippage_ticks": 1.0,
+  "spread_model": {
+    "rth_half_spread_ticks": 0.5,
+    "eth_half_spread_ticks": 1.0,
+    "open_widen_half_spread_ticks": 1.0,
+    "low_volume_threshold": 50.0,
+    "low_volume_multiplier": 1.5,
+    "tick_size": 0.25
+  },
+  "directional_adverse_path": true,
+  "dense_rth_bars": true,
+  "note": "Full replay not executed in this environment because ohlcv-1m DBN files are not present locally. Run replay_realism_baseline when DBN paths in v2b_strategy_cross_market_replay.MARKETS exist."
+}
