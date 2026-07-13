@@ -1,0 +1,369 @@
+market,instrument,session,year,ts,time_bucket,candidate_gate_side,intended_v2b_side,or_width_pts,or_width_quartile,is_full_rth_session,regime_ok,source
+mym,MYM,2021-03-04,2021,2021-03-04T10:27:00-05:00,09:45-10:30,long,short,162.0,Q3,True,True,stratified_event_count_seed_49
+mym,MYM,2021-03-09,2021,2021-03-09T15:18:00-05:00,14:00-15:30,long,short,115.0,Q2,True,True,stratified_event_count_seed_49
+mym,MYM,2021-03-12,2021,2021-03-12T15:19:00-05:00,14:00-15:30,long,short,127.0,Q3,True,True,stratified_event_count_seed_49
+mym,MYM,2021-03-16,2021,2021-03-16T11:28:00-04:00,10:30-12:00,long,short,60.0,Q1 low,True,True,stratified_event_count_seed_49
+mym,MYM,2021-03-17,2021,2021-03-17T10:04:00-04:00,09:45-10:30,long,short,89.0,Q1 low,True,True,stratified_event_count_seed_49
+mym,MYM,2021-03-17,2021,2021-03-17T10:19:00-04:00,09:45-10:30,long,short,89.0,Q1 low,True,True,stratified_event_count_seed_49
+mym,MYM,2021-03-19,2021,2021-03-19T09:55:00-04:00,09:45-10:30,long,short,239.0,Q4 high,True,True,stratified_event_count_seed_49
+mym,MYM,2021-03-19,2021,2021-03-19T11:26:00-04:00,10:30-12:00,short,long,239.0,Q4 high,True,True,stratified_event_count_seed_49
+mym,MYM,2021-03-22,2021,2021-03-22T12:55:00-04:00,12:00-14:00,long,short,84.0,Q1 low,True,True,stratified_event_count_seed_49
+mym,MYM,2021-03-23,2021,2021-03-23T12:09:00-04:00,12:00-14:00,long,short,68.0,Q1 low,True,True,stratified_event_count_seed_49
+mym,MYM,2021-03-24,2021,2021-03-24T11:04:00-04:00,10:30-12:00,short,long,147.0,Q3,True,True,stratified_event_count_seed_49
+mym,MYM,2021-03-31,2021,2021-03-31T09:50:00-04:00,09:45-10:30,long,short,114.0,Q2,True,True,stratified_event_count_seed_49
+mym,MYM,2021-04-01,2021,2021-04-01T10:45:00-04:00,10:30-12:00,long,short,90.0,Q1 low,True,True,stratified_event_count_seed_49
+mym,MYM,2021-04-08,2021,2021-04-08T10:25:00-04:00,09:45-10:30,long,short,104.0,Q2,True,True,stratified_event_count_seed_49
+mym,MYM,2021-04-13,2021,2021-04-13T12:51:00-04:00,12:00-14:00,short,long,133.0,Q3,True,True,stratified_event_count_seed_49
+mym,MYM,2021-04-16,2021,2021-04-16T11:03:00-04:00,10:30-12:00,long,short,68.0,Q1 low,True,True,stratified_event_count_seed_49
+mym,MYM,2021-04-16,2021,2021-04-16T15:28:00-04:00,14:00-15:30,long,short,68.0,Q1 low,True,True,stratified_event_count_seed_49
+mym,MYM,2021-04-19,2021,2021-04-19T15:23:00-04:00,14:00-15:30,long,short,97.0,Q2,True,True,stratified_event_count_seed_49
+mym,MYM,2021-04-21,2021,2021-04-21T14:21:00-04:00,14:00-15:30,short,long,132.0,Q3,True,True,stratified_event_count_seed_49
+mym,MYM,2021-04-22,2021,2021-04-22T14:21:00-04:00,14:00-15:30,long,short,151.0,Q3,True,True,stratified_event_count_seed_49
+mym,MYM,2021-04-23,2021,2021-04-23T10:57:00-04:00,10:30-12:00,long,short,81.0,Q1 low,True,True,stratified_event_count_seed_49
+mym,MYM,2021-04-23,2021,2021-04-23T11:05:00-04:00,10:30-12:00,long,short,81.0,Q1 low,True,True,stratified_event_count_seed_49
+mym,MYM,2021-04-23,2021,2021-04-23T12:18:00-04:00,12:00-14:00,long,short,81.0,Q1 low,True,True,stratified_event_count_seed_49
+mym,MYM,2021-04-27,2021,2021-04-27T10:10:00-04:00,09:45-10:30,long,short,109.0,Q2,True,True,stratified_event_count_seed_49
+mym,MYM,2021-04-30,2021,2021-04-30T13:43:00-04:00,12:00-14:00,long,short,59.0,Q1 low,True,True,stratified_event_count_seed_49
+mym,MYM,2021-05-03,2021,2021-05-03T13:12:00-04:00,12:00-14:00,long,short,100.0,Q2,True,True,stratified_event_count_seed_49
+mym,MYM,2021-05-06,2021,2021-05-06T10:03:00-04:00,09:45-10:30,long,short,98.0,Q2,True,True,stratified_event_count_seed_49
+mym,MYM,2021-05-12,2021,2021-05-12T14:31:00-04:00,14:00-15:30,long,short,111.0,Q2,True,True,stratified_event_count_seed_49
+mym,MYM,2021-05-12,2021,2021-05-12T15:02:00-04:00,14:00-15:30,long,short,111.0,Q2,True,True,stratified_event_count_seed_49
+mym,MYM,2021-05-25,2021,2021-05-25T12:01:00-04:00,12:00-14:00,short,long,62.0,Q1 low,True,True,stratified_event_count_seed_49
+mym,MYM,2021-05-25,2021,2021-05-25T13:13:00-04:00,12:00-14:00,long,short,62.0,Q1 low,True,True,stratified_event_count_seed_49
+mym,MYM,2021-05-25,2021,2021-05-25T14:30:00-04:00,14:00-15:30,long,short,62.0,Q1 low,True,True,stratified_event_count_seed_49
+mym,MYM,2021-06-08,2021,2021-06-08T10:00:00-04:00,09:45-10:30,long,short,86.0,Q1 low,True,True,stratified_event_count_seed_49
+mym,MYM,2021-06-09,2021,2021-06-09T14:53:00-04:00,14:00-15:30,long,short,77.0,Q1 low,True,True,stratified_event_count_seed_49
+mym,MYM,2021-06-11,2021,2021-06-11T10:17:00-04:00,09:45-10:30,long,short,72.0,Q1 low,True,True,stratified_event_count_seed_49
+mym,MYM,2021-06-11,2021,2021-06-11T11:46:00-04:00,10:30-12:00,long,short,72.0,Q1 low,True,True,stratified_event_count_seed_49
+mym,MYM,2021-06-15,2021,2021-06-15T15:29:00-04:00,14:00-15:30,long,short,117.0,Q2,True,True,stratified_event_count_seed_49
+mym,MYM,2021-06-18,2021,2021-06-18T10:29:00-04:00,09:45-10:30,long,short,136.0,Q3,True,True,stratified_event_count_seed_49
+mym,MYM,2021-06-22,2021,2021-06-22T11:05:00-04:00,10:30-12:00,long,short,114.0,Q2,True,True,stratified_event_count_seed_49
+mym,MYM,2021-06-24,2021,2021-06-24T10:23:00-04:00,09:45-10:30,long,short,133.0,Q3,True,True,stratified_event_count_seed_49
+mym,MYM,2021-06-30,2021,2021-06-30T11:08:00-04:00,10:30-12:00,long,short,160.0,Q3,True,True,stratified_event_count_seed_49
+mym,MYM,2021-07-02,2021,2021-07-02T10:26:00-04:00,09:45-10:30,long,short,99.0,Q2,True,True,stratified_event_count_seed_49
+mym,MYM,2021-07-12,2021,2021-07-12T15:30:00-04:00,14:00-15:30,long,short,161.0,Q3,True,True,stratified_event_count_seed_49
+mym,MYM,2021-07-13,2021,2021-07-13T13:48:00-04:00,12:00-14:00,long,short,92.0,Q1 low,True,True,stratified_event_count_seed_49
+mym,MYM,2021-07-13,2021,2021-07-13T14:43:00-04:00,14:00-15:30,long,short,92.0,Q1 low,True,True,stratified_event_count_seed_49
+mym,MYM,2021-07-19,2021,2021-07-19T13:24:00-04:00,12:00-14:00,long,short,119.0,Q2,True,True,stratified_event_count_seed_49
+mym,MYM,2021-07-22,2021,2021-07-22T12:26:00-04:00,12:00-14:00,long,short,127.0,Q3,True,True,stratified_event_count_seed_49
+mym,MYM,2021-07-22,2021,2021-07-22T14:19:00-04:00,14:00-15:30,short,long,127.0,Q3,True,True,stratified_event_count_seed_49
+mym,MYM,2021-07-23,2021,2021-07-23T13:27:00-04:00,12:00-14:00,long,short,91.0,Q1 low,True,True,stratified_event_count_seed_49
+mym,MYM,2021-08-03,2021,2021-08-03T12:23:00-04:00,12:00-14:00,long,short,152.0,Q3,True,True,stratified_event_count_seed_49
+mym,MYM,2021-08-04,2021,2021-08-04T09:47:00-04:00,09:45-10:30,long,short,82.0,Q1 low,True,True,stratified_event_count_seed_49
+mym,MYM,2021-08-06,2021,2021-08-06T09:53:00-04:00,09:45-10:30,long,short,102.0,Q2,True,True,stratified_event_count_seed_49
+mym,MYM,2021-08-13,2021,2021-08-13T12:14:00-04:00,12:00-14:00,long,short,63.0,Q1 low,True,True,stratified_event_count_seed_49
+mym,MYM,2021-08-17,2021,2021-08-17T10:29:00-04:00,09:45-10:30,long,short,83.0,Q1 low,True,True,stratified_event_count_seed_49
+mym,MYM,2021-08-17,2021,2021-08-17T10:33:00-04:00,10:30-12:00,long,short,83.0,Q1 low,True,True,stratified_event_count_seed_49
+mym,MYM,2021-08-20,2021,2021-08-20T15:03:00-04:00,14:00-15:30,long,short,119.0,Q2,True,True,stratified_event_count_seed_49
+mym,MYM,2021-08-24,2021,2021-08-24T10:07:00-04:00,09:45-10:30,long,short,72.0,Q1 low,True,True,stratified_event_count_seed_49
+mym,MYM,2021-08-26,2021,2021-08-26T14:34:00-04:00,14:00-15:30,long,short,69.0,Q1 low,True,True,stratified_event_count_seed_49
+mym,MYM,2021-08-30,2021,2021-08-30T10:34:00-04:00,10:30-12:00,long,short,97.0,Q2,True,True,stratified_event_count_seed_49
+mym,MYM,2021-09-16,2021,2021-09-16T10:02:00-04:00,09:45-10:30,long,short,135.0,Q3,True,True,stratified_event_count_seed_49
+mym,MYM,2021-09-17,2021,2021-09-17T11:55:00-04:00,10:30-12:00,short,long,131.0,Q3,True,True,stratified_event_count_seed_49
+mym,MYM,2021-09-21,2021,2021-09-21T09:52:00-04:00,09:45-10:30,short,long,178.0,Q4 high,True,True,stratified_event_count_seed_49
+mym,MYM,2021-09-24,2021,2021-09-24T09:59:00-04:00,09:45-10:30,short,long,149.0,Q3,True,True,stratified_event_count_seed_49
+mym,MYM,2021-09-24,2021,2021-09-24T13:58:00-04:00,12:00-14:00,long,short,149.0,Q3,True,True,stratified_event_count_seed_49
+mym,MYM,2021-09-29,2021,2021-09-29T15:22:00-04:00,14:00-15:30,short,long,136.0,Q3,True,True,stratified_event_count_seed_49
+mym,MYM,2021-10-05,2021,2021-10-05T13:24:00-04:00,12:00-14:00,short,long,141.0,Q3,True,True,stratified_event_count_seed_49
+mym,MYM,2021-11-03,2021,2021-11-03T10:24:00-04:00,09:45-10:30,long,short,95.0,Q1 low,True,True,stratified_event_count_seed_49
+mym,MYM,2021-11-03,2021,2021-11-03T11:54:00-04:00,10:30-12:00,long,short,95.0,Q1 low,True,True,stratified_event_count_seed_49
+mym,MYM,2021-11-08,2021,2021-11-08T09:49:00-05:00,09:45-10:30,short,long,113.0,Q2,True,True,stratified_event_count_seed_49
+mym,MYM,2021-11-11,2021,2021-11-11T10:02:00-05:00,09:45-10:30,long,short,126.0,Q3,True,True,stratified_event_count_seed_49
+mym,MYM,2021-11-12,2021,2021-11-12T14:54:00-05:00,14:00-15:30,long,short,54.0,Q1 low,True,True,stratified_event_count_seed_49
+mym,MYM,2021-11-16,2021,2021-11-16T14:22:00-05:00,14:00-15:30,long,short,97.0,Q2,True,True,stratified_event_count_seed_49
+mym,MYM,2021-11-16,2021,2021-11-16T15:17:00-05:00,14:00-15:30,long,short,97.0,Q2,True,True,stratified_event_count_seed_49
+mym,MYM,2021-11-17,2021,2021-11-17T09:48:00-05:00,09:45-10:30,long,short,58.0,Q1 low,True,True,stratified_event_count_seed_49
+mym,MYM,2021-11-22,2021,2021-11-22T09:57:00-05:00,09:45-10:30,long,short,105.0,Q2,True,True,stratified_event_count_seed_49
+mym,MYM,2021-11-23,2021,2021-11-23T11:05:00-05:00,10:30-12:00,short,long,159.0,Q3,True,True,stratified_event_count_seed_49
+mym,MYM,2021-12-01,2021,2021-12-01T15:16:00-05:00,14:00-15:30,long,short,117.0,Q2,True,True,stratified_event_count_seed_49
+mym,MYM,2021-12-02,2021,2021-12-02T11:29:00-05:00,10:30-12:00,short,long,302.0,Q4 high,True,True,stratified_event_count_seed_49
+mym,MYM,2021-12-17,2021,2021-12-17T10:09:00-05:00,09:45-10:30,short,long,271.0,Q4 high,True,True,stratified_event_count_seed_49
+mym,MYM,2021-12-30,2021,2021-12-30T10:27:00-05:00,09:45-10:30,short,long,131.0,Q3,True,True,stratified_event_count_seed_49
+mym,MYM,2021-12-31,2021,2021-12-31T12:15:00-05:00,12:00-14:00,short,long,92.0,Q1 low,True,True,stratified_event_count_seed_49
+mym,MYM,2021-12-31,2021,2021-12-31T14:55:00-05:00,14:00-15:30,long,short,92.0,Q1 low,True,True,stratified_event_count_seed_49
+mym,MYM,2022-01-07,2022,2022-01-07T15:08:00-05:00,14:00-15:30,short,long,110.0,Q2,True,True,stratified_event_count_seed_49
+mym,MYM,2022-01-13,2022,2022-01-13T12:39:00-05:00,12:00-14:00,short,long,113.0,Q2,True,True,stratified_event_count_seed_49
+mym,MYM,2022-01-17,2022,2022-01-17T14:36:00-05:00,14:00-15:30,long,short,41.0,Q1 low,True,True,stratified_event_count_seed_49
+mym,MYM,2022-01-24,2022,2022-01-24T12:17:00-05:00,12:00-14:00,short,long,196.0,Q4 high,True,True,stratified_event_count_seed_49
+mym,MYM,2022-01-26,2022,2022-01-26T09:45:00-05:00,09:45-10:30,short,long,165.0,Q3,True,True,stratified_event_count_seed_49
+mym,MYM,2022-02-02,2022,2022-02-02T15:19:00-05:00,14:00-15:30,short,long,166.0,Q3,True,True,stratified_event_count_seed_49
+mym,MYM,2022-02-10,2022,2022-02-10T10:23:00-05:00,09:45-10:30,short,long,159.0,Q3,True,True,stratified_event_count_seed_49
+mym,MYM,2022-02-14,2022,2022-02-14T09:57:00-05:00,09:45-10:30,long,short,169.0,Q4 high,True,True,stratified_event_count_seed_49
+mym,MYM,2022-12-02,2022,2022-12-02T14:38:00-05:00,14:00-15:30,short,long,175.0,Q4 high,True,True,stratified_event_count_seed_49
+mym,MYM,2022-12-08,2022,2022-12-08T10:00:00-05:00,09:45-10:30,short,long,100.0,Q2,True,True,stratified_event_count_seed_49
+mym,MYM,2022-12-12,2022,2022-12-12T14:13:00-05:00,14:00-15:30,short,long,84.0,Q1 low,True,True,stratified_event_count_seed_49
+mym,MYM,2022-12-13,2022,2022-12-13T14:49:00-05:00,14:00-15:30,short,long,288.0,Q4 high,True,True,stratified_event_count_seed_49
+mym,MYM,2022-12-15,2022,2022-12-15T14:12:00-05:00,14:00-15:30,short,long,217.0,Q4 high,True,True,stratified_event_count_seed_49
+mym,MYM,2022-12-22,2022,2022-12-22T14:59:00-05:00,14:00-15:30,short,long,177.0,Q4 high,True,True,stratified_event_count_seed_49
+mym,MYM,2022-12-23,2022,2022-12-23T14:28:00-05:00,14:00-15:30,short,long,225.0,Q4 high,True,True,stratified_event_count_seed_49
+mym,MYM,2022-12-30,2022,2022-12-30T13:53:00-05:00,12:00-14:00,long,short,115.0,Q2,True,True,stratified_event_count_seed_49
+mym,MYM,2023-01-03,2023,2023-01-03T13:28:00-05:00,12:00-14:00,long,short,212.0,Q4 high,True,True,stratified_event_count_seed_49
+mym,MYM,2023-01-13,2023,2023-01-13T14:30:00-05:00,14:00-15:30,long,short,136.0,Q3,True,True,stratified_event_count_seed_49
+mym,MYM,2023-01-16,2023,2023-01-16T14:29:00-05:00,14:00-15:30,long,short,26.0,Q1 low,True,True,stratified_event_count_seed_49
+mym,MYM,2023-01-24,2023,2023-01-24T10:20:00-05:00,09:45-10:30,short,long,134.0,Q3,True,True,stratified_event_count_seed_49
+mym,MYM,2023-01-24,2023,2023-01-24T10:31:00-05:00,10:30-12:00,short,long,134.0,Q3,True,True,stratified_event_count_seed_49
+mym,MYM,2023-01-24,2023,2023-01-24T14:27:00-05:00,14:00-15:30,short,long,134.0,Q3,True,True,stratified_event_count_seed_49
+mym,MYM,2023-01-25,2023,2023-01-25T10:18:00-05:00,09:45-10:30,short,long,119.0,Q2,True,True,stratified_event_count_seed_49
+mym,MYM,2023-01-30,2023,2023-01-30T13:34:00-05:00,12:00-14:00,long,short,109.0,Q2,True,True,stratified_event_count_seed_49
+mym,MYM,2023-02-01,2023,2023-02-01T12:41:00-05:00,12:00-14:00,long,short,108.0,Q2,True,True,stratified_event_count_seed_49
+mym,MYM,2023-02-08,2023,2023-02-08T10:50:00-05:00,10:30-12:00,short,long,132.0,Q3,True,True,stratified_event_count_seed_49
+mym,MYM,2023-02-09,2023,2023-02-09T12:28:00-05:00,12:00-14:00,short,long,68.0,Q1 low,True,True,stratified_event_count_seed_49
+mym,MYM,2023-02-10,2023,2023-02-10T10:17:00-05:00,09:45-10:30,short,long,114.0,Q2,True,True,stratified_event_count_seed_49
+mym,MYM,2023-02-21,2023,2023-02-21T09:56:00-05:00,09:45-10:30,short,long,125.0,Q2,True,True,stratified_event_count_seed_49
+mym,MYM,2023-02-22,2023,2023-02-22T10:53:00-05:00,10:30-12:00,long,short,76.0,Q1 low,True,True,stratified_event_count_seed_49
+mym,MYM,2023-02-24,2023,2023-02-24T10:47:00-05:00,10:30-12:00,short,long,131.0,Q3,True,True,stratified_event_count_seed_49
+mym,MYM,2023-02-24,2023,2023-02-24T12:59:00-05:00,12:00-14:00,short,long,131.0,Q3,True,True,stratified_event_count_seed_49
+mym,MYM,2023-03-02,2023,2023-03-02T12:22:00-05:00,12:00-14:00,short,long,97.0,Q2,True,True,stratified_event_count_seed_49
+mym,MYM,2023-03-06,2023,2023-03-06T14:36:00-05:00,14:00-15:30,short,long,102.0,Q2,True,True,stratified_event_count_seed_49
+mym,MYM,2023-03-06,2023,2023-03-06T14:56:00-05:00,14:00-15:30,short,long,102.0,Q2,True,True,stratified_event_count_seed_49
+mym,MYM,2023-03-10,2023,2023-03-10T10:14:00-05:00,09:45-10:30,long,short,151.0,Q3,True,True,stratified_event_count_seed_49
+mym,MYM,2023-03-10,2023,2023-03-10T10:52:00-05:00,10:30-12:00,short,long,151.0,Q3,True,True,stratified_event_count_seed_49
+mym,MYM,2023-03-20,2023,2023-03-20T14:05:00-04:00,14:00-15:30,long,short,188.0,Q4 high,True,True,stratified_event_count_seed_49
+mym,MYM,2023-03-20,2023,2023-03-20T14:08:00-04:00,14:00-15:30,long,short,188.0,Q4 high,True,True,stratified_event_count_seed_49
+mym,MYM,2023-03-24,2023,2023-03-24T14:06:00-04:00,14:00-15:30,long,short,131.0,Q3,True,True,stratified_event_count_seed_49
+mym,MYM,2023-05-19,2023,2023-05-19T14:20:00-04:00,14:00-15:30,long,short,76.0,Q1 low,True,True,stratified_event_count_seed_49
+mym,MYM,2023-05-19,2023,2023-05-19T14:47:00-04:00,14:00-15:30,short,long,76.0,Q1 low,True,True,stratified_event_count_seed_49
+mym,MYM,2023-05-25,2023,2023-05-25T09:46:00-04:00,09:45-10:30,short,long,152.0,Q3,True,True,stratified_event_count_seed_49
+mym,MYM,2023-05-29,2023,2023-05-29T09:54:00-04:00,09:45-10:30,long,short,19.0,Q1 low,True,True,stratified_event_count_seed_49
+mym,MYM,2023-05-29,2023,2023-05-29T14:09:00-04:00,14:00-15:30,short,long,19.0,Q1 low,True,True,stratified_event_count_seed_49
+mym,MYM,2023-05-30,2023,2023-05-30T10:33:00-04:00,10:30-12:00,long,short,147.0,Q3,True,True,stratified_event_count_seed_49
+mym,MYM,2023-06-02,2023,2023-06-02T10:21:00-04:00,09:45-10:30,long,short,178.0,Q4 high,True,True,stratified_event_count_seed_49
+mym,MYM,2023-06-07,2023,2023-06-07T12:39:00-04:00,12:00-14:00,short,long,130.0,Q3,True,True,stratified_event_count_seed_49
+mym,MYM,2023-06-13,2023,2023-06-13T11:18:00-04:00,10:30-12:00,long,short,210.0,Q4 high,True,True,stratified_event_count_seed_49
+mym,MYM,2023-06-13,2023,2023-06-13T12:38:00-04:00,12:00-14:00,long,short,210.0,Q4 high,True,True,stratified_event_count_seed_49
+mym,MYM,2023-06-16,2023,2023-06-16T13:42:00-04:00,12:00-14:00,short,long,136.0,Q3,True,True,stratified_event_count_seed_49
+mym,MYM,2023-06-19,2023,2023-06-19T10:11:00-04:00,09:45-10:30,long,short,51.0,Q1 low,True,True,stratified_event_count_seed_49
+mym,MYM,2023-06-20,2023,2023-06-20T14:30:00-04:00,14:00-15:30,long,short,103.0,Q2,True,True,stratified_event_count_seed_49
+mym,MYM,2023-06-20,2023,2023-06-20T15:13:00-04:00,14:00-15:30,short,long,103.0,Q2,True,True,stratified_event_count_seed_49
+mym,MYM,2023-06-20,2023,2023-06-20T15:26:00-04:00,14:00-15:30,short,long,103.0,Q2,True,True,stratified_event_count_seed_49
+mym,MYM,2023-06-23,2023,2023-06-23T15:27:00-04:00,14:00-15:30,short,long,110.0,Q2,True,True,stratified_event_count_seed_49
+mym,MYM,2023-06-27,2023,2023-06-27T10:25:00-04:00,09:45-10:30,short,long,144.0,Q3,True,True,stratified_event_count_seed_49
+mym,MYM,2023-06-27,2023,2023-06-27T12:32:00-04:00,12:00-14:00,long,short,144.0,Q3,True,True,stratified_event_count_seed_49
+mym,MYM,2023-06-29,2023,2023-06-29T13:12:00-04:00,12:00-14:00,long,short,162.0,Q3,True,True,stratified_event_count_seed_49
+mym,MYM,2023-06-30,2023,2023-06-30T12:20:00-04:00,12:00-14:00,long,short,77.0,Q1 low,True,True,stratified_event_count_seed_49
+mym,MYM,2023-07-05,2023,2023-07-05T14:10:00-04:00,14:00-15:30,short,long,85.0,Q1 low,True,True,stratified_event_count_seed_49
+mym,MYM,2023-07-11,2023,2023-07-11T10:59:00-04:00,10:30-12:00,long,short,83.0,Q1 low,True,True,stratified_event_count_seed_49
+mym,MYM,2023-07-11,2023,2023-07-11T12:58:00-04:00,12:00-14:00,short,long,83.0,Q1 low,True,True,stratified_event_count_seed_49
+mym,MYM,2023-07-13,2023,2023-07-13T10:48:00-04:00,10:30-12:00,long,short,66.0,Q1 low,True,True,stratified_event_count_seed_49
+mym,MYM,2023-07-19,2023,2023-07-19T09:52:00-04:00,09:45-10:30,short,long,106.0,Q2,True,True,stratified_event_count_seed_49
+mym,MYM,2023-07-26,2023,2023-07-26T10:32:00-04:00,10:30-12:00,short,long,144.0,Q3,True,True,stratified_event_count_seed_49
+mym,MYM,2023-07-26,2023,2023-07-26T14:35:00-04:00,14:00-15:30,short,long,144.0,Q3,True,True,stratified_event_count_seed_49
+mym,MYM,2023-07-28,2023,2023-07-28T10:40:00-04:00,10:30-12:00,short,long,119.0,Q2,True,True,stratified_event_count_seed_49
+mym,MYM,2023-07-28,2023,2023-07-28T14:45:00-04:00,14:00-15:30,short,long,119.0,Q2,True,True,stratified_event_count_seed_49
+mym,MYM,2023-08-02,2023,2023-08-02T14:48:00-04:00,14:00-15:30,short,long,87.0,Q1 low,True,True,stratified_event_count_seed_49
+mym,MYM,2023-08-11,2023,2023-08-11T15:01:00-04:00,14:00-15:30,short,long,118.0,Q2,True,True,stratified_event_count_seed_49
+mym,MYM,2023-08-14,2023,2023-08-14T15:26:00-04:00,14:00-15:30,long,short,107.0,Q2,True,True,stratified_event_count_seed_49
+mym,MYM,2023-08-21,2023,2023-08-21T14:26:00-04:00,14:00-15:30,long,short,78.0,Q1 low,True,True,stratified_event_count_seed_49
+mym,MYM,2023-08-29,2023,2023-08-29T15:03:00-04:00,14:00-15:30,long,short,92.0,Q1 low,True,True,stratified_event_count_seed_49
+mym,MYM,2023-09-04,2023,2023-09-04T10:17:00-04:00,09:45-10:30,long,short,24.0,Q1 low,True,True,stratified_event_count_seed_49
+mym,MYM,2023-09-07,2023,2023-09-07T11:27:00-04:00,10:30-12:00,short,long,155.0,Q3,True,True,stratified_event_count_seed_49
+mym,MYM,2023-09-08,2023,2023-09-08T11:52:00-04:00,10:30-12:00,short,long,52.0,Q1 low,True,True,stratified_event_count_seed_49
+mym,MYM,2023-09-08,2023,2023-09-08T12:23:00-04:00,12:00-14:00,long,short,52.0,Q1 low,True,True,stratified_event_count_seed_49
+mym,MYM,2023-09-19,2023,2023-09-19T10:28:00-04:00,09:45-10:30,long,short,59.0,Q1 low,True,True,stratified_event_count_seed_49
+mym,MYM,2023-09-19,2023,2023-09-19T14:26:00-04:00,14:00-15:30,short,long,59.0,Q1 low,True,True,stratified_event_count_seed_49
+mym,MYM,2023-09-20,2023,2023-09-20T14:13:00-04:00,14:00-15:30,long,short,61.0,Q1 low,True,True,stratified_event_count_seed_49
+mym,MYM,2023-09-20,2023,2023-09-20T15:18:00-04:00,14:00-15:30,long,short,61.0,Q1 low,True,True,stratified_event_count_seed_49
+mym,MYM,2023-09-22,2023,2023-09-22T15:21:00-04:00,14:00-15:30,short,long,86.0,Q1 low,True,True,stratified_event_count_seed_49
+mym,MYM,2023-09-26,2023,2023-09-26T13:55:00-04:00,12:00-14:00,long,short,89.0,Q1 low,True,True,stratified_event_count_seed_49
+mym,MYM,2023-10-06,2023,2023-10-06T15:05:00-04:00,14:00-15:30,short,long,156.0,Q3,True,True,stratified_event_count_seed_49
+mym,MYM,2023-10-10,2023,2023-10-10T10:11:00-04:00,09:45-10:30,short,long,115.0,Q2,True,True,stratified_event_count_seed_49
+mym,MYM,2023-10-16,2023,2023-10-16T12:32:00-04:00,12:00-14:00,long,short,66.0,Q1 low,True,True,stratified_event_count_seed_49
+mym,MYM,2023-10-19,2023,2023-10-19T13:58:00-04:00,12:00-14:00,long,short,62.0,Q1 low,True,True,stratified_event_count_seed_49
+mym,MYM,2023-12-14,2023,2023-12-14T10:22:00-05:00,09:45-10:30,short,long,138.0,Q3,True,True,stratified_event_count_seed_49
+mym,MYM,2023-12-14,2023,2023-12-14T12:35:00-05:00,12:00-14:00,short,long,138.0,Q3,True,True,stratified_event_count_seed_49
+mym,MYM,2023-12-18,2023,2023-12-18T09:46:00-05:00,09:45-10:30,long,short,58.0,Q1 low,True,True,stratified_event_count_seed_49
+mym,MYM,2024-01-02,2024,2024-01-02T10:12:00-05:00,09:45-10:30,short,long,148.0,Q3,True,True,stratified_event_count_seed_49
+mym,MYM,2024-01-03,2024,2024-01-03T10:26:00-05:00,09:45-10:30,long,short,92.0,Q1 low,True,True,stratified_event_count_seed_49
+mym,MYM,2024-01-08,2024,2024-01-08T10:23:00-05:00,09:45-10:30,short,long,106.0,Q2,True,True,stratified_event_count_seed_49
+mym,MYM,2024-01-08,2024,2024-01-08T13:48:00-05:00,12:00-14:00,short,long,106.0,Q2,True,True,stratified_event_count_seed_49
+mym,MYM,2024-01-10,2024,2024-01-10T09:50:00-05:00,09:45-10:30,long,short,136.0,Q3,True,True,stratified_event_count_seed_49
+mym,MYM,2024-01-10,2024,2024-01-10T14:50:00-05:00,14:00-15:30,long,short,136.0,Q3,True,True,stratified_event_count_seed_49
+mym,MYM,2024-01-11,2024,2024-01-11T13:17:00-05:00,12:00-14:00,short,long,136.0,Q3,True,True,stratified_event_count_seed_49
+mym,MYM,2024-01-17,2024,2024-01-17T09:49:00-05:00,09:45-10:30,short,long,104.0,Q2,True,True,stratified_event_count_seed_49
+mym,MYM,2024-01-17,2024,2024-01-17T13:55:00-05:00,12:00-14:00,long,short,104.0,Q2,True,True,stratified_event_count_seed_49
+mym,MYM,2024-01-19,2024,2024-01-19T10:09:00-05:00,09:45-10:30,long,short,135.0,Q3,True,True,stratified_event_count_seed_49
+mym,MYM,2024-01-22,2024,2024-01-22T12:59:00-05:00,12:00-14:00,short,long,139.0,Q3,True,True,stratified_event_count_seed_49
+mym,MYM,2024-01-24,2024,2024-01-24T12:48:00-05:00,12:00-14:00,short,long,67.0,Q1 low,True,True,stratified_event_count_seed_49
+mym,MYM,2024-01-26,2024,2024-01-26T10:07:00-05:00,09:45-10:30,long,short,134.0,Q3,True,True,stratified_event_count_seed_49
+mym,MYM,2024-02-12,2024,2024-02-12T11:20:00-05:00,10:30-12:00,short,long,65.0,Q1 low,True,True,stratified_event_count_seed_49
+mym,MYM,2024-02-13,2024,2024-02-13T12:09:00-05:00,12:00-14:00,long,short,161.0,Q3,True,True,stratified_event_count_seed_49
+mym,MYM,2024-02-20,2024,2024-02-20T11:45:00-05:00,10:30-12:00,short,long,127.0,Q3,True,True,stratified_event_count_seed_49
+mym,MYM,2024-02-21,2024,2024-02-21T10:21:00-05:00,09:45-10:30,long,short,166.0,Q3,True,True,stratified_event_count_seed_49
+mym,MYM,2024-02-23,2024,2024-02-23T10:55:00-05:00,10:30-12:00,long,short,70.0,Q1 low,True,True,stratified_event_count_seed_49
+mym,MYM,2024-03-04,2024,2024-03-04T10:23:00-05:00,09:45-10:30,short,long,121.0,Q2,True,True,stratified_event_count_seed_49
+mym,MYM,2024-03-08,2024,2024-03-08T11:23:00-05:00,10:30-12:00,long,short,140.0,Q3,True,True,stratified_event_count_seed_49
+mym,MYM,2024-03-14,2024,2024-03-14T14:15:00-04:00,14:00-15:30,long,short,93.0,Q1 low,True,True,stratified_event_count_seed_49
+mym,MYM,2024-03-18,2024,2024-03-18T10:57:00-04:00,10:30-12:00,long,short,92.0,Q1 low,True,True,stratified_event_count_seed_49
+mym,MYM,2024-03-22,2024,2024-03-22T09:50:00-04:00,09:45-10:30,short,long,89.0,Q1 low,True,True,stratified_event_count_seed_49
+mym,MYM,2024-03-22,2024,2024-03-22T10:27:00-04:00,09:45-10:30,short,long,89.0,Q1 low,True,True,stratified_event_count_seed_49
+mym,MYM,2024-03-25,2024,2024-03-25T14:38:00-04:00,14:00-15:30,long,short,53.0,Q1 low,True,True,stratified_event_count_seed_49
+mym,MYM,2024-04-02,2024,2024-04-02T10:16:00-04:00,09:45-10:30,short,long,127.0,Q3,True,True,stratified_event_count_seed_49
+mym,MYM,2024-04-02,2024,2024-04-02T11:41:00-04:00,10:30-12:00,long,short,127.0,Q3,True,True,stratified_event_count_seed_49
+mym,MYM,2024-04-03,2024,2024-04-03T10:15:00-04:00,09:45-10:30,long,short,79.0,Q1 low,True,True,stratified_event_count_seed_49
+mym,MYM,2024-04-11,2024,2024-04-11T09:45:00-04:00,09:45-10:30,long,short,172.0,Q4 high,True,True,stratified_event_count_seed_49
+mym,MYM,2024-04-12,2024,2024-04-12T14:55:00-04:00,14:00-15:30,short,long,85.0,Q1 low,True,True,stratified_event_count_seed_49
+mym,MYM,2024-04-16,2024,2024-04-16T11:49:00-04:00,10:30-12:00,short,long,166.0,Q3,True,True,stratified_event_count_seed_49
+mym,MYM,2024-04-22,2024,2024-04-22T10:38:00-04:00,10:30-12:00,short,long,196.0,Q4 high,True,True,stratified_event_count_seed_49
+mym,MYM,2024-04-25,2024,2024-04-25T11:33:00-04:00,10:30-12:00,short,long,145.0,Q3,True,True,stratified_event_count_seed_49
+mym,MYM,2024-05-01,2024,2024-05-01T10:20:00-04:00,09:45-10:30,short,long,117.0,Q2,True,True,stratified_event_count_seed_49
+mym,MYM,2024-05-10,2024,2024-05-10T09:59:00-04:00,09:45-10:30,short,long,94.0,Q1 low,True,True,stratified_event_count_seed_49
+mym,MYM,2024-05-14,2024,2024-05-14T10:26:00-04:00,09:45-10:30,short,long,97.0,Q2,True,True,stratified_event_count_seed_49
+mym,MYM,2024-05-24,2024,2024-05-24T11:44:00-04:00,10:30-12:00,long,short,95.0,Q1 low,True,True,stratified_event_count_seed_49
+mym,MYM,2024-05-24,2024,2024-05-24T14:40:00-04:00,14:00-15:30,long,short,95.0,Q1 low,True,True,stratified_event_count_seed_49
+mym,MYM,2024-05-27,2024,2024-05-27T10:00:00-04:00,09:45-10:30,long,short,37.0,Q1 low,True,True,stratified_event_count_seed_49
+mym,MYM,2024-05-29,2024,2024-05-29T14:07:00-04:00,14:00-15:30,long,short,146.0,Q3,True,True,stratified_event_count_seed_49
+mym,MYM,2024-06-05,2024,2024-06-05T10:24:00-04:00,09:45-10:30,long,short,101.0,Q2,True,True,stratified_event_count_seed_49
+mym,MYM,2024-06-05,2024,2024-06-05T12:38:00-04:00,12:00-14:00,long,short,101.0,Q2,True,True,stratified_event_count_seed_49
+mym,MYM,2024-07-15,2024,2024-07-15T13:45:00-04:00,12:00-14:00,long,short,117.0,Q2,True,True,stratified_event_count_seed_49
+mym,MYM,2024-07-18,2024,2024-07-18T14:48:00-04:00,14:00-15:30,short,long,224.0,Q4 high,True,True,stratified_event_count_seed_49
+mym,MYM,2024-07-23,2024,2024-07-23T14:21:00-04:00,14:00-15:30,long,short,133.0,Q3,True,True,stratified_event_count_seed_49
+mym,MYM,2024-07-29,2024,2024-07-29T11:51:00-04:00,10:30-12:00,long,short,260.0,Q4 high,True,True,stratified_event_count_seed_49
+mym,MYM,2024-08-01,2024,2024-08-01T15:21:00-04:00,14:00-15:30,long,short,132.0,Q3,True,True,stratified_event_count_seed_49
+mym,MYM,2024-08-06,2024,2024-08-06T10:18:00-04:00,09:45-10:30,short,long,211.0,Q4 high,True,True,stratified_event_count_seed_49
+mym,MYM,2024-08-06,2024,2024-08-06T11:58:00-04:00,10:30-12:00,short,long,211.0,Q4 high,True,True,stratified_event_count_seed_49
+mym,MYM,2024-08-06,2024,2024-08-06T13:30:00-04:00,12:00-14:00,short,long,211.0,Q4 high,True,True,stratified_event_count_seed_49
+mym,MYM,2024-08-07,2024,2024-08-07T14:00:00-04:00,14:00-15:30,short,long,171.0,Q4 high,True,True,stratified_event_count_seed_49
+mym,MYM,2024-08-13,2024,2024-08-13T12:03:00-04:00,12:00-14:00,long,short,171.0,Q4 high,True,True,stratified_event_count_seed_49
+mym,MYM,2024-08-21,2024,2024-08-21T10:11:00-04:00,09:45-10:30,long,short,117.0,Q2,True,True,stratified_event_count_seed_49
+mym,MYM,2024-08-26,2024,2024-08-26T10:27:00-04:00,09:45-10:30,short,long,115.0,Q2,True,True,stratified_event_count_seed_49
+mym,MYM,2024-08-26,2024,2024-08-26T15:19:00-04:00,14:00-15:30,short,long,115.0,Q2,True,True,stratified_event_count_seed_49
+mym,MYM,2024-09-11,2024,2024-09-11T13:58:00-04:00,12:00-14:00,short,long,347.0,Q4 high,True,True,stratified_event_count_seed_49
+mym,MYM,2024-09-19,2024,2024-09-19T14:08:00-04:00,14:00-15:30,long,short,159.0,Q3,True,True,stratified_event_count_seed_49
+mym,MYM,2024-09-23,2024,2024-09-23T10:46:00-04:00,10:30-12:00,long,short,143.0,Q3,True,True,stratified_event_count_seed_49
+mym,MYM,2024-09-23,2024,2024-09-23T13:56:00-04:00,12:00-14:00,short,long,143.0,Q3,True,True,stratified_event_count_seed_49
+mym,MYM,2024-09-24,2024,2024-09-24T13:14:00-04:00,12:00-14:00,long,short,109.0,Q2,True,True,stratified_event_count_seed_49
+mym,MYM,2024-09-25,2024,2024-09-25T10:19:00-04:00,09:45-10:30,long,short,171.0,Q4 high,True,True,stratified_event_count_seed_49
+mym,MYM,2024-09-27,2024,2024-09-27T12:43:00-04:00,12:00-14:00,long,short,155.0,Q3,True,True,stratified_event_count_seed_49
+mym,MYM,2024-09-27,2024,2024-09-27T13:20:00-04:00,12:00-14:00,long,short,155.0,Q3,True,True,stratified_event_count_seed_49
+mym,MYM,2024-09-30,2024,2024-09-30T10:49:00-04:00,10:30-12:00,short,long,202.0,Q4 high,True,True,stratified_event_count_seed_49
+mym,MYM,2024-10-04,2024,2024-10-04T09:58:00-04:00,09:45-10:30,short,long,142.0,Q3,True,True,stratified_event_count_seed_49
+mym,MYM,2024-10-04,2024,2024-10-04T12:01:00-04:00,12:00-14:00,long,short,142.0,Q3,True,True,stratified_event_count_seed_49
+mym,MYM,2024-10-07,2024,2024-10-07T09:57:00-04:00,09:45-10:30,long,short,126.0,Q3,True,True,stratified_event_count_seed_49
+mym,MYM,2024-10-08,2024,2024-10-08T13:59:00-04:00,12:00-14:00,long,short,204.0,Q4 high,True,True,stratified_event_count_seed_49
+mym,MYM,2024-10-09,2024,2024-10-09T09:45:00-04:00,09:45-10:30,short,long,213.0,Q4 high,True,True,stratified_event_count_seed_49
+mym,MYM,2024-10-09,2024,2024-10-09T14:01:00-04:00,14:00-15:30,short,long,213.0,Q4 high,True,True,stratified_event_count_seed_49
+mym,MYM,2024-10-14,2024,2024-10-14T11:04:00-04:00,10:30-12:00,short,long,125.0,Q2,True,True,stratified_event_count_seed_49
+mym,MYM,2024-10-18,2024,2024-10-18T10:09:00-04:00,09:45-10:30,long,short,195.0,Q4 high,True,True,stratified_event_count_seed_49
+mym,MYM,2024-10-18,2024,2024-10-18T10:30:00-04:00,10:30-12:00,long,short,195.0,Q4 high,True,True,stratified_event_count_seed_49
+mym,MYM,2024-10-21,2024,2024-10-21T10:23:00-04:00,09:45-10:30,long,short,130.0,Q3,True,True,stratified_event_count_seed_49
+mym,MYM,2024-10-21,2024,2024-10-21T13:08:00-04:00,12:00-14:00,long,short,130.0,Q3,True,True,stratified_event_count_seed_49
+mym,MYM,2024-10-23,2024,2024-10-23T10:09:00-04:00,09:45-10:30,short,long,88.0,Q1 low,True,True,stratified_event_count_seed_49
+mym,MYM,2024-10-25,2024,2024-10-25T10:14:00-04:00,09:45-10:30,short,long,114.0,Q2,True,True,stratified_event_count_seed_49
+mym,MYM,2024-11-04,2024,2024-11-04T13:55:00-05:00,12:00-14:00,short,long,175.0,Q4 high,True,True,stratified_event_count_seed_49
+mym,MYM,2024-11-06,2024,2024-11-06T09:53:00-05:00,09:45-10:30,long,short,193.0,Q4 high,True,True,stratified_event_count_seed_49
+mym,MYM,2024-11-06,2024,2024-11-06T11:31:00-05:00,10:30-12:00,long,short,193.0,Q4 high,True,True,stratified_event_count_seed_49
+mym,MYM,2024-11-06,2024,2024-11-06T14:36:00-05:00,14:00-15:30,short,long,193.0,Q4 high,True,True,stratified_event_count_seed_49
+mym,MYM,2024-11-13,2024,2024-11-13T11:33:00-05:00,10:30-12:00,long,short,96.0,Q2,True,True,stratified_event_count_seed_49
+mym,MYM,2024-11-15,2024,2024-11-15T10:04:00-05:00,09:45-10:30,long,short,94.0,Q1 low,True,True,stratified_event_count_seed_49
+mym,MYM,2024-11-22,2024,2024-11-22T11:56:00-05:00,10:30-12:00,long,short,255.0,Q4 high,True,True,stratified_event_count_seed_49
+mym,MYM,2024-11-29,2024,2024-11-29T12:27:00-05:00,12:00-14:00,long,short,137.0,Q3,True,True,stratified_event_count_seed_49
+mym,MYM,2024-11-29,2024,2024-11-29T15:27:00-05:00,14:00-15:30,long,short,137.0,Q3,True,True,stratified_event_count_seed_49
+mym,MYM,2024-12-02,2024,2024-12-02T10:21:00-05:00,09:45-10:30,long,short,217.0,Q4 high,True,True,stratified_event_count_seed_49
+mym,MYM,2024-12-02,2024,2024-12-02T12:06:00-05:00,12:00-14:00,long,short,217.0,Q4 high,True,True,stratified_event_count_seed_49
+mym,MYM,2024-12-02,2024,2024-12-02T13:11:00-05:00,12:00-14:00,short,long,217.0,Q4 high,True,True,stratified_event_count_seed_49
+mym,MYM,2024-12-04,2024,2024-12-04T10:07:00-05:00,09:45-10:30,long,short,127.0,Q3,True,True,stratified_event_count_seed_49
+mym,MYM,2024-12-04,2024,2024-12-04T12:48:00-05:00,12:00-14:00,long,short,127.0,Q3,True,True,stratified_event_count_seed_49
+mym,MYM,2024-12-05,2024,2024-12-05T14:26:00-05:00,14:00-15:30,long,short,142.0,Q3,True,True,stratified_event_count_seed_49
+mym,MYM,2024-12-05,2024,2024-12-05T14:26:00-05:00,14:00-15:30,short,long,142.0,Q3,True,True,stratified_event_count_seed_49
+mym,MYM,2024-12-05,2024,2024-12-05T15:03:00-05:00,14:00-15:30,short,long,142.0,Q3,True,True,stratified_event_count_seed_49
+mym,MYM,2024-12-06,2024,2024-12-06T13:37:00-05:00,12:00-14:00,long,short,82.0,Q1 low,True,True,stratified_event_count_seed_49
+mym,MYM,2024-12-16,2024,2024-12-16T11:51:00-05:00,10:30-12:00,long,short,79.0,Q1 low,True,True,stratified_event_count_seed_49
+mym,MYM,2024-12-20,2024,2024-12-20T12:33:00-05:00,12:00-14:00,long,short,251.0,Q4 high,True,True,stratified_event_count_seed_49
+mym,MYM,2024-12-31,2024,2024-12-31T14:16:00-05:00,14:00-15:30,short,long,105.0,Q2,True,True,stratified_event_count_seed_49
+mym,MYM,2025-01-03,2025,2025-01-03T10:12:00-05:00,09:45-10:30,long,short,125.0,Q2,True,True,stratified_event_count_seed_49
+mym,MYM,2025-01-06,2025,2025-01-06T14:43:00-05:00,14:00-15:30,long,short,116.0,Q2,True,True,stratified_event_count_seed_49
+mym,MYM,2025-01-10,2025,2025-01-10T09:53:00-05:00,09:45-10:30,long,short,169.0,Q4 high,True,True,stratified_event_count_seed_49
+mym,MYM,2025-01-16,2025,2025-01-16T11:00:00-05:00,10:30-12:00,long,short,122.0,Q2,True,True,stratified_event_count_seed_49
+mym,MYM,2025-01-17,2025,2025-01-17T13:17:00-05:00,12:00-14:00,long,short,91.0,Q1 low,True,True,stratified_event_count_seed_49
+mym,MYM,2025-01-20,2025,2025-01-20T10:28:00-05:00,09:45-10:30,long,short,101.0,Q2,True,True,stratified_event_count_seed_49
+mym,MYM,2025-01-21,2025,2025-01-21T09:51:00-05:00,09:45-10:30,long,short,124.0,Q2,True,True,stratified_event_count_seed_49
+mym,MYM,2025-01-29,2025,2025-01-29T12:19:00-05:00,12:00-14:00,short,long,115.0,Q2,True,True,stratified_event_count_seed_49
+mym,MYM,2025-01-31,2025,2025-01-31T12:26:00-05:00,12:00-14:00,long,short,103.0,Q2,True,True,stratified_event_count_seed_49
+mym,MYM,2025-02-06,2025,2025-02-06T12:33:00-05:00,12:00-14:00,long,short,86.0,Q1 low,True,True,stratified_event_count_seed_49
+mym,MYM,2025-02-11,2025,2025-02-11T09:59:00-05:00,09:45-10:30,long,short,79.0,Q1 low,True,True,stratified_event_count_seed_49
+mym,MYM,2025-02-11,2025,2025-02-11T13:23:00-05:00,12:00-14:00,long,short,79.0,Q1 low,True,True,stratified_event_count_seed_49
+mym,MYM,2025-02-12,2025,2025-02-12T14:21:00-05:00,14:00-15:30,long,short,176.0,Q4 high,True,True,stratified_event_count_seed_49
+mym,MYM,2025-02-13,2025,2025-02-13T11:27:00-05:00,10:30-12:00,long,short,162.0,Q3,True,True,stratified_event_count_seed_49
+mym,MYM,2025-02-17,2025,2025-02-17T14:40:00-05:00,14:00-15:30,short,long,46.0,Q1 low,True,True,stratified_event_count_seed_49
+mym,MYM,2025-02-18,2025,2025-02-18T10:21:00-05:00,09:45-10:30,long,short,100.0,Q2,True,True,stratified_event_count_seed_49
+mym,MYM,2025-02-19,2025,2025-02-19T09:56:00-05:00,09:45-10:30,long,short,82.0,Q1 low,True,True,stratified_event_count_seed_49
+mym,MYM,2025-02-27,2025,2025-02-27T15:02:00-05:00,14:00-15:30,long,short,216.0,Q4 high,True,True,stratified_event_count_seed_49
+mym,MYM,2025-03-03,2025,2025-03-03T09:59:00-05:00,09:45-10:30,long,short,136.0,Q3,True,True,stratified_event_count_seed_49
+mym,MYM,2025-03-04,2025,2025-03-04T10:10:00-05:00,09:45-10:30,long,short,234.0,Q4 high,True,True,stratified_event_count_seed_49
+mym,MYM,2025-03-05,2025,2025-03-05T11:22:00-05:00,10:30-12:00,long,short,257.0,Q4 high,True,True,stratified_event_count_seed_49
+mym,MYM,2025-03-06,2025,2025-03-06T12:34:00-05:00,12:00-14:00,short,long,243.0,Q4 high,True,True,stratified_event_count_seed_49
+mym,MYM,2025-03-13,2025,2025-03-13T14:51:00-04:00,14:00-15:30,long,short,155.0,Q3,True,True,stratified_event_count_seed_49
+mym,MYM,2025-03-13,2025,2025-03-13T15:12:00-04:00,14:00-15:30,short,long,155.0,Q3,True,True,stratified_event_count_seed_49
+mym,MYM,2025-03-17,2025,2025-03-17T11:01:00-04:00,10:30-12:00,short,long,316.0,Q4 high,True,True,stratified_event_count_seed_49
+mym,MYM,2025-03-19,2025,2025-03-19T09:48:00-04:00,09:45-10:30,long,short,125.0,Q2,True,True,stratified_event_count_seed_49
+mym,MYM,2025-03-19,2025,2025-03-19T11:12:00-04:00,10:30-12:00,long,short,125.0,Q2,True,True,stratified_event_count_seed_49
+mym,MYM,2025-03-21,2025,2025-03-21T15:14:00-04:00,14:00-15:30,long,short,146.0,Q3,True,True,stratified_event_count_seed_49
+mym,MYM,2025-03-24,2025,2025-03-24T10:07:00-04:00,09:45-10:30,long,short,192.0,Q4 high,True,True,stratified_event_count_seed_49
+mym,MYM,2025-03-26,2025,2025-03-26T14:00:00-04:00,14:00-15:30,short,long,185.0,Q4 high,True,True,stratified_event_count_seed_49
+mym,MYM,2025-03-26,2025,2025-03-26T14:38:00-04:00,14:00-15:30,short,long,185.0,Q4 high,True,True,stratified_event_count_seed_49
+mym,MYM,2025-03-27,2025,2025-03-27T14:44:00-04:00,14:00-15:30,short,long,239.0,Q4 high,True,True,stratified_event_count_seed_49
+mym,MYM,2025-07-03,2025,2025-07-03T13:30:00-04:00,12:00-14:00,short,long,150.0,Q3,True,True,stratified_event_count_seed_49
+mym,MYM,2025-07-09,2025,2025-07-09T13:46:00-04:00,12:00-14:00,long,short,111.0,Q2,True,True,stratified_event_count_seed_49
+mym,MYM,2025-07-10,2025,2025-07-10T11:23:00-04:00,10:30-12:00,long,short,79.0,Q1 low,True,True,stratified_event_count_seed_49
+mym,MYM,2025-07-10,2025,2025-07-10T14:53:00-04:00,14:00-15:30,short,long,79.0,Q1 low,True,True,stratified_event_count_seed_49
+mym,MYM,2025-07-14,2025,2025-07-14T10:21:00-04:00,09:45-10:30,short,long,130.0,Q3,True,True,stratified_event_count_seed_49
+mym,MYM,2025-07-15,2025,2025-07-15T15:23:00-04:00,14:00-15:30,long,short,231.0,Q4 high,True,True,stratified_event_count_seed_49
+mym,MYM,2025-07-17,2025,2025-07-17T15:05:00-04:00,14:00-15:30,long,short,280.0,Q4 high,True,True,stratified_event_count_seed_49
+mym,MYM,2025-07-22,2025,2025-07-22T10:41:00-04:00,10:30-12:00,long,short,179.0,Q4 high,True,True,stratified_event_count_seed_49
+mym,MYM,2025-07-23,2025,2025-07-23T10:53:00-04:00,10:30-12:00,short,long,90.0,Q1 low,True,True,stratified_event_count_seed_49
+mym,MYM,2025-07-25,2025,2025-07-25T10:27:00-04:00,09:45-10:30,long,short,92.0,Q1 low,True,True,stratified_event_count_seed_49
+mym,MYM,2025-07-28,2025,2025-07-28T11:58:00-04:00,10:30-12:00,short,long,94.0,Q1 low,True,True,stratified_event_count_seed_49
+mym,MYM,2025-07-31,2025,2025-07-31T11:04:00-04:00,10:30-12:00,long,short,149.0,Q3,True,True,stratified_event_count_seed_49
+mym,MYM,2025-08-07,2025,2025-08-07T12:31:00-04:00,12:00-14:00,long,short,123.0,Q2,True,True,stratified_event_count_seed_49
+mym,MYM,2025-08-13,2025,2025-08-13T13:56:00-04:00,12:00-14:00,long,short,158.0,Q3,True,True,stratified_event_count_seed_49
+mym,MYM,2025-08-15,2025,2025-08-15T14:56:00-04:00,14:00-15:30,short,long,176.0,Q4 high,True,True,stratified_event_count_seed_49
+mym,MYM,2025-08-25,2025,2025-08-25T15:18:00-04:00,14:00-15:30,long,short,87.0,Q1 low,True,True,stratified_event_count_seed_49
+mym,MYM,2025-09-04,2025,2025-09-04T10:18:00-04:00,09:45-10:30,long,short,154.0,Q3,True,True,stratified_event_count_seed_49
+mym,MYM,2025-09-10,2025,2025-09-10T15:07:00-04:00,14:00-15:30,long,short,116.0,Q2,True,True,stratified_event_count_seed_49
+mym,MYM,2025-09-18,2025,2025-09-18T09:58:00-04:00,09:45-10:30,long,short,119.0,Q2,True,True,stratified_event_count_seed_49
+mym,MYM,2025-09-23,2025,2025-09-23T10:04:00-04:00,09:45-10:30,short,long,192.0,Q4 high,True,True,stratified_event_count_seed_49
+mym,MYM,2025-09-24,2025,2025-09-24T11:31:00-04:00,10:30-12:00,short,long,109.0,Q2,True,True,stratified_event_count_seed_49
+mym,MYM,2025-09-24,2025,2025-09-24T11:32:00-04:00,10:30-12:00,long,short,109.0,Q2,True,True,stratified_event_count_seed_49
+mym,MYM,2025-09-26,2025,2025-09-26T11:59:00-04:00,10:30-12:00,short,long,181.0,Q4 high,True,True,stratified_event_count_seed_49
+mym,MYM,2025-10-01,2025,2025-10-01T11:31:00-04:00,10:30-12:00,short,long,172.0,Q4 high,True,True,stratified_event_count_seed_49
+mym,MYM,2025-10-01,2025,2025-10-01T13:35:00-04:00,12:00-14:00,short,long,172.0,Q4 high,True,True,stratified_event_count_seed_49
+mym,MYM,2025-10-02,2025,2025-10-02T12:07:00-04:00,12:00-14:00,long,short,174.0,Q4 high,True,True,stratified_event_count_seed_49
+mym,MYM,2025-10-06,2025,2025-10-06T13:55:00-04:00,12:00-14:00,long,short,163.0,Q3,True,True,stratified_event_count_seed_49
+mym,MYM,2025-10-09,2025,2025-10-09T12:09:00-04:00,12:00-14:00,long,short,117.0,Q2,True,True,stratified_event_count_seed_49
+mym,MYM,2025-10-10,2025,2025-10-10T11:36:00-04:00,10:30-12:00,long,short,161.0,Q3,True,True,stratified_event_count_seed_49
+mym,MYM,2025-10-20,2025,2025-10-20T13:39:00-04:00,12:00-14:00,long,short,109.0,Q2,True,True,stratified_event_count_seed_49
+mym,MYM,2025-10-22,2025,2025-10-22T10:26:00-04:00,09:45-10:30,short,long,119.0,Q2,True,True,stratified_event_count_seed_49
+mym,MYM,2025-10-28,2025,2025-10-28T11:41:00-04:00,10:30-12:00,short,long,209.0,Q4 high,True,True,stratified_event_count_seed_49
+mym,MYM,2025-11-07,2025,2025-11-07T12:29:00-05:00,12:00-14:00,long,short,178.0,Q4 high,True,True,stratified_event_count_seed_49
+mym,MYM,2025-11-10,2025,2025-11-10T10:45:00-05:00,10:30-12:00,short,long,171.0,Q4 high,True,True,stratified_event_count_seed_49
+mym,MYM,2025-11-17,2025,2025-11-17T13:29:00-05:00,12:00-14:00,short,long,210.0,Q4 high,True,True,stratified_event_count_seed_49
+mym,MYM,2025-11-19,2025,2025-11-19T14:42:00-05:00,14:00-15:30,long,short,117.0,Q2,True,True,stratified_event_count_seed_49
+mym,MYM,2025-11-20,2025,2025-11-20T10:09:00-05:00,09:45-10:30,short,long,185.0,Q4 high,True,True,stratified_event_count_seed_49
+mym,MYM,2025-11-25,2025,2025-11-25T10:40:00-05:00,10:30-12:00,short,long,247.0,Q4 high,True,True,stratified_event_count_seed_49
+mym,MYM,2025-12-03,2025,2025-12-03T15:00:00-05:00,14:00-15:30,short,long,168.0,Q4 high,True,True,stratified_event_count_seed_49
+mym,MYM,2025-12-04,2025,2025-12-04T11:17:00-05:00,10:30-12:00,long,short,207.0,Q4 high,True,True,stratified_event_count_seed_49
+mym,MYM,2025-12-05,2025,2025-12-05T13:27:00-05:00,12:00-14:00,long,short,146.0,Q3,True,True,stratified_event_count_seed_49
+mym,MYM,2025-12-09,2025,2025-12-09T14:53:00-05:00,14:00-15:30,long,short,183.0,Q4 high,True,True,stratified_event_count_seed_49
+mym,MYM,2025-12-09,2025,2025-12-09T15:06:00-05:00,14:00-15:30,short,long,183.0,Q4 high,True,True,stratified_event_count_seed_49
+mym,MYM,2025-12-10,2025,2025-12-10T10:07:00-05:00,09:45-10:30,long,short,150.0,Q3,True,True,stratified_event_count_seed_49
+mym,MYM,2025-12-10,2025,2025-12-10T10:23:00-05:00,09:45-10:30,long,short,150.0,Q3,True,True,stratified_event_count_seed_49
+mym,MYM,2025-12-10,2025,2025-12-10T10:29:00-05:00,09:45-10:30,short,long,150.0,Q3,True,True,stratified_event_count_seed_49
+mym,MYM,2025-12-10,2025,2025-12-10T14:30:00-05:00,14:00-15:30,long,short,150.0,Q3,True,True,stratified_event_count_seed_49
+mym,MYM,2025-12-11,2025,2025-12-11T10:25:00-05:00,09:45-10:30,short,long,299.0,Q4 high,True,True,stratified_event_count_seed_49
+mym,MYM,2025-12-12,2025,2025-12-12T15:29:00-05:00,14:00-15:30,short,long,93.0,Q1 low,True,True,stratified_event_count_seed_49
+mym,MYM,2025-12-15,2025,2025-12-15T10:12:00-05:00,09:45-10:30,long,short,125.0,Q2,True,True,stratified_event_count_seed_49
+mym,MYM,2025-12-18,2025,2025-12-18T10:18:00-05:00,09:45-10:30,short,long,244.0,Q4 high,True,True,stratified_event_count_seed_49
+mym,MYM,2025-12-22,2025,2025-12-22T13:15:00-05:00,12:00-14:00,short,long,188.0,Q4 high,True,True,stratified_event_count_seed_49
+mym,MYM,2025-12-23,2025,2025-12-23T10:58:00-05:00,10:30-12:00,long,short,118.0,Q2,True,True,stratified_event_count_seed_49
+mym,MYM,2025-12-23,2025,2025-12-23T15:00:00-05:00,14:00-15:30,long,short,118.0,Q2,True,True,stratified_event_count_seed_49
+mym,MYM,2025-12-30,2025,2025-12-30T09:54:00-05:00,09:45-10:30,long,short,195.0,Q4 high,True,True,stratified_event_count_seed_49
+mym,MYM,2026-01-06,2026,2026-01-06T10:29:00-05:00,09:45-10:30,long,short,212.0,Q4 high,True,True,stratified_event_count_seed_49
+mym,MYM,2026-01-09,2026,2026-01-09T11:45:00-05:00,10:30-12:00,long,short,179.0,Q4 high,True,True,stratified_event_count_seed_49
+mym,MYM,2026-01-12,2026,2026-01-12T15:22:00-05:00,14:00-15:30,long,short,307.0,Q4 high,True,True,stratified_event_count_seed_49
+mym,MYM,2026-01-21,2026,2026-01-21T12:11:00-05:00,12:00-14:00,long,short,170.0,Q4 high,True,True,stratified_event_count_seed_49
+mym,MYM,2026-01-29,2026,2026-01-29T10:02:00-05:00,09:45-10:30,short,long,310.0,Q4 high,True,True,stratified_event_count_seed_49
+mym,MYM,2026-02-04,2026,2026-02-04T12:10:00-05:00,12:00-14:00,short,long,228.0,Q4 high,True,True,stratified_event_count_seed_49
+mym,MYM,2026-02-18,2026,2026-02-18T10:05:00-05:00,09:45-10:30,long,short,383.0,Q4 high,True,True,stratified_event_count_seed_49
+mym,MYM,2026-02-20,2026,2026-02-20T10:10:00-05:00,09:45-10:30,long,short,152.0,Q3,True,True,stratified_event_count_seed_49
+mym,MYM,2026-02-23,2026,2026-02-23T10:08:00-05:00,09:45-10:30,long,short,270.0,Q4 high,True,True,stratified_event_count_seed_49
+mym,MYM,2026-03-06,2026,2026-03-06T13:27:00-05:00,12:00-14:00,long,short,328.0,Q4 high,True,True,stratified_event_count_seed_49
