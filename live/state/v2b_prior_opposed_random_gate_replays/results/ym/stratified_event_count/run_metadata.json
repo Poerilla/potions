@@ -1,0 +1,17 @@
+{
+  "method": "stratified_event_count",
+  "family_display_name": "stratified_fine_buckets",
+  "time_buckets": [
+    "09:30-09:45",
+    "09:45-10:30",
+    "10:30-12:00",
+    "12:00-14:00",
+    "14:00-15:30"
+  ],
+  "seed_start": 1,
+  "seed_end": 200,
+  "seed_hash": "45685ee918ec80b8",
+  "counts_toward_permutation_test": true,
+  "time_bucket_mode": "fine",
+  "seed_hash_source": "retroactive_null_replay_guard"
+}

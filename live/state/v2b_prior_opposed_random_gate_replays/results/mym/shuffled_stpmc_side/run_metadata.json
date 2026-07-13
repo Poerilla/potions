@@ -1,0 +1,11 @@
+{
+  "method": "shuffled_stpmc_side",
+  "family_display_name": "shuffled_stpmc_side",
+  "time_bucket_mode": "fine",
+  "time_buckets": [],
+  "seed_start": 1,
+  "seed_end": 200,
+  "seed_hash": "45685ee918ec80b8",
+  "seed_hash_source": "null_replay_guard_batch_start",
+  "counts_toward_permutation_test": true
+}
