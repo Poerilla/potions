@@ -4,14 +4,15 @@ True `Engine + PaperBroker + StrategyPlugin` replay. The v2b entry order is only
 
 | Trades | Units | Net | Closed DD | Intrabar Stress DD | Win % | PF | Net/Stress |
 |---:|---:|---:|---:|---:|---:|---:|---:|
-| 347 | 1735 | $320190.00 | $-26110.00 | $-26835.00 | 59.65 | 1.855 | 11.93 |
+| 351 | 1755 | $318791.25 | $-26185.00 | $-26910.00 | 59.54 | 1.841 | 11.85 |
 
 ## Causality
 
-- Regime sessions replayed: **944**
-- Prior-opposite entries found: **347 / 347**
+- Regime sessions replayed: **1182**
+- Replay start: **2021-03-04**
+- Prior-opposite entries found: **351 / 351**
 - Causal violations: **0**
-- Direction mix: **151 long / 196 short**
+- Direction mix: **152 long / 199 short**
 
 Files:
 

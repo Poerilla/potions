@@ -1,2 +1,2 @@
-strategy_id,trades,units,net_usd,closed_dd_usd,intrabar_stress_dd_usd,win_rate_pct,profit_factor,net_over_stress,causality_violations,prior_opposite_entries,long_trades,short_trades,state_root
-mym_v2b_prior_opposed_stpmc_only_S_1_1_3,333,1665,26053.62,-2627.38,-2664.88,59.76,1.710,9.78,0,333,142,191,/home/tester/hsm/potions/live/state/mym_v2b_prior_opposed_stpmc_broker_like/states/mym_v2b_prior_opposed_stpmc_only_S_1_1_3
+strategy_id,start_date,trades,units,net_usd,closed_dd_usd,intrabar_stress_dd_usd,win_rate_pct,profit_factor,net_over_stress,causality_violations,prior_opposite_entries,long_trades,short_trades,state_root
+mym_v2b_prior_opposed_stpmc_only_S_1_1_3,2021-03-04,338,1690,26088.62,-2657.12,-2694.62,59.76,1.703,9.68,0,338,144,194,live/state/mym_v2b_prior_opposed_stpmc_broker_like/states/mym_v2b_prior_opposed_stpmc_only_S_1_1_3
