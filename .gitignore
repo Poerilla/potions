@@ -18,3 +18,6 @@ data/potions_large_files.manifest
 # Oversized generated state dumps (GitHub free: 100MB hard limit)
 **/feature_snapshots.csv
 live/state/**/event_universe/*_eligible_events.csv
+
+# Oversized full-history equity curve (kept local; >50MB GitHub warning)
+live/state/nq_v2b_prior_opposed_stpmc_full_history_raw/**/equity_curve.csv
