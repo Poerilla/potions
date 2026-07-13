@@ -1,7 +1,3 @@
 market,instrument,strategy_id,state_root,regime_days,units,trades,net_usd,closed_dd_usd,intrabar_stress_dd_usd,max_open_units,win_rate_pct,profit_factor,net_over_stress_dd
-nq,NQ,nq_v2b_scaleout_oco_then_reverse,potions/live/state/v2b_strategy_plugin_cross_market_requested/states/nq_v2b_scaleout_oco_then_reverse,1164,2785,1394,299477.50,-63538.50,-63828.50,2,45.92,1.161,4.69
-mnq,MNQ,mnq_v2b_scaleout_oco_then_reverse,potions/live/state/v2b_strategy_plugin_cross_market_requested/states/mnq_v2b_scaleout_oco_then_reverse,1164,2780,1392,25052.50,-6290.00,-6318.00,2,45.68,1.133,3.97
-ym,YM,ym_v2b_scaleout_oco_then_reverse,potions/live/state/v2b_strategy_plugin_cross_market_requested/states/ym_v2b_scaleout_oco_then_reverse,1182,2806,1408,26929.75,-70031.50,-70071.50,2,44.87,1.033,0.38
-mym,MYM,mym_v2b_scaleout_oco_then_reverse,potions/live/state/v2b_strategy_plugin_cross_market_requested/states/mym_v2b_scaleout_oco_then_reverse,1160,2748,1379,-198.12,-8573.12,-8577.12,2,44.69,0.998,-0.02
-es,ES,es_v2b_scaleout_oco_then_reverse,potions/live/state/v2b_strategy_plugin_cross_market_requested/states/es_v2b_scaleout_oco_then_reverse,1195,3061,1533,-27929.00,-114720.00,-115020.00,2,41.72,0.973,-0.24
-mes,MES,mes_v2b_scaleout_oco_then_reverse,potions/live/state/v2b_strategy_plugin_cross_market_requested/states/mes_v2b_scaleout_oco_then_reverse,517,1322,662,-2796.75,-7291.75,-7294.25,2,42.51,0.936,-0.38
+nq,NQ,nq_v2b_scaleout_oco_then_reverse,live/state/v2b_strategy_plugin_cross_market_requested/states/nq_v2b_scaleout_oco_then_reverse,1164,2880,1440,293850.00,-61050.00,-61340.00,2,46.01,1.154,4.79
+mnq,MNQ,mnq_v2b_scaleout_oco_then_reverse,live/state/v2b_strategy_plugin_cross_market_requested/states/mnq_v2b_scaleout_oco_then_reverse,1160,2868,1434,26096.00,-6056.50,-6084.50,2,46.06,1.136,4.29

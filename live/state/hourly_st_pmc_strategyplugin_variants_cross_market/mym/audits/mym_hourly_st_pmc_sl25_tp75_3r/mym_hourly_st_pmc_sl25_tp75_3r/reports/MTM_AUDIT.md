@@ -2,7 +2,7 @@
 
 | Metric | Value |
 |---|---:|
-| Source | `potions/live/state/hourly_st_pmc_strategyplugin_variants_cross_market/mym/combined_state/fills.csv` |
+| Source | `live/state/hourly_st_pmc_strategyplugin_variants_cross_market/mym/combined_state/fills.csv` |
 | Bar source | `/home/tester/hsm/potions/mym/raw/glbx-mdp3-20100606-20260308.ohlcv-1m (mym).dbn.zst` |
 | Bar window | `2019-05-05T18:00:00-04:00` to `2026-03-08T19:00:00-04:00` |
 | Units | 1157 |
