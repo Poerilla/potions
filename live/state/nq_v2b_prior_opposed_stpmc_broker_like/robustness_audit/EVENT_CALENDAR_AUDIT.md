@@ -1,5 +1,7 @@
 # NQ Prior-Opposed v2b Event Calendar Audit
 
+**2026-07-15:** describes the **legacy hourly fill-stamp** book (**timestamp-inflated**). Re-run on resting-limit before promoting event-day rules.
+
 Event dates are pulled from free official sources:
 
 - Federal Reserve FOMC meeting calendar: https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm

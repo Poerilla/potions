@@ -23,6 +23,7 @@ from .engine import Engine
 from .models import Bar, StrategyInstance, as_row
 from .replay_audit import POINT_VALUES
 from .store import FlatFileStore
+from .nq_v2b_prior_opposed_replay import default_st_orders_path, load_st_events
 from .v2b_strategy_cross_market_replay import MARKETS, _regime_dates, _rth_bars, load_1m_by_ny_date_any
 from .v2b_strategy_replay import AuditBar, fast_intraday_audit, units_from_v2b_fills
 from .v2b_st_pmc_alignment_study import REPO
@@ -69,19 +70,6 @@ def money(value: float) -> str:
     return "$%s%.2f" % ("-" if value < 0 else "", abs(value))
 
 
-def load_st_events(fills_path: Path, strategy_id: str) -> Dict[str, List[Dict[str, str]]]:
-    fills = pd.read_csv(fills_path)
-    fills = fills[fills["strategy_id"].astype(str) == strategy_id].copy()
-    fills = fills[fills["reason"].astype(str).isin(["entry", "runner_entry"])].copy()
-    fills["ts"] = pd.to_datetime(fills["ts"], utc=True).dt.tz_convert(NY)
-    out: Dict[str, List[Dict[str, str]]] = {}
-    for row in fills.sort_values("ts").itertuples(index=False):
-        side = "long" if str(row.side).lower() == "buy" else "short"
-        ts = pd.Timestamp(row.ts)
-        out.setdefault(ts.date().isoformat(), []).append({"ts": ts.isoformat(), "side": side})
-    return out
-
-
 def run_gated_v2b(market: str, output_root: Path, *, force: bool) -> Path:
     cfg = MARKETS[market]
     state_root = output_root / market / "states" / ("%s_v2b_prior_opposed_stpmc_only_S_1_1_3" % market)
@@ -92,12 +80,19 @@ def run_gated_v2b(market: str, output_root: Path, *, force: bool) -> Path:
     state_root.parent.mkdir(parents=True, exist_ok=True)
 
     st_strategy_id = "%s_hourly_st_pmc_sl25_tp75_3r" % market
-    st_events = load_st_events(
-        REPO / "live/state/hourly_st_pmc_strategyplugin_variants_cross_market" / market / "combined_state/fills.csv",
-        st_strategy_id,
-    )
+    st_fills = REPO / "live/state/hourly_st_pmc_strategyplugin_variants_cross_market" / market / "combined_state/fills.csv"
+    st_orders = default_st_orders_path(market, st_fills)
     print("Loading %s 1m bars..." % cfg.instrument, flush=True)
     gby = load_1m_by_ny_date_any(cfg.dbn_path.resolve(), cfg.market)
+    if st_orders.exists():
+        st_events = load_st_events(
+            st_fills,
+            st_strategy_id,
+            orders_path=st_orders,
+            bars_by_ny_date=gby,
+        )
+    else:
+        st_events = load_st_events(st_fills, st_strategy_id)
     regime_dates = _regime_dates(cfg, gby, start=date(2021, 3, 4))
     regime_dates_iso = [d.isoformat() for d in regime_dates]
 

@@ -4,6 +4,18 @@ Purpose: harden the cross-market v2b-after-prior-opposite-ST+PMC candidate witho
 optimizing its rules. The strategy edge stays frozen; this work audits whether
 the replay can become a live signal generator and, later, broker-paper system.
 
+**2026-07-16 gate-semantics note:** the scrutiny numbers below were computed on
+the **legacy hourly left-label ST fill stamp** books. For NQ, that tape is now
+**diagnostic / timestamp-inflated**. The NQ promotion candidate is
+**resting-limit hour-complete**
+(`live/state/nq_v2b_prior_opposed_causal_proxies/resting_limit/`) — arm when the
+opposite ST entry limit is knowably posted (`available_at = live_after + 1h`),
+not when it fills. MTM stress DD reference points: hour-complete resting-limit
+**-$68,610** (net **$1,330,920**); strict 1m-touch fill **-$153,087**;
+provisional invalidate 60m **-$131,315**. Re-run execution scrutiny on
+hour-complete books before live funding. Timing autopsy:
+`live/state/nq_v2b_prior_opposed_timing_study/INDEX.md`.
+
 ## Current Implementation
 
 - Historical timing audit: `potions.live.v2b_prior_opposed_execution_scrutiny`

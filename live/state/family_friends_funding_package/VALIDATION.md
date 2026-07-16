@@ -18,11 +18,13 @@ No configured leakage terms found in public docs.
 
 | Strategy | Top3Removed | AdvertisedAvgNet | AdvertisedAvgReturn | Pass |
 | --- | --- | --- | --- | --- |
-| nq_prior_opposed_full | 2021, 2024, 2025 | $57,990 | 23.2% | yes |
-| mnq_prior_opposed | 2021, 2024, 2025 | $10,048 | 20.1% | yes |
+| nq_prior_opposed_full | 2023, 2024, 2025 | $128,249 | 51.3% | yes |
+| mnq_prior_opposed | 2021, 2024, 2025 | $13,323 | 26.6% | yes |
 | nq_ungated_intraday | 2021, 2024, 2025 | $85,889 | 34.4% | yes |
 | mnq_ungated_intraday | 2021, 2024, 2025 | $6,891 | 13.8% | yes |
 
 ## Data Freshness Note
 
-QQQ benchmark equity is reset to the full tier minimum on the first matched QQQ trading day inside each strategy's actual replay window, matching the fair-benchmark convention used by `scripts/fair_benchmark_comparison.py`. The NQ full-history raw run validates through early March 2026 because the daily regime and gate support files end there, even though the restored raw DBN extends later.
+QQQ benchmark equity is reset to the full tier minimum on the first matched QQQ trading day inside each strategy's actual replay window, matching the fair-benchmark convention used by `scripts/fair_benchmark_comparison.py`.
+
+**2026-07-16 gate update:** preferred gated NQ/MNQ rows use the **resting-limit hour-complete** books (`available_at = ST live_after + 1h`), not the legacy hourly fill-stamp tapes. Window is the common 2021-03-04→early-2026 promotion window. Lookahead re-review on NQ: SOLID for minute-by-minute execution. Full-history hour-complete NQ rerun remains pending.

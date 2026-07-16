@@ -8,16 +8,18 @@ NQ intraday delayed-arming program. The exact gate mechanics remain proprietary;
 
 ## Backtested Profile
 
-| Metric | Value |
+**2026-07-16 promotion baseline:** resting-limit **hour-complete**. Lookahead re-review: SOLID. Legacy fill-stamp Sharpe/Calmar remain diagnostic until regenerated on this equity.
+
+| Metric | Value (hour-complete resting-limit) |
 |---|---:|
 | Window | 2021-03-04 to 2026-03-06 |
-| Net, base book | $1,184,585 |
-| Intrabar stress DD | $-53,847 |
-| Sharpe / Sortino | 3.29 / 4.80 |
-| CAGR / Calmar | 52.8% / 1.58 |
-| QQQ corr / downside capture | -0.11 / -1.31 |
-| Drawdown duration / daily skew | 401 days / 2.63 |
-| Profit factor | 2.65 |
+| Net, base book | $1,330,920 |
+| Intrabar / MTM stress DD | $-68,610 |
+| Closed DD | $-68,110 |
+| Win % / PF | 66.0% / 2.33 |
+| Net / stress DD | 19.40 |
+| Campaigns | 432 |
+| Gate | ST opposite limit knowably resting at hour-complete |
 
 ![NQ equity and drawdown](charts/nq_equity_drawdown.png)
 

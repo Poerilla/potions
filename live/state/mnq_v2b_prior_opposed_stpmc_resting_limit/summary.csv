@@ -1,0 +1,2 @@
+strategy_id,start_date,trades,units,net_usd,closed_dd_usd,intrabar_stress_dd_usd,win_rate_pct,profit_factor,net_over_stress,causality_violations,prior_opposite_entries,long_trades,short_trades,gate_mode,invalidate_without_opposite_minutes,state_root
+mnq_v2b_prior_opposed_stpmc_only_S_1_1_3,2021-03-04,428,2140,128360.50,-6905.00,-6960.00,65.42,2.257,18.44,0,428,183,245,resting_limit,,potions/live/state/mnq_v2b_prior_opposed_stpmc_resting_limit/states/mnq_v2b_prior_opposed_stpmc_only_S_1_1_3

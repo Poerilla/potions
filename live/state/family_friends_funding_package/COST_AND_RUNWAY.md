@@ -52,8 +52,8 @@ The replay engine already embeds a **$1.50 per closed-unit audit fee**. The tabl
 
 | System | Closed Units | StoneX Commission | Model Audit Fee | Delta |
 | --- | --- | --- | --- | --- |
-| NQ Prior-Opposed Gated Intraday System | 4,385 | $11,313 | $6,578 | $4,736 |
-| MNQ Prior-Opposed Gated Intraday System | 1,765 | $1,765 | $2,648 | $-882 |
+| NQ Prior-Opposed Gated Intraday System | 2,160 | $5,573 | $3,240 | $2,333 |
+| MNQ Prior-Opposed Gated Intraday System | 2,140 | $2,140 | $3,210 | $-1,070 |
 | NQ Ungated Intraday Breakout System | 6,900 | $17,802 | $10,350 | $7,452 |
 | MNQ Ungated Intraday Breakout System | 6,886 | $6,886 | $10,329 | $-3,443 |
 
@@ -65,7 +65,7 @@ The replay engine already embeds a **$1.50 per closed-unit audit fee**. The tabl
 | 2 | Series 3 / NFA ORS readiness and live-data shadow mode | Exam/admin plan, stored live bars, no-trade signal reports |
 | 3 | Disclosure document draft and broker-paper adapter | Draft disclosure outline, broker order ids mapped to local intents |
 | 4 | MNQ broker-paper trial | Daily reports, slippage/cost audit, incident log |
-| 5 | Tradovate/StoneX demo hardening and NFA response reserve | Account/order reconciliation, restart drill, emergency flatten drill |
+| 5 | CQG/StoneX demo hardening and NFA response reserve | Account/order reconciliation, restart drill, emergency flatten drill |
 | 6 | First readiness review | Feed integrity report, order sequencing audit, regulatory gap list |
 | 7 | Extended MNQ funded-paper or small-live continuation | Stable reports, variance-to-replay audit, risk-limit adherence |
 | 8 | Ungated v2b paper comparison | Secondary system replay-vs-paper evidence and operational differences |

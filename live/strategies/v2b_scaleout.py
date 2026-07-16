@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 import json
-from datetime import date, datetime, time
+from datetime import date, datetime, time, timedelta
 from typing import Any, Dict, Iterable, List, Optional, Sequence
 
 from ..models import Alert, Bar, CancelIntent, FeatureSnapshot, LevelUpdate, OrderIntent, StrategyActions, new_id
@@ -45,6 +45,25 @@ class V2BScaleoutStrategy(StrategyPlugin):
             "prior_opposite_entry_qty": None,
             "prior_opposite_tp1_qty": None,
             "prior_opposite_tp2_qty": None,
+            # After entry, flatten if no opposite ST event by this many minutes
+            # (uses dynamic_sizing_events with the same opposite-side lookup).
+            "invalidate_without_opposite_minutes": None,
+            # Optional yearly-ORB (or other) directional gate:
+            # session_date -> "Long" | "Short". Missing/empty = no arm that day
+            # when use_session_direction_bias is True.
+            "use_session_direction_bias": False,
+            "session_direction_bias": {},
+            # Optional day/month open alignment gate (checked vs bar close at arm):
+            # Long only if price > ref_open (often day or yesterday) and price > month_open;
+            # Short only if price < ref_open and price < month_open.
+            # Failed checks skip arm without marking entry_armed so later bars retry.
+            # Entries remain opening-range boundary stops (OR high/low ± tick).
+            # When arm_open_filter_at_or_only is True, only attempt the open-filter
+            # arm at OR finalize (no mid-session catch-up arms).
+            "use_open_alignment_filter": False,
+            "arm_open_filter_at_or_only": False,
+            "session_day_opens": {},
+            "session_month_opens": {},
         }
         try:
             self.config.update(json.loads(instance.config_json or "{}"))
@@ -128,7 +147,7 @@ class V2BScaleoutStrategy(StrategyPlugin):
             self._commit_state(state)
             return StrategyActions(orders, cancels, [], [], [])
 
-        if role in {"wide_stop", "runner_stop", "tp2", "eod_close"}:
+        if role in {"wide_stop", "runner_stop", "tp2", "eod_close", "invalidate_no_opposite_st"}:
             if context.position_quantity == 0:
                 trade["status"] = "closed"
                 trade["exit_ts"] = fill.ts
@@ -173,6 +192,10 @@ class V2BScaleoutStrategy(StrategyPlugin):
             self._commit_state(state)
             return StrategyActions(orders, cancels, [], levels, alerts, causal_features)
 
+        invalidate = self._maybe_invalidate_without_opposite(bar, state, context)
+        if invalidate is not None:
+            return invalidate
+
         if t < self._time("or_end"):
             state["or_count"] = int(state.get("or_count", 0)) + 1
             state["or_high"] = bar.high if state.get("or_high") is None else max(float(state["or_high"]), bar.high)
@@ -185,10 +208,15 @@ class V2BScaleoutStrategy(StrategyPlugin):
                 state["regime_ok"] = self._regime_ok(session)
                 causal_features.extend(self._opening_range_features(bar.ts, state))
                 if state["regime_ok"]:
-                    directions = ["Long"] if str(self.config.get("mode", "oco_then_reverse")) == "strict_long_then_short" else ["Long", "Short"]
-                    causal_features.extend(self._entry_gate_features(bar.ts, state, directions))
-                    orders.extend(self._arm_initial_entries(bar.ts, state))
-                    if not bool(self.config.get("suppress_alerts")):
+                    directions = self._directions_for_session(session)
+                    causal_features.extend(self._entry_gate_features(bar.ts, state, directions, price=bar.close))
+                    orders.extend(self._arm_initial_entries(bar.ts, state, directions, price=bar.close))
+                    if bool(self.config.get("use_open_alignment_filter")) and bool(
+                        self.config.get("arm_open_filter_at_or_only")
+                    ):
+                        # One shot at OR finalize — do not catch up mid-session.
+                        state["open_filter_arm_attempted"] = True
+                    if directions and not bool(self.config.get("suppress_alerts")):
                         alerts.append(Alert.create(self.instance.strategy_id, "info", "v2b opening range armed"))
             self._commit_state(state)
             return StrategyActions(orders, cancels, [], levels, alerts, causal_features)
@@ -198,10 +226,16 @@ class V2BScaleoutStrategy(StrategyPlugin):
 
         if state.get("regime_ok") and not state.get("done") and not state.get("current_leg_open") and int(state.get("legs_done", 0)) == 0:
             if not self._has_open_entry_order(context):
-                causal_features.extend(self._opening_range_features(bar.ts, state))
-                directions = ["Long"] if str(self.config.get("mode", "oco_then_reverse")) == "strict_long_then_short" else ["Long", "Short"]
-                causal_features.extend(self._entry_gate_features(bar.ts, state, directions))
-                orders.extend(self._arm_initial_entries(bar.ts, state))
+                # Skip catch-up arms when open-filter is OR-end-only.
+                if bool(self.config.get("use_open_alignment_filter")) and bool(
+                    self.config.get("arm_open_filter_at_or_only")
+                ) and bool(state.get("open_filter_arm_attempted")):
+                    pass
+                else:
+                    causal_features.extend(self._opening_range_features(bar.ts, state))
+                    directions = self._directions_for_session(session)
+                    causal_features.extend(self._entry_gate_features(bar.ts, state, directions, price=bar.close))
+                    orders.extend(self._arm_initial_entries(bar.ts, state, directions, price=bar.close))
 
         self._commit_state(state)
         return StrategyActions(orders, cancels, [], levels, alerts, causal_features)
@@ -241,10 +275,51 @@ class V2BScaleoutStrategy(StrategyPlugin):
             "active_trade_id": "",
             "active_direction": "",
             "entry_armed": [],
+            "open_filter_arm_attempted": False,
             "last_exit_ts": "",
             "last_exit_direction": "",
+            "opposite_confirmed": False,
+            "invalidated": False,
             "trades": {},
         }
+
+    def _maybe_invalidate_without_opposite(
+        self,
+        bar: Bar,
+        state: Dict[str, Any],
+        context: StrategyContext,
+    ) -> Optional[StrategyActions]:
+        raw = self.config.get("invalidate_without_opposite_minutes")
+        if raw is None or raw == "":
+            return None
+        if context.position_quantity == 0 or not state.get("current_leg_open"):
+            return None
+        if state.get("invalidated") or state.get("opposite_confirmed"):
+            return None
+        trade_id = str(state.get("active_trade_id") or "")
+        trade = self._trade(trade_id, state) if trade_id else {}
+        direction = str(trade.get("direction") or state.get("active_direction") or "")
+        entry_ts = str(trade.get("entry_ts") or "")
+        if direction not in {"Long", "Short"} or not entry_ts:
+            return None
+        if self._prior_opposite_event_for_entry(bar.ts, direction) is not None:
+            state["opposite_confirmed"] = True
+            self._commit_state(state)
+            return None
+        try:
+            deadline = _parse_dt(entry_ts) + timedelta(minutes=int(raw))
+        except Exception:
+            return None
+        if _parse_dt(bar.ts) < deadline:
+            return None
+        # Past deadline with no opposite ST event yet — flatten and stop re-arming.
+        state["invalidated"] = True
+        state["done"] = True
+        state["phase"] = "invalidated_no_opposite"
+        cancels = self._cancel_all_open(context)
+        orders = [self._close_all(context, bar.ts, "invalidate_no_opposite_st", order_type="market")]
+        self._commit_state(state)
+        return StrategyActions(orders, cancels, [], [], [])
 
     def _commit_state(self, state: Dict[str, Any]) -> None:
         if state != (self.state or {}):
@@ -264,11 +339,51 @@ class V2BScaleoutStrategy(StrategyPlugin):
             return not bool(self.config.get("require_regime_dates", False))
         return session in self._regime_dates
 
-    def _arm_initial_entries(self, ts: str, state: Dict[str, Any]) -> List[OrderIntent]:
-        mode = str(self.config.get("mode", "oco_then_reverse"))
-        if mode == "strict_long_then_short":
-            return self._entry_orders(ts, state, ["Long"])
-        return self._entry_orders(ts, state, ["Long", "Short"])
+    def _directions_for_session(self, session: str) -> List[str]:
+        """Return which entry sides may arm today.
+
+        With ``use_session_direction_bias``, only the mapped Long/Short may arm
+        (missing/empty map → none). Without bias, honour ``mode``.
+        """
+        if bool(self.config.get("use_session_direction_bias")):
+            bias = str((self.config.get("session_direction_bias") or {}).get(session) or "").strip()
+            if bias in {"Long", "Short"}:
+                return [bias]
+            return []
+        if str(self.config.get("mode", "oco_then_reverse")) == "strict_long_then_short":
+            return ["Long"]
+        return ["Long", "Short"]
+
+    def _open_alignment_ok(self, session: str, direction: str, price: Optional[float]) -> bool:
+        """Long above day+month open; Short below both. No-op when filter off."""
+        if not bool(self.config.get("use_open_alignment_filter")):
+            return True
+        if price is None:
+            return False
+        day_open = _to_float((self.config.get("session_day_opens") or {}).get(session))
+        month_open = _to_float((self.config.get("session_month_opens") or {}).get(session))
+        if day_open is None or month_open is None:
+            return False
+        if direction == "Long":
+            return float(price) > day_open and float(price) > month_open
+        if direction == "Short":
+            return float(price) < day_open and float(price) < month_open
+        return False
+
+    def _arm_initial_entries(
+        self,
+        ts: str,
+        state: Dict[str, Any],
+        directions: Optional[Sequence[str]] = None,
+        *,
+        price: Optional[float] = None,
+    ) -> List[OrderIntent]:
+        if directions is None:
+            session = str(state.get("session_date") or _parse_dt(ts).date().isoformat())
+            directions = self._directions_for_session(session)
+        if not directions:
+            return []
+        return self._entry_orders(ts, state, list(directions), price=price)
 
     def _maybe_arm_next_leg(self, ts: str, state: Dict[str, Any], context: StrategyContext) -> List[OrderIntent]:
         if state.get("done"):
@@ -282,20 +397,40 @@ class V2BScaleoutStrategy(StrategyPlugin):
         if last_direction not in {"Long", "Short"}:
             return []
         opposite = "Short" if last_direction == "Long" else "Long"
-        return self._entry_orders(ts, state, [opposite])
+        session = str(state.get("session_date") or _parse_dt(ts).date().isoformat())
+        allowed = set(self._directions_for_session(session))
+        if opposite not in allowed:
+            # Directional bias / long-only modes: do not reverse into the banned side.
+            state["phase"] = "done"
+            return []
+        return self._entry_orders(ts, state, [opposite], price=None)
 
-    def _entry_orders(self, ts: str, state: Dict[str, Any], directions: Sequence[str]) -> List[OrderIntent]:
+    def _entry_orders(
+        self,
+        ts: str,
+        state: Dict[str, Any],
+        directions: Sequence[str],
+        *,
+        price: Optional[float] = None,
+    ) -> List[OrderIntent]:
         range_high = _to_float(state.get("or_high"))
         range_low = _to_float(state.get("or_low"))
         if range_high is None or range_low is None or range_high <= range_low:
             return []
+        session = str(state.get("session_date") or _parse_dt(ts).date().isoformat())
         armed = set(str(x) for x in state.get("entry_armed", []))
+        # Only OCO if multiple directions survive open-alignment filtering.
+        filtered = [
+            d
+            for d in directions
+            if d not in armed and self._open_alignment_ok(session, d, price)
+        ]
+        if not filtered:
+            return []
         trade_id = self._new_trade_id(state)
-        oco = "%s_entry_oco" % trade_id if len(directions) > 1 else ""
+        oco = "%s_entry_oco" % trade_id if len(filtered) > 1 else ""
         out: List[OrderIntent] = []
-        for direction in directions:
-            if direction in armed:
-                continue
+        for direction in filtered:
             sizing = self._sizing_for_entry(ts, direction)
             if sizing is None:
                 continue
@@ -354,17 +489,26 @@ class V2BScaleoutStrategy(StrategyPlugin):
             ),
         ]
 
-    def _entry_gate_features(self, ts: str, state: Dict[str, Any], directions: Sequence[str]) -> List[FeatureSnapshot]:
+    def _entry_gate_features(
+        self,
+        ts: str,
+        state: Dict[str, Any],
+        directions: Sequence[str],
+        *,
+        price: Optional[float] = None,
+    ) -> List[FeatureSnapshot]:
         range_high = _to_float(state.get("or_high"))
         range_low = _to_float(state.get("or_low"))
         if range_high is None or range_low is None or range_high <= range_low:
             return []
         out: List[FeatureSnapshot] = []
+        session = str(state.get("session_date") or _parse_dt(ts).date().isoformat())
         armed = set(str(x) for x in state.get("entry_armed", []))
         for direction in directions:
             prior_event = self._prior_opposite_event_for_entry(ts, direction)
             sizing = self._sizing_for_entry(ts, direction)
-            allowed = direction not in armed and sizing is not None
+            open_ok = self._open_alignment_ok(session, direction, price)
+            allowed = direction not in armed and sizing is not None and open_ok
             event_ts = str(prior_event.get("ts")) if prior_event else ts
             out.append(
                 feature_snapshot(
@@ -384,6 +528,8 @@ class V2BScaleoutStrategy(StrategyPlugin):
                         "sizing": sizing or {},
                         "range_high": range_high,
                         "range_low": range_low,
+                        "open_alignment_ok": open_ok,
+                        "use_open_alignment_filter": bool(self.config.get("use_open_alignment_filter")),
                     },
                 )
             )
@@ -442,14 +588,17 @@ class V2BScaleoutStrategy(StrategyPlugin):
         wanted = "short" if direction == "Long" else "long"
         events = (self.config.get("dynamic_sizing_events") or {}).get(session, [])
         best: Optional[Dict[str, Any]] = None
+        best_ts: Optional[Any] = None
         for event in events:
             try:
-                event_ts = _parse_dt(str(event.get("ts") or ""))
+                # Prefer available_at_ts when present (e.g. ST hour-complete).
+                event_ts = _parse_dt(str(event.get("available_at_ts") or event.get("ts") or ""))
             except Exception:
                 continue
             if str(event.get("side") or "").lower() == wanted and event_ts < dt:
-                if best is None or event_ts > _parse_dt(str(best.get("ts") or "")):
+                if best is None or best_ts is None or event_ts > best_ts:
                     best = dict(event)
+                    best_ts = event_ts
         return best
 
     def _initial_exit_orders(self, trade_id: str, direction: str, state: Dict[str, Any]) -> List[OrderIntent]:

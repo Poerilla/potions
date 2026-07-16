@@ -1,7 +1,7 @@
 # Potions Live Platform — External Scrutiny Reference
 
-**Version:** 0.3  
-**Date:** 2026-06-30  
+**Version:** 0.4  
+**Date:** 2026-07-16  
 **Audience:** External quants, developers, allocator diligence reviewers  
 **Scope:** Platform machinery only — not strategy rule definitions. Promotion status, rule-family names, and proprietary signal definitions are intentionally kept in internal research trackers. For validation design see [`live/specs/CAUSAL_VALIDATION_MASTER_SPEC.md`](specs/CAUSAL_VALIDATION_MASTER_SPEC.md). For audit pass/fail see [`data/docs/AUDIT_TRACKER.md`](../data/docs/AUDIT_TRACKER.md).
 
@@ -150,6 +150,18 @@ Current Tier-1 emitters: selected intraday, hourly, higher-timeframe breakout, a
 
 After replay, for each entry fill, checks that the required same-calendar-day prerequisite event existed with `event_ts < entry_ts`. Increments `causality_violations` if missing. This sits beside the `FeatureSnapshot` audit: the campaign audit proves the delayed gate existed before the campaign fill; the feature audit proves each recorded decision feature was available when consumed.
 
+### Delayed-arming availability timestamps (2026-07-16)
+
+For gates driven by higher-timeframe prerequisite strategies (e.g. hourly ST+PMC → intraday v2b):
+
+- Prerequisite strategies decide only on **completed** HTF bars.
+- Left-labeled HTF bar timestamps are **labels**, not wall-clock post times.
+- Gate maps must expose `available_at_ts` at HTF **bar completion** (for left-labeled hours: `live_after_ts + 1h`).
+- Plugins prefer `available_at_ts` over raw `ts` when matching `event < current_1m_bar`.
+- Left-label / fill-stamp availability is diagnostic only and can arm early relative to true HTF confirmation.
+
+Promotion standard for this family: **resting-limit hour-complete** (`gate_mode=resting_limit`). Lookahead re-review on NQ: SOLID for minute-by-minute execution. Cross-market outputs: `live/state/v2b_prior_opposed_resting_limit_cross_market/`.
+
 ### Current regeneration status
 
 2026-06-29 regeneration produced **57** `feature_snapshots.csv` files under `live/state/` and **0 actual causality violation rows**. Coverage includes:
@@ -159,7 +171,7 @@ After replay, for each entry fill, checks that the required same-calendar-day pr
 - Hourly prerequisite-event replay states.
 - All **42** generated broker-like daily replay states, including higher-timeframe breakout and trend-following rows.
 
-One market-specific delayed-arming row remains banked from an earlier strict replay but was not regenerated in this pass because the corresponding local 1m source is missing.
+2026-07-16: NQ/MNQ/YM/MYM delayed-arming books regenerated under resting-limit hour-complete. ES remains blocked (missing local 1m DBN).
 
 ### Execution ambiguity (1m limits)
 

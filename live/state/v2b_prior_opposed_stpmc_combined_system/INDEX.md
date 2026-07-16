@@ -2,6 +2,8 @@
 
 Combined-system audit for MNQ and NQ. The gated v2b leg is the same `S_1_1_3` prior-opposed rule; ST+PMC is the same-market `sl25_tp75_3r` candidate.
 
+**2026-07-15:** NQ rows below use the **legacy hourly fill-stamp** gated v2b book (**timestamp-inflated**). Rebuild combined views on NQ **resting-limit** ([`../nq_v2b_prior_opposed_causal_proxies/resting_limit/INDEX.md`](../nq_v2b_prior_opposed_causal_proxies/resting_limit/INDEX.md)) before portfolio claims.
+
 | Market | View | Trades | Net | Stress DD | Max Open Units | PF | Net/Stress |
 |---|---|---:|---:|---:|---:|---:|---:|
 | MNQ | v2b gated only | 353 | $113547.50 | $-5418.00 | 5 | 2.615 | 20.96 |

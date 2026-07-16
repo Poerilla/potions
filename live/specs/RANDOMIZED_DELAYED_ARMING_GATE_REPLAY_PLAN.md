@@ -6,6 +6,8 @@ Test whether the prior-opposed ST+PMC gate is genuinely adding information, or w
 
 This must be a **true StrategyPlugin replay**, not a completed-trade resampling shortcut. The only thing that changes is the source of `dynamic_sizing_events`; the v2b strategy, order lifecycle, `Engine`, `PaperBroker`, slippage, fees, stop gap-through behavior, OCO handling, RTH filters, and `S_1_1_3` sizing must remain identical to the strict prior-opposed replay.
 
+**2026-07-16:** existing null-control “real” nets compare against the **legacy hourly fill-stamp** NQ book (**$1,184,585**, timestamp-inflated). Re-run null families against **resting-limit hour-complete** (**$1,330,920**) before treating p-values as promotion evidence. Left-label resting-limit (**$1,321,745**) is diagnostic only.
+
 ## Implementation / First-Run Status
 
 Implemented runner: [`../v2b_prior_opposed_random_gate_replay.py`](../v2b_prior_opposed_random_gate_replay.py).

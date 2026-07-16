@@ -1,26 +1,16 @@
 strategy_slug,strategy,tier,market,year,strategy_net_usd,strategy_return_on_minimum_pct,qqq_return_pct,qqq_year_type,win_rate_pct,profit_factor,drawdown_usd
-nq_prior_opposed_full,Prior-Opposed Gated Intraday System,Nasdaq Intraday,NQ,2011,7110.0,2.844,1.8855868418632626,QQQ up,63.33,1.987,-2482.5
-nq_prior_opposed_full,Prior-Opposed Gated Intraday System,Nasdaq Intraday,NQ,2012,10832.5,4.333,15.89141124244897,QQQ up,64.52,1.932,-2900.0
-nq_prior_opposed_full,Prior-Opposed Gated Intraday System,Nasdaq Intraday,NQ,2013,3195.0,1.278,32.42537700505665,QQQ up,47.22,1.226,-4320.0
-nq_prior_opposed_full,Prior-Opposed Gated Intraday System,Nasdaq Intraday,NQ,2014,21965.0,8.786,20.123730684273443,QQQ up,62.07,1.629,-7222.5
-nq_prior_opposed_full,Prior-Opposed Gated Intraday System,Nasdaq Intraday,NQ,2015,43110.0,17.244,9.765430882897386,QQQ up,67.86,2.557,-6435.0
-nq_prior_opposed_full,Prior-Opposed Gated Intraday System,Nasdaq Intraday,NQ,2016,36417.5,14.567,9.406151353188786,QQQ up,72.09,2.317,-9360.0
-nq_prior_opposed_full,Prior-Opposed Gated Intraday System,Nasdaq Intraday,NQ,2017,8755.0,3.5020000000000002,31.48714418137917,QQQ up,53.45,1.236,-12132.5
-nq_prior_opposed_full,Prior-Opposed Gated Intraday System,Nasdaq Intraday,NQ,2018,68495.0,27.398,-1.846588961278972,QQQ down,55.56,1.818,-17930.0
-nq_prior_opposed_full,Prior-Opposed Gated Intraday System,Nasdaq Intraday,NQ,2019,66325.0,26.529999999999998,38.40523924585912,QQQ up,61.67,2.742,-7117.5
-nq_prior_opposed_full,Prior-Opposed Gated Intraday System,Nasdaq Intraday,NQ,2020,174742.5,69.89699999999999,45.96884319173542,QQQ up,64.18,1.998,-40937.5
-nq_prior_opposed_full,Prior-Opposed Gated Intraday System,Nasdaq Intraday,NQ,2021,360887.5,144.35500000000002,29.244670789289096,QQQ up,74.73,4.219,-12107.5
-nq_prior_opposed_full,Prior-Opposed Gated Intraday System,Nasdaq Intraday,NQ,2022,13425.0,5.37,-33.219873920174194,QQQ down,56.25,1.17,-31382.5
-nq_prior_opposed_full,Prior-Opposed Gated Intraday System,Nasdaq Intraday,NQ,2023,168292.5,67.31700000000001,55.90949101604843,QQQ up,68.49,2.43,-34652.5
-nq_prior_opposed_full,Prior-Opposed Gated Intraday System,Nasdaq Intraday,NQ,2024,199522.5,79.809,27.73991022236757,QQQ up,64.52,1.889,-24945.0
-nq_prior_opposed_full,Prior-Opposed Gated Intraday System,Nasdaq Intraday,NQ,2025,399000.0,159.60000000000002,21.009253514962765,QQQ up,71.62,4.086,-22815.0
-nq_prior_opposed_full,Prior-Opposed Gated Intraday System,Nasdaq Intraday,NQ,2026,131202.5,52.481,-2.1806575054312383,QQQ down,84.21,5.703,-15465.0
-mnq_prior_opposed,Prior-Opposed Gated Intraday System,Nasdaq Intraday Mini,MNQ,2021,26560.0,53.12,31.458990955999333,QQQ up,72.72727272727273,3.629963362709179,-1097.5
-mnq_prior_opposed,Prior-Opposed Gated Intraday System,Nasdaq Intraday Mini,MNQ,2022,874.5,1.7489999999999999,-33.21987653830758,QQQ down,56.25,1.1098273155416012,-3196.5
-mnq_prior_opposed,Prior-Opposed Gated Intraday System,Nasdaq Intraday Mini,MNQ,2023,16291.0,32.582,55.90952769084026,QQQ up,67.56756756756756,2.34403102054286,-3493.5
-mnq_prior_opposed,Prior-Opposed Gated Intraday System,Nasdaq Intraday Mini,MNQ,2024,18747.0,37.494,27.7398948749767,QQQ up,63.44086021505376,1.8062879015956304,-2535.0
-mnq_prior_opposed,Prior-Opposed Gated Intraday System,Nasdaq Intraday Mini,MNQ,2025,38097.0,76.19399999999999,21.009246231349344,QQQ up,70.27027027027027,3.708927365165144,-2300.0
-mnq_prior_opposed,Prior-Opposed Gated Intraday System,Nasdaq Intraday Mini,MNQ,2026,12978.0,25.956000000000003,-2.1806575054312383,QQQ down,84.21052631578947,5.6144,-1550.0
+nq_prior_opposed_full,Prior-Opposed Gated Intraday System,Nasdaq Intraday,NQ,2021,189242.5,75.697,31.458990955999333,QQQ up,62.63736263736264,1.9613294048919252,-29960.0
+nq_prior_opposed_full,Prior-Opposed Gated Intraday System,Nasdaq Intraday,NQ,2022,21185.0,8.474,-33.21987653830758,QQQ down,61.11111111111112,1.2521198417184851,-39740.0
+nq_prior_opposed_full,Prior-Opposed Gated Intraday System,Nasdaq Intraday,NQ,2023,195165.0,78.066,55.90952769084026,QQQ up,65.95744680851064,2.1717399135446684,-34140.0
+nq_prior_opposed_full,Prior-Opposed Gated Intraday System,Nasdaq Intraday,NQ,2024,320585.0,128.234,27.7398948749767,QQQ up,63.793103448275865,2.1993453049008607,-29537.5
+nq_prior_opposed_full,Prior-Opposed Gated Intraday System,Nasdaq Intraday,NQ,2025,430422.5,172.16899999999998,21.009246231349366,QQQ up,68.42105263157895,2.6363074759071643,-37732.5
+nq_prior_opposed_full,Prior-Opposed Gated Intraday System,Nasdaq Intraday,NQ,2026,174320.0,69.728,-2.180657505431227,QQQ down,88.88888888888889,11.603406326034063,-12457.5
+mnq_prior_opposed,Prior-Opposed Gated Intraday System,Nasdaq Intraday Mini,MNQ,2021,19948.0,39.896,31.458990955999333,QQQ up,64.04494382022472,2.092891384741816,-3052.5
+mnq_prior_opposed,Prior-Opposed Gated Intraday System,Nasdaq Intraday Mini,MNQ,2022,4689.0,9.378,-33.21987653830758,QQQ down,61.11111111111112,1.5536009445100354,-2755.0
+mnq_prior_opposed,Prior-Opposed Gated Intraday System,Nasdaq Intraday Mini,MNQ,2023,18269.0,36.538,55.90952769084026,QQQ up,64.51612903225806,2.0686125409452503,-3467.0
+mnq_prior_opposed,Prior-Opposed Gated Intraday System,Nasdaq Intraday Mini,MNQ,2024,27139.5,54.278999999999996,27.7398948749767,QQQ up,62.60869565217392,1.9805264013584551,-2992.5
+mnq_prior_opposed,Prior-Opposed Gated Intraday System,Nasdaq Intraday Mini,MNQ,2025,41305.0,82.61,21.009246231349344,QQQ up,67.70833333333334,2.4954742939898624,-4604.0
+mnq_prior_opposed,Prior-Opposed Gated Intraday System,Nasdaq Intraday Mini,MNQ,2026,17010.0,34.02,-1.8821737859808119,QQQ down,88.23529411764706,11.18562874251497,-1265.0
 nq_ungated_intraday,Ungated Intraday Breakout System,Nasdaq Intraday,NQ,2021,209235.5,83.6942,31.458990955999333,QQQ up,54.66666666666666,1.2522261935616084,-74492.0
 nq_ungated_intraday,Ungated Intraday Breakout System,Nasdaq Intraday,NQ,2022,48922.5,19.569,-33.21987653830758,QQQ down,54.38596491228071,1.1685994417065857,-79071.0
 nq_ungated_intraday,Ungated Intraday Breakout System,Nasdaq Intraday,NQ,2023,56962.0,22.7848,55.90952769084026,QQQ up,51.76848874598071,1.066934976880277,-91329.5

@@ -6,21 +6,22 @@
 
 ## Executive Snapshot
 
-| Metric | Value |
+**2026-07-16 promotion baseline:** resting-limit **hour-complete** (ST available at `live_after+1h`). Lookahead re-review: SOLID. Legacy fill-stamp figures are obsolete for promotion.
+
+| Metric | Value (hour-complete resting-limit) |
 | --- | --- |
 | Program | NQ Proprietary Intraday Futures Program |
 | Performance type | Simulated broker-like internal replay |
 | Window | 2021-03-04 to 2026-03-06 |
-| $1M model ending equity | $2,184,585 |
-| $1M model net return | 118.5% |
-| CAGR on $1M model | 16.9% |
-| Max intrabar stress DD | $-53,847 / -5.4% of initial / -2.6% peak-to-trough |
-| Max closed DD | $-53,172 / -5.3% of initial / -2.6% peak-to-trough |
-| Profit factor | 2.65 |
-| Campaign win rate | 69.3% |
-| Net / stress DD | 22.00 |
-| Sharpe / Sortino | 3.25 / 4.58 |
-| Campaigns / unit exits | 352 / 1,760 |
+| Base-book net | $1,330,920 |
+| $1M model ending equity | $2,330,920 |
+| $1M model net return | 133.1% |
+| Max intrabar / MTM stress DD | $-68,610 |
+| Max closed DD | $-68,110 |
+| Profit factor | 2.33 |
+| Campaign win rate | 66.0% |
+| Net / stress DD | 19.40 |
+| Campaigns / unit exits | 432 / 2,160 |
 
 ![Equity and drawdown](charts/nq_intraday_equity_drawdown.png)
 

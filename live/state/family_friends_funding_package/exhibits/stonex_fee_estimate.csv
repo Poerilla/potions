@@ -1,5 +1,5 @@
 strategy_slug,strategy,tier,market,closed_units,stonex_per_side,stonex_round_turn,stonex_commission_usd,model_audit_fee_usd,stonex_delta_vs_model_fee_usd
-nq_prior_opposed_full,Prior-Opposed Gated Intraday System,Nasdaq Intraday,NQ,4385,1.29,2.58,11313.300000000001,6577.5,4735.800000000001
-mnq_prior_opposed,Prior-Opposed Gated Intraday System,Nasdaq Intraday Mini,MNQ,1765,0.5,1.0,1765.0,2647.5,-882.5
+nq_prior_opposed_full,Prior-Opposed Gated Intraday System,Nasdaq Intraday,NQ,2160,1.29,2.58,5572.8,3240.0,2332.8
+mnq_prior_opposed,Prior-Opposed Gated Intraday System,Nasdaq Intraday Mini,MNQ,2140,0.5,1.0,2140.0,3210.0,-1070.0
 nq_ungated_intraday,Ungated Intraday Breakout System,Nasdaq Intraday,NQ,6900,1.29,2.58,17802.0,10350.0,7452.0
 mnq_ungated_intraday,Ungated Intraday Breakout System,Nasdaq Intraday Mini,MNQ,6886,0.5,1.0,6886.0,10329.0,-3443.0

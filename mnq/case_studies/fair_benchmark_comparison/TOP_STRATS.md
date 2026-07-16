@@ -1,5 +1,7 @@
 # Top Strategy Fair Benchmark
 
+**2026-07-16:** NQ prior-opposed promotion baseline is **resting-limit hour-complete**: **$1,330,920 net / -$68,610 stress / 19.40 Net/Stress** ([`../../../live/state/nq_v2b_prior_opposed_causal_proxies/resting_limit/INDEX.md`](../../../live/state/nq_v2b_prior_opposed_causal_proxies/resting_limit/INDEX.md)). Rows below that still quote legacy hourly fill-stamp ($1,184,585 / 22.00) or older resting-limit left-label figures are **diagnostic** until rebuilt.
+
 This report compares passive buy-and-hold to the current top broker-like strategy rows without changing any strategy rules.
 
 Method:
@@ -33,7 +35,7 @@ This is the exact apples-to-apples capital-efficiency table. The starting balanc
 
 | Rank | Strategy | Window | Scale | Base 3x Capital | Scaled Net | Return | Stress DD | Net/DD | Same-Window QQQ DCA Net | Futures - DCA |
 |---:|---|---|---:|---:|---:|---:|---:|---:|---:|---:|
-| 1 | NQ v2b prior-opposed ST+PMC gate S_1_1_3 | 2021-03-04 to 2026-03-06 | 5.74x | $161,541 | $6,799,226 | 733.3% | $-309,068 | 22.00 | $516,514 | $6,282,712 |
+| 1 | NQ v2b prior-opposed ST+PMC gate S_1_1_3 (**legacy hourly fill; inflated**) | 2021-03-04 to 2026-03-06 | 5.74x | $161,541 | $6,799,226 | 733.3% | $-309,068 | 22.00 | $516,514 | $6,282,712 |
 | 2 | ES Yearly ORB scaleout3 | 2010-06-06 to 2026-03-08 | 7.65x | $121,209 | $2,514,650 | 271.2% | $-309,068 | 8.14 | $3,848,371 | $-1,333,722 |
 | 3 | NQ Yearly ORB scaleout3 | 2010-06-06 to 2026-03-08 | 2.90x | $320,160 | $2,462,568 | 265.6% | $-309,068 | 7.97 | $3,848,371 | $-1,385,803 |
 | 4 | YM Yearly ORB scaleout3 | 2010-06-06 to 2026-05-06 | 7.76x | $119,430 | $2,241,789 | 241.8% | $-309,068 | 7.25 | $4,572,879 | $-2,331,090 |

@@ -1,0 +1,7 @@
+label,trades,units,net_usd,closed_dd_usd,intrabar_stress_dd_usd,win_rate_pct,profit_factor,net_over_stress,prior_opposite_entries,causality_violations,state_root
+resting_limit_causal_baseline,432,2160,1330920.0,-68110.0,-68610.0,65.97,2.326,19.4,432,0,potions/live/state/nq_v2b_prior_opposed_causal_proxies/resting_limit
+resting_limit_left_label_diagnostic,434,2170,1321745.0,-68110.0,-68610.0,65.67,2.3,19.26,434,0,potions/live/state/nq_v2b_prior_opposed_causal_proxies/resting_limit_left_label_diagnostic
+provisional_confirm_resting_st_60m,1279,6395,878900.0,-97092.25,-97692.25,54.42,1.253,9.0,323,0,potions/live/state/nq_v2b_prior_opposed_causal_proxies/provisional_confirm_resting_st_60m
+provisional_invalidate_60m,1268,6340,467747.5,-130389.75,-131314.75,53.31,1.135,3.56,104,0,potions/live/state/nq_v2b_prior_opposed_causal_proxies/provisional_invalidate_60m
+banked_hourly_stamp,352,1760,1175785.0,-53267.0,-53942.0,69.32,2.633,21.8,352,0,potions/live/state/nq_v2b_prior_opposed_stpmc_broker_like
+fill_1m_touch,350,1750,225825.0,-152412.0,-153087.0,48.86,1.203,1.48,350,0,potions/live/state/nq_v2b_prior_opposed_stpmc_1m_touch

@@ -11,8 +11,10 @@ Draft performance and strategy materials for an aiSource CTA conversation.
 ## Key Read
 
 - Flagship simulated broker-like program: **NQ Proprietary Intraday Futures Program**.
-- Base replay: **$1,184,585 net**, **$-53,847 intrabar stress DD**, **22.00 Net/Stress**, **69.3% win**, **2.65 PF**.
-- $1M reference account: **118.5% total return**, **16.9% CAGR**, **-5.4% stress DD vs initial capital**.
+- **2026-07-16 promotion baseline:** resting-limit **hour-complete** gate —
+  **$1,330,920 net / -$68,610 MTM stress / 19.40 Net/Stress** (2021-03-04–2026-03-06).
+- Lookahead re-review: **SOLID** for minute-by-minute execution.
+- Legacy hourly fill-stamp / left-label resting-limit tapes are diagnostic only.
 - This is **not** audited live CTA performance.
 
 ## Exhibits

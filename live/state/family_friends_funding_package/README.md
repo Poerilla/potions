@@ -28,8 +28,8 @@ Private Markdown package for the **Nasdaq Futures Diversification Platform** bui
 - Ask: **about $145,000** for a CTA-registration-first 12-month build/test runway.
 - First live-test path: **Nasdaq Intraday Mini**, $50,000 minimum, MNQ-focused.
 - Future larger tier: **Nasdaq Intraday**, $250,000 minimum, NQ-focused.
-- Nasdaq Intraday Mini conservative advertised average after removing top 3 annual net years: **$10,048 / 20.1% per year**.
-- Nasdaq Intraday conservative advertised average after removing top 3 annual net years: **$57,990 / 23.2% per year**.
+- Nasdaq Intraday Mini conservative advertised average after removing top 3 annual net years: **$13,323 / 26.6% per year**.
+- Nasdaq Intraday conservative advertised average after removing top 3 annual net years: **$128,249 / 51.3% per year**.
 - Draft founder alignment principle: early family/friends accounts target **0% management / 10% performance fee** if a compliant future offering is launched, subject to counsel-approved documents.
 - QQQ benchmarks invest the full tier minimum over the same clipped strategy window, matching the fair benchmark convention from the research scripts.
 - All performance is hypothetical/backtested and unaudited.

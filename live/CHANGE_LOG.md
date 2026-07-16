@@ -1,5 +1,47 @@
 # Live Runtime CHANGE_LOG
 
+## 2026-07-16 — Cross-market resting-limit hour-complete + lookahead re-review
+
+- NQ hour-complete baseline re-reviewed: **SOLID** for minute-by-minute execution
+  (`LOOKAHEAD_REVIEW.md`). No remaining gate lookahead; residual risks are OHLC
+  path ambiguity and cancelled-ST gate semantics.
+- Re-ran MNQ / YM / MYM with the same gate. ES blocked (missing 1m DBN).
+  Cross-market: `live/state/v2b_prior_opposed_resting_limit_cross_market/`.
+  | Market | Trades | Net | Stress | Net/Stress |
+  |---|---:|---:|---:|---:|
+  | NQ | 432 | $1,330,920 | -$68,610 | 19.40 |
+  | MNQ | 428 | $128,360 | -$6,960 | 18.44 |
+  | YM | 436 | $289,225 | -$33,894 | 8.53 |
+  | MYM | 423 | $22,101 | -$3,417 | 6.47 |
+
+## 2026-07-16 — Resting-limit hour-complete baseline (remove left-label lookahead)
+
+- Gate availability for `resting_limit` is now `live_after_ts + 1h` (ST hour
+  complete), matching when ST+PMC would actually post. Left-label mode kept as
+  `resting_limit_left_label` diagnostic.
+- NQ causal baseline: **432** / **$1,330,920** / **-$68,610** stress / **19.40**
+  Net/Stress — slightly beats left-label **$1,321,745 / 19.26**.
+- Early-sleeve recovery: **103/104** former early sessions kept via delayed arm
+  (median arm +60m, median entry +0). Post-hoc “drop early → $753k” was the wrong
+  counterfactual. Provisional confirm-60m does not beat the gated baseline.
+- Artifacts: `live/state/nq_v2b_prior_opposed_causal_proxies/resting_limit/`,
+  `.../early_pnl_recovery/`, `.../resting_limit_left_label_diagnostic/`.
+
+## 2026-07-15 — NQ prior-opposed gate-timestamp correction
+
+- Timing autopsy showed ~76–78% of the banked NQ prior-opposed net came from
+  v2b entries before the true 1m ST fill was knowable (hourly left-label fill
+  stamps). Artifacts under `live/state/nq_v2b_prior_opposed_timing_study/` and
+  `live/state/nq_v2b_prior_opposed_causal_proxies/`.
+- **NQ promotion candidate:** `gate_mode=resting_limit` — arm after opposite ST
+  entry limit is posted (`live_after_ts`). **434** campaigns / **$1,321,745** /
+  **-$68,610** MTM stress / **19.26** Net/Stress. Still filters causally
+  (**434 / 1164** regime days).
+- Strict 1m-touch fill gate: **$225,825** / **-$153,087** MTM / **1.48** Net/Stress.
+- Provisional + invalidate 60m: **$467,748** / **-$131,315** MTM / **3.56** Net/Stress.
+- Legacy hourly fill-stamp banked folder demoted to diagnostic. Docs updated in
+  `STRATEGY_TRACKER.md`, `README.md`, and related INDEX/pitch artifacts.
+
 ## 2026-05-20 — Broker realism + risk projection fixes (run #1)
 
 Scope: paper broker fill realism, risk OCO collapse, audit fee support, and

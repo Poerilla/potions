@@ -1,0 +1,39 @@
+# Potions Live — PROGRESS.log
+
+Append-only research/platform progress notes.
+
+## 2026-07-16 — Prior-opposed resting-limit hour-complete (family baseline)
+
+### Causality
+- Identified left-label ST `live_after_ts` lookahead in resting-limit gate (arm before HTF hour complete).
+- Fixed `load_st_resting_limit_events` to set `available_at_ts = live_after + 1h`.
+- Strategy prefers `available_at_ts` in `_prior_opposite_event_for_entry`.
+- Early-sleeve recovery: delayed arm recovers ~all former early PnL (median entry delay 0).
+- NQ lookahead re-review: **SOLID** for minute-by-minute execution
+  (`live/state/nq_v2b_prior_opposed_causal_proxies/resting_limit/LOOKAHEAD_REVIEW.md`).
+
+### Results (hour-complete)
+| Market | Campaigns | Net | MTM stress | Net/Stress |
+|---|---:|---:|---:|---:|
+| NQ | 432 | $1,330,920 | -$68,610 | 19.40 |
+| MNQ | 428 | $128,360 | -$6,960 | 18.44 |
+| YM | 436 | $289,225 | -$33,894 | 8.53 |
+| MYM | 423 | $22,101 | -$3,417 | 6.47 |
+| ES | — | blocked (no 1m DBN) | — | — |
+
+### Artifacts
+- Cross-market: `live/state/v2b_prior_opposed_resting_limit_cross_market/`
+- NQ day timelines: `.../resting_limit/day_timelines/`
+- Family/friends pack regenerated from hour-complete NQ/MNQ sources
+- Platform.md v0.4 documents HTF `available_at_ts` rule
+
+### Docs / investment
+- STRATEGY_TRACKER, README, CHANGE_LOG updated
+- `scripts/generate_family_friends_funding_package.py` points at resting_limit books
+- aiSource / pitch materials marked to hour-complete baseline
+
+### Pending
+- ES 1m DBN restore → resting_limit rerun
+- Full-history NQ hour-complete rerun (common-window is promotion baseline)
+- Execution scrutiny refresh on hour-complete books
+- Institutional Sharpe/Calmar regenerate on resting-limit equity

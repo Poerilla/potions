@@ -60,8 +60,8 @@ Headline expected-return framing removes each system's top 3 annual net years, t
 
 | Tier | System | Market | Minimum | Window | Total Net | Advertised Avg/Yr | Advertised Return/Yr | Corr to QQQ |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| Nasdaq Intraday | Prior-Opposed Gated Intraday System | NQ | $250,000 | 2010-11-29 to 2026-03-06 | $1,713,278 | $57,990 | 23.2% | -0.06 |
-| Nasdaq Intraday Mini | Prior-Opposed Gated Intraday System | MNQ | $50,000 | 2021-03-04 to 2026-03-06 | $113,548 | $10,048 | 20.1% | -0.09 |
+| Nasdaq Intraday | Prior-Opposed Gated Intraday System | NQ | $250,000 | 2021-03-04 to 2026-03-06 | $1,330,920 | $128,249 | 51.3% | -0.07 |
+| Nasdaq Intraday Mini | Prior-Opposed Gated Intraday System | MNQ | $50,000 | 2021-03-04 to 2026-03-03 | $128,360 | $13,323 | 26.6% | -0.06 |
 | Nasdaq Intraday | Ungated Intraday Breakout System | NQ | $250,000 | 2021-03-04 to 2026-03-06 | $867,355 | $85,889 | 34.4% | -0.05 |
 | Nasdaq Intraday Mini | Ungated Intraday Breakout System | MNQ | $50,000 | 2021-03-04 to 2026-03-06 | $74,442 | $6,891 | 13.8% | -0.08 |
 
@@ -73,9 +73,9 @@ QQQ comparisons follow the fair-benchmark convention: the passive benchmark inve
 
 | System | Corr | Avg in QQQ Down Years | QQQ Down Years |
 | --- | --- | --- | --- |
-| MNQ Prior-Opposed Gated Intraday System | -0.09 | 13.9% | 2022, 2026 |
+| MNQ Prior-Opposed Gated Intraday System | -0.06 | 21.7% | 2022, 2026 |
 | MNQ Ungated Intraday Breakout System | -0.08 | 19.5% | 2022, 2026 |
-| NQ Prior-Opposed Gated Intraday System | -0.06 | 28.4% | 2018, 2022, 2026 |
+| NQ Prior-Opposed Gated Intraday System | -0.07 | 39.1% | 2022, 2026 |
 | NQ Ungated Intraday Breakout System | -0.05 | 40.1% | 2022, 2026 |
 
 ![Daily correlation to QQQ](charts/daily_correlation_to_qqq.png)
@@ -107,7 +107,7 @@ This table keeps the buyer-facing view focused on the two systems planned for de
 
 ## 11. 12-Month Build Roadmap
 
-1. **Months 1-3:** CTA counsel kickoff, Series 3/NFA registration prep, source-data audit, Tradovate/StoneX adapter work, live-data shadow mode.
+1. **Months 1-3:** CTA counsel kickoff, Series 3/NFA registration prep, source-data audit, CQG/StoneX adapter work, live-data shadow mode.
 2. **Months 4-6:** disclosure-document drafting/review, broker-paper routing, reconciliation, restart drills, emergency flatten drills, first readiness review.
 3. **Months 7-9:** extended MNQ funded-paper or small-live observation, ungated-system comparison, investor reporting packet.
 4. **Months 10-12:** regime review, QQQ comparison refresh, compliance/accounting package, registration/disclosure go/no-go, final MNQ/NQ tier decision.
@@ -125,22 +125,7 @@ See [COST_AND_RUNWAY.md](COST_AND_RUNWAY.md).
 
 ---
 
-## 13. API Exception Handling & State Reconciliation
-
-The platform treats broker/API failures as operational risk, not as afterthoughts.
-
-| Failure | System Response |
-| --- | --- |
-| Tradovate WebSocket/feed loss | Freeze new entries, reconnect with backoff, reconcile before resume |
-| Ambiguous order placement | Prevent secondary orders, query broker order state, block if unresolved |
-| Local vs broker state mismatch | Treat broker ledger as truth, overwrite local audit mirror, resume only after reconciliation |
-| Manual kill switch | Cancel working MNQ/NQ/MYM orders and flatten through broker-level controls |
-
-Core principle: strategies can only arm new entries when runtime state is `running`. Protective exits, emergency flattening, and broker reconciliation stay available even during feed or API faults.
-
----
-
-## 14. Risk Positioning
+## 13. Risk Positioning
 
 - Futures are leveraged and can lose more than expected when markets gap or systems fail.
 - Backtests are not live results.
@@ -150,7 +135,7 @@ Core principle: strategies can only arm new entries when runtime state is `runni
 
 ---
 
-## 15. Next Step
+## 14. Next Step
 
 - Fund the CTA-registration-first 12-month build/test runway.
 - Review monthly operating reports.

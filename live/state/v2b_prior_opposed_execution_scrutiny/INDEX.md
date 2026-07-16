@@ -2,9 +2,11 @@
 
 This is an execution and live-readiness audit only. Strategy rules and sizing are frozen.
 
+**2026-07-15:** Numbers below are from the **legacy hourly left-label ST fill-stamp** books. For NQ that tape is **timestamp-inflated**; the NQ promotion candidate is **resting-limit** ([`../nq_v2b_prior_opposed_causal_proxies/resting_limit/INDEX.md`](../nq_v2b_prior_opposed_causal_proxies/resting_limit/INDEX.md)). Re-run this scrutiny pack on resting-limit before live funding.
+
 | Market | Campaigns | Net | Win % | PF | Causal violations | Bar-safe | Ambiguous <=1m | Pre-arm touch | Later level retest | Trigger-only later touch | No later 1m touch |
 |---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
-| NQ | 352 | $1184585.00 | 69.32 | 2.747 | 0 | 141 | 45 | 166 | 146 | 64 | 1 |
+| NQ *(legacy fill stamp)* | 352 | $1184585.00 | 69.32 | 2.747 | 0 | 141 | 45 | 166 | 146 | 64 | 1 |
 | MNQ | 353 | $113547.50 | 68.56 | 2.615 | 0 | 142 | 44 | 167 | 147 | 63 | 1 |
 | ES | 245 | $348687.50 | 63.67 | 2.180 | 0 | 95 | 22 | 128 | 113 | 36 | 1 |
 | YM | 347 | $320190.00 | 59.65 | 1.887 | 0 | 187 | 38 | 122 | 114 | 44 | 2 |

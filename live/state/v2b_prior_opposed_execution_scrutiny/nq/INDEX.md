@@ -2,6 +2,8 @@
 
 Rules are frozen. This audit looks for timing, causality, latency, and live-readiness problems; it does not optimize the strategy.
 
+**2026-07-15:** numbers below are from the **legacy hourly fill-stamp** book (**timestamp-inflated**). Re-run on **resting-limit** ([`../../nq_v2b_prior_opposed_causal_proxies/resting_limit/INDEX.md`](../../nq_v2b_prior_opposed_causal_proxies/resting_limit/INDEX.md)) before live funding.
+
 | Campaigns | Net | Win % | PF | Causal violations | Bar-safe | Ambiguous <=1m | Pre-arm touch | Later level retest | Trigger-only later touch | No later 1m touch | Tick manifest |
 |---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
 | 352 | $1184585.00 | 69.32 | 2.747 | 0 | 141 | 45 | 166 | 146 | 64 | 1 | 266 |

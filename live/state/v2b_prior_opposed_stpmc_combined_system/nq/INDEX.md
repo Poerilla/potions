@@ -1,5 +1,7 @@
 # NQ Prior-Opposed ST+PMC + v2b Combined System
 
+**2026-07-15:** gated v2b rows use the **legacy hourly fill-stamp** book (**timestamp-inflated**). Rebuild on resting-limit before portfolio claims.
+
 This is a combined-system audit for the prior-opposed branch. It keeps four views separate:
 
 - `v2b gated only`: actual broker-like v2b `S_1_1_3` fills after prior opposite ST+PMC.

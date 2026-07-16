@@ -1,5 +1,8 @@
 # MYM v2b Prior-Opposed ST+PMC Broker-Like Replay
 
+**2026-07-16:** Legacy hourly **fill-stamp** book (diagnostic). Promotion path is hour-complete resting-limit: [`../mym_v2b_prior_opposed_stpmc_resting_limit/INDEX.md`](../mym_v2b_prior_opposed_stpmc_resting_limit/INDEX.md).
+
+
 True `Engine + PaperBroker + StrategyPlugin` replay. The v2b entry order is only armed after a same-session MYM hourly ST+PMC entry has already fired in the opposite direction.
 
 | Trades | Units | Net | Closed DD | Intrabar Stress DD | Win % | PF | Net/Stress |

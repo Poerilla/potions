@@ -2,6 +2,8 @@
 
 Generated from saved replay equity curves and summary CSVs. These are **hypothetical/backtested** metrics, not audited live performance.
 
+**2026-07-15:** Rank-1 **NQ prior-opposed** row uses the **legacy hourly fill-stamp** equity (**timestamp-inflated**). NQ promotion candidate is **resting-limit** (**$1,321,745 net / -$68,610 stress / 19.26 Net/Stress**); regenerate this table from resting-limit equity before allocator use. See [`../nq_v2b_prior_opposed_causal_proxies/INDEX.md`](../nq_v2b_prior_opposed_causal_proxies/INDEX.md).
+
 ## Method
 
 - Reference capital is **3x each strategy's intrabar stress DD**.
@@ -15,7 +17,7 @@ Generated from saved replay equity curves and summary CSVs. These are **hypothet
 
 | Rank | Strategy | Window | Ref Cap | Net | CAGR | Calmar | Sharpe | Sortino | DD duration | QQQ corr | QQQ downside capture | PF | Notes |
 |---:|---|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---|
-| 1 | NQ prior-opposed v2b gate S_1_1_3 | 2021-03-04 to 2026-03-06 | $161,541 | $1,184,585 | 52.8% | 1.58 | 3.29 | 4.80 | 401d | -0.11 | -1.31 | 2.65 | Prior-opposed v2b |
+| 1 | NQ prior-opposed v2b gate S_1_1_3 (**legacy fill stamp; inflated**) | 2021-03-04 to 2026-03-06 | $161,541 | $1,184,585 | 52.8% | 1.58 | 3.29 | 4.80 | 401d | -0.11 | -1.31 | 2.65 | Diagnostic only — prefer resting-limit |
 | 2 | MNQ prior-opposed v2b gate S_1_1_3 | 2021-03-04 to 2026-03-06 | $16,254 | $113,548 | 51.5% | 1.54 | 3.14 | 4.58 | 401d | -0.11 | -1.27 | 2.52 | Prior-opposed v2b |
 | 3 | YM prior-opposed v2b gate S_1_1_3 | 2021-03-04 to 2026-04-02 | $80,505 | $320,190 | 37.2% | 1.11 | 2.32 | 3.06 | 302d | -0.00 | -0.38 | 1.85 | Prior-opposed v2b |
 | 4 | ES prior-opposed v2b gate S_1_1_3 | 2021-03-04 to 2026-03-06 | $99,490 | $348,688 | 35.1% | 1.05 | 2.26 | 2.51 | 326d | 0.04 | -0.32 | 2.08 | Prior-opposed v2b |

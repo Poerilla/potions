@@ -54,9 +54,10 @@ The 2026-05-20 realism baseline used by the current ranked tables:
 
 Use these layers in order:
 
-1. **Strict delayed-arming prior-opposed ST+PMC -> v2b gate**: highest current
-   Net/Stress rows, but kept separate until tick reconstruction resolves
-   same-minute/pre-arm-touch questions.
+1. **Strict delayed-arming prior-opposed ST+PMC -> v2b gate**: NQ flagship is now
+   the **resting-limit** variant (arm when opposite ST limit is posted). Legacy
+   hourly fill-stamp rows are diagnostic. Keep separate until tick reconstruction
+   resolves same-minute/pre-arm-touch questions.
 2. **Max 3x-stress normalized benchmark**: exact apples-to-apples capital math
    from `TOP_STRATS.md`.
 3. **Generated broker-like replay table**: standard `StrategyPlugin` rows after
@@ -66,24 +67,27 @@ Use these layers in order:
 
 ## Strict Prior-Opposed Gate Ranking
 
-Rule family: v2b only arms after the same-session, same-market hourly ST+PMC
-has already entered in the opposite direction. These are real delayed-arming
-`StrategyPlugin` replays with 0 fill-book causality violations, but they are not
-tick-proven yet.
+**NQ promotion semantics (2026-07-16):** arm v2b after the same-session opposite
+ST+PMC entry limit is **knowably resting at hour-complete** (`live_after + 1h`).
+Left-label resting-limit and hourly fill stamps are diagnostic. Early-sleeve PnL
+is recovered by delaying arm (~60m); median entry delay is 0.
+[`early_pnl_recovery`](live/state/nq_v2b_prior_opposed_causal_proxies/early_pnl_recovery/INDEX.md).
+Proxy comparison:
+[`live/state/nq_v2b_prior_opposed_causal_proxies/INDEX.md`](live/state/nq_v2b_prior_opposed_causal_proxies/INDEX.md).
 
-| Rank | Market | Campaigns | Units | Net | Stress DD | Net/Stress | Output |
+| Rank | Market / gate | Campaigns | Units | Net | Stress DD (MTM) | Net/Stress | Output |
 |---:|---|---:|---:|---:|---:|---:|---|
-| 1 | NQ | 352 | 1,760 | $1,184,585 | -$53,847 | **22.00** | [`live/state/nq_v2b_prior_opposed_stpmc_broker_like/INDEX.md`](live/state/nq_v2b_prior_opposed_stpmc_broker_like/INDEX.md) |
-| 2 | MNQ | 353 | 1,765 | $113,548 | -$5,418 | **20.96** | [`live/state/mnq_v2b_prior_opposed_stpmc_broker_like/INDEX.md`](live/state/mnq_v2b_prior_opposed_stpmc_broker_like/INDEX.md) |
-| 3 | YM | 347 | 1,735 | $320,190 | -$26,835 | **11.93** | [`live/state/ym_v2b_prior_opposed_stpmc_broker_like/INDEX.md`](live/state/ym_v2b_prior_opposed_stpmc_broker_like/INDEX.md) |
-| 4 | ES | 245 | 1,225 | $348,688 | -$33,164 | **10.51** | [`live/state/es_v2b_prior_opposed_stpmc_broker_like/INDEX.md`](live/state/es_v2b_prior_opposed_stpmc_broker_like/INDEX.md) |
-| 5 | MYM | 333 | 1,665 | $26,054 | -$2,665 | **9.78** | [`live/state/mym_v2b_prior_opposed_stpmc_broker_like/INDEX.md`](live/state/mym_v2b_prior_opposed_stpmc_broker_like/INDEX.md) |
+| 1 | **NQ resting-limit hour-complete** | 432 | 2,160 | **$1,330,920** | **-$68,610** | **19.40** | [`causal_proxies/resting_limit`](live/state/nq_v2b_prior_opposed_causal_proxies/resting_limit/INDEX.md) |
+| 2 | **MNQ resting-limit hour-complete** | 428 | 2,140 | **$128,360** | **-$6,960** | **18.44** | [`mnq_..._resting_limit`](live/state/mnq_v2b_prior_opposed_stpmc_resting_limit/INDEX.md) |
+| 3 | **YM resting-limit hour-complete** | 436 | 2,180 | **$289,225** | **-$33,894** | **8.53** | [`ym_..._resting_limit`](live/state/ym_v2b_prior_opposed_stpmc_resting_limit/INDEX.md) |
+| 4 | **MYM resting-limit hour-complete** | 423 | 2,115 | **$22,101** | **-$3,417** | **6.47** | [`mym_..._resting_limit`](live/state/mym_v2b_prior_opposed_stpmc_resting_limit/INDEX.md) |
+| — | ES resting-limit | — | — | — | — | — | **blocked** (ES 1m DBN missing); legacy fill [`es_..._broker_like`](live/state/es_v2b_prior_opposed_stpmc_broker_like/INDEX.md) |
+| — | NQ left-label / fill-stamp diagnostics | — | — | — | — | — | See [`causal_proxies/INDEX`](live/state/nq_v2b_prior_opposed_causal_proxies/INDEX.md) |
 
-Execution scrutiny for this family:
-[`live/state/v2b_prior_opposed_execution_scrutiny/INDEX.md`](live/state/v2b_prior_opposed_execution_scrutiny/INDEX.md).
-All five markets have tiny 1m complete-miss buckets, but same-minute and
-pre-arm-touch campaigns still need tick/broker reconstruction before live
-funding.
+Cross-market: [`live/state/v2b_prior_opposed_resting_limit_cross_market/INDEX.md`](live/state/v2b_prior_opposed_resting_limit_cross_market/INDEX.md).
+NQ lookahead re-review: **SOLID** ([`LOOKAHEAD_REVIEW.md`](live/state/nq_v2b_prior_opposed_causal_proxies/resting_limit/LOOKAHEAD_REVIEW.md)).
+
+Execution scrutiny on the **legacy fill-stamp** family still needs a refresh on hour-complete books before live funding.
 
 ## Capital-Normalized Ranking
 
@@ -92,9 +96,10 @@ set as the common starting capital. Current anchor: **$927,206**, set by NQ ATR
 daily 3-initial 10-max. Fractional books are allowed here because this is
 comparison math, not an executable order plan.
 
-| Rank | Strategy | Scale | Scaled Net | Return | Stress DD | Net/DD |
-|---:|---|---:|---:|---:|---:|---:|
-| 1 | NQ v2b prior-opposed ST+PMC gate `S_1_1_3` | 5.74x | $6,799,226 | 733.3% | -$309,068 | **22.00** |
+| Rank | Strategy | Scale | Scaled Net | Return | Stress DD | Net/DD | Note |
+|---:|---|---:|---:|---:|---:|---:|---|
+| 1 | NQ v2b prior-opposed **resting-limit hour-complete** | — | — | — | — | **19.40** | Use [`causal_proxies/resting_limit`](live/state/nq_v2b_prior_opposed_causal_proxies/resting_limit/INDEX.md); rebuild TOP_STRATS scaled row before allocator use. |
+| 1b | NQ v2b prior-opposed (legacy hourly fill) | 5.74x | $6,799,226 | 733.3% | -$309,068 | **22.00** | **Inflated diagnostic** — do not promote. |
 | 2 | ES Yearly ORB scaleout3 | 7.65x | $2,514,650 | 271.2% | -$309,068 | **8.14** |
 | 3 | NQ Yearly ORB scaleout3 | 2.90x | $2,462,568 | 265.6% | -$309,068 | **7.97** |
 | 4 | YM Yearly ORB scaleout3 | 7.76x | $2,241,789 | 241.8% | -$309,068 | **7.25** |
@@ -106,8 +111,9 @@ comparison math, not an executable order plan.
 
 Practical `$1,000,000` whole-book ranking is also in
 [`TOP_STRATS.md`](mnq/case_studies/fair_benchmark_comparison/TOP_STRATS.md).
-At `$1M`, the NQ prior-opposed gate leads with 6 books, `$7,107,510` net,
-710.8% return, and 22.00 Net/DD.
+At `$1M`, the legacy NQ prior-opposed fill-stamp row still leads the frozen
+table (6 books / `$7,107,510` / 22.00 Net/DD) but that scaled figure is
+**timestamp-inflated**; rebuild from resting-limit before allocation.
 
 ## Broker-Like Replay Leaders
 

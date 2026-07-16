@@ -31,8 +31,8 @@ The selected futures strategies are intraday and can trade both directions. They
 
 | Tier | System | Market | Minimum | Window | Total Net | Advertised Avg/Yr | Advertised Return/Yr | Corr to QQQ |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| Nasdaq Intraday | Prior-Opposed Gated Intraday System | NQ | $250,000 | 2010-11-29 to 2026-03-06 | $1,713,278 | $57,990 | 23.2% | -0.06 |
-| Nasdaq Intraday Mini | Prior-Opposed Gated Intraday System | MNQ | $50,000 | 2021-03-04 to 2026-03-06 | $113,548 | $10,048 | 20.1% | -0.09 |
+| Nasdaq Intraday | Prior-Opposed Gated Intraday System | NQ | $250,000 | 2021-03-04 to 2026-03-06 | $1,330,920 | $128,249 | 51.3% | -0.07 |
+| Nasdaq Intraday Mini | Prior-Opposed Gated Intraday System | MNQ | $50,000 | 2021-03-04 to 2026-03-03 | $128,360 | $13,323 | 26.6% | -0.06 |
 
 ## Conservative Return Standard
 
@@ -42,33 +42,23 @@ For conversations with prospective investors, the headline number should not use
 
 | Year | System Return | Net | QQQ Return | QQQ Regime |
 | --- | --- | --- | --- | --- |
-| 2021 | 53.1% | $26,560 | 31.5% | QQQ up |
-| 2022 | 1.7% | $874 | -33.2% | QQQ down |
-| 2023 | 32.6% | $16,291 | 55.9% | QQQ up |
-| 2024 | 37.5% | $18,747 | 27.7% | QQQ up |
-| 2025 | 76.2% | $38,097 | 21.0% | QQQ up |
-| 2026 | 26.0% | $12,978 | -2.2% | QQQ down |
+| 2021 | 39.9% | $19,948 | 31.5% | QQQ up |
+| 2022 | 9.4% | $4,689 | -33.2% | QQQ down |
+| 2023 | 36.5% | $18,269 | 55.9% | QQQ up |
+| 2024 | 54.3% | $27,140 | 27.7% | QQQ up |
+| 2025 | 82.6% | $41,305 | 21.0% | QQQ up |
+| 2026 | 34.0% | $17,010 | -1.9% | QQQ down |
 
 ## Nasdaq Intraday Annual Table
 
 | Year | System Return | Net | QQQ Return | QQQ Regime |
 | --- | --- | --- | --- | --- |
-| 2011 | 2.8% | $7,110 | 1.9% | QQQ up |
-| 2012 | 4.3% | $10,832 | 15.9% | QQQ up |
-| 2013 | 1.3% | $3,195 | 32.4% | QQQ up |
-| 2014 | 8.8% | $21,965 | 20.1% | QQQ up |
-| 2015 | 17.2% | $43,110 | 9.8% | QQQ up |
-| 2016 | 14.6% | $36,418 | 9.4% | QQQ up |
-| 2017 | 3.5% | $8,755 | 31.5% | QQQ up |
-| 2018 | 27.4% | $68,495 | -1.8% | QQQ down |
-| 2019 | 26.5% | $66,325 | 38.4% | QQQ up |
-| 2020 | 69.9% | $174,742 | 46.0% | QQQ up |
-| 2021 | 144.4% | $360,888 | 29.2% | QQQ up |
-| 2022 | 5.4% | $13,425 | -33.2% | QQQ down |
-| 2023 | 67.3% | $168,292 | 55.9% | QQQ up |
-| 2024 | 79.8% | $199,522 | 27.7% | QQQ up |
-| 2025 | 159.6% | $399,000 | 21.0% | QQQ up |
-| 2026 | 52.5% | $131,202 | -2.2% | QQQ down |
+| 2021 | 75.7% | $189,242 | 31.5% | QQQ up |
+| 2022 | 8.5% | $21,185 | -33.2% | QQQ down |
+| 2023 | 78.1% | $195,165 | 55.9% | QQQ up |
+| 2024 | 128.2% | $320,585 | 27.7% | QQQ up |
+| 2025 | 172.2% | $430,422 | 21.0% | QQQ up |
+| 2026 | 69.7% | $174,320 | -2.2% | QQQ down |
 
 ## What The 12 Months Must Prove
 

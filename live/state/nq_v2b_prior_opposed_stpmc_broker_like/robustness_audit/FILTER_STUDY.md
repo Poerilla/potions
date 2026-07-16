@@ -1,5 +1,7 @@
 # NQ Prior-Opposed v2b Filter Study
 
+**2026-07-15:** describes the **legacy hourly fill-stamp** book (**timestamp-inflated**). Re-run on resting-limit before promoting filter levers.
+
 This study tests the obvious robustness levers from the first audit: skip or reduce size on widest opening ranges, large gaps, weak 2022 behavior, and top-winner deletion.
 
 Reduced-size scenarios are unit-level by campaign unit rank, not proportional approximations:

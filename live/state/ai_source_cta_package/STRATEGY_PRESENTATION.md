@@ -35,15 +35,17 @@
 
 ## 4. Performance Snapshot
 
-| Metric | Value |
+**2026-07-16 promotion baseline:** resting-limit **hour-complete**. Lookahead re-review: SOLID for minute-by-minute execution.
+
+| Metric | Value (hour-complete resting-limit) |
 | --- | --- |
 | Window | 2021-03-04 to 2026-03-06 |
-| Net, base book | $1,184,585 |
-| $1M reference return | 118.5% |
-| CAGR, $1M reference | 16.9% |
-| Intrabar stress DD | $-53,847 |
-| Win rate / PF | 69.3% / 2.65 |
-| Net / stress DD | 22.00 |
+| Net, base book | $1,330,920 |
+| $1M reference return | 133.1% |
+| Intrabar / MTM stress DD | $-68,610 |
+| Win rate / PF | 66.0% / 2.33 |
+| Net / stress DD | 19.40 |
+| Campaigns | 432 |
 
 ![Equity and drawdown](charts/nq_intraday_equity_drawdown.png)
 

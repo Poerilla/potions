@@ -2,6 +2,8 @@
 
 Purpose: aggressively poke holes in the confirmed broker-like NQ prior-opposed ST+PMC -> v2b `S_1_1_3` result.
 
+**2026-07-15:** This audit describes the **legacy hourly fill-stamp** book (**timestamp-inflated**). NQ promotion candidate is **resting-limit** ([`../../nq_v2b_prior_opposed_causal_proxies/resting_limit/INDEX.md`](../../nq_v2b_prior_opposed_causal_proxies/resting_limit/INDEX.md)). Re-run robustness on resting-limit before treating filter levers as live rules.
+
 ## Headline
 
 | Metric | Value |

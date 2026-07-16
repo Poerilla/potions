@@ -7,7 +7,7 @@ import json
 import math
 import multiprocessing as mp
 import shutil
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from datetime import date, time
 from pathlib import Path
 from typing import Dict, Iterable, List, Optional, Sequence
@@ -26,6 +26,7 @@ from .nq_v2b_prior_opposed_replay import (
     PRIOR_OPPOSED_MARKETS,
     Result,
     default_st_fills_path,
+    default_st_orders_path,
     load_st_events,
     summarize_units,
 )
@@ -113,6 +114,7 @@ class ReplayCache:
     bars_by_day: Dict[date, List[Bar]]
     audit_bars: List[AuditBar]
     session_features: pd.DataFrame
+    raw_1m_by_day: Dict[date, pd.DataFrame] = field(default_factory=dict)
 
 
 @dataclass(frozen=True)
@@ -282,7 +284,15 @@ def _load_replay_cache(
         except ValueError:
             features["or_width_quartile"] = ""
     print("  %s random-gate regime sessions: %d" % (cfg.instrument, len(regime_dates)), flush=True)
-    return ReplayCache(cfg.market, cfg.instrument, regime_dates, bars_by_day, audit_bars, features)
+    return ReplayCache(
+        cfg.market,
+        cfg.instrument,
+        regime_dates,
+        bars_by_day,
+        audit_bars,
+        features,
+        raw_1m_by_day=gby,
+    )
 
 
 def build_eligible_universe(cache: ReplayCache, event_start: str, event_cutoff: str) -> pd.DataFrame:
@@ -328,7 +338,16 @@ def load_real_event_profile(
 ) -> pd.DataFrame:
     st_strategy_id = st_strategy_id or DEFAULT_ST_STRATEGY_IDS[market]
     st_fills = st_fills_path or default_st_fills_path(market)
-    event_dict = load_st_events(st_fills, st_strategy_id)
+    st_orders = default_st_orders_path(market, st_fills)
+    if st_orders.exists() and cache.raw_1m_by_day:
+        event_dict = load_st_events(
+            st_fills,
+            st_strategy_id,
+            orders_path=st_orders,
+            bars_by_ny_date=cache.raw_1m_by_day,
+        )
+    else:
+        event_dict = load_st_events(st_fills, st_strategy_id)
     session_features = cache.session_features.set_index("session").to_dict("index")
     start_t = _parse_hhmm(event_start)
     cutoff_t = _parse_hhmm(event_cutoff)

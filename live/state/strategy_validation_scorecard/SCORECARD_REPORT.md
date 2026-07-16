@@ -16,7 +16,9 @@ This report is **hypothetical/backtested and unaudited**. It is designed to make
 
 ## Headline Candidate
 
-| Metric | NQ prior-opposed v2b gate |
+**2026-07-16 promotion baseline:** resting-limit **hour-complete** — **$1,330,920 net / -$68,610 MTM / 19.40 Net/Stress** (432 campaigns). Lookahead re-review: SOLID. Institutional Sharpe/Calmar below are still from the legacy fill-stamp equity until regenerated.
+
+| Metric | NQ prior-opposed (legacy fill stamp — diagnostic) |
 |---|---:|
 | Sharpe | 3.29 |
 | Sortino | 4.80 |

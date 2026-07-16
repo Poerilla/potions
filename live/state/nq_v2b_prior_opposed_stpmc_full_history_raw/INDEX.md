@@ -1,6 +1,12 @@
 # NQ v2b Prior-Opposed ST+PMC Broker-Like Replay
 
-True `Engine + PaperBroker + StrategyPlugin` replay. The v2b entry order is only armed after a same-session NQ hourly ST+PMC entry has already fired in the opposite direction.
+True `Engine + PaperBroker + StrategyPlugin` replay using the **legacy hourly
+left-label ST fill stamp** as the prior-opposed gate.
+
+**2026-07-15:** This long-history tape inherits the same timestamp inflation as
+the 2021-start banked book. NQ promotion candidate is **resting-limit**
+([`../nq_v2b_prior_opposed_causal_proxies/resting_limit/INDEX.md`](../nq_v2b_prior_opposed_causal_proxies/resting_limit/INDEX.md));
+re-run full history with resting-limit before treating Net/Stress as promotion truth.
 
 Separate long-history raw-data run using restored NQ 1m DBN:
 

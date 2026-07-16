@@ -86,19 +86,22 @@ class StrategySource:
 
 
 SOURCES = [
+    # Promotion baseline: resting-limit hour-complete (ST available at live_after+1h).
+    # Legacy hourly fill-stamp / left-label books are diagnostic only.
     StrategySource(
         slug="nq_prior_opposed_full",
         public_name="Prior-Opposed Gated Intraday System",
         tier=GRAND_NAME,
         market="NQ",
         minimum_capital=NQ_MINIMUM,
-        yearly_path=ROOT / "live/state/nq_v2b_prior_opposed_stpmc_full_history_raw/yearly_breakdown.csv",
+        yearly_path=ROOT
+        / "live/state/nq_v2b_prior_opposed_causal_proxies/resting_limit/yearly_breakdown.csv",
         equity_path=ROOT
-        / "live/state/nq_v2b_prior_opposed_stpmc_full_history_raw/states/nq_v2b_prior_opposed_stpmc_only_S_1_1_3/equity_curve.csv",
+        / "live/state/nq_v2b_prior_opposed_causal_proxies/resting_limit/states/nq_v2b_prior_opposed_stpmc_only_S_1_1_3/equity_curve.csv",
         unit_trades_path=ROOT
-        / "live/state/nq_v2b_prior_opposed_stpmc_full_history_raw/states/nq_v2b_prior_opposed_stpmc_only_S_1_1_3/unit_trades.csv",
-        qqq_path=ROOT / "data/benchmarks/QQQ_2010-06-06_2026-03-08_yahoo_daily.csv",
-        summary_path=ROOT / "live/state/nq_v2b_prior_opposed_stpmc_full_history_raw/summary.csv",
+        / "live/state/nq_v2b_prior_opposed_causal_proxies/resting_limit/states/nq_v2b_prior_opposed_stpmc_only_S_1_1_3/unit_trades.csv",
+        qqq_path=ROOT / "data/benchmarks/QQQ_2021-03-04_2026-03-06_yahoo_daily.csv",
+        summary_path=ROOT / "live/state/nq_v2b_prior_opposed_causal_proxies/resting_limit/summary.csv",
         preferred=True,
         use_for_deck=True,
     ),
@@ -108,13 +111,13 @@ SOURCES = [
         tier=PETIT_NAME,
         market="MNQ",
         minimum_capital=MNQ_MINIMUM,
-        yearly_path=ROOT / "live/state/mnq_v2b_prior_opposed_stpmc_broker_like/robustness_audit/yearly_breakdown.csv",
+        yearly_path=ROOT / "live/state/mnq_v2b_prior_opposed_stpmc_resting_limit/yearly_breakdown.csv",
         equity_path=ROOT
-        / "live/state/mnq_v2b_prior_opposed_stpmc_broker_like/states/mnq_v2b_prior_opposed_stpmc_only_S_1_1_3/equity_curve.csv",
+        / "live/state/mnq_v2b_prior_opposed_stpmc_resting_limit/states/mnq_v2b_prior_opposed_stpmc_only_S_1_1_3/equity_curve.csv",
         unit_trades_path=ROOT
-        / "live/state/mnq_v2b_prior_opposed_stpmc_broker_like/states/mnq_v2b_prior_opposed_stpmc_only_S_1_1_3/unit_trades.csv",
+        / "live/state/mnq_v2b_prior_opposed_stpmc_resting_limit/states/mnq_v2b_prior_opposed_stpmc_only_S_1_1_3/unit_trades.csv",
         qqq_path=ROOT / "data/benchmarks/QQQ_2021-03-04_2026-03-06_yahoo_daily.csv",
-        summary_path=ROOT / "live/state/mnq_v2b_prior_opposed_stpmc_broker_like/summary.csv",
+        summary_path=ROOT / "live/state/mnq_v2b_prior_opposed_stpmc_resting_limit/summary.csv",
         preferred=True,
         use_for_deck=True,
     ),
