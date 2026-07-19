@@ -1,0 +1,33 @@
+Loading trades + daily...
+Loading FX CSV /home/tester/hsm/potions/fx/eurusd_1m.csv (EURUSD) ...
+  7,163 NY dates with bars
+trades=620 winners=96 losers=524 net=$-4073
+
+Weekday profile:
+weekday   n  n_win  n_loss  win_rate_pct  usd_sum  usd_winners  usd_losers  pct_of_all_wins  pct_of_all_losses
+    Mon 234      4     230           1.7 -5027.10      2974.30    -8001.40              4.2               43.9
+    Tue 106     17      89          16.0 -2645.20      7059.50    -9704.70             17.7               17.0
+    Wed  90     16      74          17.8  1045.15      9068.05    -8022.90             16.7               14.1
+    Thu  70     18      52          25.7  3159.35      8981.05    -5821.70             18.8                9.9
+    Fri  69     24      45          34.8   390.80      4893.45    -4502.65             25.0                8.6
+
+Prior-week features:
+                          feature value   n  n_win  win_rate_pct   usd_sum  avg_usd
+Prior week new high (vs prior 4w)   yes 173     28          16.2   -805.45    -4.66
+Prior week new high (vs prior 4w)    no 447     68          15.2  -3267.60    -7.31
+ Prior week new low (vs prior 4w)   yes 177     29          16.4  -2226.60   -12.58
+ Prior week new low (vs prior 4w)    no 443     67          15.1  -1846.45    -4.17
+  Prior week dir INLINE with bias   yes 341     49          14.4  -1797.20    -5.27
+  Prior week dir INLINE with bias    no 279     47          16.8  -2275.85    -8.16
+   Prior week dir OPPOSED to bias   yes 278     47          16.9  -2226.60    -8.01
+   Prior week dir OPPOSED to bias    no 342     49          14.3  -1846.45    -5.40
+      [winners] new_high & inline  rate  96     96          14.6  33610.00   350.10
+      [winners] new_low & opposed  rate  96     96          14.6  33610.00   350.10
+       [losers] new_high & inline  rate 524      0          16.8 -37683.05   -71.91
+       [losers] new_low & opposed  rate 524      0          13.5 -37683.05   -71.91
+Charting 2016 ...
+Charting 2018 ...
+Charting 2020 ...
+Charting 2022 ...
+Charting 2024 ...
+Wrote /home/tester/hsm/potions/live/state/eurusd_st_daybias_f30_winloss_profile/SUMMARY.md

@@ -43,10 +43,13 @@ def _plot_candles(ax, df: pd.DataFrame, *, width_days: float) -> None:
         return
     x = mdates.date2num(df.index.to_pydatetime())
     colors = np.where(df["close"] >= df["open"], "#168a5a", "#c43d3d")
+    # Min body must scale with price (0.01 pts is fine on NQ, but 100 pips on EURUSD).
+    price_span = float(df["high"].max() - df["low"].min())
+    min_body = max(price_span * 0.001, 1e-8)
     ax.vlines(x, df["low"], df["high"], color=colors, linewidth=1.0, alpha=0.9, zorder=3)
     for xi, o, c, color in zip(x, df["open"], df["close"], colors):
         bottom = min(o, c)
-        height = max(abs(c - o), 0.01)
+        height = max(abs(c - o), min_body)
         ax.add_patch(
             plt.Rectangle(
                 (xi - width_days / 2.0, bottom),

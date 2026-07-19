@@ -1,0 +1,63 @@
+Loading 1m + hourly 2015-01-01 → 2026-03-31 ...
+Loading FX CSV /home/tester/hsm/potions/fx/eurusd_1m.csv (EURUSD) ...
+  7,163 NY dates with bars
+  1m bars: 4188616 | 1h bars: 70067
+Replaying eurusd_st_daybias_f30_week_tp_3atr (70067 1h signals; 1m fills when working orders; f=30% week)...
+  1h 10000/70067 (1m fills 129731)
+  1h 20000/70067 (1m fills 251736)
+  1h 30000/70067 (1m fills 405560)
+  1h 40000/70067 (1m fills 549458)
+  1h 50000/70067 (1m fills 699900)
+  1h 60000/70067 (1m fills 826421)
+  1h 70000/70067 (1m fills 966572)
+  done: 1m bars processed=966572
+{
+  "strategy_id": "eurusd_st_daybias_f30_week_tp_3atr",
+  "frac": 0.3,
+  "period": "week",
+  "tp_atr_mult": 3.0,
+  "trades": 658,
+  "units": 672,
+  "net_usd": -3316.56,
+  "closed_dd_usd": -6234.35,
+  "stress_dd_usd": -6259.85,
+  "net_over_stress": -0.53,
+  "win_units": 210,
+  "win_rate_pct": 31.25,
+  "max_open_units": 2,
+  "vs_baseline_net": -26850.24,
+  "promote_candidate": false,
+  "fill_tape": "1m",
+  "state_root": "live/state/eurusd_st_daybias_f30_atr_tp/broker/states/eurusd_st_daybias_f30_week_tp_3atr"
+}
+Wrote live/state/eurusd_st_daybias_f30_atr_tp/broker/SUMMARY.md
+Replaying eurusd_st_daybias_f30_week_tp_4atr (70067 1h signals; 1m fills when working orders; f=30% week)...
+  1h 10000/70067 (1m fills 134711)
+  1h 20000/70067 (1m fills 262047)
+  1h 30000/70067 (1m fills 426669)
+  1h 40000/70067 (1m fills 574874)
+  1h 50000/70067 (1m fills 729551)
+  1h 60000/70067 (1m fills 861351)
+  1h 70000/70067 (1m fills 1005931)
+  done: 1m bars processed=1005931
+{
+  "strategy_id": "eurusd_st_daybias_f30_week_tp_4atr",
+  "frac": 0.3,
+  "period": "week",
+  "tp_atr_mult": 4.0,
+  "trades": 651,
+  "units": 672,
+  "net_usd": -1464.5,
+  "closed_dd_usd": -6719.59,
+  "stress_dd_usd": -6722.59,
+  "net_over_stress": -0.218,
+  "win_units": 184,
+  "win_rate_pct": 27.38,
+  "max_open_units": 3,
+  "vs_baseline_net": -24998.18,
+  "promote_candidate": false,
+  "fill_tape": "1m",
+  "state_root": "live/state/eurusd_st_daybias_f30_atr_tp/broker/states/eurusd_st_daybias_f30_week_tp_4atr"
+}
+Wrote live/state/eurusd_st_daybias_f30_atr_tp/broker/SUMMARY.md
+Wrote live/state/eurusd_st_daybias_f30_atr_tp/broker/SUMMARY.md

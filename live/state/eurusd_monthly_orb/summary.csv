@@ -1,0 +1,3 @@
+candidate,slug,instrument,units,trades,net_usd,close_mtm_dd_usd,intrabar_mtm_dd_usd,max_open_units,net_over_stress_dd
+EURUSD Monthly ORB restricted scaleout3,eurusd_monthly_orb_restricted_scaleout3,EURUSD,963,321,21841.25,-47812.50,-48307.50,3,0.45
+EURUSD Monthly ORB restricted scaleout3 boundary-stop entry,eurusd_monthly_orb_restricted_scaleout3_boundary_stop,EURUSD,1965,655,-153062.50,-164174.50,-164402.50,3,-0.93

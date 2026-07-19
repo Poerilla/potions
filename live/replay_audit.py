@@ -15,6 +15,7 @@ POINT_VALUES = {
     "ES": 50.0,
     "MYM": 0.5,
     "YM": 5.0,
+    "EURUSD": 100000.0,  # 1 standard lot: $10/pip
 }
 
 
@@ -101,7 +102,8 @@ def units_from_live_fills(
     open_lots: list[tuple[str, str, float, str]] = []
     out: list[Unit] = []
     n = 0
-    entry_reasons = {"entry", "runner_entry"}
+    # "add" is a scale-in fill (DCA / pyramids) — must open a lot, not close one.
+    entry_reasons = {"entry", "runner_entry", "add"}
     for row in rows:
         if row.get("strategy_id") and row.get("strategy_id") != candidate:
             continue

@@ -1,0 +1,21 @@
+{
+  "n_tp2_hits": 60,
+  "pct_hit_2R_fill": 41.7,
+  "pct_touched_2R_path": 45.0,
+  "pct_touched_BE_after_tp2": 40.0,
+  "pct_closed_thru_entry_after_tp2": 30.0,
+  "median_mfe_R_after_tp2": 0.802,
+  "median_mae_R_after_tp2": 0.86,
+  "pct_hold_close_d1": 42.4,
+  "pct_hold_close_d3": 49.1,
+  "pct_hold_close_d5": 57.4,
+  "outcome_counts": {
+    "hit_2R": 25,
+    "month_end": 19,
+    "stop_close_after_tp2": 12,
+    "other": 4
+  },
+  "mean_close_d1_R": -0.025,
+  "mean_close_d3_R": 0.106,
+  "mean_close_d5_R": 0.235
+}

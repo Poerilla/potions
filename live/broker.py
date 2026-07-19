@@ -29,6 +29,7 @@ DEFAULT_TICK_SIZE: Dict[str, float] = {
     "MES": 0.25,
     "YM": 1.0,
     "MYM": 1.0,
+    "EURUSD": 0.00001,
 }
 
 

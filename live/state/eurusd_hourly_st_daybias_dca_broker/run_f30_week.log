@@ -1,0 +1,76 @@
+Loading 1m + hourly 2015-01-01 → 2026-03-31 ...
+Loading FX CSV /home/tester/hsm/potions/fx/eurusd_1m.csv (EURUSD) ...
+  7,163 NY dates with bars
+  1m bars: 4188616 | 1h bars: 70067
+Replaying eurusd_st_daybias_f30_week (1h signals + 4188616 1m fill bars, f=30%, period=week)...
+  1m 200000/4188616
+  1m 400000/4188616
+  1m 600000/4188616
+  1m 800000/4188616
+  1m 1000000/4188616
+  1m 1200000/4188616
+  1m 1400000/4188616
+  1m 1600000/4188616
+  1m 1800000/4188616
+  1m 2000000/4188616
+  1m 2200000/4188616
+  1m 2400000/4188616
+  1m 2600000/4188616
+  1m 2800000/4188616
+  1m 3000000/4188616
+  1m 3200000/4188616
+  1m 3400000/4188616
+  1m 3600000/4188616
+  1m 3800000/4188616
+  1m 4000000/4188616
+{
+  "strategy_id": "eurusd_st_daybias_f30_week",
+  "frac": 0.3,
+  "period": "week",
+  "trades": 628,
+  "units": 675,
+  "net_usd": -9561.15,
+  "closed_dd_usd": -11767.05,
+  "stress_dd_usd": -11779.55,
+  "net_over_stress": -0.812,
+  "win_units": 117,
+  "win_rate_pct": 17.33,
+  "max_open_units": 3,
+  "vs_baseline_net": -33094.83,
+  "promote_candidate": false,
+  "fill_tape": "1m",
+  "state_root": "/home/tester/hsm/potions/live/state/eurusd_hourly_st_daybias_dca_broker/states/eurusd_st_daybias_f30_week"
+}
+Wrote /home/tester/hsm/potions/live/state/eurusd_hourly_st_daybias_dca_broker/SUMMARY.md
+Wrote /home/tester/hsm/potions/live/state/eurusd_hourly_st_daybias_dca_broker/SUMMARY.md
+es with bars
+  1m bars: 4188616 | 1h bars: 70067
+Replaying eurusd_st_daybias_f30_week (70067 1h signals; 1m fills when working orders; f=30% week)...
+  1h 10000/70067 (1m fills 149280)
+  1h 20000/70067 (1m fills 294010)
+  1h 30000/70067 (1m fills 471590)
+  1h 40000/70067 (1m fills 639693)
+  1h 50000/70067 (1m fills 810427)
+  1h 60000/70067 (1m fills 962685)
+  1h 70000/70067 (1m fills 1123100)
+  done: 1m bars processed=1123100
+{
+  "strategy_id": "eurusd_st_daybias_f30_week",
+  "frac": 0.3,
+  "period": "week",
+  "trades": 613,
+  "units": 672,
+  "net_usd": -767.85,
+  "closed_dd_usd": -9661.35,
+  "stress_dd_usd": -9678.85,
+  "net_over_stress": -0.079,
+  "win_units": 145,
+  "win_rate_pct": 21.58,
+  "max_open_units": 3,
+  "vs_baseline_net": -24301.53,
+  "promote_candidate": false,
+  "fill_tape": "1m",
+  "state_root": "/home/tester/hsm/potions/live/state/eurusd_hourly_st_daybias_dca_broker/states/eurusd_st_daybias_f30_week"
+}
+Wrote /home/tester/hsm/potions/live/state/eurusd_hourly_st_daybias_dca_broker/SUMMARY.md
+Wrote /home/tester/hsm/potions/live/state/eurusd_hourly_st_daybias_dca_broker/SUMMARY.md

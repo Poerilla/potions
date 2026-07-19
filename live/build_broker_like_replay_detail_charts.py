@@ -103,7 +103,7 @@ def build_detail_charts(
         candidate_root.mkdir(parents=True, exist_ok=True)
         if instance.strategy_type == "atr_supertrend_dca":
             built.extend(_build_atr_charts(candidate_root, row, instance, bars, fills, equity))
-        elif instance.strategy_type == "monthly_orb_restricted_scaleout3":
+        elif instance.strategy_type in {"monthly_orb_restricted_scaleout3", "monthly_orb_v2b_oco"}:
             built.extend(_build_monthly_orb_charts(candidate_root, row, instance, bars, fills, equity))
         elif instance.strategy_type == "yearly_orb_scaleout3":
             built.extend(_build_yearly_orb_charts(candidate_root, row, instance, bars, fills, equity))
@@ -292,6 +292,12 @@ def _build_yearly_orb_charts(
 def _plot_candles(ax: Any, bars: List[Bar]) -> Dict[str, int]:
     x_map: Dict[str, int] = {}
     width = 0.62 if len(bars) > 40 else 0.72
+    # Min body must scale with price (hard 0.01 pts is fine on NQ, but 100 pips on EURUSD).
+    if bars:
+        price_span = max(bar.high for bar in bars) - min(bar.low for bar in bars)
+        min_body = max(price_span * 0.001, 1e-8)
+    else:
+        min_body = 1e-8
     for idx, bar in enumerate(bars):
         key = bar.ts[:10]
         x_map[key] = idx
@@ -299,7 +305,7 @@ def _plot_candles(ax: Any, bars: List[Bar]) -> Dict[str, int]:
         color = "#089981" if up else "#f23645"
         ax.vlines(idx, bar.low, bar.high, color=color, linewidth=1.0, alpha=0.95)
         lower = min(bar.open, bar.close)
-        height = max(abs(bar.close - bar.open), max((bar.high - bar.low) * 0.015, 0.01))
+        height = max(abs(bar.close - bar.open), max((bar.high - bar.low) * 0.015, min_body))
         ax.add_patch(
             Rectangle(
                 (idx - width / 2.0, lower),

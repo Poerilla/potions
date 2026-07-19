@@ -1,0 +1,55 @@
+Loading FX CSV /home/tester/hsm/potions/fx/xauusd_1m.csv (XAUUSD) ...
+  7,128 NY dates with bars
+XAUUSD hourly bars: 138745
+START stpmc xauusd_hourly_st_pmc_sl25_tp75_3r
+  sl25_tp75_3r replayed 20000/138745 bars
+  sl25_tp75_3r replayed 40000/138745 bars
+  sl25_tp75_3r replayed 60000/138745 bars
+  sl25_tp75_3r replayed 80000/138745 bars
+  sl25_tp75_3r replayed 100000/138745 bars
+  sl25_tp75_3r replayed 120000/138745 bars
+DONE xauusd_hourly_st_pmc_sl25_tp75_3r Net=$105108 N/S=1.47
+START stpmc xauusd_hourly_st_pmc_sl40_tp120_3r
+  sl40_tp120_3r replayed 20000/138745 bars
+  sl40_tp120_3r replayed 40000/138745 bars
+  sl40_tp120_3r replayed 60000/138745 bars
+  sl40_tp120_3r replayed 80000/138745 bars
+  sl40_tp120_3r replayed 100000/138745 bars
+  sl40_tp120_3r replayed 120000/138745 bars
+DONE xauusd_hourly_st_pmc_sl40_tp120_3r Net=$231362 N/S=2.30
+START stpmc xauusd_hourly_st_pmc_sl25_tp75_3r_ma_bull_prior
+  sl25_tp75_3r_ma_bull_prior replayed 20000/138745 bars
+  sl25_tp75_3r_ma_bull_prior replayed 40000/138745 bars
+  sl25_tp75_3r_ma_bull_prior replayed 60000/138745 bars
+  sl25_tp75_3r_ma_bull_prior replayed 80000/138745 bars
+  sl25_tp75_3r_ma_bull_prior replayed 100000/138745 bars
+  sl25_tp75_3r_ma_bull_prior replayed 120000/138745 bars
+DONE xauusd_hourly_st_pmc_sl25_tp75_3r_ma_bull_prior Net=$202745 N/S=3.31
+Loading FX CSV /home/tester/hsm/potions/fx/xagusd_1m.csv (XAGUSD) ...
+  7,042 NY dates with bars
+XAGUSD hourly bars: 135759
+START stpmc xagusd_hourly_st_pmc_sl25_tp75_3r
+  sl25_tp75_3r replayed 20000/135759 bars
+  sl25_tp75_3r replayed 40000/135759 bars
+  sl25_tp75_3r replayed 60000/135759 bars
+  sl25_tp75_3r replayed 80000/135759 bars
+  sl25_tp75_3r replayed 100000/135759 bars
+  sl25_tp75_3r replayed 120000/135759 bars
+DONE xagusd_hourly_st_pmc_sl25_tp75_3r Net=$24901 N/S=0.50
+START stpmc xagusd_hourly_st_pmc_sl40_tp120_3r
+  sl40_tp120_3r replayed 20000/135759 bars
+  sl40_tp120_3r replayed 40000/135759 bars
+  sl40_tp120_3r replayed 60000/135759 bars
+  sl40_tp120_3r replayed 80000/135759 bars
+  sl40_tp120_3r replayed 100000/135759 bars
+  sl40_tp120_3r replayed 120000/135759 bars
+DONE xagusd_hourly_st_pmc_sl40_tp120_3r Net=$27650 N/S=0.67
+START stpmc xagusd_hourly_st_pmc_sl25_tp75_3r_ma_bull_prior
+  sl25_tp75_3r_ma_bull_prior replayed 20000/135759 bars
+  sl25_tp75_3r_ma_bull_prior replayed 40000/135759 bars
+  sl25_tp75_3r_ma_bull_prior replayed 60000/135759 bars
+  sl25_tp75_3r_ma_bull_prior replayed 80000/135759 bars
+  sl25_tp75_3r_ma_bull_prior replayed 100000/135759 bars
+  sl25_tp75_3r_ma_bull_prior replayed 120000/135759 bars
+DONE xagusd_hourly_st_pmc_sl25_tp75_3r_ma_bull_prior Net=$41201 N/S=1.18
+STAGE stpmc DONE

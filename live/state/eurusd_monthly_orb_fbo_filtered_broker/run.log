@@ -1,0 +1,10 @@
+Loaded 7163 EURUSD daily bars
+START eurusd_monthly_orb_fbo_filt_ema100_1h_1_1_3
+DONE eurusd_monthly_orb_fbo_filt_ema100_1h_1_1_3 n=167 WR=49.1% Net=$62454.25 Stress=$-62006.50 N/S=1.01
+START eurusd_monthly_orb_fbo_filt_ema100_1h_1_2_3
+DONE eurusd_monthly_orb_fbo_filt_ema100_1h_1_2_3 n=167 WR=47.9% Net=$72274.25 Stress=$-74922.50 N/S=0.96
+START eurusd_monthly_orb_fbo_filt_ema100_1h_atr80_1_1_3
+DONE eurusd_monthly_orb_fbo_filt_ema100_1h_atr80_1_1_3 n=138 WR=50.7% Net=$69014.50 Stress=$-40425.25 N/S=1.71
+START eurusd_monthly_orb_fbo_filt_ema100_1h_atr80_1_2_3
+DONE eurusd_monthly_orb_fbo_filt_ema100_1h_atr80_1_2_3 n=138 WR=47.8% Net=$79277.50 Stress=$-48236.00 N/S=1.64
+Wrote /home/tester/hsm/potions/live/state/eurusd_monthly_orb_fbo_filtered_broker/SUMMARY.md

@@ -1,0 +1,101 @@
+{
+  "tp3": {
+    "all": {
+      "label": "all_tp3",
+      "n": 27,
+      "median_days_left": 7.0,
+      "pct_hold_d1": 45.8,
+      "pct_hold_d3": 45.5,
+      "pct_hold_d5": 63.2,
+      "mean_close_d1_R": 0.242,
+      "mean_close_d3_R": 0.497,
+      "mean_me_edge_R": -0.173,
+      "pct_me_still_above_2R": 40.7,
+      "pct_touch_1R": 37.0,
+      "pct_close_thru_1R": 22.2,
+      "pct_touch_BE": 11.1,
+      "pct_close_thru_BE": 11.1,
+      "median_mfe_R": 0.601,
+      "median_mae_R": 0.843,
+      "pct_touch_2_5R": 55.6,
+      "pct_touch_3R": 33.3
+    },
+    "few_days_spare": {
+      "label": "tp3_with_>=3d_left",
+      "n": 22,
+      "median_days_left": 10.0,
+      "pct_hold_d1": 45.5,
+      "pct_hold_d3": 45.5,
+      "pct_hold_d5": 63.2,
+      "mean_close_d1_R": 0.285,
+      "mean_close_d3_R": 0.497,
+      "mean_me_edge_R": -0.149,
+      "pct_me_still_above_2R": 45.5,
+      "pct_touch_1R": 40.9,
+      "pct_close_thru_1R": 27.3,
+      "pct_touch_BE": 13.6,
+      "pct_close_thru_BE": 13.6,
+      "median_mfe_R": 0.944,
+      "median_mae_R": 0.899,
+      "pct_touch_2_5R": 68.2,
+      "pct_touch_3R": 40.9
+    },
+    "late_tp3": {
+      "label": "tp3_with_<3d_left",
+      "n": 5,
+      "median_days_left": 0.0,
+      "pct_hold_d1": 50.0,
+      "pct_hold_d3": null,
+      "pct_hold_d5": null,
+      "mean_close_d1_R": -0.223,
+      "mean_close_d3_R": null,
+      "mean_me_edge_R": -0.277,
+      "pct_me_still_above_2R": 20.0,
+      "pct_touch_1R": 20.0,
+      "pct_close_thru_1R": 0.0,
+      "pct_touch_BE": 0.0,
+      "pct_close_thru_BE": 0.0,
+      "median_mfe_R": 0.054,
+      "median_mae_R": 0.618,
+      "pct_touch_2_5R": 0.0,
+      "pct_touch_3R": 0.0
+    }
+  },
+  "tp2_timing": {
+    "early": {
+      "label": "tp2_before_half",
+      "n": 24,
+      "pct_of_all_tp2": 40.0,
+      "pct_then_hit_2R": 66.7,
+      "median_days_left_after_tp2": 16.0,
+      "mean_days_left_after_tp2": 16.46,
+      "median_tp2_frac": 0.385,
+      "outcome_counts": {
+        "hit_2R": 16,
+        "stop_close": 7,
+        "month_end": 1
+      },
+      "pct_hit_2R_detail": 66.7,
+      "median_mfe_R": 1.446,
+      "median_mae_R": 0.883,
+      "mean_me_edge_R": -0.276
+    },
+    "late": {
+      "label": "tp2_at_or_after_half",
+      "n": 36,
+      "pct_of_all_tp2": 60.0,
+      "pct_then_hit_2R": 30.6,
+      "median_days_left_after_tp2": 7.0,
+      "mean_days_left_after_tp2": 6.19,
+      "median_tp2_frac": 0.741,
+      "outcome_counts": {
+        "month_end": 18,
+        "hit_2R": 11,
+        "stop_close": 5,
+        "other": 2
+      },
+      "pct_hit_2R_detail": 30.6
+    },
+    "n_tp2_total": 60
+  }
+}

@@ -1,0 +1,3 @@
+candidate,slug,instrument,units,trades,net_usd,close_mtm_dd_usd,intrabar_mtm_dd_usd,max_open_units,net_over_stress_dd
+EURUSD swing-stop inside-range range-close,eurusd_yearly_orb_swing_stop_scaleout3_inside_range_swing_range_close,EURUSD,276,92,165865.00,-19434.00,-19965.00,3,8.31
+EURUSD delivery weekly scale-in,eurusd_yearly_orb_delivery_scalein_weekly_swings_inside_range_swing_range_close,EURUSD,279,95,167006.00,-27411.00,-27942.00,3,5.98

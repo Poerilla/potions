@@ -1,0 +1,33 @@
+{
+  "rule": "At TP25, add 2 @ TP25 px; SL=BE(entry) close-SL; primary target=2R as runner; next-session arm",
+  "n_tp25": 136,
+  "n_addable": 128,
+  "base_book_net": 71226.5,
+  "add2_runner_overlay_net": 17592.0,
+  "add2_scale1r_overlay_net": 4461.0,
+  "book_with_add2_runner": 88818.5,
+  "book_with_add2_scale1r": 75687.5,
+  "delta_runner": 17592.0,
+  "delta_scale": 4461.0,
+  "add2_runner_wr": 39.8,
+  "add2_runner_avg": 137.44,
+  "add2_runner_med": -795.0,
+  "add2_runner_dd": -36139.5,
+  "reasons_runner": {
+    "be_stop": 74,
+    "tp3": 28,
+    "month_end": 26,
+    "no_days_left": 8
+  },
+  "reasons_scale": {
+    "be_stop": 74,
+    "tp3": 28,
+    "month_end": 26,
+    "no_days_left": 8
+  },
+  "risk_per_add": "0.25R x 2 = 0.5R notional risk to BE; reward to 2R = 1.75R x 2",
+  "when_orig_hit_tp3_add_avg": 4370.24,
+  "when_orig_no_tp3_add_avg": -825.8,
+  "pct_add_be_stopped": 54.4,
+  "pct_add_hit_2r": 20.6
+}

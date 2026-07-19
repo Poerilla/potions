@@ -1,0 +1,16 @@
+{
+  "strategy_id": "eurusd_intraday_st_fade_dca_15m_0p5x5",
+  "trades": 5028,
+  "units": 23206,
+  "net_usd": -287351.51,
+  "closed_dd_usd": -293116.4,
+  "stress_dd_usd": -293249.9,
+  "net_over_stress": -0.98,
+  "win_units": 12496,
+  "win_rate_pct": 53.85,
+  "max_open_units": 5,
+  "window": "2015-01-01 \u2192 2026-03-31",
+  "unit_definition": "1 unit = 0.5 standard lot",
+  "state_root": "/home/tester/hsm/potions/live/state/eurusd_intraday_st_fade_dca_broker/states/eurusd_intraday_st_fade_dca_15m_0p5x5",
+  "vs_fx_baseline": "not an upgrade"
+}

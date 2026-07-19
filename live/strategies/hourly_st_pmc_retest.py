@@ -19,7 +19,9 @@ class HourlyStPmcRetestStrategy(StrategyPlugin):
     - Above prior calendar month close and bullish hourly ST → resting buy limit at ST stop.
     - Below prior calendar month close and bearish hourly ST → resting sell limit at ST stop.
     - Bracket: configurable stop/target points (default 50 / 150).
-    - One entry at a time; limit is refreshed each hourly bar when flat.
+    - One entry at a time by default; limit is refreshed each hourly bar when flat.
+    - Optional DCA: while in position and thesis still holds, market-add up to
+      ``max_adds`` units (each with its own stop/target from the add price).
     """
 
     strategy_type = "hourly_st_pmc_retest"
@@ -44,6 +46,10 @@ class HourlyStPmcRetestStrategy(StrategyPlugin):
             "st_flip_exit": False,
             "pmc_cross_exit": False,
             "record_levels": False,
+            # DCA (off by default — baseline is single unit)
+            "dca_enabled": False,
+            "add_qty": 1,
+            "max_adds": 1,
         }
         try:
             self.config.update(json.loads(instance.config_json or "{}"))
@@ -70,10 +76,11 @@ class HourlyStPmcRetestStrategy(StrategyPlugin):
     def on_fill(self, fill, context: StrategyContext) -> StrategyActions:
         state = self._state()
         modifies: List[ModifyIntent] = []
-        if fill.reason in {"entry", "runner_entry"}:
+        if fill.reason in {"entry", "runner_entry", "add"}:
             state["active_trade_id"] = fill.trade_id
             state["pending_entry_trade_id"] = ""
             state["close_pending"] = ""
+            state["adds"] = int(state.get("adds") or 0) + max(1, int(float(fill.quantity or 1)))
             if fill.reason == "runner_entry":
                 runner_entries = dict(state.get("runner_entry_price_by_trade") or {})
                 runner_entries[fill.trade_id] = float(fill.price)
@@ -105,6 +112,7 @@ class HourlyStPmcRetestStrategy(StrategyPlugin):
                 state["active_trade_id"] = ""
                 state["pending_entry_trade_id"] = ""
                 state["close_pending"] = ""
+                state["adds"] = 0
                 self.state = state
                 self.save_state()
         elif fill.reason in {"stop", "protective_stop", "close"}:
@@ -112,6 +120,7 @@ class HourlyStPmcRetestStrategy(StrategyPlugin):
                 state["active_trade_id"] = ""
                 state["pending_entry_trade_id"] = ""
                 state["close_pending"] = ""
+                state["adds"] = 0
                 self.state = state
                 self.save_state()
         return StrategyActions([], [], modifies, [], [])
@@ -181,6 +190,11 @@ class HourlyStPmcRetestStrategy(StrategyPlugin):
                 )
                 state["close_pending"] = close_reason
                 state_changed = True
+            else:
+                add_order = self._maybe_dca_add(bar, pmc, now, ma_context, context, state)
+                if add_order is not None:
+                    orders.append(add_order)
+                    state_changed = True
             if state_changed:
                 self.state = state
                 self.save_state()
@@ -189,6 +203,7 @@ class HourlyStPmcRetestStrategy(StrategyPlugin):
         if state.get("active_trade_id"):
             state["active_trade_id"] = ""
             state["close_pending"] = ""
+            state["adds"] = 0
             self.state = state
             self.save_state()
 
@@ -543,12 +558,62 @@ class HourlyStPmcRetestStrategy(StrategyPlugin):
         self._st_bullish = True
         self._st_points = []
 
+    def _maybe_dca_add(
+        self,
+        bar: Bar,
+        pmc: float,
+        now: TrendPoint,
+        ma_context: Dict[str, str],
+        context: StrategyContext,
+        state: Dict[str, Any],
+    ) -> Optional[OrderIntent]:
+        if not bool(self.config.get("dca_enabled")):
+            return None
+        if state.get("close_pending"):
+            return None
+        max_adds = max(1, int(float(self.config.get("max_adds") or 1)))
+        add_qty = max(1, int(float(self.config.get("add_qty") or 1)))
+        qty = abs(int(context.position_quantity))
+        if qty <= 0 or qty >= max_adds:
+            return None
+        if qty + add_qty > int(self.instance.max_contracts):
+            return None
+        # One working add/entry limit at a time.
+        if self._open_entry_limits(context):
+            return None
+        desired = self._desired_entry(bar.close, pmc, now, ma_context)
+        if desired is None:
+            return None
+        side, limit_px, stop_px, target_px = desired
+        pos_side = "buy" if context.position_quantity > 0 else "sell"
+        if side != pos_side:
+            return None
+        trade_id = self._next_trade_id(state)
+        state["pending_entry_trade_id"] = trade_id
+        return OrderIntent.create(
+            strategy_id=self.instance.strategy_id,
+            trade_id=trade_id,
+            instrument=self.instance.instrument,
+            account_mode=self.instance.account_mode,
+            side=side,
+            order_type="limit",
+            quantity=add_qty,
+            limit_price=limit_px,
+            reason="add",
+            requires_verification=True,
+            bracket_role="entry",
+            bracket_stop_price=stop_px,
+            bracket_target_price=target_px,
+            live_after_ts=bar.ts,
+        )
+
     def _state(self) -> Dict[str, Any]:
         state = dict(self.state or {})
         state.setdefault("trade_seq", 0)
         state.setdefault("active_trade_id", "")
         state.setdefault("pending_entry_trade_id", "")
         state.setdefault("close_pending", "")
+        state.setdefault("adds", 0)
         state.setdefault("runner_entry_price_by_trade", {})
         return state
 

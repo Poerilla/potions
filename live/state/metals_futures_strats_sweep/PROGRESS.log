@@ -1,0 +1,138 @@
+START daily xauusd_yearly_orb_scaleout3
+DONE xauusd_yearly_orb_scaleout3 Net=$541254 N/S=11.30
+START daily xauusd_yearly_orb_scaleout3_range_close_20pct
+DONE xauusd_yearly_orb_scaleout3_range_close_20pct Net=$407981 N/S=4.70
+START daily xauusd_monthly_orb_restricted_scaleout3
+DONE xauusd_monthly_orb_restricted_scaleout3 Net=$243868 N/S=1.98
+START daily xauusd_monthly_orb_restricted_scaleout3_boundary_stop
+DONE xauusd_monthly_orb_restricted_scaleout3_boundary_stop Net=$247166 N/S=1.27
+START daily xauusd_atr_daily_ladder112221_10max
+DONE xauusd_atr_daily_ladder112221_10max Net=$561150 N/S=2.19
+START daily xauusd_atr_daily_3initial_10max
+DONE xauusd_atr_daily_3initial_10max Net=$918829 N/S=2.35
+START daily xauusd_atr_weekly_2initial_3add_6max
+DONE xauusd_atr_weekly_2initial_3add_6max Net=$198653 N/S=0.57
+START daily xagusd_yearly_orb_scaleout3
+DONE xagusd_yearly_orb_scaleout3 Net=$2895140 N/S=316.34
+START daily xagusd_yearly_orb_scaleout3_range_close_20pct
+DONE xagusd_yearly_orb_scaleout3_range_close_20pct Net=$2886835 N/S=105.87
+START daily xagusd_monthly_orb_restricted_scaleout3
+DONE xagusd_monthly_orb_restricted_scaleout3 Net=$-6365 N/S=-0.07
+START daily xagusd_monthly_orb_restricted_scaleout3_boundary_stop
+DONE xagusd_monthly_orb_restricted_scaleout3_boundary_stop Net=$-57776 N/S=-0.42
+START daily xagusd_atr_daily_ladder112221_10max
+DONE xagusd_atr_daily_ladder112221_10max Net=$90159 N/S=0.00
+START daily xagusd_atr_daily_3initial_10max
+DONE xagusd_atr_daily_3initial_10max Net=$163367 N/S=0.01
+START daily xagusd_atr_weekly_2initial_3add_6max
+DONE xagusd_atr_weekly_2initial_3add_6max Net=$352191 N/S=0.02
+STAGE daily DONE
+XAUUSD hourly bars: 138745
+START stpmc xauusd_hourly_st_pmc_sl25_tp75_3r
+DONE xauusd_hourly_st_pmc_sl25_tp75_3r Net=$105108 N/S=1.47
+START stpmc xauusd_hourly_st_pmc_sl40_tp120_3r
+DONE xauusd_hourly_st_pmc_sl40_tp120_3r Net=$231362 N/S=2.30
+START stpmc xauusd_hourly_st_pmc_sl25_tp75_3r_ma_bull_prior
+DONE xauusd_hourly_st_pmc_sl25_tp75_3r_ma_bull_prior Net=$202745 N/S=3.31
+XAGUSD hourly bars: 135759
+START stpmc xagusd_hourly_st_pmc_sl25_tp75_3r
+DONE xagusd_hourly_st_pmc_sl25_tp75_3r Net=$24901 N/S=0.50
+START stpmc xagusd_hourly_st_pmc_sl40_tp120_3r
+DONE xagusd_hourly_st_pmc_sl40_tp120_3r Net=$27650 N/S=0.67
+START stpmc xagusd_hourly_st_pmc_sl25_tp75_3r_ma_bull_prior
+DONE xagusd_hourly_st_pmc_sl25_tp75_3r_ma_bull_prior Net=$41201 N/S=1.18
+STAGE stpmc DONE
+START fbo xauusd_fbo_1_1_3_base
+START fbo xauusd_fbo_1_1_3_base
+DONE xauusd_fbo_1_1_3_base Net=$108457 N/S=0.57
+DONE xauusd_fbo_1_1_3_base Net=$108457 N/S=0.57
+START fbo xauusd_fbo_1_1_3_atr80
+START fbo xauusd_fbo_1_1_3_atr80
+DONE xauusd_fbo_1_1_3_atr80 Net=$62604 N/S=0.36
+DONE xauusd_fbo_1_1_3_atr80 Net=$62604 N/S=0.36
+START fbo xagusd_fbo_1_1_3_base
+START fbo xagusd_fbo_1_1_3_base
+DONE xagusd_fbo_1_1_3_base Net=$-67759 N/S=-0.48
+DONE xagusd_fbo_1_1_3_base Net=$-67759 N/S=-0.48
+START fbo xagusd_fbo_1_1_3_atr80
+START fbo xagusd_fbo_1_1_3_atr80
+DONE xagusd_fbo_1_1_3_atr80 Net=$-8868 N/S=-0.27
+DONE xagusd_fbo_1_1_3_atr80 Net=$-8868 N/S=-0.27
+STAGE fbo DONE
+STAGE fbo DONE
+
+[2026-07-19T15:11:15.420854Z] Wrote SUMMARY.md + fx_metals_top4_report
+START daily xagusd_yearly_orb_scaleout3
+START daily xagusd_yearly_orb_scaleout3
+DONE xagusd_yearly_orb_scaleout3 Net=$121185 N/S=6.21
+DONE xagusd_yearly_orb_scaleout3 Net=$121185 N/S=6.21
+START daily xagusd_yearly_orb_scaleout3_range_close_20pct
+START daily xagusd_yearly_orb_scaleout3_range_close_20pct
+DONE xagusd_yearly_orb_scaleout3_range_close_20pct Net=$82078 N/S=1.77
+DONE xagusd_yearly_orb_scaleout3_range_close_20pct Net=$82078 N/S=1.77
+START daily xagusd_monthly_orb_restricted_scaleout3
+START daily xagusd_monthly_orb_restricted_scaleout3
+DONE xagusd_monthly_orb_restricted_scaleout3 Net=$-6365 N/S=-0.07
+DONE xagusd_monthly_orb_restricted_scaleout3 Net=$-6365 N/S=-0.07
+START daily xagusd_monthly_orb_restricted_scaleout3_boundary_stop
+START daily xagusd_monthly_orb_restricted_scaleout3_boundary_stop
+DONE xagusd_monthly_orb_restricted_scaleout3_boundary_stop Net=$-40106 N/S=-0.29
+DONE xagusd_monthly_orb_restricted_scaleout3_boundary_stop Net=$-40106 N/S=-0.29
+START daily xagusd_atr_daily_ladder112221_10max
+START daily xagusd_atr_daily_ladder112221_10max
+DONE xagusd_atr_daily_ladder112221_10max Net=$256057 N/S=1.91
+DONE xagusd_atr_daily_ladder112221_10max Net=$256057 N/S=1.91
+START daily xagusd_atr_daily_3initial_10max
+START daily xagusd_atr_daily_3initial_10max
+DONE xagusd_atr_daily_3initial_10max Net=$322522 N/S=1.82
+DONE xagusd_atr_daily_3initial_10max Net=$322522 N/S=1.82
+START daily xagusd_atr_weekly_2initial_3add_6max
+START daily xagusd_atr_weekly_2initial_3add_6max
+DONE xagusd_atr_weekly_2initial_3add_6max Net=$387538 N/S=1.20
+DONE xagusd_atr_weekly_2initial_3add_6max Net=$387538 N/S=1.20
+Loading FX CSV /home/tester/hsm/potions/fx/xagusd_1m.csv (XAGUSD) ...
+  7,042 NY dates with bars
+XAGUSD hourly bars: 135759
+XAGUSD hourly bars: 135759
+START stpmc xagusd_hourly_st_pmc_sl25_tp75_3r
+START stpmc xagusd_hourly_st_pmc_sl25_tp75_3r
+  sl25_tp75_3r replayed 20000/135759 bars
+  sl25_tp75_3r replayed 40000/135759 bars
+  sl25_tp75_3r replayed 60000/135759 bars
+  sl25_tp75_3r replayed 80000/135759 bars
+  sl25_tp75_3r replayed 100000/135759 bars
+  sl25_tp75_3r replayed 120000/135759 bars
+DONE xagusd_hourly_st_pmc_sl25_tp75_3r Net=$28649 N/S=0.57
+DONE xagusd_hourly_st_pmc_sl25_tp75_3r Net=$28649 N/S=0.57
+START stpmc xagusd_hourly_st_pmc_sl40_tp120_3r
+START stpmc xagusd_hourly_st_pmc_sl40_tp120_3r
+  sl40_tp120_3r replayed 20000/135759 bars
+  sl40_tp120_3r replayed 40000/135759 bars
+  sl40_tp120_3r replayed 60000/135759 bars
+  sl40_tp120_3r replayed 80000/135759 bars
+  sl40_tp120_3r replayed 100000/135759 bars
+  sl40_tp120_3r replayed 120000/135759 bars
+DONE xagusd_hourly_st_pmc_sl40_tp120_3r Net=$31655 N/S=0.77
+DONE xagusd_hourly_st_pmc_sl40_tp120_3r Net=$31655 N/S=0.77
+START stpmc xagusd_hourly_st_pmc_sl25_tp75_3r_ma_bull_prior
+START stpmc xagusd_hourly_st_pmc_sl25_tp75_3r_ma_bull_prior
+  sl25_tp75_3r_ma_bull_prior replayed 20000/135759 bars
+  sl25_tp75_3r_ma_bull_prior replayed 40000/135759 bars
+  sl25_tp75_3r_ma_bull_prior replayed 60000/135759 bars
+  sl25_tp75_3r_ma_bull_prior replayed 80000/135759 bars
+  sl25_tp75_3r_ma_bull_prior replayed 100000/135759 bars
+  sl25_tp75_3r_ma_bull_prior replayed 120000/135759 bars
+DONE xagusd_hourly_st_pmc_sl25_tp75_3r_ma_bull_prior Net=$44950 N/S=1.29
+DONE xagusd_hourly_st_pmc_sl25_tp75_3r_ma_bull_prior Net=$44950 N/S=1.29
+START fbo xagusd_fbo_1_1_3_base
+START fbo xagusd_fbo_1_1_3_base
+DONE xagusd_fbo_1_1_3_base Net=$-67759 N/S=-0.48
+DONE xagusd_fbo_1_1_3_base Net=$-67759 N/S=-0.48
+START fbo xagusd_fbo_1_1_3_atr80
+START fbo xagusd_fbo_1_1_3_atr80
+DONE xagusd_fbo_1_1_3_atr80 Net=$-7392 N/S=-0.22
+DONE xagusd_fbo_1_1_3_atr80 Net=$-7392 N/S=-0.22
+STAGE all DONE
+STAGE all DONE
+
+[2026-07-19T15:28:46.978422Z] Silver data fix + full XAGUSD re-run; top4 rebuilt

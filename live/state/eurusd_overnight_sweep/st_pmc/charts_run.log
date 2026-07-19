@@ -1,0 +1,109 @@
+Loading EURUSD 1m and building hourly SuperTrend...
+Loading FX CSV /home/tester/hsm/potions/fx/eurusd_1m.csv (EURUSD) ...
+  7,163 NY dates with bars
+  142,988 hourly bars
+Building EURUSD Hourly ST+PMC 25/75 3R ...
+  EURUSD Hourly ST+PMC 25/75 3R 01/50 win short 2010-05-17_2000
+  EURUSD Hourly ST+PMC 25/75 3R 02/50 win short 2012-05-31_0800
+  EURUSD Hourly ST+PMC 25/75 3R 03/50 win short 2021-06-10_1100
+  EURUSD Hourly ST+PMC 25/75 3R 04/50 win long 2014-02-07_0800
+  EURUSD Hourly ST+PMC 25/75 3R 05/50 win long 2019-10-14_0600
+  EURUSD Hourly ST+PMC 25/75 3R 06/50 win long 2005-12-13_0900
+  EURUSD Hourly ST+PMC 25/75 3R 07/50 loss long 2007-12-11_1100
+  EURUSD Hourly ST+PMC 25/75 3R 08/50 loss long 2024-05-16_1200
+  EURUSD Hourly ST+PMC 25/75 3R 09/50 win long 2012-02-28_1500
+  EURUSD Hourly ST+PMC 25/75 3R 10/50 win long 2015-07-13_0700
+  EURUSD Hourly ST+PMC 25/75 3R 11/50 loss long 2013-12-31_0900
+  EURUSD Hourly ST+PMC 25/75 3R 12/50 loss short 2007-12-21_0600
+  EURUSD Hourly ST+PMC 25/75 3R 13/50 loss long 2008-01-25_1500
+  EURUSD Hourly ST+PMC 25/75 3R 14/50 win long 2024-05-31_0200
+  EURUSD Hourly ST+PMC 25/75 3R 15/50 win short 2009-01-21_0300
+  EURUSD Hourly ST+PMC 25/75 3R 16/50 loss long 2009-09-23_1900
+  EURUSD Hourly ST+PMC 25/75 3R 17/50 loss short 2005-11-17_1500
+  EURUSD Hourly ST+PMC 25/75 3R 18/50 win short 2008-09-17_1700
+  EURUSD Hourly ST+PMC 25/75 3R 19/50 loss short 2019-05-23_1400
+  EURUSD Hourly ST+PMC 25/75 3R 20/50 loss short 2016-01-25_2000
+  EURUSD Hourly ST+PMC 25/75 3R 21/50 win short 2008-06-05_1200
+  EURUSD Hourly ST+PMC 25/75 3R 22/50 win short 2011-09-07_1900
+  EURUSD Hourly ST+PMC 25/75 3R 23/50 loss long 2021-02-12_0700
+  EURUSD Hourly ST+PMC 25/75 3R 24/50 loss long 2011-10-17_1000
+  EURUSD Hourly ST+PMC 25/75 3R 25/50 loss short 2006-07-06_1200
+  EURUSD Hourly ST+PMC 25/75 3R 26/50 win long 2006-08-18_1400
+  EURUSD Hourly ST+PMC 25/75 3R 27/50 win long 2019-12-11_1200
+  EURUSD Hourly ST+PMC 25/75 3R 28/50 loss short 2015-07-07_2000
+  EURUSD Hourly ST+PMC 25/75 3R 29/50 loss long 2003-11-17_1600
+  EURUSD Hourly ST+PMC 25/75 3R 30/50 win short 2011-07-07_1400
+  EURUSD Hourly ST+PMC 25/75 3R 31/50 win short 2007-08-28_1000
+  EURUSD Hourly ST+PMC 25/75 3R 32/50 loss short 2020-04-07_0600
+  EURUSD Hourly ST+PMC 25/75 3R 33/50 loss short 2026-02-25_0500
+  EURUSD Hourly ST+PMC 25/75 3R 34/50 loss short 2016-09-21_1500
+  EURUSD Hourly ST+PMC 25/75 3R 35/50 loss long 2015-02-18_1100
+  EURUSD Hourly ST+PMC 25/75 3R 36/50 loss short 2005-07-19_1600
+  EURUSD Hourly ST+PMC 25/75 3R 37/50 win long 2015-04-24_1400
+  EURUSD Hourly ST+PMC 25/75 3R 38/50 win long 2011-08-16_0700
+  EURUSD Hourly ST+PMC 25/75 3R 39/50 loss long 2012-08-14_1200
+  EURUSD Hourly ST+PMC 25/75 3R 40/50 win long 2016-01-18_0700
+  EURUSD Hourly ST+PMC 25/75 3R 41/50 loss short 2011-08-03_0800
+  EURUSD Hourly ST+PMC 25/75 3R 42/50 win short 2012-07-03_1500
+  EURUSD Hourly ST+PMC 25/75 3R 43/50 loss long 2015-05-15_0900
+  EURUSD Hourly ST+PMC 25/75 3R 44/50 loss long 2022-09-13_1200
+  EURUSD Hourly ST+PMC 25/75 3R 45/50 win long 2011-04-05_1000
+  EURUSD Hourly ST+PMC 25/75 3R 46/50 loss short 2008-05-15_0500
+  EURUSD Hourly ST+PMC 25/75 3R 47/50 win long 2013-07-23_0900
+  EURUSD Hourly ST+PMC 25/75 3R 48/50 win short 2005-01-21_0900
+  EURUSD Hourly ST+PMC 25/75 3R 49/50 loss long 2004-11-05_1300
+  EURUSD Hourly ST+PMC 25/75 3R 50/50 win short 2024-11-19_1500
+Wrote 50 charts → /home/tester/hsm/potions/live/state/eurusd_overnight_sweep/st_pmc/charts/eurusd_hourly_st_pmc_sl25_tp75_3r
+Building EURUSD Hourly ST+PMC 25/75 + MA bull prior ...
+  EURUSD Hourly ST+PMC 25/75 + MA bull prior 01/50 win long 2015-04-24_1400
+  EURUSD Hourly ST+PMC 25/75 + MA bull prior 02/50 loss long 2007-12-31_1400
+  EURUSD Hourly ST+PMC 25/75 + MA bull prior 03/50 win long 2013-06-07_1200
+  EURUSD Hourly ST+PMC 25/75 + MA bull prior 04/50 win long 2011-01-20_1500
+  EURUSD Hourly ST+PMC 25/75 + MA bull prior 05/50 loss short 2011-03-02_1000
+  EURUSD Hourly ST+PMC 25/75 + MA bull prior 06/50 win long 2018-09-18_1600
+  EURUSD Hourly ST+PMC 25/75 + MA bull prior 07/50 win long 2004-12-21_1600
+  EURUSD Hourly ST+PMC 25/75 + MA bull prior 08/50 win long 2007-07-03_1000
+  EURUSD Hourly ST+PMC 25/75 + MA bull prior 09/50 loss short 2019-02-19_1400
+  EURUSD Hourly ST+PMC 25/75 + MA bull prior 10/50 win short 2011-12-22_0800
+  EURUSD Hourly ST+PMC 25/75 + MA bull prior 11/50 loss long 2022-10-05_1000
+  EURUSD Hourly ST+PMC 25/75 + MA bull prior 12/50 win short 2014-01-29_1400
+  EURUSD Hourly ST+PMC 25/75 + MA bull prior 13/50 win long 2012-02-21_1100
+  EURUSD Hourly ST+PMC 25/75 + MA bull prior 14/50 loss long 2025-01-23_0200
+  EURUSD Hourly ST+PMC 25/75 + MA bull prior 15/50 win long 2023-01-18_1700
+  EURUSD Hourly ST+PMC 25/75 + MA bull prior 16/50 win long 2008-03-17_1800
+  EURUSD Hourly ST+PMC 25/75 + MA bull prior 17/50 loss long 2026-02-11_1300
+  EURUSD Hourly ST+PMC 25/75 + MA bull prior 18/50 loss long 2005-07-22_1500
+  EURUSD Hourly ST+PMC 25/75 + MA bull prior 19/50 win long 2006-11-08_1400
+  EURUSD Hourly ST+PMC 25/75 + MA bull prior 20/50 loss long 2016-01-29_0300
+  EURUSD Hourly ST+PMC 25/75 + MA bull prior 21/50 loss long 2022-10-27_1200
+  EURUSD Hourly ST+PMC 25/75 + MA bull prior 22/50 win long 2011-02-24_0700
+  EURUSD Hourly ST+PMC 25/75 + MA bull prior 23/50 win long 2008-12-22_1600
+  EURUSD Hourly ST+PMC 25/75 + MA bull prior 24/50 win short 2012-04-03_0900
+  EURUSD Hourly ST+PMC 25/75 + MA bull prior 25/50 loss long 2021-10-19_1500
+  EURUSD Hourly ST+PMC 25/75 + MA bull prior 26/50 loss short 2017-07-14_1200
+  EURUSD Hourly ST+PMC 25/75 + MA bull prior 27/50 loss short 2007-08-29_1000
+  EURUSD Hourly ST+PMC 25/75 + MA bull prior 28/50 loss short 2009-06-23_0900
+  EURUSD Hourly ST+PMC 25/75 + MA bull prior 29/50 win long 2008-05-22_1400
+  EURUSD Hourly ST+PMC 25/75 + MA bull prior 30/50 loss short 2006-06-01_1400
+  EURUSD Hourly ST+PMC 25/75 + MA bull prior 31/50 loss short 2009-06-26_0000
+  EURUSD Hourly ST+PMC 25/75 + MA bull prior 32/50 win short 2014-06-05_1100
+  EURUSD Hourly ST+PMC 25/75 + MA bull prior 33/50 loss long 2014-10-21_0900
+  EURUSD Hourly ST+PMC 25/75 + MA bull prior 34/50 win short 2011-08-09_1800
+  EURUSD Hourly ST+PMC 25/75 + MA bull prior 35/50 loss long 2007-10-22_1000
+  EURUSD Hourly ST+PMC 25/75 + MA bull prior 36/50 win long 2025-12-01_1900
+  EURUSD Hourly ST+PMC 25/75 + MA bull prior 37/50 loss long 2011-04-12_0000
+  EURUSD Hourly ST+PMC 25/75 + MA bull prior 38/50 win short 2025-10-03_0800
+  EURUSD Hourly ST+PMC 25/75 + MA bull prior 39/50 loss long 2004-09-22_1000
+  EURUSD Hourly ST+PMC 25/75 + MA bull prior 40/50 win short 2026-02-27_0700
+  EURUSD Hourly ST+PMC 25/75 + MA bull prior 41/50 loss short 2004-10-13_1700
+  EURUSD Hourly ST+PMC 25/75 + MA bull prior 42/50 loss long 2003-12-10_2300
+  EURUSD Hourly ST+PMC 25/75 + MA bull prior 43/50 loss long 2018-07-11_0900
+  EURUSD Hourly ST+PMC 25/75 + MA bull prior 44/50 win long 2013-04-09_0700
+  EURUSD Hourly ST+PMC 25/75 + MA bull prior 45/50 win long 2020-08-14_0700
+  EURUSD Hourly ST+PMC 25/75 + MA bull prior 46/50 loss long 2021-02-16_1300
+  EURUSD Hourly ST+PMC 25/75 + MA bull prior 47/50 loss short 2014-12-12_0900
+  EURUSD Hourly ST+PMC 25/75 + MA bull prior 48/50 win long 2010-04-12_1100
+  EURUSD Hourly ST+PMC 25/75 + MA bull prior 49/50 loss short 2023-01-03_1400
+  EURUSD Hourly ST+PMC 25/75 + MA bull prior 50/50 win long 2018-12-03_1100
+Wrote 50 charts → /home/tester/hsm/potions/live/state/eurusd_overnight_sweep/st_pmc/charts/eurusd_hourly_st_pmc_sl25_tp75_3r_ma_bull_prior
+Total charts: 100 under /home/tester/hsm/potions/live/state/eurusd_overnight_sweep/st_pmc/charts

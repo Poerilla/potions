@@ -6,8 +6,10 @@
 # Large raw market data (kept locally, excluded from GitHub)
 **/raw/**/*.dbn.zst
 **/raw/**/*.zip
+**/raw/**/*.txt
 **/*_1min_raw.csv
 **/glbx-mdp3-*-*.ohlcv-1m.csv
+fx/*_1m.csv
 live/state/**/events/alerts.jsonl
 live/state/**/alerts.csv
 
@@ -21,3 +23,4 @@ live/state/**/event_universe/*_eligible_events.csv
 
 # Oversized full-history equity curve (kept local; >50MB GitHub warning)
 live/state/nq_v2b_prior_opposed_stpmc_full_history_raw/**/equity_curve.csv
+live/state/audjpy_futures_strats_sweep/states/audjpy_v2b_oco_prior_opposed_S_1_1_3/equity_curve.csv

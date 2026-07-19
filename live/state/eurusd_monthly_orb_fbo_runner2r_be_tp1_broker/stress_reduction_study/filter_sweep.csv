@@ -1,0 +1,26 @@
+filter,kept,dropped,net,stress_dd,ns
+BASELINE,173,0,71226.0,-70971.0,1.0
+align_sma10 (with-trend only),135,38,86432.0,-46941.0,1.84
+counter_sma10 only,38,135,-15205.0,-48203.0,-0.32
+align_sma20 (with-trend only),122,51,-21483.0,-104195.0,-0.21
+counter_sma20 only,51,122,92709.0,-42112.0,2.2
+align_sma50 (with-trend only),99,74,24512.0,-59413.0,0.41
+counter_sma50 only,74,99,46714.0,-56767.0,0.82
+align_sma100 (with-trend only),93,80,61667.0,-52091.0,1.18
+counter_sma100 only,80,93,9560.0,-46576.0,0.21
+align_sma200 (with-trend only),98,75,47115.0,-59735.0,0.79
+counter_sma200 only,75,98,24111.0,-37819.0,0.64
+align_st_10_3,88,85,26367.0,-55573.0,0.47
+counter_st_10_3,85,88,44859.0,-53749.0,0.83
+align_st_14_2,88,85,26367.0,-55573.0,0.47
+counter_st_14_2,85,88,44859.0,-53749.0,0.83
+align_prior_month,94,79,14894.0,-46540.0,0.32
+counter_prior_month,79,94,56332.0,-53464.0,1.05
+skip late entries (>=half),90,83,9303.0,-62886.0,0.15
+skip entry_frac>0.35,66,107,4079.0,-64124.0,0.06
+skip second trade of month,139,34,13924.0,-88445.0,0.16
+skip high ATR regime (>80pct),143,30,93435.0,-50053.0,1.87
+skip low ATR regime (<20pct),116,57,6684.0,-92040.0,0.07
+skip wide OR (r_vs_atr>median),87,86,17935.0,-60815.0,0.29
+skip narrow OR (<median),86,87,53292.0,-60143.0,0.89
+skip very wide OR (>q75),130,43,41260.0,-74384.0,0.55

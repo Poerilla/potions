@@ -1,0 +1,6 @@
+strategy_id,frac,period,trades,units,net_usd,closed_dd_usd,stress_dd_usd,net_over_stress,win_units,win_rate_pct,max_open_units,vs_baseline_net,promote_candidate,fill_tape,state_root
+eurusd_st_daybias_f30_week,0.3,week,614,672,-590.05,-9755.5,-9780.5,-0.06,145,21.58,3,-24123.73,False,1m,/home/tester/hsm/potions/live/state/eurusd_hourly_st_daybias_dca_broker/states/eurusd_st_daybias_f30_week
+eurusd_st_daybias_f30_month,0.3,month,538,671,-11688.0,-19367.8,-19397.8,-0.603,95,14.16,4,-35221.68,False,1m,/home/tester/hsm/potions/live/state/eurusd_hourly_st_daybias_dca_broker/states/eurusd_st_daybias_f30_month
+eurusd_st_daybias_f40_week,0.4,week,591,673,-8468.35,-13345.3,-13355.8,-0.634,134,19.91,3,-32002.03,False,1m,/home/tester/hsm/potions/live/state/eurusd_hourly_st_daybias_dca_broker/states/eurusd_st_daybias_f40_week
+eurusd_st_daybias_f40_month,0.4,month,508,673,-19150.65,-26327.15,-26338.65,-0.727,95,14.12,4,-42684.33,False,1m,/home/tester/hsm/potions/live/state/eurusd_hourly_st_daybias_dca_broker/states/eurusd_st_daybias_f40_month
+eurusd_st_daybias_f50_week,0.5,week,572,675,-20032.5,-24776.5,-24787.0,-0.808,152,22.52,4,-43566.18,False,1m,/home/tester/hsm/potions/live/state/eurusd_hourly_st_daybias_dca_broker/states/eurusd_st_daybias_f50_week

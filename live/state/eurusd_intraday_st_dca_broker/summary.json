@@ -1,0 +1,16 @@
+{
+  "strategy_id": "eurusd_intraday_st_dca_15m_0p5x5_close",
+  "exit_mode": "close",
+  "trades": 8210,
+  "units": 38815,
+  "net_usd": -435438.75,
+  "closed_dd_usd": -436602.5,
+  "stress_dd_usd": -436665.5,
+  "net_over_stress": -0.997,
+  "win_units": 12341,
+  "win_rate_pct": 31.79,
+  "max_open_units": 5,
+  "window": "2015-01-01 \u2192 2026-03-31",
+  "unit_definition": "1 unit = 0.5 standard lot",
+  "state_root": "/home/tester/hsm/potions/live/state/eurusd_intraday_st_dca_broker/states/eurusd_intraday_st_dca_15m_0p5x5_close"
+}

@@ -1,0 +1,6 @@
+strategy,campaigns,lots,net_usd,win_rate_pct,closed_dd_usd,net_over_closed_dd,median_hold_h,n_stop,n_period_end,entry_days,entry_mode,stop_mode
+f30_week_wick_1m_fixed,620,675.0,-4073.05,15.48,-9637.4,-0.423,3.0,498,122,675,pullback,wick_1m
+f30_week_enter_at_sl_wick,654,669.0,-6966.75,6.12,-6936.0,-1.004,0.59,621,33,669,at_sl,wick_1m
+f30_week_enter_at_sl_close_0buf,649,669.0,-14032.75,11.4,-13970.5,-1.004,1.0,586,63,669,at_sl,close_1h
+f30_week_close_1h_sl,594,675.0,-14517.9,19.19,-16399.5,-0.885,5.31,438,156,675,pullback,close_1h
+f30_week_enter_at_sl_close,639,669.0,-14923.25,13.77,-15517.25,-0.962,2.4,561,78,669,at_sl,close_1h

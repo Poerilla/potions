@@ -1,0 +1,3 @@
+strategy_id,frac,period,tp_atr_mult,trades,units,net_usd,closed_dd_usd,stress_dd_usd,net_over_stress,win_units,win_rate_pct,max_open_units,vs_baseline_net,promote_candidate,fill_tape,state_root
+eurusd_st_daybias_f30_week_tp_4atr,0.3,week,4.0,651,672,-1464.5,-6719.59,-6722.59,-0.218,184,27.38,3,-24998.18,False,1m,live/state/eurusd_st_daybias_f30_atr_tp/broker/states/eurusd_st_daybias_f30_week_tp_4atr
+eurusd_st_daybias_f30_week_tp_3atr,0.3,week,3.0,658,672,-3316.56,-6234.35,-6259.85,-0.53,210,31.25,2,-26850.24,False,1m,live/state/eurusd_st_daybias_f30_atr_tp/broker/states/eurusd_st_daybias_f30_week_tp_3atr

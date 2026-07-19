@@ -1,0 +1,21 @@
+Loading EURUSD daily...
+Loading FX CSV /home/tester/hsm/potions/fx/eurusd_1m.csv (EURUSD) ...
+  7,163 NY dates with bars
+  daily bars: 7163
+Running eurusd_monthly_orb_v2b_s112_close_sl ...
+{
+  "strategy": "eurusd_monthly_orb_v2b_s112_close_sl",
+  "trades": 1278,
+  "units": 1704.0,
+  "net_usd": 99693.0,
+  "win_rate_pct": 45.31,
+  "closed_dd_usd": -120605.0,
+  "net_over_closed_dd": 0.827,
+  "avg_usd": 78.01,
+  "or_sessions": 3,
+  "max_trades_per_month": 2,
+  "structure": "S_1_1_2",
+  "stop_mode": "daily_close",
+  "months_traded": 274
+}
+Wrote /home/tester/hsm/potions/live/state/eurusd_monthly_orb_v2b_oco/SUMMARY.md

@@ -264,7 +264,7 @@ def run_broker_like_replays(
 
 def _runtime_config(spec: BrokerReplaySpec, bars) -> Dict[str, object]:
     config = dict(spec.config)
-    if spec.strategy_type == "monthly_orb_restricted_scaleout3":
+    if spec.strategy_type in {"monthly_orb_restricted_scaleout3", "monthly_orb_v2b_oco"}:
         config.setdefault("flatten_month_end", True)
         config["month_end_dates"] = _month_end_dates(bars)
     return config

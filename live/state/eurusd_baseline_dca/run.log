@@ -1,0 +1,97 @@
+Loading hourly bars...
+Loading FX CSV /home/tester/hsm/potions/fx/eurusd_1m.csv (EURUSD) ...
+  7,163 NY dates with bars
+  142988 bars
+Replaying eurusd_hourly_st_pmc_sl25_tp75_3r_ma_bull_prior (142988 bars, max_adds=1)...
+  20000/142988
+  40000/142988
+  60000/142988
+  80000/142988
+  100000/142988
+  120000/142988
+  140000/142988
+{
+  "strategy_id": "eurusd_hourly_st_pmc_sl25_tp75_3r_ma_bull_prior",
+  "max_adds": 1,
+  "dca_enabled": false,
+  "trades": 1127,
+  "units": 1127,
+  "net_usd": -4815.82,
+  "closed_dd_usd": -22511.46,
+  "stress_dd_usd": -22589.46,
+  "net_over_stress": -0.213,
+  "win_units": 297,
+  "win_rate_pct": 26.35,
+  "max_open_units": 1,
+  "vs_baseline": -28349.5
+}
+Replaying eurusd_hourly_st_pmc_sl25_tp75_3r_ma_bull_prior_dca_x2 (142988 bars, max_adds=2)...
+  20000/142988
+  40000/142988
+  60000/142988
+  80000/142988
+  100000/142988
+  120000/142988
+  140000/142988
+{
+  "strategy_id": "eurusd_hourly_st_pmc_sl25_tp75_3r_ma_bull_prior_dca_x2",
+  "max_adds": 2,
+  "dca_enabled": true,
+  "trades": 1511,
+  "units": 1511,
+  "net_usd": -14675.34,
+  "closed_dd_usd": -36549.46,
+  "stress_dd_usd": -36839.31,
+  "net_over_stress": -0.398,
+  "win_units": 391,
+  "win_rate_pct": 25.88,
+  "max_open_units": 2,
+  "vs_baseline": -38209.02
+}
+Replaying eurusd_hourly_st_pmc_sl25_tp75_3r_ma_bull_prior_dca_x3 (142988 bars, max_adds=3)...
+  20000/142988
+  40000/142988
+  60000/142988
+  80000/142988
+  100000/142988
+  120000/142988
+  140000/142988
+{
+  "strategy_id": "eurusd_hourly_st_pmc_sl25_tp75_3r_ma_bull_prior_dca_x3",
+  "max_adds": 3,
+  "dca_enabled": true,
+  "trades": 1650,
+  "units": 1650,
+  "net_usd": -22858.84,
+  "closed_dd_usd": -43129.46,
+  "stress_dd_usd": -43419.31,
+  "net_over_stress": -0.526,
+  "win_units": 419,
+  "win_rate_pct": 25.39,
+  "max_open_units": 3,
+  "vs_baseline": -46392.52
+}
+Replaying eurusd_hourly_st_pmc_sl25_tp75_3r_ma_bull_prior_dca_x5 (142988 bars, max_adds=5)...
+  20000/142988
+  40000/142988
+  60000/142988
+  80000/142988
+  100000/142988
+  120000/142988
+  140000/142988
+{
+  "strategy_id": "eurusd_hourly_st_pmc_sl25_tp75_3r_ma_bull_prior_dca_x5",
+  "max_adds": 5,
+  "dca_enabled": true,
+  "trades": 1727,
+  "units": 1727,
+  "net_usd": -26424.34,
+  "closed_dd_usd": -45940.96,
+  "stress_dd_usd": -46230.81,
+  "net_over_stress": -0.572,
+  "win_units": 437,
+  "win_rate_pct": 25.3,
+  "max_open_units": 5,
+  "vs_baseline": -49958.02
+}
+Wrote /home/tester/hsm/potions/live/state/eurusd_baseline_dca/SUMMARY.md

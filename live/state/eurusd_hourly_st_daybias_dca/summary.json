@@ -1,0 +1,34 @@
+[
+  {
+    "strategy":"st_daybias_dca_f30_week",
+    "campaigns":620,
+    "lots":675.0,
+    "net_usd":-4073.05,
+    "win_rate_pct":15.48,
+    "closed_dd_usd":-9637.4,
+    "net_over_closed_dd":-0.423,
+    "avg_usd":-6.57,
+    "entry_days":675,
+    "bias_opportunity_days":2531,
+    "touch_and_enter_days":675,
+    "months_with_entries":135,
+    "frac":0.3,
+    "period":"week"
+  },
+  {
+    "strategy":"st_daybias_dca_f30_month",
+    "campaigns":555,
+    "lots":674.0,
+    "net_usd":-13036.15,
+    "win_rate_pct":11.35,
+    "closed_dd_usd":-15888.75,
+    "net_over_closed_dd":-0.82,
+    "avg_usd":-23.49,
+    "entry_days":674,
+    "bias_opportunity_days":2531,
+    "touch_and_enter_days":674,
+    "months_with_entries":135,
+    "frac":0.3,
+    "period":"month"
+  }
+]

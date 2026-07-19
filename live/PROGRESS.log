@@ -37,3 +37,14 @@ Append-only research/platform progress notes.
 - Full-history NQ hour-complete rerun (common-window is promotion baseline)
 - Execution scrutiny refresh on hour-complete books
 - Institutional Sharpe/Calmar regenerate on resting-limit equity
+[2026-07-17T19:38:05Z] Promoted eurusd_hourly_st_pmc_sl25_tp75_3r_ma_bull_prior as forex intraday baseline; causal PASS; yearly+macro pack in live/state/eurusd_forex_intraday_baseline/
+
+## 2026-07-19 metals gambit
+- Converted XAUUSD/XAGUSD; ran yearly/monthly/ATR/ST+PMC/FBO.
+- Top N/S: XAG yearly 316 (caveat), XAU yearly 11.3, XAU ST+PMC MA 3.31; FBO fail.
+- Report: live/state/fx_metals_top4_report/SUMMARY.md
+
+### Silver spike fix
+- Corrected XAGUSD 2011-01-20 100x bars; re-ran gambit.
+- XAG yearly ORB now +$121k / N/S 6.21 (was artifactual 316).
+- Top4: AUDJPY yearly 15.3, XAU yearly 11.3, XAG yearly 6.2, USDJPY FBO atr80 4.25.

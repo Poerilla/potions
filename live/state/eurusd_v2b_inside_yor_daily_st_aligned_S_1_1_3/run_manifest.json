@@ -1,0 +1,170 @@
+{
+  "broker_realism_config": {
+    "fee_per_unit": 7.0,
+    "slippage_ticks": 1.0,
+    "spread_model": "fx_half_pip"
+  },
+  "causality_mode": "audit",
+  "command": [
+    "/home/tester/hsm/potions/live/eurusd_yor_inside_daily_st_v2b.py",
+    "--force"
+  ],
+  "created_at": "2026-07-14T17:11:25Z",
+  "cwd": "/home/tester/hsm/potions",
+  "data_inputs": [
+    {
+      "bytes": 608700048,
+      "exists": true,
+      "path": "fx/eurusd_1m.csv",
+      "sha256": "1051fa77d175ac33ff198cf55519f2ca9b18a9ab38bd4e98d4c82f59e6a1efa4"
+    },
+    {
+      "bytes": 460197,
+      "exists": true,
+      "path": "fx/eurusd_daily.csv",
+      "sha256": "cdb60a0fad2014899ddc9d6af7813290e2d9d4a2009c11a16269a728d6d06a9f"
+    }
+  ],
+  "extra": {
+    "long_days": 1144,
+    "mode": "aligned",
+    "net_over_stress": -0.974852855891394,
+    "net_usd": -237015.00000033318,
+    "sessions": 2334,
+    "short_days": 1190
+  },
+  "git": {
+    "commit": "aa73997ff128d511d0ed736408b8370fe95376d7",
+    "dirty": true,
+    "repo_root": "/home/tester/hsm/potions",
+    "status_short": [
+      "M live/__pycache__/__init__.cpython-38.pyc",
+      " M live/__pycache__/broker.cpython-38.pyc",
+      " M live/__pycache__/broker_like_replays.cpython-38.pyc",
+      " M live/__pycache__/build_broker_like_replay_detail_charts.cpython-38.pyc",
+      " M live/__pycache__/build_ym_1m_atr_supertrend_sample.cpython-38.pyc",
+      " M live/__pycache__/engine.cpython-38.pyc",
+      " M live/__pycache__/hourly_st_pmc_loss_research.cpython-38.pyc",
+      " M live/__pycache__/hourly_st_pmc_retest_replay.cpython-38.pyc",
+      " M live/__pycache__/hourly_st_pmc_strategyplugin_variants.cpython-38.pyc",
+      " M live/__pycache__/jobs.cpython-38.pyc",
+      " M live/__pycache__/manager.cpython-38.pyc",
+      " M live/__pycache__/models.cpython-38.pyc",
+      " M live/__pycache__/notifications.cpython-38.pyc",
+      " M live/__pycache__/nq_v2b_prior_opposed_15m_charts.cpython-38.pyc",
+      " M live/__pycache__/nq_v2b_prior_opposed_replay.cpython-38.pyc",
+      " M live/__pycache__/registry.cpython-38.pyc",
+      " M live/__pycache__/replay_audit.cpython-38.pyc",
+      " M live/__pycache__/reporting.cpython-38.pyc",
+      " M live/__pycache__/risk.cpython-38.pyc",
+      " M live/__pycache__/store.cpython-38.pyc",
+      " M live/__pycache__/v2b_st_pmc_alignment_study.cpython-38.pyc",
+      " M live/__pycache__/v2b_strategy_cross_market_replay.cpython-38.pyc",
+      " M live/__pycache__/v2b_strategy_replay.cpython-38.pyc",
+      " M live/__pycache__/verification.cpython-38.pyc",
+      " M live/__pycache__/ym_hourly_st_pmc_retest_replay.cpython-38.pyc",
+      " M live/broker.py",
+      " M live/build_broker_like_replay_detail_charts.py",
+      " M live/instruments.py",
+      " M live/nq_v2b_prior_opposed_15m_charts.py",
+      " M live/replay_audit.py",
+      " M live/strategies/__pycache__/__init__.cpython-38.pyc",
+      " M live/strategies/__pycache__/atr_supertrend_dca.cpython-38.pyc",
+      " M live/strategies/__pycache__/base.cpython-38.pyc",
+      " M live/strategies/__pycache__/hourly_st_pmc_retest.cpython-38.pyc",
+      " M live/strategies/__pycache__/monthly_orb_overlap_st_retest.cpython-38.pyc",
+      " M live/strategies/__pycache__/monthly_orb_restricted_scaleout3.cpython-38.pyc",
+      " M live/strategies/__pycache__/supertrend_wick_retest.cpython-38.pyc",
+      " M live/strategies/__pycache__/v2b_clean_break.cpython-38.pyc",
+      " M live/strategies/__pycache__/v2b_scaleout.cpython-38.pyc",
+      " M live/strategies/__pycache__/weekly_mid_ma500_bias.cpython-38.pyc",
+      " M live/strategies/__pycache__/wo_gap_reversal.cpython-38.pyc",
+      " M live/strategies/__pycache__/yearly_orb.cpython-38.pyc",
+      " M live/strategies/v2b_scaleout.py",
+      " M live/strategies/yearly_orb.py",
+      " M mnq/case_studies/midnight_open_hourly_charts/__pycache__/build_midnight_open_hourly_charts.cpython-38.pyc",
+      " M mnq/v2d/__pycache__/benchmark_v2b_scaleout_candidates.cpython-38.pyc",
+      " M mnq/v2d/__pycache__/mtm_v2b_scaleout.cpython-38.pyc",
+      " M mnq/v2d/__pycache__/run_adaptive_50_150_scaleout.cpython-38.pyc",
+      " M scripts/__pycache__/annotate_mnq_v2b_range_context.cpython-38.pyc",
+      "?? fx/",
+      "?? live/eurusd_london_sweep_reversal.py",
+      "?? live/eurusd_overnight_extras.py",
+      "?? live/eurusd_overnight_sweep.py",
+      "?? live/eurusd_prior_opposed_5m_charts.py",
+      "?? live/eurusd_prior_opposed_replay.py",
+      "?? live/eurusd_v2b_base_london_charts.py",
+      "?? live/eurusd_v2b_ungated.py",
+      "?? live/eurusd_yearly_orb_bias_v2b.py",
+      "?? live/eurusd_yearly_orb_charts.py",
+      "?? live/eurusd_yearly_orb_variants_replay.py",
+      "?? live/eurusd_yor_inside_daily_st_v2b.py",
+      "?? live/fx_data.py",
+      "?? live/state/EURUSD_OVERNIGHT_README.md",
+      "?? live/state/eurusd_london_sweep_reversal/",
+      "?? live/state/eurusd_london_sweep_reversal_scaleout111/",
+      "?? live/state/eurusd_overnight_extras.pid",
+      "?? live/state/eurusd_overnight_extras/",
+      "?? live/state/eurusd_overnight_extras_run.log",
+      "?? live/state/eurusd_overnight_sweep.pid",
+      "?? live/state/eurusd_overnight_sweep/",
+      "?? live/state/eurusd_overnight_sweep_daily_smoke/",
+      "?? live/state/eurusd_overnight_sweep_daily_smoke_run.log",
+      "?? live/state/eurusd_overnight_sweep_run.log",
+      "?? live/state/eurusd_prior_opposed_5m_charts.pid",
+      "?? live/state/eurusd_prior_opposed_5m_charts_run.log",
+      "?? live/state/eurusd_v2b_inside_yor_daily_st_aligned_S_1_1_3/",
+      "?? live/state/eurusd_v2b_prior_opposed_smoke/",
+      "?? live/state/eurusd_v2b_prior_opposed_stpmc_broker_like/",
+      "?? live/state/eurusd_v2b_ungated_S_1_1_1/",
+      "?? live/state/eurusd_v2b_ungated_S_1_1_1_run.log",
+      "?? live/state/eurusd_v2b_yearly_orb_bias_S_1_1_3/",
+      "?? live/state/eurusd_v2b_yearly_orb_fade_S_1_1_3/",
+      "?? live/state/eurusd_yearly_orb_charts_run.log",
+      "?? live/state/eurusd_yearly_orb_research_variants/",
+      "?? live/strategies/yearly_orb_delivery_helpers.py"
+    ]
+  },
+  "outputs": [
+    {
+      "bytes": 411,
+      "exists": true,
+      "path": "summary.csv",
+      "sha256": "173fa9b10809ebdc8c1c37d6f14739076a1249cee32dda322b29c85fb9626fa0"
+    },
+    {
+      "bytes": 762,
+      "exists": true,
+      "path": "INDEX.md",
+      "sha256": "d8fa51b9cf2917e426cdadf889cd3790e6784e8661f7efe1a3cd0624186be33f"
+    },
+    {
+      "bytes": 336847,
+      "exists": true,
+      "path": "inside_yor_st_bias_by_session.csv",
+      "sha256": "2f7689892bd24d0845c81bb3c0909b6547ea5eab8f34d11bb84b6dcfbfa34ee7"
+    },
+    {
+      "bytes": 1097906,
+      "exists": true,
+      "path": "states/eurusd_v2b_inside_yor_daily_st_aligned_S_1_1_3/fills.csv",
+      "sha256": "50c82f1298a62d5ee77f7eb78bbef50d37a7f325c167d1a0d5b370e5890abe54"
+    }
+  ],
+  "python": {
+    "executable": "/home/tester/.pyenv/versions/3.8.0/bin/python",
+    "platform": "Linux-5.15.0-185-generic-x86_64-with-glibc2.34",
+    "version": "3.8.0 (default, Feb 11 2026, 11:18:58) \n[GCC 11.4.0]"
+  },
+  "run_id": "run_be975994fa53",
+  "strategy_config": {
+    "atr_len": 14,
+    "atr_mult": 3.0,
+    "driver": "eurusd_yor_inside_daily_st_v2b",
+    "entry_qty": 5,
+    "mode": "aligned",
+    "start": "2004-01-02",
+    "tp1_qty": 1,
+    "tp2_qty": 1
+  }
+}

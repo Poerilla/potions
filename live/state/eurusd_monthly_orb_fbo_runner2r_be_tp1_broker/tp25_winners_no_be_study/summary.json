@@ -1,0 +1,50 @@
+{
+  "n_tp25": 136,
+  "n_winners": 83,
+  "pct_winners": 61.0,
+  "winners_no_be_after": {
+    "label": "winners never tag BE after TP25 day",
+    "n": 48,
+    "pct_of_tp25": 35.3
+  },
+  "winners_no_be_any": {
+    "label": "winners never tag BE incl same day",
+    "n": 21,
+    "pct_of_tp25": 15.4
+  },
+  "winners_no_be_after_and_no_be_fill": {
+    "label": "winners no later BE touch & no BE/close@entry fill",
+    "n": 48,
+    "pct_of_tp25": 35.3
+  },
+  "all_no_be_after": {
+    "label": "any outcome no BE after",
+    "n": 49,
+    "pct_of_tp25": 36.0
+  },
+  "winners_with_be_touch_after": {
+    "label": "winners that DID tag BE after",
+    "n": 35,
+    "pct_of_tp25": 25.7
+  },
+  "of_winners_no_be_after_hit_tp2": 77.1,
+  "of_winners_no_be_after_hit_tp3": 45.8,
+  "winners_no_be_after_net": 320928.5,
+  "winners_no_be_after_avg": 6686.01,
+  "hit_tp2_or_tp3": 60,
+  "hit_further_no_be_after": {
+    "label": "hit TP2/TP3 without later BE",
+    "n": 37,
+    "pct_of_tp25": 27.2
+  },
+  "hit_further_no_be_any": {
+    "label": "hit TP2/TP3 without any BE touch",
+    "n": 19,
+    "pct_of_tp25": 14.0
+  },
+  "winners_no_be_stop_fill": {
+    "label": "winners with no BE/close-at-entry fill",
+    "n": 64,
+    "pct_of_tp25": 47.1
+  }
+}

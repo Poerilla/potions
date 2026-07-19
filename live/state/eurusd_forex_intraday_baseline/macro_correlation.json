@@ -1,0 +1,12 @@
+{
+  "pnl_vs_fed_funds_level": 0.10893750241179698,
+  "pnl_vs_fed_funds_change": -0.4690507630415957,
+  "pnl_vs_eurusd_yearly_return": 0.23853650083385694,
+  "pnl_vs_usd_strength_proxy": -0.23853650083385694,
+  "interpretation": {
+    "rates": "Near-zero correlation to Fed funds level; mild negative to rate *changes* \u2014 not a rates carry book.",
+    "usd": "Low correlation (|r|~0.23) to yearly EURUSD/USD moves \u2014 not a pure USD-direction bet."
+  },
+  "source_fed_funds": "FRED RIFSPFFNA (annual effective federal funds rate)",
+  "source_usd_proxy": "Yearly EURUSD close-to-close; USD strength proxy = -EURUSD return"
+}

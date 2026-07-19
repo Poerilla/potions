@@ -1,0 +1,13 @@
+{
+  "causality_violations_rows": 0,
+  "entry_fills": 1148,
+  "entry_fills_ts_le_live_after": 0,
+  "entry_fill_lag_seconds_min": 3600.0,
+  "entry_fill_lag_seconds_median": 21600.0,
+  "entry_fill_lag_hours_median": 6.0,
+  "feature_rows": 411858,
+  "feature_available_at_after_current_bar": 0,
+  "feature_event_after_available_at": 0,
+  "orders_with_live_after_on_hour_boundary_pct": 100.0,
+  "verdict": "PASS"
+}

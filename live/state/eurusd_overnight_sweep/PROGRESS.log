@@ -1,0 +1,49 @@
+[2026-07-14T00:41:18] EURUSD overnight sweep starting
+[2026-07-14T00:41:18] Imported prior-opposed Net=$-9475.00
+[2026-07-14T00:41:18] Daily bars loaded: 7163
+[2026-07-14T00:41:18] START daily eurusd_yearly_orb_scaleout3
+[2026-07-14T00:41:23] DONE daily eurusd_yearly_orb_scaleout3 Net=$165865.00 Net/Stress=8.31
+[2026-07-14T00:41:23] START daily eurusd_yearly_orb_scaleout3_range_close_20pct
+[2026-07-14T00:41:29] DONE daily eurusd_yearly_orb_scaleout3_range_close_20pct Net=$124518.75 Net/Stress=2.60
+[2026-07-14T00:41:29] START daily eurusd_monthly_orb_restricted_scaleout3
+[2026-07-14T00:41:54] DONE daily eurusd_monthly_orb_restricted_scaleout3 Net=$21841.25 Net/Stress=0.45
+[2026-07-14T00:41:54] START daily eurusd_monthly_orb_restricted_scaleout3_boundary_stop
+[2026-07-14T00:42:22] DONE daily eurusd_monthly_orb_restricted_scaleout3_boundary_stop Net=$-140782.25 Net/Stress=-0.89
+[2026-07-14T00:42:22] START daily eurusd_atr_daily_ladder112221_10max
+[2026-07-14T00:45:05] DONE daily eurusd_atr_daily_ladder112221_10max Net=$-14505.00 Net/Stress=-0.11
+[2026-07-14T00:45:05] START daily eurusd_atr_daily_3initial_10max
+[2026-07-14T00:47:45] DONE daily eurusd_atr_daily_3initial_10max Net=$-42242.00 Net/Stress=-0.21
+[2026-07-14T00:47:45] START daily eurusd_atr_weekly_2initial_3add_6max
+[2026-07-14T00:50:24] DONE daily eurusd_atr_weekly_2initial_3add_6max Net=$-153556.00 Net/Stress=-0.53
+[2026-07-14T00:50:24] Loading hourly bars for ST+PMC variants...
+[2026-07-14T00:51:22] Hourly bars: 142988
+[2026-07-14T00:51:22] START ST+PMC eurusd_hourly_st_pmc_base_1x_50sl_150tp
+[2026-07-14T00:53:36] DONE ST+PMC eurusd_hourly_st_pmc_base_1x_50sl_150tp Net=$-25592.39 Net/Stress=-0.57
+[2026-07-14T00:53:36] START ST+PMC eurusd_hourly_st_pmc_sl40_tp120_3r
+[2026-07-14T00:55:44] DONE ST+PMC eurusd_hourly_st_pmc_sl40_tp120_3r Net=$-18540.29 Net/Stress=-0.42
+[2026-07-14T00:55:44] START ST+PMC eurusd_hourly_st_pmc_sl25_tp75_3r
+[2026-07-14T00:57:37] DONE ST+PMC eurusd_hourly_st_pmc_sl25_tp75_3r Net=$28388.52 Net/Stress=1.50
+[2026-07-14T00:57:37] START ST+PMC eurusd_hourly_st_pmc_sl25_tp75_3r_ma_bull_prior
+[2026-07-14T00:58:36] DONE ST+PMC eurusd_hourly_st_pmc_sl25_tp75_3r_ma_bull_prior Net=$23533.68 Net/Stress=1.49
+[2026-07-14T00:58:36] START ST+PMC eurusd_hourly_st_pmc_sl40_tp120_3r_ma_directional_prior
+[2026-07-14T01:00:11] DONE ST+PMC eurusd_hourly_st_pmc_sl40_tp120_3r_ma_directional_prior Net=$3905.89 Net/Stress=0.11
+[2026-07-14T01:00:11] Loading 1m for v2b OCO variants...
+[2026-07-14T01:01:13] v2b regime sessions: 1623
+[2026-07-14T01:01:13] START v2b eurusd_v2b_oco_S_1_1_3
+[2026-07-14T01:01:32]   eurusd_v2b_oco_S_1_1_3 250/1623
+[2026-07-14T01:01:52]   eurusd_v2b_oco_S_1_1_3 500/1623
+[2026-07-14T01:02:14]   eurusd_v2b_oco_S_1_1_3 750/1623
+[2026-07-14T01:02:37]   eurusd_v2b_oco_S_1_1_3 1000/1623
+[2026-07-14T01:03:02]   eurusd_v2b_oco_S_1_1_3 1250/1623
+[2026-07-14T01:03:28]   eurusd_v2b_oco_S_1_1_3 1500/1623
+[2026-07-14T01:03:49] DONE v2b eurusd_v2b_oco_S_1_1_3 Net=$-240006.00 Net/Stress=-0.96
+[2026-07-14T01:03:49] START v2b eurusd_v2b_oco_1_0_0
+[2026-07-14T01:04:06]   eurusd_v2b_oco_1_0_0 250/1623
+[2026-07-14T01:04:24]   eurusd_v2b_oco_1_0_0 500/1623
+[2026-07-14T01:04:43]   eurusd_v2b_oco_1_0_0 750/1623
+[2026-07-14T01:05:03]   eurusd_v2b_oco_1_0_0 1000/1623
+[2026-07-14T01:05:23]   eurusd_v2b_oco_1_0_0 1250/1623
+[2026-07-14T01:05:44]   eurusd_v2b_oco_1_0_0 1500/1623
+[2026-07-14T01:06:00] DONE v2b eurusd_v2b_oco_1_0_0 Net=$-42414.00 Net/Stress=-0.99
+[2026-07-14T01:06:02] Sweep complete (15 rows)
+[2026-07-17T19:38:05Z] Promoted eurusd_hourly_st_pmc_sl25_tp75_3r_ma_bull_prior as forex intraday baseline; causal PASS; yearly+macro pack in live/state/eurusd_forex_intraday_baseline/

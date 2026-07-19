@@ -1,0 +1,2 @@
+strategy_id,strategy_type,version,instrument,broker_instrument,account_mode,enabled,timeframes,max_contracts,max_open_orders,config_json
+eurusd_weekly_mid_ma500_bias,weekly_mid_ma500_bias,v1,EURUSD,EURUSD,paper,true,15m,1,8,"{""entry_qty"": 1, ""ma_window"": 500, ""max_trades_per_week"": 6, ""record_levels"": false, ""risk_pts"": 0.005, ""stop_after_weekly_win"": false, ""target_pts"": 0.030000000000000002, ""tick_size"": 1e-05}"

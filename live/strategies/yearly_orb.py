@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import json
 from datetime import datetime
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Set
 
 from ..models import (
     Alert,
@@ -17,6 +17,15 @@ from ..models import (
 )
 from .base import StrategyContext, StrategyPlugin
 from .features import feature_snapshot
+from .yearly_orb_delivery_helpers import (
+    SwingKey,
+    build_daily_swings,
+    build_weekly_swings_on_daily,
+    decode_swing_key,
+    encode_swing_key,
+    find_delivery_signal,
+    make_delivery_levels,
+)
 
 
 class YearlyOrbScaleout3Strategy(StrategyPlugin):
@@ -39,6 +48,11 @@ class YearlyOrbScaleout3Strategy(StrategyPlugin):
             "require_fresh_break": True,
             "range_close_inside_frac": None,
             "entry_mode": "limit_retest",  # limit_retest | oco_stop
+            # Research: yearly_orb_delivery_scalein_*_inside_range_swing_range_close
+            "delivery_scalein": False,
+            "delivery_scale_swing_timeframe": "weekly",  # weekly | daily
+            "delivery_scale_qty": 1,
+            "delivery_target_R": 2.0,
         }
         try:
             self.config.update(json.loads(instance.config_json or "{}"))
@@ -70,8 +84,24 @@ class YearlyOrbScaleout3Strategy(StrategyPlugin):
     def on_fill(self, fill, context: StrategyContext) -> StrategyActions:
         state = self._state_for_year(_parse_ts(fill.ts).year)
         orders: List[OrderIntent] = []
+        cancels: List[CancelIntent] = []
         yor_high = _to_float(state.get("yor_high"))
         yor_low = _to_float(state.get("yor_low"))
+        delivery_tid = str(state.get("delivery_trade_id") or "")
+        base_tid = str(state.get("active_trade_id") or "")
+
+        if fill.trade_id == delivery_tid:
+            if context.position_quantity == 0:
+                self._clear_position_state(state)
+            elif fill.reason not in {"entry", "runner_entry"} and not self._delivery_has_open_position(
+                context, delivery_tid
+            ):
+                # Add-on completed while base still open — allow another scale-in.
+                state["delivery_trade_id"] = ""
+            self.state = state
+            self.save_state()
+            return StrategyActions(orders, cancels, [], [], [])
+
         if (
             self._entry_mode() == "oco_stop"
             and fill.reason == "entry"
@@ -89,6 +119,10 @@ class YearlyOrbScaleout3Strategy(StrategyPlugin):
             state["active_trade_id"] = fill.trade_id
             state["active_entry"] = fill.price
             state["active_direction"] = "long" if fill.side == "buy" else "short"
+            state["base_remaining_qty"] = int(state.get("base_remaining_qty") or 0) + int(fill.quantity)
+            fill_idx = self._bar_index_for_ts(state, fill.ts)
+            if fill_idx is not None and int(state.get("base_fill_bar_idx", -1)) < 0:
+                state["base_fill_bar_idx"] = fill_idx
             if yor_high is not None and yor_low is not None and yor_high > yor_low:
                 rng = yor_high - yor_low
                 if fill.side == "buy":
@@ -97,16 +131,18 @@ class YearlyOrbScaleout3Strategy(StrategyPlugin):
                     state["active_tp"] = yor_low - rng * float(self.config["tp_full_mult"])
             state["full_tp_seen"] = "false"
 
+        elif fill.trade_id == base_tid and fill.reason not in {"entry", "runner_entry"}:
+            state["base_remaining_qty"] = max(0, int(state.get("base_remaining_qty") or 0) - int(fill.quantity))
+            if int(state.get("base_remaining_qty") or 0) == 0 and delivery_tid and context.position_quantity != 0:
+                orders.append(self._close_delivery_intent(context, delivery_tid, "base_closed"))
+                cancels.extend(self._cancel_delivery_orders(context, delivery_tid, "base_closed"))
+
         if context.position_quantity == 0:
-            state["active_trade_id"] = ""
-            state["active_entry"] = None
-            state["active_tp"] = None
-            state["active_direction"] = ""
-            state["full_tp_seen"] = "false"
+            self._clear_position_state(state)
 
         self.state = state
         self.save_state()
-        return StrategyActions(orders, [], [], [], [])
+        return StrategyActions(orders, cancels, [], [], [])
 
     def _on_completed_daily_bar(self, bar: Bar, context: StrategyContext) -> StrategyActions:
         dt = _parse_ts(bar.ts)
@@ -144,6 +180,9 @@ class YearlyOrbScaleout3Strategy(StrategyPlugin):
 
         if range_ready and context.position_quantity != 0 and range_close_exit:
             causal_features.append(self._range_close_feature(bar, state, yor_high, yor_low))
+            delivery_tid = str(state.get("delivery_trade_id") or "")
+            if delivery_tid:
+                cancels.extend(self._cancel_delivery_orders(context, delivery_tid, "range_close"))
             orders.append(self._close_position_intent(context, "range_close"))
             alerts.append(Alert.create(self.instance.strategy_id, "info", "Yearly ORB range-close exit requested"))
 
@@ -173,6 +212,14 @@ class YearlyOrbScaleout3Strategy(StrategyPlugin):
                             )
                         )
                 state["full_tp_seen"] = "true"
+                delivery_tid = str(state.get("delivery_trade_id") or "")
+                if delivery_tid:
+                    # Research: cancel pending scale-in once base full TP (unit 2) is seen.
+                    pending_cancels = self._cancel_delivery_pending_entries(context, delivery_tid, "base_tp_cancel")
+                    if pending_cancels:
+                        cancels.extend(pending_cancels)
+                        if not self._delivery_has_open_position(context, delivery_tid):
+                            state["delivery_trade_id"] = ""
 
         # Confirm inside-range swings using prior bar as pivot after current bar closes.
         prior_bars = list(state.get("last_bars", []))
@@ -242,6 +289,39 @@ class YearlyOrbScaleout3Strategy(StrategyPlugin):
             }
         )
         state["last_bars"] = prior_bars[-3:]
+        year_bars = list(state.get("year_bars", []))
+        year_bars.append(
+            {
+                "ts": bar.ts,
+                "open": bar.open,
+                "high": bar.high,
+                "low": bar.low,
+                "close": bar.close,
+            }
+        )
+        state["year_bars"] = year_bars
+
+        if (
+            self._delivery_enabled()
+            and range_ready
+            and context.position_quantity != 0
+            and not range_close_exit
+            and state.get("full_tp_seen") != "true"
+            and not str(state.get("delivery_trade_id") or "")
+            and int(state.get("base_remaining_qty") or 0) > 0
+            and int(state.get("base_fill_bar_idx", -1)) >= 0
+        ):
+            delivery_orders = self._maybe_arm_delivery(bar, state, yor_high, yor_low)
+            if delivery_orders:
+                orders.extend(delivery_orders)
+                alerts.append(
+                    Alert.create(
+                        self.instance.strategy_id,
+                        "order_pending_verification",
+                        "Yearly ORB delivery scale-in intent created",
+                    )
+                )
+
         self.state = state
         self.save_state()
         return StrategyActions(orders, cancels, modifies, levels, alerts, causal_features)
@@ -257,12 +337,17 @@ class YearlyOrbScaleout3Strategy(StrategyPlugin):
                 "last_inside_swing_low": None,
                 "last_inside_swing_high": None,
                 "last_bars": [],
+                "year_bars": [],
                 "trade_seq": 0,
                 "active_trade_id": "",
                 "active_entry": None,
                 "active_tp": None,
                 "active_direction": "",
                 "full_tp_seen": "false",
+                "base_remaining_qty": 0,
+                "base_fill_bar_idx": -1,
+                "delivery_trade_id": "",
+                "delivery_used_swings": [],
                 "new_year_reset_needed": True,
             }
         return current
@@ -535,6 +620,185 @@ class YearlyOrbScaleout3Strategy(StrategyPlugin):
         return OrderIntent.create(
             strategy_id=self.instance.strategy_id,
             trade_id=trade_id,
+            instrument=self.instance.instrument,
+            account_mode=self.instance.account_mode,
+            side=side,
+            order_type="market",
+            quantity=qty,
+            reason=reason,
+            requires_verification=False,
+            reduce_only=True,
+            bracket_role="close",
+        )
+
+    def _delivery_enabled(self) -> bool:
+        return bool(self.config.get("delivery_scalein"))
+
+    def _clear_position_state(self, state: Dict[str, Any]) -> None:
+        state["active_trade_id"] = ""
+        state["active_entry"] = None
+        state["active_tp"] = None
+        state["active_direction"] = ""
+        state["full_tp_seen"] = "false"
+        state["base_remaining_qty"] = 0
+        state["base_fill_bar_idx"] = -1
+        state["delivery_trade_id"] = ""
+        # Keep delivery_used_swings for the year so the same swing cannot re-fire
+        # after a completed base trade flips back into another cycle. Research
+        # resets used swings per base trade; mirror that:
+        state["delivery_used_swings"] = []
+
+    def _bar_index_for_ts(self, state: Dict[str, Any], ts: str) -> Optional[int]:
+        day = str(ts)[:10]
+        year_bars = list(state.get("year_bars") or [])
+        for idx in range(len(year_bars) - 1, -1, -1):
+            if str(year_bars[idx].get("ts", ""))[:10] == day:
+                return idx
+        return len(year_bars) - 1 if year_bars else None
+
+    def _used_swing_set(self, state: Dict[str, Any]) -> Set[SwingKey]:
+        out: Set[SwingKey] = set()
+        for raw in state.get("delivery_used_swings") or []:
+            try:
+                out.add(decode_swing_key(str(raw)))
+            except (TypeError, ValueError):
+                continue
+        return out
+
+    def _maybe_arm_delivery(
+        self,
+        bar: Bar,
+        state: Dict[str, Any],
+        yor_high: float,
+        yor_low: float,
+    ) -> List[OrderIntent]:
+        direction = str(state.get("active_direction") or "")
+        if direction not in {"long", "short"}:
+            return []
+        if direction == "long" and bar.close <= yor_high:
+            return []
+        if direction == "short" and bar.close >= yor_low:
+            return []
+
+        year_bars = list(state.get("year_bars") or [])
+        if len(year_bars) < 5:
+            return []
+        idx = len(year_bars) - 1
+        min_idx = int(state.get("base_fill_bar_idx", -1))
+        if min_idx < 0 or min_idx >= idx:
+            return []
+
+        tf = str(self.config.get("delivery_scale_swing_timeframe") or "weekly").lower()
+        swings = build_weekly_swings_on_daily(year_bars) if tf == "weekly" else build_daily_swings(year_bars)
+        used = self._used_swing_set(state)
+        signal = find_delivery_signal(
+            year_bars,
+            swings,
+            idx,
+            direction,
+            yor_high,
+            yor_low,
+            min_idx,
+            used,
+        )
+        if signal is None:
+            return []
+        levels = make_delivery_levels(
+            year_bars,
+            swings,
+            idx,
+            direction,
+            signal,
+            min_idx,
+            float(self.config.get("delivery_target_R") or 2.0),
+        )
+        if levels is None:
+            return []
+        entry, stop, target, key = levels
+        qty = int(self.config.get("delivery_scale_qty") or 1)
+        if qty <= 0:
+            return []
+
+        trade_seq = int(state.get("trade_seq", 0)) + 1
+        state["trade_seq"] = trade_seq
+        trade_id = "%s_%s_del_%02d" % (self.instance.strategy_id, state["year"], trade_seq)
+        state["delivery_trade_id"] = trade_id
+        used_list = list(state.get("delivery_used_swings") or [])
+        used_list.append(encode_swing_key(key))
+        state["delivery_used_swings"] = used_list
+
+        side = "buy" if direction == "long" else "sell"
+        return [
+            OrderIntent.create(
+                strategy_id=self.instance.strategy_id,
+                trade_id=trade_id,
+                instrument=self.instance.instrument,
+                account_mode=self.instance.account_mode,
+                side=side,
+                order_type="limit",
+                quantity=qty,
+                limit_price=entry,
+                reason="delivery_scale_entry",
+                requires_verification=True,
+                bracket_role="entry",
+                bracket_stop_price=stop,
+                bracket_target_price=target,
+                live_after_ts=bar.ts,
+                expires_after_ts="%s-12-31T23:59:59" % state["year"],
+            )
+        ]
+
+    def _cancel_delivery_orders(
+        self,
+        context: StrategyContext,
+        delivery_tid: str,
+        reason: str,
+    ) -> List[CancelIntent]:
+        out: List[CancelIntent] = []
+        for order in context.strategy_open_orders:
+            if order.trade_id == delivery_tid:
+                out.append(
+                    CancelIntent(
+                        strategy_id=self.instance.strategy_id,
+                        broker_order_id=order.broker_order_id,
+                        reason=reason,
+                    )
+                )
+        return out
+
+    def _cancel_delivery_pending_entries(
+        self,
+        context: StrategyContext,
+        delivery_tid: str,
+        reason: str,
+    ) -> List[CancelIntent]:
+        out: List[CancelIntent] = []
+        for order in context.strategy_open_orders:
+            if order.trade_id == delivery_tid and not order.reduce_only:
+                out.append(
+                    CancelIntent(
+                        strategy_id=self.instance.strategy_id,
+                        broker_order_id=order.broker_order_id,
+                        reason=reason,
+                    )
+                )
+        return out
+
+    def _delivery_has_open_position(self, context: StrategyContext, delivery_tid: str) -> bool:
+        # Net position is aggregated; treat any reduce-only resting for the
+        # delivery trade id as evidence the add-on fill is still open.
+        return any(
+            order.trade_id == delivery_tid and order.reduce_only
+            for order in context.strategy_open_orders
+        )
+
+    def _close_delivery_intent(self, context: StrategyContext, delivery_tid: str, reason: str) -> OrderIntent:
+        qty = abs(context.position_quantity)
+        # Close remaining net when base is flat; qty should be the add-on residue.
+        side = "sell" if context.position_quantity > 0 else "buy"
+        return OrderIntent.create(
+            strategy_id=self.instance.strategy_id,
+            trade_id=delivery_tid,
             instrument=self.instance.instrument,
             account_mode=self.instance.account_mode,
             side=side,

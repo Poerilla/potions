@@ -1,0 +1,53 @@
+daily bars: 6979
+START daily audjpy_yearly_orb_scaleout3
+DONE audjpy_yearly_orb_scaleout3 Net=JPY21133708 N/S=15.26
+START daily audjpy_yearly_orb_scaleout3_range_close_20pct
+DONE audjpy_yearly_orb_scaleout3_range_close_20pct Net=JPY-714747 N/S=-0.05
+START daily audjpy_monthly_orb_restricted_scaleout3
+DONE audjpy_monthly_orb_restricted_scaleout3 Net=JPY6365454 N/S=0.80
+START daily audjpy_monthly_orb_restricted_scaleout3_boundary_stop
+DONE audjpy_monthly_orb_restricted_scaleout3_boundary_stop Net=JPY3302238 N/S=0.44
+START daily audjpy_atr_daily_ladder112221_10max
+DONE audjpy_atr_daily_ladder112221_10max Net=JPY2110395 N/S=0.14
+START daily audjpy_atr_daily_3initial_10max
+DONE audjpy_atr_daily_3initial_10max Net=JPY1910289 N/S=0.12
+START daily audjpy_atr_weekly_2initial_3add_6max
+DONE audjpy_atr_weekly_2initial_3add_6max Net=JPY-1178014 N/S=-0.07
+STAGE daily DONE
+hourly bars: 139327
+START stpmc audjpy_hourly_st_pmc_base_1x_50sl_150tp
+DONE audjpy_hourly_st_pmc_base_1x_50sl_150tp Net=JPY602475 N/S=0.23
+START stpmc audjpy_hourly_st_pmc_sl40_tp120_3r
+DONE audjpy_hourly_st_pmc_sl40_tp120_3r Net=JPY335769 N/S=0.13
+START stpmc audjpy_hourly_st_pmc_sl25_tp75_3r
+DONE audjpy_hourly_st_pmc_sl25_tp75_3r Net=JPY4268501 N/S=2.47
+START stpmc audjpy_hourly_st_pmc_sl40_tp120_3r_ma_directional_prior
+DONE audjpy_hourly_st_pmc_sl40_tp120_3r_ma_directional_prior Net=JPY1089236 N/S=0.69
+STAGE stpmc DONE
+loading 1m for v2b prior-opposed...
+v2b regime sessions: 1716
+START v2b audjpy_v2b_oco_prior_opposed_S_1_1_3
+  v2b day 100/1716
+  v2b day 200/1716
+  v2b day 300/1716
+  v2b day 400/1716
+  v2b day 500/1716
+  v2b day 600/1716
+  v2b day 700/1716
+  v2b day 800/1716
+  v2b day 900/1716
+  v2b day 1000/1716
+  v2b day 1100/1716
+  v2b day 1200/1716
+  v2b day 1300/1716
+  v2b day 1400/1716
+  v2b day 1500/1716
+  v2b day 1600/1716
+  v2b day 1700/1716
+FAIL audjpy_v2b_oco_prior_opposed_S_1_1_3: fast_intraday_audit() got an unexpected keyword argument 'name'
+Traceback (most recent call last):
+  File "/home/tester/hsm/potions/live/audjpy_futures_strats_sweep.py", line 346, in run_v2b
+    audit = fast_intraday_audit(
+TypeError: fast_intraday_audit() got an unexpected keyword argument 'name'
+
+STAGE v2b DONE

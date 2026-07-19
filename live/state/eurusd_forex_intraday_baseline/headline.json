@@ -1,0 +1,17 @@
+{
+  "strategy_id": "eurusd_hourly_st_pmc_sl25_tp75_3r_ma_bull_prior",
+  "display_name": "EURUSD Forex Intraday Baseline \u2014 Hourly ST+PMC 25/75 + MA bull prior",
+  "net_usd": 23533.68,
+  "stress_dd_usd": -15745.46,
+  "closed_dd_usd": -15667.46,
+  "net_over_stress": 1.49,
+  "trades": 1148,
+  "win_rate_pct": 27.35,
+  "full_sample_daily_sharpe": 0.29,
+  "fee_per_unit_usd": 1.5,
+  "window": "2003-06 to 2026-03",
+  "causal_verdict": "PASS",
+  "promoted_as": "forex_intraday_baseline",
+  "state_root": "live/state/eurusd_overnight_sweep/st_pmc/states/eurusd_hourly_st_pmc_sl25_tp75_3r_ma_bull_prior",
+  "charts": "live/state/eurusd_overnight_sweep/st_pmc/charts/eurusd_hourly_st_pmc_sl25_tp75_3r_ma_bull_prior/"
+}

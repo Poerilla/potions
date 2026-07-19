@@ -1,0 +1,5 @@
+candidate,slug,entry_qty,runner,flip_after_stop,instrument,units,trades,campaigns,win_rate_pct,net_usd,close_mtm_dd_usd,intrabar_mtm_dd_usd,max_open_units,net_over_stress_dd
+EURUSD First-break opp TP25/1R/1-runner,eurusd_monthly_orb_fbo_tp25_1r_r1,3,1,False,EURUSD,519,173,173,57.2,31394.50,-42746.00,-44792.00,3,0.70
+EURUSD First-break opp TP25/1R/2-runner,eurusd_monthly_orb_fbo_tp25_1r_r2,4,2,False,EURUSD,692,173,173,54.9,44130.50,-53608.00,-56936.00,4,0.78
+EURUSD First-break opp TP25/1R/3-runner,eurusd_monthly_orb_fbo_tp25_1r_r3,5,3,False,EURUSD,865,173,173,50.3,56866.50,-66549.75,-71159.75,5,0.80
+EURUSD First-break opp + flip-after-stop TP25/1R/r1,eurusd_monthly_orb_fbo_tp25_1r_r1_flip,3,1,True,EURUSD,576,192,192,55.7,34266.50,-43491.75,-44127.75,3,0.78

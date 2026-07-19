@@ -1,0 +1,35 @@
+Loading 15m bars 2015-01-01 → 2026-03-31 (exit_mode=close) ...
+Loading FX CSV /home/tester/hsm/potions/fx/eurusd_1m.csv (EURUSD) ...
+  7,163 NY dates with bars
+  280644 bars
+  replayed 20000/280644
+  replayed 40000/280644
+  replayed 60000/280644
+  replayed 80000/280644
+  replayed 100000/280644
+  replayed 120000/280644
+  replayed 140000/280644
+  replayed 160000/280644
+  replayed 180000/280644
+  replayed 200000/280644
+  replayed 220000/280644
+  replayed 240000/280644
+  replayed 260000/280644
+  replayed 280000/280644
+{
+  "strategy_id": "eurusd_intraday_st_dca_15m_0p5x5_close",
+  "exit_mode": "close",
+  "trades": 8210,
+  "units": 38815,
+  "net_usd": -435438.75,
+  "closed_dd_usd": -436602.5,
+  "stress_dd_usd": -436665.5,
+  "net_over_stress": -0.997,
+  "win_units": 12341,
+  "win_rate_pct": 31.79,
+  "max_open_units": 5,
+  "window": "2015-01-01 \u2192 2026-03-31",
+  "unit_definition": "1 unit = 0.5 standard lot",
+  "state_root": "/home/tester/hsm/potions/live/state/eurusd_intraday_st_dca_broker/states/eurusd_intraday_st_dca_15m_0p5x5_close"
+}
+Wrote /home/tester/hsm/potions/live/state/eurusd_intraday_st_dca_broker/SUMMARY.md

@@ -1,7 +1,7 @@
 # Potions Live Platform — External Scrutiny Reference
 
 **Version:** 0.4  
-**Date:** 2026-07-16  
+**Date:** 2026-07-17  
 **Audience:** External quants, developers, allocator diligence reviewers  
 **Scope:** Platform machinery only — not strategy rule definitions. Promotion status, rule-family names, and proprietary signal definitions are intentionally kept in internal research trackers. For validation design see [`live/specs/CAUSAL_VALIDATION_MASTER_SPEC.md`](specs/CAUSAL_VALIDATION_MASTER_SPEC.md). For audit pass/fail see [`data/docs/AUDIT_TRACKER.md`](../data/docs/AUDIT_TRACKER.md).
 
@@ -281,3 +281,9 @@ Outputs: `SCORECARD_REPORT.md`, `index.html`, `scorecard_data.json`, one-page va
 ## Maintenance
 
 Any change to fill semantics, causality guards, or reported metrics **must update this file** in the same PR as code/tests.
+
+---
+
+## Appendix — Promoted FX intraday sleeve (research pointer)
+
+As of **2026-07-17**, the internal EURUSD **forex intraday baseline** is Hourly ST+PMC **25/75 3R + MA bull prior** (`eurusd_hourly_st_pmc_sl25_tp75_3r_ma_bull_prior`). Causal fill/feature check **PASS**. Artifacts: `live/state/eurusd_forex_intraday_baseline/`. Platform machinery for this sleeve is the standard `HourlyStPmcRetestStrategy` plugin + `PaperBroker` path (§5–§6).

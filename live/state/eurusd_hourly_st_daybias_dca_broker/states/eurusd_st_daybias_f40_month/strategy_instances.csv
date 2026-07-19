@@ -1,0 +1,2 @@
+strategy_id,strategy_type,version,instrument,broker_instrument,account_mode,enabled,timeframes,max_contracts,max_open_orders,config_json
+eurusd_st_daybias_f40_month,hourly_st_daybias_dca,v1,EURUSD,EURUSD,paper,true,"1h,1m",5,32,"{""add_qty"": 1, ""atr_len"": 14, ""atr_mult"": 3.0, ""bias_thresh"": 0.7, ""exit_period"": ""month"", ""max_adds"": 5, ""pullback_frac"": 0.4, ""tick_size"": 1e-05, ""timeframe"": ""1h""}"

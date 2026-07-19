@@ -64,6 +64,16 @@ class V2BScaleoutStrategy(StrategyPlugin):
             "arm_open_filter_at_or_only": False,
             "session_day_opens": {},
             "session_month_opens": {},
+            # Optional previous-month-close direction gate (checked vs bar close at arm):
+            # mode "fade":  Long if price < PMC; Short if price > PMC
+            # mode "follow": Long if price > PMC; Short if price < PMC
+            # Failed checks skip arm without marking entry_armed so later bars retry.
+            "use_pmc_fade_filter": False,
+            "pmc_bias_mode": "fade",
+            "session_prev_month_closes": {},
+            # Optional per-session earliest arm timestamp (ISO). Arms only when
+            # bar.ts >= this instant (e.g. after an hourly ST sweep). Missing → no delay.
+            "session_arm_after_ts": {},
         }
         try:
             self.config.update(json.loads(instance.config_json or "{}"))
@@ -183,6 +193,8 @@ class V2BScaleoutStrategy(StrategyPlugin):
             self._commit_state(state)
             return StrategyActions.empty()
 
+        state["last_bar_close"] = float(bar.close)
+
         if t >= self._time("eod_cutoff"):
             cancels.extend(self._cancel_all_open(context))
             if context.position_quantity != 0:
@@ -276,6 +288,7 @@ class V2BScaleoutStrategy(StrategyPlugin):
             "active_direction": "",
             "entry_armed": [],
             "open_filter_arm_attempted": False,
+            "last_bar_close": None,
             "last_exit_ts": "",
             "last_exit_direction": "",
             "opposite_confirmed": False,
@@ -370,6 +383,49 @@ class V2BScaleoutStrategy(StrategyPlugin):
             return float(price) < day_open and float(price) < month_open
         return False
 
+    def _pmc_fade_ok(self, session: str, direction: str, price: Optional[float]) -> bool:
+        """PMC direction gate. No-op when filter off.
+
+        ``pmc_bias_mode``:
+        - ``fade`` (default): Long below PMC, Short above PMC
+        - ``follow``: Long above PMC, Short below PMC
+        """
+        if not bool(self.config.get("use_pmc_fade_filter")):
+            return True
+        if price is None:
+            return False
+        pmc = _to_float((self.config.get("session_prev_month_closes") or {}).get(session))
+        if pmc is None:
+            return False
+        mode = str(self.config.get("pmc_bias_mode") or "fade").strip().lower()
+        above = float(price) > float(pmc)
+        below = float(price) < float(pmc)
+        if mode == "follow":
+            if direction == "Long":
+                return above
+            if direction == "Short":
+                return below
+            return False
+        # fade
+        if direction == "Long":
+            return below
+        if direction == "Short":
+            return above
+        return False
+
+    def _direction_filters_ok(self, session: str, direction: str, price: Optional[float]) -> bool:
+        return self._open_alignment_ok(session, direction, price) and self._pmc_fade_ok(session, direction, price)
+
+    def _arm_time_ok(self, session: str, ts: str) -> bool:
+        """True when session has no arm-after delay, or bar.ts has reached it."""
+        raw = (self.config.get("session_arm_after_ts") or {}).get(session)
+        if raw is None or raw == "":
+            return True
+        try:
+            return _parse_dt(ts) >= _parse_dt(str(raw))
+        except Exception:
+            return False
+
     def _arm_initial_entries(
         self,
         ts: str,
@@ -378,8 +434,10 @@ class V2BScaleoutStrategy(StrategyPlugin):
         *,
         price: Optional[float] = None,
     ) -> List[OrderIntent]:
+        session = str(state.get("session_date") or _parse_dt(ts).date().isoformat())
+        if not self._arm_time_ok(session, ts):
+            return []
         if directions is None:
-            session = str(state.get("session_date") or _parse_dt(ts).date().isoformat())
             directions = self._directions_for_session(session)
         if not directions:
             return []
@@ -403,7 +461,9 @@ class V2BScaleoutStrategy(StrategyPlugin):
             # Directional bias / long-only modes: do not reverse into the banned side.
             state["phase"] = "done"
             return []
-        return self._entry_orders(ts, state, [opposite], price=None)
+        # Prefer last bar close so PMC / open filters can evaluate on reverse arm.
+        ref_price = _to_float(state.get("last_bar_close"))
+        return self._entry_orders(ts, state, [opposite], price=ref_price)
 
     def _entry_orders(
         self,
@@ -419,11 +479,11 @@ class V2BScaleoutStrategy(StrategyPlugin):
             return []
         session = str(state.get("session_date") or _parse_dt(ts).date().isoformat())
         armed = set(str(x) for x in state.get("entry_armed", []))
-        # Only OCO if multiple directions survive open-alignment filtering.
+        # Only OCO if multiple directions survive open-alignment / PMC filtering.
         filtered = [
             d
             for d in directions
-            if d not in armed and self._open_alignment_ok(session, d, price)
+            if d not in armed and self._direction_filters_ok(session, d, price)
         ]
         if not filtered:
             return []
@@ -508,7 +568,8 @@ class V2BScaleoutStrategy(StrategyPlugin):
             prior_event = self._prior_opposite_event_for_entry(ts, direction)
             sizing = self._sizing_for_entry(ts, direction)
             open_ok = self._open_alignment_ok(session, direction, price)
-            allowed = direction not in armed and sizing is not None and open_ok
+            pmc_ok = self._pmc_fade_ok(session, direction, price)
+            allowed = direction not in armed and sizing is not None and open_ok and pmc_ok
             event_ts = str(prior_event.get("ts")) if prior_event else ts
             out.append(
                 feature_snapshot(
@@ -530,6 +591,9 @@ class V2BScaleoutStrategy(StrategyPlugin):
                         "range_low": range_low,
                         "open_alignment_ok": open_ok,
                         "use_open_alignment_filter": bool(self.config.get("use_open_alignment_filter")),
+                        "pmc_fade_ok": pmc_ok,
+                        "use_pmc_fade_filter": bool(self.config.get("use_pmc_fade_filter")),
+                        "pmc_bias_mode": str(self.config.get("pmc_bias_mode") or "fade"),
                     },
                 )
             )

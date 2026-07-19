@@ -12,6 +12,55 @@ Central index of execution variants explored in this workspace / chat threads.
 > Pre-fix snapshots are preserved next to each summary as
 > `*_before_realism_fixes.*`. See [`../../live/CHANGE_LOG.md`](../../live/CHANGE_LOG.md).
 
+## Forex Strategy Leaderboard
+
+EURUSD sleeves ranked by broker-like **Net/Stress** (Engine + `PaperBroker`, Histdata daily/hourly as noted). Fee conventions differ by family ($1.50 intraday ST+PMC pack vs $7/unit monthly ORB pack) — compare within sleeve, then across with that caveat.
+
+| Rank | Sleeve | Plugin / ID | Net | Stress DD | Net/Stress | WR | Role |
+|---|---|---|---:|---:|---:|---:|---|
+| 1 | **Monthly ORB FBO 1/1/3 + atr80 filter** (skip ATR14 pctl>0.80 months) | `monthly_orb_v2b_oco` + `entry_filter_csv` · `eurusd_monthly_orb_fbo_filt_atr80only_1_1_3` | **+$91.9k** | −$56.8k | **1.62** | 52.1% | **Promoted FX monthly sleeve (filtered)** |
+| 2 | **Hourly ST+PMC 25/75 + MA bull prior** | `hourly_st_pmc_retest` · `eurusd_hourly_st_pmc_sl25_tp75_3r_ma_bull_prior` | **+$23.5k** | −$15.7k | **1.49** | 27.4% | **Promoted FX intraday baseline** |
+| 3 | **Monthly ORB FBO 1/1/3** (0.25R/1R/2R, BE@TP25, close-SL) | `monthly_orb_v2b_oco` · `eurusd_monthly_orb_fbo_r2r_be1_1_1_3` | **+$77.3k** | −$74.0k | **1.04** | 50.3% | **Promoted FX monthly sleeve (unfiltered)** |
+| 4 | **Monthly ORB FBO 1/2/3** (same rules) | `monthly_orb_v2b_oco` · `eurusd_monthly_orb_fbo_r2r_be1_1_2_3` | **+$90.6k** | −$88.8k | **1.02** | 50.3% | **Promoted FX monthly sleeve (absolute net)** |
+| — | Monthly ORB FBO 1/1/3 + ema100(1h)+atr80 | same + filter csv | +$69.0k | −$40.4k | 1.71 | 50.7% | Lowest-stress variant; EMA leg costs net vs atr80-only |
+| — | Monthly ORB FBO 1/1/1 runner@2R | same plugin | +$38.2k | −$46.4k | 0.82 | 57.2% | Research / smaller size |
+| — | Monthly ORB limit-retest scaleout3 | `monthly_orb_restricted_scaleout3` | +$21.8k | −$48.3k | 0.45 | — | Prior monthly candidate; superseded for FBO |
+| — | Hourly ST day-bias DCA (f30 week) | `hourly_st_daybias_dca` | ~−$0.6k | — | −0.06 | — | Failed promote gate |
+
+**Promoted packs**
+
+- Intraday: [`../../live/state/eurusd_forex_intraday_baseline/`](../../live/state/eurusd_forex_intraday_baseline/)
+- Monthly FBO: [`../../live/state/eurusd_forex_monthly_orb_fbo_baseline/`](../../live/state/eurusd_forex_monthly_orb_fbo_baseline/) · stress source [`../../live/state/eurusd_monthly_orb_fbo_runner2r_be_tp1_broker/`](../../live/state/eurusd_monthly_orb_fbo_runner2r_be_tp1_broker/)
+- Filtered FBO A/B (atr80, ema100+atr80): [`../../live/state/eurusd_monthly_orb_fbo_filtered_broker/`](../../live/state/eurusd_monthly_orb_fbo_filtered_broker/) — filter mechanism `entry_filter_csv` in `live/strategies/monthly_orb_v2b_oco.py`; EMA100(1h) counterfactual did **not** survive in-engine rerun, atr80 did.
+
+**Cross-pair generalization (2026-07-19, [`../../live/state/fx_cross_pair_tracker_leaders/`](../../live/state/fx_cross_pair_tracker_leaders/)):**
+
+| Pair | FBO 1/1/3 base | FBO 1/1/3 atr80 | ST+PMC MA-bull |
+|---|---:|---:|---:|
+| EURUSD | 1.04 | **1.62** | **1.49** |
+| GBPUSD | 0.26 (stress −$659k) | **1.60** (stress −$69k) | **1.35** |
+| USDJPY | **3.30** | **4.25** | −0.65 |
+| AUDJPY | 0.58 | 0.46 | **1.30** |
+
+USDJPY is the strongest FBO pair tested; atr80 helped 5/6 USD-pair variants (rescued GBPUSD); AUDJPY weak for FBO but fine intraday. FBO does **not** transfer to equity index futures (ES/NQ/YM all fail, [`../../live/state/futures_monthly_orb_fbo_broker/`](../../live/state/futures_monthly_orb_fbo_broker/)).
+
+**Metals gambit + cross-universe top-4 (2026-07-19, [`../../live/state/metals_futures_strats_sweep/`](../../live/state/metals_futures_strats_sweep/), [`../../live/state/fx_metals_top4_report/`](../../live/state/fx_metals_top4_report/)):**
+
+XAUUSD/XAGUSD converted from `fx/raw/` (PV 100 / 1000). Silver 2011-01-20 100× spike fixed before final ranking. Monthly FBO fails on metals (same as indices).
+
+| Rank | Pair | Strategy | Net | MTM stress | **N/S** | CAGR | Sharpe | Max DD | Worst mo | Worst yr |
+|---:|---|---|---:|---:|---:|---:|---:|---:|---:|---:|
+| 1 | **AUDJPY** | Yearly ORB scaleout3 | +$194k | −$9.0k | **15.26** | 2.60% | **1.03*** | −2.7%* | −1.33% | −0.40% |
+| 2 | **XAUUSD** | Yearly ORB scaleout3 | +$541k | −$48k | **11.30** | 5.16% | 0.76 | −10.4% | −5.60% | −0.36% |
+| 3 | **XAGUSD** | Yearly ORB scaleout3 | +$121k | −$20k | **6.21** | 1.74% | 0.65 | −5.5% | −2.34% | −0.01% |
+| 4 | **USDJPY** | Monthly ORB FBO 1/1/3 atr80 | +$93k | −$27k | **4.25** | 1.39% | 0.29 | −9.0% | −4.94% | −4.23% |
+
+\*AUDJPY Sharpe/Max DD from validated `$250k` report (`audjpy_futures_strats_sweep/best_report_yearly_orb/`). Rank 5: XAUUSD ST+PMC MA-bull N/S **3.31**.
+
+**Monthly FBO rules (promoted):** OR = first 3 sessions → ignore first break → arm opposite stop → max 2/month → **1 @ 0.25R / N @ 1R / 3 @ 2R** → BE after TP25 → daily-close SL → month-end flatten. Plugin: `live/strategies/monthly_orb_v2b_oco.py`.
+
+**Post-TP2 path (1/1/3, n=60 TP2 hits):** after 1R, only **~42%** fill 2R; **~40%** touch entry/BE again; d+3 close still in favor **~49%** (coin flip). Study: [`../../live/state/eurusd_monthly_orb_fbo_runner2r_be_tp1_broker/post_tp2_study/SUMMARY.md`](../../live/state/eurusd_monthly_orb_fbo_runner2r_be_tp1_broker/post_tp2_study/SUMMARY.md).
+
 ## Intraday ORB Research Leader
 
 **Adaptive 50/150 v2b-only scaleout** remains the mature intraday ORB candidate, but the 2026-05 ordering/plugin audit demotes the headline `$83k` run from "live-real" to "scanner diagnostic."

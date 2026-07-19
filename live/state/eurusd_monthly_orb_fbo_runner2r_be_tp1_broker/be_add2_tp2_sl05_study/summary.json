@@ -1,0 +1,52 @@
+{
+  "rule": "On BE close-SL after TP25: do not close remaining; add 2 @ trigger close; manage kept+add with target TP2 (1R), SL=0.5R from entry, close-only; ME flatten.",
+  "primary_no_tp2_yet": {
+    "n": 41,
+    "delta_total": -26636.0,
+    "add_pnl_total": -9644.0,
+    "kept_vs_close": -16992.0,
+    "wr_delta": 24.4,
+    "avg_delta": -649.66,
+    "med_delta": -28.0,
+    "dd_delta": -37984.0,
+    "pct_tp2": 9.8,
+    "pct_sl05": 61.0,
+    "pct_same_bar_sl": 24.4,
+    "pct_me": 24.4,
+    "avg_penetration_r": 0.292,
+    "reasons": {
+      "sl05": 15,
+      "sl05_same_bar": 10,
+      "month_end": 10,
+      "tp2": 4,
+      "no_days_left": 2
+    }
+  },
+  "all_be_closes_incl_after_tp2": {
+    "n": 53,
+    "delta_total": -27197.0,
+    "add_pnl_total": -10070.0,
+    "kept_vs_close": -17127.0,
+    "wr_delta": 26.4,
+    "avg_delta": -513.15,
+    "med_delta": -28.0,
+    "dd_delta": -38403.0,
+    "pct_tp2": 7.5,
+    "pct_sl05": 56.6,
+    "pct_same_bar_sl": 18.9,
+    "pct_me": 28.3,
+    "avg_penetration_r": 0.277,
+    "reasons": {
+      "sl05": 20,
+      "month_end": 15,
+      "sl05_same_bar": 10,
+      "no_days_left": 4,
+      "tp2": 4
+    }
+  },
+  "base_book": 71226.5,
+  "book_if_primary_rule": 44590.5,
+  "book_if_all_be_closes": 44029.5,
+  "delta_primary": -26636.0,
+  "delta_all": -27197.0
+}

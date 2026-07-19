@@ -1,0 +1,34 @@
+START fbo_1_1_3_base_gbpusd
+DONE fbo_1_1_3_base_gbpusd n=195 WR=49.2 Net=USD173024 Stress=USD-659076 N/S=0.26
+START fbo_1_1_3_atr80_gbpusd
+DONE fbo_1_1_3_atr80_gbpusd n=169 WR=46.7 Net=USD110469 Stress=USD-69088 N/S=1.60
+START fbo_1_2_3_base_gbpusd
+DONE fbo_1_2_3_base_gbpusd n=195 WR=48.7 Net=USD220528 Stress=USD-791805 N/S=0.28
+START fbo_1_2_3_atr80_gbpusd
+DONE fbo_1_2_3_atr80_gbpusd n=169 WR=47.3 Net=USD137151 Stress=USD-84772 N/S=1.62
+START fbo_1_1_3_base_usdjpy
+DONE fbo_1_1_3_base_usdjpy n=175 WR=50.9 Net=JPY12997099 Stress=JPY-3943000 N/S=3.30
+START fbo_1_1_3_atr80_usdjpy
+DONE fbo_1_1_3_atr80_usdjpy n=156 WR=50.6 Net=JPY11867939 Stress=JPY-2792191 N/S=4.25
+START fbo_1_2_3_base_usdjpy
+DONE fbo_1_2_3_base_usdjpy n=175 WR=53.1 Net=JPY16164974 Stress=JPY-4631105 N/S=3.49
+START fbo_1_2_3_atr80_usdjpy
+DONE fbo_1_2_3_atr80_usdjpy n=156 WR=51.9 Net=JPY14347847 Stress=JPY-3474375 N/S=4.13
+START fbo_1_1_3_base_audjpy
+DONE fbo_1_1_3_base_audjpy n=162 WR=45.7 Net=JPY3477104 Stress=JPY-6044515 N/S=0.58
+START fbo_1_1_3_atr80_audjpy
+DONE fbo_1_1_3_atr80_audjpy n=143 WR=46.2 Net=JPY2908544 Stress=JPY-6267198 N/S=0.46
+START fbo_1_2_3_base_audjpy
+DONE fbo_1_2_3_base_audjpy n=162 WR=46.3 Net=JPY2722670 Stress=JPY-7399871 N/S=0.37
+START fbo_1_2_3_atr80_audjpy
+DONE fbo_1_2_3_atr80_audjpy n=143 WR=47.6 Net=JPY2602343 Stress=JPY-8076894 N/S=0.32
+START st_pmc GBPUSD (loading 1m→1h)
+  GBPUSD hourly bars: 142979
+DONE st_pmc GBPUSD Net=USD11933 N/S=1.35
+START st_pmc USDJPY (loading 1m→1h)
+  USDJPY hourly bars: 142657
+DONE st_pmc USDJPY Net=JPY-1803496 N/S=-0.65
+START st_pmc AUDJPY (loading 1m→1h)
+  AUDJPY hourly bars: 139327
+DONE st_pmc AUDJPY Net=JPY2790740 N/S=1.30
+ALL DONE

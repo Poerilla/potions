@@ -46,6 +46,8 @@ INSTRUMENTS: Dict[str, FuturesInstrument] = {
     "YM": FuturesInstrument("YM", 5.0, 1.0, "09:30", "16:00", "America/New_York", "YM.FUT", "YM", "{root}{month_code}{year_digit}", DEFAULT_ROLL_POLICY),
     "ES": FuturesInstrument("ES", 50.0, 0.25, "09:30", "16:00", "America/New_York", "ES.FUT", "ES", "{root}{month_code}{year_digit}", DEFAULT_ROLL_POLICY),
     "MES": FuturesInstrument("MES", 5.0, 0.25, "09:30", "16:00", "America/New_York", "MES.FUT", "MES", "{root}{month_code}{year_digit}", DEFAULT_ROLL_POLICY),
+    # FX spot treated as a research instrument on the same RTH replay grid.
+    "EURUSD": FuturesInstrument("EURUSD", 100000.0, 0.00001, "09:30", "16:00", "America/New_York", "EURUSD", "EURUSD", "EURUSD", DEFAULT_ROLL_POLICY),
 }
 
 

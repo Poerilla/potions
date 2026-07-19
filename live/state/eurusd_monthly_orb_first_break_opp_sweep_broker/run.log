@@ -1,0 +1,10 @@
+Loaded 7163 EURUSD daily bars
+START eurusd_monthly_orb_fbo_tp25_1r_r1
+DONE eurusd_monthly_orb_fbo_tp25_1r_r1 trades=173 units=519 Net=$31394.50 StressDD=$-44792.00 Net/Stress=0.70
+START eurusd_monthly_orb_fbo_tp25_1r_r2
+DONE eurusd_monthly_orb_fbo_tp25_1r_r2 trades=173 units=692 Net=$44130.50 StressDD=$-56936.00 Net/Stress=0.78
+START eurusd_monthly_orb_fbo_tp25_1r_r3
+DONE eurusd_monthly_orb_fbo_tp25_1r_r3 trades=173 units=865 Net=$56866.50 StressDD=$-71159.75 Net/Stress=0.80
+START eurusd_monthly_orb_fbo_tp25_1r_r1_flip
+DONE eurusd_monthly_orb_fbo_tp25_1r_r1_flip trades=192 units=576 Net=$34266.50 StressDD=$-44127.75 Net/Stress=0.78
+Wrote /home/tester/hsm/potions/live/state/eurusd_monthly_orb_first_break_opp_sweep_broker/SUMMARY.md
