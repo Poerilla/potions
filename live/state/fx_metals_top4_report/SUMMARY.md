@@ -52,4 +52,6 @@ strategies re-run (pre-fix silver yearly N/S 316 was a spike artifact).
 | XAGUSD | monthly_orb | Monthly ORB restricted scaleout3 boundary-stop entry | 639 | $-40,107 | $-139,148 | -0.29 |
 | XAGUSD | monthly_fbo | FBO 1_1_3 base | 154 | $-67,760 | $-141,739 | -0.48 |
 
-Packs: `live/state/metals_futures_strats_sweep/` · `live/state/fx_metals_top4_report/` · driver `live/metals_futures_strats_sweep.py`
+**Charts:** [`charts/INDEX.md`](charts/INDEX.md) — yearly ORB (24/pair), USDJPY FBO trade-months (134), XAU ST+PMC profitable (112, max 300).
+
+Packs: `live/state/metals_futures_strats_sweep/` · `live/state/fx_metals_top4_report/` · drivers `live/metals_futures_strats_sweep.py`, `live/fx_metals_top4_charts.py`

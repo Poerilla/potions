@@ -46,16 +46,18 @@ USDJPY is the strongest FBO pair tested; atr80 helped 5/6 USD-pair variants (res
 
 **Metals gambit + cross-universe top-4 (2026-07-19, [`../../live/state/metals_futures_strats_sweep/`](../../live/state/metals_futures_strats_sweep/), [`../../live/state/fx_metals_top4_report/`](../../live/state/fx_metals_top4_report/)):**
 
-XAUUSD/XAGUSD converted from `fx/raw/` (PV 100 / 1000). Silver 2011-01-20 100× spike fixed before final ranking. Monthly FBO fails on metals (same as indices).
+XAUUSD/XAGUSD converted from `fx/raw/` (PV 100 / 1000). Silver 2011-01-20 100× spike fixed before final ranking. Monthly FBO fails on metals (same as indices). **v2b prior-opposed** (ST+PMC 25/75 gate, 2015+) also fails: XAU N/S **−0.96**, XAG **−0.88** — same failure mode as AUDJPY (−0.95).
 
-| Rank | Pair | Strategy | Net | MTM stress | **N/S** | CAGR | Sharpe | Max DD | Worst mo | Worst yr |
-|---:|---|---|---:|---:|---:|---:|---:|---:|---:|---:|
-| 1 | **AUDJPY** | Yearly ORB scaleout3 | +$194k | −$9.0k | **15.26** | 2.60% | **1.03*** | −2.7%* | −1.33% | −0.40% |
-| 2 | **XAUUSD** | Yearly ORB scaleout3 | +$541k | −$48k | **11.30** | 5.16% | 0.76 | −10.4% | −5.60% | −0.36% |
-| 3 | **XAGUSD** | Yearly ORB scaleout3 | +$121k | −$20k | **6.21** | 1.74% | 0.65 | −5.5% | −2.34% | −0.01% |
-| 4 | **USDJPY** | Monthly ORB FBO 1/1/3 atr80 | +$93k | −$27k | **4.25** | 1.39% | 0.29 | −9.0% | −4.94% | −4.23% |
+| Rank | Pair | Strategy | Net | MTM stress | **N/S** | CAGR | Sharpe | Max DD | Worst mo | Worst yr | Charts |
+|---:|---|---|---:|---:|---:|---:|---:|---:|---:|---:|---|
+| 1 | **AUDJPY** | Yearly ORB scaleout3 | +$194k | −$9.0k | **15.26** | 2.60% | **1.03*** | −2.7%* | −1.33% | −0.40% | [24 yr](../../live/state/fx_metals_top4_report/charts/yearly_orb/audjpy_yearly_orb_scaleout3/INDEX.md) |
+| 2 | **XAUUSD** | Yearly ORB scaleout3 | +$541k | −$48k | **11.30** | 5.16% | 0.76 | −10.4% | −5.60% | −0.36% | [24 yr](../../live/state/fx_metals_top4_report/charts/yearly_orb/xauusd_yearly_orb_scaleout3/INDEX.md) |
+| 3 | **XAGUSD** | Yearly ORB scaleout3 | +$121k | −$20k | **6.21** | 1.74% | 0.65 | −5.5% | −2.34% | −0.01% | [24 yr](../../live/state/fx_metals_top4_report/charts/yearly_orb/xagusd_yearly_orb_scaleout3/INDEX.md) |
+| 4 | **USDJPY** | Monthly ORB FBO 1/1/3 atr80 | +$93k | −$27k | **4.25** | 1.39% | 0.29 | −9.0% | −4.94% | −4.23% | [134 mo](../../live/state/fx_metals_top4_report/charts/usdjpy_fbo_1_1_3_atr80/INDEX.md) |
 
-\*AUDJPY Sharpe/Max DD from validated `$250k` report (`audjpy_futures_strats_sweep/best_report_yearly_orb/`). Rank 5: XAUUSD ST+PMC MA-bull N/S **3.31**.
+\*AUDJPY Sharpe/Max DD from validated `$250k` report (`audjpy_futures_strats_sweep/best_report_yearly_orb/`). Rank 5: XAUUSD ST+PMC MA-bull N/S **3.31** — [112 profitable trade charts](../../live/state/fx_metals_top4_report/charts/xauusd_stpmc_ma_bull_profitable/INDEX.md).
+
+**Chart hub:** [`../../live/state/fx_metals_top4_report/charts/INDEX.md`](../../live/state/fx_metals_top4_report/charts/INDEX.md) (driver `live/fx_metals_top4_charts.py`).
 
 **Monthly FBO rules (promoted):** OR = first 3 sessions → ignore first break → arm opposite stop → max 2/month → **1 @ 0.25R / N @ 1R / 3 @ 2R** → BE after TP25 → daily-close SL → month-end flatten. Plugin: `live/strategies/monthly_orb_v2b_oco.py`.
 

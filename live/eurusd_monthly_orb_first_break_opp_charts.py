@@ -15,10 +15,8 @@ import matplotlib.pyplot as plt
 import pandas as pd
 from matplotlib.patches import Rectangle
 
-from .eurusd_overnight_sweep import INSTRUMENT
-
-
 REPO = Path(__file__).resolve().parents[1]
+DEFAULT_INSTRUMENT = "EURUSD"
 DEFAULT_STATE = (
     REPO
     / "live"
@@ -70,6 +68,7 @@ def _plot_month(
     out: Path,
     title: str,
     or_sessions: int = 3,
+    ylabel: str = "EURUSD",
 ) -> None:
     fig, ax = plt.subplots(figsize=(14, 7))
     xs = list(range(len(month_bars)))
@@ -128,7 +127,7 @@ def _plot_month(
         uniq.append((h, lab))
     ax.legend([h for h, _ in uniq], [lab for _, lab in uniq], loc="upper left", fontsize=8, ncol=2)
     ax.set_title(title)
-    ax.set_ylabel("EURUSD")
+    ax.set_ylabel(ylabel)
     ax.grid(True, alpha=0.18)
     labels_x = [pd.Timestamp(d).strftime("%m-%d") for d in month_bars["day"]]
     step = max(1, len(labels_x) // 10)
@@ -146,13 +145,20 @@ def run(
     or_sessions: int = 3,
     label: str = "First-break opposite",
     ladder_note: str = "Ladder 1@0.25R / 1@1R / runner@2R.",
+    instrument: str = DEFAULT_INSTRUMENT,
+    point_value: float = 100000.0,
+    fee_per_unit: float = 7.0,
+    max_charts: int = 300,
 ) -> List[Path]:
-    bars = _load_bars(state_root / "bars" / ("%s_D.csv" % INSTRUMENT))
+    instrument = instrument.upper()
+    bars = _load_bars(state_root / "bars" / ("%s_D.csv" % instrument))
     fills = _load_fills(state_root / "fills.csv")
     trade_months = sorted(fills.loc[fills["reason"] == "entry", "month"].unique())
+    if max_charts > 0 and len(trade_months) > max_charts:
+        trade_months = trade_months[-max_charts:]
     built: List[Path] = []
     index_lines = [
-        "# %s — trade months" % label,
+        "# %s %s — trade months" % (instrument, label),
         "",
         "Ignore first OR break → arm opposite. %s" % ladder_note,
         "Markers: entry (^/v), tp1, tp2, tp3 (*), close (x).",
@@ -168,8 +174,8 @@ def run(
             continue
         n_entry = int((mfill["reason"] == "entry").sum())
         out = output_root / year / ("%s.png" % mk)
-        title = "EURUSD %s — %s (%d entries)" % (label, mk, n_entry)
-        _plot_month(mbar, mfill, out, title, or_sessions=or_sessions)
+        title = "%s %s — %s (%d entries)" % (instrument, label, mk, n_entry)
+        _plot_month(mbar, mfill, out, title, or_sessions=or_sessions, ylabel=instrument)
         built.append(out)
         rel = "%s/%s.png" % (year, mk)
         index_lines.append("| %s | %d | [%s](%s) |" % (mk, n_entry, rel, rel))
@@ -178,8 +184,8 @@ def run(
     index_lines.append("")
     (output_root / "INDEX.md").write_text("\n".join(index_lines), encoding="utf-8")
     # also dump campaign ledger
-    FEE = 7.0
-    PV = 100000.0
+    FEE = float(fee_per_unit)
+    PV = float(point_value)
     rows = []
     for tid, g in fills.groupby("trade_id"):
         g = g.sort_values("day")
@@ -239,6 +245,10 @@ def main(argv: Optional[list] = None) -> int:
         type=str,
         default="Ladder 1@0.25R / 1@1R / runner@2R.",
     )
+    p.add_argument("--instrument", type=str, default=DEFAULT_INSTRUMENT)
+    p.add_argument("--point-value", type=float, default=100000.0)
+    p.add_argument("--fee", type=float, default=7.0)
+    p.add_argument("--max-charts", type=int, default=300)
     args = p.parse_args(argv)
     run(
         args.state_root,
@@ -246,6 +256,10 @@ def main(argv: Optional[list] = None) -> int:
         or_sessions=args.or_sessions,
         label=args.label,
         ladder_note=args.ladder_note,
+        instrument=args.instrument,
+        point_value=args.point_value,
+        fee_per_unit=args.fee,
+        max_charts=args.max_charts,
     )
     return 0
 

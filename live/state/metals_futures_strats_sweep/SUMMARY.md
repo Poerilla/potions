@@ -5,6 +5,8 @@ Engine + PaperBroker, 1-tick slip. Point values: **XAUUSD $100/pt**, **XAGUSD $1
 
 **2026-07-19 data fix:** 25 XAGUSD 1m bars on 2011-01-20 were ~100× too high; divided by 100 and re-ran all silver stages.
 
+**2026-07-19 v2b completeness:** prior-opposed S_1_1_3 gated by ST+PMC 25/75 (2015+ RTH, MA50>MA150 regime) — fails on both metals (same as AUDJPY/EURUSD).
+
 | Pair | Family | Strategy | Trades | Net | Stress DD | **N/S** |
 |---|---|---|---:|---:|---:|---:|
 | XAUUSD | yearly_orb | Yearly ORB scaleout3 | 91 | $541,254 | $-47,903 | **11.30** |
@@ -31,13 +33,16 @@ Engine + PaperBroker, 1-tick slip. Point values: **XAUUSD $100/pt**, **XAGUSD $1
 | XAGUSD | monthly_fbo | FBO 1_1_3 atr80 | 128 | $-7,392 | $-33,044 | **-0.22** |
 | XAGUSD | monthly_orb | Monthly ORB restricted scaleout3 boundary-stop entry | 639 | $-40,107 | $-139,148 | **-0.29** |
 | XAGUSD | monthly_fbo | FBO 1_1_3 base | 154 | $-67,760 | $-141,739 | **-0.48** |
+| XAGUSD | v2b_prior_opposed | v2b OCO prior-opposed S_1_1_3 (ST+PMC gate) | 67 | $-55,884 | $-63,485 | **-0.88** |
+| XAUUSD | v2b_prior_opposed | v2b OCO prior-opposed S_1_1_3 (ST+PMC gate) | 186 | $-332,540 | $-345,623 | **-0.96** |
 
 ## Takeaways
 
 1. **Yearly ORB scaleout3 wins both metals** — XAU N/S **11.3**; XAG N/S **6.21** (post-fix).
 2. **Gold ST+PMC MA-bull** is the best metals intraday sleeve (N/S **3.31**).
 3. **Monthly FBO does not transfer** (XAU ≤0.57; XAG negative).
-4. Silver ATR family is usable post-fix (N/S 1.2–1.9) but far behind yearly ORB.
+4. **v2b prior-opposed fails** — XAU −$333k / N/S **−0.96**; XAG −$56k / N/S **−0.88** (AUDJPY was −0.95).
+5. Silver ATR family is usable post-fix (N/S 1.2–1.9) but far behind yearly ORB.
 
 Cross-universe top-4: `../fx_metals_top4_report/SUMMARY.md`.
-Driver: `live/metals_futures_strats_sweep.py`.
+Driver: `live/metals_futures_strats_sweep.py` (stages: daily / stpmc / fbo / **v2b**).

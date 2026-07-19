@@ -136,3 +136,119 @@ STAGE all DONE
 STAGE all DONE
 
 [2026-07-19T15:28:46.978422Z] Silver data fix + full XAGUSD re-run; top4 rebuilt
+START v2b xauusd_v2b_prior_opposed_stpmc_only_S_1_1_3
+loading XAUUSD 1m for v2b prior-opposed...
+  XAUUSD v2b regime sessions: 50 | ST gate events days: 483
+FAIL xauusd_v2b_prior_opposed_stpmc_only_S_1_1_3: fast_intraday_audit() got an unexpected keyword argument 'name'
+Traceback (most recent call last):
+  File "/home/tester/hsm/potions/live/metals_futures_strats_sweep.py", line 488, in run_v2b
+    audit = fast_intraday_audit(
+TypeError: fast_intraday_audit() got an unexpected keyword argument 'name'
+
+STAGE v2b DONE
+START v2b xauusd_v2b_prior_opposed_stpmc_only_S_1_1_3
+START v2b xauusd_v2b_prior_opposed_stpmc_only_S_1_1_3
+loading XAUUSD 1m for v2b prior-opposed...
+loading XAUUSD 1m for v2b prior-opposed...
+Loading FX CSV /home/tester/hsm/potions/fx/xauusd_1m.csv (XAUUSD) ...
+  7,128 NY dates with bars
+  XAUUSD v2b regime sessions: 2324 | ST gate events days: 483
+  XAUUSD v2b regime sessions: 2324 | ST gate events days: 483
+  v2b XAUUSD day 100/2324
+  v2b XAUUSD day 100/2324
+  v2b XAUUSD day 200/2324
+  v2b XAUUSD day 200/2324
+  v2b XAUUSD day 300/2324
+  v2b XAUUSD day 300/2324
+  v2b XAUUSD day 400/2324
+  v2b XAUUSD day 400/2324
+  v2b XAUUSD day 500/2324
+  v2b XAUUSD day 500/2324
+  v2b XAUUSD day 600/2324
+  v2b XAUUSD day 600/2324
+  v2b XAUUSD day 700/2324
+  v2b XAUUSD day 700/2324
+  v2b XAUUSD day 800/2324
+  v2b XAUUSD day 800/2324
+  v2b XAUUSD day 900/2324
+  v2b XAUUSD day 900/2324
+  v2b XAUUSD day 1000/2324
+  v2b XAUUSD day 1000/2324
+  v2b XAUUSD day 1100/2324
+  v2b XAUUSD day 1100/2324
+  v2b XAUUSD day 1200/2324
+  v2b XAUUSD day 1200/2324
+  v2b XAUUSD day 1300/2324
+  v2b XAUUSD day 1300/2324
+  v2b XAUUSD day 1400/2324
+  v2b XAUUSD day 1400/2324
+  v2b XAUUSD day 1500/2324
+  v2b XAUUSD day 1500/2324
+  v2b XAUUSD day 1600/2324
+  v2b XAUUSD day 1600/2324
+  v2b XAUUSD day 1700/2324
+  v2b XAUUSD day 1700/2324
+  v2b XAUUSD day 1800/2324
+  v2b XAUUSD day 1800/2324
+  v2b XAUUSD day 1900/2324
+  v2b XAUUSD day 1900/2324
+  v2b XAUUSD day 2000/2324
+  v2b XAUUSD day 2000/2324
+  v2b XAUUSD day 2100/2324
+  v2b XAUUSD day 2100/2324
+  v2b XAUUSD day 2200/2324
+  v2b XAUUSD day 2200/2324
+  v2b XAUUSD day 2300/2324
+  v2b XAUUSD day 2300/2324
+DONE xauusd_v2b_prior_opposed_stpmc_only_S_1_1_3 Net=$-332540 N/S=-0.96 trades=186
+DONE xauusd_v2b_prior_opposed_stpmc_only_S_1_1_3 Net=$-332540 N/S=-0.96 trades=186
+START v2b xagusd_v2b_prior_opposed_stpmc_only_S_1_1_3
+START v2b xagusd_v2b_prior_opposed_stpmc_only_S_1_1_3
+loading XAGUSD 1m for v2b prior-opposed...
+loading XAGUSD 1m for v2b prior-opposed...
+Loading FX CSV /home/tester/hsm/potions/fx/xagusd_1m.csv (XAGUSD) ...
+  7,042 NY dates with bars
+  XAGUSD v2b regime sessions: 1891 | ST gate events days: 198
+  XAGUSD v2b regime sessions: 1891 | ST gate events days: 198
+  v2b XAGUSD day 100/1891
+  v2b XAGUSD day 100/1891
+  v2b XAGUSD day 200/1891
+  v2b XAGUSD day 200/1891
+  v2b XAGUSD day 300/1891
+  v2b XAGUSD day 300/1891
+  v2b XAGUSD day 400/1891
+  v2b XAGUSD day 400/1891
+  v2b XAGUSD day 500/1891
+  v2b XAGUSD day 500/1891
+  v2b XAGUSD day 600/1891
+  v2b XAGUSD day 600/1891
+  v2b XAGUSD day 700/1891
+  v2b XAGUSD day 700/1891
+  v2b XAGUSD day 800/1891
+  v2b XAGUSD day 800/1891
+  v2b XAGUSD day 900/1891
+  v2b XAGUSD day 900/1891
+  v2b XAGUSD day 1000/1891
+  v2b XAGUSD day 1000/1891
+  v2b XAGUSD day 1100/1891
+  v2b XAGUSD day 1100/1891
+  v2b XAGUSD day 1200/1891
+  v2b XAGUSD day 1200/1891
+  v2b XAGUSD day 1300/1891
+  v2b XAGUSD day 1300/1891
+  v2b XAGUSD day 1400/1891
+  v2b XAGUSD day 1400/1891
+  v2b XAGUSD day 1500/1891
+  v2b XAGUSD day 1500/1891
+  v2b XAGUSD day 1600/1891
+  v2b XAGUSD day 1600/1891
+  v2b XAGUSD day 1700/1891
+  v2b XAGUSD day 1700/1891
+  v2b XAGUSD day 1800/1891
+  v2b XAGUSD day 1800/1891
+DONE xagusd_v2b_prior_opposed_stpmc_only_S_1_1_3 Net=$-55883 N/S=-0.88 trades=67
+DONE xagusd_v2b_prior_opposed_stpmc_only_S_1_1_3 Net=$-55883 N/S=-0.88 trades=67
+STAGE v2b DONE
+STAGE v2b DONE
+
+[2026-07-19T18:50:39.403235Z] v2b prior-opposed complete: XAU N/S -0.96, XAG N/S -0.88

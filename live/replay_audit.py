@@ -16,6 +16,11 @@ POINT_VALUES = {
     "MYM": 0.5,
     "YM": 5.0,
     "EURUSD": 100000.0,  # 1 standard lot: $10/pip
+    "GBPUSD": 100000.0,
+    "USDJPY": 100000.0,  # P&L in JPY per 1.0 price move
+    "AUDJPY": 100000.0,
+    "XAUUSD": 100.0,  # 100oz
+    "XAGUSD": 1000.0,  # 1000oz mini
 }
 
 
