@@ -11,7 +11,7 @@ strategies re-run (pre-fix silver yearly N/S 316 was a spike artifact).
 
 | Rank | Pair | Strategy | Net (USD) | MTM stress | **N/S** | CAGR | Sharpe | Max DD | Worst mo | Worst yr | n | WR |
 |---:|---|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
-| 1 | **AUDJPY** | Yearly ORB scaleout3 | $193,803 | $-9,036 | **15.26** | 2.60% | 0.69 | -2.99% | -1.33% | -0.40% | 146 | 88.8% |
+| 1 | **AUDJPY** | Yearly ORB scaleout3 | $193,803 | $-9,036 | **15.26** | 2.60% | **1.03** | **-2.69%** | -1.33% | -0.40% | 146 | 88.8% |
 | 2 | **XAUUSD** | Yearly ORB scaleout3 | $541,254 | $-47,903 | **11.30** | 5.16% | 0.76 | -10.36% | -5.60% | -0.36% | 91 | 93.8% |
 | 3 | **XAGUSD** | Yearly ORB scaleout3 | $121,185 | $-19,508 | **6.21** | 1.74% | 0.65 | -5.54% | -2.34% | -0.01% | 89 | 88.8% |
 | 4 | **USDJPY** | Monthly ORB FBO 1/1/3 atr80 | $93,082 | $-26,548 | **4.25** | 1.39% | 0.29 | -9.00% | -4.94% | -4.23% | 156 | 50.6% |
