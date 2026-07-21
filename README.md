@@ -8,6 +8,7 @@ of truth is the strategy tracker:
 - Fair capital benchmark: [`mnq/case_studies/fair_benchmark_comparison/TOP_STRATS.md`](mnq/case_studies/fair_benchmark_comparison/TOP_STRATS.md)
 - Broker realism notes: [`live/CHANGE_LOG.md`](live/CHANGE_LOG.md)
 - Start-small execution plan: [`live/specs/START_SMALL_BROKER_EXECUTION_PLAN.md`](live/specs/START_SMALL_BROKER_EXECUTION_PLAN.md)
+- FX Monday OR research (2026-07-21): [`live/state/eurusd_monday_or_breakout_15m/RESEARCH.md`](live/state/eurusd_monday_or_breakout_15m/RESEARCH.md) · family [`…/MONDAY_ORB_FAMILY.md`](live/state/eurusd_monday_or_breakout_15m/MONDAY_ORB_FAMILY.md) · broker sizing [`live/state/monday_or_sizing_sweep_broker/INDEX.md`](live/state/monday_or_sizing_sweep_broker/INDEX.md) · pre-sweep cross-pair [`live/state/fx_monday_or_breakout_broker/SUMMARY.md`](live/state/fx_monday_or_breakout_broker/SUMMARY.md)
 
 ## Current Status
 

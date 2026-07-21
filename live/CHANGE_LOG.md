@@ -1,5 +1,71 @@
 # Live Runtime CHANGE_LOG
 
+## 2026-07-21 — Monday OR Phase 2 extended (GBP/AUD/XAU; ex-silver)
+
+- Ran Phase 2 robustness on **GBPUSD `M1_S1_R2`**, **AUDJPY `M1_S2_R2`**,
+  **XAUUSD `M2_S2_R3`**. Silver excluded.
+- Sub-periods: AUDJPY **PASS** 3/3; XAU **PASS** 2/3; GBPUSD **FAIL** 1/3
+  (same post-2019 softness as EURUSD).
+- DD sensitivity: all three tags **PASS** (±30% N/S band).
+- Specs + deployment rules updated; AUDJPY optional satellite; XAU heat caution;
+  GBP paper-only. Hub: `live/state/monday_or_phase2/`.
+
+## 2026-07-21 — Monday OR Phase 2 hardening complete
+
+- Locked pair tags (`live/monday_or_phase2_tags.py`): EURUSD `M1_S2_R2`,
+  USDJPY `M2_S3_R1` / alt `M2_S3_R2`. Wired into `fx_monday_or_breakout_broker`.
+- Robustness (`live/monday_or_phase2_robustness.py`): sub-periods, clustering,
+  DD sensitivity (25/45, 35/55). Hub: `live/state/monday_or_phase2/`.
+- **USDJPY PASS** (3/3 slices, sensitivity OK) → live/paper eligible under 3–5M.
+- **EURUSD paper-only** (2020–22 / 2023+ slices negative) despite full-sample N/S 1.74.
+- Specs + deployment rules + STRATEGY_TRACKER report checklist closed.
+  Phase 3 = USDJPY-first track-record.
+
+## 2026-07-21 — Monday OR sizing sweep all FX + metals
+
+- Extended broker Phase 1 to **GBPUSD, AUDJPY, XAUUSD, XAGUSD** (27 cells each).
+  Hub: `live/state/monday_or_sizing_sweep_broker/SUMMARY_ALL.md`.
+- Cross-pair #1 by N/S: USDJPY `M2_S3_R1` **8.20** · GBPUSD `M1_S1_R2` **2.67** ·
+  XAUUSD `M2_S2_R3` **1.90** (high heat) · AUDJPY `M1_S2_R2` **1.83** ·
+  EURUSD `M1_S2_R2` **1.74** · XAGUSD fail (−0.97).
+
+## 2026-07-21 — Monday OR sizing sweep through broker
+
+- Ran all 27 Phase 1 cells × EURUSD + USDJPY via Engine + PaperBroker
+  (`live/monday_or_sizing_sweep_broker.py`). Ranked by ≈USD Net/Stress.
+- **EURUSD #1 `M1_S2_R2`**: N/S **1.74** (+$123k / −$71k) — confirms pandas winner;
+  **beats ST+PMC 1.49**. Baseline `M1_S1_R1` was 0.83.
+- **USDJPY #1 `M2_S3_R1`**: N/S **8.20** (+$219k / −$27k); near-tie `M2_S3_R2` at 8.19.
+  Pandas pick `M3_S3_R2` is broker #3 (7.54). EURUSD light-sidecar is weak on USDJPY.
+- Hub: `live/state/monday_or_sizing_sweep_broker/INDEX.md`. Docs: MONDAY_ORB_FAMILY,
+  RESEARCH, STRATEGY_TRACKER Forex leaderboard.
+
+## 2026-07-20 — Monday OR sizing sweep Phase 1
+
+- Adapted generic sizing plan to **shifted-primary** sidecar (not same-direction
+  SL re-entry). Dimensions: main DD-split (M*), shifted size (S*), max primary
+  trades/week (R*). Driver: `live/monday_or_sizing_sweep.py`.
+- Phase 1 (27 cells): EURUSD winner **`M1_S2_R2`** CE **3.28** (vs 2.21 baseline);
+  USDJPY winner **`M3_S3_R2`** CE **13.37** (vs 8.90). Theme: max primary/week
+  2→3 helps; EURUSD prefers lighter shifted, USDJPY smaller main + heavier shifted.
+- Artifacts: `live/state/monday_or_sizing_sweep/`, `…_usdjpy/`, `PHASE1_RESULTS.md`.
+
+## 2026-07-20 — FX Monday OR breakout (research → StrategyPlugin → cross-pair)
+
+- Built **Monday opening-range breakout** family on EURUSD 15m: Mon H/L → Tue–Fri
+  close breakout → **3** lots, drop **2**@30% DD, cut **1**@50% (no runner), SL=1R
+  TP=2R, max 2 primary/week. HTF skip when 1h MA50/150 **and** OBV×SMA20 both opposed.
+- Sidecar path: reverse fades tested; **parallel shifted primary** (failed MonH →
+  same structure at MonL, and mirror) is research CE leader at **2.21** Net/|DD|
+  (+$124.6k / −$56.4k closed). Exclusive-wait shifted rejected (1.89).
+- New plugin `monday_or_breakout` + driver `live/fx_monday_or_breakout_broker.py`.
+  Broker-like (1-tick slip, $1.50/unit) across `fx/raw`: **USDJPY 4.27**, **GBPUSD 1.87**,
+  AUDJPY 1.07, XAU 1.04, **EURUSD 0.83**, XAG −1.00 (≈USD N/S). EURUSD does **not**
+  beat promoted ST+PMC intraday (1.49); USDJPY/GBPUSD are the viability story.
+- Docs: `live/state/eurusd_monday_or_breakout_15m/{MONDAY_ORB_FAMILY,RESEARCH}.md`,
+  `live/state/fx_monday_or_breakout_broker/{SUMMARY,PROGRESS}.md`, STRATEGY_TRACKER
+  Forex section. USDJPY W/L charts: `…/charts_usdjpy/{winners,losers}/`.
+
 ## 2026-07-16 — Cross-market resting-limit hour-complete + lookahead re-review
 
 - NQ hour-complete baseline re-reviewed: **SOLID** for minute-by-minute execution

@@ -14,15 +14,17 @@ Central index of execution variants explored in this workspace / chat threads.
 
 ## Forex Strategy Leaderboard
 
-EURUSD sleeves ranked by broker-like **Net/Stress** (Engine + `PaperBroker`, Histdata daily/hourly as noted). Fee conventions differ by family ($1.50 intraday ST+PMC pack vs $7/unit monthly ORB pack) — compare within sleeve, then across with that caveat.
+EURUSD sleeves ranked by broker-like **Net/Stress** (Engine + `PaperBroker`, Histdata daily/hourly as noted). Fee conventions differ by family ($1.50 intraday ST+PMC / Monday OR pack vs $7/unit monthly ORB pack) — compare within sleeve, then across with that caveat.
 
 | Rank | Sleeve | Plugin / ID | Net | Stress DD | Net/Stress | WR | Role |
 |---|---|---|---:|---:|---:|---:|---|
-| 1 | **Monthly ORB FBO 1/1/3 + atr80 filter** (skip ATR14 pctl>0.80 months) | `monthly_orb_v2b_oco` + `entry_filter_csv` · `eurusd_monthly_orb_fbo_filt_atr80only_1_1_3` | **+$91.9k** | −$56.8k | **1.62** | 52.1% | **Promoted FX monthly sleeve (filtered)** |
-| 2 | **Hourly ST+PMC 25/75 + MA bull prior** | `hourly_st_pmc_retest` · `eurusd_hourly_st_pmc_sl25_tp75_3r_ma_bull_prior` | **+$23.5k** | −$15.7k | **1.49** | 27.4% | **Promoted FX intraday baseline** |
-| 3 | **Monthly ORB FBO 1/1/3** (0.25R/1R/2R, BE@TP25, close-SL) | `monthly_orb_v2b_oco` · `eurusd_monthly_orb_fbo_r2r_be1_1_1_3` | **+$77.3k** | −$74.0k | **1.04** | 50.3% | **Promoted FX monthly sleeve (unfiltered)** |
-| 4 | **Monthly ORB FBO 1/2/3** (same rules) | `monthly_orb_v2b_oco` · `eurusd_monthly_orb_fbo_r2r_be1_1_2_3` | **+$90.6k** | −$88.8k | **1.02** | 50.3% | **Promoted FX monthly sleeve (absolute net)** |
-| — | Monthly ORB FBO 1/1/3 + ema100(1h)+atr80 | same + filter csv | +$69.0k | −$40.4k | 1.71 | 50.7% | Lowest-stress variant; EMA leg costs net vs atr80-only |
+| 1 | **Monday OR `M1_S2_R2`** (15m, light shifted, max 3/wk) | `monday_or_breakout` · Phase 2 | **+$123.3k** | −$70.9k | **1.74** | — | **Phase 2 hardened · paper-only** (sub-period fail 2020+); full-sample beats ST+PMC · [report](#monday-or-fx-strategy-tracker-report) |
+| — | Monthly ORB FBO 1/1/3 + ema100(1h)+atr80 | same + filter csv | +$69.0k | −$40.4k | 1.71 | 50.7% | Lowest-stress FBO variant; EMA leg costs net vs atr80-only |
+| 2 | **Monthly ORB FBO 1/1/3 + atr80 filter** | `monthly_orb_v2b_oco` + `entry_filter_csv` · `eurusd_monthly_orb_fbo_filt_atr80only_1_1_3` | **+$91.9k** | −$56.8k | **1.62** | 52.1% | **Promoted FX monthly sleeve (filtered)** |
+| 3 | **Hourly ST+PMC 25/75 + MA bull prior** | `hourly_st_pmc_retest` · `eurusd_hourly_st_pmc_sl25_tp75_3r_ma_bull_prior` | **+$23.5k** | −$15.7k | **1.49** | 27.4% | Prior promoted FX intraday baseline |
+| 4 | **Monthly ORB FBO 1/1/3** (0.25R/1R/2R, BE@TP25, close-SL) | `monthly_orb_v2b_oco` · `eurusd_monthly_orb_fbo_r2r_be1_1_1_3` | **+$77.3k** | −$74.0k | **1.04** | 50.3% | **Promoted FX monthly sleeve (unfiltered)** |
+| 5 | **Monthly ORB FBO 1/2/3** (same rules) | `monthly_orb_v2b_oco` · `eurusd_monthly_orb_fbo_r2r_be1_1_2_3` | **+$90.6k** | −$88.8k | **1.02** | 50.3% | **Promoted FX monthly sleeve (absolute net)** |
+| — | Monday OR pre-sweep `M1_S1_R1` | same plugin | +$76.0k | −$91.7k | **0.83** | — | Superseded by `M1_S2_R2` on broker |
 | — | Monthly ORB FBO 1/1/1 runner@2R | same plugin | +$38.2k | −$46.4k | 0.82 | 57.2% | Research / smaller size |
 | — | Monthly ORB limit-retest scaleout3 | `monthly_orb_restricted_scaleout3` | +$21.8k | −$48.3k | 0.45 | — | Prior monthly candidate; superseded for FBO |
 | — | Hourly ST day-bias DCA (f30 week) | `hourly_st_daybias_dca` | ~−$0.6k | — | −0.06 | — | Failed promote gate |
@@ -32,6 +34,185 @@ EURUSD sleeves ranked by broker-like **Net/Stress** (Engine + `PaperBroker`, His
 - Intraday: [`../../live/state/eurusd_forex_intraday_baseline/`](../../live/state/eurusd_forex_intraday_baseline/)
 - Monthly FBO: [`../../live/state/eurusd_forex_monthly_orb_fbo_baseline/`](../../live/state/eurusd_forex_monthly_orb_fbo_baseline/) · stress source [`../../live/state/eurusd_monthly_orb_fbo_runner2r_be_tp1_broker/`](../../live/state/eurusd_monthly_orb_fbo_runner2r_be_tp1_broker/)
 - Filtered FBO A/B (atr80, ema100+atr80): [`../../live/state/eurusd_monthly_orb_fbo_filtered_broker/`](../../live/state/eurusd_monthly_orb_fbo_filtered_broker/) — filter mechanism `entry_filter_csv` in `live/strategies/monthly_orb_v2b_oco.py`; EMA100(1h) counterfactual did **not** survive in-engine rerun, atr80 did.
+- Monday OR broker cross-pair: [`../../live/state/fx_monday_or_breakout_broker/`](../../live/state/fx_monday_or_breakout_broker/) · sizing sweep hub [`../../live/state/monday_or_sizing_sweep_broker/INDEX.md`](../../live/state/monday_or_sizing_sweep_broker/INDEX.md) · plugin `live/strategies/monday_or_breakout.py`
+
+**Monday OR — broker sizing sweep all pairs (2026-07-21):** 27 Phase 1 cells × EURUSD / GBPUSD / USDJPY / AUDJPY / XAUUSD / XAGUSD. Full report: [Monday OR FX Strategy Tracker Report](#monday-or-fx-strategy-tracker-report).
+
+| Pair | Broker #1 | N/S | ≈USD net | vs baseline | Status |
+|---|---|---:|---:|---|---|
+| **USDJPY** | **`M2_S3_R1`** | **8.20** | +$219k | 4.27 → 8.20 | **Phase 2 hardened** (live/paper eligible) |
+| **GBPUSD** | **`M1_S1_R2`** | **2.67** | +$231k | 1.87 → 2.67 | Phase 2 extended · **paper-only** (sub-period FAIL) |
+| **XAUUSD** | **`M2_S2_R3`** | **1.90** | +$438k | 1.04 → 1.90 (stress −$230k) | Phase 2 extended · heat / default do-not-fund |
+| **AUDJPY** | **`M1_S2_R2`** | **1.83** | +$96k | 1.07 → 1.83 | Phase 2 extended · satellite (sub-period PASS) |
+| **EURUSD** | **`M1_S2_R2`** | **1.74** | +$123k | 0.83 → 1.74; beats ST+PMC 1.49 | **Phase 2 hardened · paper-only** |
+| **XAGUSD** | `M2_S2_R3` | **−0.97** | −$224k | Still fail | **Excluded** from Phase 2 |
+
+Hub: [`…/monday_or_sizing_sweep_broker/INDEX.md`](../../live/state/monday_or_sizing_sweep_broker/INDEX.md) · Phase 2: [`…/monday_or_phase2/`](../../live/state/monday_or_phase2/). **Stance:** USDJPY-first Phase 2, EURUSD Phase 2; GBPUSD Phase 1 footnote; metals — gold dollars-with-heat only, silver reject.
+
+## Monday OR FX Strategy Tracker Report
+
+**Status:** Phase 1 complete · **Phase 2 hardening complete** (2026-07-21). Hub: [`monday_or_phase2/SUMMARY.md`](../../live/state/monday_or_phase2/SUMMARY.md).
+
+**Phase 2 outcome:** USDJPY `M2_S3_R1` **hardened** (sub-periods 3/3, sensitivity pass) → default live/paper candidate under caps. EURUSD `M1_S2_R2` **hardened but paper-only** — full-sample N/S 1.74 still leads ST+PMC, but 2020–2022 and 2023+ unit slices are negative.
+
+This report consolidates the Monday OR intraday FX strategy family into a single tracker entry, combining the original backtest rationale, the broker-like Phase 1 sizing sweep results, and the Phase 2 hardening plan. The goal is to maintain a current, allocator-ready reference for research status, promotion status, candidate configurations, and next validation steps.
+
+Hubs: [`monday_or_sizing_sweep_broker/INDEX.md`](../../live/state/monday_or_sizing_sweep_broker/INDEX.md) · [`RESEARCH.md`](../../live/state/eurusd_monday_or_breakout_15m/RESEARCH.md) · [`MONDAY_ORB_FAMILY.md`](../../live/state/eurusd_monday_or_breakout_15m/MONDAY_ORB_FAMILY.md) · Phase 2 [`monday_or_phase2/`](../../live/state/monday_or_phase2/).
+
+The current Phase 1 broker-like sweep established two pair-specific Phase 2 leaders: **EURUSD `M1_S2_R2`** and **USDJPY `M2_S3_R1`**, with `M2_S3_R2` retained as a close alternate for USDJPY. These findings materially improve on baseline Monday OR configurations and, in EURUSD, exceed the currently promoted FX intraday ST+PMC baseline on Net/Stress (1.74 vs 1.49).
+
+### Strategy family definition
+
+The Monday OR model is an intraday FX breakout framework with two linked components:
+
+- A **main leg** that enters on the Monday opening-range breakout and scales out based on drawdown buckets before the full symbolic stop.
+- A **shifted primary sidecar** that, after the main leg flats at the 50% drawdown bucket, waits for a breakout of the **opposite** Monday extreme (failed Mon high → short Mon low; mirror for failed Mon low) and runs the same DD-ladder structure.
+- A **re-entry limiter** that caps how many fresh primary attempts may occur within the week (`R1`=2, `R2`=3, `R3`=unlimited).
+
+The structural premise is that intraday FX breakouts frequently experience partial failure and stop-run behavior before a cleaner continuation emerges. The model monetizes the initial breakout and a shifted second chance at the opposite OR boundary, while truncating adverse excursions early rather than waiting for full-stop outcomes.
+
+### Backtest rationale
+
+#### Core behavioral hypothesis
+
+1. Initial breakouts often move in the expected direction but suffer meaningful early adverse excursion.
+2. Trades that extend to deeper drawdown are less likely to recover cleanly, making early scale-outs more capital-efficient.
+3. After a failed primary flats at 50% DD, the **opposite** Monday extreme is a secondary opportunity area (shifted primary), not a same-direction stop re-entry.
+
+#### Baseline implementation
+
+- **Main leg:** `M1` = 3 units total, 2 @ 30% DD, 1 @ 50% DD.
+- **Shifted sidecar:** `S1` = same structure as the main leg.
+- **Re-entry cap:** `R1` = max **2** primary trades/week.
+
+### Sizing tag reference
+
+#### Main-leg tags
+
+| Tag | Definition |
+|---|---|
+| `M1` | 3 units = 2 at 30% DD, 1 at 50% DD |
+| `M2` | 3 units = 1 at 30% DD, 2 at 50% DD |
+| `M3` | 2 units = 1 at 30% DD, 1 at 50% DD |
+
+#### Shifted-sidecar tags
+
+| Tag | Definition |
+|---|---|
+| `S1` | 3 units = 2 at 30% DD, 1 at 50% DD |
+| `S2` | 2 units = 1 at 30% DD, 1 at 50% DD |
+| `S3` | 4 units = 2 at 30% DD, 2 at 50% DD |
+
+#### Re-entry tags
+
+| Tag | Definition |
+|---|---|
+| `R1` | Max **2** primary entries/week (tighter) |
+| `R2` | Max **3** primary entries/week (more permissive) |
+| `R3` | Unlimited primary entries/week (research reserve) |
+
+### Phase 1 broker-like sweep
+
+#### Scope
+
+Phase 1 completed a 27-cell broker-like sweep through Engine + PaperBroker across **all six** instruments (EURUSD, GBPUSD, USDJPY, AUDJPY, XAUUSD, XAGUSD), ranked by ≈USD Net/Stress. Driver: `live/monday_or_sizing_sweep_broker.py`. **Phase 2 promotion anchors remain EURUSD and USDJPY only**; other pairs are footnotes.
+
+#### Phase 2 anchors (EURUSD / USDJPY)
+
+| Pair | Baseline `M1_S1_R1` | Broker #1 | Net/Stress | Approx. USD Net | Stress |
+|---|---|---|---:|---:|---:|
+| EURUSD | 0.83, +$76k | `M1_S2_R2` | 1.74 | +$123k | −$71k |
+| USDJPY | 4.27, +$138k | `M2_S3_R1` | 8.20 | +$219k | −$27k |
+
+EURUSD preferred a lighter shifted sidecar; USDJPY preferred a runner-heavier main leg plus a larger shifted sidecar.
+
+#### Pandas-to-broker comparison
+
+| Pair | Pandas #1 | Broker rank of pandas tag | Broker #1 |
+|---|---|---:|---|
+| EURUSD | `M1_S2_R2` | #1 | `M1_S2_R2` |
+| USDJPY | `M3_S3_R2` | #3 | `M2_S3_R1` |
+
+#### All-pairs Phase 1 footnote
+
+| Pair | Broker #1 | N/S | Status |
+|---|---|---:|---|
+| USDJPY | `M2_S3_R1` | 8.20 | Phase 2 hardened · live/paper |
+| GBPUSD | `M1_S1_R2` | 2.67 | Phase 2 extended · paper-only |
+| XAUUSD | `M2_S2_R3` | 1.90 | Phase 2 extended · heat / do-not-fund default |
+| AUDJPY | `M1_S2_R2` | 1.83 | Phase 2 extended · satellite |
+| EURUSD | `M1_S2_R2` | 1.74 | Phase 2 hardened · paper-only |
+| XAGUSD | `M2_S2_R3` | −0.97 | **Excluded** from Phase 2 |
+
+### Pair-specific read
+
+#### EURUSD — `M1_S2_R2`
+
+- Main: 3 = 2@30, 1@50; shifted: 2 = 1@30, 1@50; max primary/week: **3** (`R2`).
+- EURUSD rewards a cautious structure: front-loaded main risk reduction + light sidecar.
+- Roughly doubles baseline N/S (0.83 → 1.74) and exceeds ST+PMC 1.49.
+
+#### USDJPY — `M2_S3_R1` / `M2_S3_R2`
+
+- Primary: main 3 = 1@30, 2@50; shifted 4 = 2@30, 2@50; max **2**/week (`R1`) → N/S **8.20**.
+- Alternate `M2_S3_R2` (max 3/week): N/S **8.19**, ~+$9k more net, slightly more stress.
+- EURUSD’s light-sidecar recipe is **weak** on USDJPY (~rank 26) — do not cross-use.
+
+### Phase 2 hardening plan
+
+Phase 2 locks the pair-specific winners and hardens them for promotion — **not** a full re-sweep.
+
+| Workstream | Purpose | Deliverable |
+|---|---|---|
+| Sub-period stability | Edge across FX regimes | [`SUBPERIODS.md`](../../live/state/monday_or_phase2/SUBPERIODS.md) |
+| Monday/event clustering | Concentration check | [`CLUSTERING.md`](../../live/state/monday_or_phase2/CLUSTERING.md) |
+| Local sensitivity | 30%/50% not knife-edge | [`SENSITIVITY.md`](../../live/state/monday_or_phase2/SENSITIVITY.md) |
+| Live deployment thresholds | Operational sleeves | [`DEPLOYMENT_RULES.md`](../../live/state/monday_or_phase2/DEPLOYMENT_RULES.md) |
+| Capacity / specs | Allocator-ready pair docs | `SPEC_EURUSD_*.md`, `SPEC_USDJPY_*.md` |
+
+| Pair | Phase 1 status | Phase 2 outcome |
+|---|---|---|
+| EURUSD | Broker-confirmed leader | **Hardened · paper-only** (sub-period FAIL) |
+| USDJPY | Broker-confirmed leader | **Hardened** — default Monday OR USDJPY candidate |
+| USDJPY `M2_S3_R2` | Close alternate | Retained higher-dollar alternate (also 3/3 sub-periods) |
+
+### Do-not-cross-use rules
+
+- EURUSD uses **`M1_S2_R2`** only (light shifted sidecar).
+- USDJPY uses **`M2_S3_R1`** (or `M2_S3_R2` alt) only — runner-heavy main + heavy sidecar.
+- Do not transplant EURUSD’s light-sidecar recipe onto USDJPY (or vice versa).
+
+### Phase 2 checklist
+
+- [x] Fix EURUSD candidate: `M1_S2_R2` as default research-to-production config
+- [x] Fix USDJPY candidates: `M2_S3_R1` (primary), `M2_S3_R2` (alt); `M3_S3_R2` research-only #3
+- [x] Run robustness checks (sub-period, Monday clustering, DD sensitivity) → [`monday_or_phase2/`](../../live/state/monday_or_phase2/)
+- [x] Define live deployment rules → [`DEPLOYMENT_RULES.md`](../../live/state/monday_or_phase2/DEPLOYMENT_RULES.md)
+- [x] Produce pair-specific documentation → [`SPEC_EURUSD_M1_S2_R2.md`](../../live/state/monday_or_phase2/SPEC_EURUSD_M1_S2_R2.md), [`SPEC_USDJPY_M2_S3_R1.md`](../../live/state/monday_or_phase2/SPEC_USDJPY_M2_S3_R1.md)
+- [x] Record do-not-cross-use rules (EURUSD vs USDJPY patterns)
+
+### Suggested tracker fields (per candidate)
+
+| Field | EURUSD | USDJPY |
+|---|---|---|
+| Strategy family | Monday OR intraday FX | Monday OR intraday FX |
+| Current promoted tag | `M1_S2_R2` | `M2_S3_R1` |
+| Alternate tag | — | `M2_S3_R2` |
+| Baseline tag | `M1_S1_R1` | `M1_S1_R1` |
+| Broker Net/Stress | 1.74 | 8.20 |
+| Approx. USD Net | +$123k | +$219k |
+| Stress | −$71k | −$27k |
+| Structural read | Front-loaded main + light sidecar | Runner-heavy main + heavy sidecar |
+| Status | Phase 2 hardened · **paper-only** | Phase 2 hardened · live/paper eligible |
+| Next action | Regime filter / re-validate 2020+ | Phase 3 track-record under 3–5M cap |
+
+### Strategic significance
+
+This family broadens the intraday sleeve mix beyond plain CTA trend: Monday OR breakouts + shifted-primary re-engagement add non-vanilla intraday FX behaviour, capacity via major pairs, and a multi-horizon intraday + trend stack narrative. Futures intraday sleeves sell primarily on raw return; FX Monday OR sells on decorrelation, capacity, and differentiated market structure.
+
+### Current conclusions
+
+Phase 1 delivered pair-specific winners; Phase 2 locked and hardened them. **USDJPY `M2_S3_R1`** is the default Monday OR sleeve for live/paper under 3–5M caps. **EURUSD `M1_S2_R2`** remains the full-sample EURUSD N/S leader vs ST+PMC but is **paper-only** until post-2019 slices improve. Sizing is **not portable across pairs**. Phase 3 = live track-record (USDJPY-first).
 
 **Cross-pair generalization (2026-07-19, [`../../live/state/fx_cross_pair_tracker_leaders/`](../../live/state/fx_cross_pair_tracker_leaders/)):**
 
@@ -199,32 +380,60 @@ pre-fix snapshots live next to each summary as `*_before_realism_fixes.*`.
 
 Allocator-style reporting now lives beside the Net/Stress leaderboard. The generator is [`../../scripts/institutional_strategy_metrics.py`](../../scripts/institutional_strategy_metrics.py), with full output at [`../../live/state/institutional_strategy_metrics/SUMMARY.md`](../../live/state/institutional_strategy_metrics/SUMMARY.md) and machine-readable rows in `live/state/institutional_strategy_metrics/metrics.csv`.
 
-Method: each futures row is normalized to **3x intrabar stress-DD reference capital**, daily returns come from saved replay equity curves, QQQ adjusted-close returns are the benchmark, and the report adds **Sharpe, Sortino, Calmar/MAR, close-equity drawdown duration, unit-return skew where available, QQQ correlation/beta/downside capture, win rate, and profit factor**. These are still **hypothetical/backtested** metrics, not audited live performance. Drawdown duration is measured from close-equity high-water marks, while intrabar stress remains the capital anchor.
+Method: each row (futures, FX, metals) is normalized to **3x intrabar stress-DD reference capital**, daily returns come from saved replay equity curves, QQQ adjusted-close returns are the benchmark, and the report adds **Sharpe, Sortino, Calmar/MAR, close-equity drawdown duration, unit-return skew where available, QQQ correlation/beta/downside capture, win rate, and profit factor**. JPY-quoted books (USDJPY/AUDJPY) are converted to ≈USD at **110**. These are still **hypothetical/backtested** metrics, not audited live performance. Drawdown duration is measured from close-equity high-water marks, while intrabar stress remains the capital anchor.
 
 | Rank | Strategy | Ref Cap | Net | CAGR | Calmar | Sharpe | Sortino | DD duration | QQQ corr | QQQ downside capture | PF | Read |
 |---:|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---|
-| 1 | **NQ prior-opposed v2b resting-limit (hour-complete)** | $205,830 | $1,330,920 | — | — | — | — | — | — | — | 2.33 | **NQ baseline**. Lookahead review SOLID. |
-| 2 | **MNQ prior-opposed v2b resting-limit (hour-complete)** | $20,880 | $128,360 | — | — | — | — | — | — | — | 2.26 | Micro mirror; replaces legacy fill-stamp sleeve. |
-| 3 | **YM prior-opposed v2b resting-limit (hour-complete)** | $101,681 | $289,225 | — | — | — | — | — | — | — | 1.59 | Dow confirmation under causal gate. |
-| 4 | **MYM prior-opposed v2b resting-limit (hour-complete)** | $10,250 | $22,101 | — | — | — | — | — | — | — | 1.46 | Micro Dow; causal resting-limit. |
-| 5 | **ES prior-opposed v2b gate (legacy hourly fill)** | $99,490 | $348,688 | 35.1% | 1.05 | 2.26 | 2.51 | 326d | 0.04 | -0.32 | 2.08 | **Pending** resting-limit rerun (ES 1m DBN missing). |
-| 6 | **MNQ Yearly ORB scaleout3** | $32,007 | $67,942 | 18.1% | 0.54 | 0.91 | 0.63 | 378d | -0.09 | 0.03 | 32.63 | Low-frequency, lumpy, and capital efficient; PF is high because the sample is sparse. |
-| 7 | **MNQ ATR daily ladder 10-max** | $76,830 | $146,875 | 16.9% | 0.51 | 0.80 | 0.65 | 632d | 0.38 | 0.71 | 4.54 | Good net, but more QQQ-like and less diversifying. |
-| 8 | **MNQ ATR daily 3-initial 10-max** | $88,052 | $159,819 | 16.3% | 0.49 | 0.84 | 0.73 | 567d | 0.43 | 0.73 | 3.52 | Higher-net ATR expression with higher equity-beta behavior. |
-| 9 | **MNQ Yearly ORB 20% range-close** | $42,423 | $66,845 | 14.8% | 0.44 | 0.81 | 0.71 | 194d | -0.01 | 0.19 | 7.94 | Similar net to MNQ yearly baseline with shorter close-equity DD duration. |
-| 10 | **MYM hourly ST+PMC base 50/150** | $4,096 | $6,051 | 14.2% | 0.43 | 1.43 | 3.45 | 374d | 0.03 | -0.07 | 1.35 | Best MYM hourly row; small but clean. |
-| 11 | **MNQ hourly ST+PMC 25/75 3R** | $7,386 | $10,922 | 13.9% | 0.42 | 1.20 | 2.44 | 500d | 0.02 | -0.02 | 1.29 | Fast-feedback, low-heat MNQ hourly candidate. |
+| 1 | **NQ prior-opposed v2b resting-limit (hour-complete)** | $205,830 | $1,330,920 | 49.4% | 1.48 | 2.88 | 3.80 | 408d | -0.11 | -1.01 | 2.33 | **NQ baseline**. Lookahead review SOLID. |
+| 2 | **MNQ prior-opposed v2b resting-limit (hour-complete)** | $20,880 | $128,360 | 48.2% | 1.45 | 2.74 | 3.63 | 232d | -0.09 | -0.94 | 2.26 | Micro mirror; replaces legacy fill-stamp sleeve. |
+| 3 | **ES prior-opposed v2b gate (legacy hourly fill)** | $99,490 | $348,688 | 35.1% | 1.05 | 2.26 | 2.51 | 326d | 0.04 | -0.32 | 2.08 | **Pending** resting-limit rerun (ES 1m DBN missing). |
+| 4 | **YM prior-opposed v2b resting-limit (hour-complete)** | $101,681 | $289,225 | 30.4% | 0.91 | 1.76 | 2.13 | 300d | 0.02 | -0.21 | 1.59 | Dow confirmation under causal gate. |
+| 5 | **MYM prior-opposed v2b resting-limit (hour-complete)** | $10,250 | $22,101 | 25.8% | 0.77 | 1.45 | 1.70 | 371d | 0.02 | -0.13 | 1.46 | Micro Dow; causal resting-limit. |
+| 6 | **MNQ hourly ST+PMC 25/75 3R** | $7,386 | $10,922 | 19.9% | 0.60 | 1.34 | 2.51 | 449d | 0.01 | -0.04 | 1.29 | Fast-feedback, low-heat MNQ hourly candidate. |
+| 7 | **MNQ Yearly ORB scaleout3** | $32,007 | $67,942 | 18.1% | 0.54 | 0.91 | 0.63 | 378d | -0.09 | 0.03 | 32.63 | Low-frequency, lumpy, and capital efficient; PF is high because the sample is sparse. |
+| 8 | **MNQ ATR daily ladder 10-max** | $76,830 | $146,875 | 16.9% | 0.51 | 0.80 | 0.65 | 632d | 0.38 | 0.71 | 4.54 | Good net, but more QQQ-like and less diversifying. |
+| 9 | **MNQ ATR daily 3-initial 10-max** | $88,052 | $159,819 | 16.3% | 0.49 | 0.84 | 0.73 | 567d | 0.43 | 0.73 | 3.52 | Higher-net ATR expression with higher equity-beta behavior. |
+| 10 | **MNQ Yearly ORB 20% range-close** | $42,423 | $66,845 | 14.8% | 0.44 | 0.81 | 0.71 | 194d | -0.01 | 0.19 | 7.94 | Similar net to MNQ yearly baseline with shorter close-equity DD duration. |
+| 11 | **MYM hourly ST+PMC base 50/150** | $4,096 | $6,051 | 14.2% | 0.43 | 1.43 | 3.45 | 374d | 0.03 | -0.07 | 1.35 | Best MYM hourly row; small but clean. |
 | 12 | **NQ Yearly ORB scaleout3** | $320,160 | $850,314 | 8.6% | 0.26 | 0.72 | 0.45 | 533d | -0.03 | 0.07 | 18.18 | Huge absolute net, but lower normalized CAGR because of the long window and large stress anchor. |
+| 13 | **AUDJPY Yearly ORB scaleout3** | $37,763 | $192,125 | 8.4% | 0.25 | 0.70 | 0.40 | 654d | 0.05 | 0.02 | 8.85 | Top FX yearly ORB efficiency (≈USD @ 110). |
+| 14 | **XAUUSD Yearly ORB scaleout3** | $143,709 | $541,254 | 7.1% | 0.21 | 0.72 | 0.43 | 1471d | -0.01 | -0.04 | 15.08 | Metals yearly ORB leader by absolute net. |
+| 15 | **USDJPY Monday OR M2_S3_R1** | $80,065 | $218,890 | 5.9% | 0.18 | 0.47 | 0.62 | 743d | -0.03 | -0.11 | 1.14 | Phase 2 primary; sub-period PASS 3/3. |
+| 16 | **XAGUSD Yearly ORB scaleout3** | $58,524 | $121,185 | 5.0% | 0.15 | 0.62 | 0.32 | 1417d | -0.01 | -0.03 | 27.81 | Silver yearly ORB; Monday OR rejected separately. |
+| 17 | **USDJPY Monthly ORB FBO 1/1/3 atr80** | $76,152 | $107,890 | 3.9% | 0.12 | 0.32 | 0.18 | 1648d | -0.02 | -0.05 | 1.47 | Best USDJPY monthly FBO atr80 sleeve. |
+| 18 | **GBPUSD Monday OR M1_S1_R2** | $259,849 | $231,279 | 2.8% | 0.08 | 0.36 | 0.53 | 2706d | -0.03 | -0.02 | 1.10 | Paper-only (sub-period FAIL). |
+| 19 | **XAUUSD Monday OR M2_S2_R3** | $691,077 | $437,940 | 2.2% | 0.06 | 0.29 | 0.29 | 1331d | 0.01 | -0.02 | 1.09 | Sub-period PASS but heat caution / default do-not-fund. |
+| 20 | **AUDJPY Monday OR M1_S2_R2** | $156,726 | $95,822 | 2.2% | 0.06 | 0.21 | 0.28 | 1468d | -0.03 | -0.01 | 1.05 | Optional small satellite; sub-period PASS. |
+| 21 | **EURUSD Monday OR M1_S2_R2** | $212,575 | $123,271 | 2.0% | 0.06 | 0.26 | 0.36 | 3865d | -0.02 | -0.02 | 1.07 | Paper-only (sub-period FAIL). |
+| 22 | **EURUSD Monthly ORB FBO 1/1/3 atr80** | $170,485 | $91,898 | 1.9% | 0.06 | 0.23 | 0.11 | 5441d | -0.02 | -0.02 | 1.35 | Promoted FX monthly filtered sleeve. |
+| 23 | **GBPUSD Monthly ORB FBO 1/1/3 atr80** | $207,267 | $110,469 | 1.9% | 0.06 | 0.21 | 0.12 | 4734d | 0.01 | -0.01 | 1.29 | Cross-pair FBO atr80. |
+| 24 | **EURUSD hourly ST+PMC 25/75 MA-bull prior** | $47,236 | $23,534 | 1.8% | 0.05 | 0.29 | 0.38 | 4068d | -0.00 | 0.00 | 1.11 | Promoted FX intraday baseline. |
+| 25 | **GBPUSD hourly ST+PMC 25/75 MA-bull prior** | $26,583 | $11,933 | 1.6% | 0.05 | 0.15 | 0.21 | 3880d | 0.04 | 0.03 | 1.05 | Cross-pair ST+PMC MA-bull. |
+| 26 | **AUDJPY hourly ST+PMC 25/75 MA-bull prior** | $58,689 | $25,370 | 1.6% | 0.05 | 0.36 | 0.45 | 4054d | 0.08 | 0.03 | 1.13 | Cross-pair ST+PMC MA-bull. |
+| 27 | **AUDJPY Monthly ORB FBO 1/1/3 atr80** | $170,925 | $26,441 | 0.6% | 0.02 | 0.07 | 0.03 | 3134d | -0.01 | -0.01 | 1.08 | Cross-pair FBO atr80; weak N/S. |
 
-Current institutional read: the **prior-opposed family still dominates allocator metrics on the legacy fill-stamp books**, but **NQ promotion math must use resting-limit hour-complete** (**$1,330,920 / -$68,610 stress / 19.40 Net/Stress**) until Sharpe/Calmar are recomputed on that equity. Legacy NQ fill-stamp Sharpe/Sortino/Calmar below remain useful only as a diagnostic upper bound. Hourly ST+PMC rows are still useful as smaller sleeves; ATR rows remain growth systems with positive QQQ correlation.
+Current institutional read: **resting-limit hour-complete now has full allocator metrics** — NQ **49.4% CAGR / Calmar 1.48 / Sharpe 2.88** on **$205,830** ref cap (**$1,330,920** net). Legacy fill-stamp NQ remains a diagnostic upper bound only (~52% CAGR / Calmar ~1.57). FX/metals join the overlay: **AUDJPY/XAUUSD yearly ORB** lead cross-asset Calmar after futures; **USDJPY Monday OR M2_S3_R1** is the best Monday OR allocator row (Phase 2 primary); EUR/GBP Monday OR and most FX ST+PMC/FBO sleeves show long DD durations and low Calmar under the same 3× stress capital yardstick. Hourly ST+PMC futures rows remain useful as smaller sleeves; ATR rows remain growth systems with positive QQQ correlation.
 
 Next reporting upgrade for live/paper validation: every run should track expected vs actual fill price, queue/slippage delta, stop gap-through cost, missed fills, rejected orders, broker/local reconciliation deltas, and time-to-recover after live drawdowns. Those execution metrics are the bridge between a good backtest and something a CTM can diligence.
+
+### Target portfolio products (5% / 10% / 15% / 20%)
+
+Multi-tier suite sharing one sleeve universe; only risk weights and profit-lock thresholds change. Generator: [`../../scripts/portfolio_product_tiers.py`](../../scripts/portfolio_product_tiers.py). Hub: [`../../live/state/portfolio_product_tiers/SUMMARY.md`](../../live/state/portfolio_product_tiers/SUMMARY.md). Tier B replaces the prior single-product folder ([`target_10pct_portfolio/`](../../live/state/target_10pct_portfolio/README.md)).
+
+| Tier | Design Σ (haircuted) | Profit-lock CAGR 2010–2026 | Max DD | +Years | Median year | Role |
+|---|---:|---:|---:|---:|---:|---|
+| **A · 5%** | 5.2% | **11.2%** | -5.5% | 17/17 | 7.7% | Low-risk; trend/mild FX backbone; v2b ≤5% |
+| **B · 10%** | 11.7% | **14.4%** | -8.8% | 17/17 | 14.1% | Baseline medium product |
+| **C · 15%** | 14.9% | **18.4%** | -11.8% | 15/17 | 18.6% | More v2b + USDJPY Mon OR; raised lock thresholds |
+| **D · 20%** | 21.5% (no haircut) | **22.3%** | -11.4% | 17/17 | 19.3% | High-risk; full norm CAGRs; looser lock residual |
+
+Design Σ is the advertised risk budget (weight × haircuted CAGR). Realized compound paths run above target because good years stack — profit-lock is the operating control, not the static uncapped curve.
 
 ### Allocator validation / overfit defense
 
 The first institutional scorecard pass is now generated at [`../../live/state/strategy_validation_scorecard/SCORECARD_REPORT.md`](../../live/state/strategy_validation_scorecard/SCORECARD_REPORT.md), with implementation status at [`../../live/state/strategy_validation_scorecard/IMPLEMENTATION_STATUS.md`](../../live/state/strategy_validation_scorecard/IMPLEMENTATION_STATUS.md), a static HTML view at [`../../live/state/strategy_validation_scorecard/index.html`](../../live/state/strategy_validation_scorecard/index.html), and the NQ one-page validation note at [`../../live/state/strategy_validation_scorecard/ONE_PAGE_NQ_VALIDATION_PITCH.md`](../../live/state/strategy_validation_scorecard/ONE_PAGE_NQ_VALIDATION_PITCH.md). Generator: [`../../scripts/generate_strategy_validation_scorecard.py`](../../scripts/generate_strategy_validation_scorecard.py). Validation inputs: [`../../data/validation/dsr_trial_ledger.csv`](../../data/validation/dsr_trial_ledger.csv) and [`../../data/validation/peer_comparison_table.csv`](../../data/validation/peer_comparison_table.csv). Normative spec: [`../../data/docs/DSR_PEER_TECHNICAL_SPEC.md`](../../data/docs/DSR_PEER_TECHNICAL_SPEC.md).
 
-Current implementation status: enough data exists to render a useful **hypothetical/backtested, unaudited** scorecard, but not enough to close allocator diligence. The backfilled DSR ledger uses **55** local strategy metric rows plus one control row and produces **N_eff 53.00**. Legacy NQ prior-opposed fill-stamp still has **Sharpe 3.29 / Sortino 4.80 / CAGR 52.8% / Calmar 1.58 / QQQ corr -0.11** on the common-window equity curve — treat as **diagnostic** until resting-limit institutional metrics are regenerated. PSR vs zero and DSR-zero both round to **100.00%**, but this is not treated as "proof"; the scorecard explicitly marks peer-benchmark DSR and peer z-scores as **suppressed** because sourced peer factsheet/database metrics have not been collected.
+Current implementation status: enough data exists to render a useful **hypothetical/backtested, unaudited** scorecard, but not enough to close allocator diligence. The backfilled DSR ledger uses **55** local strategy metric rows plus one control row and produces **N_eff 53.00**. Prefer resting-limit institutional metrics for NQ promotion (**Sharpe 2.88 / Sortino 3.80 / CAGR 49.4% / Calmar 1.48 / QQQ corr -0.11**); legacy fill-stamp (**Sharpe ~3.0 / CAGR ~52% / Calmar ~1.57**) remains diagnostic only. PSR vs zero and DSR-zero both round to **100.00%**, but this is not treated as "proof"; the scorecard explicitly marks peer-benchmark DSR and peer z-scores as **suppressed** because sourced peer factsheet/database metrics have not been collected.
 
 First null-control layer: an equal-count all-day v2b campaign sampling control draws **352** campaigns from the **1,386** NQ all-day `S_1_1_3` campaigns over **2,000** seeded iterations. Real **legacy** NQ prior-opposed net is **$1,184,585**, versus sampling median **$215,466** and P95 **$471,784**; one-sided sampled-net >= real-net p-value is **0.0005**. Read: supportive of structure on the old tape, but the real net is **timestamp-inflated**; re-run vs resting-limit hour-complete (**$1,330,920**) / 1m-touch (**$225,825**) before treating as promotion evidence.
 

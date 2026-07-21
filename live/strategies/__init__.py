@@ -2,10 +2,12 @@ from .base import StrategyContext, StrategyPlugin
 from .atr_supertrend_dca import AtrSupertrendDcaStrategy
 from .hourly_st_daybias_dca import HourlyStDaybiasDcaStrategy
 from .hourly_st_pmc_retest import HourlyStPmcRetestStrategy
+from .hourly_st_pmc_break_prev_trail import HourlyStPmcBreakPrevTrailStrategy
 from .intraday_st_dca import IntradayStDcaStrategy
 from .intraday_st_fade_dca import IntradayStFadeDcaStrategy
 from .monthly_orb_restricted_scaleout3 import MonthlyOrbRestrictedScaleout3Strategy
 from .monthly_orb_v2b_oco import MonthlyOrbV2bOcoStrategy
+from .monday_or_breakout import MondayOrBreakoutStrategy
 from .monthly_orb_overlap_st_retest import MonthlyOrbOverlapStRetestStrategy
 from .or_2r_fade import Or2RFadeStrategy
 from .supertrend_wick_retest import SupertrendWickRetestStrategy
@@ -18,11 +20,13 @@ from .yearly_orb import YearlyOrbScaleout3Strategy
 __all__ = [
     "AtrSupertrendDcaStrategy",
     "HourlyStDaybiasDcaStrategy",
+    "HourlyStPmcBreakPrevTrailStrategy",
     "HourlyStPmcRetestStrategy",
     "IntradayStDcaStrategy",
     "IntradayStFadeDcaStrategy",
     "MonthlyOrbRestrictedScaleout3Strategy",
     "MonthlyOrbV2bOcoStrategy",
+    "MondayOrBreakoutStrategy",
     "MonthlyOrbOverlapStRetestStrategy",
     "Or2RFadeStrategy",
     "SupertrendWickRetestStrategy",

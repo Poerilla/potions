@@ -37,3 +37,12 @@
 | Yearly PnL vs USD strength (−EURUSD) | **−0.24** |
 
 Not a carry / rates book; weak link to broad USD direction.
+
+## Related FX intraday challenger (2026-07-20)
+
+**Monday OR breakout** (15m, 3/DD30/50, shifted primary, HTF) was battle-tested as
+`monday_or_breakout` StrategyPlugin. On EURUSD broker-like it prints **+$76k /
+−$92k stress / 0.83 N/S** — more dollars than this ST+PMC baseline but **worse CE**,
+so it does **not** displace this pack. Cross-pair strength is on **USDJPY (4.27)**
+and **GBPUSD (1.87)**. See [`../eurusd_monday_or_breakout_15m/RESEARCH.md`](../eurusd_monday_or_breakout_15m/RESEARCH.md)
+and [`../fx_monday_or_breakout_broker/SUMMARY.md`](../fx_monday_or_breakout_broker/SUMMARY.md).

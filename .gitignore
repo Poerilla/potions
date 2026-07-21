@@ -24,3 +24,20 @@ live/state/**/event_universe/*_eligible_events.csv
 # Oversized full-history equity curve (kept local; >50MB GitHub warning)
 live/state/nq_v2b_prior_opposed_stpmc_full_history_raw/**/equity_curve.csv
 live/state/audjpy_futures_strats_sweep/states/audjpy_v2b_oco_prior_opposed_S_1_1_3/equity_curve.csv
+
+# Monday OR / FX sweep heavy local artifacts (summaries + results CSVs stay tracked)
+live/state/monday_or_sizing_sweep*/audits/
+live/state/monday_or_sizing_sweep*/states/
+live/state/monday_or_sizing_sweep*/logs/
+live/state/monday_or_phase2/audits/
+live/state/monday_or_phase2/states/
+live/state/monday_or_phase2/logs/
+live/state/fx_monday_or_breakout_broker/charts_*/
+live/state/fx_monday_or_breakout_broker/audits/
+live/state/fx_monday_or_breakout_broker/states/
+live/state/eurusd_monday_or_*/charts/
+live/state/eurusd_monday_or_*/audits/
+live/state/eurusd_monday_or_*/states/
+live/state/**/*.pid
+live/state/**/*_run.log
+live/state/**/overnight_*.log

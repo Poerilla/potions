@@ -38,7 +38,31 @@ POINT_VALUE = {
     "MES": 5.0,
     "YM": 5.0,
     "MYM": 0.5,
+    # FX / metals (Histdata / FX raw conventions used in Monday OR + sweeps)
+    "EURUSD": 100_000.0,
+    "GBPUSD": 100_000.0,
+    "USDJPY": 100_000.0,
+    "AUDJPY": 100_000.0,
+    "XAUUSD": 100.0,
+    "XAGUSD": 1000.0,
 }
+
+# Convert quote-currency equity to ≈USD for JPY crosses (same 110 FX as Monday OR broker)
+JPY_USD = 110.0
+JPY_INSTRUMENTS = {"USDJPY", "AUDJPY"}
+
+
+def _to_usd_equity(instrument: str, equity: pd.Series) -> pd.Series:
+    if instrument.upper() in JPY_INSTRUMENTS:
+        return equity / JPY_USD
+    return equity
+
+
+def _to_usd_money(instrument: str, value: float) -> float:
+    if instrument.upper() in JPY_INSTRUMENTS:
+        return value / JPY_USD
+    return value
+
 
 
 @dataclass
@@ -90,13 +114,18 @@ def _prior_opposed_candidates() -> list[Candidate]:
         if df.empty:
             continue
         row = df.iloc[0]
-        state_root = Path(str(row.get("state_root")))
+        state_root = Path(str(row.get("state_root") or ""))
+        if not state_root.is_absolute():
+            cand = REPO / str(state_root).replace("potions/", "")
+            state_root = cand if cand.exists() else root / "states" / str(row.get("strategy_id"))
         equity = state_root / "equity_curve.csv"
+        if not equity.exists():
+            continue
         inst = market.upper()
         out.append(
             Candidate(
-                name=f"{inst} prior-opposed v2b gate S_1_1_3",
-                family="Prior-opposed v2b",
+                name=f"{inst} prior-opposed v2b gate S_1_1_3 (legacy fill stamp)",
+                family="Prior-opposed v2b legacy",
                 instrument=inst,
                 net_usd=_num(row.get("net_usd")),
                 stress_dd_usd=_num(row.get("intrabar_stress_dd_usd")),
@@ -106,7 +135,7 @@ def _prior_opposed_candidates() -> list[Candidate]:
                 max_open_units=5,
                 equity_path=equity,
                 source_summary=summary_path,
-                notes="Strict delayed-arming StrategyPlugin replay; tick reconstruction still required before live funding.",
+                notes="Legacy hourly fill-stamp gate — diagnostic only; prefer resting-limit.",
             )
         )
     return out
@@ -243,11 +272,14 @@ def _load_equity_usd(path: Path, instrument: str) -> pd.Series:
         ts = pd.to_datetime(df["ts"], errors="coerce")
     df = df.loc[ts.notna()].copy()
     ts = ts.loc[ts.notna()]
+    inst = instrument.upper()
     if "close_equity_usd" in df:
         equity = pd.to_numeric(df["close_equity_usd"], errors="coerce")
     elif "close_equity_points" in df:
-        pv = POINT_VALUE[instrument.upper()]
-        equity = pd.to_numeric(df["close_equity_points"], errors="coerce") * pv
+        if inst not in POINT_VALUE:
+            raise ValueError(f"No point value for {inst} in {path}")
+        equity = pd.to_numeric(df["close_equity_points"], errors="coerce") * POINT_VALUE[inst]
+        equity = _to_usd_equity(inst, equity)
     else:
         raise ValueError(f"No close equity column in {path}")
     daily = pd.DataFrame({"date": ts.dt.date, "equity": equity}).dropna()
@@ -263,9 +295,10 @@ def _load_unit_returns(path: Path, instrument: str) -> pd.Series:
     df = pd.read_csv(unit_path)
     if "usd" not in df:
         return pd.Series(dtype=float)
-    # unit_fills stores gross USD in some audit paths; fee is modeled as $1.50
-    # per closed unit throughout the realism baseline.
-    return pd.to_numeric(df["usd"], errors="coerce").dropna() - 1.50
+    # unit_fills stores gross quote-currency USD (or JPY for JPY pairs); fee $1.50/unit in USD.
+    gross = pd.to_numeric(df["usd"], errors="coerce").dropna()
+    gross = _to_usd_equity(instrument, gross)
+    return gross - 1.50
 
 
 def _drawdown_duration_days(equity: pd.Series) -> tuple[int, int, bool]:
@@ -384,10 +417,17 @@ def _metrics_for(candidate: Candidate, qqq_returns: pd.Series) -> dict[str, obje
         "profit_factor": profit_factor,
         "win_rate_pct": win_rate_pct,
         "max_open_units": candidate.max_open_units,
-        "equity_path": str(candidate.equity_path.relative_to(REPO)),
-        "source_summary": str(candidate.source_summary.relative_to(REPO)),
+        "equity_path": _rel(candidate.equity_path),
+        "source_summary": _rel(candidate.source_summary),
         "notes": candidate.notes,
     }
+
+
+def _rel(path: Path) -> str:
+    try:
+        return str(path.resolve().relative_to(REPO.resolve()))
+    except Exception:
+        return str(path)
 
 
 def _fmt_money(value: object) -> str:
@@ -409,6 +449,333 @@ def _fmt_num(value: object, digits: int = 2) -> str:
     if not np.isfinite(x):
         return "n/a"
     return f"{x:.{digits}f}"
+
+
+def _resting_limit_candidates() -> list[Candidate]:
+    """Causal prior-opposed resting-limit hour-complete family (promotion baseline)."""
+    specs = [
+        (
+            "NQ",
+            REPO / "live/state/nq_v2b_prior_opposed_causal_proxies/resting_limit",
+        ),
+        (
+            "MNQ",
+            REPO / "live/state/mnq_v2b_prior_opposed_stpmc_resting_limit",
+        ),
+        (
+            "YM",
+            REPO / "live/state/ym_v2b_prior_opposed_stpmc_resting_limit",
+        ),
+        (
+            "MYM",
+            REPO / "live/state/mym_v2b_prior_opposed_stpmc_resting_limit",
+        ),
+    ]
+    out: list[Candidate] = []
+    for inst, root in specs:
+        summary_path = root / "summary.csv"
+        df = _read_csv(summary_path)
+        if df.empty:
+            continue
+        row = df.iloc[0]
+        state_root = Path(str(row.get("state_root") or ""))
+        if not state_root.is_absolute():
+            # summaries sometimes store potions/live/... relative to repo parent
+            cand = REPO / str(state_root).replace("potions/", "")
+            if not cand.exists():
+                cand = Path(str(state_root))
+            state_root = cand if cand.exists() else root / "states" / str(row.get("strategy_id"))
+        equity = state_root / "equity_curve.csv"
+        if not equity.exists():
+            continue
+        out.append(
+            Candidate(
+                name=f"{inst} prior-opposed v2b resting-limit (hour-complete)",
+                family="Prior-opposed v2b resting-limit",
+                instrument=inst,
+                net_usd=_num(row.get("net_usd")),
+                stress_dd_usd=_num(row.get("intrabar_stress_dd_usd")),
+                closed_dd_usd=_num(row.get("closed_dd_usd")),
+                profit_factor=_num(row.get("profit_factor")),
+                win_rate_pct=_num(row.get("win_rate_pct")),
+                max_open_units=5,
+                equity_path=equity,
+                source_summary=summary_path,
+                notes="Causal resting-limit hour-complete gate; preferred over legacy fill-stamp.",
+            )
+        )
+    return out
+
+
+def _monday_or_candidates() -> list[Candidate]:
+    """Phase 2 Monday OR anchors (ex-silver)."""
+    specs = [
+        ("EURUSD", "M1_S2_R2", "live/state/monday_or_sizing_sweep_broker", "paper-only (sub-period FAIL)"),
+        ("USDJPY", "M2_S3_R1", "live/state/monday_or_sizing_sweep_broker_usdjpy", "Phase 2 primary"),
+        ("GBPUSD", "M1_S1_R2", "live/state/monday_or_sizing_sweep_broker_gbpusd", "paper-only (sub-period FAIL)"),
+        ("AUDJPY", "M1_S2_R2", "live/state/monday_or_sizing_sweep_broker_audjpy", "satellite; sub-period PASS"),
+        ("XAUUSD", "M2_S2_R3", "live/state/monday_or_sizing_sweep_broker_xauusd", "heat caution"),
+    ]
+    out: list[Candidate] = []
+    for sym, tag, root_rel, note in specs:
+        root = REPO / root_rel
+        results = _read_csv(root / "results.csv")
+        if results.empty:
+            continue
+        rows = results[results["tag"] == tag]
+        if rows.empty:
+            continue
+        row = rows.iloc[0]
+        sid = f"{sym.lower()}_{tag.lower()}"
+        equity = root / "audits" / sid / sid / "equity_curve.csv"
+        if not equity.exists():
+            continue
+        out.append(
+            Candidate(
+                name=f"{sym} Monday OR {tag}",
+                family="Monday OR FX",
+                instrument=sym,
+                net_usd=_num(row.get("net_usd_approx")),
+                stress_dd_usd=_num(row.get("stress_usd_approx")),
+                closed_dd_usd=_num(row.get("closed_dd")),
+                profit_factor=float("nan"),
+                win_rate_pct=float("nan"),
+                max_open_units=_int(row.get("main_entry", 3)) + _int(row.get("side_entry", 0)),
+                equity_path=equity,
+                source_summary=root / "results.csv",
+                notes=note,
+            )
+        )
+    return out
+
+
+def _fx_metals_candidates() -> list[Candidate]:
+    """Promoted / top FX+metals sleeves with saved equity curves."""
+    out: list[Candidate] = []
+
+    # EURUSD hourly ST+PMC MA-bull (promoted intraday baseline)
+    stpmc_eq = (
+        REPO
+        / "live/state/eurusd_baseline_dca_nospread/audits"
+        / "eurusd_hourly_st_pmc_sl25_tp75_3r_ma_bull_prior"
+        / "eurusd_hourly_st_pmc_sl25_tp75_3r_ma_bull_prior"
+        / "equity_curve.csv"
+    )
+    if stpmc_eq.exists():
+        out.append(
+            Candidate(
+                name="EURUSD hourly ST+PMC 25/75 MA-bull prior",
+                family="FX ST+PMC",
+                instrument="EURUSD",
+                net_usd=23533.7,  # matches tracker / equity*PV
+                stress_dd_usd=-15745.46,
+                closed_dd_usd=-1128.5,
+                profit_factor=float("nan"),
+                win_rate_pct=27.4,
+                max_open_units=1,
+                equity_path=stpmc_eq,
+                source_summary=stpmc_eq.parent / "reports" / "MTM_AUDIT.md",
+                notes="Promoted FX intraday baseline.",
+            )
+        )
+
+    # EURUSD monthly FBO atr80 1/1/3
+    fbo_eq = (
+        REPO
+        / "live/state/eurusd_monthly_orb_fbo_filtered_broker/audits"
+        / "eurusd_monthly_orb_fbo_filt_atr80only_1_1_3"
+        / "equity_curve.csv"
+    )
+    if fbo_eq.exists():
+        out.append(
+            Candidate(
+                name="EURUSD Monthly ORB FBO 1/1/3 atr80",
+                family="FX Monthly FBO",
+                instrument="EURUSD",
+                net_usd=91898.0,
+                stress_dd_usd=-56828.25,
+                closed_dd_usd=-17493.5,
+                profit_factor=float("nan"),
+                win_rate_pct=52.1,
+                max_open_units=5,
+                equity_path=fbo_eq,
+                source_summary=fbo_eq.parent / "reports" / "MTM_AUDIT.md",
+                notes="Promoted FX monthly filtered sleeve.",
+            )
+        )
+
+    # Cross-pair FBO atr80 leaders from summary.csv
+    cross = REPO / "live/state/fx_cross_pair_tracker_leaders"
+    cross_summary = cross / "summary.csv"
+    cdf = _read_csv(cross_summary)
+    fbo_map = {
+        ("USDJPY", "1_1_3_atr80"): "fbo_1_1_3_atr80_usdjpy",
+        ("GBPUSD", "1_1_3_atr80"): "fbo_1_1_3_atr80_gbpusd",
+        ("AUDJPY", "1_1_3_atr80"): "fbo_1_1_3_atr80_audjpy",
+    }
+    if not cdf.empty:
+        for (inst, variant), sid in fbo_map.items():
+            hit = cdf[(cdf["pair"] == inst) & (cdf["family"] == "monthly_fbo") & (cdf["variant"] == variant)]
+            if hit.empty:
+                continue
+            row = hit.iloc[0]
+            equity = cross / "audits" / sid / "equity_curve.csv"
+            if not equity.exists():
+                continue
+            out.append(
+                Candidate(
+                    name=f"{inst} Monthly ORB FBO 1/1/3 atr80",
+                    family="FX Monthly FBO",
+                    instrument=inst,
+                    net_usd=_num(row.get("net_usd_approx")),
+                    stress_dd_usd=_num(row.get("stress_usd_approx")),
+                    closed_dd_usd=0.0,
+                    profit_factor=float("nan"),
+                    win_rate_pct=_num(row.get("wr")),
+                    max_open_units=5,
+                    equity_path=equity,
+                    source_summary=cross_summary,
+                    notes="Cross-pair FBO atr80 leader.",
+                )
+            )
+
+    for market in ("gbpusd", "usdjpy", "audjpy"):
+        equity = (
+            cross
+            / "st_pmc"
+            / market
+            / "audits"
+            / f"{market}_hourly_st_pmc_sl25_tp75_3r_ma_bull_prior"
+            / f"{market}_hourly_st_pmc_sl25_tp75_3r_ma_bull_prior"
+            / "equity_curve.csv"
+        )
+        if not equity.exists():
+            continue
+        inst = market.upper()
+        hit = cdf[(cdf["pair"] == inst) & (cdf["family"] == "hourly_st_pmc")] if not cdf.empty else pd.DataFrame()
+        net = stress = float("nan")
+        wr = float("nan")
+        if not hit.empty:
+            row = hit.iloc[0]
+            net = _num(row.get("net_usd_approx"))
+            stress = _num(row.get("stress_usd_approx"))
+            wr = _num(row.get("wr"))
+        out.append(
+            Candidate(
+                name=f"{inst} hourly ST+PMC 25/75 MA-bull prior",
+                family="FX ST+PMC",
+                instrument=inst,
+                net_usd=net,
+                stress_dd_usd=stress,
+                closed_dd_usd=float("nan"),
+                profit_factor=float("nan"),
+                win_rate_pct=wr,
+                max_open_units=1,
+                equity_path=equity,
+                source_summary=cross_summary if cross_summary.exists() else equity,
+                notes="Cross-pair ST+PMC MA-bull.",
+            )
+        )
+
+    # Metals / AUDJPY yearly ORB top rows
+    metal_specs = [
+        (
+            "XAUUSD",
+            REPO / "live/state/metals_futures_strats_sweep/audits/xauusd_yearly_orb_scaleout3/equity_curve.csv",
+            REPO / "live/state/metals_futures_strats_sweep/summary.csv",
+            "xauusd_yearly_orb_scaleout3",
+        ),
+        (
+            "XAGUSD",
+            REPO / "live/state/metals_futures_strats_sweep/audits/xagusd_yearly_orb_scaleout3/equity_curve.csv",
+            REPO / "live/state/metals_futures_strats_sweep/summary.csv",
+            "xagusd_yearly_orb_scaleout3",
+        ),
+        (
+            "AUDJPY",
+            REPO / "live/state/audjpy_futures_strats_sweep/audits/audjpy_yearly_orb_scaleout3/equity_curve.csv",
+            REPO / "live/state/audjpy_futures_strats_sweep/summary.csv",
+            "audjpy_yearly_orb_scaleout3",
+        ),
+    ]
+    for inst, equity, summary, sid in metal_specs:
+        if not equity.exists():
+            continue
+        sdf = _read_csv(summary)
+        net = stress = float("nan")
+        if not sdf.empty and "strategy_id" in sdf.columns:
+            hit = sdf[sdf["strategy_id"] == sid]
+            if not hit.empty:
+                row = hit.iloc[0]
+                if "net_usd_approx" in row.index:
+                    net = _num(row.get("net_usd_approx"))
+                elif "net_usd" in row.index:
+                    net = _num(row.get("net_usd"))
+                if "stress_usd" in row.index and pd.notna(row.get("stress_usd")):
+                    stress = _num(row.get("stress_usd"))
+                    if stress > 0:
+                        stress = -stress
+                elif "stress_jpy" in row.index and pd.notna(row.get("stress_jpy")):
+                    stress = -abs(_num(row.get("stress_jpy"))) / JPY_USD
+        out.append(
+            Candidate(
+                name=f"{inst} Yearly ORB scaleout3",
+                family="FX/Metals Yearly ORB",
+                instrument=inst,
+                net_usd=net,
+                stress_dd_usd=stress,
+                closed_dd_usd=float("nan"),
+                profit_factor=float("nan"),
+                win_rate_pct=float("nan"),
+                max_open_units=3,
+                equity_path=equity,
+                source_summary=summary,
+                notes="Top-4 / metals sweep yearly ORB.",
+            )
+        )
+
+    # Fill nan nets/stress from equity curves where needed
+    filled: list[Candidate] = []
+    for cand in out:
+        net = cand.net_usd
+        stress = cand.stress_dd_usd
+        closed = cand.closed_dd_usd
+        try:
+            eq = _load_equity_usd(cand.equity_path, cand.instrument)
+            if not np.isfinite(net):
+                net = float(eq.iloc[-1])
+            # Prefer curve intrabar dd if stress missing
+            raw = pd.read_csv(cand.equity_path)
+            if not np.isfinite(stress):
+                if "intrabar_dd_usd" in raw:
+                    stress = float(pd.to_numeric(raw["intrabar_dd_usd"], errors="coerce").min())
+                    stress = _to_usd_money(cand.instrument, stress)
+                elif "intrabar_stress_dd_usd" in raw:
+                    stress = float(pd.to_numeric(raw["intrabar_stress_dd_usd"], errors="coerce").min())
+            if not np.isfinite(closed) and "close_dd_usd" in raw:
+                closed = float(pd.to_numeric(raw["close_dd_usd"], errors="coerce").min())
+                closed = _to_usd_money(cand.instrument, closed)
+        except Exception:
+            pass
+        if not np.isfinite(net) or not np.isfinite(stress) or stress == 0:
+            continue
+        filled.append(
+            Candidate(
+                name=cand.name,
+                family=cand.family,
+                instrument=cand.instrument,
+                net_usd=float(net),
+                stress_dd_usd=float(stress if stress < 0 else -abs(stress)),
+                closed_dd_usd=float(closed) if np.isfinite(closed) else 0.0,
+                profit_factor=cand.profit_factor,
+                win_rate_pct=cand.win_rate_pct,
+                max_open_units=cand.max_open_units,
+                equity_path=cand.equity_path,
+                source_summary=cand.source_summary,
+                notes=cand.notes,
+            )
+        )
+    return filled
 
 
 def _write_markdown(metrics: pd.DataFrame) -> None:
@@ -476,9 +843,12 @@ def build() -> pd.DataFrame:
     OUT.mkdir(parents=True, exist_ok=True)
     qqq = _qqq_returns()
     candidates: list[Candidate] = []
+    candidates.extend(_resting_limit_candidates())
     candidates.extend(_prior_opposed_candidates())
     candidates.extend(_broker_like_candidates())
     candidates.extend(_hourly_candidates())
+    candidates.extend(_monday_or_candidates())
+    candidates.extend(_fx_metals_candidates())
 
     rows: list[dict[str, object]] = []
     errors: list[str] = []

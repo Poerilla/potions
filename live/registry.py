@@ -7,9 +7,11 @@ from .store import FlatFileStore
 from .strategies import (
     AtrSupertrendDcaStrategy,
     HourlyStDaybiasDcaStrategy,
+    HourlyStPmcBreakPrevTrailStrategy,
     HourlyStPmcRetestStrategy,
     IntradayStDcaStrategy,
     IntradayStFadeDcaStrategy,
+    MondayOrBreakoutStrategy,
     MonthlyOrbOverlapStRetestStrategy,
     MonthlyOrbRestrictedScaleout3Strategy,
     MonthlyOrbV2bOcoStrategy,
@@ -29,9 +31,11 @@ class StrategyRegistry:
         self._types: Dict[str, Type[StrategyPlugin]] = {
             AtrSupertrendDcaStrategy.strategy_type: AtrSupertrendDcaStrategy,
             HourlyStDaybiasDcaStrategy.strategy_type: HourlyStDaybiasDcaStrategy,
+            HourlyStPmcBreakPrevTrailStrategy.strategy_type: HourlyStPmcBreakPrevTrailStrategy,
             HourlyStPmcRetestStrategy.strategy_type: HourlyStPmcRetestStrategy,
             IntradayStDcaStrategy.strategy_type: IntradayStDcaStrategy,
             IntradayStFadeDcaStrategy.strategy_type: IntradayStFadeDcaStrategy,
+            MondayOrBreakoutStrategy.strategy_type: MondayOrBreakoutStrategy,
             MonthlyOrbOverlapStRetestStrategy.strategy_type: MonthlyOrbOverlapStRetestStrategy,
             MonthlyOrbRestrictedScaleout3Strategy.strategy_type: MonthlyOrbRestrictedScaleout3Strategy,
             MonthlyOrbV2bOcoStrategy.strategy_type: MonthlyOrbV2bOcoStrategy,
