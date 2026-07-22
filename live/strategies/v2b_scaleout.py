@@ -4,9 +4,14 @@ import json
 from datetime import date, datetime, time, timedelta
 from typing import Any, Dict, Iterable, List, Optional, Sequence
 
+import pytz
+
 from ..models import Alert, Bar, CancelIntent, FeatureSnapshot, LevelUpdate, OrderIntent, StrategyActions, new_id
 from .base import StrategyContext, StrategyPlugin
 from .features import feature_snapshot
+
+NY = pytz.timezone("America/New_York")
+UTC = pytz.UTC
 
 
 class V2BScaleoutStrategy(StrategyPlugin):
@@ -873,13 +878,23 @@ class V2BScaleoutStrategy(StrategyPlugin):
 
 
 def _parse_dt(ts: str) -> datetime:
+    """Parse bar/event timestamps into America/New_York for session clocks.
+
+    Research replays stamp bars with NY offsets (``-04:00``/``-05:00``). Live
+    OANDA bars are true UTC (``Z``). Session gates (``rth_start``, ``or_end``,
+    ``eod_cutoff``) are NY wall times, so always convert before comparing.
+    Naive timestamps are treated as already-NY wall clock.
+    """
     value = str(ts)
     if value.endswith("Z"):
         value = value[:-1] + "+00:00"
     try:
-        return datetime.fromisoformat(value)
+        dt = datetime.fromisoformat(value)
     except ValueError:
-        return datetime.strptime(value[:19], "%Y-%m-%dT%H:%M:%S")
+        dt = datetime.strptime(value[:19], "%Y-%m-%dT%H:%M:%S")
+    if dt.tzinfo is None:
+        return NY.localize(dt)
+    return dt.astimezone(NY)
 
 
 def _to_float(value: Any) -> Optional[float]:
@@ -889,11 +904,19 @@ def _to_float(value: Any) -> Optional[float]:
 
 
 def _session_expiry(ts: str) -> str:
-    # Date-only inputs come from persisted state.  ISO timestamp inputs come
-    # from bars.  Both produce a sortable same-day 15:59 expiry.
-    if len(str(ts)) >= 10:
-        return str(ts)[:10] + "T15:59:00"
+    """NY cash-session order expiry at 15:59 America/New_York.
+
+    Emits an offset ISO stamp (e.g. ``...T15:59:00-04:00``) so PaperBroker
+    expiry compares correctly against live UTC ``Z`` bars once ``_ts_after``
+    is timezone-aware. Date-only and bar ISO inputs both resolve via the
+    session calendar day in NY.
+    """
+    raw = str(ts).strip()
     try:
-        return date.fromisoformat(str(ts)).isoformat() + "T15:59:00"
+        if len(raw) >= 10 and raw[4] == "-" and raw[7] == "-":
+            session_day = date.fromisoformat(raw[:10])
+        else:
+            session_day = _parse_dt(raw).date()
     except ValueError:
-        return str(ts)
+        return raw
+    return NY.localize(datetime.combine(session_day, time(15, 59))).isoformat()

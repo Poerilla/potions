@@ -109,6 +109,10 @@ TABLE_SCHEMAS: Dict[str, Sequence[str]] = {
         "price",
         "ts",
         "reason",
+        "mid_price",
+        "bid_price",
+        "ask_price",
+        "spread",
     ),
     "positions": (
         "position_id",
@@ -178,7 +182,26 @@ TABLE_SCHEMAS: Dict[str, Sequence[str]] = {
     ),
 }
 
-BAR_SCHEMA = ("instrument", "timeframe", "ts", "open", "high", "low", "close", "volume", "complete", "source")
+BAR_SCHEMA = (
+    "instrument",
+    "timeframe",
+    "ts",
+    "open",
+    "high",
+    "low",
+    "close",
+    "volume",
+    "complete",
+    "source",
+    "bid_open",
+    "bid_high",
+    "bid_low",
+    "bid_close",
+    "ask_open",
+    "ask_high",
+    "ask_low",
+    "ask_close",
+)
 
 
 class FlatFileStore:

@@ -41,3 +41,11 @@ live/state/eurusd_monday_or_*/states/
 live/state/**/*.pid
 live/state/**/*_run.log
 live/state/**/overnight_*.log
+
+# OANDA v2b paper demo runtime (code + README stay tracked)
+live/demo/**/state/
+live/demo/**/pidfile
+live/demo/**/run.log
+live/demo/**/PROGRESS.log
+live/demo/**/RUN_META.json
+live/demo/**/charts/

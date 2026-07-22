@@ -312,3 +312,70 @@ def test_directional_path_blocks_limit_when_stop_would_hit_first():
         assert fills[0].reason == "stop"
     finally:
         tmp.cleanup()
+
+
+def test_paper_broker_ny_expiry_not_tripped_by_utc_noon_bar():
+    """expires_after_ts at NY 15:59 must survive UTC bars that are still morning ET."""
+    from potions.live.broker import _ts_after
+    from potions.live.strategies.v2b_scaleout import _session_expiry
+
+    exp = _session_expiry("2026-07-22")
+    assert exp.endswith("-04:00") or exp.endswith("-05:00")
+    assert not _ts_after("2026-07-22T16:00:00Z", exp)  # 12:00 ET
+    assert _ts_after("2026-07-22T20:00:00Z", exp)  # 16:00 ET
+
+    tmp, store = make_store()
+    try:
+        broker = PaperBroker(store, slippage_ticks=0.0, tick_size={"EURUSD": 0.00001})
+        intent = OrderIntent.create(
+            "s1",
+            "t1",
+            "EURUSD",
+            "paper",
+            "buy",
+            "limit",
+            1,
+            limit_price=1.1400,
+            reduce_only=True,
+            bracket_role="tp2",
+            expires_after_ts=exp,
+            requires_verification=False,
+        )
+        # Need a short position so reduce-only buy is eligible.
+        entry = OrderIntent.create(
+            "s1",
+            "t1",
+            "EURUSD",
+            "paper",
+            "sell",
+            "market",
+            2,
+            requires_verification=False,
+        )
+        broker.submit_order_intent(entry)
+        broker.process_bar(
+            Bar(
+                "EURUSD",
+                "1m",
+                "2026-07-22T13:50:00Z",
+                1.1414,
+                1.1415,
+                1.1413,
+                1.1414,
+                bid_open=1.1413,
+                bid_high=1.1413,
+                bid_low=1.1413,
+                bid_close=1.1413,
+                ask_open=1.1415,
+                ask_high=1.1415,
+                ask_low=1.1415,
+                ask_close=1.1415,
+            )
+        )
+        order = broker.submit_order_intent(intent)
+        assert order.status == "submitted"
+        # Noon ET UTC bar previously string-expired naive 15:59 stamps.
+        broker.process_bar(Bar("EURUSD", "1m", "2026-07-22T16:00:00Z", 1.1410, 1.1411, 1.1409, 1.1410))
+        assert broker._get_order(order.broker_order_id).status == "submitted"
+    finally:
+        tmp.cleanup()

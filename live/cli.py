@@ -126,6 +126,14 @@ def _tradovate_config(args):
     return TradovateConfig.from_env()
 
 
+def _oanda_config(args):
+    from .oanda import OandaConfig
+
+    if getattr(args, "oanda_config", ""):
+        return OandaConfig.from_json_file(Path(args.oanda_config))
+    return OandaConfig.from_env()
+
+
 def cmd_tradovate_smoke(args) -> int:
     from .tradovate import (
         DEFAULT_INSTRUMENTS,
@@ -275,6 +283,334 @@ def cmd_tradovate_emergency_flatten(args) -> int:
     payloads = broker.go_flat(instruments=instruments)
     print("Tradovate emergency flatten requested for %s (%d liquidation payloads)" % (",".join(instruments), len(payloads)))
     return 0
+
+
+def cmd_oanda_smoke(args) -> int:
+    from .oanda import DEFAULT_INSTRUMENTS, OandaApiClient, OandaMarketDataFeedAdapter
+
+    store = _store(args)
+    store.ensure()
+    config = _oanda_config(args)
+    instruments = [item.strip().upper() for item in (args.instruments or ",".join(DEFAULT_INSTRUMENTS)).split(",") if item.strip()]
+    store.append_event(
+        "oanda_session_events",
+        {
+            "event": "smoke_start",
+            "offline": bool(args.offline),
+            "env": config.env,
+            "api_url": config.api_url,
+            "stream_url": config.stream_url,
+            "account_id": config.account_id,
+            "instruments": ",".join(instruments),
+        },
+    )
+    adapter = OandaMarketDataFeedAdapter(store, config=config)
+    for instrument in instruments:
+        adapter.resolve_instrument(instrument)
+    if args.offline:
+        client = OandaApiClient(config=config, store=store, context=object())
+        store.append_event(
+            "oanda_session_events",
+            {
+                "event": "smoke_offline_ok",
+                "mapped": {inst: config.symbol_for(inst) for inst in instruments},
+                "hostname": config.hostname(),
+                "client_ready": client is not None,
+            },
+        )
+        print(
+            "OANDA offline smoke ok: env=%s api=%s account=%s instruments=%s"
+            % (config.env, config.api_url, config.account_id, ",".join("%s=%s" % (i, config.symbol_for(i)) for i in instruments))
+        )
+        return 0
+
+    config.validate_for_network()
+    client = OandaApiClient(config=config, store=store)
+    details = client.account_details()
+    instruments_body = client.account_instruments()
+    prices = client.pricing_get([config.symbol_for(i) for i in instruments])
+    price_count = len(prices.get("prices") or [])
+    store.append_event(
+        "oanda_session_events",
+        {
+            "event": "smoke_network_ok",
+            "last_transaction_id": client.last_transaction_id,
+            "price_count": price_count,
+            "instrument_count": len(instruments_body.get("instruments") or []),
+            "has_account": bool(details.get("account")),
+        },
+    )
+    print(
+        "OANDA network smoke ok: account=%s lastTransactionID=%s prices=%d"
+        % (config.account_id, client.last_transaction_id, price_count)
+    )
+    return 0
+
+
+def cmd_oanda_stream_prices(args) -> int:
+    """Print live OANDA bid/ask ticks to the console until Ctrl-C or --max-ticks."""
+    from .oanda import DEFAULT_INSTRUMENTS, OandaApiClient
+
+    store = _store(args)
+    store.ensure()
+    config = _oanda_config(args)
+    config.validate_for_network()
+    roots = [item.strip().upper() for item in (args.instruments or ",".join(DEFAULT_INSTRUMENTS)).split(",") if item.strip()]
+    oanda_names = [config.symbol_for(root) for root in roots]
+    client = OandaApiClient(config=config, store=store)
+    print(
+        "Streaming %s on %s (account=%s). Ctrl-C to stop."
+        % (",".join(oanda_names), config.stream_hostname(), config.account_id),
+        flush=True,
+    )
+    response = client.pricing_stream(oanda_names, snapshot=not bool(args.no_snapshot))
+    status = int(getattr(response, "status", 0) or 0)
+    if status != 200:
+        raise SystemExit("pricing stream failed: status=%s reason=%s" % (response.status, getattr(response, "reason", "")))
+    count = 0
+    try:
+        for msg_type, msg in response.parts():
+            if msg_type == "pricing.PricingHeartbeat" or getattr(msg, "type", None) == "HEARTBEAT":
+                if args.heartbeats:
+                    print("HEARTBEAT %s" % getattr(msg, "time", ""), flush=True)
+                continue
+            instrument = getattr(msg, "instrument", "") or ""
+            time_s = getattr(msg, "time", "") or ""
+            bids = getattr(msg, "bids", None) or []
+            asks = getattr(msg, "asks", None) or []
+            bid = bids[0].price if bids else ""
+            ask = asks[0].price if asks else ""
+            mid = ""
+            try:
+                if bid != "" and ask != "":
+                    mid = "%.6f" % ((float(bid) + float(ask)) / 2.0)
+            except (TypeError, ValueError):
+                mid = ""
+            print("%s  %s  bid=%s  ask=%s  mid=%s" % (time_s, instrument, bid, ask, mid), flush=True)
+            count += 1
+            if args.max_ticks and count >= int(args.max_ticks):
+                break
+    except KeyboardInterrupt:
+        print("\nStopped after %d ticks." % count, flush=True)
+        return 0
+    print("Done (%d ticks)." % count, flush=True)
+    return 0
+
+
+def cmd_oanda_feed_shadow(args) -> int:
+    from .oanda import OandaMarketDataFeedAdapter, load_jsonl_events
+
+    if not args.events:
+        raise SystemExit("oanda-feed-shadow requires --events JSONL for offline replay")
+    store = _store(args)
+    adapter = OandaMarketDataFeedAdapter(store, config=_oanda_config(args))
+    count = 0
+    emitted = 0
+    for event in load_jsonl_events(Path(args.events)):
+        count += 1
+        emitted += len(adapter.on_raw_event(event))
+    emitted += len(adapter.flush())
+    health = adapter.health()
+    print(
+        "OANDA feed shadow replayed %d events, emitted %d bars, status=%s reason=%s"
+        % (count, emitted, health.status, adapter.blocking_reason() or "none")
+    )
+    return 0
+
+
+def cmd_oanda_paper(args) -> int:
+    from .supervisor import RuntimeSupervisor
+    from .oanda import OandaBroker, OandaMarketDataFeedAdapter, load_jsonl_events
+
+    store = _store(args)
+    config = _oanda_config(args)
+    supervisor = RuntimeSupervisor(store, provider="oanda")
+    broker = OandaBroker(store, config=config, allow_live_routing=False, supervisor=supervisor)
+    adapter = OandaMarketDataFeedAdapter(store, config=config, supervisor=supervisor)
+    count = 0
+    emitted = 0
+    if args.events:
+        for event in load_jsonl_events(Path(args.events)):
+            count += 1
+            event_type = str(event.get("type") or event.get("event") or "")
+            if event_type == "order_status":
+                broker.on_order_status(event)
+            elif event_type == "fill":
+                broker.on_fill(event)
+            elif event_type == "account_changes":
+                broker.apply_account_changes(event)
+            else:
+                emitted += len(adapter.on_raw_event(event))
+        emitted += len(adapter.flush())
+    store.append_event(
+        "oanda_session_events",
+        {
+            "event": "oanda_paper_ready",
+            "events_replayed": count,
+            "bars_emitted": emitted,
+            "active_orders": len(broker.reconcile_orders()),
+            "positions": len(broker.reconcile_positions()),
+        },
+    )
+    print(
+        "OANDA paper scaffold ready: replayed %d events, emitted %d bars, active_orders=%d"
+        % (count, emitted, len(broker.reconcile_orders()))
+    )
+    return 0
+
+
+def cmd_oanda_emergency_flatten(args) -> int:
+    from .supervisor import RuntimeSupervisor
+    from .oanda import DEFAULT_INSTRUMENTS, OandaBroker
+
+    store = _store(args)
+    config = _oanda_config(args)
+    supervisor = RuntimeSupervisor(store, provider="oanda")
+    broker = OandaBroker(store, config=config, allow_live_routing=bool(args.allow_live), supervisor=supervisor)
+    instruments = [item.strip().upper() for item in (args.instruments or ",".join(DEFAULT_INSTRUMENTS)).split(",") if item.strip()]
+    payloads = broker.go_flat(instruments=instruments)
+    print("OANDA emergency flatten requested for %s (%d close payloads)" % (",".join(instruments), len(payloads)))
+    return 0
+
+
+def _demo_output_root(args) -> Path:
+    from .demo.eurusd_v2b_ungated_paper import default_output_root
+
+    if getattr(args, "output_root", ""):
+        return Path(args.output_root)
+    return default_output_root()
+
+
+def _demo_nas100_output_root(args) -> Path:
+    from .demo.nas100_v2b_ungated_paper import default_output_root
+
+    if getattr(args, "output_root", ""):
+        return Path(args.output_root)
+    return default_output_root()
+
+
+def cmd_demo_eurusd_v2b_paper(args) -> int:
+    from .demo.eurusd_v2b_ungated_paper import run_stream_loop, spawn_daemon
+    from .oanda import OandaConfig
+
+    output_root = _demo_output_root(args)
+    if args.daemon:
+        return spawn_daemon(
+            output_root=output_root,
+            max_ticks=int(args.max_ticks or 0),
+            oanda_config_path=getattr(args, "oanda_config", "") or "",
+        )
+    config = OandaConfig.from_json_file(Path(args.oanda_config)) if getattr(args, "oanda_config", "") else OandaConfig.from_env()
+    return run_stream_loop(output_root=output_root, config=config, max_ticks=int(args.max_ticks or 0))
+
+
+def cmd_demo_eurusd_v2b_paper_status(args) -> int:
+    from .demo.eurusd_v2b_ungated_paper import status_daemon
+
+    return status_daemon(_demo_output_root(args))
+
+
+def cmd_demo_eurusd_v2b_paper_stop(args) -> int:
+    from .demo.eurusd_v2b_ungated_paper import stop_daemon
+
+    return stop_daemon(_demo_output_root(args))
+
+
+def cmd_demo_nas100_v2b_paper(args) -> int:
+    from .demo.nas100_v2b_ungated_paper import run_stream_loop, spawn_daemon
+    from .oanda import OandaConfig
+
+    output_root = _demo_nas100_output_root(args)
+    if args.daemon:
+        return spawn_daemon(
+            output_root=output_root,
+            max_ticks=int(args.max_ticks or 0),
+            oanda_config_path=getattr(args, "oanda_config", "") or "",
+        )
+    config = OandaConfig.from_json_file(Path(args.oanda_config)) if getattr(args, "oanda_config", "") else OandaConfig.from_env()
+    return run_stream_loop(output_root=output_root, config=config, max_ticks=int(args.max_ticks or 0))
+
+
+def cmd_demo_nas100_v2b_paper_status(args) -> int:
+    from .demo.nas100_v2b_ungated_paper import status_daemon
+
+    return status_daemon(_demo_nas100_output_root(args))
+
+
+def cmd_demo_nas100_v2b_paper_stop(args) -> int:
+    from .demo.nas100_v2b_ungated_paper import stop_daemon
+
+    return stop_daemon(_demo_nas100_output_root(args))
+
+
+def _demo_spx500_output_root(args) -> Path:
+    from .demo.spx500_v2b_ungated_paper import default_output_root
+
+    if getattr(args, "output_root", ""):
+        return Path(args.output_root)
+    return default_output_root()
+
+
+def _demo_us30_output_root(args) -> Path:
+    from .demo.us30_v2b_ungated_paper import default_output_root
+
+    if getattr(args, "output_root", ""):
+        return Path(args.output_root)
+    return default_output_root()
+
+
+def cmd_demo_spx500_v2b_paper(args) -> int:
+    from .demo.spx500_v2b_ungated_paper import run_stream_loop, spawn_daemon
+    from .oanda import OandaConfig
+
+    output_root = _demo_spx500_output_root(args)
+    if args.daemon:
+        return spawn_daemon(
+            output_root=output_root,
+            max_ticks=int(args.max_ticks or 0),
+            oanda_config_path=getattr(args, "oanda_config", "") or "",
+        )
+    config = OandaConfig.from_json_file(Path(args.oanda_config)) if getattr(args, "oanda_config", "") else OandaConfig.from_env()
+    return run_stream_loop(output_root=output_root, config=config, max_ticks=int(args.max_ticks or 0))
+
+
+def cmd_demo_spx500_v2b_paper_status(args) -> int:
+    from .demo.spx500_v2b_ungated_paper import status_daemon
+
+    return status_daemon(_demo_spx500_output_root(args))
+
+
+def cmd_demo_spx500_v2b_paper_stop(args) -> int:
+    from .demo.spx500_v2b_ungated_paper import stop_daemon
+
+    return stop_daemon(_demo_spx500_output_root(args))
+
+
+def cmd_demo_us30_v2b_paper(args) -> int:
+    from .demo.us30_v2b_ungated_paper import run_stream_loop, spawn_daemon
+    from .oanda import OandaConfig
+
+    output_root = _demo_us30_output_root(args)
+    if args.daemon:
+        return spawn_daemon(
+            output_root=output_root,
+            max_ticks=int(args.max_ticks or 0),
+            oanda_config_path=getattr(args, "oanda_config", "") or "",
+        )
+    config = OandaConfig.from_json_file(Path(args.oanda_config)) if getattr(args, "oanda_config", "") else OandaConfig.from_env()
+    return run_stream_loop(output_root=output_root, config=config, max_ticks=int(args.max_ticks or 0))
+
+
+def cmd_demo_us30_v2b_paper_status(args) -> int:
+    from .demo.us30_v2b_ungated_paper import status_daemon
+
+    return status_daemon(_demo_us30_output_root(args))
+
+
+def cmd_demo_us30_v2b_paper_stop(args) -> int:
+    from .demo.us30_v2b_ungated_paper import stop_daemon
+
+    return stop_daemon(_demo_us30_output_root(args))
 
 
 def cmd_cqg_smoke(args) -> int:
@@ -458,6 +794,108 @@ def build_parser() -> argparse.ArgumentParser:
     tradovate_flat.add_argument("--instruments", default="MNQ,NQ,MYM")
     tradovate_flat.add_argument("--allow-live", action="store_true")
     tradovate_flat.set_defaults(func=cmd_tradovate_emergency_flatten)
+
+    oanda_smoke = sub.add_parser("oanda-smoke", help="Validate OANDA config/account/pricing scaffolding")
+    oanda_smoke.add_argument("--oanda-config", default="")
+    oanda_smoke.add_argument("--instruments", default="EURUSD,XAUUSD")
+    oanda_smoke.add_argument("--offline", action="store_true")
+    oanda_smoke.set_defaults(func=cmd_oanda_smoke)
+
+    oanda_stream = sub.add_parser("oanda-stream-prices", help="Stream OANDA bid/ask prices to the console")
+    oanda_stream.add_argument("--oanda-config", default="")
+    oanda_stream.add_argument("--instruments", default="EURUSD,XAUUSD")
+    oanda_stream.add_argument("--max-ticks", type=int, default=0, help="Stop after N price ticks (0 = run forever)")
+    oanda_stream.add_argument("--heartbeats", action="store_true", help="Also print HEARTBEAT lines")
+    oanda_stream.add_argument("--no-snapshot", action="store_true", help="Skip initial pricing snapshot")
+    oanda_stream.set_defaults(func=cmd_oanda_stream_prices)
+
+    oanda_feed = sub.add_parser("oanda-feed-shadow", help="Replay OANDA-like JSONL events into live feed state")
+    oanda_feed.add_argument("--oanda-config", default="")
+    oanda_feed.add_argument("--events", default="")
+    oanda_feed.set_defaults(func=cmd_oanda_feed_shadow)
+
+    oanda_paper = sub.add_parser("oanda-paper", help="Bootstrap OANDA practice broker/feed state")
+    oanda_paper.add_argument("--oanda-config", default="")
+    oanda_paper.add_argument("--events", default="")
+    oanda_paper.set_defaults(func=cmd_oanda_paper)
+
+    oanda_flat = sub.add_parser("oanda-emergency-flatten", help="Cancel/flatten OANDA EURUSD/XAUUSD state")
+    oanda_flat.add_argument("--oanda-config", default="")
+    oanda_flat.add_argument("--instruments", default="EURUSD,XAUUSD")
+    oanda_flat.add_argument("--allow-live", action="store_true")
+    oanda_flat.set_defaults(func=cmd_oanda_emergency_flatten)
+
+    demo_paper = sub.add_parser(
+        "demo-eurusd-v2b-paper",
+        help="EURUSD v2b ungated paper demo (OANDA prices, local PaperBroker; --daemon for background)",
+    )
+    demo_paper.add_argument("--output-root", default="", help="Default: live/demo/eurusd_v2b_ungated_paper")
+    demo_paper.add_argument("--oanda-config", default="")
+    demo_paper.add_argument("--daemon", action="store_true", help="Detach to background (run.log + pidfile)")
+    demo_paper.add_argument("--max-ticks", type=int, default=0, help="Stop after N price ticks (0 = forever)")
+    demo_paper.set_defaults(func=cmd_demo_eurusd_v2b_paper)
+
+    demo_status = sub.add_parser("demo-eurusd-v2b-paper-status", help="Status of EURUSD demo paper daemon")
+    demo_status.add_argument("--output-root", default="")
+    demo_status.set_defaults(func=cmd_demo_eurusd_v2b_paper_status)
+
+    demo_stop = sub.add_parser("demo-eurusd-v2b-paper-stop", help="Stop EURUSD demo paper daemon")
+    demo_stop.add_argument("--output-root", default="")
+    demo_stop.set_defaults(func=cmd_demo_eurusd_v2b_paper_stop)
+
+    demo_nas = sub.add_parser(
+        "demo-nas100-v2b-paper",
+        help="NAS100 v2b ungated paper demo (OANDA NAS100_USD prices, local PaperBroker; --daemon)",
+    )
+    demo_nas.add_argument("--output-root", default="", help="Default: live/demo/nas100_v2b_ungated_paper")
+    demo_nas.add_argument("--oanda-config", default="")
+    demo_nas.add_argument("--daemon", action="store_true", help="Detach to background (run.log + pidfile)")
+    demo_nas.add_argument("--max-ticks", type=int, default=0, help="Stop after N price ticks (0 = forever)")
+    demo_nas.set_defaults(func=cmd_demo_nas100_v2b_paper)
+
+    demo_nas_status = sub.add_parser("demo-nas100-v2b-paper-status", help="Status of NAS100 demo paper daemon")
+    demo_nas_status.add_argument("--output-root", default="")
+    demo_nas_status.set_defaults(func=cmd_demo_nas100_v2b_paper_status)
+
+    demo_nas_stop = sub.add_parser("demo-nas100-v2b-paper-stop", help="Stop NAS100 demo paper daemon")
+    demo_nas_stop.add_argument("--output-root", default="")
+    demo_nas_stop.set_defaults(func=cmd_demo_nas100_v2b_paper_stop)
+
+    demo_spx = sub.add_parser(
+        "demo-spx500-v2b-paper",
+        help="SPX500 v2b ungated paper demo (OANDA SPX500_USD / ES proxy; --daemon)",
+    )
+    demo_spx.add_argument("--output-root", default="", help="Default: live/demo/spx500_v2b_ungated_paper")
+    demo_spx.add_argument("--oanda-config", default="")
+    demo_spx.add_argument("--daemon", action="store_true")
+    demo_spx.add_argument("--max-ticks", type=int, default=0)
+    demo_spx.set_defaults(func=cmd_demo_spx500_v2b_paper)
+
+    demo_spx_status = sub.add_parser("demo-spx500-v2b-paper-status", help="Status of SPX500 demo paper daemon")
+    demo_spx_status.add_argument("--output-root", default="")
+    demo_spx_status.set_defaults(func=cmd_demo_spx500_v2b_paper_status)
+
+    demo_spx_stop = sub.add_parser("demo-spx500-v2b-paper-stop", help="Stop SPX500 demo paper daemon")
+    demo_spx_stop.add_argument("--output-root", default="")
+    demo_spx_stop.set_defaults(func=cmd_demo_spx500_v2b_paper_stop)
+
+    demo_us30 = sub.add_parser(
+        "demo-us30-v2b-paper",
+        help="US30 v2b ungated paper demo (OANDA US30_USD / YM proxy; --daemon)",
+    )
+    demo_us30.add_argument("--output-root", default="", help="Default: live/demo/us30_v2b_ungated_paper")
+    demo_us30.add_argument("--oanda-config", default="")
+    demo_us30.add_argument("--daemon", action="store_true")
+    demo_us30.add_argument("--max-ticks", type=int, default=0)
+    demo_us30.set_defaults(func=cmd_demo_us30_v2b_paper)
+
+    demo_us30_status = sub.add_parser("demo-us30-v2b-paper-status", help="Status of US30 demo paper daemon")
+    demo_us30_status.add_argument("--output-root", default="")
+    demo_us30_status.set_defaults(func=cmd_demo_us30_v2b_paper_status)
+
+    demo_us30_stop = sub.add_parser("demo-us30-v2b-paper-stop", help="Stop US30 demo paper daemon")
+    demo_us30_stop.add_argument("--output-root", default="")
+    demo_us30_stop.set_defaults(func=cmd_demo_us30_v2b_paper_stop)
 
     cqg_smoke = sub.add_parser("cqg-smoke", help="Validate CQG config/session scaffolding")
     cqg_smoke.add_argument("--cqg-config", default="")

@@ -2,8 +2,11 @@ from __future__ import annotations
 
 from abc import ABC, abstractmethod
 from dataclasses import replace
+from datetime import datetime
 from pathlib import Path
 from typing import Dict, Iterable, List, Optional
+
+import pytz
 
 from .models import (
     Bar,
@@ -30,6 +33,11 @@ DEFAULT_TICK_SIZE: Dict[str, float] = {
     "YM": 1.0,
     "MYM": 1.0,
     "EURUSD": 0.00001,
+    "GBPUSD": 0.00001,
+    "USDJPY": 0.001,
+    "AUDJPY": 0.001,
+    "XAUUSD": 0.01,
+    "XAGUSD": 0.001,
 }
 
 
@@ -352,7 +360,7 @@ class PaperBroker(BaseBroker):
             price = self._fill_price(order, bar)
             if price is None:
                 continue
-            fill = self._fill_order(order, price, bar.ts, fill_qty=fill_qty)
+            fill = self._fill_order(order, price, bar.ts, fill_qty=fill_qty, bar=bar)
             fills.append(fill)
             order_after_fill = self._get_order(order.broker_order_id)
             intent = self._get_intent(order.intent_id)
@@ -382,7 +390,8 @@ class PaperBroker(BaseBroker):
         base = self._base_fill_price(order, bar)
         if base is None:
             return None
-        if self.spread_model is not None and order.order_type in {"market", "market_close", "stop", "limit"}:
+        # Real bid/ask on the bar already encodes spread — do not double-apply SpreadModel.
+        if self.spread_model is not None and not bar.has_quote_book() and order.order_type in {"market", "market_close", "stop", "limit"}:
             tick = self.tick_size.get(order.instrument.upper(), 0.25)
             model = SpreadModel(
                 tick_size=tick,
@@ -402,15 +411,20 @@ class PaperBroker(BaseBroker):
         return base
 
     def _base_fill_price(self, order: BrokerOrder, bar: Bar) -> Optional[float]:
+        quotes = bar.has_quote_book()
         if order.order_type == "market":
+            if quotes:
+                return float(bar.ask_open if order.side == "buy" else bar.bid_open)
             return bar.open
         if order.order_type == "market_close":
+            if quotes:
+                return float(bar.ask_close if order.side == "buy" else bar.bid_close)
             return bar.close
         if order.order_type == "limit":
             if order.limit_price is None:
                 return None
             touched = False
-            if self.spread_model is not None:
+            if self.spread_model is not None and not quotes:
                 touched = self.spread_model.limit_touch_ok(order.side, bar, order.limit_price)
             elif order.side == "buy":
                 touched = bar.low <= order.limit_price
@@ -418,15 +432,27 @@ class PaperBroker(BaseBroker):
                 touched = bar.high >= order.limit_price
             if not touched:
                 return None
+            # Limit fills at the limit; with quotes, buys cannot fill above ask and sells below bid.
+            if quotes:
+                if order.side == "buy":
+                    if float(bar.ask_low) > order.limit_price:
+                        return None
+                    return min(order.limit_price, float(bar.ask_close))
+                if float(bar.bid_high) < order.limit_price:
+                    return None
+                return max(order.limit_price, float(bar.bid_close))
             return order.limit_price
         if order.order_type == "stop":
             if order.stop_price is None:
                 return None
+            # Trigger on mid OHLC; fill on the tradeable side (ask for buys, bid for sells).
             if order.side == "buy" and bar.high >= order.stop_price:
-                # Gap-through realism: if the bar opened above the stop, the
-                # stop converts to a market and fills at the open (worse for us).
+                if quotes:
+                    return max(order.stop_price, float(bar.ask_open))
                 return max(order.stop_price, bar.open)
             if order.side == "sell" and bar.low <= order.stop_price:
+                if quotes:
+                    return min(order.stop_price, float(bar.bid_open))
                 return min(order.stop_price, bar.open)
         return None
 
@@ -464,8 +490,21 @@ class PaperBroker(BaseBroker):
             target_price = order.limit_price
         return stop_price, target_price
 
-    def _fill_order(self, order: BrokerOrder, price: float, ts: str, fill_qty: Optional[int] = None) -> Fill:
+    def _fill_order(
+        self,
+        order: BrokerOrder,
+        price: float,
+        ts: str,
+        fill_qty: Optional[int] = None,
+        bar: Optional[Bar] = None,
+    ) -> Fill:
         fill_qty = fill_qty if fill_qty is not None else order.remaining_quantity
+        mid_price = float(bar.close) if bar is not None else None
+        bid_price = float(bar.bid_close) if bar is not None and bar.bid_close is not None else None
+        ask_price = float(bar.ask_close) if bar is not None and bar.ask_close is not None else None
+        spread = None
+        if bid_price is not None and ask_price is not None:
+            spread = ask_price - bid_price
         fill = Fill(
             fill_id=new_id("fill"),
             broker_order_id=order.broker_order_id,
@@ -479,6 +518,10 @@ class PaperBroker(BaseBroker):
             price=price,
             ts=ts,
             reason=order.bracket_role or order.order_type,
+            mid_price=mid_price,
+            bid_price=bid_price,
+            ask_price=ask_price,
+            spread=spread,
         )
         remaining = max(order.remaining_quantity - fill_qty, 0)
         updated = replace(
@@ -572,22 +615,58 @@ class PaperBroker(BaseBroker):
         raise KeyError("Order intent not found: %s" % intent_id)
 
 
-def _ts_after(left: str, right: str) -> bool:
-    """Compare ISO-like timestamps or dates without requiring timezone parsing.
+_NY = pytz.timezone("America/New_York")
 
-    Runtime bars and generated strategy timestamps use sortable ISO/date strings.
-    Date-only values intentionally expire before the next calendar date.
+
+def _parse_cmp_ts(value: str) -> Optional[datetime]:
+    """Parse ISO timestamps for order live/expiry gates.
+
+    Naive datetimes are treated as America/New_York wall clock (research /
+    session-local convention). Aware values (including ``Z``) convert to UTC.
+    Date-only strings return ``None`` so callers keep legacy string compare.
+    """
+    raw = str(value).strip()
+    if not raw or ("T" not in raw and len(raw) <= 10):
+        return None
+    if raw.endswith("Z"):
+        raw = raw[:-1] + "+00:00"
+    try:
+        dt = datetime.fromisoformat(raw)
+    except ValueError:
+        try:
+            dt = datetime.strptime(raw[:19], "%Y-%m-%dT%H:%M:%S")
+        except ValueError:
+            return None
+    if dt.tzinfo is None:
+        dt = _NY.localize(dt)
+    return dt.astimezone(pytz.UTC)
+
+
+def _ts_after(left: str, right: str) -> bool:
+    """True when ``left`` is strictly after ``right``.
+
+    Timezone-aware for full ISO timestamps so UTC live bars compare correctly
+    against NY-session expiry stamps. Date-only values keep sortable string
+    compare (expire once any same-day ISO timestamp is seen).
     """
 
     if not right:
         return True
-    return str(left) > str(right)
+    left_dt = _parse_cmp_ts(left)
+    right_dt = _parse_cmp_ts(right)
+    if left_dt is None or right_dt is None:
+        return str(left) > str(right)
+    return left_dt > right_dt
 
 
 def _ts_before(left: str, right: str) -> bool:
     if not right:
         return False
-    return str(left) < str(right)
+    left_dt = _parse_cmp_ts(left)
+    right_dt = _parse_cmp_ts(right)
+    if left_dt is None or right_dt is None:
+        return str(left) < str(right)
+    return left_dt < right_dt
 
 
 class TradovateBroker(BaseBroker):

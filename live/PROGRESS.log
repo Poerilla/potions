@@ -48,3 +48,32 @@ Append-only research/platform progress notes.
 - Corrected XAGUSD 2011-01-20 100x bars; re-ran gambit.
 - XAG yearly ORB now +$121k / N/S 6.21 (was artifactual 316).
 - Top4: AUDJPY yearly 15.3, XAU yearly 11.3, XAG yearly 6.2, USDJPY FBO atr80 4.25.
+
+## 2026-07-22 — First live paper pilot (OANDA practice + local PaperBroker)
+
+### What shipped
+- OANDA v20 adapter scaffold: `live/oanda.py`, specs `OANDA_V20_REFERENCE.md` / `OANDA_ADAPTER.md`, vendored `v20-python/`.
+- Mid-signal / bid-ask fill bar schema (`Bar` quote book + `QuoteOneMinuteBarBuilder`); PaperBroker buys at ask / sells at bid when quotes present.
+- **Pilot A** parallel demos under `live/demo/` (not `live/state/`):
+  - EURUSD → `EUR_USD`
+  - NAS100 → `NAS100_USD` (NQ-ish)
+  - SPX500 → `SPX500_USD` (**ES proxy**)
+  - US30 → `US30_USD` (**YM proxy**)
+- Same strategy on all four: `v2b_scaleout` OCO ungated, `S_1_1_1`, `use_regime_filter=false`, NY RTH gate, PaperBroker only (no OANDA order routing).
+- CLI: `demo-{eurusd,nas100,spx500,us30}-v2b-paper` (+ `-status` / `-stop`), `--daemon`.
+
+### Bugs found in pilot and fixed
+- OR clock: v2b `_parse_dt` now converts to `America/New_York` (UTC `Z` bars were skipping OR).
+- Order expiry: `_session_expiry` emits NY-offset 15:59; PaperBroker `_ts_after`/`_ts_before` timezone-aware (naive `T15:59:00` vs UTC caused noon ET cancels).
+- Stream resilience: reconnect/backoff after overnight disconnect.
+
+### Pilot posture (explicit)
+- This is the **first paper pilot system**: OANDA practice **prices in**, local **PaperBroker** fills out.
+- Tradovate futures paper and OANDA **order routing** remain next phases (see `LIVE_FEED_PAPER_TRADING_EXECUTION_PLAN.md` + OANDA burn-in checklist).
+- Runtime artifacts under `live/demo/*/state|charts|pidfile|*.log` stay local (gitignored).
+
+### Open follow-ups from pilot day
+- Stop **trigger** still uses mid high/low; fill price uses ask/bid — tighten quote-side triggers later.
+- Sibling strategies (`or_2r_fade`, `v2b_clean_break`) still have old `_parse_dt` / naive expiry stamps.
+- Full OR/OCO on index CFDs starts next RTH (today’s OR window already passed when SPX/US30 came up).
+- OANDA practice order burn-in checklist items 6–11 still open before any live routing.

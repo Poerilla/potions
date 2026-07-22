@@ -59,6 +59,15 @@ class Bar:
     volume: float = 0.0
     complete: bool = True
     source: str = ""
+    # Optional quote-book OHLC (mid is open/high/low/close). Used for FX paper fills.
+    bid_open: Optional[float] = None
+    bid_high: Optional[float] = None
+    bid_low: Optional[float] = None
+    bid_close: Optional[float] = None
+    ask_open: Optional[float] = None
+    ask_high: Optional[float] = None
+    ask_low: Optional[float] = None
+    ask_close: Optional[float] = None
 
     @classmethod
     def from_row(cls, row: Dict[str, Any]) -> "Bar":
@@ -73,6 +82,26 @@ class Bar:
             volume=float(row.get("volume") or 0.0),
             complete=parse_bool(row.get("complete", "true")),
             source=str(row.get("source", "")),
+            bid_open=parse_float(row.get("bid_open")),
+            bid_high=parse_float(row.get("bid_high")),
+            bid_low=parse_float(row.get("bid_low")),
+            bid_close=parse_float(row.get("bid_close")),
+            ask_open=parse_float(row.get("ask_open")),
+            ask_high=parse_float(row.get("ask_high")),
+            ask_low=parse_float(row.get("ask_low")),
+            ask_close=parse_float(row.get("ask_close")),
+        )
+
+    def has_quote_book(self) -> bool:
+        return (
+            self.bid_open is not None
+            and self.bid_high is not None
+            and self.bid_low is not None
+            and self.bid_close is not None
+            and self.ask_open is not None
+            and self.ask_high is not None
+            and self.ask_low is not None
+            and self.ask_close is not None
         )
 
 
@@ -308,6 +337,31 @@ class Fill:
     price: float
     ts: str
     reason: str = ""
+    mid_price: Optional[float] = None
+    bid_price: Optional[float] = None
+    ask_price: Optional[float] = None
+    spread: Optional[float] = None
+
+    @classmethod
+    def from_row(cls, row: Dict[str, Any]) -> "Fill":
+        return cls(
+            fill_id=str(row["fill_id"]),
+            broker_order_id=str(row["broker_order_id"]),
+            intent_id=str(row.get("intent_id", "")),
+            strategy_id=str(row.get("strategy_id", "")),
+            trade_id=str(row.get("trade_id", "")),
+            instrument=str(row["instrument"]),
+            account_mode=str(row.get("account_mode", "paper")),
+            side=str(row["side"]),
+            quantity=parse_int(row.get("quantity"), 0),
+            price=float(row["price"]),
+            ts=str(row["ts"]),
+            reason=str(row.get("reason", "")),
+            mid_price=parse_float(row.get("mid_price")),
+            bid_price=parse_float(row.get("bid_price")),
+            ask_price=parse_float(row.get("ask_price")),
+            spread=parse_float(row.get("spread")),
+        )
 
 
 @dataclass(frozen=True)

@@ -181,6 +181,57 @@ def test_v2b_scaleout_emits_opening_range_and_entry_gate_snapshots():
         tmp.cleanup()
 
 
+def test_v2b_scaleout_builds_or_from_true_utc_bar_timestamps():
+    """OANDA/live bars are UTC (Z). Session clocks are NY wall; do not compare raw UTC hours."""
+    tmp, store = make_store()
+    try:
+        inst = StrategyInstance(
+            strategy_id="v2b_utc_or",
+            strategy_type="v2b_scaleout",
+            version="v1",
+            instrument="EURUSD",
+            broker_instrument="EURUSD",
+            account_mode="paper",
+            enabled=True,
+            timeframes="1m",
+            max_contracts=3,
+            max_open_orders=8,
+            config_json=json.dumps(
+                {
+                    "mode": "oco_then_reverse",
+                    "use_regime_filter": False,
+                    "entry_qty": 3,
+                    "tp1_qty": 1,
+                    "tp2_qty": 1,
+                    "prior_opposite_only": False,
+                }
+            ),
+        )
+        store.upsert_row("strategy_instances", "strategy_id", as_row(inst))
+        engine = Engine(store=store, persist_health=False)
+        # 2026-07-22 is EDT: NY 09:30–09:44 == UTC 13:30–13:44.
+        for minute in range(15):
+            ts = "2026-07-22T13:%02d:00Z" % (30 + minute)
+            engine.process_bar(Bar("EURUSD", "1m", ts, 1.10, 1.101, 1.099, 1.1005))
+        state_rows = store.read_table("strategy_state")
+        assert state_rows
+        state = json.loads(state_rows[0]["state_json"])
+        assert state["or_count"] == 15
+        assert state["or_finalized"] is True
+        assert state["regime_ok"] is True
+        assert state["phase"] == "armed"
+        intents = store.read_table("order_intents")
+        assert len(intents) >= 2
+        sides = {row["side"] for row in intents if not _as_bool(row.get("reduce_only"))}
+        assert sides == {"buy", "sell"}
+    finally:
+        tmp.cleanup()
+
+
+def _as_bool(value) -> bool:
+    return str(value).lower() in {"1", "true", "yes"}
+
+
 def test_hourly_st_pmc_emits_signal_pmc_and_entry_gate_snapshots():
     tmp, store = make_store()
     try:

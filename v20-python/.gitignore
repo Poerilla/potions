@@ -1,0 +1,9 @@
+# Vendored OANDA v20 SDK — keep source only
+*.egg
+*.egg-info/
+__pycache__/
+*.pyc
+.Python
+dist/
+build/
+.eggs/

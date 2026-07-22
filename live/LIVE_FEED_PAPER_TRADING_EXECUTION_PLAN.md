@@ -4,32 +4,60 @@ Goal: move the current `potions/live/` runtime from broker-like replay into a re
 
 This plan is intentionally paper-first. Real-money routing should stay disabled until the paper path survives multiple weeks of feed, order, fill, reconciliation, restart, and report checks.
 
+## Status — 2026-07-22 Pilot A (active)
+
+**First pilot system is live and is not Tradovate-first.** It is:
+
+| Layer | Choice |
+|-------|--------|
+| Prices | OANDA fxTrade **practice** pricing stream |
+| Execution | Local **PaperBroker** only (no OANDA / Tradovate order routing) |
+| Strategy | `v2b_scaleout` OCO ungated, `S_1_1_1`, regime filter off |
+| Session | NY RTH 09:30–16:00; OR 09:30–09:45; expiry 15:59 America/New_York |
+| Artifacts | `live/demo/{eurusd,nas100,spx500,us30}_v2b_ungated_paper/` |
+
+Instruments in the pilot pack:
+
+- `EURUSD` → `EUR_USD`
+- `NAS100` → `NAS100_USD` (index CFD, NQ-ish)
+- `SPX500` → `SPX500_USD` (**ES proxy**)
+- `US30` → `US30_USD` (**YM proxy**)
+
+Operator docs: [`live/demo/README.md`](demo/README.md). Adapter contract: [`specs/OANDA_ADAPTER.md`](specs/OANDA_ADAPTER.md).
+
+Pilot path still uses `Engine` + `PaperBroker.process_bar()` (simulation fills on completed 1m bars with mid OHLC for signals and bid/ask OHLC for fills). That is **accepted for Pilot A**. Phase 1 engine split (sim vs external broker events) remains required before Tradovate or OANDA live routing.
+
+Tradovate demo paper (Phases 4–5 below) stays the CME futures paper track. OANDA practice **order** burn-in (adapter checklist items 6–11) stays the FX/index order-routing track. Neither is the current pilot’s execution path.
+
 ## Current Readiness
 
-The runtime is currently a strong replay engine, not a complete live-feed engine.
+The runtime is currently a strong replay engine plus an **OANDA practice price → PaperBroker** pilot harness. It is not yet a complete multi-broker live-feed engine.
 
 What already exists:
 
 - `Engine` can accept completed `Bar` objects and run strategy callbacks.
 - `StrategyManager` loads enabled `StrategyPlugin`s from flat files and applies order/cancel/modify actions.
 - `PaperBroker` simulates fills against completed OHLC bars and persists orders, fills, positions, events, and health.
+- Quote-book bars: mid OHLC for signals; bid/ask OHLC for paper buys/sells when present.
 - `RiskManager` blocks over-sizing and now collapses OCO peers in exposure projection.
 - `SpoofVerificationProvider` auto-approves paper entries and blocks unapproved live entries.
 - Health endpoint and flat-file reports exist.
 - `V2BScaleoutStrategy` exists and supports `oco_then_reverse`, custom `entry_qty`, `tp1_qty`, and `tp2_qty`.
 - `YearlyOrbScaleout3Strategy` exists for daily-bar yearly ORB variants.
+- OANDA practice pricing stream + reconnect loop via `live/demo/*_v2b_ungated_paper.py`.
+- NY-aware session parse / order expiry on the v2b + PaperBroker path used by the pilot.
 
 What is missing before Tradovate paper trading:
 
-- No live market-data adapter.
-- No 1m/5m real-time bar builder.
-- No idempotent bar upsert / duplicate-bar protection.
+- No production Tradovate live market-data adapter wired into the pilot (OANDA covers FX/index CFDs only).
+- No idempotent bar upsert / duplicate-bar protection across restarts (pilot relies on append + session discipline).
 - No real Tradovate broker implementation. `TradovateBroker` is still an inert shell.
 - Engine still assumes a broker can be asked to `process_bar()`, which is a simulation method, not a live-broker method.
 - Live jobs such as `market_data_refresh`, `reconcile_orders`, `reconcile_positions`, and `send_alerts` are currently noops.
 - No startup reconciliation loop that trusts broker state over local state.
 - No durable mapping between local `intent_id` / `broker_order_id` and Tradovate `orderId` / `ocoId` / `osoId`.
 - No production-grade notification sink yet.
+- OANDA **order** routing not burn-in complete (practice place/cancel/flatten still open).
 
 ## Tradovate OpenAPI Capability Check
 
@@ -171,6 +199,8 @@ Acceptance:
 
 Objective: get trustworthy completed 1m/5m/daily bars into the engine.
 
+**Pilot A progress (2026-07-22):** OANDA practice pricing stream + `QuoteOneMinuteBarBuilder` already produce completed 1m mid/bid/ask bars into `live/demo/*/state/bars/` for EURUSD / NAS100 / SPX500 / US30. NY RTH gating and reconnect/backoff are in the demo runners. Remaining Phase 3 work is the general adapter interface, completeness/backfill guards, Tradovate/Databento futures feeds, and `CSVLiveFeedAdapter` rehearsal.
+
 Tasks:
 
 - Define `MarketDataAdapter`:
@@ -190,8 +220,9 @@ Tasks:
   - no partial bars passed to strategies
   - reconnect can backfill missing bars
 - Add a provider implementation:
-  - Preferred: Tradovate market-data websocket if we document and test it.
-  - Acceptable first paper path: Databento live feed if easier and already familiar.
+  - **Done for Pilot A FX/index CFDs:** OANDA practice pricing stream (`live/oanda.py` + demo runners).
+  - Preferred for CME futures: Tradovate market-data websocket if we document and test it.
+  - Acceptable futures paper path: Databento live feed if easier and already familiar.
 - Add a small `CSVLiveFeedAdapter` for rehearsal:
   - streams historical 1m bars in real time or accelerated time
   - exercises the same live event loop without broker risk.
@@ -199,9 +230,9 @@ Tasks:
 Acceptance:
 
 - A one-day accelerated `CSVLiveFeedAdapter` run produces the same bars/orders as the existing v2b replay for that day.
-- Real or demo feed can run during RTH and write completed 1m bars to `bars/MNQ_1m.csv`.
+- Real or demo feed can run during RTH and write completed 1m bars to `bars/MNQ_1m.csv` (futures) or the pilot demo `bars/*.csv` paths (FX/index).
 - Feed stale condition creates a warning alert and blocks new entries after a configured timeout.
-
+- **Partial:** Pilot A already writes RTH-complete 1m quote bars under `live/demo/*/state/`.
 ## Phase 4 - Tradovate REST Broker Adapter
 
 Objective: implement paper-account order routing, reconciliation, and emergency control using `live/openapi.json`.
@@ -267,9 +298,11 @@ Acceptance:
 
 ## Phase 5 - V2B OCO Paper Harness
 
-Objective: run `v2b_scaleout` against a Tradovate paper account with custom sizing.
+Objective: run `v2b_scaleout` against an external paper account with custom sizing.
 
-Example strategy instance:
+**Pilot A (active, 2026-07-22):** First harness is **OANDA practice prices → local PaperBroker**, not Tradovate. Four parallel demos (`EURUSD`, `NAS100`, `SPX500`/`ES` proxy, `US30`/`YM` proxy) under `live/demo/` run ungated `S_1_1_1` OCO with NY session clocks. This satisfies strategy/session/paper-fill loop acceptance for the FX/index pack; Tradovate MNQ acceptance below remains the CME track.
+
+Example strategy instance (Tradovate CME target; Pilot A uses analogous configs in the demo runners with `use_regime_filter=false` and PaperBroker):
 
 ```json
 {
@@ -298,11 +331,13 @@ Example strategy instance:
 }
 ```
 
-Important: `regime_dates` should not be manually static in live operation. Instead, a daily updater should write the current `regime_ok` decision to state before RTH, based on prior completed daily close:
+Important: when `use_regime_filter=true`, `regime_dates` should not be manually static in live operation. Instead, a daily updater should write the current `regime_ok` decision to state before RTH, based on prior completed daily close:
 
 - `MA50 > MA150` shifted one completed daily bar.
 - If false, no v2b entries are armed.
 - If data is stale or unavailable, skip the session.
+
+Pilot A deliberately runs **ungated** (`use_regime_filter=false`) so every RTH session can arm while pricing/paper path is proven.
 
 Execution behavior required:
 
@@ -323,11 +358,8 @@ Execution behavior required:
 
 Acceptance:
 
-- Five paper sessions run with zero duplicate bars, zero orphan orders, zero unexplained position drift.
-- Every local fill matches a Tradovate fill id and price.
-- Every local open order maps to a Tradovate order id.
-- EOD flat is confirmed by broker.
-- Daily report contains strategy state, OR levels, orders, fills, positions, P/L, warnings, and next expected action.
+- **Pilot A (PaperBroker):** multi-day RTH runs with OR arm, OCO entry, TP1/TP2/runner behavior, NY expiry, restart re-arm, and demo status CLIs. In progress on 2026-07-22.
+- **Tradovate CME (still open):** five paper sessions with zero duplicate bars, zero orphan orders, zero unexplained position drift; every local fill matches a Tradovate fill id and price; every local open order maps to a Tradovate order id; EOD flat confirmed by broker; daily report contains strategy state, OR levels, orders, fills, positions, P/L, warnings, and next expected action.
 
 ## Phase 6 - Yearly ORB Paper Harness
 

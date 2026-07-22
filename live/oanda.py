@@ -1,0 +1,1425 @@
+from __future__ import annotations
+
+import csv
+import json
+import os
+import sys
+from dataclasses import dataclass, field, replace
+from datetime import datetime, timezone
+from pathlib import Path
+from typing import Any, Callable, Dict, Iterable, List, Optional, Tuple
+
+from .broker import BaseBroker
+from .live_feed import FeedHealth, LiveFeedAdapter, PersistedLiveFeedAdapter
+from .models import Bar, BrokerOrder, Fill, OrderIntent, Position, as_row, new_id, utc_now_iso
+from .store import FlatFileStore
+from .supervisor import RuntimeSupervisor
+
+
+DEFAULT_INSTRUMENTS = ("EURUSD", "XAUUSD", "NAS100", "SPX500", "US30")
+DEFAULT_INSTRUMENT_MAP = {
+    "EURUSD": "EUR_USD",
+    "XAUUSD": "XAU_USD",
+    "GBPUSD": "GBP_USD",
+    "USDJPY": "USD_JPY",
+    "AUDJPY": "AUD_JPY",
+    "XAGUSD": "XAG_USD",
+    "NAS100": "NAS100_USD",
+    "SPX500": "SPX500_USD",  # US SPX 500 CFD — ES proxy
+    "US30": "US30_USD",  # US Wall St 30 CFD — YM proxy
+}
+DEFAULT_PRIMARY_ACCOUNT = "101-002-39860312-001"
+DEFAULT_SECONDARY_ACCOUNT = "101-002-39860312-002"
+
+
+class OandaAdapterError(RuntimeError):
+    pass
+
+
+class OandaConfigurationError(OandaAdapterError):
+    pass
+
+
+class OandaRoutingBlocked(OandaAdapterError):
+    pass
+
+
+def _ensure_v20_deps() -> None:
+    """v20 requires ``ujson`` + ``requests``. Fall back to stdlib ``json`` if ujson is missing."""
+    try:
+        import ujson  # noqa: F401
+    except ImportError:
+        import json as _json
+
+        sys.modules["ujson"] = _json
+    try:
+        import requests  # noqa: F401
+    except ImportError as exc:
+        raise OandaConfigurationError(
+            "OANDA network mode requires the 'requests' package (v20 dependency). "
+            "Install with: python3 -m pip install --user requests ujson"
+        ) from exc
+
+
+def _ensure_v20_on_path() -> Path:
+    """Prepend vendored v20-python/src so `import v20` works without a global install."""
+    _ensure_v20_deps()
+    root = Path(__file__).resolve().parents[1] / "v20-python" / "src"
+    path = str(root)
+    if path not in sys.path:
+        sys.path.insert(0, path)
+    return root
+
+
+@dataclass(frozen=True)
+class OandaConfig:
+    env: str = "practice"
+    api_url: str = "https://api-fxpractice.oanda.com"
+    stream_url: str = "https://stream-fxpractice.oanda.com"
+    token: str = ""
+    account_id: str = DEFAULT_PRIMARY_ACCOUNT
+    instrument_map: Dict[str, str] = field(default_factory=lambda: dict(DEFAULT_INSTRUMENT_MAP))
+    application: str = "potions-oanda-adapter"
+
+    @classmethod
+    def from_env(cls, environ: Optional[Dict[str, str]] = None) -> "OandaConfig":
+        env = environ if environ is not None else os.environ
+        oanda_env = (env.get("OANDA_ENV") or "practice").strip().lower() or "practice"
+        if oanda_env in {"practice", "fxpractice", "demo"}:
+            oanda_env = "practice"
+            default_api = "https://api-fxpractice.oanda.com"
+            default_stream = "https://stream-fxpractice.oanda.com"
+        elif oanda_env in {"live", "fxtrade", "trade"}:
+            oanda_env = "live"
+            default_api = "https://api-fxtrade.oanda.com"
+            default_stream = "https://stream-fxtrade.oanda.com"
+        else:
+            raise OandaConfigurationError("OANDA_ENV must be practice or live, got %r" % oanda_env)
+        instrument_map = dict(DEFAULT_INSTRUMENT_MAP)
+        instrument_map.update(parse_instrument_map(env.get("OANDA_INSTRUMENT_MAP", "")))
+        return cls(
+            env=oanda_env,
+            api_url=(env.get("OANDA_API_URL") or default_api).rstrip("/"),
+            stream_url=(env.get("OANDA_STREAM_URL") or default_stream).rstrip("/"),
+            token=env.get("OANDA_TOKEN", ""),
+            account_id=(env.get("OANDA_ACCOUNT_ID") or DEFAULT_PRIMARY_ACCOUNT).strip(),
+            instrument_map=instrument_map,
+            application=env.get("OANDA_APPLICATION", "potions-oanda-adapter"),
+        )
+
+    @classmethod
+    def from_json_file(cls, path: Path, environ: Optional[Dict[str, str]] = None) -> "OandaConfig":
+        base = cls.from_env(environ)
+        raw = json.loads(Path(path).read_text(encoding="utf-8"))
+        instrument_map = dict(base.instrument_map)
+        instrument_map.update({str(k).upper(): str(v) for k, v in (raw.get("instrument_map") or {}).items()})
+        return cls(
+            env=str(raw.get("env", base.env)).strip().lower() or base.env,
+            api_url=str(raw.get("api_url", base.api_url)).rstrip("/"),
+            stream_url=str(raw.get("stream_url", base.stream_url)).rstrip("/"),
+            token=str(raw.get("token", base.token)),
+            account_id=str(raw.get("account_id", base.account_id)),
+            instrument_map=instrument_map,
+            application=str(raw.get("application", base.application)),
+        )
+
+    def validate_for_network(self) -> None:
+        missing = []
+        for field_name in ("api_url", "token", "account_id"):
+            if not getattr(self, field_name):
+                missing.append(field_name)
+        if missing:
+            raise OandaConfigurationError("Missing OANDA config fields: %s" % ", ".join(missing))
+
+    def hostname(self) -> str:
+        url = self.api_url
+        if "://" in url:
+            url = url.split("://", 1)[1]
+        return url.split("/", 1)[0]
+
+    def stream_hostname(self) -> str:
+        url = self.stream_url
+        if "://" in url:
+            url = url.split("://", 1)[1]
+        return url.split("/", 1)[0].rstrip("/")
+
+    def symbol_for(self, instrument: str) -> str:
+        key = instrument.upper().replace("/", "").replace("_", "")
+        # Accept both EURUSD and EUR_USD style keys in the map.
+        if instrument.upper() in self.instrument_map:
+            return self.instrument_map[instrument.upper()]
+        compact = {k.replace("_", ""): v for k, v in self.instrument_map.items()}
+        if key in compact:
+            return compact[key]
+        if "_" in instrument:
+            return instrument.upper()
+        # EURUSD -> EUR_USD heuristic for unknown pairs (last 3 = quote).
+        raw = instrument.upper()
+        if len(raw) == 6:
+            return "%s_%s" % (raw[:3], raw[3:])
+        return raw
+
+    def internal_for(self, oanda_instrument: str) -> str:
+        target = oanda_instrument.upper()
+        for internal, mapped in self.instrument_map.items():
+            if mapped.upper() == target:
+                return internal
+        return target.replace("_", "")
+
+
+@dataclass(frozen=True)
+class OandaInstrumentRef:
+    instrument: str
+    oanda_instrument: str
+    resolved_at: str
+    metadata: Dict[str, Any] = field(default_factory=dict)
+
+
+class OandaApiClient:
+    """Thin wrapper around vendored ``v20.Context``; injectable for offline tests."""
+
+    def __init__(
+        self,
+        config: OandaConfig,
+        store: Optional[FlatFileStore] = None,
+        context: Any = None,
+        context_factory: Optional[Callable[[OandaConfig], Any]] = None,
+    ):
+        self.config = config
+        self.store = store
+        self._context = context
+        self._context_factory = context_factory or default_v20_context
+        self.last_transaction_id: str = ""
+        self.account_snapshot: Dict[str, Any] = {}
+
+    @property
+    def ctx(self) -> Any:
+        if self._context is None:
+            self._context = self._context_factory(self.config)
+        return self._context
+
+    def record_session_event(self, event: Dict[str, Any]) -> None:
+        if self.store is not None:
+            self.store.append_event("oanda_session_events", event)
+
+    def list_accounts(self) -> Any:
+        response = self.ctx.account.list()
+        self.record_session_event({"event": "account_list", "status": getattr(response, "status", "")})
+        return response
+
+    def account_details(self, account_id: Optional[str] = None) -> Dict[str, Any]:
+        account_id = account_id or self.config.account_id
+        response = self.ctx.account.get(account_id)
+        body = response_body(response)
+        account = body.get("account") or {}
+        if hasattr(account, "dict"):
+            account = account.dict()
+        self.account_snapshot = dict(account) if isinstance(account, dict) else {"raw": account}
+        self.last_transaction_id = str(
+            body.get("lastTransactionID")
+            or self.account_snapshot.get("lastTransactionID")
+            or self.last_transaction_id
+            or ""
+        )
+        self.record_session_event(
+            {
+                "event": "account_details",
+                "account_id": account_id,
+                "last_transaction_id": self.last_transaction_id,
+            }
+        )
+        return body
+
+    def account_changes(self, since_transaction_id: Optional[str] = None, account_id: Optional[str] = None) -> Dict[str, Any]:
+        account_id = account_id or self.config.account_id
+        since = since_transaction_id or self.last_transaction_id
+        if not since:
+            raise OandaConfigurationError("account_changes requires lastTransactionID; call account_details first")
+        response = self.ctx.account.changes(account_id, sinceTransactionID=since)
+        body = response_body(response)
+        self.last_transaction_id = str(body.get("lastTransactionID") or self.last_transaction_id)
+        self.record_session_event(
+            {"event": "account_changes", "account_id": account_id, "last_transaction_id": self.last_transaction_id}
+        )
+        return body
+
+    def account_instruments(self, account_id: Optional[str] = None) -> Dict[str, Any]:
+        account_id = account_id or self.config.account_id
+        response = self.ctx.account.instruments(account_id)
+        body = response_body(response)
+        self.record_session_event({"event": "account_instruments", "account_id": account_id})
+        return body
+
+    def pricing_get(self, instruments: Iterable[str], account_id: Optional[str] = None) -> Dict[str, Any]:
+        account_id = account_id or self.config.account_id
+        names = ",".join(instruments)
+        response = self.ctx.pricing.get(account_id, instruments=names)
+        body = response_body(response)
+        self.record_session_event({"event": "pricing_get", "instruments": names})
+        return body
+
+    def pricing_stream(self, instruments: Iterable[str], account_id: Optional[str] = None, snapshot: bool = True) -> Any:
+        """Open OANDA pricing stream (uses stream hostname). Iterate ``response.parts()``."""
+        account_id = account_id or self.config.account_id
+        names = ",".join(instruments)
+        stream_ctx = default_v20_stream_context(self.config)
+        response = stream_ctx.pricing.stream(account_id, instruments=names, snapshot=snapshot)
+        self.record_session_event({"event": "pricing_stream_open", "instruments": names, "status": getattr(response, "status", "")})
+        return response
+
+    def create_order(self, order_body: Dict[str, Any], account_id: Optional[str] = None) -> Dict[str, Any]:
+        account_id = account_id or self.config.account_id
+        response = self.ctx.order.create(account_id, order=order_body)
+        body = response_body(response)
+        self.record_session_event({"event": "order_create", "account_id": account_id})
+        return body
+
+    def cancel_order(self, order_id: str, account_id: Optional[str] = None) -> Dict[str, Any]:
+        account_id = account_id or self.config.account_id
+        response = self.ctx.order.cancel(account_id, order_id)
+        body = response_body(response)
+        self.record_session_event({"event": "order_cancel", "order_id": order_id})
+        return body
+
+    def replace_order(self, order_id: str, order_body: Dict[str, Any], account_id: Optional[str] = None) -> Dict[str, Any]:
+        account_id = account_id or self.config.account_id
+        response = self.ctx.order.replace(account_id, order_id, order=order_body)
+        body = response_body(response)
+        self.record_session_event({"event": "order_replace", "order_id": order_id})
+        return body
+
+    def close_position(self, instrument: str, account_id: Optional[str] = None, **kwargs: Any) -> Dict[str, Any]:
+        account_id = account_id or self.config.account_id
+        response = self.ctx.position.close(account_id, instrument, **kwargs)
+        body = response_body(response)
+        self.record_session_event({"event": "position_close", "instrument": instrument})
+        return body
+
+    def candles(self, instrument: str, **kwargs: Any) -> Dict[str, Any]:
+        response = self.ctx.instrument.candles(instrument, **kwargs)
+        return response_body(response)
+
+
+def default_v20_context(config: OandaConfig) -> Any:
+    _ensure_v20_on_path()
+    import v20  # type: ignore
+
+    config.validate_for_network()
+    return v20.Context(
+        hostname=config.hostname(),
+        token=config.token,
+        application=config.application,
+        port=443,
+        ssl=True,
+        datetime_format="RFC3339",
+    )
+
+
+def default_v20_stream_context(config: OandaConfig) -> Any:
+    _ensure_v20_on_path()
+    import v20  # type: ignore
+
+    config.validate_for_network()
+    return v20.Context(
+        hostname=config.stream_hostname(),
+        token=config.token,
+        application=config.application,
+        port=443,
+        ssl=True,
+        datetime_format="RFC3339",
+    )
+
+
+class OneMinuteBarBuilder:
+    def __init__(self, instrument: str, source: str = "oanda"):
+        self.instrument = instrument
+        self.source = source
+        self._current_key: Optional[datetime] = None
+        self._open = 0.0
+        self._high = 0.0
+        self._low = 0.0
+        self._close = 0.0
+        self._volume = 0.0
+
+    def on_trade(self, price: float, quantity: float, ts: str) -> List[Bar]:
+        event_dt = parse_oanda_ts(ts)
+        minute_key = event_dt.replace(second=0, microsecond=0)
+        emitted: List[Bar] = []
+        if self._current_key is None:
+            self._start(minute_key, price, quantity)
+            return emitted
+        if minute_key != self._current_key:
+            emitted.append(self._bar())
+            self._start(minute_key, price, quantity)
+            return emitted
+        self._high = max(self._high, price)
+        self._low = min(self._low, price)
+        self._close = price
+        self._volume += quantity
+        return emitted
+
+    def flush(self) -> List[Bar]:
+        if self._current_key is None:
+            return []
+        bar = self._bar()
+        self._current_key = None
+        return [bar]
+
+    def _start(self, minute_key: datetime, price: float, quantity: float) -> None:
+        self._current_key = minute_key
+        self._open = price
+        self._high = price
+        self._low = price
+        self._close = price
+        self._volume = quantity
+
+    def _bar(self) -> Bar:
+        assert self._current_key is not None
+        return Bar(
+            instrument=self.instrument,
+            timeframe="1m",
+            ts=isoformat_utc(self._current_key),
+            open=self._open,
+            high=self._high,
+            low=self._low,
+            close=self._close,
+            volume=self._volume,
+            complete=True,
+            source=self.source,
+        )
+
+
+class QuoteOneMinuteBarBuilder:
+    """Build 1m mid OHLC for signals with parallel bid/ask OHLC for paper fills."""
+
+    def __init__(self, instrument: str, source: str = "oanda_quote"):
+        self.instrument = instrument
+        self.source = source
+        self._current_key: Optional[datetime] = None
+        self._mid = _SideBucket()
+        self._bid = _SideBucket()
+        self._ask = _SideBucket()
+        self._volume = 0.0
+
+    def on_quote(self, *, bid: float, ask: float, mid: Optional[float] = None, quantity: float = 0.0, ts: str) -> List[Bar]:
+        mid_px = float(mid) if mid is not None else (float(bid) + float(ask)) / 2.0
+        event_dt = parse_oanda_ts(ts)
+        minute_key = event_dt.replace(second=0, microsecond=0)
+        emitted: List[Bar] = []
+        if self._current_key is None:
+            self._start(minute_key, bid=float(bid), ask=float(ask), mid=mid_px, quantity=quantity)
+            return emitted
+        if minute_key != self._current_key:
+            emitted.append(self._bar())
+            self._start(minute_key, bid=float(bid), ask=float(ask), mid=mid_px, quantity=quantity)
+            return emitted
+        self._mid.update(mid_px)
+        self._bid.update(float(bid))
+        self._ask.update(float(ask))
+        self._volume += quantity
+        return emitted
+
+    def flush(self) -> List[Bar]:
+        if self._current_key is None:
+            return []
+        bar = self._bar()
+        self._current_key = None
+        return [bar]
+
+    def _start(self, minute_key: datetime, *, bid: float, ask: float, mid: float, quantity: float) -> None:
+        self._current_key = minute_key
+        self._mid = _SideBucket.start(mid)
+        self._bid = _SideBucket.start(bid)
+        self._ask = _SideBucket.start(ask)
+        self._volume = quantity
+
+    def _bar(self) -> Bar:
+        assert self._current_key is not None
+        return Bar(
+            instrument=self.instrument,
+            timeframe="1m",
+            ts=isoformat_utc(self._current_key),
+            open=self._mid.open,
+            high=self._mid.high,
+            low=self._mid.low,
+            close=self._mid.close,
+            volume=self._volume,
+            complete=True,
+            source=self.source,
+            bid_open=self._bid.open,
+            bid_high=self._bid.high,
+            bid_low=self._bid.low,
+            bid_close=self._bid.close,
+            ask_open=self._ask.open,
+            ask_high=self._ask.high,
+            ask_low=self._ask.low,
+            ask_close=self._ask.close,
+        )
+
+
+class _SideBucket:
+    __slots__ = ("open", "high", "low", "close")
+
+    def __init__(self) -> None:
+        self.open = 0.0
+        self.high = 0.0
+        self.low = 0.0
+        self.close = 0.0
+
+    @classmethod
+    def start(cls, price: float) -> "_SideBucket":
+        bucket = cls()
+        bucket.open = price
+        bucket.high = price
+        bucket.low = price
+        bucket.close = price
+        return bucket
+
+    def update(self, price: float) -> None:
+        self.high = max(self.high, price)
+        self.low = min(self.low, price)
+        self.close = price
+
+
+class FiveMinuteBarAggregator:
+    def __init__(self, instrument: str, source: str = "oanda_1m_aggregate"):
+        self.instrument = instrument
+        self.source = source
+        self._bucket_key: Optional[datetime] = None
+        self._bars: List[Bar] = []
+
+    def on_bar(self, bar: Bar) -> List[Bar]:
+        if bar.timeframe != "1m":
+            return []
+        dt = parse_oanda_ts(bar.ts)
+        bucket = dt.replace(minute=(dt.minute // 5) * 5, second=0, microsecond=0)
+        emitted: List[Bar] = []
+        if self._bucket_key is not None and bucket != self._bucket_key:
+            emitted.extend(self._flush_if_complete())
+            self._bars = []
+        self._bucket_key = bucket
+        self._bars.append(bar)
+        if len(self._bars) >= 5:
+            emitted.extend(self._flush_if_complete())
+            self._bars = []
+            self._bucket_key = None
+        return emitted
+
+    def flush(self) -> List[Bar]:
+        return self._flush_if_complete()
+
+    def _flush_if_complete(self) -> List[Bar]:
+        if len(self._bars) < 5:
+            return []
+        bars = self._bars[:5]
+        return [
+            Bar(
+                instrument=self.instrument,
+                timeframe="5m",
+                ts=bars[-1].ts,
+                open=bars[0].open,
+                high=max(bar.high for bar in bars),
+                low=min(bar.low for bar in bars),
+                close=bars[-1].close,
+                volume=sum(bar.volume for bar in bars),
+                complete=True,
+                source=self.source,
+            )
+        ]
+
+
+class OandaMarketDataFeedAdapter(LiveFeedAdapter):
+    BLOCKING_STATUSES = {"access_denied", "delayed", "downgraded", "stale", "unresolved_instrument", "permission_denied"}
+
+    def __init__(
+        self,
+        store: FlatFileStore,
+        config: Optional[OandaConfig] = None,
+        on_bar: Optional[Callable[[Bar], None]] = None,
+        stale_after_seconds: float = 30.0,
+        clock: Callable[[], datetime] = datetime.utcnow,
+        supervisor: Optional[RuntimeSupervisor] = None,
+    ):
+        self.store = store
+        self.store.ensure()
+        self.config = config or OandaConfig.from_env()
+        self.supervisor = supervisor
+        self._persisted = PersistedLiveFeedAdapter(
+            store,
+            on_bar=on_bar,
+            allowed_timeframes=("1m", "5m", "15m", "1h", "D"),
+            stale_after_seconds=stale_after_seconds,
+            clock=clock,
+        )
+        self.instrument_refs: Dict[str, OandaInstrumentRef] = {}
+        self._minute_builders: Dict[str, OneMinuteBarBuilder] = {}
+        self._five_minute_aggregators: Dict[str, FiveMinuteBarAggregator] = {}
+        self._blocking_reason = ""
+        self._market_status = "init"
+        self._write_market_data_status()
+
+    def resolve_instrument(
+        self,
+        instrument: str,
+        oanda_instrument: Optional[str] = None,
+        metadata: Optional[Dict[str, Any]] = None,
+    ) -> OandaInstrumentRef:
+        ref = OandaInstrumentRef(
+            instrument=instrument.upper(),
+            oanda_instrument=oanda_instrument or self.config.symbol_for(instrument),
+            resolved_at=utc_now_iso(),
+            metadata=metadata or {},
+        )
+        self.instrument_refs[ref.instrument] = ref
+        self._blocking_reason = ""
+        self.store.append_event("oanda_session_events", {"event": "instrument_resolved", **as_ref_row(ref)})
+        self._write_market_data_status()
+        return ref
+
+    def on_raw_event(self, event: Dict[str, Any]) -> List[Bar]:
+        event = dict(event)
+        self._persist_raw_market_event(event)
+        event_type = str(event.get("type") or event.get("event") or "")
+        if event_type in {"instrument_resolution", "symbol_resolution"}:
+            self.resolve_instrument(
+                str(event["instrument"]),
+                oanda_instrument=str(event.get("oanda_instrument") or event.get("symbol") or ""),
+                metadata=dict(event.get("metadata") or {}),
+            )
+            return []
+        if event_type == "market_data_status":
+            self._handle_market_data_status(event)
+            return []
+        if event_type in {"trade", "price", "pricing"}:
+            return self._handle_price_event(event)
+        if event_type == "bar":
+            return self._handle_bar_event(event)
+        if event_type == "candle":
+            return self._handle_candle_event(event)
+        # Pricing stream PRICE object
+        if str(event.get("type") or "").upper() == "PRICE" or event.get("bids") or event.get("asks"):
+            return self._handle_price_event(dict(event, type="price"))
+        return self._persisted.on_raw_event(event)
+
+    def on_completed_bar(self, timeframe: str, bar: Bar) -> None:
+        self._persisted.on_completed_bar(timeframe, bar)
+        self._append_bar_audit(bar, "completed_bar", "")
+
+    def health(self) -> FeedHealth:
+        base = self._persisted.health()
+        if self._blocking_reason:
+            return replace(base, status="blocked")
+        return base
+
+    def is_blocking_entries(self) -> bool:
+        base = self._persisted.health()
+        if self.supervisor is not None and base.stale:
+            self.supervisor.freeze_entries("oanda_feed_stale", {"stale_seconds": base.stale_seconds})
+        return bool(self._blocking_reason or base.stale)
+
+    def blocking_reason(self) -> str:
+        if self._blocking_reason:
+            return self._blocking_reason
+        health = self._persisted.health()
+        if health.stale:
+            return "stale"
+        return ""
+
+    def flush(self) -> List[Bar]:
+        emitted: List[Bar] = []
+        for builder in self._minute_builders.values():
+            for bar in builder.flush():
+                emitted.extend(self._persist_1m_and_derived_5m(bar))
+        return emitted
+
+    def _handle_market_data_status(self, event: Dict[str, Any]) -> None:
+        status = str(event.get("status") or event.get("status_code") or "").strip().lower()
+        self._market_status = status or "unknown"
+        if status in self.BLOCKING_STATUSES or event.get("delayed") or event.get("access_denied"):
+            self._blocking_reason = status or "market_data_blocked"
+            self.store.append_event("market_data_quality", {"event": "oanda_blocking_status", **event})
+            if self.supervisor is not None:
+                self.supervisor.freeze_entries("oanda_market_data_%s" % self._blocking_reason, event)
+        elif status in {"ok", "realtime", "subscribed", "tradeable"}:
+            self._blocking_reason = ""
+        self._write_market_data_status()
+
+    def _handle_price_event(self, event: Dict[str, Any]) -> List[Bar]:
+        instrument = self._resolve_internal_instrument(event)
+        if not instrument:
+            self._blocking_reason = "unresolved_instrument"
+            self._write_market_data_status()
+            self.store.append_event("market_data_quality", {"event": "oanda_price_without_instrument", **event})
+            return []
+        if instrument not in self.instrument_refs:
+            self.resolve_instrument(instrument, oanda_instrument=str(event.get("oanda_instrument") or event.get("instrument") or ""))
+        price = mid_price_from_event(event)
+        if price is None:
+            return []
+        qty = float(event.get("quantity") or event.get("volume") or event.get("liquidity") or 0.0)
+        event_ts = str(event.get("event_ts") or event.get("ts") or event.get("time") or event.get("timestamp") or utc_now_iso())
+        builder = self._minute_builders.setdefault(instrument, OneMinuteBarBuilder(instrument))
+        emitted: List[Bar] = []
+        for bar in builder.on_trade(price, qty, event_ts):
+            emitted.extend(self._persist_1m_and_derived_5m(bar))
+        return emitted
+
+    def _handle_bar_event(self, event: Dict[str, Any]) -> List[Bar]:
+        bar = Bar.from_row(dict(event, source=event.get("source") or "oanda"))
+        emitted = self._persisted.on_raw_event(dict(as_row(bar), type="bar"))
+        self._append_bar_audit(bar, "vendor_bar", "")
+        if bar.timeframe == "1m" and emitted:
+            emitted.extend(self._derive_5m(bar))
+        return emitted
+
+    def _handle_candle_event(self, event: Dict[str, Any]) -> List[Bar]:
+        instrument = self._resolve_internal_instrument(event)
+        if not instrument:
+            return []
+        mid = event.get("mid") or event
+        bar = Bar(
+            instrument=instrument,
+            timeframe=str(event.get("timeframe") or event.get("granularity") or "1m").replace("M", "m").replace("H", "h"),
+            ts=str(event.get("time") or event.get("ts") or event.get("event_ts") or utc_now_iso()),
+            open=float(mid.get("o") if isinstance(mid, dict) else event.get("open")),
+            high=float(mid.get("h") if isinstance(mid, dict) else event.get("high")),
+            low=float(mid.get("l") if isinstance(mid, dict) else event.get("low")),
+            close=float(mid.get("c") if isinstance(mid, dict) else event.get("close")),
+            volume=float(event.get("volume") or 0.0),
+            complete=bool(event.get("complete", True)),
+            source="oanda",
+        )
+        if bar.timeframe.lower() in {"m1", "1m", "m"}:
+            bar = replace(bar, timeframe="1m")
+        return self._handle_bar_event(as_row(bar))
+
+    def _resolve_internal_instrument(self, event: Dict[str, Any]) -> str:
+        if event.get("instrument") and "_" not in str(event.get("instrument")):
+            return str(event["instrument"]).upper()
+        raw = str(event.get("instrument") or event.get("oanda_instrument") or "")
+        if not raw:
+            return ""
+        if "_" in raw:
+            return self.config.internal_for(raw)
+        return raw.upper()
+
+    def _persist_1m_and_derived_5m(self, bar: Bar) -> List[Bar]:
+        emitted: List[Bar] = []
+        emitted.extend(self._persisted.on_raw_event(dict(as_row(bar), type="bar")))
+        self._append_bar_audit(bar, "derived_1m", "")
+        emitted.extend(self._derive_5m(bar))
+        return emitted
+
+    def _derive_5m(self, bar: Bar) -> List[Bar]:
+        emitted: List[Bar] = []
+        agg = self._five_minute_aggregators.setdefault(bar.instrument, FiveMinuteBarAggregator(bar.instrument))
+        for five in agg.on_bar(bar):
+            self._persisted.on_completed_bar("5m", five)
+            self._append_bar_audit(five, "derived_5m", "")
+            emitted.append(five)
+        return emitted
+
+    def _persist_raw_market_event(self, event: Dict[str, Any]) -> None:
+        day = str(event.get("event_ts") or event.get("ts") or event.get("time") or event.get("timestamp") or utc_now_iso())[:10]
+        self.store.append_event("raw_market_data/oanda/%s" % day, event)
+
+    def _write_market_data_status(self) -> None:
+        health = self._persisted.health()
+        self.store.write_json(
+            "market_data_status.json",
+            {
+                "provider": "oanda",
+                "status": "blocked" if self._blocking_reason else self._market_status,
+                "blocking_reason": self._blocking_reason,
+                "updated_at": utc_now_iso(),
+                "instrument_refs": {instrument: as_ref_row(ref) for instrument, ref in self.instrument_refs.items()},
+                "feed_health": {key: str(value) for key, value in health.__dict__.items()},
+            },
+        )
+
+    def _append_bar_audit(self, bar: Bar, event: str, details: str) -> None:
+        path = self.store.root / "feed_broker_bar_audit.csv"
+        exists = path.exists()
+        path.parent.mkdir(parents=True, exist_ok=True)
+        with path.open("a", newline="", encoding="utf-8") as fh:
+            writer = csv.DictWriter(
+                fh,
+                fieldnames=["ts", "event", "instrument", "timeframe", "bar_ts", "source", "status", "details"],
+            )
+            if not exists:
+                writer.writeheader()
+            writer.writerow(
+                {
+                    "ts": utc_now_iso(),
+                    "event": event,
+                    "instrument": bar.instrument,
+                    "timeframe": bar.timeframe,
+                    "bar_ts": bar.ts,
+                    "source": bar.source,
+                    "status": "blocked" if self._blocking_reason else "ok",
+                    "details": details,
+                }
+            )
+
+
+class OandaBroker(BaseBroker):
+    def __init__(
+        self,
+        store: FlatFileStore,
+        config: Optional[OandaConfig] = None,
+        client: Optional[OandaApiClient] = None,
+        allow_live_routing: bool = False,
+        supervisor: Optional[RuntimeSupervisor] = None,
+    ):
+        self.store = store
+        self.store.ensure()
+        self.config = config or OandaConfig.from_env()
+        self.client = client
+        self.allow_live_routing = bool(allow_live_routing)
+        self.supervisor = supervisor
+        if self.config.env != "practice" and not self.allow_live_routing:
+            raise OandaConfigurationError("OANDA live routing is disabled unless allow_live_routing=True")
+        self._orders_cache: Dict[str, BrokerOrder] = {order.broker_order_id: order for order in self.store.load_orders()}
+        self._intents_cache: Dict[str, OrderIntent] = {intent.intent_id: intent for intent in self.store.load_order_intents()}
+        self._positions_cache: Dict[str, Position] = {pos.position_id: pos for pos in self.store.load_positions()}
+        self._active_order_ids = {
+            order.broker_order_id: True
+            for order in self._orders_cache.values()
+            if order.status in {"submitted", "partially_filled", "working", "pendingnew"}
+        }
+        self._oanda_order_ids: Dict[str, str] = {}
+        self.last_transaction_id: str = ""
+
+    def get_active_contract(self, instrument: str) -> str:
+        return self.config.symbol_for(instrument)
+
+    def get_bars(self, instrument: str, timeframe: str, limit: int = 500) -> List[Bar]:
+        bars = self.store.read_bars(instrument, timeframe)
+        return bars[-limit:]
+
+    def submit_order_intent(self, intent: OrderIntent) -> BrokerOrder:
+        self._assert_routing_allowed(intent)
+        intent = replace(intent, status="submitted", updated_at=utc_now_iso())
+        order = BrokerOrder.from_intent(intent)
+        self._intents_cache[intent.intent_id] = intent
+        self._orders_cache[order.broker_order_id] = order
+        self._active_order_ids[order.broker_order_id] = True
+        self.store.upsert_row("order_intents", "intent_id", dict(as_row(intent), status="submitted"))
+        self.store.upsert_row("orders", "broker_order_id", as_row(order))
+        payload = self.order_intent_to_oanda_order(intent, order)
+        self._emit_order_event({"event": "submit", "oanda_order": payload, **as_row(order)})
+        self._send_create_order(payload, order.broker_order_id)
+        return order
+
+    def modify_order(
+        self,
+        broker_order_id: str,
+        limit_price: Optional[float] = None,
+        stop_price: Optional[float] = None,
+        reason: str = "",
+        bracket_stop_price: Optional[float] = None,
+        bracket_target_price: Optional[float] = None,
+        live_after_ts: Optional[str] = None,
+    ) -> BrokerOrder:
+        order = self._get_order(broker_order_id)
+        if order.status not in {"submitted", "partially_filled", "working", "pendingnew"}:
+            raise ValueError("Cannot modify OANDA order %s in status %s" % (broker_order_id, order.status))
+        updated = replace(
+            order,
+            limit_price=limit_price if limit_price is not None else order.limit_price,
+            stop_price=stop_price if stop_price is not None else order.stop_price,
+            live_after_ts=live_after_ts if live_after_ts is not None else order.live_after_ts,
+            updated_at=utc_now_iso(),
+        )
+        self._orders_cache[updated.broker_order_id] = updated
+        self._active_order_ids[updated.broker_order_id] = True
+        self.store.upsert_row("orders", "broker_order_id", as_row(updated))
+        intent = self._intents_cache.get(updated.intent_id)
+        if intent is None:
+            intent = OrderIntent.create(
+                strategy_id=updated.strategy_id,
+                trade_id=updated.trade_id,
+                instrument=updated.instrument,
+                account_mode=updated.account_mode,
+                side=updated.side,
+                order_type=updated.order_type,
+                quantity=updated.quantity,
+                limit_price=updated.limit_price,
+                stop_price=updated.stop_price,
+                reason=reason or "modify",
+            )
+        else:
+            intent = replace(
+                intent,
+                limit_price=updated.limit_price,
+                stop_price=updated.stop_price,
+                bracket_stop_price=bracket_stop_price if bracket_stop_price is not None else intent.bracket_stop_price,
+                bracket_target_price=bracket_target_price if bracket_target_price is not None else intent.bracket_target_price,
+            )
+        payload = self.order_intent_to_oanda_order(intent, updated)
+        remote_id = self._oanda_order_ids.get(broker_order_id, "")
+        self._emit_order_event(
+            {"event": "modify", "oanda_order_id": remote_id, "oanda_order": payload, "reason": reason, **as_row(updated)}
+        )
+        if self.client is not None and remote_id:
+            try:
+                raw = self.client.replace_order(remote_id, payload)
+                self._emit_order_event({"event": "network_order_response", "action": "replace", "response": raw})
+            except Exception as exc:
+                self._emit_order_event({"event": "network_order_error", "action": "replace", "error": str(exc)})
+                raise
+        return updated
+
+    def cancel_order(self, broker_order_id: str, reason: str = "") -> BrokerOrder:
+        order = self._get_order(broker_order_id)
+        if order.status in {"filled", "cancelled"}:
+            return order
+        updated = replace(order, status="cancelled", updated_at=utc_now_iso())
+        self._orders_cache[updated.broker_order_id] = updated
+        self._active_order_ids.pop(updated.broker_order_id, None)
+        self.store.upsert_row("orders", "broker_order_id", as_row(updated))
+        remote_id = self._oanda_order_ids.get(broker_order_id, "")
+        self._emit_order_event({"event": "cancel", "oanda_order_id": remote_id, "reason": reason, **as_row(updated)})
+        if self.client is not None and remote_id:
+            try:
+                raw = self.client.cancel_order(remote_id)
+                self._emit_order_event({"event": "network_order_response", "action": "cancel", "response": raw})
+            except Exception as exc:
+                self._emit_order_event({"event": "network_order_error", "action": "cancel", "error": str(exc)})
+                raise
+        return updated
+
+    def reconcile_orders(self) -> List[BrokerOrder]:
+        return [self._orders_cache[order_id] for order_id in self._active_order_ids if order_id in self._orders_cache]
+
+    def reconcile_positions(self) -> List[Position]:
+        return list(self._positions_cache.values())
+
+    def reconcile_from_account_details(self, body: Optional[Dict[str, Any]] = None) -> None:
+        if self.supervisor is not None:
+            self.supervisor.start_reconciliation("oanda_account_details")
+        if body is None:
+            if self.client is None:
+                raise OandaConfigurationError("reconcile_from_account_details needs a client or body")
+            body = self.client.account_details()
+        account = body.get("account") or body
+        if hasattr(account, "dict"):
+            account = account.dict()
+        self.last_transaction_id = str(body.get("lastTransactionID") or account.get("lastTransactionID") or "")
+        self.store.append_event(
+            "reconciliation_events",
+            {"event": "oanda_account_details_start", "last_transaction_id": self.last_transaction_id},
+        )
+        for raw_order in account.get("orders") or []:
+            if hasattr(raw_order, "dict"):
+                raw_order = raw_order.dict()
+            self.on_order_status(dict(raw_order, type="order_status"))
+        self._positions_cache = {}
+        for raw_position in account.get("positions") or []:
+            if hasattr(raw_position, "dict"):
+                raw_position = raw_position.dict()
+            position = self._position_from_oanda(raw_position)
+            if position.quantity == 0:
+                continue
+            self._positions_cache[position.position_id] = position
+            self.store.upsert_row("positions", "position_id", as_row(position))
+        self.store.append_event(
+            "reconciliation_events",
+            {
+                "event": "oanda_account_details_done",
+                "orders": len(list(self._orders_cache.values())),
+                "positions": len(list(self._positions_cache.values())),
+                "last_transaction_id": self.last_transaction_id,
+            },
+        )
+        if self.supervisor is not None:
+            self.supervisor.mark_reconciled("oanda_account_details_reconciled")
+
+    def apply_account_changes(self, body: Dict[str, Any]) -> None:
+        changes = body.get("changes") or {}
+        if hasattr(changes, "dict"):
+            changes = changes.dict()
+        for key in ("ordersCreated", "ordersFilled", "ordersCancelled", "ordersTriggered"):
+            for raw_order in changes.get(key) or []:
+                if hasattr(raw_order, "dict"):
+                    raw_order = raw_order.dict()
+                self.on_order_status(dict(raw_order, type="order_status"))
+        for raw_trade in changes.get("tradesOpened") or []:
+            if hasattr(raw_trade, "dict"):
+                raw_trade = raw_trade.dict()
+            self._emit_order_event({"event": "trade_opened", **dict(raw_trade)})
+        for raw_trade in changes.get("tradesClosed") or []:
+            if hasattr(raw_trade, "dict"):
+                raw_trade = raw_trade.dict()
+            self._emit_order_event({"event": "trade_closed", **dict(raw_trade)})
+        for raw_fill in changes.get("transactions") or []:
+            if hasattr(raw_fill, "dict"):
+                raw_fill = raw_fill.dict()
+            if str(raw_fill.get("type") or "").endswith("FILL") or raw_fill.get("type") in {"ORDER_FILL", "MarketOrderFill"}:
+                try:
+                    self.on_fill(dict(raw_fill, type="fill"))
+                except KeyError:
+                    self._emit_order_event({"event": "fill_unmatched", **dict(raw_fill)})
+        self.last_transaction_id = str(body.get("lastTransactionID") or self.last_transaction_id)
+        self.store.append_event(
+            "reconciliation_events",
+            {"event": "oanda_account_changes_applied", "last_transaction_id": self.last_transaction_id},
+        )
+
+    def attach_bracket(self, parent_order: BrokerOrder, intent: OrderIntent) -> List[BrokerOrder]:
+        # Prefer SL/TP on fill at submit time; local attach is paper/practice only.
+        if parent_order.account_mode == "live":
+            raise OandaRoutingBlocked("Live bracket attach should use stopLossOnFill/takeProfitOnFill at submit")
+        if parent_order.status != "filled":
+            return []
+        children: List[BrokerOrder] = []
+        oco = intent.oco_group or ("%s_bracket" % parent_order.broker_order_id)
+        exit_side = "sell" if parent_order.side == "buy" else "buy"
+        if intent.bracket_stop_price is not None:
+            children.append(
+                self.submit_order_intent(
+                    OrderIntent.create(
+                        strategy_id=parent_order.strategy_id,
+                        trade_id=parent_order.trade_id,
+                        instrument=parent_order.instrument,
+                        account_mode=parent_order.account_mode,
+                        side=exit_side,
+                        order_type="stop",
+                        quantity=parent_order.quantity,
+                        stop_price=intent.bracket_stop_price,
+                        reason="protective_stop",
+                        requires_verification=False,
+                        parent_intent_id=intent.intent_id,
+                        reduce_only=True,
+                        bracket_role="stop",
+                        oco_group=oco,
+                    )
+                )
+            )
+        if intent.bracket_target_price is not None:
+            children.append(
+                self.submit_order_intent(
+                    OrderIntent.create(
+                        strategy_id=parent_order.strategy_id,
+                        trade_id=parent_order.trade_id,
+                        instrument=parent_order.instrument,
+                        account_mode=parent_order.account_mode,
+                        side=exit_side,
+                        order_type="limit",
+                        quantity=parent_order.quantity,
+                        limit_price=intent.bracket_target_price,
+                        reason="target",
+                        requires_verification=False,
+                        parent_intent_id=intent.intent_id,
+                        reduce_only=True,
+                        bracket_role="target",
+                        oco_group=oco,
+                    )
+                )
+            )
+        return children
+
+    def process_bar(self, bar: Bar) -> List[Fill]:
+        return []
+
+    def process_market_close_bar(self, bar: Bar) -> List[Fill]:
+        return []
+
+    def on_order_status(self, event: Dict[str, Any]) -> Optional[BrokerOrder]:
+        broker_order_id = str(event.get("broker_order_id") or event.get("clientOrderID") or "")
+        extensions = event.get("clientExtensions")
+        if not broker_order_id and isinstance(extensions, dict):
+            broker_order_id = str(extensions.get("id") or "")
+        oanda_order_id = str(event.get("id") or event.get("orderID") or event.get("order_id") or "")
+        if broker_order_id and oanda_order_id:
+            self._oanda_order_ids[broker_order_id] = oanda_order_id
+        if not broker_order_id and oanda_order_id:
+            for local_id, remote_id in self._oanda_order_ids.items():
+                if remote_id == oanda_order_id:
+                    broker_order_id = local_id
+                    break
+        if not broker_order_id:
+            return None
+        order = self._orders_cache.get(broker_order_id)
+        if order is None:
+            return None
+        status = normalize_oanda_order_status(str(event.get("state") or event.get("status") or order.status))
+        remaining = int(
+            float(
+                event.get("remaining_quantity")
+                if event.get("remaining_quantity") is not None
+                else event.get("units")
+                if event.get("units") is not None
+                else order.remaining_quantity
+            )
+        )
+        if remaining < 0:
+            remaining = abs(remaining)
+        updated = replace(order, status=status, remaining_quantity=remaining, updated_at=utc_now_iso())
+        self._orders_cache[broker_order_id] = updated
+        if status in {"submitted", "partially_filled", "working", "pendingnew"}:
+            self._active_order_ids[broker_order_id] = True
+        else:
+            self._active_order_ids.pop(broker_order_id, None)
+        self.store.upsert_row("orders", "broker_order_id", as_row(updated))
+        self._emit_order_event({"event": "order_status", **event})
+        return updated
+
+    def on_fill(self, event: Dict[str, Any]) -> Fill:
+        broker_order_id = str(event.get("broker_order_id") or event.get("clientOrderID") or "")
+        extensions = event.get("clientExtensions")
+        if not broker_order_id and isinstance(extensions, dict):
+            broker_order_id = str(extensions.get("id") or "")
+        if not broker_order_id:
+            # Fall back to most recent active order for instrument if offline fixture omits id.
+            instrument = self.config.internal_for(str(event.get("instrument") or ""))
+            for order in self._orders_cache.values():
+                if order.instrument == instrument and order.broker_order_id in self._active_order_ids:
+                    broker_order_id = order.broker_order_id
+                    break
+        order = self._get_order(broker_order_id)
+        units = event.get("units") or event.get("quantity") or event.get("fillQty") or order.remaining_quantity
+        quantity = abs(int(float(units)))
+        price = float(event.get("price") or event.get("fillPrice") or event.get("averagePrice") or event.get("pl") or 0)
+        if price == 0 and event.get("tradeOpened"):
+            trade = event["tradeOpened"]
+            if hasattr(trade, "dict"):
+                trade = trade.dict()
+            price = float(trade.get("price") or price)
+        fill = Fill(
+            fill_id=str(event.get("fill_id") or event.get("id") or new_id("fill")),
+            broker_order_id=order.broker_order_id,
+            intent_id=order.intent_id,
+            strategy_id=order.strategy_id,
+            trade_id=order.trade_id,
+            instrument=order.instrument,
+            account_mode=order.account_mode,
+            side=order.side,
+            quantity=quantity,
+            price=price,
+            ts=str(event.get("event_ts") or event.get("time") or event.get("timestamp") or event.get("ts") or utc_now_iso()),
+            reason=order.bracket_role or order.order_type,
+        )
+        remaining = max(order.remaining_quantity - quantity, 0)
+        status = "filled" if remaining == 0 else "partially_filled"
+        updated = replace(order, status=status, remaining_quantity=remaining, updated_at=utc_now_iso())
+        self._orders_cache[order.broker_order_id] = updated
+        if status == "filled":
+            self._active_order_ids.pop(order.broker_order_id, None)
+        else:
+            self._active_order_ids[order.broker_order_id] = True
+        self.store.upsert_row("orders", "broker_order_id", as_row(updated))
+        self.store.append_event("fills", as_row(fill))
+        self._apply_fill_to_position(fill)
+        self._cancel_local_oco_peers(updated)
+        self._emit_order_event({"event": "fill", **as_row(fill)})
+        return fill
+
+    def go_flat(self, instruments: Iterable[str] = DEFAULT_INSTRUMENTS) -> List[Dict[str, Any]]:
+        if self.supervisor is not None:
+            self.supervisor.trigger_emergency_flatten("oanda_go_flat_requested")
+        payloads: List[Dict[str, Any]] = []
+        for order_id in list(self._active_order_ids):
+            self.cancel_order(order_id, reason="go_flat")
+        for instrument in instruments:
+            oanda_instrument = self.config.symbol_for(instrument)
+            payload = {
+                "instrument": oanda_instrument,
+                "longUnits": "ALL",
+                "shortUnits": "ALL",
+            }
+            payloads.append(payload)
+            self._emit_order_event({"event": "close_position", "oanda_payload": payload})
+            if self.client is not None:
+                try:
+                    raw = self.client.close_position(oanda_instrument, longUnits="ALL", shortUnits="ALL")
+                    self._emit_order_event({"event": "network_order_response", "action": "close_position", "response": raw})
+                except Exception as exc:
+                    self._emit_order_event({"event": "network_order_error", "action": "close_position", "error": str(exc)})
+        return payloads
+
+    def order_intent_to_oanda_order(self, intent: OrderIntent, order: BrokerOrder) -> Dict[str, Any]:
+        units = int(order.quantity) if order.side.lower() == "buy" else -int(order.quantity)
+        order_type = oanda_order_type(order.order_type)
+        body: Dict[str, Any] = {
+            "type": order_type,
+            "instrument": self.get_active_contract(order.instrument),
+            "units": str(units),
+            "timeInForce": oanda_tif(intent.tif or "GTC"),
+            "positionFill": "DEFAULT",
+            "clientExtensions": {
+                "id": order.broker_order_id[:128],
+                "tag": order.strategy_id[:128],
+                "comment": ("trade=%s intent=%s" % (order.trade_id, order.intent_id))[:128],
+            },
+        }
+        if order_type == "LIMIT" and intent.limit_price is not None:
+            body["price"] = format_oanda_price(intent.limit_price)
+        if order_type == "STOP" and intent.stop_price is not None:
+            body["price"] = format_oanda_price(intent.stop_price)
+        if intent.bracket_stop_price is not None:
+            body["stopLossOnFill"] = {"price": format_oanda_price(intent.bracket_stop_price), "timeInForce": "GTC"}
+        if intent.bracket_target_price is not None:
+            body["takeProfitOnFill"] = {"price": format_oanda_price(intent.bracket_target_price), "timeInForce": "GTC"}
+        return body
+
+    def _send_create_order(self, payload: Dict[str, Any], order_ref: str) -> None:
+        if self.client is None:
+            return
+        try:
+            raw = self.client.create_order(payload)
+            self._emit_order_event({"event": "network_order_response", "action": "create", "order_ref": order_ref, "response": raw})
+            order_create = raw.get("orderCreateTransaction") or raw.get("orderFillTransaction") or {}
+            if hasattr(order_create, "dict"):
+                order_create = order_create.dict()
+            remote_id = str(order_create.get("id") or raw.get("orderFillTransaction", {}).get("id") or "")
+            if remote_id:
+                self._oanda_order_ids[order_ref] = remote_id
+        except Exception as exc:
+            if self.supervisor is not None:
+                self.supervisor.observe_order_ambiguity_age(self.supervisor.order_ambiguity_ms + 1, order_ref)
+            self._emit_order_event({"event": "network_order_error", "action": "create", "order_ref": order_ref, "error": str(exc)})
+            raise
+
+    def _emit_order_event(self, event: Dict[str, Any]) -> None:
+        self.store.append_event("oanda_order_events", event)
+
+    def _assert_routing_allowed(self, intent: OrderIntent) -> None:
+        if self.supervisor is not None and not self.supervisor.entries_allowed(intent):
+            raise OandaRoutingBlocked("Runtime supervisor blocks new entries: %s" % self.supervisor.block_reason(intent))
+        if intent.account_mode == "live" and not self.allow_live_routing:
+            raise OandaRoutingBlocked("OANDA live order routing disabled")
+        if self.config.env != "practice" and not self.allow_live_routing:
+            raise OandaRoutingBlocked("OANDA non-practice env requires allow_live_routing=True")
+
+    def _apply_fill_to_position(self, fill: Fill) -> None:
+        key = "%s|%s|%s" % (fill.strategy_id, fill.instrument, fill.account_mode)
+        pos = self._positions_cache.get(key)
+        signed_qty = fill.quantity if fill.side == "buy" else -fill.quantity
+        if pos is None:
+            new_qty = signed_qty
+            avg_price = fill.price
+            realized = 0.0
+        else:
+            old_qty = pos.quantity
+            new_qty = old_qty + signed_qty
+            avg_price = pos.avg_price
+            realized = pos.realized_pnl
+            if old_qty == 0 or (old_qty > 0 and signed_qty > 0) or (old_qty < 0 and signed_qty < 0):
+                total_abs = abs(old_qty) + abs(signed_qty)
+                avg_price = ((abs(old_qty) * pos.avg_price) + (abs(signed_qty) * fill.price)) / max(total_abs, 1)
+            else:
+                closing_qty = min(abs(old_qty), abs(signed_qty))
+                realized += (fill.price - pos.avg_price) * closing_qty if old_qty > 0 else (pos.avg_price - fill.price) * closing_qty
+                if new_qty == 0:
+                    avg_price = 0.0
+                elif abs(signed_qty) > abs(old_qty):
+                    avg_price = fill.price
+        updated = Position(
+            position_id=key,
+            strategy_id=fill.strategy_id,
+            instrument=fill.instrument,
+            account_mode=fill.account_mode,
+            quantity=new_qty,
+            avg_price=avg_price,
+            realized_pnl=realized,
+            updated_at=utc_now_iso(),
+        )
+        self._positions_cache[key] = updated
+        self.store.upsert_row("positions", "position_id", as_row(updated))
+
+    def _cancel_local_oco_peers(self, filled_order: BrokerOrder) -> None:
+        for order in list(self._orders_cache.values()):
+            if order.broker_order_id == filled_order.broker_order_id:
+                continue
+            if order.oco_group and order.oco_group == filled_order.oco_group and order.status in {"submitted", "partially_filled", "working"}:
+                self.cancel_order(order.broker_order_id, reason="local_oco_peer_filled")
+
+    def _position_from_oanda(self, raw: Dict[str, Any]) -> Position:
+        instrument = self.config.internal_for(str(raw.get("instrument") or ""))
+        strategy_id = str(raw.get("strategy_id") or "oanda")
+        account_mode = "paper" if self.config.env == "practice" else "live"
+        long_units = raw.get("long") or {}
+        short_units = raw.get("short") or {}
+        if hasattr(long_units, "dict"):
+            long_units = long_units.dict()
+        if hasattr(short_units, "dict"):
+            short_units = short_units.dict()
+        long_qty = int(float(long_units.get("units") or 0))
+        short_qty = int(float(short_units.get("units") or 0))
+        quantity = long_qty + short_qty
+        avg_price = 0.0
+        if long_qty:
+            avg_price = float(long_units.get("averagePrice") or 0.0)
+        elif short_qty:
+            avg_price = float(short_units.get("averagePrice") or 0.0)
+        return Position(
+            position_id="%s|%s|%s" % (strategy_id, instrument, account_mode),
+            strategy_id=strategy_id,
+            instrument=instrument,
+            account_mode=account_mode,
+            quantity=quantity,
+            avg_price=avg_price,
+            realized_pnl=float(raw.get("pl") or 0.0),
+            updated_at=utc_now_iso(),
+        )
+
+    def _get_order(self, broker_order_id: str) -> BrokerOrder:
+        order = self._orders_cache.get(broker_order_id)
+        if order is None:
+            raise KeyError("Broker order not found: %s" % broker_order_id)
+        return order
+
+
+def parse_instrument_map(raw: str) -> Dict[str, str]:
+    raw = (raw or "").strip()
+    if not raw:
+        return {}
+    if raw.startswith("{"):
+        parsed = json.loads(raw)
+        return {str(k).upper(): str(v) for k, v in parsed.items()}
+    out: Dict[str, str] = {}
+    for item in raw.split(","):
+        if not item.strip():
+            continue
+        if "=" not in item:
+            raise OandaConfigurationError("OANDA_INSTRUMENT_MAP entries must look like EURUSD=EUR_USD")
+        key, value = item.split("=", 1)
+        out[key.strip().upper()] = value.strip()
+    return out
+
+
+def parse_oanda_ts(value: str) -> datetime:
+    """Parse OANDA RFC3339 timestamps (may include nanoseconds; Python 3.8 only accepts µs)."""
+    import re
+
+    raw = str(value).strip()
+    if raw.endswith("Z"):
+        raw = raw[:-1] + "+00:00"
+    # Truncate fractional seconds to 6 digits (microseconds) for fromisoformat.
+    raw = re.sub(
+        r"(\.\d{6})\d+(?=[+-]\d{2}:\d{2}$|\Z)",
+        r"\1",
+        raw,
+    )
+    dt = datetime.fromisoformat(raw)
+    if dt.tzinfo is None:
+        dt = dt.replace(tzinfo=timezone.utc)
+    return dt.astimezone(timezone.utc)
+
+
+def isoformat_utc(dt: datetime) -> str:
+    return dt.astimezone(timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "Z")
+
+
+def format_oanda_price(price: float) -> str:
+    # Keep as string; trim excess trailing zeros but preserve meaningful precision.
+    text = ("%.10f" % float(price)).rstrip("0").rstrip(".")
+    return text if text else "0"
+
+
+def oanda_order_type(order_type: str) -> str:
+    lookup = {"market": "MARKET", "limit": "LIMIT", "stop": "STOP", "stop_limit": "STOP"}
+    key = str(order_type).strip().lower()
+    if key not in lookup:
+        raise OandaConfigurationError("Unsupported OANDA order type: %s" % order_type)
+    return lookup[key]
+
+
+def oanda_tif(tif: str) -> str:
+    lookup = {"gtc": "GTC", "day": "GFD", "gfd": "GFD", "fok": "FOK", "ioc": "IOC"}
+    key = str(tif or "GTC").strip().lower()
+    return lookup.get(key, "GTC")
+
+
+def normalize_oanda_order_status(status: str) -> str:
+    key = str(status).strip().lower()
+    mapping = {
+        "pending": "working",
+        "pendingnew": "pendingnew",
+        "working": "working",
+        "open": "working",
+        "filled": "filled",
+        "cancelled": "cancelled",
+        "canceled": "cancelled",
+        "triggered": "filled",
+        "partially_filled": "partially_filled",
+    }
+    return mapping.get(key, key or "working")
+
+
+def mid_price_from_event(event: Dict[str, Any]) -> Optional[float]:
+    if event.get("price") is not None:
+        return float(event["price"])
+    if event.get("closeoutBid") is not None and event.get("closeoutAsk") is not None:
+        return (float(event["closeoutBid"]) + float(event["closeoutAsk"])) / 2.0
+    bid, ask = bid_ask_from_event(event)
+    if bid is not None and ask is not None:
+        return (bid + ask) / 2.0
+    if bid is not None:
+        return bid
+    if ask is not None:
+        return ask
+    return None
+
+
+def bid_ask_from_event(event: Dict[str, Any]) -> Tuple[Optional[float], Optional[float]]:
+    bid = None
+    ask = None
+    if event.get("bid") is not None:
+        bid = float(event["bid"])
+    if event.get("ask") is not None:
+        ask = float(event["ask"])
+    if bid is None and event.get("closeoutBid") is not None:
+        bid = float(event["closeoutBid"])
+    if ask is None and event.get("closeoutAsk") is not None:
+        ask = float(event["closeoutAsk"])
+    bids = event.get("bids") or []
+    asks = event.get("asks") or []
+    if bid is None and bids:
+        first = bids[0]
+        bid = float(first.get("price") if isinstance(first, dict) else first)
+    if ask is None and asks:
+        first = asks[0]
+        ask = float(first.get("price") if isinstance(first, dict) else first)
+    return bid, ask
+
+
+def response_body(response: Any) -> Dict[str, Any]:
+    if response is None:
+        return {}
+    if isinstance(response, dict):
+        return response
+    body = getattr(response, "body", None)
+    if isinstance(body, dict):
+        return body
+    if body is not None and hasattr(body, "dict"):
+        return body.dict()
+    # v20 Response often exposes named attributes
+    out: Dict[str, Any] = {}
+    for key in ("account", "accounts", "prices", "instruments", "orderCreateTransaction", "orderFillTransaction", "lastTransactionID", "changes", "state", "candles"):
+        if hasattr(response, key):
+            value = getattr(response, key)
+            if value is not None:
+                out[key] = value.dict() if hasattr(value, "dict") else value
+    if out:
+        return out
+    return {"raw": str(response)}
+
+
+def as_ref_row(ref: OandaInstrumentRef) -> Dict[str, Any]:
+    return {
+        "instrument": ref.instrument,
+        "oanda_instrument": ref.oanda_instrument,
+        "resolved_at": ref.resolved_at,
+        "metadata": json.dumps(ref.metadata, sort_keys=True),
+    }
+
+
+def load_jsonl_events(path: Path) -> Iterable[Dict[str, Any]]:
+    with Path(path).open("r", encoding="utf-8") as fh:
+        for line in fh:
+            line = line.strip()
+            if not line:
+                continue
+            yield json.loads(line)

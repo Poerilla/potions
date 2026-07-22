@@ -46,8 +46,18 @@ INSTRUMENTS: Dict[str, FuturesInstrument] = {
     "YM": FuturesInstrument("YM", 5.0, 1.0, "09:30", "16:00", "America/New_York", "YM.FUT", "YM", "{root}{month_code}{year_digit}", DEFAULT_ROLL_POLICY),
     "ES": FuturesInstrument("ES", 50.0, 0.25, "09:30", "16:00", "America/New_York", "ES.FUT", "ES", "{root}{month_code}{year_digit}", DEFAULT_ROLL_POLICY),
     "MES": FuturesInstrument("MES", 5.0, 0.25, "09:30", "16:00", "America/New_York", "MES.FUT", "MES", "{root}{month_code}{year_digit}", DEFAULT_ROLL_POLICY),
-    # FX spot treated as a research instrument on the same RTH replay grid.
+    # FX spot / metals treated as research instruments on the same RTH replay grid.
+    # OANDA maps: EURUSD→EUR_USD, XAUUSD→XAU_USD (see live/oanda.py DEFAULT_INSTRUMENT_MAP).
     "EURUSD": FuturesInstrument("EURUSD", 100000.0, 0.00001, "09:30", "16:00", "America/New_York", "EURUSD", "EURUSD", "EURUSD", DEFAULT_ROLL_POLICY),
+    "XAUUSD": FuturesInstrument("XAUUSD", 100.0, 0.01, "09:30", "16:00", "America/New_York", "XAUUSD", "XAUUSD", "XAUUSD", DEFAULT_ROLL_POLICY),
+    # OANDA index CFDs (displayPrecision=1 → tick 0.1; PnL ≈ $1/point/unit).
+    "NAS100": FuturesInstrument("NAS100", 1.0, 0.1, "09:30", "16:00", "America/New_York", "NAS100", "NAS100", "NAS100", DEFAULT_ROLL_POLICY),
+    "SPX500": FuturesInstrument("SPX500", 1.0, 0.1, "09:30", "16:00", "America/New_York", "SPX500", "SPX500", "SPX500", DEFAULT_ROLL_POLICY),  # ES proxy
+    "US30": FuturesInstrument("US30", 1.0, 0.1, "09:30", "16:00", "America/New_York", "US30", "US30", "US30", DEFAULT_ROLL_POLICY),  # YM proxy
+    "GBPUSD": FuturesInstrument("GBPUSD", 100000.0, 0.00001, "09:30", "16:00", "America/New_York", "GBPUSD", "GBPUSD", "GBPUSD", DEFAULT_ROLL_POLICY),
+    "USDJPY": FuturesInstrument("USDJPY", 100000.0, 0.001, "09:30", "16:00", "America/New_York", "USDJPY", "USDJPY", "USDJPY", DEFAULT_ROLL_POLICY),
+    "AUDJPY": FuturesInstrument("AUDJPY", 100000.0, 0.001, "09:30", "16:00", "America/New_York", "AUDJPY", "AUDJPY", "AUDJPY", DEFAULT_ROLL_POLICY),
+    "XAGUSD": FuturesInstrument("XAGUSD", 5000.0, 0.001, "09:30", "16:00", "America/New_York", "XAGUSD", "XAGUSD", "XAGUSD", DEFAULT_ROLL_POLICY),
 }
 
 
