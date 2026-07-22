@@ -297,21 +297,36 @@ class DemoPaperRunner:
             if clock >= RTH_CLOSE:
                 append_progress(self.output_root, "NY RTH close — strategy idle; feed continues for %s" % day)
                 self._rth_close_logged = True
+                from .eod_charts import maybe_write_eod_chart
+                from ..replay_audit import POINT_VALUES
+
+                maybe_write_eod_chart(
+                    self.output_root,
+                    INSTRUMENT,
+                    session_date=day,
+                    point_value=POINT_VALUES.get(INSTRUMENT),
+                    log=append_progress,
+                )
 
     def _maybe_heartbeat(self) -> None:
         now = self._clock()
         if now - self._last_progress_at < PROGRESS_HEARTBEAT_SECONDS:
             return
         self._last_progress_at = now
+        open_positions = [
+            p for p in self.engine.broker.reconcile_positions() if float(getattr(p, "quantity", 0) or 0) != 0
+        ]
+        pos_qty = sum(float(p.quantity) for p in open_positions)
         append_progress(
             self.output_root,
-            "heartbeat ticks_logged=%d bars_persisted=%d bars_engine=%d orders=%d positions=%d"
+            "heartbeat ticks_logged=%d bars_persisted=%d bars_engine=%d orders=%d open_positions=%d pos_qty=%s"
             % (
                 self.ticks_logged,
                 self.bars_persisted,
                 self.bars_engine,
                 len(self.engine.broker.reconcile_orders()),
-                len(self.engine.broker.reconcile_positions()),
+                len(open_positions),
+                pos_qty,
             ),
         )
 

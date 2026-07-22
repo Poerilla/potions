@@ -65,4 +65,5 @@ python3 -m potions.live.cli demo-us30-v2b-paper-status
 - Process keeps running until `*-stop` / SIGTERM
 - Reconnects on stream drop with backoff
 - Session clocks / order expiry use America/New_York (see v2b `_parse_dt` / `_session_expiry`)
+- At NY RTH close the daemon writes an EOD position chart via `live/demo/eod_charts.py` to `charts/{symbol}_v2b_position_YYYY-MM-DD.png`
 - SPX500/US30/NAS100 are OANDA index CFDs, not CME futures — used here as ES/YM/NQ-style proxies only

@@ -77,3 +77,8 @@ Append-only research/platform progress notes.
 - Sibling strategies (`or_2r_fade`, `v2b_clean_break`) still have old `_parse_dt` / naive expiry stamps.
 - Full OR/OCO on index CFDs starts next RTH (today’s OR window already passed when SPX/US30 came up).
 - OANDA practice order burn-in checklist items 6–11 still open before any live routing.
+
+## 2026-07-22 — NAS100 MT5 broker-like vs NQ Databento
+- Converted fx/raw/NAS100_1m_data.csv (MT5, Europe/Athens) → fx/nas100_{1m,daily}.csv
+- Ran live/nas100_prior_opposed_replay.py from 2021-03-04 (S_1_1_3, ST 25/75 pts) → live/state/nas100_v2b_prior_opposed_stpmc_broker_like/
+- Result: 310 trades / $923 / PF 1.02 / win 47%. Vs NQ same window: same campaign count & ~99% direction overlap, but NQ PF~2.45 / win~68% / $886k — shape similar, edge not.

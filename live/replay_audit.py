@@ -21,6 +21,9 @@ POINT_VALUES = {
     "AUDJPY": 100000.0,
     "XAUUSD": 100.0,  # 100oz
     "XAGUSD": 1000.0,  # 1000oz mini
+    "NAS100": 1.0,  # OANDA/index CFD ≈ $1 per point per unit
+    "SPX500": 1.0,
+    "US30": 1.0,
 }
 
 
