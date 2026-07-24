@@ -50,3 +50,8 @@ live/demo/**/run.log
 live/demo/**/PROGRESS.log
 live/demo/**/RUN_META.json
 live/demo/**/charts/
+live/demo/**/FILE_SIZES.log
+
+# Local secrets (never commit)
+.env
+**/.env

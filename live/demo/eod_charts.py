@@ -20,6 +20,18 @@ def _parse_ny(ts: str) -> datetime:
     raw = ts.strip()
     if raw.endswith("Z"):
         raw = raw[:-1] + "+00:00"
+    # OANDA timestamps can carry nanoseconds; fromisoformat (3.8) accepts ≤6 frac digits.
+    if "." in raw:
+        head, rest = raw.split(".", 1)
+        frac = ""
+        tz = ""
+        for i, ch in enumerate(rest):
+            if ch.isdigit():
+                frac += ch
+            else:
+                tz = rest[i:]
+                break
+        raw = "%s.%s%s" % (head, (frac + "000000")[:6], tz)
     dt = datetime.fromisoformat(raw)
     if dt.tzinfo is None:
         dt = pytz.UTC.localize(dt)
@@ -76,7 +88,69 @@ def _load_rth_bars(bars_path: Path, instrument: str, session: date) -> List[Dict
     return out
 
 
-def _load_or_levels(state_root: Path) -> Tuple[Optional[float], Optional[float]]:
+def _load_or_levels(state_root: Path, session: date, bars: Optional[List[Dict[str, Any]]] = None) -> Tuple[Optional[float], Optional[float]]:
+    """Session-scoped opening range for charting.
+
+    Prefer reconstructing from session RTH bars 09:30–09:45 (same mid OHLC the
+    chart plots), then ``levels.csv`` ``v2b_or_*`` for ``session``, then (only if
+    ``session`` is today) live strategy_state.
+    """
+
+    if bars:
+        or_bars = [
+            b
+            for b in bars
+            if b["dt"].timetz().replace(tzinfo=None) >= dt_time(9, 30)
+            and b["dt"].timetz().replace(tzinfo=None) < dt_time(9, 45)
+        ]
+        if or_bars:
+            return max(b["h"] for b in or_bars), min(b["l"] for b in or_bars)
+
+    levels_path = state_root / "levels.csv"
+    if levels_path.exists():
+        by_ts: Dict[str, Dict[str, float]] = {}
+        with levels_path.open(encoding="utf-8") as fh:
+            for row in csv.DictReader(fh):
+                name = (row.get("level_name") or "").strip()
+                if name not in {"v2b_or_high", "v2b_or_low"}:
+                    continue
+                ts = row.get("active_from") or ""
+                try:
+                    dt = _parse_ny(ts)
+                except Exception:
+                    continue
+                if dt.date() != session:
+                    continue
+                px = _f(row, "price")
+                if px is None:
+                    continue
+                slot = by_ts.setdefault(ts, {})
+                if name == "v2b_or_high":
+                    slot["high"] = px
+                else:
+                    slot["low"] = px
+        finalized: Optional[Tuple[float, float]] = None
+        last_complete: Optional[Tuple[float, float]] = None
+        for ts in sorted(by_ts.keys()):
+            slot = by_ts[ts]
+            if "high" not in slot or "low" not in slot:
+                continue
+            pair = (slot["high"], slot["low"])
+            last_complete = pair
+            try:
+                clock = _parse_ny(ts).timetz().replace(tzinfo=None)
+            except Exception:
+                clock = dt_time(0, 0)
+            if clock >= dt_time(9, 45) and finalized is None:
+                finalized = pair
+        if finalized is not None:
+            return finalized
+        if last_complete is not None:
+            return last_complete
+
+    today = datetime.now(tz=NY).date()
+    if session != today:
+        return None, None
     path = state_root / "strategy_state.csv"
     if not path.exists():
         return None, None
@@ -104,6 +178,65 @@ def _session_fills(fills: List[Dict[str, str]], session: date) -> List[Dict[str,
         except Exception:
             continue
     return out
+
+
+def _session_orders(orders: List[Dict[str, str]], session: date, fills: List[Dict[str, str]]) -> List[Dict[str, str]]:
+    """Keep orders belonging to this session's trade(s), not later days' working book."""
+
+    trade_ids = {f.get("trade_id") for f in fills if f.get("trade_id")}
+    session_tag = session.strftime("%Y%m%d")
+    out: List[Dict[str, str]] = []
+    for row in orders:
+        tid = str(row.get("trade_id") or "")
+        if trade_ids and tid in trade_ids:
+            out.append(row)
+            continue
+        if session_tag and session_tag in tid:
+            out.append(row)
+            continue
+        for key in ("live_after_ts", "created_at", "updated_at"):
+            raw = row.get(key) or ""
+            if not raw:
+                continue
+            try:
+                if _parse_ny(raw).date() == session:
+                    out.append(row)
+                    break
+            except Exception:
+                continue
+    return out
+
+
+def _session_position_snapshot(
+    fills: List[Dict[str, str]],
+    pos_rows: List[Dict[str, str]],
+    session: date,
+) -> Dict[str, str]:
+    """Position overlay for the charted session (not always the live book)."""
+
+    today = datetime.now(tz=NY).date()
+    if session == today and pos_rows:
+        return pos_rows[-1]
+
+    qty = 0.0
+    avg = 0.0
+    realized = 0.0
+    # Reconstruct rough open qty from session fills (entry +, reduce -).
+    for f in fills:
+        side = (f.get("side") or "").lower()
+        q = float(f.get("quantity") or 0)
+        signed = q if side == "buy" else -q
+        reason = (f.get("reason") or "").strip()
+        if reason == "entry":
+            qty = signed
+            avg = float(f.get("price") or 0)
+        else:
+            # reduce toward flat
+            if qty > 0:
+                qty = max(0.0, qty - q)
+            elif qty < 0:
+                qty = min(0.0, qty + q)
+    return {"quantity": str(qty), "avg_price": str(avg), "realized_pnl": str(realized)}
 
 
 def write_session_position_chart(
@@ -141,26 +274,64 @@ def write_session_position_chart(
     pf = _price_fmt(instrument)
     pv = float(point_value if point_value is not None else POINT_VALUES.get(instrument.upper(), 1.0))
 
-    or_high, or_low = _load_or_levels(state_root)
+    or_high, or_low = _load_or_levels(state_root, session, bars)
     fills_path = state_root / "fills.csv"
     orders_path = state_root / "orders.csv"
     pos_path = state_root / "positions.csv"
     fills = _session_fills(list(csv.DictReader(fills_path.open(encoding="utf-8"))) if fills_path.exists() else [], session)
-    orders = list(csv.DictReader(orders_path.open(encoding="utf-8"))) if orders_path.exists() else []
+    all_orders = list(csv.DictReader(orders_path.open(encoding="utf-8"))) if orders_path.exists() else []
+    orders = _session_orders(all_orders, session, fills)
     pos_rows = list(csv.DictReader(pos_path.open(encoding="utf-8"))) if pos_path.exists() else []
-    pos = pos_rows[-1] if pos_rows else {"quantity": "0", "avg_price": "0", "realized_pnl": "0"}
+    pos = _session_position_snapshot(fills, pos_rows, session)
 
     fig, ax = plt.subplots(figsize=(14, 7.2), dpi=140)
     fig.patch.set_facecolor("#0f1419")
     ax.set_facecolor("#0f1419")
 
     if or_high is not None and or_low is not None:
-        or_start = bars[0]["dt"]
-        or_end = next((b["dt"] for b in bars if b["dt"].hour == 9 and b["dt"].minute >= 45), bars[min(14, len(bars) - 1)]["dt"])
-        ax.axhspan(or_low, or_high, facecolor="#4a90d9", alpha=0.18, zorder=0)
-        ax.axhline(or_high, color="#4a90d9", lw=1.2, ls="--", alpha=0.9, label=("OR high " + pf) % or_high)
-        ax.axhline(or_low, color="#4a90d9", lw=1.2, ls="--", alpha=0.9, label=("OR low " + pf) % or_low)
-        ax.axvspan(or_start, or_end, facecolor="#4a90d9", alpha=0.08, zorder=0)
+        or_start = next(
+            (b["dt"] for b in bars if b["dt"].hour == 9 and b["dt"].minute == 30),
+            bars[0]["dt"],
+        )
+        or_end = next(
+            (b["dt"] for b in bars if b["dt"].hour == 9 and b["dt"].minute >= 45),
+            bars[min(14, len(bars) - 1)]["dt"],
+        )
+        # Classic OR box on the 09:30–09:45 window (not a full-height time strip /
+        # full-width band — those made the range look paper-thin or invisible).
+        x0 = mdates.date2num(or_start)
+        x1 = mdates.date2num(or_end)
+        ax.add_patch(
+            plt.Rectangle(
+                (x0, or_low),
+                max(x1 - x0, 1e-9),
+                or_high - or_low,
+                facecolor="#4a90d9",
+                edgecolor="#7eb6e8",
+                linewidth=1.6,
+                alpha=0.28,
+                zorder=0,
+                label=("OR box %s–%s" % (pf % or_low, pf % or_high)),
+            )
+        )
+        ax.axhline(or_high, color="#4a90d9", lw=1.3, ls="--", alpha=0.95, label=("OR high " + pf) % or_high)
+        ax.axhline(or_low, color="#4a90d9", lw=1.3, ls="--", alpha=0.95, label=("OR low " + pf) % or_low)
+    else:
+        first_clock = bars[0]["dt"].timetz().replace(tzinfo=None)
+        if first_clock > dt_time(9, 45):
+            ax.text(
+                0.01,
+                0.98,
+                "OR n/a — no 09:30–09:45 bars (session data starts %s ET)"
+                % bars[0]["dt"].strftime("%H:%M"),
+                transform=ax.transAxes,
+                va="top",
+                ha="left",
+                color="#f0c674",
+                fontsize=9,
+                fontweight="bold",
+                zorder=8,
+            )
 
     have_q = [b for b in bars if b["bid_l"] is not None and b["ask_h"] is not None]
     if have_q:
@@ -278,6 +449,17 @@ def write_session_position_chart(
         elif status == "filled" and role in role_styles:
             color, ls, tag = role_styles[role]
             ax.axhline(px_f, color=color, lw=1.0, ls=ls, alpha=0.35, label=("%s filled @ " + pf) % (tag, px_f))
+        elif status == "cancelled" and role in {"tp1", "tp2", "wide_stop", "runner_stop"}:
+            # Ghost the cancelled bracket so the chart still shows what was working.
+            color, ls, tag = role_styles.get(role, ("#bbbbbb", "--", role))
+            ax.axhline(
+                px_f,
+                color=color,
+                lw=0.9,
+                ls=ls,
+                alpha=0.22,
+                label=("%s cancelled @ " + pf) % (tag, px_f),
+            )
 
     entry_fill = next((f for f in fills if (f.get("reason") or "") == "entry"), fills[0] if fills else None)
     if entry_fill:
@@ -297,17 +479,26 @@ def write_session_position_chart(
     else:
         u_pnl = 0.0
 
+    book = "oanda" if "oanda" in output_root.name.lower() else "paper"
     if abs(qty) < 1e-12:
         title_pos = "flat"
+        # Prefer session FIFO realized when flat (local positions.csv can lag / disagree).
+        try:
+            from .session_pnl import fifo_pnl_from_fills
+
+            _raw, realized_usd = fifo_pnl_from_fills(fills, instrument)
+        except Exception:
+            realized_usd = realized_pts * pv
         pnl_bit = "realized≈ $%.0f" % realized_usd
     else:
         title_pos = ("%+g @ " + pf) % (qty, avg)
         pnl_bit = "uPnL≈ $%.0f" % u_pnl
 
     ax.set_title(
-        "%s v2b ungated paper — %s   last %s   %s   (%d bars → %s)"
+        "%s v2b ungated %s — %s   last %s   %s   (%d bars → %s)"
         % (
             instrument.upper(),
+            book,
             title_pos,
             pf % last,
             pnl_bit,
@@ -335,24 +526,58 @@ def write_session_position_chart(
         labelcolor="#e8eef5",
     )
 
-    ys = [b["l"] for b in bars] + [b["h"] for b in bars]
+    # Y-limits: keep OR / price action readable. Distant TP/SL levels (often
+    # 2R away) used to stretch the axis and make the OR look paper-thin.
+    bar_lows = [b["l"] for b in bars]
+    bar_highs = [b["h"] for b in bars]
+    core = bar_lows + bar_highs
     if or_low is not None:
-        ys.append(or_low)
+        core.append(or_low)
     if or_high is not None:
-        ys.append(or_high)
+        core.append(or_high)
+    for fill in fills:
+        core.append(float(fill["price"]))
+    core_lo, core_hi = min(core), max(core)
+    core_span = (core_hi - core_lo) or 1.0
+    # Allow nearby working levels (e.g. stop at OR extreme) but not far TPs.
+    near_pad = core_span * 0.35
+    ys = list(core)
+    offchart: List[str] = []
     for o in orders:
         px = o.get("stop_price") or o.get("limit_price")
-        if px not in (None, "") and o.get("status") in {"submitted", "working", "partially_filled", "filled"}:
-            if (o.get("bracket_role") or "") in {"wide_stop", "runner_stop", "tp1", "tp2", "entry"}:
-                ys.append(float(px))
-    for fill in fills:
-        ys.append(float(fill["price"]))
-    pad = (max(ys) - min(ys)) * 0.12 or 1.0
-    ax.set_ylim(min(ys) - pad, max(ys) + pad)
+        if px in (None, ""):
+            continue
+        if o.get("status") not in {"submitted", "working", "partially_filled", "filled"}:
+            continue
+        role = o.get("bracket_role") or ""
+        if role not in {"wide_stop", "runner_stop", "tp1", "tp2", "entry"}:
+            continue
+        px_f = float(px)
+        if (core_lo - near_pad) <= px_f <= (core_hi + near_pad):
+            ys.append(px_f)
+        else:
+            offchart.append(("%s @ " + pf) % (role, px_f))
+    y_lo = min(ys) - ((max(ys) - min(ys)) * 0.12 or 1.0)
+    y_hi = max(ys) + ((max(ys) - min(ys)) * 0.12 or 1.0)
     ax.set_xlim(bars[0]["dt"], bars[-1]["dt"])
+    if offchart:
+        ax.text(
+            0.99,
+            0.02,
+            "off-scale: " + ", ".join(offchart[:4]),
+            transform=ax.transAxes,
+            va="bottom",
+            ha="right",
+            color="#9aa7b5",
+            fontsize=8,
+            zorder=8,
+        )
 
     fig.autofmt_xdate()
     fig.tight_layout()
+    # Re-apply after layout/autoscale so distant TP lines cannot squash the OR.
+    ax.set_ylim(y_lo, y_hi)
+    ax.set_autoscale_on(False)
     out = out_dir / ("%s_v2b_position_%s.png" % (instrument.lower(), session.isoformat()))
     fig.savefig(out, facecolor=fig.get_facecolor())
     plt.close(fig)

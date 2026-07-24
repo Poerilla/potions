@@ -13,6 +13,7 @@ from potions.live.oanda import (
     OandaMarketDataFeedAdapter,
     OandaRoutingBlocked,
     format_oanda_price,
+    oanda_order_type,
     parse_instrument_map,
     parse_oanda_ts,
 )
@@ -159,11 +160,13 @@ def test_oanda_broker_maps_market_order_with_brackets_and_reconciles_fill():
         order = broker.submit_order_intent(intent)
         payload = broker.order_intent_to_oanda_order(intent, order)
         assert payload["type"] == "MARKET"
+        assert payload["timeInForce"] == "FOK"
         assert payload["instrument"] == "EUR_USD"
         assert payload["units"] == "1000"
-        assert payload["stopLossOnFill"]["price"] == format_oanda_price(1.0800)
-        assert payload["takeProfitOnFill"]["price"] == format_oanda_price(1.1000)
+        assert payload["stopLossOnFill"]["price"] == format_oanda_price(1.0800, 5)
+        assert payload["takeProfitOnFill"]["price"] == format_oanda_price(1.1000, 5)
         assert payload["clientExtensions"]["id"] == order.broker_order_id
+        assert payload["timeInForce"] == "FOK"
 
         fill = broker.on_fill(
             {
@@ -225,5 +228,55 @@ def test_oanda_go_flat_cancels_and_emits_close_payloads():
         assert len(payloads) == 1
         assert payloads[0]["instrument"] == "XAU_USD"
         assert broker.reconcile_orders() == []
+    finally:
+        tmp.cleanup()
+
+
+def test_oanda_order_type_maps_market_close_to_market():
+    assert oanda_order_type("market_close") == "MARKET"
+    assert oanda_order_type("market") == "MARKET"
+
+
+def test_apply_account_changes_returns_fills_and_writes_fills_csv():
+    tmp, store = make_store()
+    try:
+        config = OandaConfig(env="practice", account_id="101-002-39860312-001")
+        broker = OandaBroker(store, config=config, allow_live_routing=False)
+        intent = OrderIntent.create(
+            strategy_id="s1",
+            trade_id="t1",
+            instrument="EURUSD",
+            account_mode="paper",
+            side="buy",
+            order_type="market",
+            quantity=3,
+            reason="entry",
+            bracket_role="entry",
+            requires_verification=False,
+        )
+        order = broker.submit_order_intent(intent)
+        fills = broker.apply_account_changes(
+            {
+                "lastTransactionID": "42",
+                "changes": {
+                    "transactions": [
+                        {
+                            "type": "ORDER_FILL",
+                            "id": "tx-1",
+                            "broker_order_id": order.broker_order_id,
+                            "units": "3",
+                            "price": "1.1000",
+                            "time": "2026-07-23T14:00:00.000000000Z",
+                        }
+                    ]
+                },
+            }
+        )
+        assert len(fills) == 1
+        assert fills[0].quantity == 3
+        assert fills[0].price == 1.1
+        assert fills[0].reason == "entry"
+        assert broker.last_transaction_id == "42"
+        assert (Path(tmp.name) / "fills.csv").exists()
     finally:
         tmp.cleanup()

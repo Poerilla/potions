@@ -28,6 +28,18 @@ DEFAULT_INSTRUMENT_MAP = {
     "SPX500": "SPX500_USD",  # US SPX 500 CFD — ES proxy
     "US30": "US30_USD",  # US Wall St 30 CFD — YM proxy
 }
+# OANDA instrument displayPrecision (reject PRICE_PRECISION_EXCEEDED if exceeded).
+DEFAULT_DISPLAY_PRECISION = {
+    "EURUSD": 5,
+    "GBPUSD": 5,
+    "USDJPY": 3,
+    "AUDJPY": 3,
+    "XAUUSD": 3,
+    "XAGUSD": 3,
+    "NAS100": 1,
+    "SPX500": 1,
+    "US30": 1,
+}
 DEFAULT_PRIMARY_ACCOUNT = "101-002-39860312-001"
 DEFAULT_SECONDARY_ACCOUNT = "101-002-39860312-002"
 
@@ -528,6 +540,67 @@ class FiveMinuteBarAggregator:
         ]
 
 
+class FifteenMinuteBarAggregator:
+    """Aggregate 1m bars into 15m bars with left label / left closed (matches Monday OR research).
+
+    Bucket ``:00–:14`` emits a completed 15m bar whose ``ts`` is the bucket start.
+    """
+
+    def __init__(self, instrument: str, source: str = "oanda_1m_aggregate"):
+        self.instrument = instrument
+        self.source = source
+        self._bucket_key: Optional[datetime] = None
+        self._bars: List[Bar] = []
+
+    def on_bar(self, bar: Bar) -> List[Bar]:
+        if bar.timeframe != "1m":
+            return []
+        dt = parse_oanda_ts(bar.ts)
+        bucket = dt.replace(minute=(dt.minute // 15) * 15, second=0, microsecond=0)
+        emitted: List[Bar] = []
+        if self._bucket_key is not None and bucket != self._bucket_key:
+            emitted.extend(self._flush_bucket())
+            self._bars = []
+        self._bucket_key = bucket
+        self._bars.append(bar)
+        # Complete when we have the last minute of the bucket (:14, :29, :44, :59).
+        if dt.minute % 15 == 14:
+            emitted.extend(self._flush_bucket())
+            self._bars = []
+            self._bucket_key = None
+        return emitted
+
+    def flush(self) -> List[Bar]:
+        return self._flush_bucket()
+
+    def _flush_bucket(self) -> List[Bar]:
+        if not self._bars or self._bucket_key is None:
+            return []
+        bars = list(self._bars)
+        return [
+            Bar(
+                instrument=self.instrument,
+                timeframe="15m",
+                ts=isoformat_utc(self._bucket_key),
+                open=bars[0].open,
+                high=max(bar.high for bar in bars),
+                low=min(bar.low for bar in bars),
+                close=bars[-1].close,
+                volume=sum(bar.volume for bar in bars),
+                complete=True,
+                source=self.source,
+                bid_open=bars[0].bid_open,
+                bid_high=max((b.bid_high for b in bars if b.bid_high is not None), default=None),
+                bid_low=min((b.bid_low for b in bars if b.bid_low is not None), default=None),
+                bid_close=bars[-1].bid_close,
+                ask_open=bars[0].ask_open,
+                ask_high=max((b.ask_high for b in bars if b.ask_high is not None), default=None),
+                ask_low=min((b.ask_low for b in bars if b.ask_low is not None), default=None),
+                ask_close=bars[-1].ask_close,
+            )
+        ]
+
+
 class OandaMarketDataFeedAdapter(LiveFeedAdapter):
     BLOCKING_STATUSES = {"access_denied", "delayed", "downgraded", "stale", "unresolved_instrument", "permission_denied"}
 
@@ -789,6 +862,16 @@ class OandaBroker(BaseBroker):
         }
         self._oanda_order_ids: Dict[str, str] = {}
         self.last_transaction_id: str = ""
+        self._pending_fills: List[Fill] = []
+        self._display_precision: Dict[str, int] = dict(DEFAULT_DISPLAY_PRECISION)
+
+    def display_precision_for(self, instrument: str) -> int:
+        key = str(instrument or "").upper()
+        if key in self._display_precision:
+            return int(self._display_precision[key])
+        # Fall back via OANDA name → internal.
+        internal = self.config.internal_for(key) if "_" in key else key
+        return int(self._display_precision.get(internal, 5))
 
     def get_active_contract(self, instrument: str) -> str:
         return self.config.symbol_for(instrument)
@@ -935,10 +1018,11 @@ class OandaBroker(BaseBroker):
         if self.supervisor is not None:
             self.supervisor.mark_reconciled("oanda_account_details_reconciled")
 
-    def apply_account_changes(self, body: Dict[str, Any]) -> None:
+    def apply_account_changes(self, body: Dict[str, Any]) -> List[Fill]:
         changes = body.get("changes") or {}
         if hasattr(changes, "dict"):
             changes = changes.dict()
+        fills: List[Fill] = []
         for key in ("ordersCreated", "ordersFilled", "ordersCancelled", "ordersTriggered"):
             for raw_order in changes.get(key) or []:
                 if hasattr(raw_order, "dict"):
@@ -956,8 +1040,16 @@ class OandaBroker(BaseBroker):
             if hasattr(raw_fill, "dict"):
                 raw_fill = raw_fill.dict()
             if str(raw_fill.get("type") or "").endswith("FILL") or raw_fill.get("type") in {"ORDER_FILL", "MarketOrderFill"}:
+                fill_id = str(raw_fill.get("id") or raw_fill.get("fill_id") or "")
+                if fill_id and any(f.fill_id == fill_id for f in self._pending_fills):
+                    continue
+                # Skip if already mirrored into fills.csv (e.g. from create response).
+                if fill_id:
+                    existing = [r for r in self.store.read_table("fills") if r.get("fill_id") == fill_id]
+                    if existing:
+                        continue
                 try:
-                    self.on_fill(dict(raw_fill, type="fill"))
+                    fills.append(self.on_fill(dict(raw_fill, type="fill")))
                 except KeyError:
                     self._emit_order_event({"event": "fill_unmatched", **dict(raw_fill)})
         self.last_transaction_id = str(body.get("lastTransactionID") or self.last_transaction_id)
@@ -965,6 +1057,7 @@ class OandaBroker(BaseBroker):
             "reconciliation_events",
             {"event": "oanda_account_changes_applied", "last_transaction_id": self.last_transaction_id},
         )
+        return fills
 
     def attach_bracket(self, parent_order: BrokerOrder, intent: OrderIntent) -> List[BrokerOrder]:
         # Prefer SL/TP on fill at submit time; local attach is paper/practice only.
@@ -1020,10 +1113,14 @@ class OandaBroker(BaseBroker):
         return children
 
     def process_bar(self, bar: Bar) -> List[Fill]:
-        return []
+        # Drain fills mirrored from create/close responses so Engine can on_fills
+        # after strategy submissions (same loop PaperBroker uses for bar fills).
+        fills = list(self._pending_fills)
+        self._pending_fills = []
+        return fills
 
     def process_market_close_bar(self, bar: Bar) -> List[Fill]:
-        return []
+        return self.process_bar(bar)
 
     def on_order_status(self, event: Dict[str, Any]) -> Optional[BrokerOrder]:
         broker_order_id = str(event.get("broker_order_id") or event.get("clientOrderID") or "")
@@ -1086,6 +1183,13 @@ class OandaBroker(BaseBroker):
             if hasattr(trade, "dict"):
                 trade = trade.dict()
             price = float(trade.get("price") or price)
+        intent = self._intents_cache.get(order.intent_id)
+        fill_reason = (
+            order.bracket_role
+            or (intent.reason if intent is not None else "")
+            or str(event.get("reason") or "")
+            or order.order_type
+        )
         fill = Fill(
             fill_id=str(event.get("fill_id") or event.get("id") or new_id("fill")),
             broker_order_id=order.broker_order_id,
@@ -1098,7 +1202,7 @@ class OandaBroker(BaseBroker):
             quantity=quantity,
             price=price,
             ts=str(event.get("event_ts") or event.get("time") or event.get("timestamp") or event.get("ts") or utc_now_iso()),
-            reason=order.bracket_role or order.order_type,
+            reason=fill_reason,
         )
         remaining = max(order.remaining_quantity - quantity, 0)
         status = "filled" if remaining == 0 else "partially_filled"
@@ -1109,7 +1213,7 @@ class OandaBroker(BaseBroker):
         else:
             self._active_order_ids[order.broker_order_id] = True
         self.store.upsert_row("orders", "broker_order_id", as_row(updated))
-        self.store.append_event("fills", as_row(fill))
+        self.store.append_rows("fills", [as_row(fill)])
         self._apply_fill_to_position(fill)
         self._cancel_local_oco_peers(updated)
         self._emit_order_event({"event": "fill", **as_row(fill)})
@@ -1121,31 +1225,74 @@ class OandaBroker(BaseBroker):
         payloads: List[Dict[str, Any]] = []
         for order_id in list(self._active_order_ids):
             self.cancel_order(order_id, reason="go_flat")
+        # Refresh positions from OANDA when possible so we only close open sides.
+        # Sending longUnits=ALL + shortUnits=ALL when one side is flat rejects the whole closeout.
+        if self.client is not None:
+            try:
+                self.reconcile_from_account_details()
+            except Exception as exc:
+                self._emit_order_event({"event": "go_flat_reconcile_error", "error": str(exc)})
+        open_by_instrument: Dict[str, float] = {}
+        for pos in self.reconcile_positions():
+            # Prefer account-level rows from reconcile_from_account_details (strategy_id=oanda)
+            # so we do not double-count strategy-local mirrors.
+            if pos.strategy_id != "oanda" or pos.quantity == 0:
+                continue
+            open_by_instrument[pos.instrument] = float(pos.quantity)
         for instrument in instruments:
+            qty = float(open_by_instrument.get(instrument, 0.0))
             oanda_instrument = self.config.symbol_for(instrument)
-            payload = {
-                "instrument": oanda_instrument,
-                "longUnits": "ALL",
-                "shortUnits": "ALL",
-            }
+            if self.client is None:
+                # Offline scaffold: emit dual-side close payload (historical CLI behavior).
+                payload = {"instrument": oanda_instrument, "longUnits": "ALL", "shortUnits": "ALL"}
+                payloads.append(payload)
+                self._emit_order_event({"event": "close_position", "oanda_payload": payload})
+                continue
+            if qty == 0:
+                continue
+            payload = {"instrument": oanda_instrument}
+            if qty > 0:
+                payload["longUnits"] = "ALL"
+            if qty < 0:
+                payload["shortUnits"] = "ALL"
             payloads.append(payload)
             self._emit_order_event({"event": "close_position", "oanda_payload": payload})
-            if self.client is not None:
-                try:
-                    raw = self.client.close_position(oanda_instrument, longUnits="ALL", shortUnits="ALL")
-                    self._emit_order_event({"event": "network_order_response", "action": "close_position", "response": raw})
-                except Exception as exc:
-                    self._emit_order_event({"event": "network_order_error", "action": "close_position", "error": str(exc)})
+            try:
+                kwargs = {k: v for k, v in payload.items() if k != "instrument"}
+                raw = self.client.close_position(oanda_instrument, **kwargs)
+                raw = _jsonable(raw) if not isinstance(raw, dict) else {k: _jsonable(v) for k, v in raw.items()}
+                self._emit_order_event({"event": "network_order_response", "action": "close_position", "response": raw})
+                if raw.get("lastTransactionID"):
+                    self.last_transaction_id = str(raw["lastTransactionID"])
+                for key in ("longOrderFillTransaction", "shortOrderFillTransaction", "orderFillTransaction"):
+                    fill_tx = raw.get(key)
+                    if isinstance(fill_tx, dict) and fill_tx:
+                        try:
+                            fill = self.on_fill(dict(fill_tx, type="fill"))
+                            self._pending_fills.append(fill)
+                        except KeyError:
+                            self._emit_order_event({"event": "fill_unmatched_on_close", "fill": fill_tx})
+            except Exception as exc:
+                self._emit_order_event({"event": "network_order_error", "action": "close_position", "error": str(exc)})
         return payloads
 
     def order_intent_to_oanda_order(self, intent: OrderIntent, order: BrokerOrder) -> Dict[str, Any]:
         units = int(order.quantity) if order.side.lower() == "buy" else -int(order.quantity)
         order_type = oanda_order_type(order.order_type)
+        precision = self.display_precision_for(order.instrument)
+        # OANDA MARKET orders only accept FOK/IOC (not GTC).
+        if order_type == "MARKET":
+            tif_key = str(intent.tif or "FOK").strip().lower()
+            if tif_key not in {"fok", "ioc"}:
+                tif_key = "fok"
+            tif = oanda_tif(tif_key)
+        else:
+            tif = oanda_tif(intent.tif or "GTC")
         body: Dict[str, Any] = {
             "type": order_type,
             "instrument": self.get_active_contract(order.instrument),
             "units": str(units),
-            "timeInForce": oanda_tif(intent.tif or "GTC"),
+            "timeInForce": tif,
             "positionFill": "DEFAULT",
             "clientExtensions": {
                 "id": order.broker_order_id[:128],
@@ -1154,13 +1301,19 @@ class OandaBroker(BaseBroker):
             },
         }
         if order_type == "LIMIT" and intent.limit_price is not None:
-            body["price"] = format_oanda_price(intent.limit_price)
+            body["price"] = format_oanda_price(intent.limit_price, precision)
         if order_type == "STOP" and intent.stop_price is not None:
-            body["price"] = format_oanda_price(intent.stop_price)
+            body["price"] = format_oanda_price(intent.stop_price, precision)
         if intent.bracket_stop_price is not None:
-            body["stopLossOnFill"] = {"price": format_oanda_price(intent.bracket_stop_price), "timeInForce": "GTC"}
+            body["stopLossOnFill"] = {
+                "price": format_oanda_price(intent.bracket_stop_price, precision),
+                "timeInForce": "GTC",
+            }
         if intent.bracket_target_price is not None:
-            body["takeProfitOnFill"] = {"price": format_oanda_price(intent.bracket_target_price), "timeInForce": "GTC"}
+            body["takeProfitOnFill"] = {
+                "price": format_oanda_price(intent.bracket_target_price, precision),
+                "timeInForce": "GTC",
+            }
         return body
 
     def _send_create_order(self, payload: Dict[str, Any], order_ref: str) -> None:
@@ -1168,13 +1321,36 @@ class OandaBroker(BaseBroker):
             return
         try:
             raw = self.client.create_order(payload)
+            raw = _jsonable(raw) if not isinstance(raw, dict) else {k: _jsonable(v) for k, v in raw.items()}
             self._emit_order_event({"event": "network_order_response", "action": "create", "order_ref": order_ref, "response": raw})
             order_create = raw.get("orderCreateTransaction") or raw.get("orderFillTransaction") or {}
             if hasattr(order_create, "dict"):
                 order_create = order_create.dict()
-            remote_id = str(order_create.get("id") or raw.get("orderFillTransaction", {}).get("id") or "")
+            remote_id = str(order_create.get("id") or "")
+            if not remote_id and isinstance(raw.get("orderFillTransaction"), dict):
+                remote_id = str(raw["orderFillTransaction"].get("orderID") or raw["orderFillTransaction"].get("id") or "")
             if remote_id:
                 self._oanda_order_ids[order_ref] = remote_id
+            # Immediate MARKET fills arrive on the create response — mirror them locally
+            # and queue for Engine.process_bar → manager.on_fills.
+            fill_tx = raw.get("orderFillTransaction")
+            if isinstance(fill_tx, dict) and fill_tx:
+                try:
+                    fill = self.on_fill(dict(fill_tx, type="fill", broker_order_id=order_ref))
+                    self._pending_fills.append(fill)
+                except KeyError:
+                    self._emit_order_event({"event": "fill_unmatched_on_create", "order_ref": order_ref, "fill": fill_tx})
+            reject = raw.get("orderRejectTransaction") or raw.get("orderCancelTransaction")
+            if isinstance(reject, dict) and str(reject.get("type") or "").endswith("REJECT"):
+                self._emit_order_event({"event": "order_rejected", "order_ref": order_ref, "reject": reject})
+                order = self._orders_cache.get(order_ref)
+                if order is not None:
+                    updated = replace(order, status="rejected", remaining_quantity=0, updated_at=utc_now_iso())
+                    self._orders_cache[order_ref] = updated
+                    self._active_order_ids.pop(order_ref, None)
+                    self.store.upsert_row("orders", "broker_order_id", as_row(updated))
+            if raw.get("lastTransactionID"):
+                self.last_transaction_id = str(raw["lastTransactionID"])
         except Exception as exc:
             if self.supervisor is not None:
                 self.supervisor.observe_order_ambiguity_age(self.supervisor.order_ambiguity_ms + 1, order_ref)
@@ -1182,7 +1358,8 @@ class OandaBroker(BaseBroker):
             raise
 
     def _emit_order_event(self, event: Dict[str, Any]) -> None:
-        self.store.append_event("oanda_order_events", event)
+        self.store.append_event("oanda_order_events", _jsonable(event))
+
 
     def _assert_routing_allowed(self, intent: OrderIntent) -> None:
         if self.supervisor is not None and not self.supervisor.entries_allowed(intent):
@@ -1312,14 +1489,31 @@ def isoformat_utc(dt: datetime) -> str:
     return dt.astimezone(timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "Z")
 
 
-def format_oanda_price(price: float) -> str:
-    # Keep as string; trim excess trailing zeros but preserve meaningful precision.
+def format_oanda_price(price: float, precision: Optional[int] = None) -> str:
+    """Format a price for OANDA order payloads.
+
+    When ``precision`` is set (instrument ``displayPrecision``), round half-up to
+    that many decimals — required to avoid ``PRICE_PRECISION_EXCEEDED`` rejects.
+    """
+    if precision is not None:
+        from decimal import Decimal, ROUND_HALF_UP
+
+        quant = Decimal(1).scaleb(-int(precision))
+        rounded = Decimal(str(float(price))).quantize(quant, rounding=ROUND_HALF_UP)
+        return format(rounded, "f")
+    # Legacy trim (offline / unspecified): keep meaningful digits only.
     text = ("%.10f" % float(price)).rstrip("0").rstrip(".")
     return text if text else "0"
 
 
 def oanda_order_type(order_type: str) -> str:
-    lookup = {"market": "MARKET", "limit": "LIMIT", "stop": "STOP", "stop_limit": "STOP"}
+    lookup = {
+        "market": "MARKET",
+        "market_close": "MARKET",
+        "limit": "LIMIT",
+        "stop": "STOP",
+        "stop_limit": "STOP",
+    }
     key = str(order_type).strip().lower()
     if key not in lookup:
         raise OandaConfigurationError("Unsupported OANDA order type: %s" % order_type)
@@ -1385,23 +1579,58 @@ def bid_ask_from_event(event: Dict[str, Any]) -> Tuple[Optional[float], Optional
     return bid, ask
 
 
+def _jsonable(value: Any) -> Any:
+    if value is None or isinstance(value, (str, int, float, bool)):
+        return value
+    if isinstance(value, dict):
+        return {str(k): _jsonable(v) for k, v in value.items()}
+    if isinstance(value, (list, tuple)):
+        return [_jsonable(v) for v in value]
+    if hasattr(value, "dict"):
+        try:
+            return _jsonable(value.dict())
+        except Exception:
+            pass
+    if hasattr(value, "__dict__"):
+        try:
+            return _jsonable(vars(value))
+        except Exception:
+            pass
+    return str(value)
+
+
 def response_body(response: Any) -> Dict[str, Any]:
     if response is None:
         return {}
     if isinstance(response, dict):
-        return response
+        return {str(k): _jsonable(v) for k, v in response.items()}
     body = getattr(response, "body", None)
     if isinstance(body, dict):
-        return body
+        return {str(k): _jsonable(v) for k, v in body.items()}
     if body is not None and hasattr(body, "dict"):
-        return body.dict()
+        return _jsonable(body.dict())
     # v20 Response often exposes named attributes
     out: Dict[str, Any] = {}
-    for key in ("account", "accounts", "prices", "instruments", "orderCreateTransaction", "orderFillTransaction", "lastTransactionID", "changes", "state", "candles"):
+    for key in (
+        "account",
+        "accounts",
+        "prices",
+        "instruments",
+        "orderCreateTransaction",
+        "orderFillTransaction",
+        "orderRejectTransaction",
+        "relatedTransactionIDs",
+        "lastTransactionID",
+        "changes",
+        "state",
+        "candles",
+        "errorCode",
+        "errorMessage",
+    ):
         if hasattr(response, key):
             value = getattr(response, key)
             if value is not None:
-                out[key] = value.dict() if hasattr(value, "dict") else value
+                out[key] = _jsonable(value)
     if out:
         return out
     return {"raw": str(response)}

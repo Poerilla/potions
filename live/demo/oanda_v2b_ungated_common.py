@@ -1,7 +1,7 @@
-"""SPX500 v2b OCO ungated paper demo: OANDA SPX500_USD prices in, PaperBroker only (ES proxy).
+"""Shared runner for ungated v2b OANDA practice demos (real practice orders).
 
-Artifacts live under ``live/demo/spx500_v2b_ungated_paper/`` (parallel to the
-EURUSD/NAS100 demos and ``live/state/``). No orders are routed to OANDA.
+OANDA is order/fill/position truth; local CSVs are an audit mirror via Account Changes.
+Paper demos under ``*_v2b_ungated_paper`` are unchanged.
 """
 
 from __future__ import annotations
@@ -12,6 +12,7 @@ import signal
 import socket
 import sys
 import time
+from dataclasses import dataclass
 from datetime import datetime, time as dt_time
 from pathlib import Path
 from typing import Any, Callable, Dict, List, Optional
@@ -24,36 +25,44 @@ from ..models import Bar, StrategyInstance, as_row, utc_now_iso
 from ..oanda import (
     DEFAULT_PRIMARY_ACCOUNT,
     OandaApiClient,
+    OandaBroker,
     OandaConfig,
     QuoteOneMinuteBarBuilder,
     bid_ask_from_event,
     mid_price_from_event,
     parse_oanda_ts,
 )
-from ..replay_realism import hardened_replay_engine_kwargs
 from ..store import FlatFileStore
 from ..verification import SpoofVerificationProvider
 from . import demo_run_root
+from .session_pnl import append_session_result
 
-INSTRUMENT = "SPX500"
-STRATEGY_ID = "spx500_v2b_ungated_demo"
-STRATEGY_TYPE = "v2b_scaleout"
-ENTRY_QTY = 3
-TP1_QTY = 1
-TP2_QTY = 1
-TICK = 0.1  # OANDA SPX500_USD displayPrecision=1 (ES proxy)
 NY_TZ = pytz.timezone("America/New_York")
 RTH_OPEN = dt_time(9, 30)
 RTH_CLOSE = dt_time(16, 0)
 PROGRESS_HEARTBEAT_SECONDS = 300
+ACCOUNT_CHANGES_POLL_SECONDS = 2.0
+OANDA_RESULTS_CSV = Path(__file__).resolve().parent / "ungated_oanda_demo.csv"
 
 
-def default_output_root() -> Path:
-    return demo_run_root("spx500_v2b_ungated_paper")
+@dataclass(frozen=True)
+class OandaDemoSpec:
+    instrument: str
+    strategy_id: str
+    run_dirname: str
+    tick: float
+    entry_qty: int = 3
+    tp1_qty: int = 1
+    tp2_qty: int = 1
+    strategy_type: str = "v2b_scaleout"
 
 
-def state_root_for(output_root: Optional[Path] = None) -> Path:
-    return (output_root or default_output_root()) / "state"
+def default_output_root(spec: OandaDemoSpec) -> Path:
+    return demo_run_root(spec.run_dirname)
+
+
+def state_root_for(output_root: Path) -> Path:
+    return output_root / "state"
 
 
 def progress_path(output_root: Path) -> Path:
@@ -88,7 +97,6 @@ def ny_wall_time(ts: str) -> datetime:
 
 
 def is_ny_rth(ts: str) -> bool:
-    """True when ``ts`` falls in NY RTH [09:30, 16:00)."""
     ny = ny_wall_time(ts)
     clock = ny.time()
     if clock.tzinfo is not None:
@@ -96,52 +104,52 @@ def is_ny_rth(ts: str) -> bool:
     return RTH_OPEN <= clock < RTH_CLOSE
 
 
-def strategy_config_payload() -> Dict[str, Any]:
+def strategy_config_payload(spec: OandaDemoSpec) -> Dict[str, Any]:
     return {
         "mode": "oco_then_reverse",
-        "entry_qty": ENTRY_QTY,
-        "tp1_qty": TP1_QTY,
-        "tp2_qty": TP2_QTY,
-        "tick_size": TICK,
+        "entry_qty": spec.entry_qty,
+        "tp1_qty": spec.tp1_qty,
+        "tp2_qty": spec.tp2_qty,
+        "tick_size": spec.tick,
         "rth_start": "09:30",
         "or_end": "09:45",
         "eod_cutoff": "15:59",
         "use_regime_filter": False,
         "prior_opposite_only": False,
         "record_levels": True,
-        "paper_only": True,
-        "oanda_routing": False,
+        "paper_only": False,
+        "oanda_routing": True,
         "signal_price": "mid",
-        "fill_price": "bid_ask",
+        "fill_price": "oanda",
     }
 
 
-def write_run_meta(output_root: Path, *, config: OandaConfig, extra: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
+def write_run_meta(output_root: Path, *, spec: OandaDemoSpec, config: OandaConfig, extra: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
     meta = {
         "started_at": utc_now_iso(),
         "pid": os.getpid(),
         "hostname": socket.gethostname(),
-        "strategy_id": STRATEGY_ID,
-        "strategy_type": STRATEGY_TYPE,
-        "instrument": INSTRUMENT,
-        "oanda_instrument": config.symbol_for(INSTRUMENT),
+        "strategy_id": spec.strategy_id,
+        "strategy_type": spec.strategy_type,
+        "instrument": spec.instrument,
+        "oanda_instrument": config.symbol_for(spec.instrument),
         "sizing": "S_1_1_1",
-        "entry_qty": ENTRY_QTY,
-        "tp1_qty": TP1_QTY,
-        "tp2_qty": TP2_QTY,
+        "entry_qty": spec.entry_qty,
+        "tp1_qty": spec.tp1_qty,
+        "tp2_qty": spec.tp2_qty,
+        "units_note": "Strategy qty maps 1:1 to OANDA units (tiny practice size).",
         "use_regime_filter": False,
         "prior_opposite_only": False,
         "account_mode": "paper",
-        "oanda_routing": False,
-        "signal_price": "mid",
-        "fill_price": "bid_ask",
+        "oanda_routing": True,
+        "allow_live_routing": False,
         "oanda_env": config.env,
         "oanda_account_id": config.account_id or DEFAULT_PRIMARY_ACCOUNT,
         "oanda_api_url": config.api_url,
         "oanda_stream_url": config.stream_url,
         "output_root": str(output_root),
         "state_root": str(state_root_for(output_root)),
-        "note": "Paper-only demo: OANDA practice stream for prices; PaperBroker for fills. No OANDA order routing.",
+        "note": "OANDA practice order-routing demo: prices + real practice orders; local state mirrors Account Changes.",
     }
     if extra:
         meta.update(extra)
@@ -150,25 +158,25 @@ def write_run_meta(output_root: Path, *, config: OandaConfig, extra: Optional[Di
     return meta
 
 
-def bootstrap_store(output_root: Path) -> FlatFileStore:
+def bootstrap_store(output_root: Path, spec: OandaDemoSpec) -> FlatFileStore:
     root = state_root_for(output_root)
     store = FlatFileStore(root)
     store.ensure()
-    payload = strategy_config_payload()
+    payload = strategy_config_payload(spec)
     store.upsert_row(
         "strategy_instances",
         "strategy_id",
         as_row(
             StrategyInstance(
-                strategy_id=STRATEGY_ID,
-                strategy_type=STRATEGY_TYPE,
+                strategy_id=spec.strategy_id,
+                strategy_type=spec.strategy_type,
                 version="v1",
-                instrument=INSTRUMENT,
-                broker_instrument=INSTRUMENT,
+                instrument=spec.instrument,
+                broker_instrument=spec.instrument,
                 account_mode="paper",
                 enabled=True,
                 timeframes="1m",
-                max_contracts=ENTRY_QTY,
+                max_contracts=spec.entry_qty,
                 max_open_orders=64,
                 config_json=json.dumps(payload, sort_keys=True),
             )
@@ -177,49 +185,127 @@ def bootstrap_store(output_root: Path) -> FlatFileStore:
     return store
 
 
-def build_engine(store: FlatFileStore) -> Engine:
-    DEFAULT_TICK_SIZE.setdefault(INSTRUMENT, TICK)
-    # Quote-book bars carry real bid/ask; skip synthetic SpreadModel to avoid double-counting.
+def build_engine(store: FlatFileStore, *, spec: OandaDemoSpec, config: OandaConfig, client: OandaApiClient) -> Engine:
+    DEFAULT_TICK_SIZE.setdefault(spec.instrument, spec.tick)
+    broker = OandaBroker(store, config=config, client=client, allow_live_routing=False)
     return Engine(
         store=store,
+        broker=broker,
         persist_bars=True,
         persist_health=True,
-        tick_size={INSTRUMENT: TICK},
+        tick_size={spec.instrument: spec.tick},
         verification_provider=SpoofVerificationProvider(store),
         emit_order_alerts=True,
         broker_log_events=True,
         broker_persist_modifications=True,
-        **hardened_replay_engine_kwargs(slippage_ticks=0.0, spread_model=None),
+        slippage_ticks=0.0,
     )
 
 
-class DemoPaperRunner:
-    """Offline-testable core: feed ticks, gate RTH logs, drive Engine on RTH bars."""
+def poll_account_changes(engine: Engine, client: OandaApiClient, *, instrument: str) -> int:
+    """Pull Account Changes; apply fills for this broker and notify strategies.
 
+    Returns number of fills delivered to ``StrategyManager.on_fills``.
+    """
+    broker = engine.broker
+    if not isinstance(broker, OandaBroker):
+        return 0
+    delivered: List = []
+    # Immediate create/close fills queued for Engine (also drain here between bars).
+    pending = getattr(broker, "_pending_fills", None)
+    if pending:
+        delivered.extend(list(pending))
+        broker._pending_fills = []
+    if not broker.last_transaction_id:
+        broker.reconcile_from_account_details()
+        if delivered:
+            local = [f for f in delivered if f.instrument == instrument]
+            if local:
+                engine.manager.on_fills(local)
+            return len(local)
+        return 0
+    try:
+        body = client.account_changes(since_transaction_id=broker.last_transaction_id)
+    except Exception as exc:
+        engine.store.append_event(
+            "reconciliation_events",
+            {"event": "oanda_account_changes_error", "error": str(exc), "ts": utc_now_iso()},
+        )
+        if delivered:
+            local = [f for f in delivered if f.instrument == instrument]
+            if local:
+                engine.manager.on_fills(local)
+            return len(local)
+        return 0
+    fills = broker.apply_account_changes(body)
+    delivered.extend(fills)
+    local = [f for f in delivered if f.instrument == instrument]
+    if local:
+        engine.manager.on_fills(local)
+    return len(local)
+
+
+class DemoOandaRunner:
     def __init__(
         self,
+        spec: OandaDemoSpec,
+        *,
         output_root: Optional[Path] = None,
         store: Optional[FlatFileStore] = None,
         engine: Optional[Engine] = None,
+        config: Optional[OandaConfig] = None,
+        client: Optional[OandaApiClient] = None,
         clock: Optional[Callable[[], float]] = None,
     ):
-        self.output_root = Path(output_root) if output_root is not None else default_output_root()
+        self.spec = spec
+        self.output_root = Path(output_root) if output_root is not None else default_output_root(spec)
         self.output_root.mkdir(parents=True, exist_ok=True)
-        self.store = store or bootstrap_store(self.output_root)
-        self.engine = engine or build_engine(self.store)
-        self.builder = QuoteOneMinuteBarBuilder(INSTRUMENT, source="oanda_demo_quote")
+        self.config = config or OandaConfig.from_env()
+        self.store = store or bootstrap_store(self.output_root, spec)
+        self.client = client or OandaApiClient(config=self.config, store=self.store)
+        self.engine = engine or build_engine(self.store, spec=spec, config=self.config, client=self.client)
+        self.builder = QuoteOneMinuteBarBuilder(spec.instrument, source="oanda_demo_quote")
         self._clock = clock or time.time
         self._last_progress_at = 0.0
+        self._last_changes_poll_at = 0.0
         self._rth_open_logged = False
         self._rth_close_logged = False
         self._session_day = ""
         self.ticks_logged = 0
         self.bars_persisted = 0
         self.bars_engine = 0
+        self.fills_from_oanda = 0
         self.stop_requested = False
 
     def request_stop(self, *_args: Any) -> None:
         self.stop_requested = True
+
+    def bootstrap_reconcile(self) -> None:
+        broker = self.engine.broker
+        if isinstance(broker, OandaBroker):
+            try:
+                broker.reconcile_from_account_details()
+                append_progress(
+                    self.output_root,
+                    "OANDA reconcile lastTransactionID=%s open_orders=%d positions=%d"
+                    % (
+                        broker.last_transaction_id,
+                        len(broker.reconcile_orders()),
+                        len([p for p in broker.reconcile_positions() if p.quantity != 0]),
+                    ),
+                )
+            except Exception as exc:
+                append_progress(self.output_root, "WARN reconcile_from_account_details failed: %s" % exc)
+
+    def maybe_poll_changes(self, *, force: bool = False) -> None:
+        now = self._clock()
+        if (not force) and (now - self._last_changes_poll_at < ACCOUNT_CHANGES_POLL_SECONDS):
+            return
+        self._last_changes_poll_at = now
+        n = poll_account_changes(self.engine, self.client, instrument=self.spec.instrument)
+        if n:
+            self.fills_from_oanda += n
+            append_progress(self.output_root, "OANDA fills applied n=%d total=%d" % (n, self.fills_from_oanda))
 
     def on_price_tick(
         self,
@@ -231,12 +317,10 @@ class DemoPaperRunner:
         quantity: float = 0.0,
         raw: Optional[Dict[str, Any]] = None,
     ) -> List[Bar]:
-        """Handle one quote tick. Mid drives signals; bid/ask OHLC ride on the bar for fills."""
         if bid is None or ask is None:
             if price is None:
                 return []
-            # Fallback: synthetic 1-tick half-spread around mid if quote sides missing.
-            half = TICK * 5.0
+            half = self.spec.tick * 5.0
             mid = float(price)
             bid = mid - half
             ask = mid + half
@@ -246,8 +330,8 @@ class DemoPaperRunner:
         if in_rth:
             payload = {
                 "type": "price",
-                "instrument": INSTRUMENT,
-                "oanda_instrument": "EUR_USD",
+                "instrument": self.spec.instrument,
+                "oanda_instrument": self.config.symbol_for(self.spec.instrument),
                 "bid": bid,
                 "ask": ask,
                 "mid": mid,
@@ -265,6 +349,7 @@ class DemoPaperRunner:
         completed = self.builder.on_quote(bid=float(bid), ask=float(ask), mid=mid, quantity=quantity, ts=ts)
         for bar in completed:
             self._handle_completed_bar(bar)
+        self.maybe_poll_changes()
         self._maybe_heartbeat()
         return completed
 
@@ -272,14 +357,15 @@ class DemoPaperRunner:
         bars = self.builder.flush()
         for bar in bars:
             self._handle_completed_bar(bar)
+        self.maybe_poll_changes(force=True)
         return bars
 
     def _handle_completed_bar(self, bar: Bar) -> None:
         self.bars_persisted += 1
         if is_ny_rth(bar.ts):
-            # Engine.process_bar persists the bar when persist_bars=True.
             self.engine.process_bar(bar)
             self.bars_engine += 1
+            self.maybe_poll_changes(force=True)
         else:
             self.store.append_bar(bar)
 
@@ -290,23 +376,41 @@ class DemoPaperRunner:
             self._rth_open_logged = False
             self._rth_close_logged = False
         if in_rth and not self._rth_open_logged:
-            append_progress(self.output_root, "NY RTH open — tick logging + strategy engine armed for %s" % day)
+            append_progress(self.output_root, "NY RTH open — tick logging + OANDA routing armed for %s" % day)
             self._rth_open_logged = True
         if (not in_rth) and self._rth_open_logged and not self._rth_close_logged:
             clock = ny_wall_time(ts).time().replace(tzinfo=None)
             if clock >= RTH_CLOSE:
                 append_progress(self.output_root, "NY RTH close — strategy idle; feed continues for %s" % day)
                 self._rth_close_logged = True
+                self.maybe_poll_changes(force=True)
                 from .eod_charts import maybe_write_eod_chart
                 from ..replay_audit import POINT_VALUES
 
                 maybe_write_eod_chart(
                     self.output_root,
-                    INSTRUMENT,
+                    self.spec.instrument,
                     session_date=day,
-                    point_value=POINT_VALUES.get(INSTRUMENT),
+                    point_value=POINT_VALUES.get(self.spec.instrument),
                     log=append_progress,
                 )
+                try:
+                    row = append_session_result(
+                        OANDA_RESULTS_CSV,
+                        demo=self.spec.instrument,
+                        session_date=ny_wall_time(ts).date(),
+                        instrument=self.spec.instrument,
+                        fills_path=state_root_for(self.output_root) / "fills.csv",
+                    )
+                    if row:
+                        append_progress(
+                            self.output_root,
+                            "SESSION_PNL wrote %s demo=%s path=%s usd=%s"
+                            % (OANDA_RESULTS_CSV.name, row["demo"], row["path"], row["usd"]),
+                        )
+                except Exception as exc:
+                    append_progress(self.output_root, "WARN session PnL append failed: %s" % exc)
+                # End-of-week size snapshot for rotation planning (Friday RTH close).
                 if ny_wall_time(ts).weekday() == 4:
                     try:
                         from .size_report import append_size_report
@@ -331,7 +435,7 @@ class DemoPaperRunner:
         pos_qty = sum(float(p.quantity) for p in open_positions)
         append_progress(
             self.output_root,
-            "heartbeat ticks_logged=%d bars_persisted=%d bars_engine=%d orders=%d open_positions=%d pos_qty=%s"
+            "heartbeat ticks_logged=%d bars_persisted=%d bars_engine=%d orders=%d open_positions=%d pos_qty=%s oanda_fills=%d"
             % (
                 self.ticks_logged,
                 self.bars_persisted,
@@ -339,6 +443,7 @@ class DemoPaperRunner:
                 len(self.engine.broker.reconcile_orders()),
                 len(open_positions),
                 pos_qty,
+                self.fills_from_oanda,
             ),
         )
 
@@ -370,7 +475,6 @@ def _format_error(exc: BaseException) -> str:
 def _log_stream_error(output_root: Path, store: FlatFileStore, *, stage: str, exc: BaseException, extra: Optional[Dict[str, Any]] = None) -> None:
     detail = _format_error(exc)
     append_progress(output_root, "ERROR stage=%s %s" % (stage, detail.split("\n", 1)[0]))
-    # Full traceback on following progress lines (readable in PROGRESS.log / run.log)
     for line in detail.splitlines()[1:]:
         if line.strip():
             append_progress(output_root, "ERROR_TB %s" % line)
@@ -389,6 +493,7 @@ def _log_stream_error(output_root: Path, store: FlatFileStore, *, stage: str, ex
 
 
 def run_stream_loop(
+    spec: OandaDemoSpec,
     *,
     output_root: Optional[Path] = None,
     config: Optional[OandaConfig] = None,
@@ -396,21 +501,20 @@ def run_stream_loop(
     reconnect_initial_seconds: float = 2.0,
     reconnect_max_seconds: float = 60.0,
 ) -> int:
-    """Foreground: stream OANDA practice prices into the demo paper runner.
-
-    Survives transient stream disconnects with exponential backoff reconnect.
-    """
-    output_root = Path(output_root) if output_root is not None else default_output_root()
+    output_root = Path(output_root) if output_root is not None else default_output_root(spec)
     config = config or OandaConfig.from_env()
     config.validate_for_network()
+    if str(config.env).lower() != "practice":
+        append_progress(output_root, "REFUSING non-practice OANDA_ENV=%s (demo is practice-only)" % config.env)
+        return 2
 
-    runner = DemoPaperRunner(output_root=output_root)
-    meta = write_run_meta(output_root, config=config)
+    runner = DemoOandaRunner(spec, output_root=output_root, config=config)
+    meta = write_run_meta(output_root, spec=spec, config=config)
     pidfile_path(output_root).write_text(str(os.getpid()) + "\n", encoding="utf-8")
     append_progress(
         output_root,
-        "STARTED paper demo strategy=%s sizing=S_1_1_1 oanda_env=%s account=%s state=%s pid=%s"
-        % (STRATEGY_ID, config.env, config.account_id, state_root_for(output_root), os.getpid()),
+        "STARTED OANDA practice demo strategy=%s sizing=S_1_1_1 oanda_env=%s account=%s state=%s pid=%s"
+        % (spec.strategy_id, config.env, config.account_id, state_root_for(output_root), os.getpid()),
     )
     append_progress(
         output_root,
@@ -418,7 +522,7 @@ def run_stream_loop(
         % json.dumps(
             {
                 k: meta[k]
-                for k in ("started_at", "oanda_env", "oanda_account_id", "use_regime_filter", "signal_price", "fill_price")
+                for k in ("started_at", "oanda_env", "oanda_account_id", "oanda_routing", "allow_live_routing")
                 if k in meta
             },
             sort_keys=True,
@@ -428,8 +532,9 @@ def run_stream_loop(
     signal.signal(signal.SIGINT, runner.request_stop)
     signal.signal(signal.SIGTERM, runner.request_stop)
 
-    client = OandaApiClient(config=config, store=runner.store)
-    oanda_name = config.symbol_for(INSTRUMENT)
+    runner.bootstrap_reconcile()
+    client = runner.client
+    oanda_name = config.symbol_for(spec.instrument)
     price_ticks = 0
     reconnect_attempt = 0
     backoff = float(reconnect_initial_seconds)
@@ -474,6 +579,7 @@ def run_stream_loop(
                     if runner.stop_requested:
                         break
                     if msg_type == "pricing.PricingHeartbeat" or getattr(msg, "type", None) == "HEARTBEAT":
+                        runner.maybe_poll_changes()
                         continue
                     event = {
                         "instrument": getattr(msg, "instrument", oanda_name),
@@ -488,7 +594,7 @@ def run_stream_loop(
                     if bid is None or ask is None:
                         if mid is None:
                             continue
-                        half = TICK * 5.0
+                        half = spec.tick * 5.0
                         bid = mid - half
                         ask = mid + half
                     ts = str(event.get("time") or utc_now_iso())
@@ -534,22 +640,12 @@ def run_stream_loop(
                 backoff = min(backoff * 2.0, reconnect_max_seconds)
                 continue
 
-            # Clean end of parts() without exception — unusual for an infinite stream.
             if runner.stop_requested:
                 break
             append_progress(
                 output_root,
                 "WARN stream ended without error attempt=%d session_ticks=%d; reconnecting in %.1fs"
                 % (reconnect_attempt, session_ticks, backoff),
-            )
-            runner.store.append_event(
-                "stream_errors",
-                {
-                    "event": "stream_ended_clean",
-                    "attempt": reconnect_attempt,
-                    "session_ticks": session_ticks,
-                    "ts": utc_now_iso(),
-                },
             )
             _interruptible_sleep(runner, backoff)
             backoff = min(backoff * 2.0, reconnect_max_seconds)
@@ -560,14 +656,21 @@ def run_stream_loop(
         runner.flush()
         append_progress(
             output_root,
-            "STOPPED ticks=%d ticks_logged=%d bars_persisted=%d bars_engine=%d reconnect_attempts=%d"
-            % (price_ticks, runner.ticks_logged, runner.bars_persisted, runner.bars_engine, reconnect_attempt),
+            "STOPPED ticks=%d ticks_logged=%d bars_persisted=%d bars_engine=%d oanda_fills=%d reconnect_attempts=%d"
+            % (
+                price_ticks,
+                runner.ticks_logged,
+                runner.bars_persisted,
+                runner.bars_engine,
+                runner.fills_from_oanda,
+                reconnect_attempt,
+            ),
         )
         _remove_pidfile(output_root)
     return exit_code
 
 
-def _interruptible_sleep(runner: DemoPaperRunner, seconds: float) -> None:
+def _interruptible_sleep(runner: DemoOandaRunner, seconds: float) -> None:
     deadline = time.time() + max(0.0, float(seconds))
     while time.time() < deadline:
         if runner.stop_requested:
@@ -630,7 +733,7 @@ def stop_daemon(output_root: Path) -> int:
     return 0
 
 
-def status_daemon(output_root: Path) -> int:
+def status_daemon(output_root: Path, *, spec: OandaDemoSpec) -> int:
     pid = read_pid(output_root)
     meta = {}
     if run_meta_path(output_root).exists():
@@ -640,19 +743,26 @@ def status_daemon(output_root: Path) -> int:
         return 1
     alive = pid_is_alive(pid)
     print(
-        "status: pid=%d alive=%s started_at=%s state=%s"
-        % (pid, alive, meta.get("started_at", "?"), meta.get("state_root", state_root_for(output_root)))
+        "status: pid=%d alive=%s started_at=%s state=%s routing=%s"
+        % (
+            pid,
+            alive,
+            meta.get("started_at", "?"),
+            meta.get("state_root", state_root_for(output_root)),
+            meta.get("oanda_routing", True),
+        )
     )
     return 0 if alive else 1
 
 
 def spawn_daemon(
+    spec: OandaDemoSpec,
     *,
     output_root: Path,
+    cli_command: str,
     max_ticks: int = 0,
     oanda_config_path: str = "",
 ) -> int:
-    """Detach a background child that runs the stream loop; write pidfile from parent after spawn."""
     output_root.mkdir(parents=True, exist_ok=True)
     existing = read_pid(output_root)
     if existing is not None and pid_is_alive(existing):
@@ -666,17 +776,16 @@ def spawn_daemon(
         "potions.live.cli",
         "--state-root",
         str(state_root_for(output_root)),
-        "demo-spx500-v2b-paper",
+        cli_command,
         "--output-root",
         str(output_root),
     ]
     if max_ticks:
-        cmd.extend(["--max-ticks", str(max_ticks)])
+        cmd.extend(["--max-ticks", str(int(max_ticks))])
     if oanda_config_path:
         cmd.extend(["--oanda-config", oanda_config_path])
 
     env = os.environ.copy()
-    # Workspace layout: potions package at <hsm>/potions → PYTHONPATH=<hsm>
     repo = Path(__file__).resolve().parents[2]  # .../potions
     hsm = repo.parent
     v20_src = repo / "v20-python" / "src"
@@ -695,10 +804,9 @@ def spawn_daemon(
         start_new_session=True,
         cwd=str(hsm),
     )
-    # Child writes pidfile itself; parent also records the spawn pid for immediate status.
     pidfile_path(output_root).write_text(str(proc.pid) + "\n", encoding="utf-8")
     append_progress(output_root, "DAEMON spawned pid=%d run_log=%s" % (proc.pid, run_log_path(output_root)))
-    print("Started demo paper daemon pid=%d" % proc.pid)
+    print("Started OANDA practice demo daemon pid=%d (%s)" % (proc.pid, cli_command))
     print("  PROGRESS: %s" % progress_path(output_root))
     print("  run.log:  %s" % run_log_path(output_root))
     print("  state:    %s" % state_root_for(output_root))

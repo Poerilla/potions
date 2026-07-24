@@ -613,6 +613,192 @@ def cmd_demo_us30_v2b_paper_stop(args) -> int:
     return stop_daemon(_demo_us30_output_root(args))
 
 
+def _demo_eurusd_oanda_output_root(args) -> Path:
+    from .demo.eurusd_v2b_ungated_oanda import default_output_root
+
+    if getattr(args, "output_root", ""):
+        return Path(args.output_root)
+    return default_output_root()
+
+
+def _demo_nas100_oanda_output_root(args) -> Path:
+    from .demo.nas100_v2b_ungated_oanda import default_output_root
+
+    if getattr(args, "output_root", ""):
+        return Path(args.output_root)
+    return default_output_root()
+
+
+def _demo_spx500_oanda_output_root(args) -> Path:
+    from .demo.spx500_v2b_ungated_oanda import default_output_root
+
+    if getattr(args, "output_root", ""):
+        return Path(args.output_root)
+    return default_output_root()
+
+
+def _demo_us30_oanda_output_root(args) -> Path:
+    from .demo.us30_v2b_ungated_oanda import default_output_root
+
+    if getattr(args, "output_root", ""):
+        return Path(args.output_root)
+    return default_output_root()
+
+
+def cmd_demo_eurusd_v2b_oanda(args) -> int:
+    from .demo.eurusd_v2b_ungated_oanda import run_stream_loop, spawn_daemon
+    from .oanda import OandaConfig
+
+    output_root = _demo_eurusd_oanda_output_root(args)
+    if args.daemon:
+        return spawn_daemon(
+            output_root=output_root,
+            max_ticks=int(args.max_ticks or 0),
+            oanda_config_path=getattr(args, "oanda_config", "") or "",
+        )
+    config = OandaConfig.from_json_file(Path(args.oanda_config)) if getattr(args, "oanda_config", "") else OandaConfig.from_env()
+    return run_stream_loop(output_root=output_root, config=config, max_ticks=int(args.max_ticks or 0))
+
+
+def cmd_demo_eurusd_v2b_oanda_status(args) -> int:
+    from .demo.eurusd_v2b_ungated_oanda import status_daemon
+
+    return status_daemon(_demo_eurusd_oanda_output_root(args))
+
+
+def cmd_demo_eurusd_v2b_oanda_stop(args) -> int:
+    from .demo.eurusd_v2b_ungated_oanda import stop_daemon
+
+    return stop_daemon(_demo_eurusd_oanda_output_root(args))
+
+
+def cmd_demo_nas100_v2b_oanda(args) -> int:
+    from .demo.nas100_v2b_ungated_oanda import run_stream_loop, spawn_daemon
+    from .oanda import OandaConfig
+
+    output_root = _demo_nas100_oanda_output_root(args)
+    if args.daemon:
+        return spawn_daemon(
+            output_root=output_root,
+            max_ticks=int(args.max_ticks or 0),
+            oanda_config_path=getattr(args, "oanda_config", "") or "",
+        )
+    config = OandaConfig.from_json_file(Path(args.oanda_config)) if getattr(args, "oanda_config", "") else OandaConfig.from_env()
+    return run_stream_loop(output_root=output_root, config=config, max_ticks=int(args.max_ticks or 0))
+
+
+def cmd_demo_nas100_v2b_oanda_status(args) -> int:
+    from .demo.nas100_v2b_ungated_oanda import status_daemon
+
+    return status_daemon(_demo_nas100_oanda_output_root(args))
+
+
+def cmd_demo_nas100_v2b_oanda_stop(args) -> int:
+    from .demo.nas100_v2b_ungated_oanda import stop_daemon
+
+    return stop_daemon(_demo_nas100_oanda_output_root(args))
+
+
+def cmd_demo_spx500_v2b_oanda(args) -> int:
+    from .demo.spx500_v2b_ungated_oanda import run_stream_loop, spawn_daemon
+    from .oanda import OandaConfig
+
+    output_root = _demo_spx500_oanda_output_root(args)
+    if args.daemon:
+        return spawn_daemon(
+            output_root=output_root,
+            max_ticks=int(args.max_ticks or 0),
+            oanda_config_path=getattr(args, "oanda_config", "") or "",
+        )
+    config = OandaConfig.from_json_file(Path(args.oanda_config)) if getattr(args, "oanda_config", "") else OandaConfig.from_env()
+    return run_stream_loop(output_root=output_root, config=config, max_ticks=int(args.max_ticks or 0))
+
+
+def cmd_demo_spx500_v2b_oanda_status(args) -> int:
+    from .demo.spx500_v2b_ungated_oanda import status_daemon
+
+    return status_daemon(_demo_spx500_oanda_output_root(args))
+
+
+def cmd_demo_spx500_v2b_oanda_stop(args) -> int:
+    from .demo.spx500_v2b_ungated_oanda import stop_daemon
+
+    return stop_daemon(_demo_spx500_oanda_output_root(args))
+
+
+def cmd_demo_us30_v2b_oanda(args) -> int:
+    from .demo.us30_v2b_ungated_oanda import run_stream_loop, spawn_daemon
+    from .oanda import OandaConfig
+
+    output_root = _demo_us30_oanda_output_root(args)
+    if args.daemon:
+        return spawn_daemon(
+            output_root=output_root,
+            max_ticks=int(args.max_ticks or 0),
+            oanda_config_path=getattr(args, "oanda_config", "") or "",
+        )
+    config = OandaConfig.from_json_file(Path(args.oanda_config)) if getattr(args, "oanda_config", "") else OandaConfig.from_env()
+    return run_stream_loop(output_root=output_root, config=config, max_ticks=int(args.max_ticks or 0))
+
+
+def cmd_demo_us30_v2b_oanda_status(args) -> int:
+    from .demo.us30_v2b_ungated_oanda import status_daemon
+
+    return status_daemon(_demo_us30_oanda_output_root(args))
+
+
+def cmd_demo_us30_v2b_oanda_stop(args) -> int:
+    from .demo.us30_v2b_ungated_oanda import stop_daemon
+
+    return stop_daemon(_demo_us30_oanda_output_root(args))
+
+
+def _demo_usdjpy_monday_or_oanda_output_root(args) -> Path:
+    from .demo.usdjpy_monday_or_ungated_oanda import default_output_root
+
+    if getattr(args, "output_root", ""):
+        return Path(args.output_root)
+    return default_output_root()
+
+
+def cmd_demo_usdjpy_monday_or_oanda(args) -> int:
+    from .demo.usdjpy_monday_or_ungated_oanda import run_stream_loop, spawn_daemon
+    from .oanda import OandaConfig
+
+    output_root = _demo_usdjpy_monday_or_oanda_output_root(args)
+    if args.daemon:
+        return spawn_daemon(
+            output_root=output_root,
+            max_ticks=int(args.max_ticks or 0),
+            oanda_config_path=getattr(args, "oanda_config", "") or "",
+        )
+    config = OandaConfig.from_json_file(Path(args.oanda_config)) if getattr(args, "oanda_config", "") else OandaConfig.from_env()
+    return run_stream_loop(output_root=output_root, config=config, max_ticks=int(args.max_ticks or 0))
+
+
+def cmd_demo_usdjpy_monday_or_oanda_status(args) -> int:
+    from .demo.usdjpy_monday_or_ungated_oanda import status_daemon
+
+    return status_daemon(_demo_usdjpy_monday_or_oanda_output_root(args))
+
+
+def cmd_demo_usdjpy_monday_or_oanda_stop(args) -> int:
+    from .demo.usdjpy_monday_or_ungated_oanda import stop_daemon
+
+    return stop_daemon(_demo_usdjpy_monday_or_oanda_output_root(args))
+
+
+def cmd_oanda_practice_order_smoke(args) -> int:
+    """Place a tiny practice EURUSD market order, reconcile via Account Changes, then flatten."""
+    from .demo.practice_order_smoke import run_practice_order_smoke
+
+    return run_practice_order_smoke(
+        oanda_config_path=getattr(args, "oanda_config", "") or "",
+        units=int(getattr(args, "units", 1) or 1),
+        state_root=Path(args.state_root),
+    )
+
+
 def cmd_cqg_smoke(args) -> int:
     from .cqg import CqgMarketDataFeedAdapter, CqgWebApiClient, JsonCqgProtocolCodec
 
@@ -896,6 +1082,110 @@ def build_parser() -> argparse.ArgumentParser:
     demo_us30_stop = sub.add_parser("demo-us30-v2b-paper-stop", help="Stop US30 demo paper daemon")
     demo_us30_stop.add_argument("--output-root", default="")
     demo_us30_stop.set_defaults(func=cmd_demo_us30_v2b_paper_stop)
+
+    demo_eurusd_oanda = sub.add_parser(
+        "demo-eurusd-v2b-oanda",
+        help="EURUSD v2b ungated OANDA practice demo (real practice orders; --daemon)",
+    )
+    demo_eurusd_oanda.add_argument("--output-root", default="", help="Default: live/demo/eurusd_v2b_ungated_oanda")
+    demo_eurusd_oanda.add_argument("--oanda-config", default="")
+    demo_eurusd_oanda.add_argument("--daemon", action="store_true")
+    demo_eurusd_oanda.add_argument("--max-ticks", type=int, default=0)
+    demo_eurusd_oanda.set_defaults(func=cmd_demo_eurusd_v2b_oanda)
+
+    demo_eurusd_oanda_status = sub.add_parser("demo-eurusd-v2b-oanda-status", help="Status of EURUSD OANDA practice demo")
+    demo_eurusd_oanda_status.add_argument("--output-root", default="")
+    demo_eurusd_oanda_status.set_defaults(func=cmd_demo_eurusd_v2b_oanda_status)
+
+    demo_eurusd_oanda_stop = sub.add_parser("demo-eurusd-v2b-oanda-stop", help="Stop EURUSD OANDA practice demo")
+    demo_eurusd_oanda_stop.add_argument("--output-root", default="")
+    demo_eurusd_oanda_stop.set_defaults(func=cmd_demo_eurusd_v2b_oanda_stop)
+
+    demo_nas_oanda = sub.add_parser(
+        "demo-nas100-v2b-oanda",
+        help="NAS100 v2b ungated OANDA practice demo (real practice orders; --daemon)",
+    )
+    demo_nas_oanda.add_argument("--output-root", default="", help="Default: live/demo/nas100_v2b_ungated_oanda")
+    demo_nas_oanda.add_argument("--oanda-config", default="")
+    demo_nas_oanda.add_argument("--daemon", action="store_true")
+    demo_nas_oanda.add_argument("--max-ticks", type=int, default=0)
+    demo_nas_oanda.set_defaults(func=cmd_demo_nas100_v2b_oanda)
+
+    demo_nas_oanda_status = sub.add_parser("demo-nas100-v2b-oanda-status", help="Status of NAS100 OANDA practice demo")
+    demo_nas_oanda_status.add_argument("--output-root", default="")
+    demo_nas_oanda_status.set_defaults(func=cmd_demo_nas100_v2b_oanda_status)
+
+    demo_nas_oanda_stop = sub.add_parser("demo-nas100-v2b-oanda-stop", help="Stop NAS100 OANDA practice demo")
+    demo_nas_oanda_stop.add_argument("--output-root", default="")
+    demo_nas_oanda_stop.set_defaults(func=cmd_demo_nas100_v2b_oanda_stop)
+
+    demo_spx_oanda = sub.add_parser(
+        "demo-spx500-v2b-oanda",
+        help="SPX500 v2b ungated OANDA practice demo (real practice orders; --daemon)",
+    )
+    demo_spx_oanda.add_argument("--output-root", default="", help="Default: live/demo/spx500_v2b_ungated_oanda")
+    demo_spx_oanda.add_argument("--oanda-config", default="")
+    demo_spx_oanda.add_argument("--daemon", action="store_true")
+    demo_spx_oanda.add_argument("--max-ticks", type=int, default=0)
+    demo_spx_oanda.set_defaults(func=cmd_demo_spx500_v2b_oanda)
+
+    demo_spx_oanda_status = sub.add_parser("demo-spx500-v2b-oanda-status", help="Status of SPX500 OANDA practice demo")
+    demo_spx_oanda_status.add_argument("--output-root", default="")
+    demo_spx_oanda_status.set_defaults(func=cmd_demo_spx500_v2b_oanda_status)
+
+    demo_spx_oanda_stop = sub.add_parser("demo-spx500-v2b-oanda-stop", help="Stop SPX500 OANDA practice demo")
+    demo_spx_oanda_stop.add_argument("--output-root", default="")
+    demo_spx_oanda_stop.set_defaults(func=cmd_demo_spx500_v2b_oanda_stop)
+
+    demo_us30_oanda = sub.add_parser(
+        "demo-us30-v2b-oanda",
+        help="US30 v2b ungated OANDA practice demo (real practice orders; --daemon)",
+    )
+    demo_us30_oanda.add_argument("--output-root", default="", help="Default: live/demo/us30_v2b_ungated_oanda")
+    demo_us30_oanda.add_argument("--oanda-config", default="")
+    demo_us30_oanda.add_argument("--daemon", action="store_true")
+    demo_us30_oanda.add_argument("--max-ticks", type=int, default=0)
+    demo_us30_oanda.set_defaults(func=cmd_demo_us30_v2b_oanda)
+
+    demo_us30_oanda_status = sub.add_parser("demo-us30-v2b-oanda-status", help="Status of US30 OANDA practice demo")
+    demo_us30_oanda_status.add_argument("--output-root", default="")
+    demo_us30_oanda_status.set_defaults(func=cmd_demo_us30_v2b_oanda_status)
+
+    demo_us30_oanda_stop = sub.add_parser("demo-us30-v2b-oanda-stop", help="Stop US30 OANDA practice demo")
+    demo_us30_oanda_stop.add_argument("--output-root", default="")
+    demo_us30_oanda_stop.set_defaults(func=cmd_demo_us30_v2b_oanda_stop)
+
+    demo_usdjpy_mo = sub.add_parser(
+        "demo-usdjpy-monday-or-oanda",
+        help="USDJPY Monday OR M2_S3_R1 OANDA practice demo (15m; real practice orders; --daemon)",
+    )
+    demo_usdjpy_mo.add_argument("--output-root", default="", help="Default: live/demo/usdjpy_monday_or_ungated_oanda")
+    demo_usdjpy_mo.add_argument("--oanda-config", default="")
+    demo_usdjpy_mo.add_argument("--daemon", action="store_true")
+    demo_usdjpy_mo.add_argument("--max-ticks", type=int, default=0)
+    demo_usdjpy_mo.set_defaults(func=cmd_demo_usdjpy_monday_or_oanda)
+
+    demo_usdjpy_mo_status = sub.add_parser(
+        "demo-usdjpy-monday-or-oanda-status",
+        help="Status of USDJPY Monday OR OANDA practice demo",
+    )
+    demo_usdjpy_mo_status.add_argument("--output-root", default="")
+    demo_usdjpy_mo_status.set_defaults(func=cmd_demo_usdjpy_monday_or_oanda_status)
+
+    demo_usdjpy_mo_stop = sub.add_parser(
+        "demo-usdjpy-monday-or-oanda-stop",
+        help="Stop USDJPY Monday OR OANDA practice demo",
+    )
+    demo_usdjpy_mo_stop.add_argument("--output-root", default="")
+    demo_usdjpy_mo_stop.set_defaults(func=cmd_demo_usdjpy_monday_or_oanda_stop)
+
+    oanda_order_smoke = sub.add_parser(
+        "oanda-practice-order-smoke",
+        help="Tiny practice EURUSD market place/fill/reconcile/flatten (before enabling OANDA demos)",
+    )
+    oanda_order_smoke.add_argument("--oanda-config", default="")
+    oanda_order_smoke.add_argument("--units", type=int, default=1, help="Practice units (default 1)")
+    oanda_order_smoke.set_defaults(func=cmd_oanda_practice_order_smoke)
 
     cqg_smoke = sub.add_parser("cqg-smoke", help="Validate CQG config/session scaffolding")
     cqg_smoke.add_argument("--cqg-config", default="")

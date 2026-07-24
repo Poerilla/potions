@@ -164,6 +164,23 @@ PYTHONPATH=/home/tester/hsm:/home/tester/hsm/potions/v20-python/src \
   python3 -m potions.live.cli --state-root /tmp/oanda_state oanda-smoke
 ```
 
+Tiny practice **order** smoke (market place → fill mirror → flatten):
+
+```bash
+PYTHONPATH=/home/tester/hsm:/home/tester/hsm/potions/v20-python/src \
+  python3 -m potions.live.cli --state-root /tmp/oanda_practice_smoke \
+  oanda-practice-order-smoke --units 1
+```
+
+Ungated v2b **OANDA practice demos** (real practice orders; separate roots from paper):
+
+```bash
+python3 -m potions.live.cli demo-eurusd-v2b-oanda --daemon
+# also: demo-{nas100,spx500,us30}-v2b-oanda (+ -status / -stop)
+```
+
+See [live/demo/README.md](../demo/README.md).
+
 Stream live bid/ask to the console (Ctrl-C to stop):
 
 ```bash

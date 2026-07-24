@@ -12,6 +12,7 @@ from .monthly_orb_overlap_st_retest import MonthlyOrbOverlapStRetestStrategy
 from .or_2r_fade import Or2RFadeStrategy
 from .supertrend_wick_retest import SupertrendWickRetestStrategy
 from .v2b_clean_break import V2BCleanBreakStrategy
+from .v2b_nq_lead_nas100 import V2BNqLeadNas100Strategy
 from .v2b_scaleout import V2BScaleoutStrategy
 from .weekly_mid_ma500_bias import WeeklyMidMa500BiasStrategy
 from .wo_gap_reversal import WoGapReversalStrategy
@@ -33,6 +34,7 @@ __all__ = [
     "StrategyContext",
     "StrategyPlugin",
     "V2BCleanBreakStrategy",
+    "V2BNqLeadNas100Strategy",
     "V2BScaleoutStrategy",
     "WeeklyMidMa500BiasStrategy",
     "WoGapReversalStrategy",

@@ -307,6 +307,18 @@ class DemoPaperRunner:
                     point_value=POINT_VALUES.get(INSTRUMENT),
                     log=append_progress,
                 )
+                if ny_wall_time(ts).weekday() == 4:
+                    try:
+                        from .size_report import append_size_report
+
+                        append_size_report(
+                            self.output_root,
+                            append_progress,
+                            label="weekly_eow",
+                            session_date=ny_wall_time(ts).date(),
+                        )
+                    except Exception as exc:
+                        append_progress(self.output_root, "WARN weekly FILE_SIZES failed: %s" % exc)
 
     def _maybe_heartbeat(self) -> None:
         now = self._clock()
