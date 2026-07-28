@@ -1,0 +1,111 @@
+[
+  {
+    "pair": "AUDJPY",
+    "tag": "M1_S2_R2",
+    "best_rule": "skip_all_neg_months",
+    "best_months": [
+      8,
+      6,
+      5,
+      4
+    ],
+    "best_dns": 2.14,
+    "best_dnet": 40.3981,
+    "best_ddd": 19.7447,
+    "best_ns": 4.02,
+    "best_cover": 67.0,
+    "baseline_ns": 1.88,
+    "julsepdec_dns": -1.27,
+    "julsepdec_dnet": -64.4885,
+    "julsepdec_ddd": -10.8098
+  },
+  {
+    "pair": "EURUSD",
+    "tag": "M1_S2_R2",
+    "best_rule": "skip_worst_3_months",
+    "best_months": [
+      2,
+      8,
+      11
+    ],
+    "best_dns": 1.28,
+    "best_dnet": 0.3341,
+    "best_ddd": 0.1423,
+    "best_ns": 3.4,
+    "best_cover": 75.3,
+    "baseline_ns": 2.12,
+    "julsepdec_dns": 0.26,
+    "julsepdec_dnet": -0.0664,
+    "julsepdec_ddd": 0.0982
+  },
+  {
+    "pair": "GBPUSD",
+    "tag": "M1_S1_R2",
+    "best_rule": "skip_dow_Wed",
+    "best_months": [],
+    "best_dns": 1.3,
+    "best_dnet": 0.0083,
+    "best_ddd": 0.2361,
+    "best_ns": 4.36,
+    "best_cover": 75.5,
+    "baseline_ns": 3.06,
+    "julsepdec_dns": 0.59,
+    "julsepdec_dnet": -0.0357,
+    "julsepdec_ddd": 0.1393
+  },
+  {
+    "pair": "USDJPY",
+    "tag": "M2_S3_R1",
+    "best_rule": "skip_worst_2_months",
+    "best_months": [
+      8,
+      9
+    ],
+    "best_dns": 3.84,
+    "best_dnet": 58.5659,
+    "best_ddd": 2.5261,
+    "best_ns": 14.62,
+    "best_cover": 82.5,
+    "baseline_ns": 10.78,
+    "julsepdec_dns": -4.57,
+    "julsepdec_dnet": -61.7093,
+    "julsepdec_ddd": -8.3585
+  },
+  {
+    "pair": "USDJPY",
+    "tag": "M2_S3_R2",
+    "best_rule": "skip_worst_2_months",
+    "best_months": [
+      8,
+      9
+    ],
+    "best_dns": 2.7,
+    "best_dnet": 60.5205,
+    "best_ddd": 0.3431,
+    "best_ns": 14.07,
+    "best_cover": 82.4,
+    "baseline_ns": 11.37,
+    "julsepdec_dns": -4.79,
+    "julsepdec_dnet": -28.5033,
+    "julsepdec_ddd": -13.203
+  },
+  {
+    "pair": "XAUUSD",
+    "tag": "M2_S2_R3",
+    "best_rule": "skip_Jul_Sep_Dec",
+    "best_months": [
+      7,
+      9,
+      12
+    ],
+    "best_dns": 0.0,
+    "best_dnet": 0.0,
+    "best_ddd": 0.0,
+    "best_ns": 5.91,
+    "best_cover": 100.0,
+    "baseline_ns": 5.91,
+    "julsepdec_dns": 0.0,
+    "julsepdec_dnet": 0.0,
+    "julsepdec_ddd": 0.0
+  }
+]

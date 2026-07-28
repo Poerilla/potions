@@ -1,0 +1,148 @@
+{
+  "n_trades": 2909,
+  "n_years": 24,
+  "first": "2003-05-14",
+  "last": "2026-03-31",
+  "by_month": [
+    {
+      "month": 1,
+      "trades": 545,
+      "wr": 28.1,
+      "net_pts": 1351.57,
+      "years_with_trades": 23,
+      "month_instances": 23,
+      "mean_trades_per_active_month": 23.7,
+      "mean_trades_per_year": 22.71,
+      "pct_of_book": 18.7
+    },
+    {
+      "month": 2,
+      "trades": 277,
+      "wr": 33.9,
+      "net_pts": 306.65,
+      "years_with_trades": 23,
+      "month_instances": 23,
+      "mean_trades_per_active_month": 12.04,
+      "mean_trades_per_year": 11.54,
+      "pct_of_book": 9.5
+    },
+    {
+      "month": 3,
+      "trades": 240,
+      "wr": 32.5,
+      "net_pts": 985.67,
+      "years_with_trades": 23,
+      "month_instances": 23,
+      "mean_trades_per_active_month": 10.43,
+      "mean_trades_per_year": 10.0,
+      "pct_of_book": 8.3
+    },
+    {
+      "month": 4,
+      "trades": 246,
+      "wr": 32.5,
+      "net_pts": 354.63,
+      "years_with_trades": 22,
+      "month_instances": 22,
+      "mean_trades_per_active_month": 11.18,
+      "mean_trades_per_year": 10.25,
+      "pct_of_book": 8.5
+    },
+    {
+      "month": 5,
+      "trades": 381,
+      "wr": 32.0,
+      "net_pts": 1369.69,
+      "years_with_trades": 23,
+      "month_instances": 23,
+      "mean_trades_per_active_month": 16.57,
+      "mean_trades_per_year": 15.88,
+      "pct_of_book": 13.1
+    },
+    {
+      "month": 6,
+      "trades": 340,
+      "wr": 30.6,
+      "net_pts": 383.81,
+      "years_with_trades": 23,
+      "month_instances": 23,
+      "mean_trades_per_active_month": 14.78,
+      "mean_trades_per_year": 14.17,
+      "pct_of_book": 11.7
+    },
+    {
+      "month": 7,
+      "trades": 0,
+      "wr": null,
+      "net_pts": 0,
+      "years_with_trades": 0,
+      "month_instances": 0,
+      "mean_trades_per_active_month": 0.0,
+      "mean_trades_per_year": 0.0,
+      "pct_of_book": 0.0
+    },
+    {
+      "month": 8,
+      "trades": 305,
+      "wr": 28.9,
+      "net_pts": 388.9,
+      "years_with_trades": 23,
+      "month_instances": 23,
+      "mean_trades_per_active_month": 13.26,
+      "mean_trades_per_year": 12.71,
+      "pct_of_book": 10.5
+    },
+    {
+      "month": 9,
+      "trades": 0,
+      "wr": null,
+      "net_pts": 0,
+      "years_with_trades": 0,
+      "month_instances": 0,
+      "mean_trades_per_active_month": 0.0,
+      "mean_trades_per_year": 0.0,
+      "pct_of_book": 0.0
+    },
+    {
+      "month": 10,
+      "trades": 303,
+      "wr": 31.0,
+      "net_pts": 392.67,
+      "years_with_trades": 23,
+      "month_instances": 23,
+      "mean_trades_per_active_month": 13.17,
+      "mean_trades_per_year": 12.62,
+      "pct_of_book": 10.4
+    },
+    {
+      "month": 11,
+      "trades": 272,
+      "wr": 31.2,
+      "net_pts": 393.62,
+      "years_with_trades": 23,
+      "month_instances": 23,
+      "mean_trades_per_active_month": 11.83,
+      "mean_trades_per_year": 11.33,
+      "pct_of_book": 9.4
+    },
+    {
+      "month": 12,
+      "trades": 0,
+      "wr": null,
+      "net_pts": 0,
+      "years_with_trades": 0,
+      "month_instances": 0,
+      "mean_trades_per_active_month": 0.0,
+      "mean_trades_per_year": 0.0,
+      "pct_of_book": 0.0
+    }
+  ],
+  "baseline": {
+    "n": 2909,
+    "wr": 30.9,
+    "net_pts": 5927.2142,
+    "stress_pts": -1003.2321,
+    "ns": 5.91,
+    "coverage": 100.0
+  }
+}

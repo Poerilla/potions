@@ -1,0 +1,80 @@
+{
+  "trend60": [
+    {
+      "trend60": "bear60",
+      "n": 560,
+      "wr": 31.2,
+      "net": 701.2307000000142,
+      "mean": 1.252,
+      "loss_share_pct": 13.5
+    },
+    {
+      "trend60": "chop60",
+      "n": 1965,
+      "wr": 31.1,
+      "net": 1753.3432999999704,
+      "mean": 0.892,
+      "loss_share_pct": 43.8
+    },
+    {
+      "trend60": "bull60",
+      "n": 1357,
+      "wr": 29.5,
+      "net": 2815.4076999999443,
+      "mean": 2.075,
+      "loss_share_pct": 42.7
+    }
+  ],
+  "trend_yr": [
+    {
+      "trend_yr": "bear_yr",
+      "n": 636,
+      "wr": 28.9,
+      "net": -382.3705999999893,
+      "mean": -0.601,
+      "loss_share_pct": 15.6
+    },
+    {
+      "trend_yr": "flat_yr",
+      "n": 1554,
+      "wr": 30.2,
+      "net": 1714.655099999988,
+      "mean": 1.103,
+      "loss_share_pct": 30.1
+    },
+    {
+      "trend_yr": "bull_yr",
+      "n": 1692,
+      "wr": 31.5,
+      "net": 3937.69719999993,
+      "mean": 2.327,
+      "loss_share_pct": 54.3
+    }
+  ],
+  "vol": [
+    {
+      "vol_bucket": "hi_vol",
+      "n": 494,
+      "wr": 32.4,
+      "net": -1616.1023000000116,
+      "mean": -3.271,
+      "loss_share_pct": 24.3
+    },
+    {
+      "vol_bucket": "mid_vol",
+      "n": 1807,
+      "wr": 29.7,
+      "net": 2926.8382999999503,
+      "mean": 1.62,
+      "loss_share_pct": 45.5
+    },
+    {
+      "vol_bucket": "lo_vol",
+      "n": 1581,
+      "wr": 31.1,
+      "net": 3959.2456999999904,
+      "mean": 2.504,
+      "loss_share_pct": 30.2
+    }
+  ]
+}

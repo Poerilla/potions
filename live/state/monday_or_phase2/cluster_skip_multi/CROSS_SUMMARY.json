@@ -1,0 +1,137 @@
+[
+  {
+    "pair": "USDJPY",
+    "tag": "M2_S3_R1",
+    "baseline_n": 2402,
+    "baseline_wr": 30.8,
+    "baseline_net": 240.89,
+    "baseline_ns": 9.75,
+    "best_rule": "sitout_week_after_1.00x_p90(2.97578)",
+    "best_n": 2298,
+    "best_wr": 30.9,
+    "best_net": 264.96,
+    "best_ns": 10.77,
+    "best_cover": 95.7,
+    "delta_ns": 1.02,
+    "delta_net": 24.07,
+    "calendar_flag": "Top-5% heat weeks: n=112 WR=68.8 net=405.9 vs outside net=-165.0 \u2014 calendar concentration is structural.",
+    "verdict_notes": [
+      "After exactly 2L, next WR=28.7 (soft vs 30.8) \u2192 skip-1-after-2L is a candidate.",
+      "After exactly 1W, next WR=28.3 (soft) \u2192 skip-1-after-W is a candidate.",
+      "Top-5% heat weeks: n=112 WR=68.8 net=405.9 vs outside net=-165.0 \u2014 calendar concentration is structural."
+    ]
+  },
+  {
+    "pair": "USDJPY",
+    "tag": "M2_S3_R2",
+    "baseline_n": 2879,
+    "baseline_wr": 30.7,
+    "baseline_net": 250.46,
+    "baseline_ns": 8.98,
+    "best_rule": "skip1_after_2W",
+    "best_n": 2702,
+    "best_wr": 31.1,
+    "best_net": 281.73,
+    "best_ns": 11.92,
+    "best_cover": 93.9,
+    "delta_ns": 2.94,
+    "delta_net": 31.27,
+    "calendar_flag": "Top-5% heat weeks: n=146 WR=67.8 net=427.1 vs outside net=-176.7 \u2014 calendar concentration is structural.",
+    "verdict_notes": [
+      "After exactly 1L, next WR=32.1 (\u2265\u2248baseline 30.7) \u2192 skip-after-1L likely toxic.",
+      "After exactly 2L, next WR=31.6 (~baseline) \u2192 skip-after-2L may be near-neutral.",
+      "After exactly 1W, next WR=26.9 (soft) \u2192 skip-1-after-W is a candidate.",
+      "Top-5% heat weeks: n=146 WR=67.8 net=427.1 vs outside net=-176.7 \u2014 calendar concentration is structural."
+    ]
+  },
+  {
+    "pair": "EURUSD",
+    "tag": "M1_S2_R2",
+    "baseline_n": 2946,
+    "baseline_wr": 29.0,
+    "baseline_net": 1.36,
+    "baseline_ns": 2.12,
+    "best_rule": "skip1_after_W",
+    "best_n": 2263,
+    "best_wr": 30.2,
+    "best_net": 1.53,
+    "best_ns": 3.38,
+    "best_cover": 76.8,
+    "delta_ns": 1.26,
+    "delta_net": 0.17,
+    "calendar_flag": "Top-5% heat weeks: n=138 WR=69.6 net=4.2 vs outside net=-2.9 \u2014 calendar concentration is structural.",
+    "verdict_notes": [
+      "After exactly 1L, next WR=32.8 (\u2265\u2248baseline 29.0) \u2192 skip-after-1L likely toxic.",
+      "After exactly 2L, next WR=29.7 (~baseline) \u2192 skip-after-2L may be near-neutral.",
+      "After exactly 1W, next WR=25.2 (soft) \u2192 skip-1-after-W is a candidate.",
+      "Top-5% heat weeks: n=138 WR=69.6 net=4.2 vs outside net=-2.9 \u2014 calendar concentration is structural."
+    ]
+  },
+  {
+    "pair": "GBPUSD",
+    "tag": "M1_S1_R2",
+    "baseline_n": 2912,
+    "baseline_wr": 28.5,
+    "baseline_net": 2.44,
+    "baseline_ns": 3.06,
+    "best_rule": "skip1_after_W",
+    "best_n": 2257,
+    "best_wr": 29.0,
+    "best_net": 1.79,
+    "best_ns": 3.74,
+    "best_cover": 77.5,
+    "delta_ns": 0.68,
+    "delta_net": -0.65,
+    "calendar_flag": "Top-5% heat weeks: n=134 WR=72.4 net=5.6 vs outside net=-3.2 \u2014 calendar concentration is structural.",
+    "verdict_notes": [
+      "After exactly 1L, next WR=28.1 (\u2265\u2248baseline 28.5) \u2192 skip-after-1L likely toxic.",
+      "After exactly 2L, next WR=29.1 (~baseline) \u2192 skip-after-2L may be near-neutral.",
+      "After exactly 1W, next WR=26.6 (soft) \u2192 skip-1-after-W is a candidate.",
+      "Top-5% heat weeks: n=134 WR=72.4 net=5.6 vs outside net=-3.2 \u2014 calendar concentration is structural."
+    ]
+  },
+  {
+    "pair": "AUDJPY",
+    "tag": "M1_S2_R2",
+    "baseline_n": 2842,
+    "baseline_wr": 28.0,
+    "baseline_net": 105.53,
+    "baseline_ns": 1.88,
+    "best_rule": "skip1_after_2W",
+    "best_n": 2681,
+    "best_wr": 28.1,
+    "best_net": 142.78,
+    "best_ns": 2.73,
+    "best_cover": 94.3,
+    "delta_ns": 0.85,
+    "delta_net": 37.25,
+    "calendar_flag": "Top-5% heat weeks: n=135 WR=70.4 net=464.8 vs outside net=-359.2 \u2014 calendar concentration is structural.",
+    "verdict_notes": [
+      "After exactly 2L, next WR=27.4 (~baseline) \u2192 skip-after-2L may be near-neutral.",
+      "Top-5% heat weeks: n=135 WR=70.4 net=464.8 vs outside net=-359.2 \u2014 calendar concentration is structural."
+    ]
+  },
+  {
+    "pair": "XAUUSD",
+    "tag": "M2_S2_R3",
+    "baseline_n": 4207,
+    "baseline_wr": 30.4,
+    "baseline_net": 4561.48,
+    "baseline_ns": 2.35,
+    "best_rule": "sitout_week_after_+100pts",
+    "best_n": 3901,
+    "best_wr": 30.7,
+    "best_net": 5087.07,
+    "best_ns": 3.09,
+    "best_cover": 92.7,
+    "delta_ns": 0.74,
+    "delta_net": 525.59,
+    "calendar_flag": "Top-5% heat weeks: n=281 WR=50.9 net=11965.8 vs outside net=-7404.3 \u2014 calendar concentration is structural.",
+    "verdict_notes": [
+      "After exactly 1L, next WR=31.8 (\u2265\u2248baseline 30.4) \u2192 skip-after-1L likely toxic.",
+      "After exactly 2L, next WR=30.9 (~baseline) \u2192 skip-after-2L may be near-neutral.",
+      "After exactly 1W, next WR=28.7 (soft) \u2192 skip-1-after-W is a candidate.",
+      "Top-5% heat weeks: n=281 WR=50.9 net=11965.8 vs outside net=-7404.3 \u2014 calendar concentration is structural."
+    ]
+  }
+]

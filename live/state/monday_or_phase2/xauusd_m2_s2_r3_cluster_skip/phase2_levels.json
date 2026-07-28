@@ -1,0 +1,154 @@
+{
+  "buckets": [
+    {
+      "label": "path_touch_prior_week_ext",
+      "n": 2558,
+      "wins": 1018,
+      "losses": 1540,
+      "wr": 39.8,
+      "mean_pts": 7.2595,
+      "net_pts": 18569.76
+    },
+    {
+      "label": "no_path_touch_prior_week_ext",
+      "n": 1649,
+      "wins": 261,
+      "losses": 1388,
+      "wr": 15.8,
+      "mean_pts": -8.495,
+      "net_pts": -14008.28
+    },
+    {
+      "label": "path_touch_prior_month_ext",
+      "n": 1442,
+      "wins": 548,
+      "losses": 894,
+      "wr": 38.0,
+      "mean_pts": 6.5655,
+      "net_pts": 9467.41
+    },
+    {
+      "label": "no_path_touch_prior_month_ext",
+      "n": 2765,
+      "wins": 731,
+      "losses": 2034,
+      "wr": 26.4,
+      "mean_pts": -1.7743,
+      "net_pts": -4905.93
+    },
+    {
+      "label": "path_touch_week_or_month_ext",
+      "n": 2772,
+      "wins": 1053,
+      "losses": 1719,
+      "wr": 38.0,
+      "mean_pts": 6.021,
+      "net_pts": 16690.08
+    },
+    {
+      "label": "no_path_touch_week_or_month",
+      "n": 1435,
+      "wins": 226,
+      "losses": 1209,
+      "wr": 15.7,
+      "mean_pts": -8.452,
+      "net_pts": -12128.6
+    },
+    {
+      "label": "entry_near_prior_week_ext_$5",
+      "n": 1118,
+      "wins": 376,
+      "losses": 742,
+      "wr": 33.6,
+      "mean_pts": 2.1596,
+      "net_pts": 2414.46
+    },
+    {
+      "label": "entry_near_prior_week_ext_$10",
+      "n": 1972,
+      "wins": 636,
+      "losses": 1336,
+      "wr": 32.3,
+      "mean_pts": 1.935,
+      "net_pts": 3815.81
+    },
+    {
+      "label": "entry_near_prior_month_ext_$5",
+      "n": 381,
+      "wins": 136,
+      "losses": 245,
+      "wr": 35.7,
+      "mean_pts": 3.0225,
+      "net_pts": 1151.57
+    },
+    {
+      "label": "entry_near_prior_month_ext_$10",
+      "n": 733,
+      "wins": 246,
+      "losses": 487,
+      "wr": 33.6,
+      "mean_pts": 1.3102,
+      "net_pts": 960.37
+    },
+    {
+      "label": "entry_near_week_or_month_$10",
+      "n": 2222,
+      "wins": 715,
+      "losses": 1507,
+      "wr": 32.2,
+      "mean_pts": 1.7472,
+      "net_pts": 3882.3
+    },
+    {
+      "label": "entry_not_near_week_or_month_$10",
+      "n": 1985,
+      "wins": 564,
+      "losses": 1421,
+      "wr": 28.4,
+      "mean_pts": 0.3422,
+      "net_pts": 679.18
+    },
+    {
+      "label": "long_path_touch_prior_week_high",
+      "n": 1554,
+      "wins": 592,
+      "losses": 962,
+      "wr": 38.1,
+      "mean_pts": 6.2281,
+      "net_pts": 9678.53
+    },
+    {
+      "label": "short_path_touch_prior_week_low",
+      "n": 1004,
+      "wins": 426,
+      "losses": 578,
+      "wr": 42.4,
+      "mean_pts": 8.8558,
+      "net_pts": 8891.23
+    },
+    {
+      "label": "long_path_touch_prior_month_high",
+      "n": 948,
+      "wins": 355,
+      "losses": 593,
+      "wr": 37.4,
+      "mean_pts": 6.7289,
+      "net_pts": 6379.01
+    },
+    {
+      "label": "short_path_touch_prior_month_low",
+      "n": 494,
+      "wins": 193,
+      "losses": 301,
+      "wr": 39.1,
+      "mean_pts": 6.2518,
+      "net_pts": 3088.4
+    }
+  ],
+  "win_run_starts_vs_touch": {
+    "n_win_run_starts": 917,
+    "starts_with_touch": 737,
+    "share_starts_with_touch": 0.804,
+    "base_touch_rate": 0.659
+  }
+}

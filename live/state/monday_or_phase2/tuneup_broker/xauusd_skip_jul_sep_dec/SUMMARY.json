@@ -1,0 +1,53 @@
+{
+  "skip": {
+    "core": {
+      "label": "core_sitout100",
+      "n": 3882,
+      "wr": 30.6,
+      "net_pts": 5269.98,
+      "stress_pts": -1604.4,
+      "ns": 3.28,
+      "coverage": 100.0,
+      "net_usd_approx": 526998.0,
+      "stress_usd_approx": -160440.0
+    },
+    "skip": {
+      "label": "skip_Jul_Sep_Dec",
+      "n": 2886,
+      "wr": 30.9,
+      "net_pts": 5970.36,
+      "stress_pts": -1003.23,
+      "ns": 5.95,
+      "coverage": 74.3,
+      "net_usd_approx": 597036.0,
+      "stress_usd_approx": -100323.0
+    },
+    "bad_months": {
+      "label": "only_Jul_Sep_Dec",
+      "n": 996,
+      "wr": 29.7,
+      "net_pts": -700.38,
+      "stress_pts": -1335.14,
+      "ns": -0.52,
+      "coverage": 25.7,
+      "net_usd_approx": -70038.0,
+      "stress_usd_approx": -133514.0
+    },
+    "delta_net_pts": 700.38,
+    "delta_stress_pts": 601.17,
+    "delta_ns": 2.67
+  },
+  "rel": {
+    "yearly_corr": 0.254,
+    "same_sign_pct": 88.9,
+    "daily_corr": 0.111,
+    "roll1y_corr_mean": 0.079,
+    "strat_corr_nas": 0.39,
+    "strat_corr_xau": 0.686,
+    "regime_counts": {
+      "both_up": 6,
+      "both_down": 2,
+      "risk_on": 1
+    }
+  }
+}

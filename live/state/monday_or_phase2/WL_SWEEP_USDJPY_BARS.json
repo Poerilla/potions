@@ -1,0 +1,108 @@
+{
+  "USDJPY_M2_S3_R1": {
+    "label": "USDJPY M2_S3_R1",
+    "base_wr": 30.8,
+    "n": 2402,
+    "path_sweep_3d": {
+      "True": {
+        "n": 1933,
+        "wins": 712,
+        "wr": 36.8
+      },
+      "False": {
+        "n": 469,
+        "wins": 27,
+        "wr": 5.8
+      }
+    },
+    "path_sweep_1d": {
+      "True": {
+        "n": 2251,
+        "wins": 727,
+        "wr": 32.3
+      },
+      "False": {
+        "n": 151,
+        "wins": 12,
+        "wr": 7.9
+      }
+    },
+    "entry_beyond_3d": {
+      "True": {
+        "n": 1348,
+        "wins": 435,
+        "wr": 32.3
+      },
+      "False": {
+        "n": 1054,
+        "wins": 304,
+        "wr": 28.8
+      }
+    },
+    "entry_beyond_1d": {
+      "True": {
+        "n": 2043,
+        "wins": 622,
+        "wr": 30.4
+      },
+      "False": {
+        "n": 359,
+        "wins": 117,
+        "wr": 32.6
+      }
+    }
+  },
+  "USDJPY_M2_S3_R2": {
+    "label": "USDJPY M2_S3_R2",
+    "base_wr": 30.7,
+    "n": 2879,
+    "path_sweep_3d": {
+      "True": {
+        "n": 2235,
+        "wins": 835,
+        "wr": 37.4
+      },
+      "False": {
+        "n": 644,
+        "wins": 50,
+        "wr": 7.8
+      }
+    },
+    "path_sweep_1d": {
+      "True": {
+        "n": 2577,
+        "wins": 854,
+        "wr": 33.1
+      },
+      "False": {
+        "n": 302,
+        "wins": 31,
+        "wr": 10.3
+      }
+    },
+    "entry_beyond_3d": {
+      "True": {
+        "n": 1526,
+        "wins": 487,
+        "wr": 31.9
+      },
+      "False": {
+        "n": 1353,
+        "wins": 398,
+        "wr": 29.4
+      }
+    },
+    "entry_beyond_1d": {
+      "True": {
+        "n": 2259,
+        "wins": 685,
+        "wr": 30.3
+      },
+      "False": {
+        "n": 620,
+        "wins": 200,
+        "wr": 32.3
+      }
+    }
+  }
+}

@@ -25,6 +25,8 @@ Each Monday defines an opening range (high/low). Tue–Fri, on 15m close, trade 
 | Baseline `M1_S1_R1` N/S | 0.83 |
 | vs ST+PMC EURUSD | Beats 1.49 on full-sample N/S |
 
+**Tune-up test (rejected):** skip-1-after-W → N/S 1.79 (−$11k net). Not core.
+
 PF / win rate / worst year: see Phase 1 audit under `live/state/monday_or_sizing_sweep_broker/audits/eurusd_m1_s2_r2/`.
 
 ## Behaviour summary

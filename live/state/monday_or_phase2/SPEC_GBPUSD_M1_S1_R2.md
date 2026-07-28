@@ -24,6 +24,8 @@ Monday OR → Tue–Fri 15m close breakout → main 3 lots with DD ladder (2@30%
 | **Net/Stress** | **2.67** |
 | Baseline `M1_S1_R1` | 1.87 |
 
+**Tune-up test (rejected):** skip-1-after-W → N/S **1.60**, net −$67k, worse MTM. Not core.
+
 ## Robustness (Phase 2 extended)
 
 | Check | Result |

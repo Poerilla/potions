@@ -5,7 +5,7 @@ from ``fx/{pair}_1m.csv`` (Histdata via ``fx/raw/``). Default config matches
 the research best CE sleeve: 3 lots, DD cuts 30%/50%, shifted primary, HTF
 both-opposed skip.
 
-Instruments: EURUSD, GBPUSD, USDJPY, AUDJPY, XAUUSD, XAGUSD.
+Instruments: EURUSD, GBPUSD, USDJPY, AUDJPY, XAUUSD, XAGUSD, US30.
 """
 
 from __future__ import annotations
@@ -45,6 +45,8 @@ PAIRS: Dict[str, Dict[str, object]] = {
     "AUDJPY": dict(tick=0.001, quote="JPY", pv=100_000.0),
     "XAUUSD": dict(tick=0.01, quote="USD", pv=100.0),
     "XAGUSD": dict(tick=0.001, quote="USD", pv=1000.0),
+    # Index CFD (MT5 US30) — $1/pt, tick 0.1 (NAS100/US30 pack economics).
+    "US30": dict(tick=0.1, quote="USD", pv=1.0),
 }
 
 
@@ -92,7 +94,7 @@ def _config_json(tick: float, sym: str, tag: Optional[str] = None) -> str:
     use_tag = tag or PAIR_PHASE2_DEFAULT.get(sym)
     if use_tag:
         try:
-            return json.dumps(plugin_config(tick, use_tag), sort_keys=True)
+            return json.dumps(plugin_config(tick, use_tag, pair=sym), sort_keys=True)
         except KeyError:
             pass
     # Pre-Phase-2 baseline (M1_S1_R1)

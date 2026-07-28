@@ -1,0 +1,23 @@
+START XAUUSD M2_S2_R3 cluster/levels/skip study
+trades: 4207
+VERDICT: After exactly 1L, next WR=31.8 (≥≈baseline 30.4) → skip-after-1L likely toxic.
+VERDICT: After exactly 2L, next WR=30.9 (~baseline) → skip-after-2L may be near-neutral.
+VERDICT: After exactly 1W, next WR=28.7 (soft) → skip-1-after-W is a candidate.
+VERDICT: Top-5% heat weeks: n=281 WR=50.9 net=11965.8 vs outside net=-7404.3 — calendar concentration is structural.
+loading XAUUSD 1m → 15m...
+15m bars: 550536
+levels done; win-run start touch share={'n_win_run_starts': 917, 'starts_with_touch': 737, 'share_starts_with_touch': 0.804, 'base_touch_rate': 0.659}
+skip grid...
+  take_all n=4207 WR=30.4 net=4561.5 mean=1.0843 maxL=24 cover=100.0 ns=2.35
+  skip1_after_W n=3214 WR=30.9 net=2786.2 mean=0.8669 maxL=23 cover=76.4 ns=1.58
+  skip1_after_2W n=3937 WR=30.7 net=4805.3 mean=1.2205 maxL=24 cover=93.6 ns=2.48
+  skip1_after_1L n=2471 WR=29.7 net=3330.1 mean=1.3477 maxL=18 cover=58.7 ns=2.31
+  skip1_after_2L n=3289 WR=30.6 net=3475.1 mean=1.0566 maxL=22 cover=78.2 ns=1.96
+  skip1_after_3L n=3645 WR=30.1 net=3919.1 mean=1.0752 maxL=18 cover=86.6 ns=2.34
+  skip2_after_2L n=2672 WR=29.9 net=2698.3 mean=1.0099 maxL=20 cover=63.5 ns=1.62
+  skip2_after_3L n=3227 WR=30.2 net=4342.2 mean=1.3456 maxL=17 cover=76.7 ns=2.79
+  sitout_week_after_+50pts n=3504 WR=30.5 net=4315.4 mean=1.2316 maxL=24 cover=83.3 ns=2.62
+  sitout_week_after_+100pts n=3901 WR=30.7 net=5087.1 mean=1.3040 maxL=24 cover=92.7 ns=3.09
+  sitout_week_after_3L n=2874 WR=30.5 net=4589.8 mean=1.5970 maxL=19 cover=68.3 ns=2.75
+  sitout_week_after_4L n=3232 WR=30.6 net=4539.2 mean=1.4045 maxL=20 cover=76.8 ns=2.79
+DONE → /home/tester/hsm/potions/live/state/monday_or_phase2/xauusd_m2_s2_r3_cluster_skip

@@ -11,13 +11,23 @@ Rules (NY clock, 15m bars)
   OBV vs OBV-SMA20 opposed to the trade.
 - Optional shifted primary: after flat@50%, arm opposite Mon extreme breakout
   with the same structure (does not count toward max primary/week).
-- Max ``max_trades_per_week`` primary entries/week; Fri week-end flatten.
+- Max ``max_trades_per_week`` primary entries/week; Fri week-end flatten @ NY 15:59
+  (not daily — Tue–Thu hold through the week).
+- Optional ``week_sitout_after_pts``: after realized week net (price points) reaches
+  this threshold, skip further primary/shifted entries until the next Monday week
+  (XAUUSD ``M2_S2_R3`` core: 100; USDJPY ``M2_S3_R1``: ~3). Open trades still
+  manage to TP/SL/week_end.
+- Optional ``skip_after_win_streak`` / ``skip_after_win_n``: after N consecutive
+  *taken* wins, skip the next M entry signals (primary or shifted). Used by
+  USDJPY ``M2_S3_R2`` (2W→skip1), EURUSD/GBPUSD (1W→skip1).
+- Optional ``skip_entry_months``: list of calendar months (1–12, NY) with no new
+  primary/shifted entries (XAUUSD core: July, September, December).
 """
 
 from __future__ import annotations
 
 import json
-from datetime import datetime, timedelta
+from datetime import datetime, time as dt_time, timedelta
 from typing import Any, Dict, List, Optional, Tuple
 
 import pytz
@@ -27,6 +37,23 @@ from .base import StrategyContext, StrategyPlugin
 
 NY = pytz.timezone("America/New_York")
 UTC = pytz.UTC
+# Friday week-end flatten clock (America/New_York). Left-labeled 15m bars that
+# cover this instant (ts=15:45 → [15:45, 16:00)) trigger flatten when processed.
+WEEK_END_FLATTEN_NY = dt_time(15, 59)
+BAR_MINUTES_15M = 15
+
+
+def _friday_week_end_due(dt: datetime) -> bool:
+    """True on Friday once the bar covers/passes NY ``WEEK_END_FLATTEN_NY``.
+
+    Uses left-labeled bar start ``dt``: bar end = dt + 15m. Flatten when
+    bar_end > 15:59 Friday so the 15:45 bar (covers 15:59) fires, not Tue–Thu.
+    """
+    if dt.weekday() != 4:
+        return False
+    bar_end = dt + timedelta(minutes=BAR_MINUTES_15M)
+    end_clock = bar_end.timetz().replace(tzinfo=None) if bar_end.tzinfo else bar_end.time()
+    return end_clock > WEEK_END_FLATTEN_NY
 
 
 class MondayOrBreakoutStrategy(StrategyPlugin):
@@ -51,6 +78,14 @@ class MondayOrBreakoutStrategy(StrategyPlugin):
             "shifted_primary": True,
             "obv_ma": 20,
             "min_R": 1e-5,
+            # 0 / None = disabled. XAUUSD M2_S2_R3 core uses 100 (gold price pts).
+            "week_sitout_after_pts": 0.0,
+            "week_sitout_blocks_shifted": True,
+            # 0 = off. After this many consecutive taken wins, skip next skip_after_win_n signals.
+            "skip_after_win_streak": 0,
+            "skip_after_win_n": 1,
+            # Calendar months (1–12, America/New_York) with no new entries. XAUUSD: [7,9,12].
+            "skip_entry_months": [],
         }
         try:
             self.config.update(json.loads(instance.config_json or "{}"))
@@ -117,6 +152,7 @@ class MondayOrBreakoutStrategy(StrategyPlugin):
                     "is_shifted": bool(trade.get("is_shifted")),
                     "dd30_qty": int(trade.get("dd30_qty") or self.config["dd30_qty"]),
                     "dd50_qty": int(trade.get("dd50_qty") or self.config["dd50_qty"]),
+                    "realized_pts": 0.0,
                 }
             )
             state["current_leg_open"] = True
@@ -129,6 +165,7 @@ class MondayOrBreakoutStrategy(StrategyPlugin):
             rem = max(0, int(trade.get("remaining") or 0) - int(fill.quantity))
             trade["remaining"] = rem
             trade["cut_30"] = int(trade.get("cut_30") or 0) + int(fill.quantity)
+            self._accumulate_week_pts(state, trade, fill)
             # Shrink target to remaining
             cancels.extend(self._cancel_roles(context, fill.trade_id, {"target"}))
             if rem > 0:
@@ -147,6 +184,7 @@ class MondayOrBreakoutStrategy(StrategyPlugin):
         if role in {"dd50", "stop", "target", "week_end", "flatten"}:
             rem = max(0, int(trade.get("remaining") or 0) - int(fill.quantity))
             trade["remaining"] = rem
+            self._accumulate_week_pts(state, trade, fill)
             if role == "dd50":
                 trade["cut_50"] = int(trade.get("cut_50") or 0) + int(fill.quantity)
                 trade["flat_at_50"] = True
@@ -155,19 +193,21 @@ class MondayOrBreakoutStrategy(StrategyPlugin):
                 state["current_leg_open"] = False
                 state["active_trade_id"] = ""
                 cancels.extend(self._cancel_reduce(context, fill.trade_id))
-                # Arm shifted primary after flat@50% (primary only)
+                self._on_trade_closed(state, trade)
+                # Arm shifted primary after flat@50% (primary only) — unless week sitout / skip blocks it
                 if (
                     bool(self.config.get("shifted_primary"))
                     and role == "dd50"
                     and not bool(trade.get("is_shifted"))
                     and not state.get("pending_shift_side")
+                    and not self._week_sitout_active(state, for_shifted=True)
+                    and int(state.get("skip_rem") or 0) <= 0
                 ):
                     direction = str(trade.get("direction") or "")
                     state["pending_shift_side"] = "Short" if direction == "Long" else "Long"
                     state["pending_shift_parent"] = fill.trade_id
             self._commit_state(state)
             return StrategyActions(orders, cancels, [], [], [])
-
         self._commit_state(state)
         return StrategyActions.empty()
 
@@ -215,9 +255,9 @@ class MondayOrBreakoutStrategy(StrategyPlugin):
             self._commit_state(state)
             return StrategyActions.empty()
 
-        # Friday end-of-week flatten on last bars (after 16:00 NY Fri or last Fri bar handled via next Mon)
-        # Explicit Fri flatten near end: if Friday and hour >= 16, flatten.
-        if wd == 4 and dt.hour >= 16:
+        # Friday week-end flatten at NY 15:59 (left-labeled 15m: fires on 15:45 bar).
+        # Not daily — Tue–Thu never hit this path.
+        if _friday_week_end_due(dt):
             if context.position_quantity != 0 or self._has_open_entry(context):
                 cancels.extend(self._cancel_all(context))
                 if context.position_quantity != 0:
@@ -238,12 +278,32 @@ class MondayOrBreakoutStrategy(StrategyPlugin):
         close = float(bar.close)
         pending = state.get("pending_shift_side") or ""
 
+        # Calendar month blackout (NY): no new primary/shifted entries.
+        if self._month_entry_blocked(dt):
+            if pending:
+                state["pending_shift_side"] = ""
+            self._commit_state(state)
+            return StrategyActions.empty()
+
+        # Week sitout: skip new risk after heat threshold (open trades still managed).
+        if self._week_sitout_active(state, for_shifted=False) and not pending:
+            self._commit_state(state)
+            return StrategyActions.empty()
+
         # Shifted sidecar first (owns opposite extreme)
         if pending:
+            if self._week_sitout_active(state, for_shifted=True):
+                state["pending_shift_side"] = ""
+                self._commit_state(state)
+                return StrategyActions.empty()
             hit = (close < float(mon_low)) if pending == "Short" else (close > float(mon_high))
             if hit:
                 side = "short" if pending == "Short" else "long"
                 if self._htf_blocks(state, side):
+                    self._commit_state(state)
+                    return StrategyActions.empty()
+                if self._consume_skip_signal(state):
+                    state["pending_shift_side"] = ""
                     self._commit_state(state)
                     return StrategyActions.empty()
                 trade_id = new_id("trade")
@@ -269,6 +329,10 @@ class MondayOrBreakoutStrategy(StrategyPlugin):
                 self._commit_state(state)
                 return StrategyActions.empty()
 
+        if self._week_sitout_active(state, for_shifted=False):
+            self._commit_state(state)
+            return StrategyActions.empty()
+
         primary_count = int(state.get("primary_count") or 0)
         if primary_count >= int(self.config["max_trades_per_week"]):
             self._commit_state(state)
@@ -288,6 +352,9 @@ class MondayOrBreakoutStrategy(StrategyPlugin):
 
         side = "long" if direction == "Long" else "short"
         if self._htf_blocks(state, side):
+            self._commit_state(state)
+            return StrategyActions.empty()
+        if self._consume_skip_signal(state):
             self._commit_state(state)
             return StrategyActions.empty()
 
@@ -518,6 +585,12 @@ class MondayOrBreakoutStrategy(StrategyPlugin):
             )
             if k in self.state
         }
+        # Win-streak skip is book-lifetime (not Mon-week local).
+        prev_skip = {
+            k: self.state.get(k)
+            for k in ("consec_wins", "skip_rem")
+            if k in self.state
+        }
         state: Dict[str, Any] = {
             "week_monday": week_key,
             "mon_high": None,
@@ -529,11 +602,107 @@ class MondayOrBreakoutStrategy(StrategyPlugin):
             "current_leg_open": False,
             "active_trade_id": "",
             "done_week": False,
+            "week_realized_pts": 0.0,
+            "week_sitout": False,
+            "consec_wins": int(prev_skip.get("consec_wins") or 0),
+            "skip_rem": int(prev_skip.get("skip_rem") or 0),
             "trades": {},
         }
         state.update(prev_htf)
         self.state = state
         return state
+
+    def _week_sitout_threshold(self) -> float:
+        try:
+            return float(self.config.get("week_sitout_after_pts") or 0.0)
+        except (TypeError, ValueError):
+            return 0.0
+
+    def _skip_entry_months(self) -> set:
+        raw = self.config.get("skip_entry_months") or []
+        out = set()
+        if isinstance(raw, (list, tuple)):
+            for m in raw:
+                try:
+                    mi = int(m)
+                except (TypeError, ValueError):
+                    continue
+                if 1 <= mi <= 12:
+                    out.add(mi)
+        return out
+
+    def _month_entry_blocked(self, dt: datetime) -> bool:
+        months = self._skip_entry_months()
+        if not months:
+            return False
+        return int(dt.month) in months
+
+    def _week_sitout_active(self, state: Dict[str, Any], *, for_shifted: bool) -> bool:
+        thr = self._week_sitout_threshold()
+        if thr <= 0:
+            return False
+        if for_shifted and not bool(self.config.get("week_sitout_blocks_shifted", True)):
+            return False
+        if state.get("week_sitout"):
+            return True
+        return float(state.get("week_realized_pts") or 0.0) >= thr
+
+    def _skip_streak_need(self) -> int:
+        try:
+            return int(self.config.get("skip_after_win_streak") or 0)
+        except (TypeError, ValueError):
+            return 0
+
+    def _skip_streak_n(self) -> int:
+        try:
+            return max(1, int(self.config.get("skip_after_win_n") or 1))
+        except (TypeError, ValueError):
+            return 1
+
+    def _consume_skip_signal(self, state: Dict[str, Any]) -> bool:
+        """If a post-win skip is armed, consume one signal and return True (do not enter)."""
+        if self._skip_streak_need() <= 0:
+            return False
+        rem = int(state.get("skip_rem") or 0)
+        if rem <= 0:
+            return False
+        state["skip_rem"] = rem - 1
+        return True
+
+    def _on_trade_closed(self, state: Dict[str, Any], trade: Dict[str, Any]) -> None:
+        need = self._skip_streak_need()
+        if need <= 0:
+            return
+        pts = float(trade.get("realized_pts") or 0.0)
+        if pts > 0:
+            consec = int(state.get("consec_wins") or 0) + 1
+            if consec >= need:
+                state["skip_rem"] = int(state.get("skip_rem") or 0) + self._skip_streak_n()
+                state["consec_wins"] = 0
+            else:
+                state["consec_wins"] = consec
+        else:
+            state["consec_wins"] = 0
+
+    def _accumulate_week_pts(self, state: Dict[str, Any], trade: Dict[str, Any], fill) -> None:
+        """Add realized price points from a reduce fill; arm week sitout if threshold hit."""
+        thr = self._week_sitout_threshold()
+        entry = trade.get("entry_price")
+        if entry is None:
+            return
+        qty = float(fill.quantity or 0)
+        px = float(fill.price)
+        direction = str(trade.get("direction") or "")
+        if direction == "Long":
+            pts = (px - float(entry)) * qty
+        elif direction == "Short":
+            pts = (float(entry) - px) * qty
+        else:
+            return
+        trade["realized_pts"] = float(trade.get("realized_pts") or 0.0) + pts
+        state["week_realized_pts"] = float(state.get("week_realized_pts") or 0.0) + pts
+        if thr > 0 and float(state["week_realized_pts"]) >= thr:
+            state["week_sitout"] = True
 
     def _commit_state(self, state: Dict[str, Any]) -> None:
         self.state = state
@@ -547,9 +716,21 @@ class MondayOrBreakoutStrategy(StrategyPlugin):
 
 
 def _parse_ny(ts: str) -> datetime:
-    value = str(ts)
+    value = str(ts).strip()
     if value.endswith("Z"):
         value = value[:-1] + "+00:00"
+    # OANDA can emit nanosecond fractions; fromisoformat (3.8) accepts ≤6 digits.
+    if "." in value:
+        head, rest = value.split(".", 1)
+        frac = ""
+        tz = ""
+        for i, ch in enumerate(rest):
+            if ch.isdigit():
+                frac += ch
+            else:
+                tz = rest[i:]
+                break
+        value = "%s.%s%s" % (head, (frac + "000000")[:6], tz)
     try:
         dt = datetime.fromisoformat(value)
     except ValueError:

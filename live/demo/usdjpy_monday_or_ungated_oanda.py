@@ -68,10 +68,11 @@ def default_output_root() -> Path:
 
 
 def strategy_config_payload() -> Dict[str, Any]:
-    payload = plugin_config(TICK, PHASE2_TAG)
+    payload = plugin_config(TICK, PHASE2_TAG, pair="USDJPY")
     payload.update(
         {
             "phase2_tag": PHASE2_TAG,
+            "week_end_flatten": "15:59",
             "paper_only": False,
             "oanda_routing": True,
             "signal_price": "mid",
@@ -257,7 +258,7 @@ class MondayOrOandaRunner:
         return completed_15
 
     def _maybe_weekly_size_report(self, ts: str) -> None:
-        """Friday >= 16:00 NY — echo price-data + log sizes once per ISO week."""
+        """Friday >= 15:59 NY — echo price-data + log sizes once per ISO week."""
         import pytz
         from datetime import time as dt_time
 
@@ -267,7 +268,7 @@ class MondayOrOandaRunner:
         wall = parse_oanda_ts(ts).astimezone(ny)
         if wall.weekday() != 4:
             return
-        if wall.time().replace(tzinfo=None) < dt_time(16, 0):
+        if wall.time().replace(tzinfo=None) < dt_time(15, 59):
             return
         week_key = wall.date().isoformat()
         if self._weekly_size_week == week_key:

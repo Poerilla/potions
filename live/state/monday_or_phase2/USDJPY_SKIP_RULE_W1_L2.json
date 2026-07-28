@@ -1,0 +1,153 @@
+{
+  "base": {
+    "n": 2402,
+    "wins": 739,
+    "losses": 1663,
+    "wr": 30.8,
+    "max_w": 6,
+    "max_l": 13,
+    "mean_w": 1.4,
+    "mean_l": 3.16,
+    "p_l_given_w": 0.713,
+    "p_l_given_l": 0.683,
+    "loss_in_multi": 90.5,
+    "net_pts": 240.9,
+    "mean_pts": 0.1003
+  },
+  "rule_w1_l2": {
+    "taken": {
+      "n": 890,
+      "wins": 268,
+      "losses": 622,
+      "wr": 30.1,
+      "max_w": 5,
+      "max_l": 12,
+      "mean_w": 1.43,
+      "mean_l": 3.29,
+      "p_l_given_w": 0.701,
+      "p_l_given_l": 0.697,
+      "loss_in_multi": 92.1,
+      "net_pts": 74.6,
+      "mean_pts": 0.0838,
+      "coverage_pct": 37.1
+    },
+    "skipped": {
+      "n": 1512,
+      "wins": 471,
+      "losses": 1041,
+      "wr": 31.2,
+      "max_w": 5,
+      "max_l": 18,
+      "mean_w": 1.39,
+      "mean_l": 3.08,
+      "p_l_given_w": 0.717,
+      "p_l_given_l": 0.675,
+      "loss_in_multi": 91.0,
+      "net_pts": 166.3,
+      "mean_pts": 0.11
+    },
+    "skip_reasons": {
+      "null": 890,
+      "after_loss": 1244,
+      "after_win": 268
+    }
+  },
+  "alts": [
+    {
+      "rule": "no skip",
+      "n": 2402,
+      "wr": 30.8,
+      "max_l": 13,
+      "mean_l": 3.16,
+      "loss_in_multi": 90.5,
+      "net_pts": 240.9,
+      "mean_pts": 0.1003,
+      "coverage_pct": 100.0,
+      "net_per_base_trade": 0.1003
+    },
+    {
+      "rule": "skip1 after W only",
+      "n": 1831,
+      "wr": 31.2,
+      "max_l": 13,
+      "mean_l": 3.04,
+      "loss_in_multi": 89.5,
+      "net_pts": 228.8,
+      "mean_pts": 0.125,
+      "coverage_pct": 76.2,
+      "net_per_base_trade": 0.0953
+    },
+    {
+      "rule": "skip1 after L only",
+      "n": 1409,
+      "wr": 29.5,
+      "max_l": 13,
+      "mean_l": 3.32,
+      "loss_in_multi": 91.5,
+      "net_pts": 48.3,
+      "mean_pts": 0.0343,
+      "coverage_pct": 58.7,
+      "net_per_base_trade": 0.0201
+    },
+    {
+      "rule": "skip2 after L only",
+      "n": 1008,
+      "wr": 30.9,
+      "max_l": 15,
+      "mean_l": 3.2,
+      "loss_in_multi": 91.2,
+      "net_pts": 118.1,
+      "mean_pts": 0.1172,
+      "coverage_pct": 42.0,
+      "net_per_base_trade": 0.0492
+    },
+    {
+      "rule": "skip1 after W or L",
+      "n": 1201,
+      "wr": 29.5,
+      "max_l": 14,
+      "mean_l": 3.28,
+      "loss_in_multi": 90.3,
+      "net_pts": 89.1,
+      "mean_pts": 0.0742,
+      "coverage_pct": 50.0,
+      "net_per_base_trade": 0.0371
+    },
+    {
+      "rule": "skip1 after W, skip2 after L",
+      "n": 890,
+      "wr": 30.1,
+      "max_l": 12,
+      "mean_l": 3.29,
+      "loss_in_multi": 92.1,
+      "net_pts": 74.6,
+      "mean_pts": 0.0838,
+      "coverage_pct": 37.1,
+      "net_per_base_trade": 0.0311
+    },
+    {
+      "rule": "skip2 after W or L",
+      "n": 801,
+      "wr": 30.1,
+      "max_l": 15,
+      "mean_l": 3.33,
+      "loss_in_multi": 92.7,
+      "net_pts": 94.5,
+      "mean_pts": 0.118,
+      "coverage_pct": 33.3,
+      "net_per_base_trade": 0.0394
+    },
+    {
+      "rule": "skip1 after W, skip3 after L",
+      "n": 697,
+      "wr": 27.7,
+      "max_l": 18,
+      "mean_l": 3.57,
+      "loss_in_multi": 94.6,
+      "net_pts": -41.8,
+      "mean_pts": -0.06,
+      "coverage_pct": 29.0,
+      "net_per_base_trade": -0.0174
+    }
+  ]
+}

@@ -1,0 +1,344 @@
+{
+  "pair": "AUDJPY",
+  "tag": "M1_S2_R2",
+  "baseline": {
+    "n": 2842,
+    "wins": 795,
+    "losses": 2047,
+    "wr": 28.0,
+    "max_win_streak": 6,
+    "max_loss_streak": 23,
+    "mean_win_streak": 1.37,
+    "mean_loss_streak": 3.52,
+    "win_streak_dist": {
+      "1": 424,
+      "2": 116,
+      "3": 30,
+      "4": 7,
+      "5": 3,
+      "6": 1
+    },
+    "loss_streak_dist": {
+      "1": 158,
+      "2": 116,
+      "3": 87,
+      "4": 55,
+      "5": 55,
+      "6": 43,
+      "7": 24,
+      "8": 10,
+      "9": 9,
+      "10": 7,
+      "11": 4,
+      "12": 4,
+      "13": 3,
+      "14": 3,
+      "15": 1,
+      "16": 1,
+      "17": 1,
+      "23": 1
+    },
+    "p_w_given_w": 0.269,
+    "p_l_given_w": 0.731,
+    "p_w_given_l": 0.284,
+    "p_l_given_l": 0.716,
+    "transitions": {
+      "WW": 214,
+      "WL": 581,
+      "LW": 581,
+      "LL": 1465
+    },
+    "loss_in_multi_streak_pct": 92.3,
+    "win_in_multi_streak_pct": 46.7,
+    "net_pts": 105.53,
+    "mean_pts": 0.0371,
+    "coverage_pct": 100.0,
+    "stress_pts": -56.0,
+    "ns_proxy": 1.88
+  },
+  "streaks": {
+    "n": 2842,
+    "wins": 795,
+    "losses": 2047,
+    "wr": 28.0,
+    "max_win_streak": 6,
+    "max_loss_streak": 23,
+    "mean_win_streak": 1.37,
+    "mean_loss_streak": 3.52,
+    "win_streak_dist": {
+      "1": 424,
+      "2": 116,
+      "3": 30,
+      "4": 7,
+      "5": 3,
+      "6": 1
+    },
+    "loss_streak_dist": {
+      "1": 158,
+      "2": 116,
+      "3": 87,
+      "4": 55,
+      "5": 55,
+      "6": 43,
+      "7": 24,
+      "8": 10,
+      "9": 9,
+      "10": 7,
+      "11": 4,
+      "12": 4,
+      "13": 3,
+      "14": 3,
+      "15": 1,
+      "16": 1,
+      "17": 1,
+      "23": 1
+    },
+    "p_w_given_w": 0.269,
+    "p_l_given_w": 0.731,
+    "p_w_given_l": 0.284,
+    "p_l_given_l": 0.716,
+    "transitions": {
+      "WW": 214,
+      "WL": 581,
+      "LW": 581,
+      "LL": 1465
+    },
+    "loss_in_multi_streak_pct": 92.3,
+    "win_in_multi_streak_pct": 46.7
+  },
+  "calendar": {
+    "weeks": 1152,
+    "lifetime_net_pts": 105.53,
+    "top_week": "2008-10-20",
+    "top_week_net": 21.09,
+    "top_week_share": 0.1998,
+    "top_5pct_weeks_n": 58,
+    "top_5pct_share_of_gross_pos": 0.3858,
+    "top_10_weeks": [
+      {
+        "week_mon": "2008-10-20",
+        "n": 3,
+        "wins": 2,
+        "losses": 1,
+        "wr": 66.7,
+        "net_pts": 21.08850000000001
+      },
+      {
+        "week_mon": "2010-05-17",
+        "n": 3,
+        "wins": 2,
+        "losses": 1,
+        "wr": 66.7,
+        "net_pts": 19.29000000000009
+      },
+      {
+        "week_mon": "2008-10-06",
+        "n": 1,
+        "wins": 1,
+        "losses": 0,
+        "wr": 100.0,
+        "net_pts": 14.438999999999965
+      },
+      {
+        "week_mon": "2008-10-27",
+        "n": 3,
+        "wins": 1,
+        "losses": 2,
+        "wr": 33.3,
+        "net_pts": 14.320399999999928
+      },
+      {
+        "week_mon": "2009-11-23",
+        "n": 3,
+        "wins": 2,
+        "losses": 1,
+        "wr": 66.7,
+        "net_pts": 12.750000000000014
+      },
+      {
+        "week_mon": "2008-09-01",
+        "n": 3,
+        "wins": 2,
+        "losses": 1,
+        "wr": 66.7,
+        "net_pts": 12.686000000000007
+      },
+      {
+        "week_mon": "2005-12-12",
+        "n": 3,
+        "wins": 3,
+        "losses": 0,
+        "wr": 100.0,
+        "net_pts": 12.330000000000041
+      },
+      {
+        "week_mon": "2015-12-07",
+        "n": 3,
+        "wins": 2,
+        "losses": 1,
+        "wr": 66.7,
+        "net_pts": 11.158600000000007
+      },
+      {
+        "week_mon": "2020-06-01",
+        "n": 2,
+        "wins": 2,
+        "losses": 0,
+        "wr": 100.0,
+        "net_pts": 10.104000000000028
+      },
+      {
+        "week_mon": "2025-03-31",
+        "n": 4,
+        "wins": 2,
+        "losses": 2,
+        "wr": 50.0,
+        "net_pts": 10.034399999999962
+      }
+    ],
+    "top_10_loss_count_weeks": [
+      {
+        "week_mon": "2012-08-06",
+        "n": 6,
+        "wins": 0,
+        "losses": 6,
+        "wr": 0.0,
+        "net_pts": -2.5718000000001098
+      },
+      {
+        "week_mon": "2014-09-29",
+        "n": 6,
+        "wins": 0,
+        "losses": 6,
+        "wr": 0.0,
+        "net_pts": -3.06940000000003
+      },
+      {
+        "week_mon": "2018-04-23",
+        "n": 5,
+        "wins": 0,
+        "losses": 5,
+        "wr": 0.0,
+        "net_pts": -1.5614000000001198
+      },
+      {
+        "week_mon": "2020-02-17",
+        "n": 5,
+        "wins": 0,
+        "losses": 5,
+        "wr": 0.0,
+        "net_pts": -1.5173000000001053
+      },
+      {
+        "week_mon": "2011-09-05",
+        "n": 5,
+        "wins": 0,
+        "losses": 5,
+        "wr": 0.0,
+        "net_pts": -3.1081000000001353
+      },
+      {
+        "week_mon": "2019-02-18",
+        "n": 5,
+        "wins": 0,
+        "losses": 5,
+        "wr": 0.0,
+        "net_pts": -2.061200000000028
+      },
+      {
+        "week_mon": "2004-07-26",
+        "n": 5,
+        "wins": 0,
+        "losses": 5,
+        "wr": 0.0,
+        "net_pts": -3.702700000000007
+      },
+      {
+        "week_mon": "2016-09-19",
+        "n": 5,
+        "wins": 0,
+        "losses": 5,
+        "wr": 0.0,
+        "net_pts": -1.7476000000000482
+      },
+      {
+        "week_mon": "2024-03-04",
+        "n": 5,
+        "wins": 0,
+        "losses": 5,
+        "wr": 0.0,
+        "net_pts": -1.3506999999999607
+      },
+      {
+        "week_mon": "2010-10-11",
+        "n": 5,
+        "wins": 0,
+        "losses": 5,
+        "wr": 0.0,
+        "net_pts": -2.5855000000000388
+      }
+    ],
+    "flag_concentrated": true
+  },
+  "state_conditional": {
+    "after_exact_1L": {
+      "n": 582,
+      "wr": 27.1,
+      "mean_pts": -0.0121
+    },
+    "after_exact_2L": {
+      "n": 424,
+      "wr": 27.4,
+      "mean_pts": 0.0496
+    },
+    "after_exact_3L": {
+      "n": 308,
+      "wr": 28.2,
+      "mean_pts": 0.0625
+    },
+    "after_exact_4L": {
+      "n": 221,
+      "wr": 24.9,
+      "mean_pts": -0.0266
+    },
+    "after_ge_2L": {
+      "n": 1464,
+      "wr": 28.9,
+      "mean_pts": 0.0515
+    },
+    "after_ge_3L": {
+      "n": 1040,
+      "wr": 29.5,
+      "mean_pts": 0.0523
+    },
+    "after_exact_1W": {
+      "n": 581,
+      "wr": 27.0,
+      "mean_pts": 0.1306
+    },
+    "after_exact_2W": {
+      "n": 157,
+      "wr": 26.1,
+      "mean_pts": -0.232
+    },
+    "in_top5pct_heat_weeks": {
+      "n": 135,
+      "wr": 70.4,
+      "mean_pts": 3.4426,
+      "net_pts": 464.75,
+      "weeks": 58
+    },
+    "outside_heat_weeks": {
+      "n": 2707,
+      "wr": 25.9,
+      "mean_pts": -0.1327,
+      "net_pts": -359.23
+    }
+  },
+  "verdict_notes": [
+    "After exactly 2L, next WR=27.4 (~baseline) \u2192 skip-after-2L may be near-neutral.",
+    "Top-5% heat weeks: n=135 WR=70.4 net=464.8 vs outside net=-359.2 \u2014 calendar concentration is structural."
+  ],
+  "first": "2003-12-10 07:45:00-05:00",
+  "last": "2026-03-31 15:00:00-04:00"
+}

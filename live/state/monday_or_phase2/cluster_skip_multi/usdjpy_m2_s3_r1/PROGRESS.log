@@ -1,0 +1,29 @@
+START USDJPY M2_S3_R1 ← /home/tester/hsm/potions/live/state/monday_or_sizing_sweep_broker_usdjpy/states/usdjpy_m2_s3_r1/fills.csv
+trades: 2402
+VERDICT: After exactly 2L, next WR=28.7 (soft vs 30.8) → skip-1-after-2L is a candidate.
+VERDICT: After exactly 1W, next WR=28.3 (soft) → skip-1-after-W is a candidate.
+VERDICT: Top-5% heat weeks: n=112 WR=68.8 net=405.9 vs outside net=-165.0 — calendar concentration is structural.
+loading USDJPY 1m → 15m...
+15m bars: 570399
+levels done; win-run start touch share={'n_win_run_starts': 527, 'starts_with_touch': 410, 'share_starts_with_touch': 0.778, 'base_touch_rate': 0.592}
+skip grid...
+  take_all n=2402 WR=30.8 net=240.9 mean=0.1003 maxL=13 cover=100.0 ns=9.75
+  skip1_after_W n=1831 WR=31.2 net=228.8 mean=0.125 maxL=13 cover=76.2 ns=10.41
+  skip1_after_2W n=2248 WR=31.0 net=246.9 mean=0.1098 maxL=12 cover=93.6 ns=9.82
+  skip1_after_1L n=1409 WR=29.5 net=48.35 mean=0.0343 maxL=13 cover=58.7 ns=0.70
+  skip1_after_2L n=1874 WR=31.1 net=236.3 mean=0.1261 maxL=13 cover=78.0 ns=8.72
+  skip1_after_3L n=2076 WR=29.7 net=100 mean=0.0482 maxL=18 cover=86.4 ns=1.77
+  skip2_after_2L n=1526 WR=30.3 net=82.45 mean=0.054 maxL=14 cover=63.5 ns=1.82
+  skip2_after_3L n=1834 WR=29.5 net=70.7 mean=0.0386 maxL=14 cover=76.4 ns=1.26
+  sitout_week_after_0.50x_p90(1.48789) n=2224 WR=30.7 net=250.2 mean=0.1125 maxL=12 cover=92.6 ns=10.17
+  sitout_week_after_1.00x_p90(2.97578) n=2298 WR=30.9 net=265 mean=0.1153 maxL=12 cover=95.7 ns=10.77
+  sitout_week_after_1.50x_p90(4.46367) n=2357 WR=30.9 net=254.5 mean=0.108 maxL=13 cover=98.1 ns=10.30
+  sitout_week_after_2.00x_p90(5.95156) n=2379 WR=30.9 net=254.4 mean=0.1069 maxL=13 cover=99.0 ns=10.30
+  sitout_week_after_2.50x_p90(7.43945) n=2389 WR=30.8 net=255.3 mean=0.1069 maxL=13 cover=99.5 ns=10.33
+  sitout_week_after_3.00x_p90(8.92734) n=2396 WR=30.8 net=247.6 mean=0.1033 maxL=13 cover=99.8 ns=10.02
+  sitout_week_after_p25_pos_week(0.9338) n=2209 WR=30.8 net=254.1 mean=0.115 maxL=12 cover=92.0 ns=10.33
+  sitout_week_after_p50_pos_week(1.88405) n=2240 WR=30.7 net=252.1 mean=0.1126 maxL=12 cover=93.3 ns=10.25
+  sitout_week_after_p75_pos_week(3.4393) n=2318 WR=30.9 net=263.5 mean=0.1137 maxL=12 cover=96.5 ns=10.71
+  sitout_week_after_3L n=2368 WR=30.6 net=226.4 mean=0.0956 maxL=16 cover=98.6 ns=8.87
+  sitout_week_after_4L n=2402 WR=30.8 net=240.9 mean=0.1003 maxL=13 cover=100.0 ns=9.75
+DONE → /home/tester/hsm/potions/live/state/monday_or_phase2/cluster_skip_multi/usdjpy_m2_s3_r1

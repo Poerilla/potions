@@ -1,11 +1,14 @@
 """Phase 2 locked Monday OR pair-tag configs (broker knobs).
 
 Anchors from broker Phase 1 sizing sweep. Do not cross-use EURUSD and USDJPY recipes.
+
+Cluster/skip tune-ups (2026-07-28) are pair-aware via ``PAIR_TUNEUPS`` because
+some tags are shared (e.g. ``M1_S2_R2`` on EURUSD vs AUDJPY).
 """
 
 from __future__ import annotations
 
-from typing import Dict, Any, List, Tuple
+from typing import Dict, Any, List, Optional, Tuple
 
 
 # tag -> (entry, dd30, dd50) for main / shifted; max primary/week
@@ -30,7 +33,14 @@ PHASE2_TAGS: Dict[str, TagSpec] = {
         "shifted_dd30_qty": 2,
         "shifted_dd50_qty": 2,
         "max_trades_per_week": 2,
-        "label": "USDJPY Phase 2 primary (runner-heavy + heavy shifted, max 2/wk)",
+        # Core (broker-confirmed): sit out after +3 yen pts; skip Aug+Sep entries.
+        "week_sitout_after_pts": 3.0,
+        "week_sitout_blocks_shifted": True,
+        "skip_entry_months": [8, 9],
+        "label": (
+            "USDJPY Phase 2 primary (runner-heavy + heavy shifted, max 2/wk; "
+            "sitout +3 pts; skip Aug/Sep)"
+        ),
     },
     "M2_S3_R2": {
         "entry_qty": 3,
@@ -40,7 +50,14 @@ PHASE2_TAGS: Dict[str, TagSpec] = {
         "shifted_dd30_qty": 2,
         "shifted_dd50_qty": 2,
         "max_trades_per_week": 3,
-        "label": "USDJPY Phase 2 alternate (same size, max 3/wk)",
+        # Core (broker-confirmed): skip-1-after-2W; skip Aug+Sep entries.
+        "skip_after_win_streak": 2,
+        "skip_after_win_n": 1,
+        "skip_entry_months": [8, 9],
+        "label": (
+            "USDJPY Phase 2 alternate (same size, max 3/wk; skip-1-after-2W; "
+            "skip Aug/Sep)"
+        ),
     },
     "M1_S2_R1": {
         "entry_qty": 3,
@@ -85,6 +102,8 @@ FOOTNOTE_TAGS: Dict[str, TagSpec] = {
         "shifted_dd30_qty": 2,
         "shifted_dd50_qty": 1,
         "max_trades_per_week": 3,
+        # skip-1-after-W looked good in fill-proxy study but FAILED broker
+        # (N/S 2.67→1.60, −$67k) — do not enable on GBPUSD.
         "label": "GBPUSD Phase 2 extended (matched main/shifted, max 3/wk)",
     },
     "M2_S2_R3": {
@@ -95,8 +114,42 @@ FOOTNOTE_TAGS: Dict[str, TagSpec] = {
         "shifted_dd30_qty": 1,
         "shifted_dd50_qty": 1,
         "max_trades_per_week": 99,
-        "label": "XAUUSD Phase 2 extended (heat caution; unlimited primary/week)",
+        # Core: sit out rest of Mon-week after +100 gold pts; no entries in Jul/Sep/Dec.
+        "week_sitout_after_pts": 100.0,
+        "week_sitout_blocks_shifted": True,
+        "skip_entry_months": [7, 9, 12],
+        "label": (
+            "XAUUSD Phase 2 core (unlimited primary/week; sitout +100 pts; "
+            "skip Jul/Sep/Dec entries)"
+        ),
     },
+}
+
+# Pair+tag overlays. Only broker-confirmed rules stay enabled.
+# Fill-proxy candidates that failed StrategyPlugin audit are documented in
+# tuneup_broker/SUMMARY.md and left OFF here.
+PAIR_TUNEUPS: Dict[Tuple[str, str], Dict[str, Any]] = {
+    ("USDJPY", "M2_S3_R1"): {
+        "week_sitout_after_pts": 3.0,
+        "week_sitout_blocks_shifted": True,
+        "skip_entry_months": [8, 9],
+        "tuneup_note": "sitout +3 pts + skip Aug/Sep (broker OK)",
+    },
+    ("USDJPY", "M2_S3_R2"): {
+        "skip_after_win_streak": 2,
+        "skip_after_win_n": 1,
+        "skip_entry_months": [8, 9],
+        "tuneup_note": "skip-1-after-2W + skip Aug/Sep (broker OK)",
+    },
+    ("XAUUSD", "M2_S2_R3"): {
+        "week_sitout_after_pts": 100.0,
+        "week_sitout_blocks_shifted": True,
+        "skip_entry_months": [7, 9, 12],
+        "tuneup_note": "sitout +100 pts + skip Jul/Sep/Dec",
+    },
+    # EURUSD skip-1-after-W: fill-proxy OK, broker ΔN/S≈0 / −$11k → OFF
+    # GBPUSD skip-1-after-W: fill-proxy OK, broker N/S 2.67→1.60 → OFF
+    # AUDJPY skip-1-after-2W: fill-proxy only; not yet StrategyPlugin-audited → OFF
 }
 
 # Core Phase 2 (EURUSD / USDJPY) + extended (ex-silver)
@@ -143,6 +196,7 @@ def plugin_config(
     tick: float,
     tag: str,
     *,
+    pair: Optional[str] = None,
     dd30_frac: float = 0.30,
     dd50_frac: float = 0.50,
     reward_R: float = 2.0,
@@ -151,7 +205,7 @@ def plugin_config(
     obv_ma: int = 20,
 ) -> Dict[str, Any]:
     spec = resolve_tag(tag)
-    return {
+    cfg: Dict[str, Any] = {
         "tick_size": tick,
         "entry_qty": int(spec["entry_qty"]),
         "dd30_qty": int(spec["dd30_qty"]),
@@ -167,3 +221,41 @@ def plugin_config(
         "shifted_primary": bool(shifted_primary),
         "obv_ma": int(obv_ma),
     }
+    # Tag-level optional knobs
+    for key in (
+        "week_sitout_after_pts",
+        "week_sitout_blocks_shifted",
+        "skip_after_win_streak",
+        "skip_after_win_n",
+        "skip_entry_months",
+    ):
+        if key in spec:
+            cfg[key] = spec[key]
+    # Pair overlays (shared tags / explicit lock)
+    if pair:
+        overlay = PAIR_TUNEUPS.get((str(pair).upper(), tag))
+        if overlay:
+            for key, val in overlay.items():
+                if key == "tuneup_note":
+                    continue
+                cfg[key] = val
+    # Normalize types
+    if "week_sitout_after_pts" in cfg:
+        cfg["week_sitout_after_pts"] = float(cfg["week_sitout_after_pts"])
+    if "week_sitout_blocks_shifted" in cfg:
+        cfg["week_sitout_blocks_shifted"] = bool(cfg["week_sitout_blocks_shifted"])
+    if "skip_after_win_streak" in cfg:
+        cfg["skip_after_win_streak"] = int(cfg["skip_after_win_streak"])
+    if "skip_after_win_n" in cfg:
+        cfg["skip_after_win_n"] = int(cfg["skip_after_win_n"])
+    if "skip_entry_months" in cfg:
+        months = []
+        for m in cfg["skip_entry_months"] or []:
+            try:
+                mi = int(m)
+            except (TypeError, ValueError):
+                continue
+            if 1 <= mi <= 12:
+                months.append(mi)
+        cfg["skip_entry_months"] = sorted(set(months))
+    return cfg

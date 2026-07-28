@@ -1,0 +1,664 @@
+{
+  "USDJPY_M2_S3_R1": {
+    "pair": "USDJPY",
+    "tag": "M2_S3_R1",
+    "role": "core primary",
+    "n_trades": 2404,
+    "n_decided": 2402,
+    "streaks": {
+      "n": 2402,
+      "wins": 739,
+      "losses": 1663,
+      "wr": 30.8,
+      "max_win_streak": 6,
+      "max_loss_streak": 13,
+      "mean_win_streak": 1.4,
+      "mean_loss_streak": 3.16,
+      "win_streak_dist": {
+        "1": 378,
+        "2": 109,
+        "3": 24,
+        "4": 11,
+        "5": 3,
+        "6": 2
+      },
+      "loss_streak_dist": {
+        "1": 158,
+        "2": 106,
+        "3": 96,
+        "4": 49,
+        "5": 32,
+        "6": 29,
+        "7": 22,
+        "8": 14,
+        "9": 10,
+        "10": 5,
+        "11": 4,
+        "12": 1,
+        "13": 1
+      },
+      "p_w_given_w": 0.287,
+      "p_l_given_w": 0.713,
+      "p_w_given_l": 0.317,
+      "p_l_given_l": 0.683,
+      "transitions": {
+        "WW": 212,
+        "WL": 526,
+        "LW": 527,
+        "LL": 1136
+      },
+      "loss_in_multi_streak_pct": 90.5,
+      "win_in_multi_streak_pct": 48.8,
+      "n_win_runs": 527,
+      "n_loss_runs": 527
+    },
+    "sweep_dir_ext_wr": {
+      "False": {
+        "n": 797,
+        "wins": 51,
+        "losses": 746,
+        "wr": 6.4
+      },
+      "True": {
+        "n": 1605,
+        "wins": 688,
+        "losses": 917,
+        "wr": 42.9
+      }
+    },
+    "entry_beyond_3d_wr": {
+      "False": {
+        "n": 1054,
+        "wins": 304,
+        "losses": 750,
+        "wr": 28.8
+      },
+      "True": {
+        "n": 1348,
+        "wins": 435,
+        "losses": 913,
+        "wr": 32.3
+      }
+    },
+    "sweep_yday_wr": {
+      "False": {
+        "n": 263,
+        "wins": 22,
+        "losses": 241,
+        "wr": 8.4
+      },
+      "True": {
+        "n": 2139,
+        "wins": 717,
+        "losses": 1422,
+        "wr": 33.5
+      }
+    },
+    "win_exits": {
+      "week_end": 445,
+      "target": 294
+    },
+    "loss_exits": {
+      "dd50": 1385,
+      "week_end": 145,
+      "dd30": 133
+    },
+    "first": "2003-05-13 01:00:00-04:00",
+    "last": "2026-03-26 12:45:00-04:00"
+  },
+  "USDJPY_M2_S3_R2": {
+    "pair": "USDJPY",
+    "tag": "M2_S3_R2",
+    "role": "core alternate",
+    "n_trades": 2881,
+    "n_decided": 2879,
+    "streaks": {
+      "n": 2879,
+      "wins": 885,
+      "losses": 1994,
+      "wr": 30.7,
+      "max_win_streak": 7,
+      "max_loss_streak": 14,
+      "mean_win_streak": 1.37,
+      "mean_loss_streak": 3.1,
+      "win_streak_dist": {
+        "1": 471,
+        "2": 130,
+        "3": 26,
+        "4": 13,
+        "5": 1,
+        "6": 2,
+        "7": 1
+      },
+      "loss_streak_dist": {
+        "1": 207,
+        "2": 138,
+        "3": 93,
+        "4": 63,
+        "5": 49,
+        "6": 29,
+        "7": 22,
+        "8": 14,
+        "9": 16,
+        "10": 4,
+        "11": 1,
+        "12": 5,
+        "13": 2,
+        "14": 1
+      },
+      "p_w_given_w": 0.273,
+      "p_l_given_w": 0.727,
+      "p_w_given_l": 0.323,
+      "p_l_given_l": 0.677,
+      "transitions": {
+        "WW": 241,
+        "WL": 643,
+        "LW": 644,
+        "LL": 1350
+      },
+      "loss_in_multi_streak_pct": 89.6,
+      "win_in_multi_streak_pct": 46.8,
+      "n_win_runs": 644,
+      "n_loss_runs": 644
+    },
+    "sweep_dir_ext_wr": {
+      "False": {
+        "n": 1039,
+        "wins": 88,
+        "losses": 951,
+        "wr": 8.5
+      },
+      "True": {
+        "n": 1840,
+        "wins": 797,
+        "losses": 1043,
+        "wr": 43.3
+      }
+    },
+    "entry_beyond_3d_wr": {
+      "False": {
+        "n": 1353,
+        "wins": 398,
+        "losses": 955,
+        "wr": 29.4
+      },
+      "True": {
+        "n": 1526,
+        "wins": 487,
+        "losses": 1039,
+        "wr": 31.9
+      }
+    },
+    "sweep_yday_wr": {
+      "False": {
+        "n": 469,
+        "wins": 50,
+        "losses": 419,
+        "wr": 10.7
+      },
+      "True": {
+        "n": 2410,
+        "wins": 835,
+        "losses": 1575,
+        "wr": 34.6
+      }
+    },
+    "win_exits": {
+      "week_end": 526,
+      "target": 359
+    },
+    "loss_exits": {
+      "dd50": 1666,
+      "week_end": 185,
+      "dd30": 143
+    },
+    "first": "2003-05-13 01:00:00-04:00",
+    "last": "2026-03-26 12:45:00-04:00"
+  },
+  "AUDJPY_M1_S2_R2": {
+    "pair": "AUDJPY",
+    "tag": "M1_S2_R2",
+    "role": "extended PASS",
+    "n_trades": 2844,
+    "n_decided": 2843,
+    "streaks": {
+      "n": 2843,
+      "wins": 795,
+      "losses": 2048,
+      "wr": 28.0,
+      "max_win_streak": 6,
+      "max_loss_streak": 23,
+      "mean_win_streak": 1.37,
+      "mean_loss_streak": 3.52,
+      "win_streak_dist": {
+        "1": 424,
+        "2": 116,
+        "3": 30,
+        "4": 7,
+        "5": 3,
+        "6": 1
+      },
+      "loss_streak_dist": {
+        "1": 157,
+        "2": 117,
+        "3": 87,
+        "4": 55,
+        "5": 55,
+        "6": 43,
+        "7": 24,
+        "8": 10,
+        "9": 9,
+        "10": 7,
+        "11": 4,
+        "12": 4,
+        "13": 3,
+        "14": 3,
+        "15": 1,
+        "16": 1,
+        "17": 1,
+        "23": 1
+      },
+      "p_w_given_w": 0.269,
+      "p_l_given_w": 0.731,
+      "p_w_given_l": 0.284,
+      "p_l_given_l": 0.716,
+      "transitions": {
+        "WW": 214,
+        "WL": 581,
+        "LW": 581,
+        "LL": 1466
+      },
+      "loss_in_multi_streak_pct": 92.3,
+      "win_in_multi_streak_pct": 46.7,
+      "n_win_runs": 581,
+      "n_loss_runs": 582
+    },
+    "sweep_dir_ext_wr": {
+      "False": {
+        "n": 1054,
+        "wins": 81,
+        "losses": 973,
+        "wr": 7.7
+      },
+      "True": {
+        "n": 1789,
+        "wins": 714,
+        "losses": 1075,
+        "wr": 39.9
+      }
+    },
+    "entry_beyond_3d_wr": {
+      "False": {
+        "n": 1411,
+        "wins": 414,
+        "losses": 997,
+        "wr": 29.3
+      },
+      "True": {
+        "n": 1432,
+        "wins": 381,
+        "losses": 1051,
+        "wr": 26.6
+      }
+    },
+    "sweep_yday_wr": {
+      "False": {
+        "n": 481,
+        "wins": 52,
+        "losses": 429,
+        "wr": 10.8
+      },
+      "True": {
+        "n": 2362,
+        "wins": 743,
+        "losses": 1619,
+        "wr": 31.5
+      }
+    },
+    "win_exits": {
+      "week_end": 456,
+      "target": 339
+    },
+    "loss_exits": {
+      "dd50": 1696,
+      "week_end": 261,
+      "dd30": 91
+    },
+    "first": "2003-12-10 07:45:00-05:00",
+    "last": "2026-03-31 15:00:00-04:00"
+  },
+  "XAUUSD_M2_S2_R3": {
+    "pair": "XAUUSD",
+    "tag": "M2_S2_R3",
+    "role": "extended PASS",
+    "n_trades": 4207,
+    "n_decided": 4207,
+    "streaks": {
+      "n": 4207,
+      "wins": 1279,
+      "losses": 2928,
+      "wr": 30.4,
+      "max_win_streak": 7,
+      "max_loss_streak": 24,
+      "mean_win_streak": 1.39,
+      "mean_loss_streak": 3.19,
+      "win_streak_dist": {
+        "1": 654,
+        "2": 196,
+        "3": 47,
+        "4": 13,
+        "5": 4,
+        "6": 1,
+        "7": 2
+      },
+      "loss_streak_dist": {
+        "1": 292,
+        "2": 193,
+        "3": 131,
+        "4": 100,
+        "5": 52,
+        "6": 44,
+        "7": 43,
+        "8": 18,
+        "9": 16,
+        "10": 8,
+        "11": 7,
+        "12": 3,
+        "13": 3,
+        "14": 3,
+        "15": 2,
+        "16": 1,
+        "24": 1
+      },
+      "p_w_given_w": 0.283,
+      "p_l_given_w": 0.717,
+      "p_w_given_l": 0.313,
+      "p_l_given_l": 0.687,
+      "transitions": {
+        "WW": 362,
+        "WL": 917,
+        "LW": 916,
+        "LL": 2011
+      },
+      "loss_in_multi_streak_pct": 90.0,
+      "win_in_multi_streak_pct": 48.9,
+      "n_win_runs": 917,
+      "n_loss_runs": 917
+    },
+    "sweep_dir_ext_wr": {
+      "False": {
+        "n": 1836,
+        "wins": 269,
+        "losses": 1567,
+        "wr": 14.7
+      },
+      "True": {
+        "n": 2371,
+        "wins": 1010,
+        "losses": 1361,
+        "wr": 42.6
+      }
+    },
+    "entry_beyond_3d_wr": {
+      "False": {
+        "n": 2278,
+        "wins": 709,
+        "losses": 1569,
+        "wr": 31.1
+      },
+      "True": {
+        "n": 1929,
+        "wins": 570,
+        "losses": 1359,
+        "wr": 29.5
+      }
+    },
+    "sweep_yday_wr": {
+      "False": {
+        "n": 1231,
+        "wins": 220,
+        "losses": 1011,
+        "wr": 17.9
+      },
+      "True": {
+        "n": 2976,
+        "wins": 1059,
+        "losses": 1917,
+        "wr": 35.6
+      }
+    },
+    "win_exits": {
+      "week_end": 702,
+      "target": 577
+    },
+    "loss_exits": {
+      "dd50": 2386,
+      "dd30": 312,
+      "week_end": 230
+    },
+    "first": "2003-05-14 15:00:00-04:00",
+    "last": "2026-03-31 01:30:00-04:00"
+  },
+  "EURUSD_M1_S2_R2": {
+    "pair": "EURUSD",
+    "tag": "M1_S2_R2",
+    "role": "core FAIL subperiod",
+    "n_trades": 2947,
+    "n_decided": 2946,
+    "streaks": {
+      "n": 2946,
+      "wins": 854,
+      "losses": 2092,
+      "wr": 29.0,
+      "max_win_streak": 5,
+      "max_loss_streak": 17,
+      "mean_win_streak": 1.34,
+      "mean_loss_streak": 3.29,
+      "win_streak_dist": {
+        "1": 475,
+        "2": 115,
+        "3": 35,
+        "4": 6,
+        "5": 4
+      },
+      "loss_streak_dist": {
+        "1": 208,
+        "2": 127,
+        "3": 77,
+        "4": 71,
+        "5": 40,
+        "6": 37,
+        "7": 20,
+        "8": 18,
+        "9": 14,
+        "10": 7,
+        "11": 4,
+        "12": 3,
+        "13": 3,
+        "14": 1,
+        "15": 2,
+        "16": 1,
+        "17": 2
+      },
+      "p_w_given_w": 0.257,
+      "p_l_given_w": 0.743,
+      "p_w_given_l": 0.304,
+      "p_l_given_l": 0.696,
+      "transitions": {
+        "WW": 219,
+        "WL": 634,
+        "LW": 635,
+        "LL": 1457
+      },
+      "loss_in_multi_streak_pct": 90.1,
+      "win_in_multi_streak_pct": 44.4,
+      "n_win_runs": 635,
+      "n_loss_runs": 635
+    },
+    "sweep_dir_ext_wr": {
+      "False": {
+        "n": 1024,
+        "wins": 79,
+        "losses": 945,
+        "wr": 7.7
+      },
+      "True": {
+        "n": 1922,
+        "wins": 775,
+        "losses": 1147,
+        "wr": 40.3
+      }
+    },
+    "entry_beyond_3d_wr": {
+      "False": {
+        "n": 1363,
+        "wins": 400,
+        "losses": 963,
+        "wr": 29.3
+      },
+      "True": {
+        "n": 1583,
+        "wins": 454,
+        "losses": 1129,
+        "wr": 28.7
+      }
+    },
+    "sweep_yday_wr": {
+      "False": {
+        "n": 486,
+        "wins": 54,
+        "losses": 432,
+        "wr": 11.1
+      },
+      "True": {
+        "n": 2460,
+        "wins": 800,
+        "losses": 1660,
+        "wr": 32.5
+      }
+    },
+    "win_exits": {
+      "week_end": 528,
+      "target": 326
+    },
+    "loss_exits": {
+      "week_end": 245,
+      "dd50": 1704,
+      "dd30": 143
+    },
+    "first": "2003-05-13 00:45:00-04:00",
+    "last": "2026-03-19 15:15:00-04:00"
+  },
+  "GBPUSD_M1_S1_R2": {
+    "pair": "GBPUSD",
+    "tag": "M1_S1_R2",
+    "role": "extended FAIL subperiod",
+    "n_trades": 2913,
+    "n_decided": 2912,
+    "streaks": {
+      "n": 2912,
+      "wins": 829,
+      "losses": 2083,
+      "wr": 28.5,
+      "max_win_streak": 5,
+      "max_loss_streak": 23,
+      "mean_win_streak": 1.37,
+      "mean_loss_streak": 3.44,
+      "win_streak_dist": {
+        "1": 445,
+        "2": 117,
+        "3": 31,
+        "4": 8,
+        "5": 5
+      },
+      "loss_streak_dist": {
+        "1": 170,
+        "2": 127,
+        "3": 100,
+        "4": 56,
+        "5": 45,
+        "6": 41,
+        "7": 21,
+        "8": 6,
+        "9": 17,
+        "10": 6,
+        "11": 2,
+        "12": 2,
+        "13": 2,
+        "14": 4,
+        "15": 1,
+        "16": 1,
+        "18": 2,
+        "19": 2,
+        "23": 1
+      },
+      "p_w_given_w": 0.269,
+      "p_l_given_w": 0.731,
+      "p_w_given_l": 0.291,
+      "p_l_given_l": 0.709,
+      "transitions": {
+        "WW": 223,
+        "WL": 606,
+        "LW": 605,
+        "LL": 1477
+      },
+      "loss_in_multi_streak_pct": 91.8,
+      "win_in_multi_streak_pct": 46.3,
+      "n_win_runs": 606,
+      "n_loss_runs": 606
+    },
+    "sweep_dir_ext_wr": {
+      "False": {
+        "n": 1087,
+        "wins": 102,
+        "losses": 985,
+        "wr": 9.4
+      },
+      "True": {
+        "n": 1825,
+        "wins": 727,
+        "losses": 1098,
+        "wr": 39.8
+      }
+    },
+    "entry_beyond_3d_wr": {
+      "False": {
+        "n": 1389,
+        "wins": 390,
+        "losses": 999,
+        "wr": 28.1
+      },
+      "True": {
+        "n": 1523,
+        "wins": 439,
+        "losses": 1084,
+        "wr": 28.8
+      }
+    },
+    "sweep_yday_wr": {
+      "False": {
+        "n": 499,
+        "wins": 64,
+        "losses": 435,
+        "wr": 12.8
+      },
+      "True": {
+        "n": 2413,
+        "wins": 765,
+        "losses": 1648,
+        "wr": 31.7
+      }
+    },
+    "win_exits": {
+      "week_end": 532,
+      "target": 297
+    },
+    "loss_exits": {
+      "dd50": 1715,
+      "week_end": 231,
+      "dd30": 137
+    },
+    "first": "2003-05-14 11:15:00-04:00",
+    "last": "2026-03-31 00:15:00-04:00"
+  }
+}

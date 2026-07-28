@@ -16,15 +16,20 @@ Same Monday OR framework as EURUSD: Mon H/L → Tue–Fri 15m close breakout →
 | `S3` | Shifted 4 = 2@30% DD, 2@50% DD |
 | `R1` | Max **2** primary trades/week (primary) |
 | `R2` | Max **3**/week (alternate `M2_S3_R2`) |
+| sitout | R1: rest-of-week after +3 yen pts |
+| season | Skip **Aug + Sep** entries (both tags) |
 
-## Key metrics (broker Phase 1)
+## Key metrics (StrategyPlugin broker)
 
-| Metric | `M2_S3_R1` | `M2_S3_R2` alt |
-|---|---:|---:|
-| ≈USD Net | +$218.9k | +$227.6k |
-| Stress DD | −$26.7k | −$27.8k |
-| **Net/Stress** | **8.20** | **8.19** |
-| Baseline `M1_S1_R1` N/S | 4.27 | 4.27 |
+| Metric | `M2_S3_R1` Phase1 | +sitout3 | **+sitout3 + skip Aug/Sep (core)** | `M2_S3_R2` Phase1 | +skip1@2W | **+skip1@2W + skip Aug/Sep (core)** |
+|---|---:|---:|---:|---:|---:|---:|
+| ≈USD Net | +$218.9k | +$243.5k | **+$294.0k** | +$227.6k | +$249.3k | **+$300.3k** |
+| MTM / Stress DD | −$26.7k | −$27.7k | −$27.7k | −$27.8k | −$28.3k | −$28.3k |
+| **Net/Stress** | **8.20** | **8.78** | **10.60** | **8.19** | **8.81** | **10.62** |
+
+Core knobs: R1 `week_sitout_after_pts=3` + `skip_entry_months=[8,9]`;  
+R2 `skip_after_win_streak=2` + `skip_entry_months=[8,9]`.  
+Artifacts: `tuneup_broker/states/usdjpy_m2_s3_r*_tuneup/`.
 
 Pandas pick `M3_S3_R2` is broker #3 (7.54) — research-only.
 
