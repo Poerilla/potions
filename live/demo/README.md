@@ -14,7 +14,7 @@ export PYTHONPATH="/home/tester/hsm:/home/tester/hsm/potions/v20-python/src"
 
 ## Live status (how to check everything)
 
-### 1) Daemon up / down (all 10)
+### 1) Daemon up / down (all 14)
 
 ```bash
 python3 -m potions.live.cli demo-eurusd-v2b-paper-status
@@ -29,6 +29,11 @@ python3 -m potions.live.cli demo-us30-v2b-oanda-status
 
 python3 -m potions.live.cli demo-usdjpy-monday-or-paper-status
 python3 -m potions.live.cli demo-usdjpy-monday-or-oanda-status
+
+python3 -m potions.live.cli demo-us30-hourly-st-pmc-paper-status
+python3 -m potions.live.cli demo-us30-hourly-st-pmc-oanda-status
+python3 -m potions.live.cli demo-nas100-hourly-st-pmc-paper-status
+python3 -m potions.live.cli demo-nas100-hourly-st-pmc-oanda-status
 ```
 
 Each prints: `pid=… alive=True|False started_at=… state=…` (OANDA / Monday OR also show `routing=` / `tag=`).
@@ -204,6 +209,22 @@ Thin wrappers around `oanda_v2b_ungated_common.py`:
 
 Extra note in paper tree: `usdjpy_monday_or_ungated_paper/OR_SEED_NOTE.md` (how Monday OR was seeded after a paper stream bug).
 
+### Hourly ST+PMC 1mfill (`sl50_tp150_3r`, fair control)
+
+Plugin `hourly_st_pmc_retest`, stop 50 / target 150 index pts, **1m fill tape**
+(no BB/retest adds). Hourly-only US30 sweep was N/S 3.91; 1mfill fair control is
+N/S **10.34**. Cross-market: NAS100 is the only profitable FX/index CFD on this
+exact variant (N/S **4.59**); EURUSD/USDJPY fail. Hub:
+`live/state/st_pmc_1mfill_cross_market/` · causality:
+`live/state/us30_st_pmc_retest_add_experiment/`.
+
+| Module | Artifacts dir | CLI | Seed / inherit |
+|--------|---------------|-----|----------------|
+| `us30_hourly_st_pmc_paper.py` | `us30_hourly_st_pmc_sl50_tp150_3r_paper/` | `demo-us30-hourly-st-pmc-paper` | `fx/us30_1h.csv` (~300h) |
+| `us30_hourly_st_pmc_oanda.py` | `us30_hourly_st_pmc_sl50_tp150_3r_oanda/` | `demo-us30-hourly-st-pmc-oanda` | same |
+| `nas100_hourly_st_pmc_paper.py` | `nas100_hourly_st_pmc_sl50_tp150_3r_paper/` | `demo-nas100-hourly-st-pmc-paper` | `fx/nas100_1h.csv` + inherit 1m from `nas100_v2b_*` |
+| `nas100_hourly_st_pmc_oanda.py` | `nas100_hourly_st_pmc_sl50_tp150_3r_oanda/` | `demo-nas100-hourly-st-pmc-oanda` | same |
+
 ### Per-run directory layout
 
 ```text
@@ -255,6 +276,11 @@ python3 -m potions.live.cli demo-us30-v2b-oanda --daemon
 
 python3 -m potions.live.cli demo-usdjpy-monday-or-paper --daemon
 python3 -m potions.live.cli demo-usdjpy-monday-or-oanda --daemon
+
+python3 -m potions.live.cli demo-us30-hourly-st-pmc-paper --daemon
+python3 -m potions.live.cli demo-us30-hourly-st-pmc-oanda --daemon
+python3 -m potions.live.cli demo-nas100-hourly-st-pmc-paper --daemon
+python3 -m potions.live.cli demo-nas100-hourly-st-pmc-oanda --daemon
 ```
 
 Foreground (debug): omit `--daemon`. Optional `--max-ticks N`, `--output-root PATH`, `--oanda-config PATH`.

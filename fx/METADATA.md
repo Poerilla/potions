@@ -31,6 +31,8 @@ daily+ `date,open,high,low,close,volume,symbol` (`date` = first session of bucke
 | AUDJPY | 8,345,352 | 6,979 | 2003-12-02 → 2026-03-31 |
 | XAUUSD | 7,768,796 | 7,128 | 2003-05-06 → 2026-03-31 |
 | XAGUSD | 7,159,149 | 7,042 | 2003-05-06 → 2026-03-31 |
+| US30 | ~2.88M | 2,704 | 2016-10-26 → 2025-07-15 |
+| NAS100 | (see MT5 extract) | — | used for live ST+PMC 1mfill demos |
 
 Note: JPY-quoted pairs (USDJPY, AUDJPY) have P&L per 100k unit in **JPY**
 (point value 100,000 quote units). Convert by spot USDJPY for USD figures.
@@ -38,3 +40,7 @@ Metals (XAUUSD/XAGUSD) use futures-style sizing in gambit runs: gold PV=100
 (100oz), silver PV=1000 (1000oz mini); tick 0.01 / 0.001.
 
 **Data fix (2026-07-19):** XAGUSD 2011-01-20 had 25 one-minute bars scaled ~100× (prices ~2820 instead of ~28.20). Divided those OHLC by 100 and rebuilt 1h/4h/daily/monthly/yearly.
+
+**US30 note:** MT5 index CFD from `raw/us30.zip` (extracted as `raw/us30_extracted/us30_*`); tick 0.1, PV $1/pt. Gambit: `live/us30_futures_strats_sweep.py` → `live/state/us30_futures_strats_sweep/`. Aggregates: `fx/us30_{1h,4h,daily,monthly,yearly}.csv`.
+
+**NAS100 note:** Aggregated `fx/nas100_1h.csv` built from 1m for ST+PMC demo seed; live demos also inherit 1m bars from running `nas100_v2b_*` twins.

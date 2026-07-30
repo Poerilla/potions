@@ -10,6 +10,7 @@ from .monthly_orb_v2b_oco import MonthlyOrbV2bOcoStrategy
 from .monday_or_breakout import MondayOrBreakoutStrategy
 from .monthly_orb_overlap_st_retest import MonthlyOrbOverlapStRetestStrategy
 from .or_2r_fade import Or2RFadeStrategy
+from .phantom_exit_fade import PhantomExitFadeStrategy
 from .supertrend_wick_retest import SupertrendWickRetestStrategy
 from .v2b_clean_break import V2BCleanBreakStrategy
 from .v2b_nq_lead_nas100 import V2BNqLeadNas100Strategy
@@ -17,6 +18,7 @@ from .v2b_scaleout import V2BScaleoutStrategy
 from .weekly_mid_ma500_bias import WeeklyMidMa500BiasStrategy
 from .wo_gap_reversal import WoGapReversalStrategy
 from .yearly_orb import YearlyOrbScaleout3Strategy
+from .trend_momentum import TrendMomentumStrategy
 
 __all__ = [
     "AtrSupertrendDcaStrategy",
@@ -30,9 +32,11 @@ __all__ = [
     "MondayOrBreakoutStrategy",
     "MonthlyOrbOverlapStRetestStrategy",
     "Or2RFadeStrategy",
+    "PhantomExitFadeStrategy",
     "SupertrendWickRetestStrategy",
     "StrategyContext",
     "StrategyPlugin",
+    "TrendMomentumStrategy",
     "V2BCleanBreakStrategy",
     "V2BNqLeadNas100Strategy",
     "V2BScaleoutStrategy",

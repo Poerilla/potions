@@ -1,0 +1,13 @@
+family,name,strategy_id,status,units,trades,net_usd,stress_dd_usd,ns,wr_units,error
+yearly_orb,Yearly ORB scaleout3,us30_yearly_orb_scaleout3,ok,102.0,34.0,25597.0,-7186.8,3.56,73.5,nan
+yearly_orb,Yearly ORB scaleout3 20% range-close,us30_yearly_orb_scaleout3_range_close_20pct,ok,54.0,18.0,24309.83,-10908.35,2.23,55.6,nan
+monthly_orb,Monthly ORB restricted scaleout3,us30_monthly_orb_restricted_scaleout3,ok,369.0,123.0,19586.1,-21032.6,0.93,58.3,nan
+monthly_orb,Monthly ORB restricted scaleout3 boundary-stop entry,us30_monthly_orb_restricted_scaleout3_boundary_stop,ok,699.0,233.0,7430.73,-17150.65,0.43,39.9,nan
+atr_st,ATR daily ladder 1/1/2/2/2 10-max,us30_atr_daily_ladder112221_10max,ok,209.0,77.0,26142.0,-47631.4,0.55,34.0,nan
+atr_st,ATR daily 3-initial 10-max,us30_atr_daily_3initial_10max,ok,319.0,77.0,47889.7,-32235.3,1.49,32.0,nan
+atr_st,ATR weekly 2-initial / 3-add / 6-max,us30_atr_weekly_2initial_3add_6max,ok,105.0,36.0,35620.1,-36618.0,0.97,11.4,nan
+hourly_st_pmc,ST+PMC sl25_tp75_3r,us30_hourly_st_pmc_sl25_tp75_3r,ok,1320.0,1320.0,4044.85,-3058.6,1.32,30.4,nan
+hourly_st_pmc,ST+PMC sl40_tp120_3r,us30_hourly_st_pmc_sl40_tp120_3r,ok,1155.0,1155.0,9587.8,-3088.6,3.1,31.6,nan
+hourly_st_pmc,ST+PMC sl50_tp150_3r,us30_hourly_st_pmc_sl50_tp150_3r,ok,1074.0,1074.0,12145.85,-3108.6,3.91,31.8,nan
+hourly_st_pmc,ST+PMC sl25_tp75_3r_ma_directional_prior,us30_hourly_st_pmc_sl25_tp75_3r_ma_directional_prior,ok,1021.0,1021.0,3707.59,-3058.6,1.21,30.8,nan
+v2b_prior_opposed,v2b OCO prior-opposed S_1_1_3,us30_v2b_oco_prior_opposed_S_1_1_3,ok,1494,309,6322.9,-10677.0,0.59,35.0,

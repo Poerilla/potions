@@ -1,5 +1,22 @@
 # Live Runtime CHANGE_LOG
 
+## 2026-07-30 — ST+PMC 1mfill causality + live demos (US30 + NAS100)
+
+- **Causality:** Hourly OHLC fill resolution overstates ST+PMC 50/150 on US30
+  (same-bar entry+target when H/L both touch). Fair control with StrategyPlugin
+  + 1m fill tape: N/S **10.34** (+$20.4k / −$2.0k) vs hourly **3.91**. Retest
+  adds modest; BB-add ×3 (N/S 6.18) **worse than 1mfill**. Artifacts:
+  `live/state/us30_st_pmc_retest_add_experiment/`.
+- **Cross-market 1mfill** (`live/st_pmc_1mfill_cross_market.py`): YM/MYM/NQ/MNQ
+  strong; **NAS100 +$9.5k N/S 4.59** (only profitable FX/index CFD); EURUSD /
+  USDJPY negative on 50/150 pips. Metals on same 50/150 pts: XAU N/S **0.16**
+  (not live); XAG 0 closed units (stop scale unusable) — keep metals on yearly
+  ORB / ST+PMC MA-bull.
+- **Live demos:** US30 paper+OANDA restarted on fair-control config
+  (`fill_tape=1m`, no BB/retest). NAS100 paper+OANDA added — seed 1h from
+  `fx/nas100_1h.csv`, inherit 1m bars from running `nas100_v2b_*` demos.
+  CLI: `demo-nas100-hourly-st-pmc-{paper,oanda}`.
+
 ## 2026-07-21 — Monday OR Phase 2 extended (GBP/AUD/XAU; ex-silver)
 
 - Ran Phase 2 robustness on **GBPUSD `M1_S1_R2`**, **AUDJPY `M1_S2_R2`**,

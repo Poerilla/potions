@@ -601,6 +601,66 @@ class FifteenMinuteBarAggregator:
         ]
 
 
+class HourlyBarAggregator:
+    """Aggregate 1m bars into 1h bars with left label / left closed (matches ST+PMC research).
+
+    Bucket ``HH:00–HH:59`` emits a completed 1h bar whose ``ts`` is the hour start.
+    """
+
+    def __init__(self, instrument: str, source: str = "oanda_1m_aggregate"):
+        self.instrument = instrument
+        self.source = source
+        self._bucket_key: Optional[datetime] = None
+        self._bars: List[Bar] = []
+
+    def on_bar(self, bar: Bar) -> List[Bar]:
+        if bar.timeframe != "1m":
+            return []
+        dt = parse_oanda_ts(bar.ts)
+        bucket = dt.replace(minute=0, second=0, microsecond=0)
+        emitted: List[Bar] = []
+        if self._bucket_key is not None and bucket != self._bucket_key:
+            emitted.extend(self._flush_bucket())
+            self._bars = []
+        self._bucket_key = bucket
+        self._bars.append(bar)
+        if dt.minute == 59:
+            emitted.extend(self._flush_bucket())
+            self._bars = []
+            self._bucket_key = None
+        return emitted
+
+    def flush(self) -> List[Bar]:
+        return self._flush_bucket()
+
+    def _flush_bucket(self) -> List[Bar]:
+        if not self._bars or self._bucket_key is None:
+            return []
+        bars = list(self._bars)
+        return [
+            Bar(
+                instrument=self.instrument,
+                timeframe="1h",
+                ts=isoformat_utc(self._bucket_key),
+                open=bars[0].open,
+                high=max(bar.high for bar in bars),
+                low=min(bar.low for bar in bars),
+                close=bars[-1].close,
+                volume=sum(bar.volume for bar in bars),
+                complete=True,
+                source=self.source,
+                bid_open=bars[0].bid_open,
+                bid_high=max((b.bid_high for b in bars if b.bid_high is not None), default=None),
+                bid_low=min((b.bid_low for b in bars if b.bid_low is not None), default=None),
+                bid_close=bars[-1].bid_close,
+                ask_open=bars[0].ask_open,
+                ask_high=max((b.ask_high for b in bars if b.ask_high is not None), default=None),
+                ask_low=min((b.ask_low for b in bars if b.ask_low is not None), default=None),
+                ask_close=bars[-1].ask_close,
+            )
+        ]
+
+
 class OandaMarketDataFeedAdapter(LiveFeedAdapter):
     BLOCKING_STATUSES = {"access_denied", "delayed", "downgraded", "stale", "unresolved_instrument", "permission_denied"}
 

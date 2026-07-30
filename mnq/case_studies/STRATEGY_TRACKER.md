@@ -14,6 +14,27 @@ Central index of execution variants explored in this workspace / chat threads.
 
 ## Forex Strategy Leaderboard
 
+> **2026-07-30 — ST+PMC 1m fill-tape (index CFDs).** Hourly OHLC can fill
+> entry+target on the same bar when H/L both touch even if the high came
+> *before* a causal limit fill. Fair control = StrategyPlugin + **1m fill tape**
+> (`sl50_tp150_3r_1mfill`). US30: N/S **10.34** (vs hourly 3.91). Cross-market:
+> NAS100 **4.59** (only profitable FX/index CFD on this exact variant);
+> EURUSD/USDJPY **fail** at 50/150 pips. BB-add / retest pyramids do **not**
+> beat the 1mfill control. Live: US30 + NAS100 paper/OANDA demos on fair control.
+> Hub: [`../../live/state/st_pmc_1mfill_cross_market/SUMMARY.md`](../../live/state/st_pmc_1mfill_cross_market/SUMMARY.md) ·
+> causality: [`../../live/state/us30_st_pmc_retest_add_experiment/SUMMARY.md`](../../live/state/us30_st_pmc_retest_add_experiment/SUMMARY.md).
+
+### Index CFD ST+PMC 50/150 — 1mfill ranks (2026-07-30)
+
+| Rank | Market | Net | Stress | **N/S** | WR% | Live demo |
+|---:|---|---:|---:|---:|---:|---|
+| 1 | **US30** | +$20.4k | −$2.0k | **10.34** | 34.6% | `demo-us30-hourly-st-pmc-{paper,oanda}` |
+| 2 | **NAS100** | +$9.5k | −$2.1k | **4.59** | 31.6% | `demo-nas100-hourly-st-pmc-{paper,oanda}` |
+| — | XAUUSD 50/150 pts | +$27.2k | −$169k | **0.16** | 26.8% | not promoted (keep MA-bull / yearly ORB) |
+| — | XAGUSD 50/150 pts | 0 units | — | 0.00 | — | stop scale unusable vs silver price |
+| — | EURUSD (50/150 pips) | −$5.1k | −$36k | −0.14 | 25.0% | not promoted |
+| — | USDJPY (50/150 pips) | (JPY PV) | — | −0.88 | 23.5% | not promoted |
+
 EURUSD sleeves ranked by broker-like **Net/Stress** (Engine + `PaperBroker`, Histdata daily/hourly as noted). Fee conventions differ by family ($1.50 intraday ST+PMC / Monday OR pack vs $7/unit monthly ORB pack) — compare within sleeve, then across with that caveat.
 
 | Rank | Sleeve | Plugin / ID | Net | Stress DD | Net/Stress | WR | Role |
@@ -237,6 +258,8 @@ XAUUSD/XAGUSD converted from `fx/raw/` (PV 100 / 1000). Silver 2011-01-20 100× 
 | 4 | **USDJPY** | Monthly ORB FBO 1/1/3 atr80 | +$93k | −$27k | **4.25** | 1.39% | 0.29 | −9.0% | −4.94% | −4.23% | [134 mo](../../live/state/fx_metals_top4_report/charts/usdjpy_fbo_1_1_3_atr80/INDEX.md) |
 
 \*AUDJPY Sharpe/Max DD from validated `$250k` report (`audjpy_futures_strats_sweep/best_report_yearly_orb/`). Rank 5: XAUUSD ST+PMC MA-bull N/S **3.31** — [112 profitable trade charts](../../live/state/fx_metals_top4_report/charts/xauusd_stpmc_ma_bull_profitable/INDEX.md).
+
+**2026-07-30 note:** Exact `sl50_tp150_3r_1mfill` on metals is **not** a promote path — XAU N/S **0.16**, XAG 0 closed units. Index CFD 1mfill live demos are US30 + NAS100 only ([`../../live/state/st_pmc_1mfill_cross_market/SUMMARY.md`](../../live/state/st_pmc_1mfill_cross_market/SUMMARY.md)).
 
 **Chart hub:** [`../../live/state/fx_metals_top4_report/charts/INDEX.md`](../../live/state/fx_metals_top4_report/charts/INDEX.md) (driver `live/fx_metals_top4_charts.py`).
 

@@ -1,0 +1,12 @@
+market,instrument,variant,units,trades,net_usd,stress_dd_usd,ns,wr_pct,max_open,stop_pts,target_pts,notes
+ym,YM,sl50_tp150_3r_1mfill,1993,1993,101191.37,-12900.6,7.844,30.9,1,50.0,150.0,Engine+PaperBroker+StrategyPlugin; 1m fills
+mym,MYM,sl50_tp150_3r_1mfill,1078,1078,8969.43,-1292.0,6.942,35.3,1,50.0,150.0,Engine+PaperBroker+StrategyPlugin; 1m fills
+nq,NQ,sl50_tp150_3r_1mfill,1210,1210,209283.62,-40535.58,5.163,29.6,1,50.0,150.0,Engine+PaperBroker+StrategyPlugin; 1m fills
+mnq,MNQ,sl50_tp150_3r_1mfill,686,686,19621.11,-2648.57,7.408,32.8,1,50.0,150.0,Engine+PaperBroker+StrategyPlugin; 1m fills
+mes,MES,sl50_tp150_3r_1mfill,0,0,,,,,,50.0,150.0,missing data
+nas100,NAS100,sl50_tp150_3r_1mfill,930,930,9459.79,-2059.6,4.593,31.6,1,50.0,150.0,Engine+PaperBroker+StrategyPlugin; 1m fills
+us30,US30,sl50_tp150_3r_1mfill,1197,1197,20383.83,-1970.88,10.343,34.6,1,50.0,150.0,prior fair control (us30_st_pmc_retest_add_experiment)
+eurusd,EURUSD,sl50_tp150_3r_1mfill,1423,1423,-5124.89,-36433.01,-0.141,25.0,1,0.005,0.015,Engine+PaperBroker+StrategyPlugin; 1m fills
+usdjpy,USDJPY,sl50_tp150_3r_1mfill,1411,1411,-4804154.35,-5463327.64,-0.879,23.5,1,0.5,1.5,JPY PV; N/S scale-free
+xauusd,XAUUSD,sl50_tp150_3r_1mfill,179,179,27205.56,-169371.44,0.161,26.8,1,50.0,150.0,net+ but N/S too weak — not live
+xagusd,XAGUSD,sl50_tp150_3r_1mfill,0,0,0.0,0.0,0.0,0.0,0,50.0,150.0,$50 stop dwarfs silver price — no closed units

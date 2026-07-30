@@ -54,6 +54,17 @@ live/demo/**/RUN_META.json
 live/demo/**/charts/
 live/demo/**/FILE_SIZES.log
 
+# ST+PMC 1mfill / US30 gambit heavy local artifacts (SUMMARY.md + summary.csv stay)
+live/state/st_pmc_1mfill_cross_market/**/states/
+live/state/st_pmc_1mfill_cross_market/**/audits/
+live/state/us30_st_pmc_retest_add_experiment/**/states/
+live/state/us30_st_pmc_retest_add_experiment/**/audits/
+live/state/us30_futures_strats_sweep/**/states/
+live/state/us30_futures_strats_sweep/**/audits/
+live/state/us30_futures_strats_sweep/st_pmc/
+live/state/us30_futures_strats_sweep/charts/
+live/state/us30_futures_strats_sweep/*.log
+
 # Local secrets (never commit)
 .env
 **/.env

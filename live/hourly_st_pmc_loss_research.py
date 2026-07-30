@@ -90,11 +90,29 @@ class VariantConfig:
     close_against_entry_exit: bool = False
     st_flip_exit: bool = False
     pmc_cross_exit: bool = False
+    retest_add_enabled: bool = False
+    retest_add_qty: int = 1
+    max_retest_adds: int = 1
+    bb_add_enabled: bool = False
+    bb_add_qty: int = 1
+    max_bb_adds: int = 3
+    bb_len: int = 20
+    bb_std: float = 2.0
     notes: str = ""
 
     @property
     def entry_qty(self) -> int:
         return int(self.tp1_qty) + int(self.runner_qty)
+
+    @property
+    def max_contracts(self) -> int:
+        base = max(1, int(self.entry_qty))
+        extra = 0
+        if self.bb_add_enabled:
+            extra += max(1, int(self.bb_add_qty)) * max(1, int(self.max_bb_adds))
+        elif self.retest_add_enabled:
+            extra += max(1, int(self.retest_add_qty)) * max(1, int(self.max_retest_adds))
+        return base + extra
 
 
 @dataclass(frozen=True)

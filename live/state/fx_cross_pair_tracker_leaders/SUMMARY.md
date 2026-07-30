@@ -24,6 +24,20 @@ JPY-quoted pairs report in JPY; approx-USD at 110.
 
 EURUSD reference: 1/1/3 base +$77k/-$74k/1.04 · 1/1/3 atr80 +$92k/-$57k/1.62.
 
+## Index CFD ST+PMC 50/150 — 1m fill tape (2026-07-30)
+
+Separate from the FX-pair sleeve above. Same StrategyPlugin path; **1m bars
+resolve fills** (hourly OHLC same-bar entry+TP is optimistic).
+
+| Market | Units | Net $ | Stress | **N/S** | Live |
+|---|---:|---:|---:|---:|---|
+| **US30** | 1197 | +20.4k | −2.0k | **10.34** | paper + OANDA ST+PMC demos |
+| **NAS100** | 930 | +9.5k | −2.1k | **4.59** | paper + OANDA ST+PMC demos |
+| EURUSD 50/150 pips | 1423 | −5.1k | −36k | −0.14 | not promoted |
+| USDJPY 50/150 pips | 1411 | (JPY PV) | — | −0.88 | not promoted |
+
+Hub: [`../st_pmc_1mfill_cross_market/SUMMARY.md`](../st_pmc_1mfill_cross_market/SUMMARY.md).
+
 **Findings**
 - **USDJPY is the best FBO pair tested** — beats EURUSD on every variant
   (N/S 3.3–4.25). The monthly fade family generalizes across USD majors.

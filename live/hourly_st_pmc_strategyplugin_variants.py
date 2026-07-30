@@ -33,6 +33,11 @@ TICK_SIZE = {
     "ES": 0.25,
     "MYM": 1.0,
     "YM": 1.0,
+    "US30": 0.1,
+    "NAS100": 0.1,
+    "SPX500": 0.1,
+    "EURUSD": 0.00001,
+    "USDJPY": 0.001,
 }
 MARKET_CONFIGS = {
     "mnq": {
@@ -162,6 +167,14 @@ def config_json(cfg: VariantConfig, daily_path: Path, instrument: str) -> str:
         "st_flip_exit": cfg.st_flip_exit,
         "pmc_cross_exit": cfg.pmc_cross_exit,
         "record_levels": False,
+        "retest_add_enabled": bool(cfg.retest_add_enabled),
+        "retest_add_qty": int(cfg.retest_add_qty),
+        "max_retest_adds": int(cfg.max_retest_adds),
+        "bb_add_enabled": bool(cfg.bb_add_enabled),
+        "bb_add_qty": int(cfg.bb_add_qty),
+        "max_bb_adds": int(cfg.max_bb_adds),
+        "bb_len": int(cfg.bb_len),
+        "bb_std": float(cfg.bb_std),
     }
     return json.dumps(payload, sort_keys=True)
 
@@ -177,6 +190,7 @@ def run_variant(
     market: str = "ym",
     force: bool = True,
     quiet: bool = True,
+    one_m: Optional["pd.DataFrame"] = None,
 ) -> VariantReplayResult:
     strategy_id = "%s_hourly_st_pmc_%s" % (market, cfg.name)
     state_root = output_root / "states" / strategy_id
@@ -184,6 +198,7 @@ def run_variant(
         shutil.rmtree(state_root)
     store = FlatFileStore(state_root, defer_table_writes=True)
     store.ensure()
+    use_1m = one_m is not None and len(one_m) > 0
     instance = StrategyInstance(
         strategy_id=strategy_id,
         strategy_type="hourly_st_pmc_retest",
@@ -192,27 +207,42 @@ def run_variant(
         broker_instrument=instrument,
         account_mode="paper",
         enabled=True,
-        timeframes="1h",
-        max_contracts=max(1, int(cfg.entry_qty)),
+        # Strategy only needs 1m when BB-add logic is on; broker still sees 1m for fills.
+        timeframes="1h,1m" if cfg.bb_add_enabled else "1h",
+        max_contracts=max(1, int(cfg.max_contracts)),
         max_open_orders=16,
         config_json=config_json(cfg, daily_path, instrument),
     )
     store.write_table("strategy_instances", [as_row(instance)])
+    tick = float(TICK_SIZE.get(instrument.upper(), 0.25))
     engine = Engine(
         store=store,
         persist_bars=False,
         persist_health=False,
         slippage_ticks=DEFAULT_SLIPPAGE_TICKS,
+        tick_size={instrument.upper(): tick},
         notification_sink=NullNotificationSink() if quiet else None,
         verification_provider=QuietPaperVerificationProvider() if quiet else None,
         emit_order_alerts=not quiet,
         broker_log_events=not quiet,
         broker_persist_modifications=not quiet,
     )
-    for idx, bar in enumerate(bars, start=1):
-        engine.process_bar(bar)
-        if idx % 20000 == 0:
-            print("  %s replayed %d/%d bars" % (cfg.name, idx, len(bars)), flush=True)
+    if use_1m:
+        _replay_hourly_with_1m(
+            engine,
+            hourly_bars=list(bars),
+            one_m=one_m,
+            instrument=instrument,
+            source=str(dbn),
+            label=cfg.name,
+            # BB mid needs contiguous 1m; plain 1m-fill control can skip dead tape.
+            always_1m=bool(cfg.bb_add_enabled),
+        )
+    else:
+        for idx, bar in enumerate(bars, start=1):
+            engine.process_bar(bar)
+            if idx % 20000 == 0:
+                print("  %s replayed %d/%d bars" % (cfg.name, idx, len(bars)), flush=True)
     if hasattr(engine.broker, "flush_state"):
         engine.broker.flush_state()
     store.flush_tables()
@@ -230,7 +260,8 @@ def run_variant(
         notes=(
             "Engine + PaperBroker StrategyPlugin replay. Variant=%s; stop=%g; target=%g; "
             "tp1_qty=%d; runner_qty=%d; runner_target=%s; ma_filter=%s; "
-            "close_against=%s; st_flip_exit=%s; pmc_cross_exit=%s; slippage=%g tick; fee=$%.2f/unit."
+            "close_against=%s; st_flip_exit=%s; pmc_cross_exit=%s; bb_add=%s; "
+            "slippage=%g tick; fee=$%.2f/unit."
             % (
                 cfg.name,
                 cfg.stop_pts,
@@ -242,6 +273,7 @@ def run_variant(
                 cfg.close_against_entry_exit,
                 cfg.st_flip_exit,
                 cfg.pmc_cross_exit,
+                cfg.bb_add_enabled,
                 DEFAULT_SLIPPAGE_TICKS,
                 DEFAULT_FEE_PER_UNIT,
             )
@@ -258,6 +290,102 @@ def run_variant(
         state_root=state_root,
         audit=audit,
         profit_factor=pf,
+    )
+
+
+def _broker_needs_1m(engine: Engine) -> bool:
+    """Skip dead 1m tape when flat with no working orders."""
+    broker = engine.broker
+    active_ids = getattr(broker, "_active_order_ids", None)
+    if active_ids:
+        return True
+    cache = getattr(broker, "_positions_cache", None)
+    if isinstance(cache, dict):
+        for pos in cache.values():
+            try:
+                if int(float(getattr(pos, "quantity", 0) or 0)) != 0:
+                    return True
+            except (TypeError, ValueError):
+                continue
+    open_orders = getattr(broker, "open_orders", None)
+    if callable(open_orders):
+        try:
+            if open_orders():
+                return True
+        except TypeError:
+            pass
+    return False
+
+
+def _replay_hourly_with_1m(
+    engine: Engine,
+    *,
+    hourly_bars: Sequence[Bar],
+    one_m: "pd.DataFrame",
+    instrument: str,
+    source: str,
+    label: str,
+    always_1m: bool = False,
+) -> None:
+    """1h signals then 1m tape in (hour, next_hour] for fills (+ optional BB).
+
+    When ``always_1m`` is False, skip 1m segments while flat with no working
+    orders (same speed trick as EURUSD day-bias DCA broker replay).
+    """
+    import pandas as pd
+
+    idx = one_m.index
+    seen_1m = 0
+    skipped_hours = 0
+    n_h = len(hourly_bars)
+    for i, hbar in enumerate(hourly_bars):
+        engine.process_bar(hbar)
+        if not always_1m and not _broker_needs_1m(engine):
+            skipped_hours += 1
+            if (i + 1) % 10000 == 0:
+                print(
+                    "  %s hourly %d/%d (1m=%d skipped_h=%d)"
+                    % (label, i + 1, n_h, seen_1m, skipped_hours),
+                    flush=True,
+                )
+            continue
+        left = pd.Timestamp(hbar.ts)
+        if i + 1 < n_h:
+            right = pd.Timestamp(hourly_bars[i + 1].ts)
+        else:
+            right = idx[-1] + pd.Timedelta(minutes=1)
+        lo = idx.searchsorted(left, side="right")
+        hi = idx.searchsorted(right, side="right")
+        if lo < hi:
+            sl = one_m.iloc[lo:hi]
+            vol = sl["volume"] if "volume" in sl.columns else None
+            for j, (ts, o, h, l, c) in enumerate(
+                zip(sl.index, sl["open"], sl["high"], sl["low"], sl["close"])
+            ):
+                engine.process_bar(
+                    Bar(
+                        instrument=instrument,
+                        timeframe="1m",
+                        ts=pd.Timestamp(ts).isoformat(),
+                        open=float(o),
+                        high=float(h),
+                        low=float(l),
+                        close=float(c),
+                        volume=float(vol.iloc[j]) if vol is not None else 0.0,
+                        complete=True,
+                        source=source,
+                    )
+                )
+                seen_1m += 1
+        if (i + 1) % 5000 == 0:
+            print(
+                "  %s hourly %d/%d (1m=%d skipped_h=%d)"
+                % (label, i + 1, n_h, seen_1m, skipped_hours),
+                flush=True,
+            )
+    print(
+        "  %s done: 1m bars=%d skipped_hours=%d" % (label, seen_1m, skipped_hours),
+        flush=True,
     )
 
 

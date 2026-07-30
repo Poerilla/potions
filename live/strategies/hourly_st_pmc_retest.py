@@ -2,9 +2,11 @@ from __future__ import annotations
 
 import csv
 import json
+import math
+from collections import deque
 from datetime import date
 from pathlib import Path
-from typing import Any, Dict, List, Optional, Tuple
+from typing import Any, Deque, Dict, List, Optional, Tuple
 
 from ..models import Alert, Bar, CancelIntent, FeatureSnapshot, LevelUpdate, ModifyIntent, OrderIntent, StrategyActions
 from .atr_supertrend_dca import TrendPoint
@@ -22,6 +24,11 @@ class HourlyStPmcRetestStrategy(StrategyPlugin):
     - One entry at a time by default; limit is refreshed each hourly bar when flat.
     - Optional DCA: while in position and thesis still holds, market-add up to
       ``max_adds`` units (each with its own stop/target from the add price).
+    - Optional retest add: while in position, rest a limit at the **original**
+      entry with the **same** absolute stop/target (shared risk levels).
+    - Optional BB add (1m Bollinger 20/2σ): while in position and price already
+      in favor, add on lower-band touch (long) / upper-band touch (short) when
+      mid is sloping favorably; add SL = original entry, TP = inherited target.
     """
 
     strategy_type = "hourly_st_pmc_retest"
@@ -50,6 +57,16 @@ class HourlyStPmcRetestStrategy(StrategyPlugin):
             "dca_enabled": False,
             "add_qty": 1,
             "max_adds": 1,
+            # Retest add at original entry (same SL/TP absolute levels)
+            "retest_add_enabled": False,
+            "retest_add_qty": 1,
+            "max_retest_adds": 1,
+            # Favourable BB-touch adds on 1m (charts: length=20, std=2.0)
+            "bb_add_enabled": False,
+            "bb_len": 20,
+            "bb_std": 2.0,
+            "bb_add_qty": 1,
+            "max_bb_adds": 3,
         }
         try:
             self.config.update(json.loads(instance.config_json or "{}"))
@@ -67,20 +84,45 @@ class HourlyStPmcRetestStrategy(StrategyPlugin):
         self._st_points: List[TrendPoint] = []
         self._ma_processed = 0
         self._ma_prefix: List[float] = [0.0]
+        bb_len = max(2, int(float(self.config.get("bb_len") or 20)))
+        self._bb_closes: Deque[float] = deque(maxlen=bb_len + 1)
+        self._bb_mid_prev: Optional[float] = None
 
     def on_bar_close(self, bar: Bar, context: StrategyContext) -> StrategyActions:
-        if bar.timeframe != "1h" or not bar.complete:
+        if not bar.complete:
+            return StrategyActions.empty()
+        if bar.timeframe == "1m":
+            return self._on_1m_bar(bar, context)
+        if bar.timeframe != "1h":
             return StrategyActions.empty()
         return self._on_hourly_bar(bar, context)
 
     def on_fill(self, fill, context: StrategyContext) -> StrategyActions:
         state = self._state()
         modifies: List[ModifyIntent] = []
-        if fill.reason in {"entry", "runner_entry", "add"}:
+        if fill.reason in {"entry", "runner_entry", "add", "retest_add", "bb_add"}:
             state["active_trade_id"] = fill.trade_id
             state["pending_entry_trade_id"] = ""
             state["close_pending"] = ""
             state["adds"] = int(state.get("adds") or 0) + max(1, int(float(fill.quantity or 1)))
+            if fill.reason in {"add", "retest_add", "bb_add"}:
+                if bool(self.config.get("bb_add_enabled")) or fill.reason == "bb_add":
+                    state["bb_add_count"] = int(state.get("bb_add_count") or 0) + 1
+                else:
+                    state["retest_add_count"] = int(state.get("retest_add_count") or 0) + 1
+            if fill.reason == "entry" and state.get("anchor_entry") in (None, "", 0, 0.0):
+                entry_px = float(fill.price)
+                stop_pts = float(self.config["stop_pts"])
+                target_pts = float(self.config["target_pts"])
+                side = str(fill.side or "").lower()
+                state["anchor_entry"] = entry_px
+                state["anchor_side"] = "buy" if side == "buy" else "sell"
+                if state["anchor_side"] == "buy":
+                    state["anchor_stop"] = entry_px - stop_pts
+                    state["anchor_target"] = entry_px + target_pts
+                else:
+                    state["anchor_stop"] = entry_px + stop_pts
+                    state["anchor_target"] = entry_px - target_pts
             if fill.reason == "runner_entry":
                 runner_entries = dict(state.get("runner_entry_price_by_trade") or {})
                 runner_entries[fill.trade_id] = float(fill.price)
@@ -109,18 +151,12 @@ class HourlyStPmcRetestStrategy(StrategyPlugin):
                                 )
                             )
             if context.position_quantity == 0:
-                state["active_trade_id"] = ""
-                state["pending_entry_trade_id"] = ""
-                state["close_pending"] = ""
-                state["adds"] = 0
+                self._clear_position_state(state)
                 self.state = state
                 self.save_state()
         elif fill.reason in {"stop", "protective_stop", "close"}:
             if context.position_quantity == 0:
-                state["active_trade_id"] = ""
-                state["pending_entry_trade_id"] = ""
-                state["close_pending"] = ""
-                state["adds"] = 0
+                self._clear_position_state(state)
                 self.state = state
                 self.save_state()
         return StrategyActions([], [], modifies, [], [])
@@ -164,9 +200,16 @@ class HourlyStPmcRetestStrategy(StrategyPlugin):
             )
 
         if context.position_quantity != 0:
-            cancels.extend(self._cancel_entry_limits(context, "in_position"))
+            retest_on = bool(self.config.get("retest_add_enabled"))
+            cancels.extend(
+                self._cancel_entry_limits(
+                    context,
+                    "in_position",
+                    preserve_retest=retest_on,
+                )
+            )
             state_changed = False
-            if state.get("pending_entry_trade_id"):
+            if state.get("pending_entry_trade_id") and not retest_on:
                 state["pending_entry_trade_id"] = ""
                 state_changed = True
             close_reason = self._close_reason(bar, pmc, now, context)
@@ -190,8 +233,15 @@ class HourlyStPmcRetestStrategy(StrategyPlugin):
                 )
                 state["close_pending"] = close_reason
                 state_changed = True
+                if retest_on:
+                    cancels.extend(self._cancel_entry_limits(context, "thesis_off", preserve_retest=False))
             else:
-                add_order = self._maybe_dca_add(bar, pmc, now, ma_context, context, state)
+                add_order = None
+                # BB adds are evaluated on 1m bars; hourly only does classic retest/DCA.
+                if retest_on and not bool(self.config.get("bb_add_enabled")):
+                    add_order = self._maybe_retest_add(bar, pmc, now, ma_context, context, state)
+                elif not retest_on and not bool(self.config.get("bb_add_enabled")):
+                    add_order = self._maybe_dca_add(bar, pmc, now, ma_context, context, state)
                 if add_order is not None:
                     orders.append(add_order)
                     state_changed = True
@@ -201,9 +251,7 @@ class HourlyStPmcRetestStrategy(StrategyPlugin):
             return StrategyActions(orders, cancels, [], levels, [], causal_features)
 
         if state.get("active_trade_id"):
-            state["active_trade_id"] = ""
-            state["close_pending"] = ""
-            state["adds"] = 0
+            self._clear_position_state(state)
             self.state = state
             self.save_state()
 
@@ -607,6 +655,206 @@ class HourlyStPmcRetestStrategy(StrategyPlugin):
             live_after_ts=bar.ts,
         )
 
+    def _maybe_retest_add(
+        self,
+        bar: Bar,
+        pmc: float,
+        now: TrendPoint,
+        ma_context: Dict[str, str],
+        context: StrategyContext,
+        state: Dict[str, Any],
+    ) -> Optional[OrderIntent]:
+        """Rest another limit at the original entry with shared SL/TP (up to max_retest_adds)."""
+        if not bool(self.config.get("retest_add_enabled")):
+            return None
+        if state.get("close_pending"):
+            return None
+        anchor = state.get("anchor_entry")
+        stop_px = state.get("anchor_stop")
+        target_px = state.get("anchor_target")
+        anchor_side = str(state.get("anchor_side") or "")
+        if anchor in (None, "", 0, 0.0) or stop_px in (None, "") or target_px in (None, ""):
+            return None
+        add_qty = max(1, int(float(self.config.get("retest_add_qty") or 1)))
+        max_retests = max(1, int(float(self.config.get("max_retest_adds") or 1)))
+        entry_qty = max(1, int(float(self.config.get("entry_qty") or self.config.get("tp1_qty") or 1)))
+        retest_count = int(state.get("retest_add_count") or 0)
+        if retest_count >= max_retests:
+            return None
+        max_pos = entry_qty + max_retests * add_qty
+        qty = abs(int(context.position_quantity))
+        if qty <= 0 or qty >= max_pos:
+            return None
+        if qty + add_qty > int(self.instance.max_contracts):
+            return None
+        # Keep a single working retest limit.
+        if self._open_retest_limits(context):
+            return None
+        desired = self._desired_entry(bar.close, pmc, now, ma_context)
+        if desired is None:
+            return None
+        side, _limit_px, _stop, _target = desired
+        pos_side = "buy" if context.position_quantity > 0 else "sell"
+        if side != pos_side or side != anchor_side:
+            return None
+        trade_id = self._next_trade_id(state)
+        state["pending_entry_trade_id"] = trade_id
+        return OrderIntent.create(
+            strategy_id=self.instance.strategy_id,
+            trade_id=trade_id,
+            instrument=self.instance.instrument,
+            account_mode=self.instance.account_mode,
+            side=side,
+            order_type="limit",
+            quantity=add_qty,
+            limit_price=float(anchor),
+            reason="add",
+            requires_verification=True,
+            # PaperBroker stamps fill.reason from bracket_role; keep "add" so audits count units.
+            bracket_role="add",
+            bracket_stop_price=float(stop_px),
+            bracket_target_price=float(target_px),
+            live_after_ts=bar.ts,
+        )
+
+    def _on_1m_bar(self, bar: Bar, context: StrategyContext) -> StrategyActions:
+        """Maintain 1m Bollinger state; fire favourable BB-touch adds while in position."""
+        self._bb_closes.append(float(bar.close))
+        if not bool(self.config.get("bb_add_enabled")):
+            return StrategyActions.empty()
+        if context.position_quantity == 0:
+            return StrategyActions.empty()
+        state = self._state()
+        order = self._maybe_bb_add(bar, context, state)
+        if order is None:
+            return StrategyActions.empty()
+        self.state = state
+        self.save_state()
+        return StrategyActions([order], [], [], [], [], [])
+
+    def _bb_bands(self) -> Optional[Tuple[float, float, float, Optional[float]]]:
+        """Return (mid, upper, lower, prior_mid) using chart-matching BB(20, 2σ)."""
+        length = max(2, int(float(self.config.get("bb_len") or 20)))
+        n_std = float(self.config.get("bb_std") or 2.0)
+        if len(self._bb_closes) < length:
+            return None
+        window = list(self._bb_closes)[-length:]
+        mean = sum(window) / float(length)
+        # pandas rolling().std() default ddof=1
+        if length < 2:
+            return None
+        var = sum((x - mean) ** 2 for x in window) / float(length - 1)
+        std = math.sqrt(var)
+        upper = mean + n_std * std
+        lower = mean - n_std * std
+        prior_mid = None
+        if len(self._bb_closes) >= length + 1:
+            prev_window = list(self._bb_closes)[-(length + 1) : -1]
+            prior_mid = sum(prev_window) / float(length)
+        return mean, upper, lower, prior_mid
+
+    def _maybe_bb_add(
+        self,
+        bar: Bar,
+        context: StrategyContext,
+        state: Dict[str, Any],
+    ) -> Optional[OrderIntent]:
+        """Add on 1m BB touch when price is already in favor; SL@entry, inherit TP."""
+        if state.get("close_pending"):
+            return None
+        anchor = state.get("anchor_entry")
+        target_px = state.get("anchor_target")
+        anchor_side = str(state.get("anchor_side") or "")
+        if anchor in (None, "", 0, 0.0) or target_px in (None, ""):
+            return None
+        anchor_f = float(anchor)
+        target_f = float(target_px)
+        add_qty = max(1, int(float(self.config.get("bb_add_qty") or 1)))
+        max_adds = max(1, int(float(self.config.get("max_bb_adds") or 3)))
+        entry_qty = max(1, int(float(self.config.get("entry_qty") or self.config.get("tp1_qty") or 1)))
+        bb_count = int(state.get("bb_add_count") or 0)
+        if bb_count >= max_adds:
+            return None
+        qty = abs(int(context.position_quantity))
+        max_pos = entry_qty + max_adds * add_qty
+        if qty <= 0 or qty >= max_pos:
+            return None
+        if qty + add_qty > int(self.instance.max_contracts):
+            return None
+        if self._open_retest_limits(context):
+            return None
+        if state.get("pending_entry_trade_id"):
+            return None
+
+        bands = self._bb_bands()
+        if bands is None:
+            return None
+        mid, upper, lower, prior_mid = bands
+        if prior_mid is None:
+            return None
+
+        pos_side = "buy" if context.position_quantity > 0 else "sell"
+        if anchor_side and pos_side != anchor_side:
+            return None
+        tick = float(self.config.get("tick_size") or 0.1)
+        half = tick / 2.0
+
+        if pos_side == "buy":
+            # Long: above entry, mid rising, touch lower band (still above entry).
+            if float(bar.close) <= anchor_f:
+                return None
+            if mid <= prior_mid:
+                return None
+            if float(bar.low) > lower + half:
+                return None
+            if lower <= anchor_f + half:
+                return None  # band not in-favor → SL@entry would be wrong side / zero risk
+            side = "buy"
+            stop_px = anchor_f
+        else:
+            # Short: below entry, mid falling, touch upper band (still below entry).
+            if float(bar.close) >= anchor_f:
+                return None
+            if mid >= prior_mid:
+                return None
+            if float(bar.high) < upper - half:
+                return None
+            if upper >= anchor_f - half:
+                return None
+            side = "sell"
+            stop_px = anchor_f
+
+        trade_id = self._next_trade_id(state)
+        state["pending_entry_trade_id"] = trade_id
+        return OrderIntent.create(
+            strategy_id=self.instance.strategy_id,
+            trade_id=trade_id,
+            instrument=self.instance.instrument,
+            account_mode=self.instance.account_mode,
+            side=side,
+            order_type="market",
+            quantity=add_qty,
+            reason="bb_add",
+            requires_verification=True,
+            # PaperBroker stamps fill.reason from bracket_role.
+            bracket_role="add",
+            bracket_stop_price=float(stop_px),
+            bracket_target_price=target_f,
+            live_after_ts=bar.ts,
+        )
+
+    def _clear_position_state(self, state: Dict[str, Any]) -> None:
+        state["active_trade_id"] = ""
+        state["pending_entry_trade_id"] = ""
+        state["close_pending"] = ""
+        state["adds"] = 0
+        state["retest_add_count"] = 0
+        state["bb_add_count"] = 0
+        state["anchor_entry"] = None
+        state["anchor_stop"] = None
+        state["anchor_target"] = None
+        state["anchor_side"] = ""
+
     def _state(self) -> Dict[str, Any]:
         state = dict(self.state or {})
         state.setdefault("trade_seq", 0)
@@ -614,7 +862,13 @@ class HourlyStPmcRetestStrategy(StrategyPlugin):
         state.setdefault("pending_entry_trade_id", "")
         state.setdefault("close_pending", "")
         state.setdefault("adds", 0)
+        state.setdefault("retest_add_count", 0)
+        state.setdefault("bb_add_count", 0)
         state.setdefault("runner_entry_price_by_trade", {})
+        state.setdefault("anchor_entry", None)
+        state.setdefault("anchor_stop", None)
+        state.setdefault("anchor_target", None)
+        state.setdefault("anchor_side", "")
         return state
 
     def _next_trade_id(self, state: Dict[str, Any]) -> str:
@@ -630,19 +884,43 @@ class HourlyStPmcRetestStrategy(StrategyPlugin):
                 orders.append(order)
         return orders
 
+    def _open_retest_limits(self, context: StrategyContext):
+        orders = []
+        for order in context.strategy_open_orders:
+            if order.reduce_only:
+                continue
+            if order.order_type not in {"limit", "market"} or order.status not in {
+                "submitted",
+                "partially_filled",
+                "pending",
+            }:
+                continue
+            if order.bracket_role == "add" or order.reason in {"add", "bb_add", "retest_add"}:
+                orders.append(order)
+        return orders
+
     def _open_close_order(self, context: StrategyContext):
         for order in context.strategy_open_orders:
             if order.reduce_only and order.order_type == "market" and order.bracket_role == "close":
                 return order
         return None
 
-    def _cancel_entry_limits(self, context: StrategyContext, reason: str) -> List[CancelIntent]:
+    def _cancel_entry_limits(
+        self,
+        context: StrategyContext,
+        reason: str,
+        *,
+        preserve_retest: bool = False,
+    ) -> List[CancelIntent]:
         cancels: List[CancelIntent] = []
         for order in context.strategy_open_orders:
             if order.reduce_only:
                 continue
-            if order.order_type == "limit":
-                cancels.append(CancelIntent(self.instance.strategy_id, order.broker_order_id, reason))
+            if order.order_type != "limit":
+                continue
+            if preserve_retest and (order.bracket_role == "add" or order.reason in {"add", "bb_add"}):
+                continue
+            cancels.append(CancelIntent(self.instance.strategy_id, order.broker_order_id, reason))
         return cancels
 
 
