@@ -23,3 +23,5 @@ tune-ups. MTM DD = intrabar mark-to-market drawdown (`stress_usd_approx`).
 EURUSD / GBPUSD / AUDJPY skip candidates were **rejected** or not broker-locked.
 
 Details: `CORE_WEEK_SITOUT.md`, `tuneup_broker/SUMMARY.md`.
+
+Year-by-year (net, DD, Sharpe, Sortino, Calmar, WR, PF): [`yearly_core_vs_baseline/YEARLY_CORE_VS_BASELINE.md`](yearly_core_vs_baseline/YEARLY_CORE_VS_BASELINE.md).

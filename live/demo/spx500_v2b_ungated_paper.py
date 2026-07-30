@@ -46,6 +46,7 @@ NY_TZ = pytz.timezone("America/New_York")
 RTH_OPEN = dt_time(9, 30)
 RTH_CLOSE = dt_time(16, 0)
 PROGRESS_HEARTBEAT_SECONDS = 300
+PAPER_RESULTS_CSV = Path(__file__).resolve().parent / "ungated_paper_results.csv"
 
 
 def default_output_root() -> Path:
@@ -307,6 +308,24 @@ class DemoPaperRunner:
                     point_value=POINT_VALUES.get(INSTRUMENT),
                     log=append_progress,
                 )
+                try:
+                    from .session_pnl import append_session_result
+
+                    row = append_session_result(
+                        PAPER_RESULTS_CSV,
+                        demo=INSTRUMENT,
+                        session_date=ny_wall_time(ts).date(),
+                        instrument=INSTRUMENT,
+                        fills_path=state_root_for(self.output_root) / "fills.csv",
+                    )
+                    if row:
+                        append_progress(
+                            self.output_root,
+                            "SESSION_PNL wrote %s demo=%s path=%s usd=%s"
+                            % (PAPER_RESULTS_CSV.name, row["demo"], row["path"], row["usd"]),
+                        )
+                except Exception as exc:
+                    append_progress(self.output_root, "WARN session PnL append failed: %s" % exc)
                 if ny_wall_time(ts).weekday() == 4:
                     try:
                         from .size_report import append_size_report

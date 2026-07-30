@@ -68,3 +68,12 @@ live/state/us30_futures_strats_sweep/*.log
 # Local secrets (never commit)
 .env
 **/.env
+
+# Trend-momentum heavy local artifacts
+live/state/trend_momentum_sweep/**/states/
+live/state/trend_momentum_sweep/**/audits/
+live/state/trend_momentum_sweep/charts/
+live/state/trend_momentum_tf_study/**/states/
+live/state/trend_momentum_tf_study/**/audits/
+live/state/monday_or_sizing_sweep_broker_us30/audits/
+live/state/monday_or_sizing_sweep_broker_us30/states/

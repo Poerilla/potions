@@ -3,4 +3,23 @@ EURUSD,2026-07-23,short → TP1 → runner SL,52.00
 NAS100,2026-07-23,short → EOD,113.10
 SPX500,2026-07-23,short → EOD,-2.10
 US30,2026-07-23,short → EOD,-481.35
-TOTAL,2026-07-23,,-318.35
+EURUSD,2026-07-24,long → TP1 TP2 runner SL short → EOD,-45.50
+NAS100,2026-07-24,short → TP1 runner SL long → wide SL,-315.00
+SPX500,2026-07-24,long → wide SL short → wide SL,-86.70
+US30,2026-07-24,long → wide SL short → wide SL,-948.00
+EURUSD,2026-07-27,short → TP1 runner SL long → wide SL,-142.00
+NAS100,2026-07-27,short → TP1 TP2,558.25
+US30,2026-07-27,short → TP1 TP2,426.25
+NAS100,2026-07-28,short → wide SL long,-784.80
+US30,2026-07-28,long → TP1,238.90
+SPX500,2026-07-28,short → wide SL long → TP1,-60.30
+EURUSD,2026-07-28,long → TP1 TP2,75.00
+US30,2026-07-29,short → TP1 TP2,334.05
+SPX500,2026-07-29,short → TP1 TP2 runner SL long → TP1 runner SL,61.40
+EURUSD,2026-07-29,long → TP1 runner SL short → wide SL,-147.00
+NAS100,2026-07-29,short → TP1 TP2 runner SL long → wide SL,-0.25
+SPX500,2026-07-30,long → TP1 runner SL short → wide SL,-49.40
+NAS100,2026-07-30,long → TP1,181.20
+US30,2026-07-30,long → wide SL short → wide SL,-1392.60
+EURUSD,2026-07-30,long → TP1 runner SL,268.50
+TOTAL,2026-07-30,,-992.30
