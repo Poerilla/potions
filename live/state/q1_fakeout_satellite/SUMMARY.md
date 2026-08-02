@@ -21,3 +21,18 @@ naive 0.92 flip probability), and the v2b `oco_then_reverse` reverse leg already
 via its opposite-boundary stop with better geometry. NQ split nets only $9.9k over 16 years (PF 1.089,
 N/S 0.59, 8 negative years); MNQ is flat/negative. DSR ledger: TRL-2026-00062..65 (COMPLETE).
 Keep as a negative known-answer for the FX rollout plan (`live/specs/OR_PROFILE_NEXT_PLANS.md`, Plan C step 5).
+
+## Loss autopsy + trade-structure what-ifs (2026-08-02, `live/q1_fakeout_loss_autopsy.py`)
+
+Full results: [`autopsy/SUMMARY.md`](autopsy/SUMMARY.md); 100 loser / 100 winner charts under `charts/` (local only).
+
+- **Stop-out causes (293 losers):** 57.7% **directional invalidation** (original break resumes and reaches
+  its own 1R after clipping us), 35.7% shakeout-then-traverse, 6.5% chop. Median 6 minutes entry -> stop (p25 2, p75 17).
+- **Structure variants (1 unit, analytic, pessimistic):** moving the stop to the invalidation level (orig 1R)
+  lifts the TP rate to 62.6% — the traverse really does happen — but risk grows 2.6x (26.8 vs 10.1 pts) and
+  net FALLS ($3.5k vs $7.5k, PF 1.04). Retest-of-broken-level entries: PF 1.02-1.17, pennies per fill.
+  Limit at the failed extreme ("entry where the SL was") is NEGATIVE (-$3.7k) — adverse selection: it only
+  fills when the original move is already continuing. London/5m swing entries: 39% fill rate, negative.
+- **Verdict: BINNED.** The 0.92 flip cell is real but priced — a majority of stops are true invalidation, and
+  every restructuring either pays for the traverse with fat invalidation risk or adversely selects fills.
+  Proceeding to the queued plans (`live/specs/OR_PROFILE_NEXT_PLANS.md`).

@@ -19,6 +19,14 @@
   P5) in `or_profile_v2b_join validate`: **REJECTED** on both markets
   (NQ $359.6k vs $389.4k baseline; P7 $252.3k vs P5 $366.8k) — the reverse
   leg monetises late weak breaks. P5 stays the promoted overlay.
+- **Loss autopsy** (`live/q1_fakeout_loss_autopsy.py`, 447 NQ trades,
+  1m-tape what-ifs + 100/100 loser/winner charts): 57.7% of stops are
+  directional invalidation (orig break resumes to its own 1R), 35.7%
+  shakeouts, median 6 min to stop. Deep invalidation stops raise TP rate to
+  62.6% but 2.6× risk halves net (PF 1.04); retest entries PF 1.02–1.17
+  (pennies); limit-at-failed-extreme and London/5m-swing entries negative
+  (adverse selection). **Satellite binned per protocol** — majority of
+  stops are true invalidation. `live/state/q1_fakeout_satellite/autopsy/`.
 - **Queued frozen plans** (`live/specs/OR_PROFILE_NEXT_PLANS.md`): runner
   ladder from the extension chain, asymmetric reverse leg
   (`reverse_only_when`), FX/CFD rollout of the OR-profile stats.

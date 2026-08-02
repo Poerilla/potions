@@ -87,3 +87,6 @@ live/state/monday_or_sizing_sweep_broker_us30/states/
 
 # Q1 fakeout satellite heavy replay states
 live/state/q1_fakeout_satellite/states/
+
+# Q1 fakeout chart packs (local only)
+live/state/q1_fakeout_satellite/charts/
