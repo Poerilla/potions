@@ -278,6 +278,25 @@ Batch probability engine over the v2b 15-minute opening range (`live/or_profile_
 - **Causal validation** (Engine+PaperBroker, hardened realism, frozen policies, 2025-01→2026-06): NQ **P1 skip flat-gap $414.0k** vs baseline $389.4k on 38 fewer sessions (net/session **+27%**, PF 1.36 vs 1.28); **P3 no-runner on q4** net flat, intrabar stress DD **−24%**; **P5 = P1+P3** best PF **1.446** and net/stress **5.3 vs 3.6**. MNQ orders identically. Rolling refit (fit ≤2025-06-30, validate 2025-07+) re-derives the same NQ policy and beats baseline again (+$19.5k) ⇒ semi-annual refresh cadence is sufficient. Hub: [`../../live/state/or_profile_engine/v2b_join/2026H2/`](../../live/state/or_profile_engine/v2b_join/2026H2/).
 - **Promotion candidates:** NQ/MNQ v2b S_1_1_3 + **flat-gap skip** (max net) or **+ q4 no-runner combo** (max PF / net-stress). Early-cut exit (P4) needs a small `v2b_scaleout` config flag before it can be replayed causally — analytic-only for now.
 
+## Combined book + OR-profile follow-ups (2026-08-02)
+
+**PROMOTED: combined book = prior-opposed RL core + complement v2b satellite + flat-gap skip.** Causal Engine+PaperBroker replay (`live/v2b_combined_book_replay.py`): core B = promoted prior-opposed resting-limit S_1_1_3 (its own fills); satellite A = all-days v2b S_1_1_3 re-replayed with `regime_dates` restricted to days where **no gate limit was resting at 09:45** (knowable from B's `dynamic_sizing_events`), plus OR-profile flat-gap skip; all variants stress-audited on one union 1m tape. Hubs: [`../../live/state/nq_v2b_combined_book_causal/SUMMARY.md`](../../live/state/nq_v2b_combined_book_causal/SUMMARY.md), [`../../live/state/mnq_v2b_combined_book_causal/SUMMARY.md`](../../live/state/mnq_v2b_combined_book_causal/SUMMARY.md).
+
+| Market | Portfolio | Net | Stress DD | N/S | PF |
+|---|---|---:|---:|---:|---:|
+| NQ | B_only (core) | $1,330,920 | -$68,610 | 19.4 | 2.326 |
+| NQ | **B + A complement + skipflat** | **$1,921,202** | **-$85,341** | **22.51** | 1.585 |
+| MNQ | B_only (core) | $128,360 | -$6,960 | 18.44 | 2.257 |
+| MNQ | **B + A complement + skipflat** | **$182,965** | **-$8,606** | **21.26** | 1.554 |
+
+Read: the complement satellite adds ~44% net on ~24% more stress and *raises* net/stress above the core alone on both markets. In live terms the satellite is a **second strategy instance (sidecar)** on the same account: it waits until 09:45, checks whether the core has a resting gate limit, and only arms v2b on non-gate, non-flat-gap days.
+
+**REJECTED after causal test — q1 fakeout reversal satellite** (`live/strategies/q1_fakeout_reversal.py`, new StrategyPlugin; driver `live/q1_fakeout_satellite_replay.py`; DSR TRL-2026-00062..65). The stable 0.86–0.93 q1 failed-break→opposite-break flip cell does not convert to a standalone trade: stop at the failed extreme is clipped before the traverse completes (32–41% win), NQ split $9.9k/16yrs (PF 1.089, 8 negative years), MNQ flat/negative. v2b's reverse leg already harvests this move. Hub: [`../../live/state/q1_fakeout_satellite/SUMMARY.md`](../../live/state/q1_fakeout_satellite/SUMMARY.md).
+
+**REJECTED after causal test — 10:30 entry time gate on v2b** (new `entry_cutoff_time` config flag in `v2b_scaleout`, kept for future studies). P6 (gate alone) and P7 (gate + P5 combo) lose net on both markets (NQ $359.6k vs $389.4k baseline; $252.3k vs $366.8k for P5) — late weak breaks are monetised by the reverse leg, so expiring the stops costs more than it saves. **P5 (flat-gap skip + q4 no-runner) stays the promoted v2b overlay.** Hub: [`../../live/state/or_profile_engine/v2b_join/2026H2/validation/SUMMARY.md`](../../live/state/or_profile_engine/v2b_join/2026H2/validation/SUMMARY.md).
+
+**Queued plans (frozen, not executed):** runner ladder from the extension chain, asymmetric reverse leg (`reverse_only_when`), and the FX/CFD rollout of the OR-profile stats — [`../../live/specs/OR_PROFILE_NEXT_PLANS.md`](../../live/specs/OR_PROFILE_NEXT_PLANS.md).
+
 ## Intraday ORB Research Leader
 
 **Adaptive 50/150 v2b-only scaleout** remains the mature intraday ORB candidate, but the 2026-05 ordering/plugin audit demotes the headline `$83k` run from "live-real" to "scanner diagnostic."

@@ -8,7 +8,21 @@ Policies frozen on fit window (<= 2024-12-31), replayed on validation window (> 
 | nq | P1_skip | 195 | 1425 | 414042.5 | 2123.29 | -105485.0 | -106210.0 | 42.32 | 1.36 |
 | nq | P3_no_runner | 233 | 1356 | 391911.0 | 1682.02 | -81614.0 | -81714.0 | 41.89 | 1.401 |
 | nq | P5_combo | 195 | 1155 | 366777.5 | 1880.91 | -67690.5 | -68615.5 | 42.08 | 1.446 |
+| nq | P6_timegate | 233 | 1390 | 359630.0 | 1543.48 | -117612.0 | -118337.0 | 42.09 | 1.31 |
+| nq | P7_combo_timegate | 195 | 940 | 252315.0 | 1293.92 | -64726.0 | -65651.0 | 41.28 | 1.363 |
 | mnq | baseline | 230 | 1665 | 37942.0 | 164.97 | -10964.0 | -11009.0 | 41.26 | 1.274 |
 | mnq | P1_skip | 192 | 1395 | 40894.0 | 212.99 | -10561.0 | -10631.0 | 42.08 | 1.363 |
 | mnq | P3_no_runner | 230 | 1329 | 38492.5 | 167.36 | -8859.5 | -8859.5 | 41.53 | 1.402 |
 | mnq | P5_combo | 192 | 1128 | 36329.5 | 189.22 | -6605.0 | -6625.0 | 41.67 | 1.455 |
+| mnq | P6_timegate | 230 | 1365 | 34852.5 | 151.53 | -11697.0 | -11767.0 | 42.34 | 1.305 |
+| mnq | P7_combo_timegate | 192 | 918 | 24562.5 | 127.93 | -6284.5 | -6304.5 | 41.5 | 1.362 |
+
+## Time gate verdict (2026-08-02) — REJECTED
+
+P6/P7 use the new `entry_cutoff_time: "10:30"` v2b config flag (entry stops expire 10:30 NY, no
+re-arming after; exits keep session expiry). Both markets agree: the gate cuts net (NQ $359.6k vs
+$389.4k baseline; stacked on the combo $252.3k vs P5's $366.8k) and P6 even worsens stress DD.
+The probability cell is real (late breaks hit 1R at only 0.29–0.44) but `oco_then_reverse` monetises
+late weak breaks through the reverse leg, so expiring the stops costs more than the losses avoided.
+**P5 (flat-gap skip + q4 no-runner) remains the promoted overlay.** The flag stays available in
+`v2b_scaleout` for future studies.

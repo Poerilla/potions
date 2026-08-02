@@ -478,6 +478,8 @@ class V2BScaleoutStrategy(StrategyPlugin):
         *,
         price: Optional[float] = None,
     ) -> List[OrderIntent]:
+        if not self._before_entry_cutoff(ts):
+            return []
         range_high = _to_float(state.get("or_high"))
         range_low = _to_float(state.get("or_low"))
         if range_high is None or range_low is None or range_high <= range_low:
@@ -626,8 +628,39 @@ class V2BScaleoutStrategy(StrategyPlugin):
             bracket_role="entry",
             oco_group=oco,
             live_after_ts=ts,
-            expires_after_ts=_session_expiry(ts),
+            expires_after_ts=self._entry_expiry(ts),
         )
+
+    def _before_entry_cutoff(self, ts: str) -> bool:
+        """False once ``entry_cutoff_time`` (NY) has passed — no new arming."""
+        cutoff = str(self.config.get("entry_cutoff_time") or "").strip()
+        if not cutoff:
+            return True
+        try:
+            hh, mm = cutoff.split(":")
+            return _parse_dt(str(ts)).time() < time(int(hh), int(mm))
+        except (ValueError, TypeError):
+            return True
+
+    def _entry_expiry(self, ts: str) -> str:
+        """Entry stops expire at ``entry_cutoff_time`` (NY) when configured.
+
+        OR-profile time gate: breaks triggering after ~10:30 hit 1R at only
+        0.29-0.44 vs 0.54-0.59 pooled (stable 16 years, all four profiled
+        markets), so unarmed resting entry stops can be expired early via
+        ``entry_cutoff_time`` (e.g. ``"10:30"``). Exit orders keep the
+        session-end expiry. Default (unset) preserves legacy behaviour.
+        """
+        cutoff = str(self.config.get("entry_cutoff_time") or "").strip()
+        if not cutoff:
+            return _session_expiry(ts)
+        try:
+            hh, mm = cutoff.split(":")
+            cutoff_t = time(int(hh), int(mm))
+            session_day = _parse_dt(str(ts)).date()
+        except (ValueError, TypeError):
+            return _session_expiry(ts)
+        return NY.localize(datetime.combine(session_day, cutoff_t)).isoformat()
 
     def _sizing_for_entry(self, ts: str, direction: str) -> Optional[Dict[str, int]]:
         base = {

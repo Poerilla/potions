@@ -1,5 +1,30 @@
 # Live Runtime CHANGE_LOG
 
+## 2026-08-02 — Q1 fakeout satellite + v2b time gate: both causally REJECTED; plans queued
+
+- **New StrategyPlugin** `q1_fakeout_reversal` (`live/strategies/q1_fakeout_reversal.py`,
+  registered in `live/registry.py`): on q1-OR-width days (trailing-250 causal
+  in-plugin history), a morning touch break failing on a 5m close inside
+  within 2 candles is reversed at market; stop at the failed extreme, TPs at
+  opposite boundary / opposite 1R. All thresholds a priori from the stable
+  cells; DSR TRL-2026-00062..65 registered pre-review.
+- **Verdict** (driver `live/q1_fakeout_satellite_replay.py`, NQ 2010–2026 +
+  MNQ, hardened realism): NOT promotable — NQ split $9.9k/447 trades
+  (PF 1.089, N/S 0.59, 8 negative years), MNQ flat/negative. The 0.92 flip
+  cell is real but stop-clipped (32–41% win) and already harvested by v2b's
+  reverse leg. Hub: `live/state/q1_fakeout_satellite/`.
+- **New v2b config flag** `entry_cutoff_time` (`v2b_scaleout`): entry stops
+  expire at the cutoff (NY) and arming stops after it; exits unchanged;
+  default unset = legacy. Causal validation as P6 (alone) and P7 (stacked on
+  P5) in `or_profile_v2b_join validate`: **REJECTED** on both markets
+  (NQ $359.6k vs $389.4k baseline; P7 $252.3k vs P5 $366.8k) — the reverse
+  leg monetises late weak breaks. P5 stays the promoted overlay.
+- **Queued frozen plans** (`live/specs/OR_PROFILE_NEXT_PLANS.md`): runner
+  ladder from the extension chain, asymmetric reverse leg
+  (`reverse_only_when`), FX/CFD rollout of the OR-profile stats.
+- Combined book + these verdicts promoted in `STRATEGY_TRACKER.md`
+  ("Combined book + OR-profile follow-ups").
+
 ## 2026-08-02 — Combined book: prior-opposed RL core + non-gate v2b satellite (causal)
 
 - **Driver** (`live/v2b_combined_book_replay.py`): core = promoted

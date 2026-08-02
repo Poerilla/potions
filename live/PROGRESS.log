@@ -82,3 +82,4 @@ Append-only research/platform progress notes.
 - Converted fx/raw/NAS100_1m_data.csv (MT5, Europe/Athens) → fx/nas100_{1m,daily}.csv
 - Ran live/nas100_prior_opposed_replay.py from 2021-03-04 (S_1_1_3, ST 25/75 pts) → live/state/nas100_v2b_prior_opposed_stpmc_broker_like/
 - Result: 310 trades / $923 / PF 1.02 / win 47%. Vs NQ same window: same campaign count & ~99% direction overlap, but NQ PF~2.45 / win~68% / $886k — shape similar, edge not.
+2026-08-02T17:45 q1 fakeout satellite (new plugin q1_fakeout_reversal) replayed broker-like NQ/MNQ: REJECTED (NQ $9.9k/16yrs PF 1.089; flip cell stop-clipped, reverse leg already harvests it). DSR TRL-2026-00062..65. v2b entry_cutoff_time flag added; 10:30 time gate P6/P7 causally REJECTED (P5 flat-gap+q4-no-runner stays promoted). Combined book promoted in tracker. Frozen plans queued: runner ladder, reverse_only_when, FX rollout (live/specs/OR_PROFILE_NEXT_PLANS.md).

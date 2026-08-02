@@ -403,6 +403,7 @@ def replay_dates(
     sizing: Dict[str, int],
     slug: str,
     states_root: Path,
+    extra_config: Optional[Dict[str, object]] = None,
 ) -> Tuple[List[object], List[AuditBar], Path]:
     state_root = states_root / slug
     if state_root.exists():
@@ -420,6 +421,8 @@ def replay_dates(
         "regime_dates": [d.isoformat() for d in sorted(dates)],
         "record_levels": False,
     }
+    if extra_config:
+        config.update(extra_config)
     instance = StrategyInstance(
         strategy_id=slug,
         strategy_type="v2b_scaleout",
@@ -482,9 +485,20 @@ def run_validate(asof: str, markets: Sequence[str], fit_end: date, out_root: Pat
 
         tiers_by_policy = policy_date_tiers(val_sessions, policies)
         tiers_by_policy = {"baseline": {"1x": val_dates}, **tiers_by_policy}
+        # OR-profile time gate (entry stops expire 10:30 NY; threshold a
+        # priori from the stable break-time cells): alone and on the combo.
+        extras_by_policy: Dict[str, Dict[str, object]] = {
+            "P6_timegate": {"entry_cutoff_time": "10:30"},
+            "P7_combo_timegate": {"entry_cutoff_time": "10:30"},
+        }
+        tiers_by_policy["P6_timegate"] = {"1x": list(val_dates)}
+        tiers_by_policy["P7_combo_timegate"] = {
+            t: list(ds) for t, ds in tiers_by_policy["P5_combo"].items()
+        }
 
         for policy_name, tiers in tiers_by_policy.items():
-            if policy_name != "baseline":
+            extra_config = extras_by_policy.get(policy_name)
+            if policy_name != "baseline" and not extra_config:
                 # Skip policies degenerate to the baseline (all dates in tier 1x).
                 non_base = [d for t, ds in tiers.items() if t not in ("1x",) for d in ds]
                 if not non_base and sorted(tiers.get("1x", [])) == list(val_dates):
@@ -500,7 +514,7 @@ def run_validate(asof: str, markets: Sequence[str], fit_end: date, out_root: Pat
                 sizing = SIZING_TIERS[tier_name]
                 slug = "%s_orprof_%s_%s" % (market, policy_name.lower(), tier_name)
                 units, audit_bars, state_root = replay_dates(
-                    cfg, gby, dates, sizing, slug, val_root / "states"
+                    cfg, gby, dates, sizing, slug, val_root / "states", extra_config=extra_config
                 )
                 all_units.extend(units)
                 n_traded_days += len(dates)

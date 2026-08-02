@@ -10,6 +10,7 @@ from .monthly_orb_v2b_oco import MonthlyOrbV2bOcoStrategy
 from .monday_or_breakout import MondayOrBreakoutStrategy
 from .monthly_orb_overlap_st_retest import MonthlyOrbOverlapStRetestStrategy
 from .or_2r_fade import Or2RFadeStrategy
+from .q1_fakeout_reversal import Q1FakeoutReversalStrategy
 from .phantom_exit_fade import PhantomExitFadeStrategy
 from .supertrend_wick_retest import SupertrendWickRetestStrategy
 from .v2b_clean_break import V2BCleanBreakStrategy
@@ -32,6 +33,7 @@ __all__ = [
     "MondayOrBreakoutStrategy",
     "MonthlyOrbOverlapStRetestStrategy",
     "Or2RFadeStrategy",
+    "Q1FakeoutReversalStrategy",
     "PhantomExitFadeStrategy",
     "SupertrendWickRetestStrategy",
     "StrategyContext",

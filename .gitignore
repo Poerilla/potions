@@ -84,3 +84,6 @@ live/state/trend_momentum_tf_study/**/states/
 live/state/trend_momentum_tf_study/**/audits/
 live/state/monday_or_sizing_sweep_broker_us30/audits/
 live/state/monday_or_sizing_sweep_broker_us30/states/
+
+# Q1 fakeout satellite heavy replay states
+live/state/q1_fakeout_satellite/states/
