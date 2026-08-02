@@ -1,0 +1,6 @@
+portfolio,legs,units,traded_days,net_usd,closed_dd_usd,intrabar_stress_dd_usd,net_over_stress,max_open_units,win_rate_pct,profit_factor
+B_only,B,2140,416,128360.5,-6905.0,-6960.0,18.44,5,51.03,2.257
+A_full_only,A_full,6856,918,76147.5,-12234.5,-12372.0,6.15,5,38.39,1.163
+B_plus_A_full_stack,B+A_full,8996,934,204508.0,-17110.75,-17155.75,11.92,10,41.4,1.36
+B_plus_A_complement,B+A_comp,6635,919,178441.0,-10985.5,-11053.0,16.14,10,42.91,1.457
+B_plus_A_complement_skipflat,B+A_comp_skipflat,5770,828,182965.0,-8316.5,-8606.5,21.26,10,44.06,1.554

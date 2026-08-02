@@ -48,6 +48,10 @@ live/state/**/overnight_*.log
 # OR profile engine validation replay states (events/sessions/tables CSVs + SUMMARYs stay tracked)
 live/state/or_profile_engine/v2b_join*/*/validation/states/
 
+# Combined-book causal replay heavy artifacts (SUMMARY + portfolio_summary.csv stay tracked)
+live/state/*_v2b_combined_book_causal/states/
+live/state/*_v2b_combined_book_causal/audits/
+
 # OANDA v2b paper demo runtime (code + README stay tracked)
 live/demo/**/state/
 live/demo/**/pidfile

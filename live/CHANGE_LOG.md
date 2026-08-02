@@ -1,5 +1,19 @@
 # Live Runtime CHANGE_LOG
 
+## 2026-08-02 — Combined book: prior-opposed RL core + non-gate v2b satellite (causal)
+
+- **Driver** (`live/v2b_combined_book_replay.py`): core = promoted
+  prior-opposed resting-limit S_1_1_3 book (own Engine+PaperBroker fills);
+  satellite = all-days v2b S_1_1_3 **re-replayed** via Engine+PaperBroker,
+  `regime_dates` restricted to days with **no gate limit resting at 09:45**
+  (`available_at_ts` from the core's `dynamic_sizing_events`) plus the
+  OR-profile flat-gap skip. Merged units audited on one union 1m bar tape.
+- **NQ** (2021-03→2026-03): core $1.331M / −$68.6k stress / **N/S 19.4**;
+  naive stack N/S 13.1; **core + complement satellite + flat-gap skip
+  $1.921M / −$85.3k / N/S 22.5** — +44% net AND better ratio than the core.
+- **MNQ**: identical ordering — core 18.4 → combo+skipflat **21.3**
+  ($183.0k / −$8.6k). Hubs: `live/state/{nq,mnq}_v2b_combined_book_causal/`.
+
 ## 2026-08-02 — OR Profile Probability Engine → v2b policies (NQ/MNQ/YM/MYM)
 
 - **Engine** (`live/or_profile_engine.py`): batch replay of 1m RTH tapes;
