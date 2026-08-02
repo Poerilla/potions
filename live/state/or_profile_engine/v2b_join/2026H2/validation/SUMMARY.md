@@ -1,0 +1,14 @@
+# OR profile policy causal validation (2026H2)
+
+Policies frozen on fit window (<= 2024-12-31), replayed on validation window (> 2024-12-31) via Engine+PaperBroker with the standard hardened realism (1-tick slippage, $1.50/RT, stop-first same-bar ordering).
+
+| market | policy | sessions | units | net_usd | net_per_session | closed_dd_usd | intrabar_stress_dd_usd | win_rate_pct | profit_factor |
+|---|---|---|---|---|---|---|---|---|---|
+| nq | baseline | 233 | 1695 | 389377.5 | 1671.15 | -107237.5 | -107737.5 | 41.47 | 1.277 |
+| nq | P1_skip | 195 | 1425 | 414042.5 | 2123.29 | -105485.0 | -106210.0 | 42.32 | 1.36 |
+| nq | P3_no_runner | 233 | 1356 | 391911.0 | 1682.02 | -81614.0 | -81714.0 | 41.89 | 1.401 |
+| nq | P5_combo | 195 | 1155 | 366777.5 | 1880.91 | -67690.5 | -68615.5 | 42.08 | 1.446 |
+| mnq | baseline | 230 | 1665 | 37942.0 | 164.97 | -10964.0 | -11009.0 | 41.26 | 1.274 |
+| mnq | P1_skip | 192 | 1395 | 40894.0 | 212.99 | -10561.0 | -10631.0 | 42.08 | 1.363 |
+| mnq | P3_no_runner | 230 | 1329 | 38492.5 | 167.36 | -8859.5 | -8859.5 | 41.53 | 1.402 |
+| mnq | P5_combo | 192 | 1128 | 36329.5 | 189.22 | -6605.0 | -6625.0 | 41.67 | 1.455 |

@@ -267,6 +267,17 @@ XAUUSD/XAGUSD converted from `fx/raw/` (PV 100 / 1000). Silver 2011-01-20 100× 
 
 **Post-TP2 path (1/1/3, n=60 TP2 hits):** after 1R, only **~42%** fill 2R; **~40%** touch entry/BE again; d+3 close still in favor **~49%** (coin flip). Study: [`../../live/state/eurusd_monthly_orb_fbo_runner2r_be_tp1_broker/post_tp2_study/SUMMARY.md`](../../live/state/eurusd_monthly_orb_fbo_runner2r_be_tp1_broker/post_tp2_study/SUMMARY.md).
 
+## OR Profile Probability Engine → v2b policies (2026-08-02)
+
+Batch probability engine over the v2b 15-minute opening range (`live/or_profile_engine.py`): replays 1m RTH tapes, walks each session as a causal event sequence (FirstBreak → 1R/2R/3R hits, re-entry, opposite break) under **dual triggers** — `touch` (1m pierce, matches v2b stop fills) and `close5` (5m close outside OR) — and labels terminal day profiles (`clean_break_1r`, `break_extend_2r`, `break_revert`, `fakeout_opposite`, `one_r_reversal`, `double_fail_range`, `no_break_range`). Refresh cadence is semi-annual: `python -m live.or_profile_engine --markets nq mnq ym mym --asof <tag>`.
+
+- **Coverage:** NQ 3,987 sessions (2010–2026), YM 3,963, MYM 1,698, MNQ 1,245. Tables carry N / Wilson 95% CI / per-year stability. Hub: [`../../live/state/or_profile_engine/`](../../live/state/or_profile_engine/) (`SUMMARY_2026H2.md` pooled + per-market `2026H2/SUMMARY.md`).
+- **Cross-market invariants (touch):** P(1R|break) **0.54–0.56**, P(2R|1R) **≈0.49**, P(re-enter OR|break) **0.88–0.91**, P(fakeout→opposite hits 1R|opp break) **0.14–0.17** on all four markets.
+- **Stable NQ edges** (sign holds ≥70% of years, N≥30): breaks 10:30–12:00 hit 1R only **0.29** vs 0.54 pooled (16 yrs, 100%); wide-OR **q4** P(2R|1R) **0.37** vs 0.50 (16 yrs, 100%); narrow-OR **q1** failed breaks flip to an opposite break **0.92** (14 yrs).
+- **v2b join** (`live/or_profile_v2b_join.py join`, S_1_1_3 tapes, fit ≤2024-12-31): **flat-gap sessions** (|gap| < 0.1× prior range, knowable at 09:45 arm time) run **−$211/session** on NQ (139 fit sessions, negative every year; MNQ agrees). Failed breaks (re-entry before 1R, p75 ≤ 2×5m candles) cost **−$4.8k/session** NQ. No stable size-up cell found.
+- **Causal validation** (Engine+PaperBroker, hardened realism, frozen policies, 2025-01→2026-06): NQ **P1 skip flat-gap $414.0k** vs baseline $389.4k on 38 fewer sessions (net/session **+27%**, PF 1.36 vs 1.28); **P3 no-runner on q4** net flat, intrabar stress DD **−24%**; **P5 = P1+P3** best PF **1.446** and net/stress **5.3 vs 3.6**. MNQ orders identically. Rolling refit (fit ≤2025-06-30, validate 2025-07+) re-derives the same NQ policy and beats baseline again (+$19.5k) ⇒ semi-annual refresh cadence is sufficient. Hub: [`../../live/state/or_profile_engine/v2b_join/2026H2/`](../../live/state/or_profile_engine/v2b_join/2026H2/).
+- **Promotion candidates:** NQ/MNQ v2b S_1_1_3 + **flat-gap skip** (max net) or **+ q4 no-runner combo** (max PF / net-stress). Early-cut exit (P4) needs a small `v2b_scaleout` config flag before it can be replayed causally — analytic-only for now.
+
 ## Intraday ORB Research Leader
 
 **Adaptive 50/150 v2b-only scaleout** remains the mature intraday ORB candidate, but the 2026-05 ordering/plugin audit demotes the headline `$83k` run from "live-real" to "scanner diagnostic."

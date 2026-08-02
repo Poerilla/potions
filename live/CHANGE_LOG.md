@@ -1,5 +1,35 @@
 # Live Runtime CHANGE_LOG
 
+## 2026-08-02 — OR Profile Probability Engine → v2b policies (NQ/MNQ/YM/MYM)
+
+- **Engine** (`live/or_profile_engine.py`): batch replay of 1m RTH tapes;
+  per session builds the 09:30–09:45 OR (same defs as `v2b_scaleout`: R = OR
+  width, targets = boundary ±1R/2R/3R), walks a causal event state machine
+  under dual break triggers (`touch` = 1m pierce matching v2b stop fills,
+  `close5` = 5m close outside), labels terminal day profiles and emits
+  conditional probability tables (Wilson 95% CI, yearly stability slices).
+  Sessions walked: NQ 3,987 (2010–2026), YM 3,963, MYM 1,698, MNQ 1,245.
+  Refresh is one command: `python -m live.or_profile_engine --markets nq mnq
+  ym mym --asof <tag>`. Hub: `live/state/or_profile_engine/<mkt>/2026H2/`.
+- **Cross-market invariants:** P(1R|touch break) 0.54–0.56, P(2R|1R) ≈0.49,
+  P(re-enter OR|break) 0.88–0.91 on all four markets. Stable NQ edges (sign
+  holds ≥70% of years): late breaks 10:30–12:00 hit 1R only **0.29** vs 0.54
+  pooled (16 yrs); wide-OR q4 P(2R|1R) **0.37** vs 0.50 (16 yrs); narrow-OR
+  q1 failed breaks flip to opposite break **0.92**.
+- **v2b join + policies** (`live/or_profile_v2b_join.py join`): joined touch
+  sessions to `S_1_1_3` tapes. Fit ≤2024-12-31: flat-gap sessions (|gap| <
+  0.1× prior range, knowable 09:45) −$211/session NQ, negative every year;
+  MNQ agrees. Frozen policies: **P1** skip flat-gap, **P3** no-runner (1/1/0)
+  on q4 OR-width, **P4** early-cut analytic (failed breaks re-enter ≤2×5m,
+  −$4.8k/session NQ), **P5** = P1+P3. Size-up (P2) found no stable cell.
+- **Causal validation** (`validate`, Engine+PaperBroker, hardened realism,
+  2025-01→2026-06): NQ P1 **$414.0k** vs baseline $389.4k on 38 fewer
+  sessions (net/session +27%); P3 net flat with stress DD −24%; P5 best PF
+  1.446 / net-stress 5.3 vs 3.6. MNQ same ordering. Rolling refit
+  (≤2025-06-30 → validate 2025-07+): NQ P1 again beats baseline (+$19.5k);
+  policies structurally stable ⇒ semi-annual refresh cadence confirmed.
+  Hub: `live/state/or_profile_engine/v2b_join{,_refit}/2026H2/validation/`.
+
 ## 2026-07-30 — ST+PMC 1mfill causality + live demos (US30 + NAS100)
 
 - **Causality:** Hourly OHLC fill resolution overstates ST+PMC 50/150 on US30

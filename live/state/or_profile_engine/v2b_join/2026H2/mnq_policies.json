@@ -1,0 +1,52 @@
+{
+  "market": "mnq",
+  "overall_fit_mean_net": 61.75,
+  "P1_skip": {
+    "rule": "skip session when any cell matches (state knowable at 09:45)",
+    "mechanism": "regime_dates restriction",
+    "cells": [
+      {
+        "dim": "gap_bucket",
+        "value": "flat",
+        "condition": "gap_bucket=flat",
+        "n_sessions": 138,
+        "total_net": -3535.5,
+        "mean_net": -25.62,
+        "median_net": 11.5,
+        "win_rate": 0.507,
+        "profit_factor": 0.938,
+        "edge_vs_all": -87.37,
+        "stability_frac": 1.0,
+        "stability_years": 3
+      }
+    ]
+  },
+  "P2_size_tiers": {
+    "rule": "2x S_1_1_3 block in listed cells, 1x elsewhere",
+    "mechanism": "date-list split, one replay per tier (2x = 2/2/6, entry 10)",
+    "tier2_cells": []
+  },
+  "P3_no_runner": {
+    "rule": "use 1/1/0 (no runner) when P(2R|1R) in state trails pooled by >=5pts",
+    "mechanism": "date-list split, no-runner tier replay (1/1/0, entry 2)",
+    "p_2r_given_1r_pooled": 0.495,
+    "cells": [
+      {
+        "dim": "or_width_q",
+        "value": "q4",
+        "n": 112,
+        "p_2r_given_1r": 0.268
+      }
+    ]
+  },
+  "P4_early_cut": {
+    "rule": "flatten at OR re-entry when it fires within the empirical cutoff before 1R",
+    "mechanism": "requires small v2b_scaleout config flag (not replayed here)",
+    "empirical_cutoff_bars5_p75": 2.0,
+    "failed_break_sessions_fit": 297,
+    "failed_break_mean_net_fit": -501.55
+  },
+  "asof": "2026H2",
+  "fit_end": "2024-12-31",
+  "fit_sessions": 679
+}

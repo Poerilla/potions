@@ -1,0 +1,8 @@
+condition,n_sessions,total_net,mean_net,median_net,win_rate,profit_factor,edge_vs_all,stability_frac,stability_years
+label=double_fail_range,194,-1490690.0,-7683.97,-7490.0,0.149,0.121,-8441.16,1.0,4
+label=one_r_reversal,125,-286842.5,-2294.74,-3140.0,0.376,0.554,-3051.93,1.0,3
+label=fakeout_opposite,38,33545.0,882.76,-235.0,0.474,1.383,125.58,0.667,3
+label=break_revert,159,526425.0,3310.85,2507.5,0.836,5.31,2553.66,1.0,3
+label=break_hold_no1r,3,13317.5,4439.17,3435.0,1.0,inf,3681.98,,0
+label=clean_break_1r,18,182075.0,10115.28,8260.0,1.0,inf,9358.09,,0
+label=break_extend_2r,143,1537057.5,10748.65,10472.5,0.993,5255.897,9991.47,1.0,3

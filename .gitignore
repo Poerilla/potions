@@ -45,6 +45,9 @@ live/state/**/*.pid
 live/state/**/*_run.log
 live/state/**/overnight_*.log
 
+# OR profile engine validation replay states (events/sessions/tables CSVs + SUMMARYs stay tracked)
+live/state/or_profile_engine/v2b_join*/*/validation/states/
+
 # OANDA v2b paper demo runtime (code + README stay tracked)
 live/demo/**/state/
 live/demo/**/pidfile
