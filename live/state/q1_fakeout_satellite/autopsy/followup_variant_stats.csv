@@ -1,0 +1,5 @@
+variant,sessions,fills,fill_rate_pct,tp,sl,eod,tp_rate_of_fills_pct,net_usd_1unit,usd_per_fill,usd_per_session,profit_factor,avg_risk_pts
+A1_close5_fade_stop_extreme,203,187,92.1,68,116,3,36.4,13074.5,69.92,64.41,1.741,8.72
+A2_close5_fade_stop_invalidation,203,187,92.1,99,75,13,52.9,15444.5,82.59,76.08,1.491,22.14
+B1_addon_mid_tp_orig1r_stop_oppbound,447,402,89.9,82,301,19,20.4,-3523.0,-8.76,-7.88,0.947,11.3
+B2_addon_mid_tp_broken_boundary,447,402,89.9,185,215,2,46.0,-1308.0,-3.25,-2.93,0.971,11.3

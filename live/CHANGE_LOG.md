@@ -27,6 +27,15 @@
   (pennies); limit-at-failed-extreme and London/5m-swing entries negative
   (adverse selection). **Satellite binned per protocol** — majority of
   stops are true invalidation. `live/state/q1_fakeout_satellite/autopsy/`.
+- **Structure follow-up** (`live/q1_fakeout_structure_followup.py`): the
+  close5-confirmed boundary fade (touch break → 5m close outside → 5m close
+  back inside → limit at the boundary) lifts PF to 1.74 (187 fills) but is
+  regime-concentrated — >100% of 16-yr net from 2021/23/24, 6/16 negative
+  years, 2010–2020 flat — fails the stability bar. The invalidation add-on
+  at OR mid is REJECTED with a conditioning correction: unconditional
+  first-touch after failure is 62.9% opposite boundary vs 34.0% orig 1R
+  (the 57.7% figure was losers-only), so adding with the break fights the
+  majority path (PF 0.95). Satellite stays binned.
 - **Queued frozen plans** (`live/specs/OR_PROFILE_NEXT_PLANS.md`): runner
   ladder from the extension chain, asymmetric reverse leg
   (`reverse_only_when`), FX/CFD rollout of the OR-profile stats.
