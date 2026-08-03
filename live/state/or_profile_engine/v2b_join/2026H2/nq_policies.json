@@ -46,6 +46,241 @@
     "failed_break_sessions_fit": 296,
     "failed_break_mean_net_fit": -4820.02
   },
+  "P8_runner_ladder": {
+    "rule": "runner to 3R when chain>=0.30; no runner when chain<0.18; else baseline 1/1/3",
+    "mechanism": "date-list tiers + runner_target_r_mult=3.0 on runner_3r tier",
+    "chain_high": 0.3,
+    "chain_low": 0.18,
+    "pair_cells": [
+      {
+        "or_width_q": "q1",
+        "gap_bucket": "flat",
+        "n1": 94,
+        "n2": 51,
+        "p_2r_given_1r": 0.543,
+        "p_3r_given_2r": 0.549,
+        "chain": 0.298,
+        "tier": "1x"
+      },
+      {
+        "or_width_q": "q1",
+        "gap_bucket": "gap_dn_lg",
+        "n1": 48,
+        "n2": 28,
+        "p_2r_given_1r": 0.583,
+        "p_3r_given_2r": 0.571,
+        "chain": 0.333,
+        "tier": "runner_3r"
+      },
+      {
+        "or_width_q": "q1",
+        "gap_bucket": "gap_dn_sm",
+        "n1": 92,
+        "n2": 52,
+        "p_2r_given_1r": 0.565,
+        "p_3r_given_2r": 0.519,
+        "chain": 0.293,
+        "tier": "1x"
+      },
+      {
+        "or_width_q": "q1",
+        "gap_bucket": "gap_up_lg",
+        "n1": 105,
+        "n2": 69,
+        "p_2r_given_1r": 0.657,
+        "p_3r_given_2r": 0.594,
+        "chain": 0.39,
+        "tier": "runner_3r"
+      },
+      {
+        "or_width_q": "q1",
+        "gap_bucket": "gap_up_sm",
+        "n1": 156,
+        "n2": 102,
+        "p_2r_given_1r": 0.654,
+        "p_3r_given_2r": 0.52,
+        "chain": 0.34,
+        "tier": "runner_3r"
+      },
+      {
+        "or_width_q": "q2",
+        "gap_bucket": "flat",
+        "n1": 96,
+        "n2": 54,
+        "p_2r_given_1r": 0.562,
+        "p_3r_given_2r": 0.537,
+        "chain": 0.302,
+        "tier": "runner_3r"
+      },
+      {
+        "or_width_q": "q2",
+        "gap_bucket": "gap_dn_lg",
+        "n1": 39,
+        "n2": 20,
+        "p_2r_given_1r": 0.513,
+        "p_3r_given_2r": 0.3,
+        "chain": 0.154,
+        "tier": "no_runner"
+      },
+      {
+        "or_width_q": "q2",
+        "gap_bucket": "gap_dn_sm",
+        "n1": 100,
+        "n2": 57,
+        "p_2r_given_1r": 0.57,
+        "p_3r_given_2r": 0.439,
+        "chain": 0.25,
+        "tier": "1x"
+      },
+      {
+        "or_width_q": "q2",
+        "gap_bucket": "gap_up_lg",
+        "n1": 97,
+        "n2": 57,
+        "p_2r_given_1r": 0.588,
+        "p_3r_given_2r": 0.544,
+        "chain": 0.32,
+        "tier": "runner_3r"
+      },
+      {
+        "or_width_q": "q2",
+        "gap_bucket": "gap_up_sm",
+        "n1": 146,
+        "n2": 74,
+        "p_2r_given_1r": 0.507,
+        "p_3r_given_2r": 0.338,
+        "chain": 0.171,
+        "tier": "no_runner"
+      },
+      {
+        "or_width_q": "q3",
+        "gap_bucket": "flat",
+        "n1": 74,
+        "n2": 31,
+        "p_2r_given_1r": 0.419,
+        "p_3r_given_2r": 0.548,
+        "chain": 0.23,
+        "tier": "1x"
+      },
+      {
+        "or_width_q": "q3",
+        "gap_bucket": "gap_dn_lg",
+        "n1": 60,
+        "n2": 37,
+        "p_2r_given_1r": 0.617,
+        "p_3r_given_2r": 0.405,
+        "chain": 0.25,
+        "tier": "1x"
+      },
+      {
+        "or_width_q": "q3",
+        "gap_bucket": "gap_dn_sm",
+        "n1": 83,
+        "n2": 37,
+        "p_2r_given_1r": 0.446,
+        "p_3r_given_2r": 0.432,
+        "chain": 0.193,
+        "tier": "1x"
+      },
+      {
+        "or_width_q": "q3",
+        "gap_bucket": "gap_up_lg",
+        "n1": 90,
+        "n2": 44,
+        "p_2r_given_1r": 0.489,
+        "p_3r_given_2r": 0.432,
+        "chain": 0.211,
+        "tier": "1x"
+      },
+      {
+        "or_width_q": "q3",
+        "gap_bucket": "gap_up_sm",
+        "n1": 134,
+        "n2": 62,
+        "p_2r_given_1r": 0.463,
+        "p_3r_given_2r": 0.355,
+        "chain": 0.164,
+        "tier": "no_runner"
+      },
+      {
+        "or_width_q": "q4",
+        "gap_bucket": "flat",
+        "n1": 84,
+        "n2": 30,
+        "p_2r_given_1r": 0.357,
+        "p_3r_given_2r": 0.267,
+        "chain": 0.095,
+        "tier": "no_runner"
+      },
+      {
+        "or_width_q": "q4",
+        "gap_bucket": "gap_dn_lg",
+        "n1": 109,
+        "n2": 41,
+        "p_2r_given_1r": 0.376,
+        "p_3r_given_2r": 0.268,
+        "chain": 0.101,
+        "tier": "no_runner"
+      },
+      {
+        "or_width_q": "q4",
+        "gap_bucket": "gap_dn_sm",
+        "n1": 117,
+        "n2": 40,
+        "p_2r_given_1r": 0.342,
+        "p_3r_given_2r": 0.4,
+        "chain": 0.137,
+        "tier": "no_runner"
+      },
+      {
+        "or_width_q": "q4",
+        "gap_bucket": "gap_up_lg",
+        "n1": 77,
+        "n2": 29,
+        "p_2r_given_1r": 0.377,
+        "p_3r_given_2r": 0.345,
+        "chain": 0.13,
+        "tier": "no_runner"
+      },
+      {
+        "or_width_q": "q4",
+        "gap_bucket": "gap_up_sm",
+        "n1": 127,
+        "n2": 49,
+        "p_2r_given_1r": 0.386,
+        "p_3r_given_2r": 0.347,
+        "chain": 0.134,
+        "tier": "no_runner"
+      }
+    ],
+    "q_fallback": {
+      "q1": "runner_3r",
+      "q2": "1x",
+      "q3": "1x",
+      "q4": "no_runner"
+    }
+  },
+  "P9_reverse_only_when": {
+    "rule": "suppress reverse leg outside q1-morning edge states",
+    "mechanism": "v2b_scaleout reverse_only_when + session_or_width_q map",
+    "variants": {
+      "time_1200": {
+        "max_first_leg_exit_time": "12:00"
+      },
+      "time_q1q2": {
+        "max_first_leg_exit_time": "12:00",
+        "or_width_q_allow": [
+          "q1",
+          "q2"
+        ]
+      },
+      "q1_only": {
+        "or_width_q_allow": [
+          "q1"
+        ]
+      }
+    }
+  },
   "asof": "2026H2",
   "fit_end": "2024-12-31",
   "fit_sessions": 680

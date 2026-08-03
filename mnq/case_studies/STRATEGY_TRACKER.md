@@ -295,7 +295,11 @@ Read: the complement satellite adds ~44% net on ~24% more stress and *raises* ne
 
 **REJECTED after causal test — 10:30 entry time gate on v2b** (new `entry_cutoff_time` config flag in `v2b_scaleout`, kept for future studies). P6 (gate alone) and P7 (gate + P5 combo) lose net on both markets (NQ $359.6k vs $389.4k baseline; $252.3k vs $366.8k for P5) — late weak breaks are monetised by the reverse leg, so expiring the stops costs more than it saves. **P5 (flat-gap skip + q4 no-runner) stays the promoted v2b overlay.** Hub: [`../../live/state/or_profile_engine/v2b_join/2026H2/validation/SUMMARY.md`](../../live/state/or_profile_engine/v2b_join/2026H2/validation/SUMMARY.md).
 
-**Queued plans (frozen, not executed):** runner ladder from the extension chain, asymmetric reverse leg (`reverse_only_when`), and the FX/CFD rollout of the OR-profile stats — [`../../live/specs/OR_PROFILE_NEXT_PLANS.md`](../../live/specs/OR_PROFILE_NEXT_PLANS.md).
+**Executed plans (2026-08-02 evening):**
+- **P8 runner ladder REJECTED** — chain-tiered 3R runner / no-runner cut NQ validation net to $316k vs $389k baseline (MNQ only mildly up). Knob `runner_target_r_mult` kept for future use.
+- **P9 `reverse_only_when` time≤12:00 PROMOTED as overlay** — NQ $419k / −$103.7k stress (vs $389k / −$107.7k); MNQ $41.2k vs $37.9k. Stricter q1-only rejected. Natural stack next: **P5 + P9_time_1200**.
+- **HTF turtle soup** (failed break of prior 3d / 4w / 2m high-low, OR-risk soup): daily & monthly negative; weekly_4 wick25 PF 2.24 but 10/17 neg years and 2026-dominated — parked. Hub: [`../../live/state/htf_turtle_soup/nq_SUMMARY.md`](../../live/state/htf_turtle_soup/nq_SUMMARY.md).
+- FX rollout plan still queued: [`../../live/specs/OR_PROFILE_NEXT_PLANS.md`](../../live/specs/OR_PROFILE_NEXT_PLANS.md) Plan C.
 
 ## Intraday ORB Research Leader
 

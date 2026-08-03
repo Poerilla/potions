@@ -162,7 +162,7 @@ class V2BScaleoutStrategy(StrategyPlugin):
             self._commit_state(state)
             return StrategyActions(orders, cancels, [], [], [])
 
-        if role in {"wide_stop", "runner_stop", "tp2", "eod_close", "invalidate_no_opposite_st"}:
+        if role in {"wide_stop", "runner_stop", "tp2", "runner_tp", "eod_close", "invalidate_no_opposite_st"}:
             if context.position_quantity == 0:
                 trade["status"] = "closed"
                 trade["exit_ts"] = fill.ts
@@ -459,6 +459,10 @@ class V2BScaleoutStrategy(StrategyPlugin):
         last_direction = str(state.get("last_exit_direction") or "")
         if last_direction not in {"Long", "Short"}:
             return []
+        if not self._reverse_allowed(ts, state):
+            state["phase"] = "done"
+            state["reverse_suppressed"] = True
+            return []
         opposite = "Short" if last_direction == "Long" else "Long"
         session = str(state.get("session_date") or _parse_dt(ts).date().isoformat())
         allowed = set(self._directions_for_session(session))
@@ -469,6 +473,36 @@ class V2BScaleoutStrategy(StrategyPlugin):
         # Prefer last bar close so PMC / open filters can evaluate on reverse arm.
         ref_price = _to_float(state.get("last_bar_close"))
         return self._entry_orders(ts, state, [opposite], price=ref_price)
+
+    def _reverse_allowed(self, ts: str, state: Dict[str, Any]) -> bool:
+        """OR-profile asymmetric reverse gate (`reverse_only_when` config).
+
+        When unset/empty, reverse is unconditional (legacy). When set, all
+        configured conditions must hold at reverse-arm time:
+          - max_first_leg_exit_time: NY clock of first-leg exit (e.g. \"12:00\")
+          - or_width_q_allow: list of allowed OR-width quartiles; session
+            quartile supplied via config ``session_or_width_q`` {date: \"q1\"..}
+        """
+        gate = self.config.get("reverse_only_when") or {}
+        if not gate:
+            return True
+        exit_ts = str(state.get("last_exit_ts") or ts)
+        max_t = str(gate.get("max_first_leg_exit_time") or "").strip()
+        if max_t:
+            try:
+                hh, mm = max_t.split(":")
+                if _parse_dt(exit_ts).time() >= time(int(hh), int(mm)):
+                    return False
+            except (ValueError, TypeError):
+                pass
+        allow_q = gate.get("or_width_q_allow")
+        if allow_q:
+            session = str(state.get("session_date") or _parse_dt(ts).date().isoformat())
+            qmap = self.config.get("session_or_width_q") or {}
+            q = str(qmap.get(session) or "")
+            if q not in {str(x) for x in allow_q}:
+                return False
+        return True
 
     def _entry_orders(
         self,
@@ -819,6 +853,28 @@ class V2BScaleoutStrategy(StrategyPlugin):
                     expires_after_ts=expiry,
                 )
             )
+        # Optional runner take-profit (default unset = ride to EOD / runner stop).
+        # OR-profile runner ladder: set runner_target_r_mult=3.0 so the runner
+        # block banks at 3R when the state's P(2R|1R)·P(3R|2R) chain is strong.
+        runner_tp = _to_float(params.get("runner_tp"))
+        if runner_qty > 0 and runner_tp is not None:
+            out.append(
+                OrderIntent.create(
+                    strategy_id=self.instance.strategy_id,
+                    trade_id=trade_id,
+                    instrument=self.instance.instrument,
+                    account_mode=self.instance.account_mode,
+                    side=exit_side,
+                    order_type="limit",
+                    quantity=runner_qty,
+                    limit_price=runner_tp,
+                    reason="v2b_runner_tp",
+                    requires_verification=False,
+                    reduce_only=True,
+                    bracket_role="runner_tp",
+                    expires_after_ts=expiry,
+                )
+            )
         return out
 
     def _params(self, direction: str, state: Dict[str, Any]) -> Optional[Dict[str, float]]:
@@ -828,21 +884,28 @@ class V2BScaleoutStrategy(StrategyPlugin):
             return None
         range_value = range_high - range_low
         tick = float(self.config["tick_size"])
+        runner_mult = _to_float(self.config.get("runner_target_r_mult"))
         if direction == "Long":
-            return {
+            out = {
                 "entry": range_high + tick,
                 "init_sl": range_low,
                 "tp1": range_high + range_value,
                 "tp2": range_high + 2.0 * range_value,
                 "runner_sl": range_high + tick,
             }
-        return {
+            if runner_mult is not None and runner_mult > 0:
+                out["runner_tp"] = range_high + runner_mult * range_value
+            return out
+        out = {
             "entry": range_low - tick,
             "init_sl": range_high,
             "tp1": range_low - range_value,
             "tp2": range_low - 2.0 * range_value,
             "runner_sl": range_low - tick,
         }
+        if runner_mult is not None and runner_mult > 0:
+            out["runner_tp"] = range_low - runner_mult * range_value
+        return out
 
     def _new_trade_id(self, state: Dict[str, Any]) -> str:
         state["trade_seq"] = int(state.get("trade_seq", 0)) + 1

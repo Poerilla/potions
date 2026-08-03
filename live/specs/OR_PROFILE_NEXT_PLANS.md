@@ -1,4 +1,7 @@
-# OR Profile — queued research plans (2026-08-02, not yet executed)
+# OR Profile — research plans (2026-08-02)
+
+Status: **Plan A executed & rejected**; **Plan B executed — time≤12:00 promoted**;
+Plan C still queued.
 
 Three planned follow-ups from the OR Profile Probability Engine work
 (`live/or_profile_engine.py`, tables at `live/state/or_profile_engine/<mkt>/2026H2/`).

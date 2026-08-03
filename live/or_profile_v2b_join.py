@@ -80,7 +80,14 @@ SIZING_TIERS: Dict[str, Dict[str, int]] = {
     "1x": {"entry_qty": 5, "tp1_qty": 1, "tp2_qty": 1},     # 1/1/3 baseline
     "2x": {"entry_qty": 10, "tp1_qty": 2, "tp2_qty": 2},    # 2/2/6
     "no_runner": {"entry_qty": 2, "tp1_qty": 1, "tp2_qty": 1},  # 1/1/0
+    "runner_3r": {"entry_qty": 5, "tp1_qty": 1, "tp2_qty": 1},  # 1/1/3 + runner TP at 3R
 }
+
+# Extension-chain ladder thresholds (a priori from OR profile plan).
+CHAIN_HIGH = 0.30  # -> runner_3r
+CHAIN_LOW = 0.18  # -> no_runner
+MIN_CHAIN_N1 = 30
+MIN_CHAIN_N2 = 20
 
 
 # ---------------------------------------------------------------------------
@@ -261,6 +268,64 @@ def derive_policies(
         "failed_break_sessions_fit": len(failed),
         "failed_break_mean_net_fit": round(float(failed["v2b_net_usd"].mean()), 2) if len(failed) else "",
     }
+
+    # P8 runner ladder from P(2R|1R)·P(3R|2R) chain (fit-window cells).
+    chain_cells: List[Dict[str, object]] = []
+    for (q, gap), grp in sessions_fit.groupby(["or_width_q", "gap_bucket"]):
+        if str(q) == "" or str(gap) == "":
+            continue
+        h1 = grp[grp["hit_1r"] == 1]
+        h2 = grp[grp["hit_2r"] == 1]
+        if len(h1) < MIN_CHAIN_N1 or len(h2) < MIN_CHAIN_N2:
+            continue
+        p2 = float(h1["hit_2r"].mean())
+        p3 = float(h2["hit_3r"].mean())
+        chain = p2 * p3
+        tier = "runner_3r" if chain >= CHAIN_HIGH else ("no_runner" if chain < CHAIN_LOW else "1x")
+        chain_cells.append(
+            {
+                "or_width_q": str(q),
+                "gap_bucket": str(gap),
+                "n1": len(h1),
+                "n2": len(h2),
+                "p_2r_given_1r": round(p2, 3),
+                "p_3r_given_2r": round(p3, 3),
+                "chain": round(chain, 3),
+                "tier": tier,
+            }
+        )
+    # Fallback by or_width_q only when pair cell missing
+    q_fallback: Dict[str, str] = {}
+    for q, grp in sessions_fit.groupby("or_width_q"):
+        if str(q) == "":
+            continue
+        h1 = grp[grp["hit_1r"] == 1]
+        h2 = grp[grp["hit_2r"] == 1]
+        if len(h1) < MIN_CHAIN_N1 or len(h2) < MIN_CHAIN_N2:
+            continue
+        chain = float(h1["hit_2r"].mean()) * float(h2["hit_3r"].mean())
+        q_fallback[str(q)] = (
+            "runner_3r" if chain >= CHAIN_HIGH else ("no_runner" if chain < CHAIN_LOW else "1x")
+        )
+    policies["P8_runner_ladder"] = {
+        "rule": "runner to 3R when chain>=0.30; no runner when chain<0.18; else baseline 1/1/3",
+        "mechanism": "date-list tiers + runner_target_r_mult=3.0 on runner_3r tier",
+        "chain_high": CHAIN_HIGH,
+        "chain_low": CHAIN_LOW,
+        "pair_cells": chain_cells,
+        "q_fallback": q_fallback,
+    }
+
+    # P9 reverse_only_when variants (config gates; validated separately).
+    policies["P9_reverse_only_when"] = {
+        "rule": "suppress reverse leg outside q1-morning edge states",
+        "mechanism": "v2b_scaleout reverse_only_when + session_or_width_q map",
+        "variants": {
+            "time_1200": {"max_first_leg_exit_time": "12:00"},
+            "time_q1q2": {"max_first_leg_exit_time": "12:00", "or_width_q_allow": ["q1", "q2"]},
+            "q1_only": {"or_width_q_allow": ["q1"]},
+        },
+    }
     return policies
 
 
@@ -314,6 +379,17 @@ def policy_date_tiers(
         else:
             combo_keep.append(row["session_date"])
     out["P5_combo"] = {"1x": combo_keep, "2x": combo_t2, "no_runner": combo_nr}
+
+    # P8 runner ladder
+    p8 = policies.get("P8_runner_ladder") or {}
+    pair = {(c["or_width_q"], c["gap_bucket"]): c["tier"] for c in p8.get("pair_cells", [])}
+    qfb = dict(p8.get("q_fallback") or {})
+    ladder: Dict[str, List[date]] = {"1x": [], "runner_3r": [], "no_runner": []}
+    for _, row in sessions.iterrows():
+        key = (str(row["or_width_q"]), str(row["gap_bucket"]))
+        tier = pair.get(key) or qfb.get(str(row["or_width_q"]), "1x")
+        ladder.setdefault(tier, []).append(row["session_date"])
+    out["P8_runner_ladder"] = ladder
     return out
 
 
@@ -464,11 +540,22 @@ def replay_dates(
     return list(units), audit_bars, state_root
 
 
-def run_validate(asof: str, markets: Sequence[str], fit_end: date, out_root: Path) -> None:
+def run_validate(
+    asof: str,
+    markets: Sequence[str],
+    fit_end: date,
+    out_root: Path,
+    only_policies: Optional[Sequence[str]] = None,
+) -> None:
     out_dir = out_root / asof
     val_root = out_dir / "validation"
     val_root.mkdir(parents=True, exist_ok=True)
     rows: List[Dict[str, object]] = []
+    # Keep prior validation rows when running a subset so SUMMARY stays cumulative.
+    prior_csv = val_root / "validation_summary.csv"
+    if only_policies and prior_csv.exists():
+        rows = pd.read_csv(prior_csv).to_dict(orient="records")
+        rows = [r for r in rows if str(r.get("policy")) not in set(only_policies)]
 
     for market in markets:
         cfg = MARKETS[market]
@@ -495,10 +582,30 @@ def run_validate(asof: str, markets: Sequence[str], fit_end: date, out_root: Pat
         tiers_by_policy["P7_combo_timegate"] = {
             t: list(ds) for t, ds in tiers_by_policy["P5_combo"].items()
         }
+        # P9 reverse_only_when variants (all sessions, 1x sizing, gated reverse).
+        qmap = {
+            d.isoformat(): str(q)
+            for d, q in zip(val_sessions["session_date"], val_sessions["or_width_q"])
+        }
+        for vname, gate in (policies.get("P9_reverse_only_when") or {}).get("variants", {}).items():
+            pname = "P9_%s" % vname
+            extras_by_policy[pname] = {
+                "reverse_only_when": gate,
+                "session_or_width_q": qmap,
+            }
+            tiers_by_policy[pname] = {"1x": list(val_dates)}
+
+        tier_extras: Dict[str, Dict[str, object]] = {
+            "runner_3r": {"runner_target_r_mult": 3.0},
+        }
+
+        if only_policies:
+            keep = set(only_policies)
+            tiers_by_policy = {k: v for k, v in tiers_by_policy.items() if k in keep}
 
         for policy_name, tiers in tiers_by_policy.items():
-            extra_config = extras_by_policy.get(policy_name)
-            if policy_name != "baseline" and not extra_config:
+            extra_config = dict(extras_by_policy.get(policy_name) or {})
+            if policy_name != "baseline" and not extra_config and "runner_3r" not in tiers:
                 # Skip policies degenerate to the baseline (all dates in tier 1x).
                 non_base = [d for t, ds in tiers.items() if t not in ("1x",) for d in ds]
                 if not non_base and sorted(tiers.get("1x", [])) == list(val_dates):
@@ -513,8 +620,11 @@ def run_validate(asof: str, markets: Sequence[str], fit_end: date, out_root: Pat
                     continue
                 sizing = SIZING_TIERS[tier_name]
                 slug = "%s_orprof_%s_%s" % (market, policy_name.lower(), tier_name)
+                cfg_extra = dict(extra_config)
+                cfg_extra.update(tier_extras.get(tier_name, {}))
                 units, audit_bars, state_root = replay_dates(
-                    cfg, gby, dates, sizing, slug, val_root / "states", extra_config=extra_config
+                    cfg, gby, dates, sizing, slug, val_root / "states",
+                    extra_config=cfg_extra or None,
                 )
                 all_units.extend(units)
                 n_traded_days += len(dates)
@@ -580,11 +690,23 @@ def main() -> None:
     ap.add_argument("--markets", nargs="+", default=["nq", "mnq"])
     ap.add_argument("--fit-end", type=date.fromisoformat, default=date(2024, 12, 31))
     ap.add_argument("--out", type=Path, default=ENGINE_ROOT / "v2b_join")
+    ap.add_argument(
+        "--only",
+        nargs="+",
+        default=None,
+        help="validate only these policy names (e.g. baseline P8_runner_ladder P9_q1_only)",
+    )
     args = ap.parse_args()
     if args.cmd == "join":
         run_join(args.asof, [m.lower() for m in args.markets], args.fit_end, args.out)
     else:
-        run_validate(args.asof, [m.lower() for m in args.markets], args.fit_end, args.out)
+        run_validate(
+            args.asof,
+            [m.lower() for m in args.markets],
+            args.fit_end,
+            args.out,
+            only_policies=args.only,
+        )
 
 
 if __name__ == "__main__":

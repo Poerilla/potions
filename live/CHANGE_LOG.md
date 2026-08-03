@@ -1,5 +1,20 @@
 # Live Runtime CHANGE_LOG
 
+## 2026-08-02 — HTF turtle soup parked; P8 runner ladder rejected; P9 reverse≤12:00 promoted
+
+- **HTF turtle soup** (`live/htf_turtle_soup_study.py`): same close5 OUT→IN →
+  soup-the-swing geometry, but level = prior 3d / 4w / 2m high-low; risk from
+  that day's OR. Daily & monthly books negative; weekly_4 + wick≥0.25R nets
+  +$31.5k / PF 2.24 but 10/17 neg years (2026-dominated) — parked.
+- **Plugin knobs:** `runner_target_r_mult` (runner TP at NR) and
+  `reverse_only_when` + `session_or_width_q` on `v2b_scaleout`.
+- **P8 runner ladder** (chain≥0.30 → 3R runner; chain<0.18 → no runner):
+  REJECTED on NQ validation ($316k vs $389k baseline). DSR TRL-2026-00066/70.
+- **P9 reverse_only_when time≤12:00:** PROMOTED overlay — NQ +$29.6k net vs
+  baseline, MNQ +$3.2k; both improve N/S slightly. q1-only rejected.
+  Next natural stack: P5 (flat-gap skip + q4 no-runner) + P9_time_1200.
+  Validation hub: `live/state/or_profile_engine/v2b_join/2026H2/validation/`.
+
 ## 2026-08-02 — Q1 fakeout satellite + v2b time gate: both causally REJECTED; plans queued
 
 - **New StrategyPlugin** `q1_fakeout_reversal` (`live/strategies/q1_fakeout_reversal.py`,
