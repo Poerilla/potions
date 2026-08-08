@@ -1,7 +1,7 @@
 """NAS100 hourly ST+PMC sl50_tp150_3r — paper demo (OANDA prices, PaperBroker fills).
 
-1m-fill cross-market N/S ≈ 4.59. Artifacts: ``live/demo/nas100_hourly_st_pmc_sl50_tp150_3r_paper/``.
-Streams practice quotes → 1m → 1h (left/left); strategy on 1h; PaperBroker fills on 1m.
+1m-fill lot-correct N/S ≈ 19.6. Artifacts: ``live/demo/nas100_hourly_st_pmc_sl50_tp150_3r_paper/``.
+Streams practice quotes → 1m → 1h; strategy on 1h (``broker_fills=False``); PaperBroker fills on 1m.
 """
 
 from __future__ import annotations
@@ -52,14 +52,17 @@ from .nas100_hourly_st_pmc_common import (
     INSTRUMENT,
     STRATEGY_TYPE,
     TICK,
-    TRACKER_NOTE,
-    VARIANT,
+    book_spec,
     inherit_1m_from_running_demos,
     seed_hourly_history,
     strategy_config_payload,
     upsert_strategy_instance,
 )
 
+BOOK = "sl50_tp150_3r"
+_SPEC = book_spec(BOOK)
+VARIANT = str(_SPEC["variant"])
+TRACKER_NOTE = str(_SPEC["tracker"])
 STRATEGY_ID = "nas100_hourly_st_pmc_sl50_tp150_3r_paper"
 RUN_DIRNAME = "nas100_hourly_st_pmc_sl50_tp150_3r_paper"
 CLI_COMMAND = "demo-nas100-hourly-st-pmc-paper"
@@ -70,7 +73,7 @@ def default_output_root() -> Path:
 
 
 def write_run_meta(output_root: Path, *, config: OandaConfig) -> Dict[str, Any]:
-    payload = strategy_config_payload(oanda_routing=False)
+    payload = strategy_config_payload(oanda_routing=False, book=BOOK)
     meta = {
         "started_at": utc_now_iso(),
         "pid": os.getpid(),
@@ -104,7 +107,7 @@ def write_run_meta(output_root: Path, *, config: OandaConfig) -> Dict[str, Any]:
 def bootstrap_store(output_root: Path) -> FlatFileStore:
     store = FlatFileStore(state_root_for(output_root))
     store.ensure()
-    upsert_strategy_instance(store, strategy_id=STRATEGY_ID, oanda_routing=False)
+    upsert_strategy_instance(store, strategy_id=STRATEGY_ID, oanda_routing=False, book=BOOK)
     n = seed_hourly_history(store, source="nas100_1h_csv_seed_paper")
     if n:
         append_progress(output_root, "SEED 1h history bars=%d" % n)
@@ -208,7 +211,8 @@ class StPmcPaperRunner:
 
     def _handle_1h(self, bar: Bar) -> None:
         self.bars_1h += 1
-        self.engine.process_bar(bar)
+        # 1m already filled this hour's range; 1h is signal-only (no HTF lookahead fills).
+        self.engine.process_bar(bar, broker_fills=False)
         append_progress(
             self.output_root,
             "1h bar ts=%s o=%.1f h=%.1f l=%.1f c=%.1f" % (bar.ts, bar.open, bar.high, bar.low, bar.close),

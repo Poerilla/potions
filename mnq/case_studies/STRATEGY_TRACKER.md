@@ -14,26 +14,28 @@ Central index of execution variants explored in this workspace / chat threads.
 
 ## Forex Strategy Leaderboard
 
-> **2026-07-30 — ST+PMC 1m fill-tape (index CFDs).** Hourly OHLC can fill
-> entry+target on the same bar when H/L both touch even if the high came
-> *before* a causal limit fill. Fair control = StrategyPlugin + **1m fill tape**
-> (`sl50_tp150_3r_1mfill`). US30: N/S **10.34** (vs hourly 3.91). Cross-market:
-> NAS100 **4.59** (only profitable FX/index CFD on this exact variant);
-> EURUSD/USDJPY **fail** at 50/150 pips. BB-add / retest pyramids do **not**
-> beat the 1mfill control. Live: US30 + NAS100 paper/OANDA demos on fair control.
-> Hub: [`../../live/state/st_pmc_1mfill_cross_market/SUMMARY.md`](../../live/state/st_pmc_1mfill_cross_market/SUMMARY.md) ·
-> causality: [`../../live/state/us30_st_pmc_retest_add_experiment/SUMMARY.md`](../../live/state/us30_st_pmc_retest_add_experiment/SUMMARY.md).
+> **2026-08-08 — ST+PMC lot-correct runners (index CFDs).** Fair 3R and
+> **2R→10R** are rankable after trade_id lot match + reachable stress.
+> US30 3R N/S **29.4** / 2R→10R **24.1**; NAS100 3R **19.6** / 2R→10R **11.1**.
+> Indefinite runners are an inventory sleeve (not N/S-ranked; not demoed).
+> Live: US30 + NAS100 paper/OANDA on fair 3R and 2R→10R.
+> Hubs: [`../../live/state/us30_st_pmc_runner_variants/`](../../live/state/us30_st_pmc_runner_variants/) ·
+> [`../../live/state/fx_index_metals_st_pmc_runner_variants/`](../../live/state/fx_index_metals_st_pmc_runner_variants/).
 
-### Index CFD ST+PMC 50/150 — 1mfill ranks (2026-07-30)
+### Index CFD ST+PMC 50/150 — lot-correct 1mfill ranks (2026-08-08)
 
-| Rank | Market | Net | Stress | **N/S** | WR% | Live demo |
-|---:|---|---:|---:|---:|---:|---|
-| 1 | **US30** | +$20.4k | −$2.0k | **10.34** | 34.6% | `demo-us30-hourly-st-pmc-{paper,oanda}` |
-| 2 | **NAS100** | +$9.5k | −$2.1k | **4.59** | 31.6% | `demo-nas100-hourly-st-pmc-{paper,oanda}` |
-| — | XAUUSD 50/150 pts | +$27.2k | −$169k | **0.16** | 26.8% | not promoted (keep MA-bull / yearly ORB) |
-| — | XAGUSD 50/150 pts | 0 units | — | 0.00 | — | stop scale unusable vs silver price |
-| — | EURUSD (50/150 pips) | −$5.1k | −$36k | −0.14 | 25.0% | not promoted |
-| — | USDJPY (50/150 pips) | (JPY PV) | — | −0.88 | 23.5% | not promoted |
+| Rank | Market / book | Net | Stress | **N/S** | Live demo |
+|---:|---|---:|---:|---:|---|
+| 1 | **US30** fair 3R | +$19.0k | −$0.65k | **29.39** | `demo-us30-hourly-st-pmc-{paper,oanda}` |
+| 2 | **US30** 2R→10R | +$56.1k | −$2.3k | **24.05** | `demo-us30-hourly-st-pmc-2r10r-{paper,oanda}` |
+| 3 | **NAS100** fair 3R | +$15.2k | −$0.78k | **19.56** | `demo-nas100-hourly-st-pmc-{paper,oanda}` |
+| 4 | **NAS100** 2R→10R | +$34.1k | −$3.1k | **11.13** | `demo-nas100-hourly-st-pmc-2r10r-{paper,oanda}` |
+| — | US30 / NAS100 indefinite | sleeve | reachable stress | not ranked | not demoed |
+
+FX/metals 50/150 runner table (EURUSD/GBPUSD/USDJPY/AUDJPY/XAU/XAG) **in progress** under
+[`../../live/state/fx_index_metals_st_pmc_runner_variants/`](../../live/state/fx_index_metals_st_pmc_runner_variants/) —
+update ranks when lot-correct SUMMARY completes. US30 indef sleeve sizing:
+[`../../live/state/us30_st_pmc_runner_variants/INDEF_PORTFOLIO_PROFILE/`](../../live/state/us30_st_pmc_runner_variants/INDEF_PORTFOLIO_PROFILE/).
 
 EURUSD sleeves ranked by broker-like **Net/Stress** (Engine + `PaperBroker`, Histdata daily/hourly as noted). Fee conventions differ by family ($1.50 intraday ST+PMC / Monday OR pack vs $7/unit monthly ORB pack) — compare within sleeve, then across with that caveat.
 
@@ -278,6 +280,29 @@ Batch probability engine over the v2b 15-minute opening range (`live/or_profile_
 - **Causal validation** (Engine+PaperBroker, hardened realism, frozen policies, 2025-01→2026-06): NQ **P1 skip flat-gap $414.0k** vs baseline $389.4k on 38 fewer sessions (net/session **+27%**, PF 1.36 vs 1.28); **P3 no-runner on q4** net flat, intrabar stress DD **−24%**; **P5 = P1+P3** best PF **1.446** and net/stress **5.3 vs 3.6**. MNQ orders identically. Rolling refit (fit ≤2025-06-30, validate 2025-07+) re-derives the same NQ policy and beats baseline again (+$19.5k) ⇒ semi-annual refresh cadence is sufficient. Hub: [`../../live/state/or_profile_engine/v2b_join/2026H2/`](../../live/state/or_profile_engine/v2b_join/2026H2/).
 - **Promotion candidates:** NQ/MNQ v2b S_1_1_3 + **flat-gap skip** (max net) or **+ q4 no-runner combo** (max PF / net-stress). Early-cut exit (P4) needs a small `v2b_scaleout` config flag before it can be replayed causally — analytic-only for now.
 
+## Structure-program ST family (2026-08-03) — parked
+
+15m structure lists + 1m ST-break → limit @ structure. Analytic books looked strong
+(`split15` r12 +$1.77M; `structure_sl_scale_run` +$2.03M PF 9.6) but **all PaperBroker
+gates failed** on NQ:
+
+| Plan / mode | Broker net | PF | Hub |
+|-------------|-----------:|---:|-----|
+| split15 r12 always ST-flip | −$130k | 0.66 | `live/state/structure_program_st_broker/` |
+| split15 adverse / after_n10 / off | −$204k … −$247k | ~0.56–0.59 | `*_broker_adverse/`, `*_aftern10/`, `*_noflip/` |
+| **scale_run r8 fav_be** (5@22/50/200) | **−$103k** | **0.70** | `live/state/structure_program_st_broker_scale_run/` |
+| structure_only resting (no ST arm) | −$2.13M | 0.185 | `live/state/structure_program_st_broker_struct_v2/` |
+| touch_st_align (through→ST flip mkt) | −$1.25M | 0.84 | `live/state/structure_program_st_broker_touch_align/` |
+| touch_st_align_fade20 (through≥20m fade) | −$871k | 0.75 | `live/state/structure_program_st_broker_touch_align_fade20/` |
+| vwap_scalein (split VWAP in structure) | −$1.11M | 0.044 | `live/state/structure_program_st_broker_vwap_scalein/` |
+
+**Stance: PARKED / research-only — do not promote.** Narrative + failed gates:
+[`../../live/state/structure_program_st/RESEARCH_PATH.md`](../../live/state/structure_program_st/RESEARCH_PATH.md).
+DSR …00084 (touch_st_align), …00085 (fade20), **TRL-2026-00086** (vwap_scalein).
+~37% of touch_align fills are structurally through the entry level at fill
+(`…/invalid_audit/`). v2b level join: structure keys ≠ OR breakout path
+(`live/state/structure_program_st/v2b_align/`).
+
 ## Combined book + OR-profile follow-ups (2026-08-02)
 
 **PROMOTED: combined book = prior-opposed RL core + complement v2b satellite + flat-gap skip.** Causal Engine+PaperBroker replay (`live/v2b_combined_book_replay.py`): core B = promoted prior-opposed resting-limit S_1_1_3 (its own fills); satellite A = all-days v2b S_1_1_3 re-replayed with `regime_dates` restricted to days where **no gate limit was resting at 09:45** (knowable from B's `dynamic_sizing_events`), plus OR-profile flat-gap skip; all variants stress-audited on one union 1m tape. Hubs: [`../../live/state/nq_v2b_combined_book_causal/SUMMARY.md`](../../live/state/nq_v2b_combined_book_causal/SUMMARY.md), [`../../live/state/mnq_v2b_combined_book_causal/SUMMARY.md`](../../live/state/mnq_v2b_combined_book_causal/SUMMARY.md).
@@ -299,7 +324,8 @@ Read: the complement satellite adds ~44% net on ~24% more stress and *raises* ne
 - **P8 runner ladder REJECTED** — chain-tiered 3R runner / no-runner cut NQ validation net to $316k vs $389k baseline (MNQ only mildly up). Knob `runner_target_r_mult` kept for future use.
 - **P9 `reverse_only_when` time≤12:00 PROMOTED as overlay** — NQ $419k / −$103.7k stress (vs $389k / −$107.7k); MNQ $41.2k vs $37.9k. Stricter q1-only rejected. Natural stack next: **P5 + P9_time_1200**.
 - **HTF turtle soup** (failed break of prior 3d / 4w / 2m high-low, OR-risk soup): daily & monthly negative; weekly_4 wick25 PF 2.24 but 10/17 neg years and 2026-dominated — parked. Hub: [`../../live/state/htf_turtle_soup/nq_SUMMARY.md`](../../live/state/htf_turtle_soup/nq_SUMMARY.md).
-- FX rollout plan still queued: [`../../live/specs/OR_PROFILE_NEXT_PLANS.md`](../../live/specs/OR_PROFILE_NEXT_PLANS.md) Plan C.
+- **FX turtle soup** (`live/fx_turtle_soup_study.py`): index CFD OR soup **dead** (US30 −$14k / NAS100 −$3.9k). Only material green OR book is **EURUSD London OR + wick≥0.25R** (+$20.3k, PF 1.25, 9/24 neg years) — research lead, **not promote**. EURUSD/USDJPY NY daily_3 HTF tentative green but sparse/unstable. Hub: [`../../live/state/fx_turtle_soup/SUMMARY.md`](../../live/state/fx_turtle_soup/SUMMARY.md).
+- **Plan C started (2026H2fx):** OR engine FX clocks + tables for US30/NAS100/EURUSD(L+NY)/USDJPY(NY)/XAU(NY). Index CFD headline chains ≈ NQ; FX pairs show much higher continuation. ST+PMC join: **do not import** NQ flat-gap skip / q4 no-runner onto US30/NAS100 (edges opposite). Hub: [`../../live/state/or_profile_engine/2026H2fx_PLAN_C.md`](../../live/state/or_profile_engine/2026H2fx_PLAN_C.md). Spec: [`../../live/specs/OR_PROFILE_NEXT_PLANS.md`](../../live/specs/OR_PROFILE_NEXT_PLANS.md).
 
 ## Intraday ORB Research Leader
 

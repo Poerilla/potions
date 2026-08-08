@@ -47,6 +47,11 @@ class Unit:
     exit_ts: str
     exit_price: float
     exit_reason: str
+    entry_reason: str = ""
+    # Protective stop for reachable stress. When be_after_ts is set and bar_ts >= be_after_ts,
+    # the live stop is entry_price (breakeven); otherwise hard_stop_price.
+    hard_stop_price: Optional[float] = None
+    be_after_ts: str = ""
 
     @property
     def sign(self) -> int:
@@ -55,6 +60,13 @@ class Unit:
     @property
     def points(self) -> float:
         return (self.exit_price - self.entry_price) * self.sign
+
+    def live_stop_price(self, bar_ts: str) -> Optional[float]:
+        if self.hard_stop_price is None and not self.be_after_ts:
+            return None
+        if self.be_after_ts and bar_ts >= self.be_after_ts:
+            return float(self.entry_price)
+        return None if self.hard_stop_price is None else float(self.hard_stop_price)
 
 
 @dataclass
@@ -104,62 +116,125 @@ def units_from_live_fills(
     candidate: str,
     mark_open_ts: str = "",
     mark_open_price: Optional[float] = None,
+    *,
+    match_within_trade_id: bool = True,
+    stop_pts: Optional[float] = None,
+    runner_be_after_tp1: bool = False,
+    mark_exit_reason: str = "open_mark",
 ) -> list[Unit]:
+    """Build units from fills.
+
+    Matching is **within trade_id** by default (lot-correct for concurrent multi-campaign
+    books). Cross-trade FIFO by direction alone invents bogus P&L when 10s–100s of
+    same-direction lots are open — do not use that for ranking.
+
+    When ``stop_pts`` is set, units carry hard-stop / BE-after-TP1 metadata so
+    ``audit_units`` can compute *reachable* intrabar stress (clip to live stop).
+    """
     rows = _read_csv(path)
     rows.sort(key=lambda row: row.get("ts", ""))
-    open_lots: list[tuple[str, str, float, str]] = []
+    # (trade_id, entry_ts, entry_price, direction, entry_reason)
+    open_lots: list[tuple[str, str, float, str, str]] = []
     out: list[Unit] = []
     n = 0
+    tp1_ts_by_trade: dict[str, str] = {}
     # "add" is a scale-in fill (DCA / pyramids) — must open a lot, not close one.
-    entry_reasons = {"entry", "runner_entry", "add"}
+    # Multi-runner roles use runner_entry / runner_entry_2 / …
+    entry_reasons = {"entry", "runner_entry", "add", "retest_add", "bb_add"}
+
+    def _hard_stop(direction: str, entry_price: float) -> Optional[float]:
+        if stop_pts is None:
+            return None
+        if direction.lower().startswith("short"):
+            return float(entry_price) + float(stop_pts)
+        return float(entry_price) - float(stop_pts)
+
+    def _be_after(trade_id: str, entry_reason: str) -> str:
+        if not runner_be_after_tp1:
+            return ""
+        if not str(entry_reason).startswith("runner_entry"):
+            return ""
+        return tp1_ts_by_trade.get(trade_id, "")
+
+    def _emit(
+        trade_id: str,
+        entry_ts: str,
+        entry_price: float,
+        direction: str,
+        entry_reason: str,
+        exit_ts: str,
+        exit_price: float,
+        exit_reason: str,
+    ) -> None:
+        nonlocal n
+        n += 1
+        out.append(
+            Unit(
+                candidate=candidate,
+                trade_id=trade_id,
+                unit_id=str(n),
+                direction=direction,
+                entry_ts=entry_ts,
+                entry_price=entry_price,
+                exit_ts=exit_ts,
+                exit_price=exit_price,
+                exit_reason=exit_reason,
+                entry_reason=entry_reason,
+                hard_stop_price=_hard_stop(direction, entry_price),
+                be_after_ts=_be_after(trade_id, entry_reason),
+            )
+        )
+
     for row in rows:
         if row.get("strategy_id") and row.get("strategy_id") != candidate:
             continue
         side = row.get("side", "").lower()
-        qty = int(float(row.get("quantity") or 0))
+        qty_raw = row.get("quantity")
+        qty = int(float(qty_raw)) if qty_raw not in (None, "") else 1
+        if qty <= 0:
+            continue
         ts = _normalize_ts(row.get("ts", ""))
         price = float(row.get("price") or 0)
         reason = row.get("reason", "")
         trade_id = row.get("trade_id") or candidate
+        if reason == "target" and trade_id not in tp1_ts_by_trade:
+            tp1_ts_by_trade[trade_id] = ts
+        is_entry = reason in entry_reasons or str(reason).startswith("runner_entry")
         for _ in range(qty):
-            if reason in entry_reasons:
+            if is_entry:
                 direction = "Long" if side == "buy" else "Short"
-                open_lots.append((trade_id, ts, price, direction))
+                open_lots.append((trade_id, ts, price, direction, reason))
                 continue
             close_direction = "Long" if side == "sell" else "Short"
-            match_idx = next((idx for idx, lot in enumerate(open_lots) if lot[3] == close_direction), None)
+            match_idx = None
+            if match_within_trade_id:
+                match_idx = next(
+                    (
+                        idx
+                        for idx, lot in enumerate(open_lots)
+                        if lot[0] == trade_id and lot[3] == close_direction
+                    ),
+                    None,
+                )
+            if match_idx is None:
+                # Legacy fallback only when trade_id matching fails (missing/mismatched ids).
+                match_idx = next((idx for idx, lot in enumerate(open_lots) if lot[3] == close_direction), None)
             if match_idx is None:
                 continue
-            entry_trade, entry_ts, entry_price, direction = open_lots.pop(match_idx)
-            n += 1
-            out.append(
-                Unit(
-                    candidate=candidate,
-                    trade_id=entry_trade,
-                    unit_id=str(n),
-                    direction=direction,
-                    entry_ts=entry_ts,
-                    entry_price=entry_price,
-                    exit_ts=ts,
-                    exit_price=price,
-                    exit_reason=reason,
-                )
-            )
+            entry_trade, entry_ts, entry_price, direction, entry_reason = open_lots.pop(match_idx)
+            _emit(entry_trade, entry_ts, entry_price, direction, entry_reason, ts, price, reason)
     if mark_open_ts and mark_open_price is not None:
-        for entry_trade, entry_ts, entry_price, direction in open_lots:
-            n += 1
-            out.append(
-                Unit(
-                    candidate=candidate,
-                    trade_id=entry_trade,
-                    unit_id=str(n),
-                    direction=direction,
-                    entry_ts=entry_ts,
-                    entry_price=entry_price,
-                    exit_ts=mark_open_ts,
-                    exit_price=mark_open_price,
-                    exit_reason="open_mark",
-                )
+        mark_ts = _normalize_ts(mark_open_ts)
+        for entry_trade, entry_ts, entry_price, direction, entry_reason in open_lots:
+            _emit(
+                entry_trade,
+                entry_ts,
+                entry_price,
+                direction,
+                entry_reason,
+                mark_ts,
+                float(mark_open_price),
+                mark_exit_reason,
             )
     return out
 
@@ -278,7 +353,9 @@ def audit_units(
                 pass
             exit_idx += 1
         close_equity = realized + sum((bar.close - u.entry_price) * u.sign for u in active_units)
-        intrabar_equity = realized + sum(_intrabar_points(u, bar) for u in active_units)
+        # Reachable stress: clip adverse mark to the live protective stop (BE after TP1
+        # when configured). Gap-open beyond the stop uses the gap open as fill.
+        intrabar_equity = realized + sum(_reachable_intrabar_points(u, bar) for u in active_units)
         max_open = max(max_open, len(active_units))
         close_dd = min(close_dd, (close_equity - peak_close) * point_value)
         intrabar_dd = min(intrabar_dd, (intrabar_equity - peak_close) * point_value)
@@ -442,9 +519,41 @@ def run_default_audit(output_root: Path) -> list[AuditResult]:
 
 
 def _intrabar_points(unit: Unit, bar: Bar) -> float:
+    """Raw adverse extreme of the bar (may pass through a live stop — legacy)."""
     if unit.sign > 0:
         return bar.low - unit.entry_price
     return unit.entry_price - bar.high
+
+
+def _reachable_intrabar_points(unit: Unit, bar: Bar) -> float:
+    """Stop-aware adverse value for stress.
+
+    If a protective stop is live:
+      - gap open beyond stop → gap-open fill (bar.open)
+      - stop touched intrabar → stop-fill value
+      - stop not touched → raw intrabar adverse mark
+    Without stop metadata, falls back to raw intrabar extremes.
+    """
+    stop = unit.live_stop_price(bar.ts)
+    if stop is None:
+        return _intrabar_points(unit, bar)
+    if unit.sign > 0:
+        # Long: stop below. Gap through if open <= stop.
+        if bar.open <= stop:
+            fill = bar.open
+        elif bar.low <= stop:
+            fill = stop
+        else:
+            fill = bar.low
+        return fill - unit.entry_price
+    # Short: stop above.
+    if bar.open >= stop:
+        fill = bar.open
+    elif bar.high >= stop:
+        fill = stop
+    else:
+        fill = bar.high
+    return unit.entry_price - fill
 
 
 def _write_candidate_artifacts(root: Path, result: AuditResult, units: list[Unit], equity_rows: list[dict[str, str]]) -> None:
@@ -464,6 +573,9 @@ def _write_candidate_artifacts(root: Path, result: AuditResult, units: list[Unit
                 "exit_ts": u.exit_ts,
                 "exit_price": "%.6f" % u.exit_price,
                 "exit_reason": u.exit_reason,
+                "entry_reason": u.entry_reason,
+                "hard_stop_price": "" if u.hard_stop_price is None else "%.6f" % u.hard_stop_price,
+                "be_after_ts": u.be_after_ts,
                 "points": "%.6f" % u.points,
                 "usd": "%.2f" % (u.points * result.point_value),
             }

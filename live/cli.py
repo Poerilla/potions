@@ -953,6 +953,138 @@ def cmd_demo_nas100_hourly_st_pmc_oanda_stop(args) -> int:
     return stop_daemon(_demo_nas100_st_pmc_oanda_output_root(args))
 
 
+def _demo_us30_st_pmc_2r10r_paper_output_root(args) -> Path:
+    from .demo.us30_hourly_st_pmc_runners_2r_10r_paper import default_output_root
+
+    return Path(args.output_root) if getattr(args, "output_root", "") else default_output_root()
+
+
+def cmd_demo_us30_hourly_st_pmc_2r10r_paper(args) -> int:
+    from .demo.us30_hourly_st_pmc_runners_2r_10r_paper import run_stream_loop, spawn_daemon
+    from .oanda import OandaConfig
+
+    output_root = _demo_us30_st_pmc_2r10r_paper_output_root(args)
+    if args.daemon:
+        return spawn_daemon(
+            output_root=output_root,
+            max_ticks=int(args.max_ticks or 0),
+            oanda_config_path=getattr(args, "oanda_config", "") or "",
+        )
+    config = OandaConfig.from_json_file(Path(args.oanda_config)) if getattr(args, "oanda_config", "") else OandaConfig.from_env()
+    return run_stream_loop(output_root=output_root, config=config, max_ticks=int(args.max_ticks or 0))
+
+
+def cmd_demo_us30_hourly_st_pmc_2r10r_paper_status(args) -> int:
+    from .demo.us30_hourly_st_pmc_runners_2r_10r_paper import status_daemon
+
+    return status_daemon(_demo_us30_st_pmc_2r10r_paper_output_root(args))
+
+
+def cmd_demo_us30_hourly_st_pmc_2r10r_paper_stop(args) -> int:
+    from .demo.us30_hourly_st_pmc_runners_2r_10r_paper import stop_daemon
+
+    return stop_daemon(_demo_us30_st_pmc_2r10r_paper_output_root(args))
+
+
+def _demo_us30_st_pmc_2r10r_oanda_output_root(args) -> Path:
+    from .demo.us30_hourly_st_pmc_runners_2r_10r_oanda import default_output_root
+
+    return Path(args.output_root) if getattr(args, "output_root", "") else default_output_root()
+
+
+def cmd_demo_us30_hourly_st_pmc_2r10r_oanda(args) -> int:
+    from .demo.us30_hourly_st_pmc_runners_2r_10r_oanda import run_stream_loop, spawn_daemon
+    from .oanda import OandaConfig
+
+    output_root = _demo_us30_st_pmc_2r10r_oanda_output_root(args)
+    if args.daemon:
+        return spawn_daemon(
+            output_root=output_root,
+            max_ticks=int(args.max_ticks or 0),
+            oanda_config_path=getattr(args, "oanda_config", "") or "",
+        )
+    config = OandaConfig.from_json_file(Path(args.oanda_config)) if getattr(args, "oanda_config", "") else OandaConfig.from_env()
+    return run_stream_loop(output_root=output_root, config=config, max_ticks=int(args.max_ticks or 0))
+
+
+def cmd_demo_us30_hourly_st_pmc_2r10r_oanda_status(args) -> int:
+    from .demo.us30_hourly_st_pmc_runners_2r_10r_oanda import status_daemon
+
+    return status_daemon(_demo_us30_st_pmc_2r10r_oanda_output_root(args))
+
+
+def cmd_demo_us30_hourly_st_pmc_2r10r_oanda_stop(args) -> int:
+    from .demo.us30_hourly_st_pmc_runners_2r_10r_oanda import stop_daemon
+
+    return stop_daemon(_demo_us30_st_pmc_2r10r_oanda_output_root(args))
+
+
+def _demo_nas100_st_pmc_2r10r_paper_output_root(args) -> Path:
+    from .demo.nas100_hourly_st_pmc_runners_2r_10r_paper import default_output_root
+
+    return Path(args.output_root) if getattr(args, "output_root", "") else default_output_root()
+
+
+def cmd_demo_nas100_hourly_st_pmc_2r10r_paper(args) -> int:
+    from .demo.nas100_hourly_st_pmc_runners_2r_10r_paper import run_stream_loop, spawn_daemon
+    from .oanda import OandaConfig
+
+    output_root = _demo_nas100_st_pmc_2r10r_paper_output_root(args)
+    if args.daemon:
+        return spawn_daemon(
+            output_root=output_root,
+            max_ticks=int(args.max_ticks or 0),
+            oanda_config_path=getattr(args, "oanda_config", "") or "",
+        )
+    config = OandaConfig.from_json_file(Path(args.oanda_config)) if getattr(args, "oanda_config", "") else OandaConfig.from_env()
+    return run_stream_loop(output_root=output_root, config=config, max_ticks=int(args.max_ticks or 0))
+
+
+def cmd_demo_nas100_hourly_st_pmc_2r10r_paper_status(args) -> int:
+    from .demo.nas100_hourly_st_pmc_runners_2r_10r_paper import status_daemon
+
+    return status_daemon(_demo_nas100_st_pmc_2r10r_paper_output_root(args))
+
+
+def cmd_demo_nas100_hourly_st_pmc_2r10r_paper_stop(args) -> int:
+    from .demo.nas100_hourly_st_pmc_runners_2r_10r_paper import stop_daemon
+
+    return stop_daemon(_demo_nas100_st_pmc_2r10r_paper_output_root(args))
+
+
+def _demo_nas100_st_pmc_2r10r_oanda_output_root(args) -> Path:
+    from .demo.nas100_hourly_st_pmc_runners_2r_10r_oanda import default_output_root
+
+    return Path(args.output_root) if getattr(args, "output_root", "") else default_output_root()
+
+
+def cmd_demo_nas100_hourly_st_pmc_2r10r_oanda(args) -> int:
+    from .demo.nas100_hourly_st_pmc_runners_2r_10r_oanda import run_stream_loop, spawn_daemon
+    from .oanda import OandaConfig
+
+    output_root = _demo_nas100_st_pmc_2r10r_oanda_output_root(args)
+    if args.daemon:
+        return spawn_daemon(
+            output_root=output_root,
+            max_ticks=int(args.max_ticks or 0),
+            oanda_config_path=getattr(args, "oanda_config", "") or "",
+        )
+    config = OandaConfig.from_json_file(Path(args.oanda_config)) if getattr(args, "oanda_config", "") else OandaConfig.from_env()
+    return run_stream_loop(output_root=output_root, config=config, max_ticks=int(args.max_ticks or 0))
+
+
+def cmd_demo_nas100_hourly_st_pmc_2r10r_oanda_status(args) -> int:
+    from .demo.nas100_hourly_st_pmc_runners_2r_10r_oanda import status_daemon
+
+    return status_daemon(_demo_nas100_st_pmc_2r10r_oanda_output_root(args))
+
+
+def cmd_demo_nas100_hourly_st_pmc_2r10r_oanda_stop(args) -> int:
+    from .demo.nas100_hourly_st_pmc_runners_2r_10r_oanda import stop_daemon
+
+    return stop_daemon(_demo_nas100_st_pmc_2r10r_oanda_output_root(args))
+
+
 def cmd_oanda_practice_order_smoke(args) -> int:
     """Place a tiny practice EURUSD market order, reconcile via Account Changes, then flatten."""
     from .demo.practice_order_smoke import run_practice_order_smoke
@@ -962,6 +1094,16 @@ def cmd_oanda_practice_order_smoke(args) -> int:
         units=int(getattr(args, "units", 1) or 1),
         state_root=Path(args.state_root),
     )
+
+
+def cmd_oanda_practice_sync(args) -> int:
+    """Query OANDA practice account; optionally repair local *_oanda demo positions.csv."""
+    from .demo.oanda_practice_sync import main as oanda_practice_sync_main
+
+    argv = []
+    if getattr(args, "repair_demo_positions", False):
+        argv.append("--repair-demo-positions")
+    return oanda_practice_sync_main(argv)
 
 
 def cmd_cqg_smoke(args) -> int:
@@ -1464,6 +1606,102 @@ def build_parser() -> argparse.ArgumentParser:
     demo_nas100_st_pmc_oanda_stop.add_argument("--output-root", default="")
     demo_nas100_st_pmc_oanda_stop.set_defaults(func=cmd_demo_nas100_hourly_st_pmc_oanda_stop)
 
+    demo_us30_st_pmc_2r10r_paper = sub.add_parser(
+        "demo-us30-hourly-st-pmc-2r10r-paper",
+        help="US30 hourly ST+PMC 2R→10R runners paper demo (OANDA prices, PaperBroker)",
+    )
+    demo_us30_st_pmc_2r10r_paper.add_argument("--output-root", default="")
+    demo_us30_st_pmc_2r10r_paper.add_argument("--oanda-config", default="")
+    demo_us30_st_pmc_2r10r_paper.add_argument("--max-ticks", type=int, default=0)
+    demo_us30_st_pmc_2r10r_paper.add_argument("--daemon", action="store_true")
+    demo_us30_st_pmc_2r10r_paper.set_defaults(func=cmd_demo_us30_hourly_st_pmc_2r10r_paper)
+
+    demo_us30_st_pmc_2r10r_paper_status = sub.add_parser(
+        "demo-us30-hourly-st-pmc-2r10r-paper-status",
+        help="Status of US30 ST+PMC 2R→10R paper demo",
+    )
+    demo_us30_st_pmc_2r10r_paper_status.add_argument("--output-root", default="")
+    demo_us30_st_pmc_2r10r_paper_status.set_defaults(func=cmd_demo_us30_hourly_st_pmc_2r10r_paper_status)
+
+    demo_us30_st_pmc_2r10r_paper_stop = sub.add_parser(
+        "demo-us30-hourly-st-pmc-2r10r-paper-stop",
+        help="Stop US30 ST+PMC 2R→10R paper demo",
+    )
+    demo_us30_st_pmc_2r10r_paper_stop.add_argument("--output-root", default="")
+    demo_us30_st_pmc_2r10r_paper_stop.set_defaults(func=cmd_demo_us30_hourly_st_pmc_2r10r_paper_stop)
+
+    demo_us30_st_pmc_2r10r_oanda = sub.add_parser(
+        "demo-us30-hourly-st-pmc-2r10r-oanda",
+        help="US30 hourly ST+PMC 2R→10R runners OANDA practice demo",
+    )
+    demo_us30_st_pmc_2r10r_oanda.add_argument("--output-root", default="")
+    demo_us30_st_pmc_2r10r_oanda.add_argument("--oanda-config", default="")
+    demo_us30_st_pmc_2r10r_oanda.add_argument("--max-ticks", type=int, default=0)
+    demo_us30_st_pmc_2r10r_oanda.add_argument("--daemon", action="store_true")
+    demo_us30_st_pmc_2r10r_oanda.set_defaults(func=cmd_demo_us30_hourly_st_pmc_2r10r_oanda)
+
+    demo_us30_st_pmc_2r10r_oanda_status = sub.add_parser(
+        "demo-us30-hourly-st-pmc-2r10r-oanda-status",
+        help="Status of US30 ST+PMC 2R→10R OANDA practice demo",
+    )
+    demo_us30_st_pmc_2r10r_oanda_status.add_argument("--output-root", default="")
+    demo_us30_st_pmc_2r10r_oanda_status.set_defaults(func=cmd_demo_us30_hourly_st_pmc_2r10r_oanda_status)
+
+    demo_us30_st_pmc_2r10r_oanda_stop = sub.add_parser(
+        "demo-us30-hourly-st-pmc-2r10r-oanda-stop",
+        help="Stop US30 ST+PMC 2R→10R OANDA practice demo",
+    )
+    demo_us30_st_pmc_2r10r_oanda_stop.add_argument("--output-root", default="")
+    demo_us30_st_pmc_2r10r_oanda_stop.set_defaults(func=cmd_demo_us30_hourly_st_pmc_2r10r_oanda_stop)
+
+    demo_nas100_st_pmc_2r10r_paper = sub.add_parser(
+        "demo-nas100-hourly-st-pmc-2r10r-paper",
+        help="NAS100 hourly ST+PMC 2R→10R runners paper demo (OANDA prices, PaperBroker)",
+    )
+    demo_nas100_st_pmc_2r10r_paper.add_argument("--output-root", default="")
+    demo_nas100_st_pmc_2r10r_paper.add_argument("--oanda-config", default="")
+    demo_nas100_st_pmc_2r10r_paper.add_argument("--max-ticks", type=int, default=0)
+    demo_nas100_st_pmc_2r10r_paper.add_argument("--daemon", action="store_true")
+    demo_nas100_st_pmc_2r10r_paper.set_defaults(func=cmd_demo_nas100_hourly_st_pmc_2r10r_paper)
+
+    demo_nas100_st_pmc_2r10r_paper_status = sub.add_parser(
+        "demo-nas100-hourly-st-pmc-2r10r-paper-status",
+        help="Status of NAS100 ST+PMC 2R→10R paper demo",
+    )
+    demo_nas100_st_pmc_2r10r_paper_status.add_argument("--output-root", default="")
+    demo_nas100_st_pmc_2r10r_paper_status.set_defaults(func=cmd_demo_nas100_hourly_st_pmc_2r10r_paper_status)
+
+    demo_nas100_st_pmc_2r10r_paper_stop = sub.add_parser(
+        "demo-nas100-hourly-st-pmc-2r10r-paper-stop",
+        help="Stop NAS100 ST+PMC 2R→10R paper demo",
+    )
+    demo_nas100_st_pmc_2r10r_paper_stop.add_argument("--output-root", default="")
+    demo_nas100_st_pmc_2r10r_paper_stop.set_defaults(func=cmd_demo_nas100_hourly_st_pmc_2r10r_paper_stop)
+
+    demo_nas100_st_pmc_2r10r_oanda = sub.add_parser(
+        "demo-nas100-hourly-st-pmc-2r10r-oanda",
+        help="NAS100 hourly ST+PMC 2R→10R runners OANDA practice demo",
+    )
+    demo_nas100_st_pmc_2r10r_oanda.add_argument("--output-root", default="")
+    demo_nas100_st_pmc_2r10r_oanda.add_argument("--oanda-config", default="")
+    demo_nas100_st_pmc_2r10r_oanda.add_argument("--max-ticks", type=int, default=0)
+    demo_nas100_st_pmc_2r10r_oanda.add_argument("--daemon", action="store_true")
+    demo_nas100_st_pmc_2r10r_oanda.set_defaults(func=cmd_demo_nas100_hourly_st_pmc_2r10r_oanda)
+
+    demo_nas100_st_pmc_2r10r_oanda_status = sub.add_parser(
+        "demo-nas100-hourly-st-pmc-2r10r-oanda-status",
+        help="Status of NAS100 ST+PMC 2R→10R OANDA practice demo",
+    )
+    demo_nas100_st_pmc_2r10r_oanda_status.add_argument("--output-root", default="")
+    demo_nas100_st_pmc_2r10r_oanda_status.set_defaults(func=cmd_demo_nas100_hourly_st_pmc_2r10r_oanda_status)
+
+    demo_nas100_st_pmc_2r10r_oanda_stop = sub.add_parser(
+        "demo-nas100-hourly-st-pmc-2r10r-oanda-stop",
+        help="Stop NAS100 ST+PMC 2R→10R OANDA practice demo",
+    )
+    demo_nas100_st_pmc_2r10r_oanda_stop.add_argument("--output-root", default="")
+    demo_nas100_st_pmc_2r10r_oanda_stop.set_defaults(func=cmd_demo_nas100_hourly_st_pmc_2r10r_oanda_stop)
+
     oanda_order_smoke = sub.add_parser(
         "oanda-practice-order-smoke",
         help="Tiny practice EURUSD market place/fill/reconcile/flatten (before enabling OANDA demos)",
@@ -1471,6 +1709,17 @@ def build_parser() -> argparse.ArgumentParser:
     oanda_order_smoke.add_argument("--oanda-config", default="")
     oanda_order_smoke.add_argument("--units", type=int, default=1, help="Practice units (default 1)")
     oanda_order_smoke.set_defaults(func=cmd_oanda_practice_order_smoke)
+
+    oanda_sync = sub.add_parser(
+        "oanda-practice-sync",
+        help="Query OANDA practice account vs local *_oanda demos; optional positions.csv repair",
+    )
+    oanda_sync.add_argument(
+        "--repair-demo-positions",
+        action="store_true",
+        help="Rewrite each *_oanda demo positions.csv to live focus-instrument qty only",
+    )
+    oanda_sync.set_defaults(func=cmd_oanda_practice_sync)
 
     cqg_smoke = sub.add_parser("cqg-smoke", help="Validate CQG config/session scaffolding")
     cqg_smoke.add_argument("--cqg-config", default="")

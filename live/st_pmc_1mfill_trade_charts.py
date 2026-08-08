@@ -1,7 +1,8 @@
 """Sample trade charts for US30 / NAS100 ST+PMC sl50_tp150_3r_1mfill.
 
-Even win/loss sample from StrategyPlugin 1m-fill fills. Hourly candles,
-ATR SuperTrend 14×3, prior-month close, stop/target, entry/exit markers.
+Even win/loss sample from StrategyPlugin 1m-fill fills. **1-minute candles**
+for price; **hourly** ATR SuperTrend 14×3 (same as the strategy), prior-month
+close, stop/target, entry/exit markers.
 """
 
 from __future__ import annotations
@@ -24,7 +25,12 @@ import pandas as pd
 
 from .build_ym_1m_atr_supertrend_sample import compute_supertrend
 from .replay_audit import POINT_VALUES
-from .ym_hourly_st_pmc_retest_replay import load_prev_month_close_map
+from .ym_hourly_st_pmc_retest_replay import (
+    concat_all_1m,
+    load_1m_by_ny_date_any,
+    load_prev_month_close_map,
+    resample_hourly,
+)
 
 REPO = Path(__file__).resolve().parents[1]
 NY = "America/New_York"
@@ -33,7 +39,17 @@ ATR_MULT = 3.0
 FEE = 1.50
 STOP_PTS = 50.0
 TARGET_PTS = 150.0
-EXIT_REASONS = {"stop", "target", "tp1", "eod", "flatten", "close", "runner_stop", "wide_stop"}
+EXIT_REASONS = {
+    "stop",
+    "target",
+    "tp1",
+    "eod",
+    "flatten",
+    "close",
+    "runner_stop",
+    "wide_stop",
+    "year_end_flatten",
+}
 
 OUT_ROOT = REPO / "live" / "state" / "st_pmc_1mfill_cross_market" / "charts"
 
@@ -51,8 +67,46 @@ MARKETS: Dict[str, Dict[str, object]] = {
             / "fills.csv"
         ),
         "hourly_csv": REPO / "fx" / "us30_1h.csv",
+        "m1_csv": REPO / "fx" / "us30_1m.csv",
         "daily_csv": REPO / "fx" / "us30_daily.csv",
         "point_value": float(POINT_VALUES.get("US30", 1.0)),
+    },
+    "us30_runners_2r_10r": {
+        "instrument": "US30",
+        "label": "US30 ST+PMC runners 2R+10R (TP150/300/1500)",
+        "fills": (
+            REPO
+            / "live"
+            / "state"
+            / "us30_st_pmc_runner_variants"
+            / "states"
+            / "us30_hourly_st_pmc_sl50_tp150_runners_2r_10r"
+            / "fills.csv"
+        ),
+        "hourly_csv": REPO / "fx" / "us30_1h.csv",
+        "m1_csv": REPO / "fx" / "us30_1m.csv",
+        "daily_csv": REPO / "fx" / "us30_daily.csv",
+        "point_value": float(POINT_VALUES.get("US30", 1.0)),
+        # Charts draw stop + regular TP only; never 10R / indefinite targets.
+        "draw_far_targets": False,
+    },
+    "us30_runners_2r_indef": {
+        "instrument": "US30",
+        "label": "US30 ST+PMC runners 2R+indefinite",
+        "fills": (
+            REPO
+            / "live"
+            / "state"
+            / "us30_st_pmc_runner_variants"
+            / "states"
+            / "us30_hourly_st_pmc_sl50_tp150_runners_2r_indef"
+            / "fills.csv"
+        ),
+        "hourly_csv": REPO / "fx" / "us30_1h.csv",
+        "m1_csv": REPO / "fx" / "us30_1m.csv",
+        "daily_csv": REPO / "fx" / "us30_daily.csv",
+        "point_value": float(POINT_VALUES.get("US30", 1.0)),
+        "draw_far_targets": False,
     },
     "nas100": {
         "instrument": "NAS100",
@@ -68,6 +122,7 @@ MARKETS: Dict[str, Dict[str, object]] = {
             / "fills.csv"
         ),
         "hourly_csv": REPO / "fx" / "nas100_1h.csv",
+        "m1_csv": REPO / "fx" / "nas100_1m.csv",
         "daily_csv": REPO / "fx" / "nas100_daily.csv",
         "point_value": float(POINT_VALUES.get("NAS100", 1.0)),
     },
@@ -102,6 +157,49 @@ def load_hourly_with_st(path: Path) -> pd.DataFrame:
     return compute_supertrend(raw, atr_len=ATR_LEN, multiplier=ATR_MULT)
 
 
+def load_m1_ohlc(path: Path) -> pd.DataFrame:
+    """1m OHLC for display only (no SuperTrend — strategy ST stays hourly)."""
+    raw = pd.read_csv(path)
+    ts_col = "ts_event" if "ts_event" in raw.columns else "ts"
+    raw["ts"] = pd.to_datetime(raw[ts_col], utc=True).dt.tz_convert(NY)
+    raw = raw.set_index("ts").sort_index()
+    for c in ("open", "high", "low", "close"):
+        raw[c] = pd.to_numeric(raw[c], errors="coerce")
+    return raw.dropna(subset=["open", "high", "low", "close"])
+
+
+def _is_entry_reason(reason: str) -> bool:
+    r = str(reason or "")
+    return r in {"entry", "runner_entry", "add", "retest_add", "bb_add"} or r.startswith("runner_entry")
+
+
+def _campaign_fifo_pnl_pts(g: pd.DataFrame) -> Tuple[float, int]:
+    """FIFO unit PnL across multi-leg campaigns (TP1 + runners)."""
+    lots: List[Tuple[str, float]] = []  # (side, entry_px)
+    pnl = 0.0
+    n_units = 0
+    for _, r in g.sort_values("ts").iterrows():
+        reason = str(r["reason"])
+        side = str(r["side"]).lower()
+        px = float(r["price"])
+        qty = int(float(r["quantity"] or 1))
+        for _ in range(max(1, qty)):
+            if _is_entry_reason(reason):
+                lots.append((side, px))
+                continue
+            if reason not in EXIT_REASONS and not str(reason).startswith("runner_stop"):
+                continue
+            if not lots:
+                continue
+            eside, epx = lots.pop(0)
+            n_units += 1
+            if eside == "buy":
+                pnl += px - epx
+            else:
+                pnl += epx - px
+    return pnl, n_units
+
+
 def load_trades(fills_path: Path, *, daily_path: Path, point_value: float) -> pd.DataFrame:
     fills = pd.read_csv(fills_path)
     fills["ts"] = pd.to_datetime(fills["ts"], utc=True).dt.tz_convert(NY)
@@ -112,32 +210,36 @@ def load_trades(fills_path: Path, *, daily_path: Path, point_value: float) -> pd
     rows = []
     for trade_id, g in fills.groupby("trade_id", sort=False):
         g = g.sort_values("ts")
-        entries = g[g["reason"] == "entry"]
-        exits = g[g["reason"].isin(EXIT_REASONS)]
-        if entries.empty or exits.empty:
+        entries = g[g["reason"].map(_is_entry_reason)]
+        # Prefer primary entry marker for chart level; fall back to first runner entry.
+        primary = g[g["reason"] == "entry"]
+        entry_row = primary.iloc[0] if not primary.empty else (entries.iloc[0] if not entries.empty else None)
+        exits = g[g["reason"].isin(EXIT_REASONS) | g["reason"].astype(str).str.startswith("runner_stop")]
+        if entry_row is None or exits.empty:
             continue
-        entry = entries.iloc[0]
+        entry = entry_row
         exit_ = exits.iloc[-1]
         side = "long" if str(entry["side"]).lower() == "buy" else "short"
         entry_px = float(entry["price"])
         exit_px = float(exit_["price"])
-        qty = float(entry["quantity"])
+        # Campaign PnL = sum of all legs (not first-entry → last-exit only).
+        pnl_pts, n_units = _campaign_fifo_pnl_pts(g)
+        if n_units <= 0:
+            qty = float(entry["quantity"])
+            if side == "long":
+                pnl_pts = (exit_px - entry_px) * qty
+            else:
+                pnl_pts = (entry_px - exit_px) * qty
+            n_units = int(qty)
         if side == "long":
-            pnl_pts = (exit_px - entry_px) * qty
             stop = entry_px - STOP_PTS
             target = entry_px + TARGET_PTS
         else:
-            pnl_pts = (entry_px - exit_px) * qty
             stop = entry_px + STOP_PTS
             target = entry_px - TARGET_PTS
-        pnl_usd = pnl_pts * point_value - FEE * qty
+        pnl_usd = pnl_pts * point_value - FEE * float(n_units)
         exit_reason = str(exit_["reason"]).lower()
-        if exit_reason == "target":
-            result = "win"
-        elif exit_reason == "stop":
-            result = "loss"
-        else:
-            result = "win" if pnl_usd > 0 else "loss"
+        result = "win" if pnl_usd > 0 else "loss"
         entry_ts = pd.Timestamp(entry["ts"])
         pmc = pmc_map.get((int(entry_ts.year), int(entry_ts.month)), np.nan)
         rows.append(
@@ -195,7 +297,8 @@ def sample_trades(df: pd.DataFrame, *, wins: int, losses: int, seed: int) -> Lis
 
 
 def plot_trade(
-    hourly: pd.DataFrame,
+    m1: pd.DataFrame,
+    hourly_st: pd.DataFrame,
     trade: TradeRow,
     out_path: Path,
     *,
@@ -206,12 +309,29 @@ def plot_trade(
 ) -> bool:
     start = trade.entry_ts - timedelta(hours=pre_hours)
     end = trade.exit_ts + timedelta(hours=post_hours)
-    plot = hourly[(hourly.index >= start) & (hourly.index <= end)].copy()
-    if plot.empty:
+    plot = m1[(m1.index >= start) & (m1.index <= end)].copy()
+    if plot.empty or len(plot) < 2:
         return False
 
+    # Hourly ST (strategy trail) forward-filled onto 1m timestamps for overlay.
+    st_cols = ["supertrend", "supertrend_trend"]
+    st_src = hourly_st.loc[
+        (hourly_st.index >= start - timedelta(hours=ATR_LEN + 2)) & (hourly_st.index <= end),
+        st_cols,
+    ]
+    if not st_src.empty:
+        aligned = (
+            st_src.reindex(st_src.index.union(plot.index))
+            .sort_index()
+            .ffill()
+            .reindex(plot.index)
+        )
+        plot["supertrend"] = aligned["supertrend"]
+        plot["supertrend_trend"] = aligned["supertrend_trend"]
+
     x = mdates.date2num(plot.index.to_pydatetime())
-    width = (1.0 / 24.0) * 0.72
+    # ~0.8 of a 1-minute bar in matplotlib date units
+    width = (1.0 / (24.0 * 60.0)) * 0.8
     axis_tz = plot.index.tz
     entry_x = mdates.date2num(trade.entry_ts.to_pydatetime())
     exit_x = mdates.date2num(trade.exit_ts.to_pydatetime())
@@ -220,9 +340,10 @@ def plot_trade(
     fig, ax = plt.subplots(figsize=(18, 8))
     up = plot["close"] >= plot["open"]
     candle_colors = np.where(up, "#168a5a", "#c43d3d")
-    ax.vlines(x, plot["low"], plot["high"], color=candle_colors, linewidth=0.85, alpha=0.9, zorder=3)
+    wick_lw = 0.55 if len(plot) > 1500 else 0.75
+    ax.vlines(x, plot["low"], plot["high"], color=candle_colors, linewidth=wick_lw, alpha=0.85, zorder=3)
     price_span = float(plot["high"].max() - plot["low"].min())
-    min_body = max(price_span * 0.001, 1e-6)
+    min_body = max(price_span * 0.0005, 1e-6)
     for xi, o, c, color in zip(x, plot["open"], plot["close"], candle_colors):
         ax.add_patch(
             plt.Rectangle(
@@ -231,7 +352,7 @@ def plot_trade(
                 max(abs(c - o), min_body),
                 facecolor=color,
                 edgecolor=color,
-                linewidth=0.4,
+                linewidth=0.2,
                 alpha=0.85,
                 zorder=4,
             )
@@ -256,8 +377,6 @@ def plot_trade(
     ax.axhline(trade.target, color="#6a1b9a", linestyle=":", linewidth=1.2, alpha=0.85, label="Target %.1f" % trade.target)
 
     ax.axvspan(entry_x, exit_x, color=result_color, alpha=0.10, zorder=0)
-    ax.axvline(entry_x, color=result_color, linewidth=1.2, linestyle="-", alpha=0.9)
-    ax.axvline(exit_x, color=result_color, linewidth=1.2, linestyle="--", alpha=0.9)
 
     marker = "^" if trade.side == "long" else "v"
     ax.scatter(
@@ -284,7 +403,7 @@ def plot_trade(
     )
 
     ax.set_title(
-        "%s — #%03d %s %s | %+0.1f pts ($%+.0f) | %s → %s | ATR(%d)×%g"
+        "%s — #%03d %s %s | %+0.1f pts ($%+.0f) | %s → %s | 1m candles · hourly ST ATR(%d)×%g"
         % (
             label,
             trade.idx,
@@ -302,7 +421,9 @@ def plot_trade(
     ax.set_ylabel(instrument)
     ax.grid(True, which="major", color="#d9d9d9", linewidth=0.6, alpha=0.75)
     ax.legend(loc="upper left", fontsize=7, ncol=2)
-    ax.xaxis.set_major_locator(mdates.HourLocator(interval=6, tz=axis_tz))
+    # denser window → slightly tighter tick spacing
+    tick_h = 3 if (end - start).total_seconds() <= 36 * 3600 else 6
+    ax.xaxis.set_major_locator(mdates.HourLocator(interval=tick_h, tz=axis_tz))
     ax.xaxis.set_major_formatter(mdates.DateFormatter("%a %m-%d %H:%M", tz=axis_tz))
     ax.set_xlabel("Time (America/New_York)")
     fig.autofmt_xdate()
@@ -328,7 +449,8 @@ def write_index(
         "Even sample of **%d** trades (%d wins + %d losses), seed `%d`, from **%d** campaign trades."
         % (len(trades), n_wins, n_losses, seed, total_trades),
         "",
-        "Hourly candles (all sessions), ATR SuperTrend 14×3, prior-month close, stop/target 50/150, entry/exit.",
+        "1-minute candles (all sessions); **hourly** ATR SuperTrend 14×3 overlay; "
+        "prior-month close; stop/target 50/150; entry/exit markers (no entry/exit vertical lines).",
         "Source fills: StrategyPlugin + 1m fill tape (`sl50_tp150_3r_1mfill`).",
         "",
         "| # | Result | Side | Entry | Exit | Pts | P/L USD | Chart |",
@@ -354,6 +476,66 @@ def write_index(
     (out_root / "INDEX.md").write_text("\n".join(lines) + "\n", encoding="utf-8")
 
 
+def load_m1_any(path: Path, instrument: str) -> pd.DataFrame:
+    """Load 1m OHLC from FX CSV or futures DBN/CSV via shared loader."""
+    path_s = str(path).replace("\\", "/")
+    if path.suffix.lower() == ".csv" and "/fx/" in path_s:
+        return load_m1_ohlc(path)
+    # Futures / DBN / generic 1m archives
+    gby = load_1m_by_ny_date_any(path.resolve(), instrument.lower())
+    one_m = concat_all_1m(gby)
+    if one_m.index.tz is None:
+        one_m.index = one_m.index.tz_localize(NY)
+    else:
+        one_m.index = one_m.index.tz_convert(NY)
+    for c in ("open", "high", "low", "close"):
+        one_m[c] = pd.to_numeric(one_m[c], errors="coerce")
+    return one_m.dropna(subset=["open", "high", "low", "close"])
+
+
+def load_hourly_with_st_from_m1(m1: pd.DataFrame) -> pd.DataFrame:
+    hourly = resample_hourly(m1)
+    return compute_supertrend(hourly, atr_len=ATR_LEN, multiplier=ATR_MULT)
+
+
+def register_futures_runner_chart_markets() -> None:
+    """Add YM/MYM/NQ/MNQ runner chart keys (idempotent)."""
+    from .hourly_st_pmc_strategyplugin_variants import MARKET_CONFIGS
+
+    hub = REPO / "live" / "state" / "futures_st_pmc_runner_variants"
+    for market in ("ym", "mym", "nq", "mnq"):
+        cfg = MARKET_CONFIGS[market]
+        instrument = str(cfg["instrument"])
+        daily = Path(cfg["daily"])
+        m1_path = Path(cfg["dbn"])
+        pv = float(POINT_VALUES.get(instrument, 1.0))
+        for variant, label_suffix in (
+            ("sl50_tp150_3r_1mfill", "fair 1mfill"),
+            ("sl50_tp150_runners_2r_10r", "runners 2R+10R"),
+            ("sl50_tp150_runners_2r_indef", "runners 2R+indef"),
+        ):
+            key = "%s_%s" % (market, variant.replace("sl50_tp150_", ""))
+            # Shorter keys for runners
+            if variant.endswith("1mfill"):
+                key = "%s_1mfill" % market
+            elif variant.endswith("2r_10r"):
+                key = "%s_runners_2r_10r" % market
+            else:
+                key = "%s_runners_2r_indef" % market
+            fills = hub / market / "states" / ("%s_hourly_st_pmc_%s" % (market, variant)) / "fills.csv"
+            MARKETS[key] = {
+                "instrument": instrument,
+                "label": "%s ST+PMC %s" % (instrument, label_suffix),
+                "fills": fills,
+                "hourly_csv": "",  # derived from 1m
+                "m1_csv": m1_path,
+                "daily_csv": daily,
+                "point_value": pv,
+                "m1_from_dbn": True,
+                "draw_far_targets": False,
+            }
+
+
 def build_market(
     key: str,
     *,
@@ -368,15 +550,17 @@ def build_market(
     instrument = str(cfg["instrument"])
     label = str(cfg["label"])
     fills = Path(str(cfg["fills"]))
-    hourly_csv = Path(str(cfg["hourly_csv"]))
+    hourly_raw = str(cfg.get("hourly_csv") or "").strip()
+    hourly_csv = Path(hourly_raw) if hourly_raw else None
+    m1_csv = Path(str(cfg["m1_csv"]))
     daily_csv = Path(str(cfg["daily_csv"]))
     pv = float(cfg["point_value"])
     out = OUT_ROOT / key
 
     if not fills.exists():
         raise SystemExit("Missing fills: %s" % fills)
-    if not hourly_csv.exists():
-        raise SystemExit("Missing hourly: %s" % hourly_csv)
+    if not m1_csv.exists():
+        raise SystemExit("Missing 1m: %s" % m1_csv)
     if not daily_csv.exists():
         raise SystemExit("Missing daily: %s" % daily_csv)
 
@@ -389,8 +573,18 @@ def build_market(
     print("  %d trades (%dW / %dL)" % (len(df), (df["result"] == "win").sum(), (df["result"] == "loss").sum()), flush=True)
     picked = sample_trades(df, wins=wins, losses=losses, seed=seed)
 
+    print("Loading %s 1m candles…" % instrument, flush=True)
+    if cfg.get("m1_from_dbn"):
+        m1 = load_m1_any(m1_csv, instrument)
+    else:
+        m1 = load_m1_ohlc(m1_csv)
+    print("  %s 1m bars" % f"{len(m1):,}", flush=True)
     print("Loading %s hourly + SuperTrend…" % instrument, flush=True)
-    hourly = load_hourly_with_st(hourly_csv)
+    # Empty hourly_csv must not become Path("") (== ".") which exists as a directory.
+    if hourly_csv is not None and hourly_csv.is_file():
+        hourly = load_hourly_with_st(hourly_csv)
+    else:
+        hourly = load_hourly_with_st_from_m1(m1)
     print("  %s hourly bars" % f"{len(hourly):,}", flush=True)
 
     charts_dir = out / "charts"
@@ -399,6 +593,7 @@ def build_market(
         stamp = trade.entry_ts.strftime("%Y-%m-%d_%H%M")
         path = charts_dir / ("%03d_%s_%s.png" % (trade.idx, trade.result, stamp))
         ok = plot_trade(
+            m1,
             hourly,
             trade,
             path,
@@ -417,8 +612,9 @@ def build_market(
 
 
 def main(argv: Optional[List[str]] = None) -> int:
+    register_futures_runner_chart_markets()
     ap = argparse.ArgumentParser(description=__doc__)
-    ap.add_argument("--markets", nargs="*", default=["us30", "nas100"], choices=sorted(MARKETS))
+    ap.add_argument("--markets", nargs="*", default=["us30", "nas100"])
     ap.add_argument("--wins", type=int, default=100)
     ap.add_argument("--losses", type=int, default=100)
     ap.add_argument("--seed", type=int, default=20260730)
@@ -426,6 +622,9 @@ def main(argv: Optional[List[str]] = None) -> int:
     ap.add_argument("--post-hours", type=int, default=12)
     ap.add_argument("--force", action="store_true")
     args = ap.parse_args(argv)
+    unknown = [m for m in args.markets if m not in MARKETS]
+    if unknown:
+        raise SystemExit("Unknown markets: %s (known=%s)" % (unknown, sorted(MARKETS)))
 
     results = []
     for key in args.markets:
@@ -442,16 +641,34 @@ def main(argv: Optional[List[str]] = None) -> int:
         results.append((inst, n, out))
         print("Wrote %d charts → %s" % (n, out), flush=True)
 
+    # Merge this run into any existing chart folders so partial --markets
+    # regenerations do not wipe the master index.
+    OUT_ROOT.mkdir(parents=True, exist_ok=True)
+    entries = {}
+    for child in sorted(OUT_ROOT.iterdir()):
+        if not child.is_dir() or not (child / "INDEX.md").exists():
+            continue
+        n_png = len(list((child / "charts").glob("*.png"))) if (child / "charts").is_dir() else 0
+        title = child.name
+        for line in (child / "INDEX.md").read_text(encoding="utf-8").splitlines()[:3]:
+            if line.startswith("# "):
+                title = line[2:].split("—")[0].strip() or title
+                break
+        entries[child.name] = (title, n_png, child.name)
+    for inst, n, out in results:
+        rel = str(out.relative_to(OUT_ROOT))
+        entries[rel] = (inst, n, rel)
     master = [
         "# ST+PMC sl50_tp150_3r_1mfill — sample trade charts",
         "",
         "Even win/loss samples from StrategyPlugin + 1m fill-tape books.",
         "",
+        "Charts use **1-minute candles** with **hourly** SuperTrend overlay.",
+        "",
     ]
-    for inst, n, out in results:
-        rel = out.relative_to(OUT_ROOT)
-        master.append("- **%s** — %d charts → [`%s/INDEX.md`](%s/INDEX.md)" % (inst, n, rel, rel))
-    OUT_ROOT.mkdir(parents=True, exist_ok=True)
+    for key in sorted(entries):
+        title, n, rel = entries[key]
+        master.append("- **%s** — %d charts → [`%s/INDEX.md`](%s/INDEX.md)" % (title, n, rel, rel))
     (OUT_ROOT / "INDEX.md").write_text("\n".join(master) + "\n", encoding="utf-8")
     print("Master index → %s" % (OUT_ROOT / "INDEX.md"), flush=True)
     return 0

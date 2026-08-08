@@ -1,0 +1,4 @@
+variant,units,trades,net_usd,stress_dd_usd,ns,wr_pct,max_open,eoy_flatten_events,eoy_flatten_units,eoy_flatten_by_year,notes
+sl50_tp150_3r_1mfill,578,578,19027.57,-907.27,20.972,42.6,1,0,0,{},fair control: 1 unit SL50 / TP150 on 1m fill tape
+sl50_tp150_runners_2r_10r,1086,362,56110.59,-2867.22,19.57,25.0,3,0,0,{},3 units: TP150 + runner@300 + runner@1500; both runners SL→BE after TP1
+sl50_tp150_runners_2r_indef,1670,558,191517.4,-73530.96,2.605,60.9,65,6,20,"{""2017"": 2, ""2018"": 3, ""2020"": 2, ""2021"": 3, ""2024"": 6, ""2025"": 4}",3 units: TP150 + runner@300 + indefinite; SL→BE after TP1; EOY flatten; indefinite runners do not block later campaigns

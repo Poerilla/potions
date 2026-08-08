@@ -1,4 +1,9 @@
-"""Shared config / seed helpers for NAS100 hourly ST+PMC sl50_tp150_3r_1mfill demos."""
+"""Shared config / seed helpers for NAS100 hourly ST+PMC demos.
+
+Books (lot-correct, 1m fill tape; hub ``live/state/fx_index_metals_st_pmc_runner_variants``):
+  - sl50_tp150_3r              — fair control, max 1, N/S ≈ 19.6
+  - sl50_tp150_runners_2r_10r  — TP1 + 2R + 10R runners, max 3, N/S ≈ 11.1
+"""
 
 from __future__ import annotations
 
@@ -13,53 +18,103 @@ from ..store import FlatFileStore
 REPO = Path(__file__).resolve().parents[2]
 INSTRUMENT = "NAS100"
 TICK = 0.1
-VARIANT = "sl50_tp150_3r"
 STRATEGY_TYPE = "hourly_st_pmc_retest"
 PLUGIN_VERSION = "v2"
 DAILY_BARS_PATH = REPO / "fx" / "nas100_daily.csv"
 HOURLY_SEED_PATH = REPO / "fx" / "nas100_1h.csv"
 SEED_HOURS = 300
-# Prefer newest bars from whichever twin has more history.
 SIBLING_1M_CANDIDATES = (
     REPO / "live" / "demo" / "nas100_v2b_ungated_paper" / "state" / "bars" / "NAS100_1m.csv",
     REPO / "live" / "demo" / "nas100_v2b_ungated_oanda" / "state" / "bars" / "NAS100_1m.csv",
 )
+
+VARIANT = "sl50_tp150_3r"
 TRACKER_NOTE = (
-    "NAS100 ST+PMC sl50_tp150_3r 1m-fill tape N/S 4.59 net +$9.5k stress -$2.1k "
-    "(live/state/st_pmc_1mfill_cross_market) — same StrategyPlugin path as US30 fair control"
+    "NAS100 ST+PMC sl50_tp150_3r 1m-fill lot-correct N/S 19.56 net +$15.2k stress -$0.78k "
+    "(live/state/fx_index_metals_st_pmc_runner_variants; 2026-08-08)"
 )
 
+BOOKS: Dict[str, Dict[str, Any]] = {
+    "sl50_tp150_3r": {
+        "variant": "sl50_tp150_3r",
+        "max_contracts": 1,
+        "max_open_orders": 16,
+        "entry_qty": 1,
+        "tp1_qty": 1,
+        "runner_qty": 0,
+        "runner_target_pts": 0.0,
+        "runner_stop_to_be_after_tp1": False,
+        "runner_specs": [],
+        "tracker": (
+            "NAS100 ST+PMC sl50_tp150_3r 1m-fill lot-correct N/S 19.56 net +$15.2k stress -$0.78k "
+            "(live/state/fx_index_metals_st_pmc_runner_variants; 2026-08-08)"
+        ),
+    },
+    "sl50_tp150_runners_2r_10r": {
+        "variant": "sl50_tp150_runners_2r_10r",
+        "max_contracts": 3,
+        "max_open_orders": 32,
+        "entry_qty": 3,
+        "tp1_qty": 1,
+        "runner_qty": 0,
+        "runner_target_pts": 0.0,
+        "runner_stop_to_be_after_tp1": True,
+        "runner_specs": [
+            {"qty": 1, "target_pts": 300.0},
+            {"qty": 1, "target_pts": 1500.0},
+        ],
+        "tracker": (
+            "NAS100 ST+PMC 2R→10R runners 1m-fill lot-correct N/S 11.13 net +$34.1k stress -$3.1k "
+            "(live/state/fx_index_metals_st_pmc_runner_variants; 2026-08-08); bounded max 3"
+        ),
+    },
+}
 
-def strategy_config_payload(*, oanda_routing: bool) -> Dict[str, Any]:
+
+def book_spec(book: str = VARIANT) -> Dict[str, Any]:
+    if book not in BOOKS:
+        raise KeyError("unknown NAS100 ST+PMC book %r; choose from %s" % (book, sorted(BOOKS)))
+    return BOOKS[book]
+
+
+def strategy_config_payload(*, oanda_routing: bool, book: str = VARIANT) -> Dict[str, Any]:
+    spec = book_spec(book)
     return {
         "close_against_entry_exit": False,
         "daily_bars_path": str(DAILY_BARS_PATH),
-        "entry_qty": 1,
+        "entry_qty": int(spec["entry_qty"]),
         "ma_filter": "none",
         "pmc_cross_exit": False,
         "record_levels": False,
-        "runner_qty": 0,
-        "runner_stop_to_be_after_tp1": False,
-        "runner_target_pts": 0.0,
+        "runner_qty": int(spec["runner_qty"]),
+        "runner_stop_to_be_after_tp1": bool(spec["runner_stop_to_be_after_tp1"]),
+        "runner_target_pts": float(spec["runner_target_pts"]),
+        "runner_specs": list(spec["runner_specs"]),
         "st_flip_exit": False,
         "stop_pts": 50.0,
         "target_pts": 150.0,
         "tick_size": TICK,
-        "tp1_qty": 1,
-        # Fair-control 1mfill: no retest / BB pyramid (research: BB-add hurt N/S)
+        "tp1_qty": int(spec["tp1_qty"]),
         "retest_add_enabled": False,
         "bb_add_enabled": False,
         "paper_only": (not oanda_routing),
         "oanda_routing": bool(oanda_routing),
         "signal_price": "mid",
         "fill_price": "oanda" if oanda_routing else "bid_ask",
-        "variant": VARIANT,
+        "variant": str(spec["variant"]),
         "fill_tape": "1m",
     }
 
 
-def upsert_strategy_instance(store: FlatFileStore, *, strategy_id: str, oanda_routing: bool) -> None:
-    payload = strategy_config_payload(oanda_routing=oanda_routing)
+def upsert_strategy_instance(
+    store: FlatFileStore,
+    *,
+    strategy_id: str,
+    oanda_routing: bool,
+    book: str = VARIANT,
+) -> None:
+    spec = book_spec(book)
+    payload = strategy_config_payload(oanda_routing=oanda_routing, book=book)
     store.upsert_row(
         "strategy_instances",
         "strategy_id",
@@ -73,8 +128,8 @@ def upsert_strategy_instance(store: FlatFileStore, *, strategy_id: str, oanda_ro
                 account_mode="paper",
                 enabled=True,
                 timeframes="1h,1m",
-                max_contracts=1,
-                max_open_orders=16,
+                max_contracts=int(spec["max_contracts"]),
+                max_open_orders=int(spec["max_open_orders"]),
                 config_json=json.dumps(payload, sort_keys=True),
             )
         ),

@@ -1,0 +1,4 @@
+market,instrument,variant,units,trades,net_usd,stress_dd_usd,ns,wr_pct,max_open,eoy_flatten_units,eoy_flatten_by_year,stop_pts,target_pts,notes
+nas100,NAS100,sl50_tp150_3r_1mfill,477,477,15219.2,-778.21,19.557,41.9,1,0,{},50.0,150.0,index CFD points | fair control: 1 unit SL/TP on 1m fill tape
+nas100,NAS100,sl50_tp150_runners_2r_10r,762,254,34065.14,-3059.45,11.134,26.2,3,0,{},50.0,150.0,index CFD points | 3 units: TP1 + runner@2R + runner@10R; both runners SL→BE after TP1
+nas100,NAS100,sl50_tp150_runners_2r_indef,1449,483,54331.31,-22597.89,2.404,24.9,74,23,"{""2018"": 3, ""2019"": 2, ""2020"": 5, ""2021"": 8, ""2023"": 1, ""2024"": 4}",50.0,150.0,index CFD points | 3 units: TP1 + runner@2R + indefinite; SL→BE after TP1; EOY flatten; indefinite runners do not block later campaigns

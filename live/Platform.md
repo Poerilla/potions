@@ -1,7 +1,7 @@
 # Potions Live Platform — External Scrutiny Reference
 
-**Version:** 0.4  
-**Date:** 2026-07-17  
+**Version:** 0.4.1  
+**Date:** 2026-08-08  
 **Audience:** External quants, developers, allocator diligence reviewers  
 **Scope:** Platform machinery only — not strategy rule definitions. Promotion status, rule-family names, and proprietary signal definitions are intentionally kept in internal research trackers. For validation design see [`live/specs/CAUSAL_VALIDATION_MASTER_SPEC.md`](specs/CAUSAL_VALIDATION_MASTER_SPEC.md). For audit pass/fail see [`data/docs/AUDIT_TRACKER.md`](../data/docs/AUDIT_TRACKER.md).
 
@@ -125,6 +125,12 @@ return sorted(snapshot, key=lambda oid: (
 
 Stop fills can use bar open when price gaps through the stop (validated in `broker_realism_validation.py`).
 
+### HTF signal bars vs finer fill tape
+
+When signals come from a higher timeframe (e.g. 1h) but resting orders fill on a finer tape (e.g. 1m), **do not** run PaperBroker matching on the HTF bar. The HTF OHLC spans the whole period, so filling at the HTF timestamp would lookahead before the fine tape trades through the level.
+
+Use `Engine.process_bar(bar, broker_fills=False)` for signal-only HTF bars, then `process_bar(1m)` for fills. Replay helper: `_replay_hourly_with_1m` in `hourly_st_pmc_strategyplugin_variants.py`. Live paper ST+PMC demos follow the same rule.
+
 ### Slippage and spread
 
 Market/stop fills apply `slippage_ticks` adverse; optional `SpreadModel` widens fills in RTH open / low volume.
@@ -202,8 +208,13 @@ Classifies `ambiguous_same_1m_bar` and `pre_arm_breakout_touch`. Routes rows to 
 **Module:** [`live/replay_audit.py`](replay_audit.py)
 
 - Campaign = grouped fills → units with entry/exit prices.
-- **Net USD**, closed drawdown, **intrabar stress DD** (adverse path through open units).
-- **Net/Stress** = net / |stress DD|.
+- **Lot matching:** `units_from_live_fills(..., match_within_trade_id=True)` pairs closes **within `trade_id`**. Cross-trade FIFO by direction alone is invalid when many same-direction lots are open (indefinite runners) and must not be used for ranking.
+- **Net USD**, closed drawdown, **reachable intrabar stress DD**:
+  - If a protective stop is live (hard SL, or BE after TP1 when configured): gap-open beyond stop → gap fill; stop touched → stop-fill value; else raw adverse mark.
+  - Unclipped extremes past a live stop are **not** economic stress.
+- **Terminal inventory:** leftover open lots are force-marked at the final sample close (`forced_flat_eod`) so net is a forced-flat book. Continuous mark (no flatten friction) is reported separately via [`live/indefinite_lot_accounting.py`](indefinite_lot_accounting.py).
+- **Net/Stress** = forced-flat net / |reachable stress DD|.
+- **Indefinite / large multi-lot books** are **not rankable** against flat 3R/10R until lot-correct forced-flat + reachable stress are published (`LOT_CORRECT_ACCOUNTING.md` in the study hub).
 
 ### Institutional metrics
 

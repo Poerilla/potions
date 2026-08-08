@@ -1,6 +1,6 @@
 """NAS100 hourly ST+PMC sl50_tp150_3r — OANDA practice demo.
 
-1m-fill cross-market N/S ≈ 4.59. Artifacts: ``live/demo/nas100_hourly_st_pmc_sl50_tp150_3r_oanda/``.
+1m-fill lot-correct N/S ≈ 19.6. Artifacts: ``live/demo/nas100_hourly_st_pmc_sl50_tp150_3r_oanda/``.
 Streams practice quotes → 1m → 1h; routes practice orders via ``OandaBroker``.
 """
 
@@ -54,14 +54,17 @@ from .nas100_hourly_st_pmc_common import (
     INSTRUMENT,
     STRATEGY_TYPE,
     TICK,
-    TRACKER_NOTE,
-    VARIANT,
+    book_spec,
     inherit_1m_from_running_demos,
     seed_hourly_history,
     strategy_config_payload,
     upsert_strategy_instance,
 )
 
+BOOK = "sl50_tp150_3r"
+_SPEC = book_spec(BOOK)
+VARIANT = str(_SPEC["variant"])
+TRACKER_NOTE = str(_SPEC["tracker"])
 STRATEGY_ID = "nas100_hourly_st_pmc_sl50_tp150_3r_oanda"
 RUN_DIRNAME = "nas100_hourly_st_pmc_sl50_tp150_3r_oanda"
 CLI_COMMAND = "demo-nas100-hourly-st-pmc-oanda"
@@ -72,7 +75,7 @@ def default_output_root() -> Path:
 
 
 def write_run_meta(output_root: Path, *, config: OandaConfig) -> Dict[str, Any]:
-    payload = strategy_config_payload(oanda_routing=True)
+    payload = strategy_config_payload(oanda_routing=True, book=BOOK)
     meta = {
         "started_at": utc_now_iso(),
         "pid": os.getpid(),
@@ -106,7 +109,7 @@ def write_run_meta(output_root: Path, *, config: OandaConfig) -> Dict[str, Any]:
 def bootstrap_store(output_root: Path) -> FlatFileStore:
     store = FlatFileStore(state_root_for(output_root))
     store.ensure()
-    upsert_strategy_instance(store, strategy_id=STRATEGY_ID, oanda_routing=True)
+    upsert_strategy_instance(store, strategy_id=STRATEGY_ID, oanda_routing=True, book=BOOK)
     n = seed_hourly_history(store, source="nas100_1h_csv_seed_oanda")
     if n:
         append_progress(output_root, "SEED 1h history bars=%d" % n)
@@ -241,6 +244,9 @@ class StPmcOandaRunner:
 
     def _handle_1h(self, bar: Bar) -> None:
         self.bars_1h += 1
+        # OandaBroker.process_bar only drains create/close pending fills (no OHLC match).
+        # Keep broker_fills=True so post-submit fills are delivered; real fills also arrive
+        # via Account Changes. Paper demos use broker_fills=False + 1m PaperBroker fills.
         self.engine.process_bar(bar)
         append_progress(
             self.output_root,

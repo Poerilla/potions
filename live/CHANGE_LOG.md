@@ -1,5 +1,101 @@
 # Live Runtime CHANGE_LOG
 
+## 2026-08-08 — ST+PMC live demos: promote 3R + 2R→10R
+
+- Updated fair-control tracker notes (US30 N/S 29.4, NAS100 N/S 19.6 lot-correct).
+- New demos for **2R→10R runners** (max 3; TP1 + runner@2R + runner@10R; BE after TP1):
+  `demo-us30-hourly-st-pmc-2r10r-{paper,oanda}`,
+  `demo-nas100-hourly-st-pmc-2r10r-{paper,oanda}`.
+- Commons: `us30_hourly_st_pmc_common.py` / `nas100_hourly_st_pmc_common.py` book registry.
+- Indefinite not demoed (inventory sleeve). Sync map + demo README updated.
+- US30 indef portfolio risk profile: `live/state/us30_st_pmc_runner_variants/INDEF_PORTFOLIO_PROFILE/`
+  (stress DD −$31.2k as sleeve risk unit; scale = budget / |stress|).
+- FX/index/metals runner hub in flight: `live/state/fx_index_metals_st_pmc_runner_variants/`
+  (NAS100 done; EUR/GBP/USDJPY mid-run; metals queued; SPX500 skipped).
+
+## 2026-08-08 — Lot-correct multi-campaign accounting (BUGFIX)
+
+Indefinite ST+PMC runner books (45–137 concurrent same-direction units) had **contaminated** FIFO nets/stress: `units_from_live_fills` paired exits across `trade_id`s, inventing multi-thousand-point “losses” on BE runners and a false NQ indef +$4.57M / N/S 2.35.
+
+- `units_from_live_fills`: match **within `trade_id`**; optional hard-stop / BE-after-TP1 metadata.
+- `audit_units`: **reachable** intrabar stress (clip to live stop; gap-open fill).
+- StrategyPlugin ST+PMC audit path: force-mark leftover open lots at final sample close.
+- Post-process: `live/indefinite_lot_accounting.py` → continuous + forced-flat + reachable vs raw stress (`LOT_CORRECT_ACCOUNTING.md`).
+- **Rankable:** fair 3R and 2R→10R. **Not rankable yet:** indefinite (separate inventory sleeve until forced-flat figures reviewed).
+
+## 2026-08-07 — HTF lookahead fill on 1m-tape replays (BUGFIX)
+
+- Bug: `_replay_hourly_with_1m` (and EURUSD day-bias DCA broker) called
+  `Engine.process_bar` on **1h** bars before the 1m tape, so PaperBroker matched
+  resting limits against the **full hour OHLC at the hour timestamp** — fills
+  appeared before price touched on 1m (same-bar entry+target common).
+- Fix: `Engine.process_bar(..., broker_fills=False)` for HTF signal bars; 1m tape
+  owns fills. Paper ST+PMC demos use the same rule on completed 1h bars.
+- Platform §6 note + `test_htf_signal_bar_does_not_lookahead_fill_when_broker_fills_disabled`.
+- Re-run required for US30/NAS100 `*_1mfill*` hubs and runner variants.
+
+## 2026-08-04 — structure VWAP scale-in (FAIL)
+
+- Plan `vwap_scalein`: spaced session-VWAP slices inside structure (5×3ct,
+  ≤1/15m); SL at structure extreme; 15m reclaim re-arm after stop-out; ladder
+  +25→±12 / +50 / +200; fav_be; RTH EOD flatten.
+- Analytic NQ 2020+: **−$6.44M PF 0.171** (13898; avg 1.14 slices).
+- PaperBroker: **−$1.11M PF 0.044** (267 camps / 909 units). DSR **TRL-2026-00086**.
+- Hubs: `structure_program_st/vwap_scalein/`, `structure_program_st_broker_vwap_scalein/`.
+  Family still PARKED.
+
+## 2026-08-04 — touch_st_align invalidity + fade20 (FAIL)
+
+- Invalidity audit: ~37% of touch_align broker fills still/deep through structure
+  at entry (through −$651k). Hub: `…/invalid_audit/`.
+- fade20 (through≥20m → fade limit @ key ±25): analytic +$670k PF1.34 → broker
+  **−$871k PF0.75** (fade legs −$593k WR10%). DSR TRL-2026-00085. Still PARKED.
+
+## 2026-08-03 — touch_st_align (analytic promise → broker FAIL)
+
+- New plan: structure touch+through → ST flip aligned → market; SL=ST trail;
+  +25 scale→±12 SL; then +50/+200; fav_be. Analytic NQ +$1.37M PF 1.30 WR 58%.
+- PaperBroker: **−$1.25M PF 0.84** (1391 camps). Hold≤1 ~1% (entry timing fixed)
+  but managed path still loses. DSR TRL-2026-00084. Charts 100W/100L under
+  `live/state/structure_program_st_broker_touch_align/trade_charts/`.
+
+## 2026-08-03 — Structure-only resting + v2b level align (FAIL)
+
+- Plugin: `signal_source=structure_only` resting limit @ structure (no ST arm);
+  guards one-shot submit / non-marketable / consume-key after fill|blow.
+- PaperBroker NQ scale_run r8 fav_be: **−$2.13M PF 0.185** (493 camps) —
+  worse than ST-gated −$103k. DSR TRL-2026-00083 (00082 invalid churn).
+- v2b align: keys **against** first break 77.6%; ~7% in 0–2R when aligned.
+  Hubs: `structure_program_st_broker_struct_v2/`, `structure_program_st/v2b_align/`.
+
+## 2026-08-03 — Structure-program ST `scale_run` broker gate (FAIL)
+
+- **Analytic** `structure_sl_scale_run` (NQ): 15ct ladder 5@+22/+50/+200, fav ST→BE;
+  +$2.03M PF 9.6; winners hit 25/100/200 at 96%/61%/40%. Gate evidence that fav
+  ST-flips truncate runners: `live/state/structure_program_st/structure_sl_scale_run/GATE.md`.
+  Path writeup: `live/state/structure_program_st/RESEARCH_PATH.md`.
+- **Plugin** `structure_program_st` plan `scale_run` + `st_flip_mode=fav_be`
+  (no EOD flatten). Replay: `live/structure_program_st_replay.py --plan scale_run --risk-pts 8`.
+- **PaperBroker NQ** (`live/state/structure_program_st_broker_scale_run/`):
+  **−$102.6k PF 0.70** (228 trades) — fails promotion. Adverse `st_flip` + risk
+  stops dominate; only 20 runner units. Split15 broker variants also failed earlier
+  (always −$130k / adverse −$204k / after_n10 −$232k / off −$247k).
+- DSR **TRL-2026-00079** pre-registered then COMPLETE. Family parked / research-only.
+
+## 2026-08-02 — FX turtle soup + Plan C OR profiles (2026H2fx)
+
+- **FX turtle soup** (`live/fx_turtle_soup_study.py`, clocks in `live/fx_or_markets.py`):
+  same R/5 soup geometry on US30/NAS100 RTH, EURUSD London+NY OR, USDJPY NY,
+  XAU NY. Index CFD OR books dead; EURUSD London OR+wick25 +$20.3k / PF 1.25
+  (9/24 neg years) kept as research lead only — not promote. Hub:
+  `live/state/fx_turtle_soup/`.
+- **Plan C OR profile tables** (`--asof 2026H2fx`): US30/NAS100 match NQ
+  headline chains within ~2–4 pts; EURUSD/USDJPY/XAU show much higher
+  P(1R|break) / P(2R|1R). Join to ST+PMC 1mfill (`live/fx_or_profile_join.py`):
+  US30/NAS100 flat-gap and q4 edges are *positive* vs all — **do not import**
+  NQ P1/P3 overlays onto those CFD books. Hub:
+  `live/state/or_profile_engine/2026H2fx_PLAN_C.md`.
+
 ## 2026-08-02 — HTF turtle soup parked; P8 runner ladder rejected; P9 reverse≤12:00 promoted
 
 - **HTF turtle soup** (`live/htf_turtle_soup_study.py`): same close5 OUT→IN →

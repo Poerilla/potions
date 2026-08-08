@@ -89,3 +89,22 @@ Append-only research/platform progress notes.
 2026-08-02T21:35 turtle-soup levers: stop-out autopsy 79% invalidation / 9% shakeout (0/10 reach opp1R). Scale-in on winner MAE (~1.9pts) fails (avg qty 4.7, worse stability). Tick floors/buffers flat. wick>=0.25R lifts PF to 2.16. 2xR/5 stop lifts net to $49k but doubles risk and hurts pre-2021. Keep R/5 + optional wick filter.
 2026-08-02T21:45 HTF turtle soup (daily_3 / weekly_4 / monthly_2 failed breaks, OR-risk soup): daily & monthly negative; weekly_4 wick25 +$31.5k PF 2.24 but 10/17 neg years — parked. Moving to runner ladder + reverse_only_when plans.
 2026-08-02T22:00 HTF turtle soup parked (only weekly_4 green, unstable). Plan A P8 runner ladder REJECTED (NQ -$74k vs baseline). Plan B P9 reverse_only_when time<=12:00 PROMOTED (NQ +$30k, MNQ +$3k). Knobs: runner_target_r_mult, reverse_only_when. Next: stack P5+P9_time_1200; Plan C FX rollout still queued.
+2026-08-02T23:30 FX turtle soup across US30/NAS100/EURUSD/USDJPY/XAU: index CFD OR dead; EURUSD London OR+wick25 +$20.3k PF1.25 (9/24 neg yrs) research-only. Plan C OR tables 2026H2fx done — US30/NAS100 chains ≈ NQ; FX pairs higher continuation. ST+PMC join: flat-gap/q4 edges opposite NQ — do not import P1/P3 to index CFDs. Hubs: live/state/fx_turtle_soup/, live/state/or_profile_engine/2026H2fx_PLAN_C.md. Next: per-market FX policy fit (not copy NQ); Monday-OR join; skip fakeout satellite on CFDs.
+
+2026-08-03T20:35 Structure-program ST path: analytic structure_sl_scale (4ct) → split15 r12 (+$1.77M analytic, broker FAIL) → ST-flip mode sweeps (adverse/after_n worse) → fav-ST forward gate (41% hit +100 / 23% +200) → structure_sl_scale_run analytic (+$2.03M PF9.6, 5@22/50/200 fav→BE) → PaperBroker scale_run r8 FAIL (−$102.6k PF0.70; adverse st_flip dominates). DSR TRL-2026-00079. Family PARKED. Docs: live/state/structure_program_st/RESEARCH_PATH.md, CHANGE_LOG, STRATEGY_TRACKER.
+
+2026-08-03T22:40 Entry parity: broker next-bar death (69% hold≤1 = −$258k; survivors +$155k). Analytic-as-signal touch −$217k; sweep_reclaim −$441k (survivors +$278k). DSR 00080/00081. Binding constraint is live_after+ST manage, not signal ID.
+2026-08-03T23:55 Structure-only resting (no ST entry) broker FAIL: −$2.13M PF0.185 (493) vs ST-gated −$103k; hold≤1 −$2.55M / survivors +$421k. First impl churned (00082 invalid); fixed guards in plugin. v2b align: 77.6% keys against first break, ~7% in 0–2R when aligned — not co-located with v2b TP1/TP2. DSR 00083. Family stays PARKED.
+2026-08-04T00:30 touch_st_align: analytic +$1.37M PF1.30 WR58% → PaperBroker FAIL −$1.25M PF0.84 (1391). Hold≤1 ~1% (ST-align entry fixes next-bar death) but managed book still red. DSR 00084. Charts 100W/100L queued under broker_touch_align/trade_charts/.
+2026-08-04T12:00 touch_st_align invalidity: ~37% fills still/deep through structure (through −$651k). fade20 analytic +$670k PF1.34 → broker FAIL −$871k PF0.75 (better than −$1.25M). DSR 00085.
+2026-08-04T13:40 vwap_scalein: analytic −$6.44M PF0.171 (13898, avg 1.14 slices) → PaperBroker FAIL −$1.11M PF0.044 (267/909). DSR 00086. Family PARKED.
+
+## 2026-08-08 — Lot-correct indefinite accounting
+
+- Fixed trade_id lot matching + reachable stop stress in replay_audit.
+- Indefinite ST+PMC marked not-rankable vs 3R/10R until LOT_CORRECT_ACCOUNTING.md forced-flat figures.
+- Hierarchy: freeze/validate 3R → validate 2R→10R → rebuild indef as inventory sleeve.
+
+[2026-08-08T14:19:56Z] ST+PMC demos: added 2R→10R paper/oanda for US30+NAS100; refreshed 3R tracker N/S (29.4 / 19.6). Indef not demoed.
+
+[2026-08-08T14:35Z] Status: FX/index/metals ST+PMC runners — NAS100 done (3R N/S 19.6, 2R→10R 11.1, indef max_open 74); EURUSD/GBPUSD/USDJPY ~50% through fair 3R; AUDJPY/XAU/XAG queued; SPX500 skipped (no 1m archive). Live demos UP: US30+NAS100 fair 3R and 2R→10R (paper+oanda). US30 indef portfolio profile written (stress DD −$31.2k sleeve unit). Docs/tracker sync + git/Drive backup.

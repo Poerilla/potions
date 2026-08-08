@@ -1,0 +1,13 @@
+market,instrument,variant,units,trades,net_usd,stress_dd_usd,ns,wr_pct,max_open,eoy_flatten_events,eoy_flatten_units,eoy_flatten_by_year,notes
+mnq,MNQ,sl50_tp150_3r_1mfill,342,342,23170.75,-1195.44,19.383,42.7,1,0,0,{},fair control: 1 unit SL50 / TP150 on 1m fill tape
+mnq,MNQ,sl50_tp150_runners_2r_10r,627,209,49898.83,-4953.29,10.074,24.2,3,0,0,{},3 units: TP150 + runner@300 + runner@1500; both runners SL→BE after TP1
+mnq,MNQ,sl50_tp150_runners_2r_indef,987,329,96682.72,-52542.34,1.84,56.4,45,3,6,"{""2023"": 1, ""2024"": 4, ""2025"": 1}",3 units: TP150 + runner@300 + indefinite; SL→BE after TP1; EOY flatten; indefinite runners do not block later campaigns
+mym,MYM,sl50_tp150_3r_1mfill,496,496,6515.86,-1365.5,4.772,40.3,1,0,0,{},fair control: 1 unit SL50 / TP150 on 1m fill tape
+mym,MYM,sl50_tp150_runners_2r_10r,1020,340,20600.29,-4468.0,4.611,24.2,3,0,0,{},3 units: TP150 + runner@300 + runner@1500; both runners SL→BE after TP1
+mym,MYM,sl50_tp150_runners_2r_indef,1448,484,53167.47,-31777.22,1.673,59.0,46,5,13,"{""2020"": 2, ""2021"": 2, ""2024"": 5, ""2025"": 3, ""2026"": 1}",3 units: TP150 + runner@300 + indefinite; SL→BE after TP1; EOY flatten; indefinite runners do not block later campaigns
+nq,NQ,sl50_tp150_3r_1mfill,679,679,349516.91,-17038.45,20.513,38.3,1,0,0,{},fair control: 1 unit SL50 / TP150 on 1m fill tape
+nq,NQ,sl50_tp150_runners_2r_10r,876,292,775763.48,-58523.83,13.256,24.2,3,0,0,{},3 units: TP150 + runner@300 + runner@1500; both runners SL→BE after TP1
+nq,NQ,sl50_tp150_runners_2r_indef,1929,644,4573428.88,-1948590.51,2.347,61.3,137,10,41,"{""2011"": 7, ""2014"": 6, ""2015"": 3, ""2018"": 3, ""2019"": 2, ""2020"": 6, ""2021"": 8, ""2023"": 1, ""2024"": 4, ""2025"": 1}",3 units: TP150 + runner@300 + indefinite; SL→BE after TP1; EOY flatten; indefinite runners do not block later campaigns
+ym,YM,sl50_tp150_3r_1mfill,985,985,106425.46,-6025.72,17.662,36.8,1,0,0,{},fair control: 1 unit SL50 / TP150 on 1m fill tape
+ym,YM,sl50_tp150_runners_2r_10r,1734,578,313302.5,-21423.78,14.624,22.2,3,0,0,{},3 units: TP150 + runner@300 + runner@1500; both runners SL→BE after TP1
+ym,YM,sl50_tp150_runners_2r_indef,2857,953,970817.69,-715046.0,1.358,59.0,108,9,28,"{""2011"": 2, ""2012"": 2, ""2014"": 5, ""2016"": 2, ""2017"": 2, ""2020"": 2, ""2021"": 3, ""2024"": 8, ""2025"": 2}",3 units: TP150 + runner@300 + indefinite; SL→BE after TP1; EOY flatten; indefinite runners do not block later campaigns

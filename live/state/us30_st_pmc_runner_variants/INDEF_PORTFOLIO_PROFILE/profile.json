@@ -1,0 +1,289 @@
+{
+  "strategy_id": "us30_hourly_st_pmc_sl50_tp150_runners_2r_indef",
+  "close_path": {
+    "n_bars": 49325,
+    "terminal_equity": 80271.47383,
+    "peak_equity": 81363.740508,
+    "max_dd": -4437.800000000003,
+    "max_dd_pct_of_peak": -5.481915972045745,
+    "time_underwater_pct": 97.45767866193614,
+    "avg_dd": -1377.2144423587636,
+    "dd_p50": -1235.3449770000007,
+    "dd_p90": -2702.122964399999,
+    "dd_p99": -3559.4810240000006,
+    "longest_uw_bars": 3705,
+    "calmar_like": 18.088123356167458,
+    "daily_sharpe_approx": 1.5553905405047221
+  },
+  "stress_path": {
+    "n_bars": 49325,
+    "terminal_equity": 79553.87383,
+    "peak_equity": 80511.927386,
+    "max_dd": -31164.436864999996,
+    "max_dd_pct_of_peak": -38.9274948914501,
+    "time_underwater_pct": 97.73948302078054,
+    "avg_dd": -1746.030927677628,
+    "dd_p50": -1594.0,
+    "dd_p90": -3139.0128989999976,
+    "dd_p99": -6025.811390239996,
+    "longest_uw_bars": 3832,
+    "calmar_like": 2.5527133435658187,
+    "daily_sharpe_approx": 0.5689252864610228
+  },
+  "inventory": {
+    "max_open_units": 68,
+    "p50_open": 26.0,
+    "p90_open": 56.0,
+    "p99_open": 64.0,
+    "mean_open": 29.610765331981753,
+    "pct_bars_flat": 1.0745058286872782,
+    "pct_bars_open_ge_10": 90.81196147997973,
+    "pct_bars_open_ge_30": 43.55397871262037,
+    "fill_reasons": {
+      "entry": 578,
+      "runner_entry_2": 578,
+      "runner_entry": 578,
+      "target": 387,
+      "runner_stop": 941,
+      "year_end_flatten": 20,
+      "stop": 322
+    },
+    "eoy_flatten_by_year": {
+      "2017": 2,
+      "2018": 3,
+      "2020": 2,
+      "2021": 3,
+      "2024": 6,
+      "2025": 4
+    }
+  },
+  "worst_close_dd_episodes": [
+    {
+      "peak_ts": "2025-03-13T13:00:00-04:00",
+      "trough_ts": "2025-03-26T10:00:00-04:00",
+      "recover_ts": "2025-04-21T10:00:00-04:00",
+      "dd_usd": -4437.800000000003,
+      "depth_pct": -5.481915972045745
+    },
+    {
+      "peak_ts": "2024-12-20T05:00:00-05:00",
+      "trough_ts": "2024-12-26T18:00:00-05:00",
+      "recover_ts": "2025-01-21T12:00:00-05:00",
+      "dd_usd": -4294.957372000004,
+      "depth_pct": -5.824013550244335
+    },
+    {
+      "peak_ts": "2021-05-10T11:00:00-04:00",
+      "trough_ts": "2021-06-07T12:00:00-04:00",
+      "recover_ts": "2021-09-20T03:00:00-04:00",
+      "dd_usd": -3784.2360899999985,
+      "depth_pct": -11.615623029276207
+    },
+    {
+      "peak_ts": "2017-03-01T14:00:00-05:00",
+      "trough_ts": "2017-06-06T07:00:00-04:00",
+      "recover_ts": "2017-08-06T20:00:00-04:00",
+      "dd_usd": -3592.1804980000006,
+      "depth_pct": -46.86457271253932
+    },
+    {
+      "peak_ts": "2021-09-20T14:00:00-04:00",
+      "trough_ts": "2021-09-27T09:00:00-04:00",
+      "recover_ts": "2021-11-05T08:00:00-04:00",
+      "dd_usd": -3434.3665349999974,
+      "depth_pct": -9.942295227013986
+    },
+    {
+      "peak_ts": "2019-06-03T03:00:00-04:00",
+      "trough_ts": "2019-07-31T14:00:00-04:00",
+      "recover_ts": "2019-12-23T07:00:00-05:00",
+      "dd_usd": -3420.7675750000017,
+      "depth_pct": -14.129739752888511
+    },
+    {
+      "peak_ts": "2022-02-24T08:00:00-05:00",
+      "trough_ts": "2022-06-22T10:00:00-04:00",
+      "recover_ts": "2022-08-04T22:00:00-04:00",
+      "dd_usd": -3413.1418730000005,
+      "depth_pct": -9.278243951907424
+    },
+    {
+      "peak_ts": "2018-05-21T10:00:00-04:00",
+      "trough_ts": "2018-09-11T11:00:00-04:00",
+      "recover_ts": "2018-10-26T10:00:00-04:00",
+      "dd_usd": -3276.6111790000014,
+      "depth_pct": -20.19176922018283
+    },
+    {
+      "peak_ts": "2023-12-20T12:00:00-05:00",
+      "trough_ts": "2023-12-20T15:00:00-05:00",
+      "recover_ts": "2023-12-26T14:00:00-05:00",
+      "dd_usd": -3033.230644999996,
+      "depth_pct": -5.021819495610185
+    },
+    {
+      "peak_ts": "2025-04-21T14:00:00-04:00",
+      "trough_ts": "2025-05-06T04:00:00-04:00",
+      "recover_ts": "",
+      "dd_usd": -2962.1666780000087,
+      "depth_pct": -3.640647123037266
+    },
+    {
+      "peak_ts": "2024-05-20T10:00:00-04:00",
+      "trough_ts": "2024-06-12T12:00:00-04:00",
+      "recover_ts": "2024-10-01T18:00:00-04:00",
+      "dd_usd": -2577.141907999998,
+      "depth_pct": -4.028852949476918
+    },
+    {
+      "peak_ts": "2021-11-08T09:00:00-05:00",
+      "trough_ts": "2022-02-15T07:00:00-05:00",
+      "recover_ts": "2022-02-23T19:00:00-05:00",
+      "dd_usd": -2474.2248220000038,
+      "depth_pct": -6.852154485074689
+    },
+    {
+      "peak_ts": "2020-01-07T10:00:00-05:00",
+      "trough_ts": "2020-07-30T04:00:00-04:00",
+      "recover_ts": "2020-09-02T15:00:00-04:00",
+      "dd_usd": -2356.2873880000006,
+      "depth_pct": -9.568061104396616
+    },
+    {
+      "peak_ts": "2024-10-21T08:00:00-04:00",
+      "trough_ts": "2024-11-27T15:00:00-05:00",
+      "recover_ts": "2024-12-10T15:00:00-05:00",
+      "dd_usd": -2338.950109999998,
+      "depth_pct": -3.5714093242780875
+    },
+    {
+      "peak_ts": "2024-01-17T13:00:00-05:00",
+      "trough_ts": "2024-02-13T08:00:00-05:00",
+      "recover_ts": "2024-04-10T08:00:00-04:00",
+      "dd_usd": -2302.590379000001,
+      "depth_pct": -3.687190203680075
+    }
+  ],
+  "worst_stress_dd_episodes": [
+    {
+      "peak_ts": "2025-03-13T22:00:00-04:00",
+      "trough_ts": "2025-04-09T13:00:00-04:00",
+      "recover_ts": "2025-04-21T20:00:00-04:00",
+      "dd_usd": -31164.436864999996,
+      "depth_pct": -38.9274948914501
+    },
+    {
+      "peak_ts": "2024-12-17T19:00:00-05:00",
+      "trough_ts": "2024-12-18T14:00:00-05:00",
+      "recover_ts": "2024-12-18T18:00:00-05:00",
+      "dd_usd": -19817.800000000003,
+      "depth_pct": -29.042684496072084
+    },
+    {
+      "peak_ts": "2025-04-22T00:00:00-04:00",
+      "trough_ts": "2025-05-23T07:00:00-04:00",
+      "recover_ts": "2025-07-10T11:00:00-04:00",
+      "dd_usd": -17668.792432000002,
+      "depth_pct": -21.98036376236465
+    },
+    {
+      "peak_ts": "2024-01-18T01:00:00-05:00",
+      "trough_ts": "2024-04-10T08:00:00-04:00",
+      "recover_ts": "2024-04-16T01:00:00-04:00",
+      "dd_usd": -16029.342613,
+      "depth_pct": -25.79592832938128
+    },
+    {
+      "peak_ts": "2025-02-28T00:00:00-05:00",
+      "trough_ts": "2025-03-04T15:00:00-05:00",
+      "recover_ts": "2025-03-06T18:00:00-05:00",
+      "dd_usd": -15271.339740000003,
+      "depth_pct": -20.16716174240651
+    },
+    {
+      "peak_ts": "2019-12-27T05:00:00-05:00",
+      "trough_ts": "2020-03-23T08:00:00-04:00",
+      "recover_ts": "2020-09-02T19:00:00-04:00",
+      "dd_usd": -15094.363156999998,
+      "depth_pct": -61.499224507019875
+    },
+    {
+      "peak_ts": "2025-01-30T05:00:00-05:00",
+      "trough_ts": "2025-02-07T10:00:00-05:00",
+      "recover_ts": "2025-02-21T16:00:00-05:00",
+      "dd_usd": -13527.778425999997,
+      "depth_pct": -18.112547158629575
+    },
+    {
+      "peak_ts": "2024-12-19T23:00:00-05:00",
+      "trough_ts": "2024-12-27T10:00:00-05:00",
+      "recover_ts": "2025-01-21T16:00:00-05:00",
+      "dd_usd": -13252.257372,
+      "depth_pct": -18.095113750789835
+    },
+    {
+      "peak_ts": "2024-08-27T04:00:00-04:00",
+      "trough_ts": "2024-09-06T10:00:00-04:00",
+      "recover_ts": "2024-09-23T00:00:00-04:00",
+      "dd_usd": -13175.092232999996,
+      "depth_pct": -20.681029675761955
+    },
+    {
+      "peak_ts": "2024-05-19T19:00:00-04:00",
+      "trough_ts": "2024-08-02T10:00:00-04:00",
+      "recover_ts": "2024-08-27T01:00:00-04:00",
+      "dd_usd": -13137.413042,
+      "depth_pct": -20.689200337979543
+    }
+  ],
+  "portfolio_sizing": {
+    "risk_anchor": "reachable_stress_dd",
+    "reachable_stress_dd": -31164.436864999996,
+    "close_mtm_dd": -4437.800000000003,
+    "hard_stop_unit_risk_usd": 50.0,
+    "be_runner_stop_risk_usd": 0.0,
+    "operational_caps": {
+      "suggest_max_open_units": 20,
+      "suggest_max_margin_proxy_usd": 10000,
+      "kill_switch_stress_dd_usd": -31164.436864999996,
+      "kill_switch_open_units": 68
+    },
+    "nav_1mm_scales": [
+      {
+        "fund_nav": 1000000.0,
+        "sleeve_risk_budget_pct": 1.0,
+        "sleeve_risk_budget_usd": 10000.0,
+        "contract_scale_vs_1lot_book": 0.3209,
+        "expected_scaled_terminal": 25757.0,
+        "expected_scaled_stress_dd": -10000.0,
+        "scaled_max_open_units": 21.8
+      },
+      {
+        "fund_nav": 1000000.0,
+        "sleeve_risk_budget_pct": 2.0,
+        "sleeve_risk_budget_usd": 20000.0,
+        "contract_scale_vs_1lot_book": 0.6418,
+        "expected_scaled_terminal": 51515.0,
+        "expected_scaled_stress_dd": -20000.0,
+        "scaled_max_open_units": 43.6
+      },
+      {
+        "fund_nav": 1000000.0,
+        "sleeve_risk_budget_pct": 5.0,
+        "sleeve_risk_budget_usd": 50000.0,
+        "contract_scale_vs_1lot_book": 1.6044,
+        "expected_scaled_terminal": 128787.0,
+        "expected_scaled_stress_dd": -50000.0,
+        "scaled_max_open_units": 109.1
+      }
+    ],
+    "how_to_use": [
+      "Treat forced-flat reachable stress DD as the sleeve's 1\u00d7 risk unit.",
+      "Pick a fund risk budget (e.g. 2% NAV) and scale contracts = budget / |stress_dd|.",
+      "Cap concurrency (open units / margin) independently \u2014 indef stacks inventory.",
+      "BE runners add notional/margin but little stop-defined loss; size on margin + gap risk, not on open MTM.",
+      "Do not co-rank this sleeve with flat 3R/10R on N/S; allocate as a separate inventory sleeve.",
+      "Pair with negatively correlated / flatter books (e.g. US30 3R or 2R\u219210R, FX Monday OR) and enforce a portfolio stress sum cap."
+    ]
+  }
+}

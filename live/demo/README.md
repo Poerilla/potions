@@ -32,8 +32,12 @@ python3 -m potions.live.cli demo-usdjpy-monday-or-oanda-status
 
 python3 -m potions.live.cli demo-us30-hourly-st-pmc-paper-status
 python3 -m potions.live.cli demo-us30-hourly-st-pmc-oanda-status
+python3 -m potions.live.cli demo-us30-hourly-st-pmc-2r10r-paper-status
+python3 -m potions.live.cli demo-us30-hourly-st-pmc-2r10r-oanda-status
 python3 -m potions.live.cli demo-nas100-hourly-st-pmc-paper-status
 python3 -m potions.live.cli demo-nas100-hourly-st-pmc-oanda-status
+python3 -m potions.live.cli demo-nas100-hourly-st-pmc-2r10r-paper-status
+python3 -m potions.live.cli demo-nas100-hourly-st-pmc-2r10r-oanda-status
 ```
 
 Each prints: `pid=… alive=True|False started_at=… state=…` (OANDA / Monday OR also show `routing=` / `tag=`).
@@ -57,6 +61,15 @@ for d in sorted(ROOT.iterdir()):
     print(f"{d.name:42} pid={pid} alive={alive}  {prog[-1][:100] if prog else ''}")
 PY
 ```
+
+### 1b) OANDA practice account vs local CSVs
+
+```bash
+python3 -m potions.live.cli oanda-practice-sync
+python3 -m potions.live.cli oanda-practice-sync --repair-demo-positions
+```
+
+Snapshot + report: `live/demo/oanda_practice_snapshot/`. Agent skill: `.cursor/skills/potions-oanda-reconcile/`.
 
 ### 2) Fills (authoritative trade tape)
 
@@ -209,21 +222,29 @@ Thin wrappers around `oanda_v2b_ungated_common.py`:
 
 Extra note in paper tree: `usdjpy_monday_or_ungated_paper/OR_SEED_NOTE.md` (how Monday OR was seeded after a paper stream bug).
 
-### Hourly ST+PMC 1mfill (`sl50_tp150_3r`, fair control)
+### Hourly ST+PMC 1mfill (fair 3R + 2R→10R runners)
 
 Plugin `hourly_st_pmc_retest`, stop 50 / target 150 index pts, **1m fill tape**
-(no BB/retest adds). Hourly-only US30 sweep was N/S 3.91; 1mfill fair control is
-N/S **10.34**. Cross-market: NAS100 is the only profitable FX/index CFD on this
-exact variant (N/S **4.59**); EURUSD/USDJPY fail. Hub:
-`live/state/st_pmc_1mfill_cross_market/` · causality:
-`live/state/us30_st_pmc_retest_add_experiment/`.
+(no BB/retest adds). Lot-correct hubs (2026-08-08):
+`live/state/us30_st_pmc_runner_variants/`,
+`live/state/fx_index_metals_st_pmc_runner_variants/`.
+
+| Book | US30 N/S | NAS100 N/S | max contracts | Rankable |
+|------|---------:|-----------:|--------------:|----------|
+| Fair 3R | **29.4** | **19.6** | 1 | yes |
+| 2R→10R runners | **24.1** | **11.1** | 3 | yes |
+| Indefinite runners | sleeve only | sleeve only | inventory | **no** (not demoed) |
 
 | Module | Artifacts dir | CLI | Seed / inherit |
 |--------|---------------|-----|----------------|
 | `us30_hourly_st_pmc_paper.py` | `us30_hourly_st_pmc_sl50_tp150_3r_paper/` | `demo-us30-hourly-st-pmc-paper` | `fx/us30_1h.csv` (~300h) |
 | `us30_hourly_st_pmc_oanda.py` | `us30_hourly_st_pmc_sl50_tp150_3r_oanda/` | `demo-us30-hourly-st-pmc-oanda` | same |
+| `us30_hourly_st_pmc_runners_2r_10r_paper.py` | `us30_hourly_st_pmc_sl50_tp150_runners_2r_10r_paper/` | `demo-us30-hourly-st-pmc-2r10r-paper` | same |
+| `us30_hourly_st_pmc_runners_2r_10r_oanda.py` | `us30_hourly_st_pmc_sl50_tp150_runners_2r_10r_oanda/` | `demo-us30-hourly-st-pmc-2r10r-oanda` | same |
 | `nas100_hourly_st_pmc_paper.py` | `nas100_hourly_st_pmc_sl50_tp150_3r_paper/` | `demo-nas100-hourly-st-pmc-paper` | `fx/nas100_1h.csv` + inherit 1m from `nas100_v2b_*` |
 | `nas100_hourly_st_pmc_oanda.py` | `nas100_hourly_st_pmc_sl50_tp150_3r_oanda/` | `demo-nas100-hourly-st-pmc-oanda` | same |
+| `nas100_hourly_st_pmc_runners_2r_10r_paper.py` | `nas100_hourly_st_pmc_sl50_tp150_runners_2r_10r_paper/` | `demo-nas100-hourly-st-pmc-2r10r-paper` | same |
+| `nas100_hourly_st_pmc_runners_2r_10r_oanda.py` | `nas100_hourly_st_pmc_sl50_tp150_runners_2r_10r_oanda/` | `demo-nas100-hourly-st-pmc-2r10r-oanda` | same |
 
 ### Per-run directory layout
 
@@ -279,8 +300,12 @@ python3 -m potions.live.cli demo-usdjpy-monday-or-oanda --daemon
 
 python3 -m potions.live.cli demo-us30-hourly-st-pmc-paper --daemon
 python3 -m potions.live.cli demo-us30-hourly-st-pmc-oanda --daemon
+python3 -m potions.live.cli demo-us30-hourly-st-pmc-2r10r-paper --daemon
+python3 -m potions.live.cli demo-us30-hourly-st-pmc-2r10r-oanda --daemon
 python3 -m potions.live.cli demo-nas100-hourly-st-pmc-paper --daemon
 python3 -m potions.live.cli demo-nas100-hourly-st-pmc-oanda --daemon
+python3 -m potions.live.cli demo-nas100-hourly-st-pmc-2r10r-paper --daemon
+python3 -m potions.live.cli demo-nas100-hourly-st-pmc-2r10r-oanda --daemon
 ```
 
 Foreground (debug): omit `--daemon`. Optional `--max-ticks N`, `--output-root PATH`, `--oanda-config PATH`.

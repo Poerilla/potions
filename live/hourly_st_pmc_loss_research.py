@@ -86,6 +86,10 @@ class VariantConfig:
     runner_qty: int = 0
     runner_tp_pts: Optional[float] = None
     runner_stop_to_be_after_tp1: bool = False
+    # Multi-runner: ((qty, target_pts_or_None), ...). None target = indefinite (stop only).
+    runner_specs: Tuple[Tuple[int, Optional[float]], ...] = ()
+    year_end_flatten_runners: bool = False
+    runners_do_not_block_entries: bool = False
     ma_filter: str = "none"  # none, directional_current, directional_prior, bull_prior_only, bear_prior_only
     close_against_entry_exit: bool = False
     st_flip_exit: bool = False
@@ -102,6 +106,8 @@ class VariantConfig:
 
     @property
     def entry_qty(self) -> int:
+        if self.runner_specs:
+            return int(self.tp1_qty) + sum(int(q) for q, _ in self.runner_specs)
         return int(self.tp1_qty) + int(self.runner_qty)
 
     @property
@@ -112,6 +118,9 @@ class VariantConfig:
             extra += max(1, int(self.bb_add_qty)) * max(1, int(self.max_bb_adds))
         elif self.retest_add_enabled:
             extra += max(1, int(self.retest_add_qty)) * max(1, int(self.max_retest_adds))
+        # Indefinite runners may stack across campaigns within a calendar year.
+        if self.runners_do_not_block_entries:
+            return max(base + extra, base * 100, 300)
         return base + extra
 
 

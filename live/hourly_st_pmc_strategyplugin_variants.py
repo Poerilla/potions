@@ -37,7 +37,11 @@ TICK_SIZE = {
     "NAS100": 0.1,
     "SPX500": 0.1,
     "EURUSD": 0.00001,
+    "GBPUSD": 0.00001,
     "USDJPY": 0.001,
+    "AUDJPY": 0.001,
+    "XAUUSD": 0.01,
+    "XAGUSD": 0.001,
 }
 MARKET_CONFIGS = {
     "mnq": {
@@ -159,9 +163,12 @@ def config_json(cfg: VariantConfig, daily_path: Path, instrument: str) -> str:
         "tick_size": TICK_SIZE.get(instrument.upper(), 0.25),
         "entry_qty": cfg.entry_qty,
         "tp1_qty": cfg.tp1_qty,
-        "runner_qty": cfg.runner_qty,
-        "runner_target_pts": cfg.runner_tp_pts or 0.0,
+        "runner_qty": 0 if cfg.runner_specs else cfg.runner_qty,
+        "runner_target_pts": 0.0 if cfg.runner_specs else (cfg.runner_tp_pts or 0.0),
         "runner_stop_to_be_after_tp1": cfg.runner_stop_to_be_after_tp1,
+        "runner_specs": [{"qty": int(q), "target_pts": t} for q, t in cfg.runner_specs],
+        "year_end_flatten_runners": bool(cfg.year_end_flatten_runners),
+        "runners_do_not_block_entries": bool(cfg.runners_do_not_block_entries),
         "ma_filter": cfg.ma_filter,
         "close_against_entry_exit": cfg.close_against_entry_exit,
         "st_flip_exit": cfg.st_flip_exit,
@@ -210,7 +217,7 @@ def run_variant(
         # Strategy only needs 1m when BB-add logic is on; broker still sees 1m for fills.
         timeframes="1h,1m" if cfg.bb_add_enabled else "1h",
         max_contracts=max(1, int(cfg.max_contracts)),
-        max_open_orders=16,
+        max_open_orders=128 if cfg.runners_do_not_block_entries else 32,
         config_json=config_json(cfg, daily_path, instrument),
     )
     store.write_table("strategy_instances", [as_row(instance)])
@@ -248,20 +255,38 @@ def run_variant(
     store.flush_tables()
 
     fills_path = state_root / "fills.csv"
-    units = units_from_live_fills(fills_path, strategy_id)
+    audit_bars = read_bars_from_engine_bars(list(bars))
+    terminal_ts = audit_bars[-1].ts if audit_bars else ""
+    terminal_px = float(audit_bars[-1].close) if audit_bars else None
+    # Lot-correct matching + stop metadata for reachable stress. Indefinite (and any
+    # leftover inventory) is force-marked at the final sample close so net is a
+    # forced-flat book comparable to flat 3R/10R rows.
+    mark_open = bool(terminal_ts and terminal_px is not None)
+    units = units_from_live_fills(
+        fills_path,
+        strategy_id,
+        mark_open_ts=terminal_ts if mark_open else "",
+        mark_open_price=terminal_px if mark_open else None,
+        match_within_trade_id=True,
+        stop_pts=float(cfg.stop_pts),
+        runner_be_after_tp1=bool(cfg.runner_stop_to_be_after_tp1),
+        mark_exit_reason="forced_flat_eod",
+    )
+    open_marked = sum(1 for u in units if u.exit_reason == "forced_flat_eod")
     audit = audit_units(
         name="%s Hourly ST + PMC %s (StrategyPlugin)" % (instrument, cfg.name),
         slug=strategy_id,
         source=fills_path,
         bar_source=dbn,
-        bars=read_bars_from_engine_bars(list(bars)),
+        bars=audit_bars,
         units=units,
         instrument=instrument,
         notes=(
             "Engine + PaperBroker StrategyPlugin replay. Variant=%s; stop=%g; target=%g; "
             "tp1_qty=%d; runner_qty=%d; runner_target=%s; ma_filter=%s; "
             "close_against=%s; st_flip_exit=%s; pmc_cross_exit=%s; bb_add=%s; "
-            "slippage=%g tick; fee=$%.2f/unit."
+            "slippage=%g tick; fee=$%.2f/unit; trade_id lot match; reachable stop stress; "
+            "forced_flat_open=%d @ %s."
             % (
                 cfg.name,
                 cfg.stop_pts,
@@ -276,6 +301,8 @@ def run_variant(
                 cfg.bb_add_enabled,
                 DEFAULT_SLIPPAGE_TICKS,
                 DEFAULT_FEE_PER_UNIT,
+                open_marked,
+                terminal_ts or "n/a",
             )
         ),
         output_root=output_root / "audits" / strategy_id,
@@ -327,7 +354,11 @@ def _replay_hourly_with_1m(
     label: str,
     always_1m: bool = False,
 ) -> None:
-    """1h signals then 1m tape in (hour, next_hour] for fills (+ optional BB).
+    """1h signals (no broker fills) then 1m tape in (hour, next_hour] for fills.
+
+    Hourly bars must not match resting orders: their OHLC spans the whole hour,
+    so filling on the hour timestamp would lookahead before the 1m path trades
+    through the level (live demos fill on 1m, then emit the completed 1h).
 
     When ``always_1m`` is False, skip 1m segments while flat with no working
     orders (same speed trick as EURUSD day-bias DCA broker replay).
@@ -339,7 +370,8 @@ def _replay_hourly_with_1m(
     skipped_hours = 0
     n_h = len(hourly_bars)
     for i, hbar in enumerate(hourly_bars):
-        engine.process_bar(hbar)
+        # Signal / arm only — PaperBroker fills exclusively on the 1m tape below.
+        engine.process_bar(hbar, broker_fills=False)
         if not always_1m and not _broker_needs_1m(engine):
             skipped_hours += 1
             if (i + 1) % 10000 == 0:
@@ -448,9 +480,22 @@ def run_combined_variants(
 
     fills_path = state_root / "fills.csv"
     audit_bars = read_bars_from_engine_bars(list(bars))
+    terminal_ts = audit_bars[-1].ts if audit_bars else ""
+    terminal_px = float(audit_bars[-1].close) if audit_bars else None
     results: List[VariantReplayResult] = []
     for strategy_id, cfg in variant_by_strategy.items():
-        units = units_from_live_fills(fills_path, strategy_id)
+        mark_open = bool(terminal_ts and terminal_px is not None)
+        units = units_from_live_fills(
+            fills_path,
+            strategy_id,
+            mark_open_ts=terminal_ts if mark_open else "",
+            mark_open_price=terminal_px if mark_open else None,
+            match_within_trade_id=True,
+            stop_pts=float(cfg.stop_pts),
+            runner_be_after_tp1=bool(cfg.runner_stop_to_be_after_tp1),
+            mark_exit_reason="forced_flat_eod",
+        )
+        open_marked = sum(1 for u in units if u.exit_reason == "forced_flat_eod")
         audit = audit_units(
             name="%s Hourly ST + PMC %s (StrategyPlugin)" % (instrument, cfg.name),
             slug=strategy_id,
@@ -463,7 +508,8 @@ def run_combined_variants(
                 "Combined multi-strategy Engine + PaperBroker StrategyPlugin replay. Variant=%s; "
                 "stop=%g; target=%g; tp1_qty=%d; runner_qty=%d; runner_target=%s; "
                 "ma_filter=%s; close_against=%s; st_flip_exit=%s; pmc_cross_exit=%s; "
-                "slippage=%g tick; fee=$%.2f/unit."
+                "slippage=%g tick; fee=$%.2f/unit; trade_id lot match; reachable stop stress; "
+                "forced_flat_open=%d."
                 % (
                     cfg.name,
                     cfg.stop_pts,
@@ -477,6 +523,7 @@ def run_combined_variants(
                     cfg.pmc_cross_exit,
                     DEFAULT_SLIPPAGE_TICKS,
                     DEFAULT_FEE_PER_UNIT,
+                    open_marked,
                 )
             ),
             output_root=output_root / "audits" / strategy_id,

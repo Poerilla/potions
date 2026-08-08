@@ -1,7 +1,7 @@
-"""US30 hourly ST+PMC sl50_tp150_3r — OANDA practice demo.
+"""US30 hourly ST+PMC sl50_tp150_runners_2r_10r — paper demo (OANDA prices, PaperBroker fills).
 
-Fair-control 1mfill lot-correct N/S ≈ 29.4. Artifacts: ``live/demo/us30_hourly_st_pmc_sl50_tp150_3r_oanda/``.
-Streams practice quotes → 1m → 1h; routes practice orders via ``OandaBroker``.
+Fair-control 1mfill lot-correct N/S ≈ 24.1. Artifacts: ``live/demo/us30_hourly_st_pmc_sl50_tp150_runners_2r_10r_paper/``.
+Streams practice quotes → 1m → 1h (left/left); strategy on 1h; PaperBroker fills on 1m.
 """
 
 from __future__ import annotations
@@ -22,18 +22,17 @@ from ..oanda import (
     DEFAULT_PRIMARY_ACCOUNT,
     HourlyBarAggregator,
     OandaApiClient,
-    OandaBroker,
     OandaConfig,
     QuoteOneMinuteBarBuilder,
     bid_ask_from_event,
     mid_price_from_event,
     parse_oanda_ts,
 )
+from ..replay_realism import hardened_replay_engine_kwargs
 from ..store import FlatFileStore
 from ..verification import SpoofVerificationProvider
 from . import demo_run_root
 from .oanda_v2b_ungated_common import (
-    ACCOUNT_CHANGES_POLL_SECONDS,
     PROGRESS_HEARTBEAT_SECONDS,
     _interruptible_sleep,
     _jsonable,
@@ -43,7 +42,6 @@ from .oanda_v2b_ungated_common import (
     append_progress,
     pid_is_alive,
     pidfile_path,
-    poll_account_changes,
     progress_path,
     read_pid,
     run_log_path,
@@ -60,13 +58,13 @@ from .us30_hourly_st_pmc_common import (
     upsert_strategy_instance,
 )
 
-BOOK = "sl50_tp150_3r"
+BOOK = "sl50_tp150_runners_2r_10r"
 _SPEC = book_spec(BOOK)
 VARIANT = str(_SPEC["variant"])
 TRACKER_NOTE = str(_SPEC["tracker"])
-STRATEGY_ID = "us30_hourly_st_pmc_sl50_tp150_3r_oanda"
-RUN_DIRNAME = "us30_hourly_st_pmc_sl50_tp150_3r_oanda"
-CLI_COMMAND = "demo-us30-hourly-st-pmc-oanda"
+STRATEGY_ID = "us30_hourly_st_pmc_sl50_tp150_runners_2r_10r_paper"
+RUN_DIRNAME = "us30_hourly_st_pmc_sl50_tp150_runners_2r_10r_paper"
+CLI_COMMAND = "demo-us30-hourly-st-pmc-2r10r-paper"
 
 
 def default_output_root() -> Path:
@@ -74,7 +72,7 @@ def default_output_root() -> Path:
 
 
 def write_run_meta(output_root: Path, *, config: OandaConfig) -> Dict[str, Any]:
-    payload = strategy_config_payload(oanda_routing=True, book=BOOK)
+    payload = strategy_config_payload(oanda_routing=False, book=BOOK)
     meta = {
         "started_at": utc_now_iso(),
         "pid": os.getpid(),
@@ -89,7 +87,7 @@ def write_run_meta(output_root: Path, *, config: OandaConfig) -> Dict[str, Any]:
         "stop_pts": payload["stop_pts"],
         "target_pts": payload["target_pts"],
         "account_mode": "paper",
-        "oanda_routing": True,
+        "oanda_routing": False,
         "allow_live_routing": False,
         "oanda_env": config.env,
         "oanda_account_id": config.account_id or DEFAULT_PRIMARY_ACCOUNT,
@@ -98,7 +96,7 @@ def write_run_meta(output_root: Path, *, config: OandaConfig) -> Dict[str, Any]:
         "output_root": str(output_root),
         "state_root": str(state_root_for(output_root)),
         "tracker": TRACKER_NOTE,
-        "note": "OANDA practice ST+PMC: 1h signals; real practice orders; Account Changes mirror fills.",
+        "note": "Paper ST+PMC: 1h from practice quote stream; PaperBroker fills on 1m; no OANDA orders.",
     }
     output_root.mkdir(parents=True, exist_ok=True)
     run_meta_path(output_root).write_text(json.dumps(meta, indent=2, sort_keys=True) + "\n", encoding="utf-8")
@@ -108,19 +106,17 @@ def write_run_meta(output_root: Path, *, config: OandaConfig) -> Dict[str, Any]:
 def bootstrap_store(output_root: Path) -> FlatFileStore:
     store = FlatFileStore(state_root_for(output_root))
     store.ensure()
-    upsert_strategy_instance(store, strategy_id=STRATEGY_ID, oanda_routing=True, book=BOOK)
-    n = seed_hourly_history(store, source="us30_1h_csv_seed_oanda")
+    upsert_strategy_instance(store, strategy_id=STRATEGY_ID, oanda_routing=False, book=BOOK)
+    n = seed_hourly_history(store, source="us30_1h_csv_seed_paper")
     if n:
         append_progress(output_root, "SEED 1h history bars=%d" % n)
     return store
 
 
-def build_engine(store: FlatFileStore, *, config: OandaConfig, client: OandaApiClient) -> Engine:
+def build_engine(store: FlatFileStore) -> Engine:
     DEFAULT_TICK_SIZE.setdefault(INSTRUMENT, TICK)
-    broker = OandaBroker(store, config=config, client=client, allow_live_routing=False)
     return Engine(
         store=store,
-        broker=broker,
         persist_bars=True,
         persist_health=True,
         tick_size={INSTRUMENT: TICK},
@@ -128,11 +124,11 @@ def build_engine(store: FlatFileStore, *, config: OandaConfig, client: OandaApiC
         emit_order_alerts=True,
         broker_log_events=True,
         broker_persist_modifications=True,
-        slippage_ticks=0.0,
+        **hardened_replay_engine_kwargs(slippage_ticks=0.0, spread_model=None),
     )
 
 
-class StPmcOandaRunner:
+class StPmcPaperRunner:
     def __init__(
         self,
         *,
@@ -145,46 +141,17 @@ class StPmcOandaRunner:
         self.config = config or OandaConfig.from_env()
         self.store = bootstrap_store(self.output_root)
         self.client = client or OandaApiClient(config=self.config, store=self.store)
-        self.engine = build_engine(self.store, config=self.config, client=self.client)
-        self.builder_1m = QuoteOneMinuteBarBuilder(INSTRUMENT, source="oanda_st_pmc_quote")
-        self.agg_1h = HourlyBarAggregator(INSTRUMENT, source="oanda_st_pmc_1h")
+        self.engine = build_engine(self.store)
+        self.builder_1m = QuoteOneMinuteBarBuilder(INSTRUMENT, source="oanda_st_pmc_paper_quote")
+        self.agg_1h = HourlyBarAggregator(INSTRUMENT, source="oanda_st_pmc_paper_1h")
         self._last_progress_at = 0.0
-        self._last_changes_poll_at = 0.0
         self.ticks_logged = 0
         self.bars_1m = 0
         self.bars_1h = 0
-        self.fills_from_oanda = 0
         self.stop_requested = False
 
     def request_stop(self, *_args: Any) -> None:
         self.stop_requested = True
-
-    def bootstrap_reconcile(self) -> None:
-        broker = self.engine.broker
-        if isinstance(broker, OandaBroker):
-            try:
-                broker.reconcile_from_account_details()
-                append_progress(
-                    self.output_root,
-                    "OANDA reconcile lastTransactionID=%s open_orders=%d positions=%d"
-                    % (
-                        broker.last_transaction_id,
-                        len(broker.reconcile_orders()),
-                        len([p for p in broker.reconcile_positions() if p.quantity != 0]),
-                    ),
-                )
-            except Exception as exc:
-                append_progress(self.output_root, "WARN reconcile_from_account_details failed: %s" % exc)
-
-    def maybe_poll_changes(self, *, force: bool = False) -> None:
-        now = time.time()
-        if (not force) and (now - self._last_changes_poll_at < ACCOUNT_CHANGES_POLL_SECONDS):
-            return
-        self._last_changes_poll_at = now
-        n = poll_account_changes(self.engine, self.client, instrument=INSTRUMENT)
-        if n:
-            self.fills_from_oanda += n
-            append_progress(self.output_root, "OANDA fills applied n=%d total=%d" % (n, self.fills_from_oanda))
 
     def on_price_tick(
         self,
@@ -217,11 +184,11 @@ class StPmcOandaRunner:
         completed_1h: List[Bar] = []
         for bar_1m in self.builder_1m.on_quote(bid=float(bid), ask=float(ask), mid=mid_px, quantity=quantity, ts=ts):
             self.bars_1m += 1
-            self.store.append_bar(bar_1m)
+            # 1m through engine → PaperBroker can fill resting brackets intrabar.
+            self.engine.process_bar(bar_1m)
             for bar_1h in self.agg_1h.on_bar(bar_1m):
                 self._handle_1h(bar_1h)
                 completed_1h.append(bar_1h)
-        self.maybe_poll_changes()
         self._maybe_heartbeat()
         return completed_1h
 
@@ -229,7 +196,7 @@ class StPmcOandaRunner:
         out: List[Bar] = []
         for bar_1m in self.builder_1m.flush():
             self.bars_1m += 1
-            self.store.append_bar(bar_1m)
+            self.engine.process_bar(bar_1m)
             for bar_1h in self.agg_1h.on_bar(bar_1m):
                 self._handle_1h(bar_1h)
                 out.append(bar_1h)
@@ -240,10 +207,8 @@ class StPmcOandaRunner:
 
     def _handle_1h(self, bar: Bar) -> None:
         self.bars_1h += 1
-        # OandaBroker.process_bar only drains create/close pending fills (no OHLC match).
-        # Keep broker_fills=True so post-submit fills are delivered; real fills also arrive
-        # via Account Changes. Paper demos use broker_fills=False + 1m PaperBroker fills.
-        self.engine.process_bar(bar)
+        # 1m already filled this hour's range; 1h is signal-only (no HTF lookahead fills).
+        self.engine.process_bar(bar, broker_fills=False)
         append_progress(
             self.output_root,
             "1h bar ts=%s o=%.1f h=%.1f l=%.1f c=%.1f" % (bar.ts, bar.open, bar.high, bar.low, bar.close),
@@ -259,14 +224,13 @@ class StPmcOandaRunner:
         ]
         append_progress(
             self.output_root,
-            "heartbeat ticks=%d bars_1m=%d bars_1h=%d orders=%d open_positions=%d oanda_fills=%d variant=%s"
+            "heartbeat ticks=%d bars_1m=%d bars_1h=%d orders=%d open_positions=%d variant=%s"
             % (
                 self.ticks_logged,
                 self.bars_1m,
                 self.bars_1h,
                 len(self.engine.broker.reconcile_orders()),
                 len(open_positions),
-                self.fills_from_oanda,
                 VARIANT,
             ),
         )
@@ -287,12 +251,12 @@ def run_stream_loop(
         append_progress(output_root, "REFUSING non-practice OANDA_ENV=%s" % config.env)
         return 2
 
-    runner = StPmcOandaRunner(output_root=output_root, config=config)
+    runner = StPmcPaperRunner(output_root=output_root, config=config)
     meta = write_run_meta(output_root, config=config)
     pidfile_path(output_root).write_text(str(os.getpid()) + "\n", encoding="utf-8")
     append_progress(
         output_root,
-        "STARTED US30 ST+PMC oanda variant=%s strategy=%s account=%s state=%s pid=%s"
+        "STARTED US30 ST+PMC paper variant=%s strategy=%s account=%s state=%s pid=%s"
         % (VARIANT, STRATEGY_ID, config.account_id, state_root_for(output_root), os.getpid()),
     )
     append_progress(
@@ -303,7 +267,6 @@ def run_stream_loop(
             sort_keys=True,
         ),
     )
-    runner.bootstrap_reconcile()
 
     signal.signal(signal.SIGINT, runner.request_stop)
     signal.signal(signal.SIGTERM, runner.request_stop)
@@ -354,7 +317,6 @@ def run_stream_loop(
                     if runner.stop_requested:
                         break
                     if msg_type == "pricing.PricingHeartbeat" or getattr(msg, "type", None) == "HEARTBEAT":
-                        runner.maybe_poll_changes()
                         runner._maybe_heartbeat()
                         continue
                     event = {
@@ -422,11 +384,10 @@ def run_stream_loop(
         exit_code = 1
     finally:
         runner.flush()
-        runner.maybe_poll_changes(force=True)
         append_progress(
             output_root,
-            "STOPPED ticks=%d bars_1m=%d bars_1h=%d oanda_fills=%d reconnect_attempts=%d"
-            % (price_ticks, runner.bars_1m, runner.bars_1h, runner.fills_from_oanda, reconnect_attempt),
+            "STOPPED ticks=%d bars_1m=%d bars_1h=%d reconnect_attempts=%d"
+            % (price_ticks, runner.bars_1m, runner.bars_1h, reconnect_attempt),
         )
         _remove_pidfile(output_root)
     return exit_code
@@ -487,7 +448,7 @@ def status_daemon(output_root: Path) -> int:
         lines = progress_path(output_root).read_text(errors="replace").strip().splitlines()
         prog = lines[-1] if lines else ""
     print(
-        "pid=%s alive=%s state=%s routing=True variant=%s last=%s"
+        "pid=%s alive=%s started_at=? state=%s routing=False variant=%s last=%s"
         % (pid, alive, state_root_for(output_root), VARIANT, prog[:120])
     )
     return 0 if alive else 1

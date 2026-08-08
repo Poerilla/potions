@@ -1,6 +1,6 @@
-"""US30 hourly ST+PMC sl50_tp150_3r — OANDA practice demo.
+"""US30 hourly ST+PMC sl50_tp150_runners_2r_10r — OANDA practice demo.
 
-Fair-control 1mfill lot-correct N/S ≈ 29.4. Artifacts: ``live/demo/us30_hourly_st_pmc_sl50_tp150_3r_oanda/``.
+Fair-control 1mfill lot-correct N/S ≈ 24.1. Artifacts: ``live/demo/us30_hourly_st_pmc_sl50_tp150_runners_2r_10r_oanda/``.
 Streams practice quotes → 1m → 1h; routes practice orders via ``OandaBroker``.
 """
 
@@ -60,13 +60,13 @@ from .us30_hourly_st_pmc_common import (
     upsert_strategy_instance,
 )
 
-BOOK = "sl50_tp150_3r"
+BOOK = "sl50_tp150_runners_2r_10r"
 _SPEC = book_spec(BOOK)
 VARIANT = str(_SPEC["variant"])
 TRACKER_NOTE = str(_SPEC["tracker"])
-STRATEGY_ID = "us30_hourly_st_pmc_sl50_tp150_3r_oanda"
-RUN_DIRNAME = "us30_hourly_st_pmc_sl50_tp150_3r_oanda"
-CLI_COMMAND = "demo-us30-hourly-st-pmc-oanda"
+STRATEGY_ID = "us30_hourly_st_pmc_sl50_tp150_runners_2r_10r_oanda"
+RUN_DIRNAME = "us30_hourly_st_pmc_sl50_tp150_runners_2r_10r_oanda"
+CLI_COMMAND = "demo-us30-hourly-st-pmc-2r10r-oanda"
 
 
 def default_output_root() -> Path:
