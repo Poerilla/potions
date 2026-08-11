@@ -103,18 +103,37 @@ Artifacts under `/home/tester/hsm/potions/live/state/fx_v2b_asia_range_london_us
 | Stress DD≈USD | $-24627 |
 | N/S | 7.23 |
 | max_open_units (simultaneous) | 7 |
+| max_fill_qty | 7.0 |
 | Filtered worst campaign≈USD | $-12473 |
 | Causality violation rows | 0 |
+| fill rows / order rows | 1924 / 5640 |
+| OCO cancelled / filled orders | 3717 / 1923 |
+| fills adverse vs mid | 1555 / 1924 (mean abs diff 0.02) |
 | fills/orders/unit_trades present | True / True / True |
 
-Slippage, OCO cancel, and gap-through are the PaperBroker defaults used in the filtered replay;
-re-check from fills/orders in weekly post-process. Margin under OANDA practice is a demo ops log item.
+Fill reasons: `{'entry': 861, 'eod_close': 727, 'tp1': 163, 'wide_stop': 107, 'tp2': 39, 'runner_stop': 27}`.
+Cancelled by bracket role: `{'entry': 1143, 'tp2': 985, 'wide_stop': 754, 'tp1': 698, 'runner_stop': 137}`.
+
+These counts are scraped from the filtered PaperBroker replay logs for weekly post-process;
+they are not retune knobs. Margin under OANDA practice stays a demo ops / account-snapshot item.
 
 ## 5. Live-parity audit (paper)
 
 Paper/OANDA demos append `campaign_parity.csv` rows:
 `session_date | shadow_50_wr | shadow_50_pf | decision | reason | realized_campaign_net | next_shadow_n`.
 Compare row-for-row with research decision tape `validation_decision_tape.csv` (same columns).
+Demos **seed** shadow last-50 so the roll gate is warm from day one; row compare starts once
+London sessions fire (Asia OR collect → 03:00 inject).
+
+## Open actions (funded sleeve still held)
+
+| Item | Status |
+|---|---|
+| Frozen OOS / walk-forward / attribution offline proof | **done** (this hub) |
+| Path-aware scrape of promoted fills/orders | **done** (regenerate via driver) |
+| Live `campaign_parity.csv` row-for-row vs research tape | **pending** first live campaigns |
+| OANDA practice margin / simultaneous exposure ops check | **pending** weekly demo review |
+| Sit-out candle-sim append on live skip days | **follow-up** (gate must not freeze) |
 
 ## Gate scorecard
 
@@ -124,7 +143,7 @@ Compare row-for-row with research decision tape `validation_decision_tape.csv` (
 | Walk-forward stability | **PASS** |
 | Filter attribution (Jan not sole; roll sits out) | **PASS** |
 | Path-aware risk logs present | **PASS** |
-| Live-parity CSV wiring | **PASS** (demo writes `campaign_parity.csv`) |
+| Live-parity CSV wiring | **PASS** (demo writes `campaign_parity.csv`; compare pending) |
 | **Funded sleeve** | **NO — hold** |
 
 Driver: `python -m live.fx_v2b_asia_range_london_usdjpy_validation --email`

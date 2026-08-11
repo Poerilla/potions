@@ -8,6 +8,8 @@
 - Frozen OOS after 2021: taken net≈+$102k **PASS**; yearly stability **PASS** (2022 31% abs share, 7 green years).
 - Live-parity: paper/OANDA demos append `campaign_parity.csv`; plugin `session_gate_decision`; research tape `validation_decision_tape.csv`.
 - **50-campaign warmup** documented; demos seed last-50 so live is not cold-start.
+- Path-aware scrape (promoted hub fills/orders): OCO cancelled/filled counts, fill reasons, adverse-vs-mid, max exposure — weekly post-process source, not retune.
+- Open: live parity row-compare after first London campaigns; OANDA margin ops check; sit-out candle-sim append follow-up.
 - Stance unchanged: research/practice **PROMOTE**; **funded sleeve NOT YET**.
 
 ## 2026-08-11 — USDJPY Asia-range London filtered promote

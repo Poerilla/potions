@@ -258,6 +258,11 @@ def rolling_anchor_table(
 
 
 def path_aware_checklist(metrics_path: Path, filtered_state: Path) -> dict:
+    """Summarize broker-like path risk from the promoted filtered state logs.
+
+    These fields are meant for daily/weekly post-process — no retune —
+    just awareness that fills/OCO/exposure already live on disk.
+    """
     out: Dict[str, object] = {
         "metrics_path": str(metrics_path),
         "state_root": str(filtered_state),
@@ -274,6 +279,7 @@ def path_aware_checklist(metrics_path: Path, filtered_state: Path) -> dict:
                 "trades": meta.get("trades"),
                 "regime_days": meta.get("regime_days"),
                 "variant": meta.get("variant"),
+                "entry_qty": meta.get("entry_qty"),
             }
         )
     for name in ("fills.csv", "orders.csv", "unit_trades.csv", "causality_violations.csv"):
@@ -285,21 +291,66 @@ def path_aware_checklist(metrics_path: Path, filtered_state: Path) -> dict:
                 out["causality_violation_rows"] = int(len(cv))
             except Exception:
                 out["causality_violation_rows"] = None
+
+    fills_path = filtered_state / "fills.csv"
+    if fills_path.exists():
+        fills = pd.read_csv(fills_path)
+        out["fill_rows"] = int(len(fills))
+        if not fills.empty and "reason" in fills.columns:
+            out["fill_reasons"] = {
+                str(k): int(v) for k, v in fills["reason"].value_counts().to_dict().items()
+            }
+        if not fills.empty and "quantity" in fills.columns:
+            out["max_fill_qty"] = float(fills["quantity"].max())
+        # Adverse vs mid as a path log (PaperBroker may set mid_price on fills).
+        if not fills.empty and {"mid_price", "price", "side"}.issubset(fills.columns):
+            f = fills.dropna(subset=["mid_price", "price"]).copy()
+            f = f[f["mid_price"].astype(float) > 0]
+            if not f.empty:
+                side = f["side"].astype(str).str.lower()
+                px = f["price"].astype(float)
+                mid = f["mid_price"].astype(float)
+                adverse = ((side == "buy") & (px > mid)) | ((side == "sell") & (px < mid))
+                out["fills_with_mid"] = int(len(f))
+                out["fills_adverse_vs_mid"] = int(adverse.sum())
+                out["mean_abs_mid_fill_diff"] = float((px - mid).abs().mean())
+
+    orders_path = filtered_state / "orders.csv"
+    if orders_path.exists():
+        orders = pd.read_csv(orders_path)
+        out["order_rows"] = int(len(orders))
+        if not orders.empty and "status" in orders.columns:
+            status = orders["status"].astype(str).str.lower()
+            out["order_status_counts"] = {
+                str(k): int(v) for k, v in status.value_counts().to_dict().items()
+            }
+            out["oco_cancelled_orders"] = int(status.isin(["cancelled", "canceled"]).sum())
+            out["oco_filled_orders"] = int((status == "filled").sum())
+        if not orders.empty and "oco_group" in orders.columns:
+            out["orders_with_oco_group"] = int(orders["oco_group"].notna().sum())
+        if not orders.empty and "bracket_role" in orders.columns:
+            cancelled = orders[
+                orders["status"].astype(str).str.lower().isin(["cancelled", "canceled"])
+            ]
+            if not cancelled.empty:
+                out["cancelled_by_bracket_role"] = {
+                    str(k): int(v)
+                    for k, v in cancelled["bracket_role"].value_counts().to_dict().items()
+                }
+
     if (filtered_state / "unit_trades.csv").exists():
         ut = pd.read_csv(filtered_state / "unit_trades.csv")
         if not ut.empty and "net_usd" in ut.columns:
-            camps = (
-                ut.groupby("trade_id", as_index=False)
-                .agg(net_usd=("net_usd", "sum"))
-            )
+            camps = ut.groupby("trade_id", as_index=False).agg(net_usd=("net_usd", "sum"))
             out["filtered_worst_campaign_usd"] = _usd(float(camps["net_usd"].min()))
             out["filtered_campaigns"] = int(len(camps))
     out["notes"] = [
-        "Broker-like fills / OCO / slippage already encoded in PaperBroker replay of the filtered hub.",
-        "max_open_units is simultaneous exposure under the promoted book.",
-        "stress_dd_usd is worst-path campaign stress on the filtered replay.",
-        "Margin / live OANDA practice remains a demo ops check (path logs), not retuned here.",
-        "Daily/weekly post-process should read campaign_parity.csv from paper demo.",
+        "Broker-like fills / OCO cancel counts scraped from filtered hub orders/fills (weekly post-process source).",
+        "max_open_units / max_fill_qty = simultaneous exposure under the promoted book.",
+        "stress_dd_usd / filtered_worst_campaign_usd = worst-path campaign stress.",
+        "fills_adverse_vs_mid is a path log vs mid_price (not a retune knob).",
+        "Margin / live OANDA practice remains a demo ops check (account snapshot), not scored here.",
+        "Daily/weekly: compare paper campaign_parity.csv to validation_decision_tape.csv.",
     ]
     return out
 
@@ -489,8 +540,19 @@ def write_report(
             "| Stress DD≈USD | %s |" % _fmt_money(path_aware.get("broker_stress_dd_usd")),
             "| N/S | %s |" % _fmt_num(path_aware.get("broker_net_over_stress")),
             "| max_open_units (simultaneous) | %s |" % path_aware.get("max_open_units"),
+            "| max_fill_qty | %s |" % path_aware.get("max_fill_qty"),
             "| Filtered worst campaign≈USD | %s |" % _fmt_money(path_aware.get("filtered_worst_campaign_usd")),
             "| Causality violation rows | %s |" % path_aware.get("causality_violation_rows"),
+            "| fill rows / order rows | %s / %s |"
+            % (path_aware.get("fill_rows"), path_aware.get("order_rows")),
+            "| OCO cancelled / filled orders | %s / %s |"
+            % (path_aware.get("oco_cancelled_orders"), path_aware.get("oco_filled_orders")),
+            "| fills adverse vs mid | %s / %s (mean abs diff %s) |"
+            % (
+                path_aware.get("fills_adverse_vs_mid"),
+                path_aware.get("fills_with_mid"),
+                _fmt_num(path_aware.get("mean_abs_mid_fill_diff")),
+            ),
             "| fills/orders/unit_trades present | %s / %s / %s |"
             % (
                 path_aware.get("has_fills_csv"),
@@ -498,14 +560,29 @@ def write_report(
                 path_aware.get("has_unit_trades_csv"),
             ),
             "",
-            "Slippage, OCO cancel, and gap-through are the PaperBroker defaults used in the filtered replay;",
-            "re-check from fills/orders in weekly post-process. Margin under OANDA practice is a demo ops log item.",
+            "Fill reasons: `%s`." % path_aware.get("fill_reasons"),
+            "Cancelled by bracket role: `%s`." % path_aware.get("cancelled_by_bracket_role"),
+            "",
+            "These counts are scraped from the filtered PaperBroker replay logs for weekly post-process;",
+            "they are not retune knobs. Margin under OANDA practice stays a demo ops / account-snapshot item.",
             "",
             "## 5. Live-parity audit (paper)",
             "",
             "Paper/OANDA demos append `campaign_parity.csv` rows:",
             "`session_date | shadow_50_wr | shadow_50_pf | decision | reason | realized_campaign_net | next_shadow_n`.",
             "Compare row-for-row with research decision tape `validation_decision_tape.csv` (same columns).",
+            "Demos **seed** shadow last-50 so the roll gate is warm from day one; row compare starts once",
+            "London sessions fire (Asia OR collect → 03:00 inject).",
+            "",
+            "## Open actions (funded sleeve still held)",
+            "",
+            "| Item | Status |",
+            "|---|---|",
+            "| Frozen OOS / walk-forward / attribution offline proof | **done** (this hub) |",
+            "| Path-aware scrape of promoted fills/orders | **done** (regenerate via driver) |",
+            "| Live `campaign_parity.csv` row-for-row vs research tape | **pending** first live campaigns |",
+            "| OANDA practice margin / simultaneous exposure ops check | **pending** weekly demo review |",
+            "| Sit-out candle-sim append on live skip days | **follow-up** (gate must not freeze) |",
             "",
             "## Gate scorecard",
             "",
@@ -517,7 +594,7 @@ def write_report(
             % ("PASS" if (attr_ok and roll_sits) else "WATCH"),
             "| Path-aware risk logs present | **%s** |"
             % ("PASS" if path_aware.get("has_fills_csv") else "FAIL"),
-            "| Live-parity CSV wiring | **PASS** (demo writes `campaign_parity.csv`) |",
+            "| Live-parity CSV wiring | **PASS** (demo writes `campaign_parity.csv`; compare pending) |",
             "| **Funded sleeve** | **%s** |" % ("NO — hold" if not funded_ready else "YES"),
             "",
             "Driver: `python -m live.fx_v2b_asia_range_london_usdjpy_validation --email`",

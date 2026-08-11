@@ -6,7 +6,8 @@
 for research / paper+OANDA practice.
 
 **Funded sleeve: NOT YET** — see [`VALIDATION_GATES.md`](VALIDATION_GATES.md)
-(frozen OOS, walk-forward, attribution, path-aware risk, live-parity).
+(frozen OOS, walk-forward, attribution, path-aware risk scrape, live-parity).
+Offline gates PASS; open = live parity row-compare + margin ops after campaigns fire.
 
 Broker-like filtered hub N/S **7.23** (+$178k / −$25k stress, 861 trades). Live demos:
 `demo-usdjpy-asia-range-{paper,oanda}`.

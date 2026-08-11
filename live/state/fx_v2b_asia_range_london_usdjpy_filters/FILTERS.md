@@ -65,10 +65,13 @@ Research promote ≠ funded sleeve. Before calling this a funded sleeve, keep
 1. **Frozen-rule OOS** — lock `S_3_1_3` + Jan + roll50 WR40/PF1; test later years without retuning.
 2. **Walk-forward stability** — yearly / anchor tables; not one narrow USDJPY regime.
 3. **Filter attribution** — Jan / WR / PF / combined contributions on the shadow tape.
-4. **Path-aware risk** — broker fills, OCO, slippage, simultaneous exposure, worst campaign, margin (hub logs + weekly post-process).
+4. **Path-aware risk** — broker fills, OCO, slippage, simultaneous exposure, worst campaign, margin (hub logs + weekly post-process; driver scrapes fills/orders into `validation_path_aware.json`).
 5. **Live-parity audit** — paper `campaign_parity.csv` vs research `validation_decision_tape.csv`.
 
 **50-campaign warmup:** the roll gate cannot fire until 50 prior unfiltered campaigns exist.
 Demos seed last-50 from the sizing hub; cold research replays still pass through the first 50 on WR/PF (Jan still applies).
+Proof windows can shrink when the shadow book is already seeded / market history is short.
+
+**Still open before funded:** live parity row-compare (first London campaigns), OANDA practice margin ops check, sit-out candle-sim append so skip days do not freeze the roll window.
 
 Driver: `python -m live.fx_v2b_asia_range_london_usdjpy_validation --email`

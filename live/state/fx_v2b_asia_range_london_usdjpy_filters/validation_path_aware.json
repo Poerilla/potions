@@ -9,18 +9,48 @@
   "trades": 861,
   "regime_days": 943,
   "variant": "skip_months+roll50_wr40_pf1",
+  "entry_qty": 7,
   "has_fills_csv": true,
   "has_orders_csv": true,
   "has_unit_trades_csv": true,
   "has_causality_violations_csv": true,
   "causality_violation_rows": 0,
+  "fill_rows": 1924,
+  "fill_reasons": {
+    "entry": 861,
+    "eod_close": 727,
+    "tp1": 163,
+    "wide_stop": 107,
+    "tp2": 39,
+    "runner_stop": 27
+  },
+  "max_fill_qty": 7.0,
+  "fills_with_mid": 1924,
+  "fills_adverse_vs_mid": 1555,
+  "mean_abs_mid_fill_diff": 0.01853482328482364,
+  "order_rows": 5640,
+  "order_status_counts": {
+    "cancelled": 3717,
+    "filled": 1923
+  },
+  "oco_cancelled_orders": 3717,
+  "oco_filled_orders": 1923,
+  "orders_with_oco_group": 1886,
+  "cancelled_by_bracket_role": {
+    "entry": 1143,
+    "tp2": 985,
+    "wide_stop": 754,
+    "tp1": 698,
+    "runner_stop": 137
+  },
   "filtered_worst_campaign_usd": -12473.172727272728,
   "filtered_campaigns": 861,
   "notes": [
-    "Broker-like fills / OCO / slippage already encoded in PaperBroker replay of the filtered hub.",
-    "max_open_units is simultaneous exposure under the promoted book.",
-    "stress_dd_usd is worst-path campaign stress on the filtered replay.",
-    "Margin / live OANDA practice remains a demo ops check (path logs), not retuned here.",
-    "Daily/weekly post-process should read campaign_parity.csv from paper demo."
+    "Broker-like fills / OCO cancel counts scraped from filtered hub orders/fills (weekly post-process source).",
+    "max_open_units / max_fill_qty = simultaneous exposure under the promoted book.",
+    "stress_dd_usd / filtered_worst_campaign_usd = worst-path campaign stress.",
+    "fills_adverse_vs_mid is a path log vs mid_price (not a retune knob).",
+    "Margin / live OANDA practice remains a demo ops check (account snapshot), not scored here.",
+    "Daily/weekly: compare paper campaign_parity.csv to validation_decision_tape.csv."
   ]
 }

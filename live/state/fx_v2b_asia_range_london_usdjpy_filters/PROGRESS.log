@@ -41,8 +41,13 @@
 - Driver `live/fx_v2b_asia_range_london_usdjpy_validation.py` → VALIDATION_GATES.md
 - Attribution: Jan Δ≈+$29k; PF dominant sit-outs; combined not Jan-only
 - Frozen OOS post-2021 taken net≈+$102k PASS; yearly stability PASS (2022 31% share)
+- Path-aware: fills/orders scrape (OCO cancel 3717 / fill 1923; adverse-vs-mid; max_open 7)
 - Live-parity: demos write campaign_parity.csv; research tape validation_decision_tape.csv
+- Open: live row-compare + OANDA margin ops + sit-out candle-sim
 - Stance: research PROMOTE / demos live; **funded sleeve NOT YET**
 [2026-08-11T13:44:10] VALIDATION load /home/tester/hsm/potions/live/state/fx_v2b_asia_range_london_usdjpy_sizing/states/usdjpy_v2b_asia_range_london_S_3_1_3/unit_trades.csv
 [2026-08-11T13:44:18] VALIDATION wrote /home/tester/hsm/potions/live/state/fx_v2b_asia_range_london_usdjpy_filters/VALIDATION_GATES.md
 [2026-08-11T13:44:19] VALIDATION EMAIL sent
+[2026-08-11T13:53:12] VALIDATION load /home/tester/hsm/potions/live/state/fx_v2b_asia_range_london_usdjpy_sizing/states/usdjpy_v2b_asia_range_london_S_3_1_3/unit_trades.csv
+[2026-08-11T13:53:20] VALIDATION wrote /home/tester/hsm/potions/live/state/fx_v2b_asia_range_london_usdjpy_filters/VALIDATION_GATES.md
+[2026-08-11T13:53:21] VALIDATION EMAIL sent

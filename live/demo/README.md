@@ -238,8 +238,9 @@ Asia OR **19:00–03:00** → arm v2b at London **03:00** → flatten **11:59**.
 | `usdjpy_asia_range_london_paper.py` (+ `…_common.py`) | `usdjpy_asia_range_london_paper/` | `demo-usdjpy-asia-range-paper` |
 | `usdjpy_asia_range_london_oanda.py` | `usdjpy_asia_range_london_oanda/` | `demo-usdjpy-asia-range-oanda` |
 
-Shadow book: `live/demo/usdjpy_asia_range_london_*/shadow_campaigns.json` (seeded from sizing hub last-50; append after London EOD).
-Live-parity audit: `campaign_parity.csv` (session | shadow 50-WR/PF | skip/take | reason | realized net | next shadow n) — compare to research `validation_decision_tape.csv`. Funded-sleeve gates: hub `VALIDATION_GATES.md` (**funded sleeve NOT YET**).
+Shadow book: `live/demo/usdjpy_asia_range_london_*/shadow_campaigns.json` (seeded from sizing hub last-50; append after London EOD — **50-campaign warmup avoided on live**).
+Live-parity audit: `campaign_parity.csv` (session | shadow 50-WR/PF | skip/take | reason | realized net | next shadow n) — compare to research `validation_decision_tape.csv` once London sessions fire.
+Funded-sleeve gates: hub `VALIDATION_GATES.md` (**funded sleeve NOT YET**; offline OOS/attribution/path-aware PASS; live parity + margin ops still open).
 
 ### Hourly ST+PMC 1mfill (fair 3R + 2R→10R runners)
 
