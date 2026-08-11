@@ -6,11 +6,12 @@
 for research / paper+OANDA practice.
 
 **Funded sleeve: NOT YET** — see [`VALIDATION_GATES.md`](VALIDATION_GATES.md)
-(frozen OOS, walk-forward, attribution, path-aware risk scrape, live-parity).
-Offline gates PASS; open = live parity row-compare + margin ops after campaigns fire.
+(frozen OOS, walk-forward, attribution, path-aware risk scrape, live-parity, margin ops).
+Offline gates PASS; filter nulls = **RETAIN AS RISK THROTTLE** ([`FILTER_NULLS.md`](FILTER_NULLS.md));
+open = live parity row-compare after London campaigns fire + sit-out candle-sim.
 
 Broker-like filtered hub N/S **7.23** (+$178k / −$25k stress, 861 trades). Live demos:
-`demo-usdjpy-asia-range-{paper,oanda}`.
+`demo-usdjpy-asia-range-{paper,oanda}` (shadow last-50 seeded — no cold 50-campaign warmup).
 
 Mechanics: [`FILTERS.md`](FILTERS.md) (shadow book = unfiltered campaign outcomes).
 
@@ -39,3 +40,4 @@ Mechanics: [`FILTERS.md`](FILTERS.md) (shadow book = unfiltered campaign outcome
 Drivers:
 - Filters: `python -m live.fx_v2b_asia_range_london_usdjpy_filters --email`
 - Funded-sleeve gates: `python -m live.fx_v2b_asia_range_london_usdjpy_validation --email`
+- Filter nulls: `python -m live.fx_v2b_asia_range_london_usdjpy_filter_nulls --email`

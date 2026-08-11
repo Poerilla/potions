@@ -117,13 +117,36 @@ Cancelled by bracket role: `{'entry': 1143, 'tp2': 985, 'wide_stop': 754, 'tp1':
 These counts are scraped from the filtered PaperBroker replay logs for weekly post-process;
 they are not retune knobs. Margin under OANDA practice stays a demo ops / account-snapshot item.
 
+### OANDA practice margin ops (shared account)
+
+| Field | Value |
+|---|---|
+| Snapshot | `2026-08-11T18:14:57Z` |
+| NAV / balance | 102026.5105 / 101774.6919 |
+| marginUsed / Available | 16519.74 / 85511.4025 |
+| marginCloseoutPercent | 0.08095 |
+| USDJPY open qty | 0.0 |
+| pending orders (account) | 92 |
+
+Refresh via `python -m potions.live.cli oanda-practice-sync` (weekly). Shared practice book —
+other sleeves hold index CFD inventory; Asia-range USDJPY should stay flat until London inject.
+
 ## 5. Live-parity audit (paper)
 
 Paper/OANDA demos append `campaign_parity.csv` rows:
-`session_date | shadow_50_wr | shadow_50_pf | decision | reason | realized_campaign_net | next_shadow_n`.
+`session_date | shadow_50_wr | shadow_50_pf | skip/take | reason | realized_campaign_net | next_shadow_n`.
 Compare row-for-row with research decision tape `validation_decision_tape.csv` (same columns).
 Demos **seed** shadow last-50 so the roll gate is warm from day one; row compare starts once
 London sessions fire (Asia OR collect → 03:00 inject).
+
+Parity status: **pending_first_campaigns**
+
+## 6. Filter nulls (risk-throttle evidence)
+
+Separate study: [`FILTER_NULLS.md`](FILTER_NULLS.md) / `python -m live.fx_v2b_asia_range_london_usdjpy_filter_nulls --email`.
+Overall: **RETAIN FILTER AS RISK THROTTLE** (not alpha) — matched-exposure / selection-aware fail;
+circular-shift timing still supports the live gate; January #1/12 among month placebos.
+Does **not** unlock funded sleeve by itself; keeps the promote book as an operational throttle.
 
 ## Open actions (funded sleeve still held)
 
@@ -131,8 +154,9 @@ London sessions fire (Asia OR collect → 03:00 inject).
 |---|---|
 | Frozen OOS / walk-forward / attribution offline proof | **done** (this hub) |
 | Path-aware scrape of promoted fills/orders | **done** (regenerate via driver) |
-| Live `campaign_parity.csv` row-for-row vs research tape | **pending** first live campaigns |
-| OANDA practice margin / simultaneous exposure ops check | **pending** weekly demo review |
+| Filter nulls (matched-exposure / shift / selection-aware) | **done** — retain as risk throttle |
+| OANDA practice margin fields on snapshot + asia demo in DEMO_FOCUS | **done** (weekly sync) |
+| Live `campaign_parity.csv` row-for-row vs research tape | **pending_first_campaigns** |
 | Sit-out candle-sim append on live skip days | **follow-up** (gate must not freeze) |
 
 ## Gate scorecard
@@ -143,7 +167,9 @@ London sessions fire (Asia OR collect → 03:00 inject).
 | Walk-forward stability | **PASS** |
 | Filter attribution (Jan not sole; roll sits out) | **PASS** |
 | Path-aware risk logs present | **PASS** |
-| Live-parity CSV wiring | **PASS** (demo writes `campaign_parity.csv`; compare pending) |
+| Filter nulls stance | **RETAIN AS RISK THROTTLE** (see FILTER_NULLS.md) |
+| Live-parity CSV wiring | **PASS** (compare: pending_first_campaigns) |
+| Margin ops snapshot | **ok** |
 | **Funded sleeve** | **NO — hold** |
 
 Driver: `python -m live.fx_v2b_asia_range_london_usdjpy_validation --email`

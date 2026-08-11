@@ -72,6 +72,10 @@ Research promote ≠ funded sleeve. Before calling this a funded sleeve, keep
 Demos seed last-50 from the sizing hub; cold research replays still pass through the first 50 on WR/PF (Jan still applies).
 Proof windows can shrink when the shadow book is already seeded / market history is short.
 
-**Still open before funded:** live parity row-compare (first London campaigns), OANDA practice margin ops check, sit-out candle-sim append so skip days do not freeze the roll window.
+**Filter nulls:** [`FILTER_NULLS.md`](FILTER_NULLS.md) — **RETAIN AS RISK THROTTLE** (not alpha). Does not unlock funded capital alone.
 
-Driver: `python -m live.fx_v2b_asia_range_london_usdjpy_validation --email`
+**Still open before funded:** live parity row-compare (first London campaigns), sit-out candle-sim append so skip days do not freeze the roll window. Margin ops: weekly `oanda-practice-sync` (fields now on snapshot).
+
+Drivers:
+- `python -m live.fx_v2b_asia_range_london_usdjpy_validation --email`
+- `python -m live.fx_v2b_asia_range_london_usdjpy_filter_nulls --email`

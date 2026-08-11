@@ -1,5 +1,14 @@
 # Live Runtime CHANGE_LOG
 
+## 2026-08-11 — USDJPY Asia-range validation gates + filter nulls check-in
+
+- Offline funded-sleeve gates already green (OOS / walk-forward / attribution / path-aware); **funded sleeve still NO**.
+- Filter nulls driver `live/fx_v2b_asia_range_london_usdjpy_filter_nulls.py` → `FILTER_NULLS.md`: **RETAIN AS RISK THROTTLE** (matched-exposure + selection-aware fail; circular-shift timing pass; Jan #1/12).
+- Validation driver now scrapes live-parity status + OANDA margin ops snapshot into `VALIDATION_GATES.md`.
+- `oanda-practice-sync` records `marginUsed` / `marginAvailable` / closeout %; DEMO_FOCUS includes `usdjpy_asia_range_london_oanda`.
+- Practice account (shared): NAV≈$102k, marginUsed≈$16.5k, marginAvail≈$85.5k; USDJPY flat until London inject. Demos UP with **50-campaign** shadow seed.
+- Open: live `campaign_parity.csv` row-compare after first London campaigns; sit-out candle-sim append.
+
 ## 2026-08-11 — USDJPY Asia-range funded-sleeve validation gates
 
 - Driver: `live/fx_v2b_asia_range_london_usdjpy_validation.py` → hub `VALIDATION_GATES.md` + attribution/OOS/yearly/decision-tape CSVs.

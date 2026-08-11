@@ -355,6 +355,114 @@ def path_aware_checklist(metrics_path: Path, filtered_state: Path) -> dict:
     return out
 
 
+def live_parity_status(
+    output_root: Path,
+    decision_tape: pd.DataFrame,
+    *,
+    demo_roots: Optional[Sequence[Path]] = None,
+) -> dict:
+    """Row-compare live ``campaign_parity.csv`` vs research decision tape when present."""
+    repo = Path(__file__).resolve().parents[1]
+    if demo_roots is None:
+        demo_roots = [
+            repo / "live" / "demo" / "usdjpy_asia_range_london_paper",
+            repo / "live" / "demo" / "usdjpy_asia_range_london_oanda",
+        ]
+    research = decision_tape.copy()
+    if "session_date" in research.columns:
+        research["session_date"] = research["session_date"].astype(str)
+    research_cols = [
+        c
+        for c in ("session_date", "decision", "reason", "shadow_50_wr", "shadow_50_pf")
+        if c in research.columns
+    ]
+    out: Dict[str, object] = {
+        "research_rows": int(len(research)),
+        "demos": {},
+        "status": "pending_first_campaigns",
+    }
+    any_rows = False
+    all_ok = True
+    for root in demo_roots:
+        path = Path(root) / "campaign_parity.csv"
+        entry: Dict[str, object] = {"path": str(path), "exists": path.exists(), "rows": 0}
+        if path.exists():
+            live = pd.read_csv(path)
+            entry["rows"] = int(len(live))
+            if len(live) and "session_date" in live.columns and research_cols:
+                any_rows = True
+                live = live.copy()
+                live["session_date"] = live["session_date"].astype(str)
+                merged = live.merge(
+                    research[research_cols],
+                    on="session_date",
+                    how="left",
+                    suffixes=("_live", "_research"),
+                )
+                dec_live = "decision_live" if "decision_live" in merged.columns else "decision"
+                dec_res = "decision_research" if "decision_research" in merged.columns else None
+                if dec_res and dec_live in merged.columns:
+                    comparable = merged[merged[dec_res].notna()].copy()
+                    entry["matched_sessions"] = int(len(comparable))
+                    mism = comparable[
+                        comparable[dec_live].astype(str) != comparable[dec_res].astype(str)
+                    ]
+                    entry["decision_mismatches"] = int(len(mism))
+                    if int(len(mism)) > 0:
+                        all_ok = False
+                        mism_path = output_root / (
+                            "validation_parity_mismatches_%s.csv" % Path(root).name
+                        )
+                        mism.to_csv(mism_path, index=False)
+                        entry["mismatches_path"] = str(mism_path)
+                else:
+                    entry["note"] = "missing decision columns for compare"
+                    all_ok = False
+        out["demos"][Path(root).name] = entry
+    if any_rows and all_ok:
+        out["status"] = "ok"
+    elif any_rows:
+        out["status"] = "mismatches"
+    return out
+
+
+def margin_ops_snapshot(snapshot_path: Optional[Path] = None) -> dict:
+    """Pull latest OANDA practice NAV/margin fields for path-aware ops note."""
+    repo = Path(__file__).resolve().parents[1]
+    path = snapshot_path or (
+        repo / "live" / "demo" / "oanda_practice_snapshot" / "account_snapshot.json"
+    )
+    out: Dict[str, object] = {"path": str(path), "exists": path.exists()}
+    if not path.exists():
+        out["status"] = "missing_snapshot"
+        return out
+    try:
+        snap = json.loads(path.read_text(encoding="utf-8"))
+    except Exception as exc:
+        out["status"] = "read_error"
+        out["error"] = str(exc)
+        return out
+    usdjpy_qty = 0.0
+    for p in snap.get("positions") or []:
+        if str(p.get("instrument") or "") == "USDJPY":
+            usdjpy_qty += float(p.get("quantity") or 0.0)
+    out.update(
+        {
+            "status": "ok",
+            "fetched_at": snap.get("fetched_at"),
+            "NAV": snap.get("NAV"),
+            "balance": snap.get("balance"),
+            "marginUsed": snap.get("marginUsed"),
+            "marginAvailable": snap.get("marginAvailable"),
+            "marginCloseoutPercent": snap.get("marginCloseoutPercent"),
+            "openTradeCount": snap.get("openTradeCount"),
+            "pending_orders": len(snap.get("orders") or []),
+            "usdjpy_open_qty": usdjpy_qty,
+        }
+    )
+    return out
+
+
 def write_report(
     output_root: Path,
     *,
@@ -364,6 +472,8 @@ def write_report(
     anchors: pd.DataFrame,
     path_aware: dict,
     decision_tape: pd.DataFrame,
+    parity: Optional[dict] = None,
+    margin_ops: Optional[dict] = None,
 ) -> Path:
     output_root.mkdir(parents=True, exist_ok=True)
     unf = ablations["unfiltered"]
@@ -566,13 +676,38 @@ def write_report(
             "These counts are scraped from the filtered PaperBroker replay logs for weekly post-process;",
             "they are not retune knobs. Margin under OANDA practice stays a demo ops / account-snapshot item.",
             "",
+            "### OANDA practice margin ops (shared account)",
+            "",
+            "| Field | Value |",
+            "|---|---|",
+            "| Snapshot | `%s` |" % ((margin_ops or {}).get("fetched_at") or (margin_ops or {}).get("status")),
+            "| NAV / balance | %s / %s |"
+            % ((margin_ops or {}).get("NAV"), (margin_ops or {}).get("balance")),
+            "| marginUsed / Available | %s / %s |"
+            % ((margin_ops or {}).get("marginUsed"), (margin_ops or {}).get("marginAvailable")),
+            "| marginCloseoutPercent | %s |" % (margin_ops or {}).get("marginCloseoutPercent"),
+            "| USDJPY open qty | %s |" % (margin_ops or {}).get("usdjpy_open_qty"),
+            "| pending orders (account) | %s |" % (margin_ops or {}).get("pending_orders"),
+            "",
+            "Refresh via `python -m potions.live.cli oanda-practice-sync` (weekly). Shared practice book —",
+            "other sleeves hold index CFD inventory; Asia-range USDJPY should stay flat until London inject.",
+            "",
             "## 5. Live-parity audit (paper)",
             "",
             "Paper/OANDA demos append `campaign_parity.csv` rows:",
-            "`session_date | shadow_50_wr | shadow_50_pf | decision | reason | realized_campaign_net | next_shadow_n`.",
+            "`session_date | shadow_50_wr | shadow_50_pf | skip/take | reason | realized_campaign_net | next_shadow_n`.",
             "Compare row-for-row with research decision tape `validation_decision_tape.csv` (same columns).",
             "Demos **seed** shadow last-50 so the roll gate is warm from day one; row compare starts once",
             "London sessions fire (Asia OR collect → 03:00 inject).",
+            "",
+            "Parity status: **%s**" % ((parity or {}).get("status") or "pending_first_campaigns"),
+            "",
+            "## 6. Filter nulls (risk-throttle evidence)",
+            "",
+            "Separate study: [`FILTER_NULLS.md`](FILTER_NULLS.md) / `python -m live.fx_v2b_asia_range_london_usdjpy_filter_nulls --email`.",
+            "Overall: **RETAIN FILTER AS RISK THROTTLE** (not alpha) — matched-exposure / selection-aware fail;",
+            "circular-shift timing still supports the live gate; January #1/12 among month placebos.",
+            "Does **not** unlock funded sleeve by itself; keeps the promote book as an operational throttle.",
             "",
             "## Open actions (funded sleeve still held)",
             "",
@@ -580,8 +715,10 @@ def write_report(
             "|---|---|",
             "| Frozen OOS / walk-forward / attribution offline proof | **done** (this hub) |",
             "| Path-aware scrape of promoted fills/orders | **done** (regenerate via driver) |",
-            "| Live `campaign_parity.csv` row-for-row vs research tape | **pending** first live campaigns |",
-            "| OANDA practice margin / simultaneous exposure ops check | **pending** weekly demo review |",
+            "| Filter nulls (matched-exposure / shift / selection-aware) | **done** — retain as risk throttle |",
+            "| OANDA practice margin fields on snapshot + asia demo in DEMO_FOCUS | **done** (weekly sync) |",
+            "| Live `campaign_parity.csv` row-for-row vs research tape | **%s** |"
+            % ((parity or {}).get("status") or "pending_first_campaigns"),
             "| Sit-out candle-sim append on live skip days | **follow-up** (gate must not freeze) |",
             "",
             "## Gate scorecard",
@@ -594,7 +731,10 @@ def write_report(
             % ("PASS" if (attr_ok and roll_sits) else "WATCH"),
             "| Path-aware risk logs present | **%s** |"
             % ("PASS" if path_aware.get("has_fills_csv") else "FAIL"),
-            "| Live-parity CSV wiring | **PASS** (demo writes `campaign_parity.csv`; compare pending) |",
+            "| Filter nulls stance | **RETAIN AS RISK THROTTLE** (see FILTER_NULLS.md) |",
+            "| Live-parity CSV wiring | **PASS** (compare: %s) |"
+            % ((parity or {}).get("status") or "pending_first_campaigns"),
+            "| Margin ops snapshot | **%s** |" % ((margin_ops or {}).get("status") or "missing"),
             "| **Funded sleeve** | **%s** |" % ("NO — hold" if not funded_ready else "YES"),
             "",
             "Driver: `python -m live.fx_v2b_asia_range_london_usdjpy_validation --email`",
@@ -612,12 +752,23 @@ def write_report(
     (output_root / "validation_path_aware.json").write_text(
         json.dumps(path_aware, indent=2, default=str) + "\n", encoding="utf-8"
     )
+    if parity is not None:
+        (output_root / "validation_parity.json").write_text(
+            json.dumps(parity, indent=2, default=str) + "\n", encoding="utf-8"
+        )
+    if margin_ops is not None:
+        (output_root / "validation_margin_ops.json").write_text(
+            json.dumps(margin_ops, indent=2, default=str) + "\n", encoding="utf-8"
+        )
     score = {
         "frozen": FROZEN,
         "oos_pass": oos_ok,
         "stability_pass": stab_ok,
         "attribution_pass": bool(attr_ok and roll_sits),
         "funded_sleeve": funded_ready,
+        "parity_status": (parity or {}).get("status"),
+        "margin_ops_status": (margin_ops or {}).get("status"),
+        "filter_nulls_stance": "retain_as_risk_throttle",
         "unfiltered_net_usd": unf["taken_net_usd"],
         "combined_taken_net_usd": comb["taken_net_usd"],
         "top_year_share": top_share,
@@ -630,6 +781,7 @@ def write_report(
         "",
         "Frozen: S_3_1_3 + Jan + roll50 WR40/PF1 (unfiltered shadow).",
         "Funded sleeve: NO — research promote / demos only until gates stay green.",
+        "Filter nulls: RETAIN AS RISK THROTTLE (not alpha).",
         "",
         "Attribution Δ≈USD: Jan %+.0f | WR %+.0f | PF %+.0f | roll %+.0f | combined %+.0f"
         % (
@@ -647,6 +799,11 @@ def write_report(
         ),
         "Yearly stability: top abs share %.0f%% in %d — %s"
         % (100.0 * top_share, top_year, "PASS" if stab_ok else "WATCH"),
+        "Parity: %s | Margin ops: %s"
+        % (
+            (parity or {}).get("status") or "pending",
+            (margin_ops or {}).get("status") or "missing",
+        ),
         "",
         "Hub: %s" % output_root,
         "Report: %s" % path,
@@ -730,6 +887,8 @@ def run(
         }
     )
     decision["decision"] = decision["take"].map(lambda x: "take" if x else "skip")
+    parity = live_parity_status(output_root, decision)
+    margin_ops = margin_ops_snapshot()
     path = write_report(
         output_root,
         ablations=ablations,
@@ -738,6 +897,8 @@ def run(
         anchors=anchors,
         path_aware=path_aware,
         decision_tape=decision,
+        parity=parity,
+        margin_ops=margin_ops,
     )
     _progress(output_root, "VALIDATION wrote %s" % path)
     if email:

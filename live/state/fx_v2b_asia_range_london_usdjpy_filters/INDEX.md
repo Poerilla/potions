@@ -17,5 +17,13 @@ Filters:
 - **S_3_1_3**: allowed=943 skip_sessions=735 reasons={'month': 165, 'wr': 2, 'pf': 462, 'both': 165}
 - **S_3_3_3**: allowed=939 skip_sessions=739 reasons={'month': 165, 'wr': 1, 'pf': 467, 'both': 166}
 
+## Docs
+
+- Mechanics: [`FILTERS.md`](FILTERS.md)
+- Funded-sleeve gates: [`VALIDATION_GATES.md`](VALIDATION_GATES.md) (**funded sleeve NOT YET**)
+- Filter nulls: [`FILTER_NULLS.md`](FILTER_NULLS.md) (**RETAIN AS RISK THROTTLE**)
+- Research: [`RESEARCH.md`](RESEARCH.md)
+
 - Hub: `/home/tester/hsm/potions/live/state/fx_v2b_asia_range_london_usdjpy_filters`
+
 

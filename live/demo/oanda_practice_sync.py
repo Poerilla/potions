@@ -44,6 +44,7 @@ DEMO_FOCUS = {
     "spx500_v2b_ungated_oanda": "SPX500",
     "us30_v2b_ungated_oanda": "US30",
     "usdjpy_monday_or_ungated_oanda": "USDJPY",
+    "usdjpy_asia_range_london_oanda": "USDJPY",
     "us30_hourly_st_pmc_sl50_tp150_3r_oanda": "US30",
     "nas100_hourly_st_pmc_sl50_tp150_3r_oanda": "NAS100",
     "us30_hourly_st_pmc_sl50_tp150_runners_2r_10r_oanda": "US30",
@@ -144,6 +145,12 @@ def summarize(body: Dict[str, Any], broker: OandaBroker) -> Dict[str, Any]:
         "NAV": account.get("NAV"),
         "balance": account.get("balance"),
         "unrealizedPL": account.get("unrealizedPL"),
+        "marginUsed": account.get("marginUsed"),
+        "marginAvailable": account.get("marginAvailable"),
+        "marginCloseoutPercent": account.get("marginCloseoutPercent"),
+        "openTradeCount": account.get("openTradeCount"),
+        "openPositionCount": account.get("openPositionCount"),
+        "pendingOrderCount": account.get("pendingOrderCount"),
         "positions": positions,
         "trades": trades,
         "orders": orders,
@@ -216,8 +223,15 @@ def compare_and_maybe_repair(*, repair: bool) -> int:
 
     live_by = {p["instrument"]: p for p in summary["positions"]}
     print(
-        "OANDA practice %s  NAV=%s  unreal=%s  lastTx=%s"
-        % (summary["account_id"], summary["NAV"], summary["unrealizedPL"], summary["last_transaction_id"])
+        "OANDA practice %s  NAV=%s  marginUsed=%s  marginAvail=%s  unreal=%s  lastTx=%s"
+        % (
+            summary["account_id"],
+            summary["NAV"],
+            summary.get("marginUsed"),
+            summary.get("marginAvailable"),
+            summary["unrealizedPL"],
+            summary["last_transaction_id"],
+        )
     )
     print("LIVE positions:")
     if not summary["positions"]:
@@ -238,6 +252,14 @@ def compare_and_maybe_repair(*, repair: bool) -> int:
         "Account: `%s` (%s)" % (summary["account_id"], summary["env"]),
         "NAV=%s balance=%s unreal=%s lastTx=%s"
         % (summary["NAV"], summary["balance"], summary["unrealizedPL"], summary["last_transaction_id"]),
+        "marginUsed=%s marginAvailable=%s marginCloseoutPercent=%s openTrades=%s pendingOrders=%s"
+        % (
+            summary.get("marginUsed"),
+            summary.get("marginAvailable"),
+            summary.get("marginCloseoutPercent"),
+            summary.get("openTradeCount"),
+            len(summary.get("orders") or []),
+        ),
         "",
         "## Live positions",
         "",

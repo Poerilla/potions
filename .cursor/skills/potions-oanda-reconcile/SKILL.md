@@ -45,6 +45,7 @@ Rewrites each mapped `*_oanda` demo’s `state/positions.csv` to **focus instrum
 | `spx500_v2b_ungated_oanda` | SPX500 |
 | `us30_v2b_ungated_oanda` | US30 |
 | `usdjpy_monday_or_ungated_oanda` | USDJPY |
+| `usdjpy_asia_range_london_oanda` | USDJPY |
 | `us30_hourly_st_pmc_sl50_tp150_3r_oanda` | US30 |
 | `nas100_hourly_st_pmc_sl50_tp150_3r_oanda` | NAS100 |
 | `us30_hourly_st_pmc_sl50_tp150_runners_2r_10r_oanda` | US30 |

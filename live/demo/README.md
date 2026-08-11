@@ -239,8 +239,9 @@ Asia OR **19:00–03:00** → arm v2b at London **03:00** → flatten **11:59**.
 | `usdjpy_asia_range_london_oanda.py` | `usdjpy_asia_range_london_oanda/` | `demo-usdjpy-asia-range-oanda` |
 
 Shadow book: `live/demo/usdjpy_asia_range_london_*/shadow_campaigns.json` (seeded from sizing hub last-50; append after London EOD — **50-campaign warmup avoided on live**).
-Live-parity audit: `campaign_parity.csv` (session | shadow 50-WR/PF | skip/take | reason | realized net | next shadow n) — compare to research `validation_decision_tape.csv` once London sessions fire.
-Funded-sleeve gates: hub `VALIDATION_GATES.md` (**funded sleeve NOT YET**; offline OOS/attribution/path-aware PASS; live parity + margin ops still open).
+Live-parity audit: `campaign_parity.csv` (session | shadow 50-WR/PF | skip/take | reason | realized net | next shadow n) — compare to research `validation_decision_tape.csv` once London sessions fire (validation driver reports parity status).
+Funded-sleeve gates: hub `VALIDATION_GATES.md` (**funded sleeve NOT YET**; offline OOS/attribution/path-aware PASS; filter nulls = risk throttle — `FILTER_NULLS.md`; margin ops via `oanda-practice-sync`; live parity row-compare pending first campaigns).
+Shadow warmup: demos seed last **50** unfiltered campaign nets so the roll gate is warm from day one.
 
 ### Hourly ST+PMC 1mfill (fair 3R + 2R→10R runners)
 

@@ -51,3 +51,47 @@
 [2026-08-11T13:53:12] VALIDATION load /home/tester/hsm/potions/live/state/fx_v2b_asia_range_london_usdjpy_sizing/states/usdjpy_v2b_asia_range_london_S_3_1_3/unit_trades.csv
 [2026-08-11T13:53:20] VALIDATION wrote /home/tester/hsm/potions/live/state/fx_v2b_asia_range_london_usdjpy_filters/VALIDATION_GATES.md
 [2026-08-11T13:53:21] VALIDATION EMAIL sent
+[2026-08-11T14:01:51] FILTER_NULLS load /home/tester/hsm/potions/live/state/fx_v2b_asia_range_london_usdjpy_sizing/states/usdjpy_v2b_asia_range_london_S_3_1_3/unit_trades.csv
+[2026-08-11T14:01:51] FILTER_NULLS month placebo
+[2026-08-11T14:02:35] FILTER_NULLS load /home/tester/hsm/potions/live/state/fx_v2b_asia_range_london_usdjpy_sizing/states/usdjpy_v2b_asia_range_london_S_3_1_3/unit_trades.csv
+[2026-08-11T14:02:36] FILTER_NULLS month placebo
+[2026-08-11T14:02:36] FILTER_NULLS matched-exposure (5000)
+[2026-08-11T14:02:47] FILTER_NULLS circular-shift (2000)
+[2026-08-11T14:02:48] FILTER_NULLS shadow-outcome (1000×3 blocks)
+[2026-08-11T14:02:50] FILTER_NULLS load books for selection-aware
+[2026-08-11T14:02:50]   book S_0_5_0 n=1673
+[2026-08-11T14:02:50]   book S_0_2_3 n=1673
+[2026-08-11T14:02:50]   book S_1_1_1 n=1673
+[2026-08-11T14:02:50]   book S_1_1_3 n=1673
+[2026-08-11T14:02:50]   book S_1_3_1 n=1673
+[2026-08-11T14:02:50]   book S_2_0_3 n=1673
+[2026-08-11T14:02:50]   book S_2_3_0 n=1673
+[2026-08-11T14:02:50]   book S_3_1_1 n=1673
+[2026-08-11T14:02:50]   book S_3_1_3 n=1673
+[2026-08-11T14:02:50]   book S_5_0_0 n=1670
+[2026-08-11T14:02:50] FILTER_NULLS selection-aware (300)
+[2026-08-11T14:02:56] selection-aware null 25/300
+[2026-08-11T14:03:02] selection-aware null 50/300
+[2026-08-11T14:03:07] selection-aware null 75/300
+[2026-08-11T14:03:13] selection-aware null 100/300
+[2026-08-11T14:03:18] selection-aware null 125/300
+[2026-08-11T14:03:24] selection-aware null 150/300
+[2026-08-11T14:03:30] selection-aware null 175/300
+[2026-08-11T14:03:35] selection-aware null 200/300
+[2026-08-11T14:03:41] selection-aware null 225/300
+[2026-08-11T14:03:46] selection-aware null 250/300
+[2026-08-11T14:03:52] selection-aware null 275/300
+[2026-08-11T14:03:57] selection-aware null 300/300
+[2026-08-11T14:03:57] FILTER_NULLS wrote /home/tester/hsm/potions/live/state/fx_v2b_asia_range_london_usdjpy_filters/FILTER_NULLS.md
+[2026-08-11T14:03:58] FILTER_NULLS EMAIL sent
+
+[2026-08-11T18:04Z] FILTER_NULLS complete — RETAIN AS RISK THROTTLE (not alpha). Matched-exposure fail (N/S 6.07 vs null med 8.25); circular-shift pass (p_ns=0.036); Jan #1/12; selection-aware fail (p_ns=1.0). See FILTER_NULLS.md / filter_nulls.csv.
+[2026-08-11T14:14:58] VALIDATION load /home/tester/hsm/potions/live/state/fx_v2b_asia_range_london_usdjpy_sizing/states/usdjpy_v2b_asia_range_london_S_3_1_3/unit_trades.csv
+[2026-08-11T14:15:06] VALIDATION wrote /home/tester/hsm/potions/live/state/fx_v2b_asia_range_london_usdjpy_filters/VALIDATION_GATES.md
+[2026-08-11T14:15:07] VALIDATION EMAIL sent
+
+## 2026-08-11 hardening check-in
+- FILTER_NULLS: RETAIN AS RISK THROTTLE (not alpha)
+- VALIDATION_GATES regenerated: parity pending_first_campaigns; margin ops snapshot ok
+- OANDA practice: NAV≈102k marginUsed≈16.5k marginAvail≈85.5k; USDJPY flat; demos seeded last-50
+- Funded sleeve: still NO
