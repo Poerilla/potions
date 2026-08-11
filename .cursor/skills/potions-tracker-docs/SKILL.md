@@ -30,7 +30,7 @@ description: >-
 5. If engine/broker/guard/metrics/plugin contract changed → Platform.md (+ `CAUSAL_GRAPH.md` if Tier-1)
 6. Causality pass/fail row → `data/docs/AUDIT_TRACKER.md` (`potions-causality-audit`)
 
-Example pattern already used: Monday OR Phase hubs list “tracker + family docs + CHANGE_LOG” as a closing step.
+When the study adds **month blackouts** or **rolling WR/PF sit-outs**, document the shadow-book contract (unfiltered campaign nets, not taken-only) in the hub (`FILTERS.md` pattern), teach it in `potions-quick-backtest`, and argue **filtered** N/S in STRATEGY_TRACKER when the live book will run those gates. Example: Asia-range London filtered promote (2026-08-11) — checklist plus live/demo CLI wiring. Before calling a sleeve **funded**, also land hub `VALIDATION_GATES.md` (OOS / walk-forward / attribution / live-parity) via `…_usdjpy_validation` (or equivalent).
 
 ## Relation to other skills
 

@@ -88,6 +88,10 @@ def process_bar(self, bar: Bar) -> None:
 
 Plugins implement bar-close callbacks and emit `OrderIntent` objects (side, type, qty, prices, `live_after_ts`, brackets). The engine does **not** embed strategy rules — only routing, persistence, risk, verification.
 
+**`v2b_scaleout` runner TP split (2026-08-09):** optional `targeted_runner_qty` with `runner_target_r_mult` applies the runner limit to only N of the runner block; the remainder stay EOD/BE. Used for prior-opposed `S_1_1_3_plus_1x10R` (3 EOD + 1@10R). Legacy unset `targeted_runner_qty` still targets the whole runner block.
+
+**`v2b_scaleout` sit-out filters (2026-08-11):** optional `skip_entry_months` (NY calendar) and shadow rolling WR/PF gate (`shadow_roll_window`, `shadow_min_wr`, `shadow_min_pf`, `shadow_campaigns_path` / seed). The rolling window must advance on **unfiltered** campaign nets (see `live/asia_range_shadow.py`) — taken-only books freeze after the first PF dip. Research uses the full offline tape as the shadow book; live demos seed from research and append EOD nets (sit-out candle-sim still required so the gate cannot freeze). First **50** campaigns are roll-gate warmup unless the shadow book is pre-seeded. `session_gate_decision` exposes skip/take + reason + shadow WR/PF for live-parity rows (`campaign_parity.csv`). Used by USDJPY Asia-range London demos; funded-sleeve checklist in hub `VALIDATION_GATES.md`.
+
 **Tier-1 plugin classes (validation focus):**
 
 | Plugin class | Bar frequency | Validation focus |
@@ -241,6 +245,19 @@ Outputs: `SCORECARD_REPORT.md`, `index.html`, `scorecard_data.json`, one-page va
 
 **Replay artifacts:** Major drivers write `SUMMARY.md`, `summary.csv`, `run_manifest.json`, `run_manifest.sha256`, and per-strategy `states/<id>/` folders. Hardened/Tier-1 states include fills, orders, equity/audit outputs, `feature_snapshots.csv`, and `causality_violations.csv`.
 
+**Hub snapshots (banked reporting):** [`live/hub_snapshot.py`](hub_snapshot.py) (+ `python -m live.run_complete_status --write`) emits deterministic:
+
+- `LATEST_SNAPSHOT.json` / `snapshots/SNAPSHOT_*.json` — machine status (`COMPLETE|IN_PROGRESS|PARTIAL|FAILED`)
+- `COMPLETION_EMAIL.txt` — decision-first plain text (**INTERIM / IN PROGRESS** unless `complete=true`)
+- `COMPLETION_REPORT.md` — Comparable Core Board / Tested / Pending / Indefinite Inventory sections
+- `SNAPSHOT_CHANGELOG.txt` — change since prior snapshot
+
+Comparable Core Board rows must pass: variant complete, USD-normalized (JPY), reachable stress, lot-correct where applicable, sufficient sample, flat EOY for flat-book comparisons, no unresolved accounting warning. Indefinite books stay in a separate **NOT RANKABLE** panel with forced-flat / reachable full-stack stress / max inventory / EOY lots / margin. Lot-correct reachable metrics supersede raw/archive stress when both exist.
+
+**Regime overlap:** [`live/regime_overlap.py`](regime_overlap.py) classifies pairs as `SEPARATE_REGIMES | CONDITIONAL_OVERLAP | SAME_SLEEVE | UNRESOLVED` (NY session date + direction joins; exact strategy/version/book identity required). The legacy OR rule `Jaccard < t OR |ρ| < t ⇒ separable` is removed.
+
+**Exit attribution (10R / EOD-survivor):** [`live/exit_attribution.py`](exit_attribution.py) attributes P&L by exit mechanism and refuses a “10R moonshot” label when BE-protected EOD-survivor P&L dominates.
+
 ---
 
 ## 11. Validation hooks
@@ -293,8 +310,12 @@ Outputs: `SCORECARD_REPORT.md`, `index.html`, `scorecard_data.json`, one-page va
 
 Any change to fill semantics, causality guards, or reported metrics **must update this file** in the same PR as code/tests.
 
+**2026-08-11:** Documented `v2b_scaleout` `skip_entry_months` + shadow WR/PF sit-out knobs (§5).
+
 ---
 
 ## Appendix — Promoted FX intraday sleeve (research pointer)
 
 As of **2026-07-17**, the internal EURUSD **forex intraday baseline** is Hourly ST+PMC **25/75 3R + MA bull prior** (`eurusd_hourly_st_pmc_sl25_tp75_3r_ma_bull_prior`). Causal fill/feature check **PASS**. Artifacts: `live/state/eurusd_forex_intraday_baseline/`. Platform machinery for this sleeve is the standard `HourlyStPmcRetestStrategy` plugin + `PaperBroker` path (§5–§6).
+
+As of **2026-08-11**, USDJPY **Asia-range London** filtered `S_3_1_3` (Jan blackout + shadow roll50) is a promoted London sleeve — research hub `live/state/fx_v2b_asia_range_london_usdjpy_filters/`, demos `demo-usdjpy-asia-range-{paper,oanda}`.

@@ -14,6 +14,19 @@ Central index of execution variants explored in this workspace / chat threads.
 
 ## Forex Strategy Leaderboard
 
+> **2026-08-11 — USDJPY Asia-range London filtered `S_3_1_3` PROMOTED (research / practice).**
+> Asia OR 19:00–03:00 → arm London 03:00 → flatten 11:59; book **3/1/3**;
+> **Jan skip** + **shadow roll50** (WR≥40% / PF≥1 on **unfiltered** campaign book —
+> taken-only windows freeze after the first PF dip). Unfiltered N/S ~2.1 → filtered
+> **7.23** (+$178k / −$25k). Demos live: `demo-usdjpy-asia-range-{paper,oanda}`.
+> Hubs: [`../../live/state/fx_v2b_asia_range_london_usdjpy_filters/`](../../live/state/fx_v2b_asia_range_london_usdjpy_filters/) ·
+> sizing [`…/fx_v2b_asia_range_london_usdjpy_sizing/`](../../live/state/fx_v2b_asia_range_london_usdjpy_sizing/) ·
+> mechanics [`FILTERS.md`](../../live/state/fx_v2b_asia_range_london_usdjpy_filters/FILTERS.md) ·
+> funded-sleeve gates [`VALIDATION_GATES.md`](../../live/state/fx_v2b_asia_range_london_usdjpy_filters/VALIDATION_GATES.md)
+> (**funded sleeve NOT YET**).
+> London screen (Aug 10–11): ungated / 2h / 4h / v2d / FBO / NY grab / sweep reversal
+> **rejected** for majors; Asia-range USDJPY was the only green path — see CHANGE_LOG.
+
 > **2026-08-08 — ST+PMC lot-correct runners (index CFDs).** Fair 3R and
 > **2R→10R** are rankable after trade_id lot match + reachable stress.
 > US30 3R N/S **29.4** / 2R→10R **24.1**; NAS100 3R **19.6** / 2R→10R **11.1**.
@@ -41,6 +54,7 @@ EURUSD sleeves ranked by broker-like **Net/Stress** (Engine + `PaperBroker`, His
 
 | Rank | Sleeve | Plugin / ID | Net | Stress DD | Net/Stress | WR | Role |
 |---|---|---|---:|---:|---:|---:|---|
+| — | **USDJPY Asia-range London `S_3_1_3` + Jan/roll50** | `v2b_scaleout` · `usdjpy_v2b_asia_range_london_S_3_1_3_flt` | **+$178k** | −$25k | **7.23** | 48.6% | **Research/practice promote** (funded sleeve gated — see VALIDATION_GATES.md; vs Monday OR USDJPY weekly N/S 8.20 — different clock) |
 | 1 | **Monday OR `M1_S2_R2`** (15m, light shifted, max 3/wk) | `monday_or_breakout` · Phase 2 | **+$123.3k** | −$70.9k | **1.74** | — | **Phase 2 hardened · paper-only** (sub-period fail 2020+); full-sample beats ST+PMC · [report](#monday-or-fx-strategy-tracker-report) |
 | — | Monthly ORB FBO 1/1/3 + ema100(1h)+atr80 | same + filter csv | +$69.0k | −$40.4k | 1.71 | 50.7% | Lowest-stress FBO variant; EMA leg costs net vs atr80-only |
 | 2 | **Monthly ORB FBO 1/1/3 + atr80 filter** | `monthly_orb_v2b_oco` + `entry_filter_csv` · `eurusd_monthly_orb_fbo_filt_atr80only_1_1_3` | **+$91.9k** | −$56.8k | **1.62** | 52.1% | **Promoted FX monthly sleeve (filtered)** |
@@ -55,9 +69,28 @@ EURUSD sleeves ranked by broker-like **Net/Stress** (Engine + `PaperBroker`, His
 **Promoted packs**
 
 - Intraday: [`../../live/state/eurusd_forex_intraday_baseline/`](../../live/state/eurusd_forex_intraday_baseline/)
+- **USDJPY Asia-range London filtered:** [`../../live/state/fx_v2b_asia_range_london_usdjpy_filters/`](../../live/state/fx_v2b_asia_range_london_usdjpy_filters/) · demos `demo-usdjpy-asia-range-{paper,oanda}` · shadow contract [`FILTERS.md`](../../live/state/fx_v2b_asia_range_london_usdjpy_filters/FILTERS.md) · funded-sleeve gates [`VALIDATION_GATES.md`](../../live/state/fx_v2b_asia_range_london_usdjpy_filters/VALIDATION_GATES.md)
 - Monthly FBO: [`../../live/state/eurusd_forex_monthly_orb_fbo_baseline/`](../../live/state/eurusd_forex_monthly_orb_fbo_baseline/) · stress source [`../../live/state/eurusd_monthly_orb_fbo_runner2r_be_tp1_broker/`](../../live/state/eurusd_monthly_orb_fbo_runner2r_be_tp1_broker/)
 - Filtered FBO A/B (atr80, ema100+atr80): [`../../live/state/eurusd_monthly_orb_fbo_filtered_broker/`](../../live/state/eurusd_monthly_orb_fbo_filtered_broker/) — filter mechanism `entry_filter_csv` in `live/strategies/monthly_orb_v2b_oco.py`; EMA100(1h) counterfactual did **not** survive in-engine rerun, atr80 did.
 - Monday OR broker cross-pair: [`../../live/state/fx_monday_or_breakout_broker/`](../../live/state/fx_monday_or_breakout_broker/) · sizing sweep hub [`../../live/state/monday_or_sizing_sweep_broker/INDEX.md`](../../live/state/monday_or_sizing_sweep_broker/INDEX.md) · plugin `live/strategies/monday_or_breakout.py`
+
+### Decision filters (month + shadow WR/PF)
+
+When ranking campaign sleeves (London/Asia, Monday OR-style):
+
+1. Lock **calendar months** that are consistently negative across years → `skip_entry_months`.
+2. Sit out on **rolling shadow WR/PF** computed from the **unfiltered** campaign tape (default window 50, WR≥40%, PF≥1). Never score the gate on taken-only trades.
+
+Pattern hub: [`FILTERS.md`](../../live/state/fx_v2b_asia_range_london_usdjpy_filters/FILTERS.md). Teachers: `potions-quick-backtest`, `potions-tracker-docs`.
+
+### London FX screen rejects (2026-08-10/11)
+
+Broker-like hubs — **do not promote** majors from these clocks (see `live/CHANGE_LOG.md`):
+
+- `fx_v2b_london_ungated`, `fx_v2b_london_prior_aligned`, `fx_v2d_london`, `fx_v2b_london_fbo`, `fx_ny_liquidity_grab_london`, `fx_london_sweep_reversal` — red / ~0 N/S
+- `fx_v2b_london_2h_or` / `fx_v2b_london_4h_or` — FX red; US30/NAS100 soft (≤~1.6), not FX promotion
+- `fx_v2b_london_prior_opposed` — NAS100/US30 research curiosity only; FX red
+- Only **Asia-range USDJPY** survived → sizing → **filtered `S_3_1_3` promote**
 
 **Monday OR — broker sizing sweep all pairs (2026-07-21):** 27 Phase 1 cells × EURUSD / GBPUSD / USDJPY / AUDJPY / XAUUSD / XAGUSD. Full report: [Monday OR FX Strategy Tracker Report](#monday-or-fx-strategy-tracker-report).
 

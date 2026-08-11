@@ -1,5 +1,45 @@
 # Live Runtime CHANGE_LOG
 
+## 2026-08-11 — USDJPY Asia-range funded-sleeve validation gates
+
+- Driver: `live/fx_v2b_asia_range_london_usdjpy_validation.py` → hub `VALIDATION_GATES.md` + attribution/OOS/yearly/decision-tape CSVs.
+- Frozen rules locked: `S_3_1_3` + Jan + roll50 WR40/PF1 (no retune).
+- Attribution (shadow tape): Jan Δ≈+$29k; PF dominant sit-outs (681); combined not Jan-only (629 extra roll skips).
+- Frozen OOS after 2021: taken net≈+$102k **PASS**; yearly stability **PASS** (2022 31% abs share, 7 green years).
+- Live-parity: paper/OANDA demos append `campaign_parity.csv`; plugin `session_gate_decision`; research tape `validation_decision_tape.csv`.
+- **50-campaign warmup** documented; demos seed last-50 so live is not cold-start.
+- Stance unchanged: research/practice **PROMOTE**; **funded sleeve NOT YET**.
+
+## 2026-08-11 — USDJPY Asia-range London filtered promote
+
+- **Family:** Asia OR **19:00–03:00** NY → arm v2b OCO at London **03:00** → flatten **11:59** (`session_or_ranges` on `v2b_scaleout`).
+- Multi-pair majors hub: only USDJPY green (`live/state/fx_v2b_asia_range_london/`).
+- USDJPY sizing sweep (`…/fx_v2b_asia_range_london_usdjpy_sizing/`): unfiltered leaders `S_0_5_0` N/S 2.18, `S_3_1_3` 2.14.
+- **Filters** (`…/fx_v2b_asia_range_london_usdjpy_filters/`): January blackout + shadow roll50 WR≥40%/PF≥1 on **unfiltered** campaign book → filtered `S_3_1_3` N/S **7.23** (+$178k / −$25k). See `FILTERS.md`.
+- Plugin: `skip_entry_months` + `shadow_roll_*` / `shadow_campaigns_path` on `v2b_scaleout`; helper `live/asia_range_shadow.py`.
+- **Live demos:** `demo-usdjpy-asia-range-{paper,oanda}` → `live/demo/usdjpy_asia_range_london_{paper,oanda}/` (running).
+- Tracker + skills: month + shadow WR/PF filters are default decision tools for similar sleeves.
+- Ranking note: daily London Asia-OR sleeve (USDJPY); not interchangeable with Monday OR weekly `M2_S3_R1` (N/S 8.20) — both promoted, different clocks.
+
+## 2026-08-10/11 — London FX exploration (mostly REJECT)
+
+Broker-like majors/CFD/metals screens under `live/state/`. **Promote path emerged only from Asia-range USDJPY + filters.**
+
+| Hub | Stance | Top line |
+|-----|--------|----------|
+| `fx_v2b_london_ungated` | REJECT | FX red; indices soft-negative |
+| `fx_v2b_london_prior_opposed` | RESEARCH / not promote | NAS100 N/S **8.38**, US30 **6.23** (thin sample); FX red |
+| `fx_v2b_london_prior_aligned` | REJECT | All red |
+| `fx_v2b_london_2h_or` (03–05) | REJECT FX; CFD soft | NAS100 1.38 / US30 1.19; majors ≤−0.9 |
+| `fx_v2b_london_4h_or` (03–07) | REJECT FX; US30 soft | US30 1.57 / 1.34; majors red |
+| `fx_v2d_london` | REJECT | All red |
+| `fx_v2b_london_fbo` | REJECT | All red |
+| `fx_ny_liquidity_grab_london` | REJECT | All red |
+| `fx_london_sweep_reversal` | REJECT | USDJPY N/S 0.05; EUR/GBP red |
+| `fx_v2b_asia_range_london` | → sizing → filters | USDJPY only green (S_1_1_3 N/S 2.03) → **promote filtered S_3_1_3** |
+
+Deep-check / win-loss charts on asia `S_1_1_3` and sweep USDJPY under those hubs’ `deep_check/` / `winloss_charts/`.
+
 ## 2026-08-08 — ST+PMC live demos: promote 3R + 2R→10R
 
 - Updated fair-control tracker notes (US30 N/S 29.4, NAS100 N/S 19.6 lot-correct).

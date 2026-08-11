@@ -108,3 +108,14 @@ Append-only research/platform progress notes.
 [2026-08-08T14:19:56Z] ST+PMC demos: added 2R→10R paper/oanda for US30+NAS100; refreshed 3R tracker N/S (29.4 / 19.6). Indef not demoed.
 
 [2026-08-08T14:35Z] Status: FX/index/metals ST+PMC runners — NAS100 done (3R N/S 19.6, 2R→10R 11.1, indef max_open 74); EURUSD/GBPUSD/USDJPY ~50% through fair 3R; AUDJPY/XAU/XAG queued; SPX500 skipped (no 1m archive). Live demos UP: US30+NAS100 fair 3R and 2R→10R (paper+oanda). US30 indef portfolio profile written (stress DD −$31.2k sleeve unit). Docs/tracker sync + git/Drive backup.
+
+[2026-08-08T14:47Z] GitHub push OK (origin/main @ bfc1a3411). gdrive rclone FAILED: invalid_grant — run `rclone config reconnect gdrive:` then re-copy.
+
+[2026-08-08T20:48Z] Runner length sweep (postprocess): driver live/st_pmc_runner_length_sweep.py → live/state/st_pmc_runner_length_sweep/. US30+NAS100 k=10 validated vs lot-correct 2R→10R. Best finite k=15 both markets; N/S below fair 3R (no promote). USDJPY/EURUSD/GBPUSD queued on --wait-missing until indef unit_fills finish.
+2026-08-09T22:32Z banked reporting: hub_snapshot+regime_overlap 4-class+exit_attribution; FX interim IN_PROGRESS emailed; tests test_banked_reporting OK
+
+[2026-08-11T17:15Z] USDJPY Asia-range London: majors smoke (USDJPY only); sizing sweep (S_0_5_0 2.18 / S_3_1_3 2.14); month+shadow-roll50 filters → S_3_1_3_flt N/S 7.23 PROMOTED. Demos demo-usdjpy-asia-range-{paper,oanda}. Docs: FILTERS.md, tracker, CHANGE_LOG, skills.
+
+[2026-08-11T17:35Z] Docs sync: FILTERS.md clarified (shadow = unfiltered campaign nets / candle-sim, not broker tickets; live sit-out candle-sim still deferred). Tracker + CHANGE_LOG backfilled Aug 10-11 London rejects (ungated/2h/4h/v2d/FBO/NY grab/sweep). Asia-range filtered S_3_1_3 already promoted; demos paper+oanda UP. Teachers: quick-backtest decision filters + tracker-docs FILTERS pattern.
+
+[2026-08-11T17:45Z] USDJPY Asia-range funded-sleeve gates: validation driver + VALIDATION_GATES.md (attribution/OOS/walk-forward/path-aware). Live-parity campaign_parity.csv on demos. OOS post-2021 PASS; stability PASS; funded sleeve NOT YET. Docs: FILTERS/RESEARCH/tracker/CHANGE_LOG.

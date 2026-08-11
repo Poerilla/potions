@@ -1,0 +1,18 @@
+{
+  "book": "S_3_3_3",
+  "skip_months": [
+    1
+  ],
+  "window": 50,
+  "min_wr": 0.4,
+  "min_pf": 1.0,
+  "baseline_campaigns": 1673,
+  "skip_sessions": 739,
+  "allowed_sessions": 939,
+  "reasons": {
+    "month": 165,
+    "wr": 1,
+    "pf": 467,
+    "both": 166
+  }
+}

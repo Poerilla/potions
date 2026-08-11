@@ -29,8 +29,12 @@ Skills encode **workflow**. Hub docs encode **truth** (rankings, fill semantics,
 | Engine / broker / fills / plugin contract | [`live/Platform.md`](../../../live/Platform.md) | `live/specs/CAUSAL_*`, CHANGE_LOG | `potions-strategy-plugin`, `potions-causality-audit` |
 | Rankings / promotion status | [`mnq/case_studies/STRATEGY_TRACKER.md`](../../../mnq/case_studies/STRATEGY_TRACKER.md) | study `SUMMARY.md`, CHANGE_LOG | `potions-tracker-docs` |
 | Live / paper demo ops | [`live/demo/README.md`](../../../live/demo/README.md) | per-run `PROGRESS.log` / `run.log` | `potions-demo-status` |
+| OANDA live vs sim trade tape | demo `fills.csv` + stored bars | fresh spawn `config_json` drift | `potions-oanda-live-sim-reconcile` |
+| Month / rolling WR-PF filters | hub `FILTERS.md` + `live/asia_range_shadow.py` | plugin `skip_entry_months` / `shadow_roll_*` | `potions-quick-backtest` |
 | Causality pass/fail | [`data/docs/AUDIT_TRACKER.md`](../../../data/docs/AUDIT_TRACKER.md) | Platform §7; master spec only if designing | `potions-causality-audit` |
 | Quick / broker-like backtest | [`README.md`](../../../README.md) ranking layers | family driver + `live/state/<slug>/` | `potions-quick-backtest` |
+| Batch finished / completion report | hub `RUN_COMPLETE.json` + `summary.csv` | `COMPLETION_REPORT.md` | `strategy-completion-report` |
+| Per-instrument yearly / robustness / 50W-50L | state root `fills.csv` or `trades.csv` | hub `deep_check/` + `winloss_charts/` | `potions-instrument-deep-check` |
 | Large data / Drive backup | [`scripts/LARGE_FILES_MANIFEST.md`](../../../scripts/LARGE_FILES_MANIFEST.md) | pack/unpack scripts | `potions-git-backup` |
 | Workspace map | [`README.md`](../../../README.md) | tracker | — |
 
@@ -52,7 +56,11 @@ Do **not** use Platform.md for strategy rule definitions or leaderboard rankings
 
 - `potions-git-backup` — commit, pack, rclone
 - `potions-demo-status` — morning live/demo check
+- `potions-oanda-live-sim-reconcile` — live OANDA fills vs StrategyPlugin replay on demo bars
 - `potions-strategy-plugin` — new plugin checklist
 - `potions-quick-backtest` — replay entry points
 - `potions-causality-audit` — lookahead / audit
 - `potions-tracker-docs` — tracker / CHANGE_LOG / PROGRESS
+- `strategy-completion-report` — headless completion report + email after batches
+- `potions-instrument-deep-check` — yearly net/stress + robustness + win/loss charts
+- `potions-job-email` — **always** email on replay/sweep/job complete or crash

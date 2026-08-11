@@ -1,0 +1,26 @@
+{
+  "metrics_path": "/home/tester/hsm/potions/live/state/fx_v2b_asia_range_london_usdjpy_filters/states/usdjpy_v2b_asia_range_london_S_3_1_3_flt/metrics.json",
+  "state_root": "/home/tester/hsm/potions/live/state/fx_v2b_asia_range_london_usdjpy_filters/states/usdjpy_v2b_asia_range_london_S_3_1_3_flt",
+  "status": "checklist",
+  "broker_net_usd": 178141.9181817877,
+  "broker_stress_dd_usd": -24627.14545454537,
+  "broker_net_over_stress": 7.233559346558718,
+  "max_open_units": 7,
+  "trades": 861,
+  "regime_days": 943,
+  "variant": "skip_months+roll50_wr40_pf1",
+  "has_fills_csv": true,
+  "has_orders_csv": true,
+  "has_unit_trades_csv": true,
+  "has_causality_violations_csv": true,
+  "causality_violation_rows": 0,
+  "filtered_worst_campaign_usd": -12473.172727272728,
+  "filtered_campaigns": 861,
+  "notes": [
+    "Broker-like fills / OCO / slippage already encoded in PaperBroker replay of the filtered hub.",
+    "max_open_units is simultaneous exposure under the promoted book.",
+    "stress_dd_usd is worst-path campaign stress on the filtered replay.",
+    "Margin / live OANDA practice remains a demo ops check (path logs), not retuned here.",
+    "Daily/weekly post-process should read campaign_parity.csv from paper demo."
+  ]
+}

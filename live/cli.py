@@ -821,6 +821,74 @@ def cmd_demo_usdjpy_monday_or_paper_stop(args) -> int:
     return stop_daemon(_demo_usdjpy_monday_or_paper_output_root(args))
 
 
+def _demo_usdjpy_asia_range_paper_output_root(args) -> Path:
+    from .demo.usdjpy_asia_range_london_paper import default_output_root
+
+    return Path(args.output_root) if getattr(args, "output_root", "") else default_output_root()
+
+
+def cmd_demo_usdjpy_asia_range_paper(args) -> int:
+    from .demo.usdjpy_asia_range_london_common import oanda_config_from_env
+    from .demo.usdjpy_asia_range_london_paper import run_stream_loop, spawn_daemon
+    from .oanda import OandaConfig
+
+    output_root = _demo_usdjpy_asia_range_paper_output_root(args)
+    if args.daemon:
+        return spawn_daemon(
+            output_root=output_root,
+            max_ticks=int(args.max_ticks or 0),
+            oanda_config_path=getattr(args, "oanda_config", "") or "",
+        )
+    config = OandaConfig.from_json_file(Path(args.oanda_config)) if getattr(args, "oanda_config", "") else oanda_config_from_env()
+    return run_stream_loop(output_root=output_root, config=config, max_ticks=int(args.max_ticks or 0))
+
+
+def cmd_demo_usdjpy_asia_range_paper_status(args) -> int:
+    from .demo.usdjpy_asia_range_london_paper import status_daemon
+
+    return status_daemon(_demo_usdjpy_asia_range_paper_output_root(args))
+
+
+def cmd_demo_usdjpy_asia_range_paper_stop(args) -> int:
+    from .demo.usdjpy_asia_range_london_paper import stop_daemon
+
+    return stop_daemon(_demo_usdjpy_asia_range_paper_output_root(args))
+
+
+def _demo_usdjpy_asia_range_oanda_output_root(args) -> Path:
+    from .demo.usdjpy_asia_range_london_oanda import default_output_root
+
+    return Path(args.output_root) if getattr(args, "output_root", "") else default_output_root()
+
+
+def cmd_demo_usdjpy_asia_range_oanda(args) -> int:
+    from .demo.usdjpy_asia_range_london_common import oanda_config_from_env
+    from .demo.usdjpy_asia_range_london_oanda import run_stream_loop, spawn_daemon
+    from .oanda import OandaConfig
+
+    output_root = _demo_usdjpy_asia_range_oanda_output_root(args)
+    if args.daemon:
+        return spawn_daemon(
+            output_root=output_root,
+            max_ticks=int(args.max_ticks or 0),
+            oanda_config_path=getattr(args, "oanda_config", "") or "",
+        )
+    config = OandaConfig.from_json_file(Path(args.oanda_config)) if getattr(args, "oanda_config", "") else oanda_config_from_env()
+    return run_stream_loop(output_root=output_root, config=config, max_ticks=int(args.max_ticks or 0))
+
+
+def cmd_demo_usdjpy_asia_range_oanda_status(args) -> int:
+    from .demo.usdjpy_asia_range_london_oanda import status_daemon
+
+    return status_daemon(_demo_usdjpy_asia_range_oanda_output_root(args))
+
+
+def cmd_demo_usdjpy_asia_range_oanda_stop(args) -> int:
+    from .demo.usdjpy_asia_range_london_oanda import stop_daemon
+
+    return stop_daemon(_demo_usdjpy_asia_range_oanda_output_root(args))
+
+
 def _demo_us30_st_pmc_paper_output_root(args) -> Path:
     from .demo.us30_hourly_st_pmc_paper import default_output_root
 
@@ -1071,6 +1139,118 @@ def cmd_demo_nas100_hourly_st_pmc_2r10r_oanda(args) -> int:
         )
     config = OandaConfig.from_json_file(Path(args.oanda_config)) if getattr(args, "oanda_config", "") else OandaConfig.from_env()
     return run_stream_loop(output_root=output_root, config=config, max_ticks=int(args.max_ticks or 0))
+
+
+def cmd_demo_yearly_orb_paper(args) -> int:
+    from .demo.yearly_orb_common import default_output_root, run_loop, spawn_daemon, spec_for
+
+    instruments = [x.strip().upper() for x in str(args.instrument).split(",") if x.strip()]
+    if getattr(args, "all", False):
+        from .demo.yearly_orb_common import SPECS
+
+        instruments = list(SPECS.keys())
+    if not instruments:
+        print("Need --instrument or --all")
+        return 2
+    code = 0
+    for inst in instruments:
+        spec = spec_for(inst)
+        output_root = Path(args.output_root) if args.output_root else default_output_root(spec, oanda=False)
+        if args.daemon:
+            rc = spawn_daemon(
+                inst,
+                oanda_routing=False,
+                output_root=output_root,
+                max_polls=int(args.max_polls or 0),
+                cli_command="demo-yearly-orb-paper",
+            )
+        else:
+            rc = run_loop(
+                inst,
+                oanda_routing=False,
+                output_root=output_root,
+                max_polls=int(args.max_polls or 0),
+            )
+        code = code or rc
+    return code
+
+
+def cmd_demo_yearly_orb_paper_status(args) -> int:
+    from .demo.yearly_orb_common import SPECS, default_output_root, status_daemon
+
+    if args.output_root:
+        return status_daemon(Path(args.output_root))
+    code = 0
+    for spec in SPECS.values():
+        code = status_daemon(default_output_root(spec, oanda=False)) or code
+    return code
+
+
+def cmd_demo_yearly_orb_paper_stop(args) -> int:
+    from .demo.yearly_orb_common import SPECS, default_output_root, stop_daemon
+
+    if args.output_root:
+        return stop_daemon(Path(args.output_root))
+    code = 0
+    for spec in SPECS.values():
+        code = stop_daemon(default_output_root(spec, oanda=False)) or code
+    return code
+
+
+def cmd_demo_yearly_orb_oanda(args) -> int:
+    from .demo.yearly_orb_common import default_output_root, run_loop, spawn_daemon, spec_for
+
+    instruments = [x.strip().upper() for x in str(args.instrument).split(",") if x.strip()]
+    if getattr(args, "all", False):
+        from .demo.yearly_orb_common import SPECS
+
+        instruments = list(SPECS.keys())
+    if not instruments:
+        print("Need --instrument or --all")
+        return 2
+    code = 0
+    for inst in instruments:
+        spec = spec_for(inst)
+        output_root = Path(args.output_root) if args.output_root else default_output_root(spec, oanda=True)
+        if args.daemon:
+            rc = spawn_daemon(
+                inst,
+                oanda_routing=True,
+                output_root=output_root,
+                max_polls=int(args.max_polls or 0),
+                cli_command="demo-yearly-orb-oanda",
+            )
+        else:
+            rc = run_loop(
+                inst,
+                oanda_routing=True,
+                output_root=output_root,
+                max_polls=int(args.max_polls or 0),
+            )
+        code = code or rc
+    return code
+
+
+def cmd_demo_yearly_orb_oanda_status(args) -> int:
+    from .demo.yearly_orb_common import SPECS, default_output_root, status_daemon
+
+    if args.output_root:
+        return status_daemon(Path(args.output_root))
+    code = 0
+    for spec in SPECS.values():
+        code = status_daemon(default_output_root(spec, oanda=True)) or code
+    return code
+
+
+def cmd_demo_yearly_orb_oanda_stop(args) -> int:
+    from .demo.yearly_orb_common import SPECS, default_output_root, stop_daemon
+
+    if args.output_root:
+        return stop_daemon(Path(args.output_root))
+    code = 0
+    for spec in SPECS.values():
+        code = stop_daemon(default_output_root(spec, oanda=True)) or code
+    return code
 
 
 def cmd_demo_nas100_hourly_st_pmc_2r10r_oanda_status(args) -> int:
@@ -1510,6 +1690,54 @@ def build_parser() -> argparse.ArgumentParser:
     demo_usdjpy_mo_paper_stop.add_argument("--output-root", default="")
     demo_usdjpy_mo_paper_stop.set_defaults(func=cmd_demo_usdjpy_monday_or_paper_stop)
 
+    demo_usdjpy_asia_paper = sub.add_parser(
+        "demo-usdjpy-asia-range-paper",
+        help="USDJPY Asia-range London S_3_1_3 filtered paper demo (Jan skip + shadow roll50)",
+    )
+    demo_usdjpy_asia_paper.add_argument("--output-root", default="")
+    demo_usdjpy_asia_paper.add_argument("--oanda-config", default="")
+    demo_usdjpy_asia_paper.add_argument("--max-ticks", type=int, default=0)
+    demo_usdjpy_asia_paper.add_argument("--daemon", action="store_true")
+    demo_usdjpy_asia_paper.set_defaults(func=cmd_demo_usdjpy_asia_range_paper)
+
+    demo_usdjpy_asia_paper_status = sub.add_parser(
+        "demo-usdjpy-asia-range-paper-status",
+        help="Status of USDJPY Asia-range filtered paper demo",
+    )
+    demo_usdjpy_asia_paper_status.add_argument("--output-root", default="")
+    demo_usdjpy_asia_paper_status.set_defaults(func=cmd_demo_usdjpy_asia_range_paper_status)
+
+    demo_usdjpy_asia_paper_stop = sub.add_parser(
+        "demo-usdjpy-asia-range-paper-stop",
+        help="Stop USDJPY Asia-range filtered paper demo",
+    )
+    demo_usdjpy_asia_paper_stop.add_argument("--output-root", default="")
+    demo_usdjpy_asia_paper_stop.set_defaults(func=cmd_demo_usdjpy_asia_range_paper_stop)
+
+    demo_usdjpy_asia_oanda = sub.add_parser(
+        "demo-usdjpy-asia-range-oanda",
+        help="USDJPY Asia-range London S_3_1_3 filtered OANDA practice demo",
+    )
+    demo_usdjpy_asia_oanda.add_argument("--output-root", default="")
+    demo_usdjpy_asia_oanda.add_argument("--oanda-config", default="")
+    demo_usdjpy_asia_oanda.add_argument("--max-ticks", type=int, default=0)
+    demo_usdjpy_asia_oanda.add_argument("--daemon", action="store_true")
+    demo_usdjpy_asia_oanda.set_defaults(func=cmd_demo_usdjpy_asia_range_oanda)
+
+    demo_usdjpy_asia_oanda_status = sub.add_parser(
+        "demo-usdjpy-asia-range-oanda-status",
+        help="Status of USDJPY Asia-range filtered OANDA demo",
+    )
+    demo_usdjpy_asia_oanda_status.add_argument("--output-root", default="")
+    demo_usdjpy_asia_oanda_status.set_defaults(func=cmd_demo_usdjpy_asia_range_oanda_status)
+
+    demo_usdjpy_asia_oanda_stop = sub.add_parser(
+        "demo-usdjpy-asia-range-oanda-stop",
+        help="Stop USDJPY Asia-range filtered OANDA demo",
+    )
+    demo_usdjpy_asia_oanda_stop.add_argument("--output-root", default="")
+    demo_usdjpy_asia_oanda_stop.set_defaults(func=cmd_demo_usdjpy_asia_range_oanda_stop)
+
     demo_us30_st_pmc_paper = sub.add_parser(
         "demo-us30-hourly-st-pmc-paper",
         help="US30 hourly ST+PMC sl50_tp150_3r paper demo (OANDA prices, PaperBroker)",
@@ -1701,6 +1929,44 @@ def build_parser() -> argparse.ArgumentParser:
     )
     demo_nas100_st_pmc_2r10r_oanda_stop.add_argument("--output-root", default="")
     demo_nas100_st_pmc_2r10r_oanda_stop.set_defaults(func=cmd_demo_nas100_hourly_st_pmc_2r10r_oanda_stop)
+
+    demo_yor_paper = sub.add_parser(
+        "demo-yearly-orb-paper",
+        help="Yearly ORB scaleout3 paper demo (daily bars; account -002 prices)",
+    )
+    demo_yor_paper.add_argument("--instrument", default="", help="AUDJPY,XAUUSD,EURUSD,XAGUSD,US30 or comma list")
+    demo_yor_paper.add_argument("--all", action="store_true", help="Spawn/run all promotable yearly ORB instruments")
+    demo_yor_paper.add_argument("--daemon", action="store_true")
+    demo_yor_paper.add_argument("--output-root", default="")
+    demo_yor_paper.add_argument("--max-polls", type=int, default=0, help="0=forever; useful for smoke")
+    demo_yor_paper.set_defaults(func=cmd_demo_yearly_orb_paper)
+
+    demo_yor_paper_status = sub.add_parser("demo-yearly-orb-paper-status", help="Status of yearly ORB paper demos")
+    demo_yor_paper_status.add_argument("--output-root", default="")
+    demo_yor_paper_status.set_defaults(func=cmd_demo_yearly_orb_paper_status)
+
+    demo_yor_paper_stop = sub.add_parser("demo-yearly-orb-paper-stop", help="Stop yearly ORB paper demos")
+    demo_yor_paper_stop.add_argument("--output-root", default="")
+    demo_yor_paper_stop.set_defaults(func=cmd_demo_yearly_orb_paper_stop)
+
+    demo_yor_oanda = sub.add_parser(
+        "demo-yearly-orb-oanda",
+        help="Yearly ORB scaleout3 OANDA practice demo (daily; account 101-002-39860312-002)",
+    )
+    demo_yor_oanda.add_argument("--instrument", default="", help="AUDJPY,XAUUSD,EURUSD,XAGUSD,US30 or comma list")
+    demo_yor_oanda.add_argument("--all", action="store_true")
+    demo_yor_oanda.add_argument("--daemon", action="store_true")
+    demo_yor_oanda.add_argument("--output-root", default="")
+    demo_yor_oanda.add_argument("--max-polls", type=int, default=0)
+    demo_yor_oanda.set_defaults(func=cmd_demo_yearly_orb_oanda)
+
+    demo_yor_oanda_status = sub.add_parser("demo-yearly-orb-oanda-status", help="Status of yearly ORB OANDA demos")
+    demo_yor_oanda_status.add_argument("--output-root", default="")
+    demo_yor_oanda_status.set_defaults(func=cmd_demo_yearly_orb_oanda_status)
+
+    demo_yor_oanda_stop = sub.add_parser("demo-yearly-orb-oanda-stop", help="Stop yearly ORB OANDA demos")
+    demo_yor_oanda_stop.add_argument("--output-root", default="")
+    demo_yor_oanda_stop.set_defaults(func=cmd_demo_yearly_orb_oanda_stop)
 
     oanda_order_smoke = sub.add_parser(
         "oanda-practice-order-smoke",

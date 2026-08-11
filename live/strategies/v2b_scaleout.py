@@ -2,7 +2,8 @@ from __future__ import annotations
 
 import json
 from datetime import date, datetime, time, timedelta
-from typing import Any, Dict, Iterable, List, Optional, Sequence
+from pathlib import Path
+from typing import Any, Dict, Iterable, List, Optional, Sequence, Tuple
 
 import pytz
 
@@ -25,6 +26,11 @@ class V2BScaleoutStrategy(StrategyPlugin):
       then the opposite side may arm after leg 1 exits.
     - ``strict_long_then_short``: arm long only; short can arm only after a
       filled long exits.
+
+    Optional ``entry_mode``:
+    - ``oco`` (default): arm boundary stops when the OR finalizes.
+    - ``first_break_opposite`` (FBO): ignore the first OR break, then arm a
+      single stop in the opposite direction (no classic reverse leg).
     """
 
     strategy_type = "v2b_scaleout"
@@ -34,13 +40,21 @@ class V2BScaleoutStrategy(StrategyPlugin):
         super().__init__(store, instance)
         self.config = {
             "mode": "oco_then_reverse",
+            # oco | first_break_opposite (failed-breakout / FBO)
+            "entry_mode": "oco",
             "tick_size": 0.25,
             "entry_qty": 2,
             "tp1_qty": None,        # default: 1 (legacy)
             "tp2_qty": None,        # default: 1 (legacy); runner = entry_qty - tp1_qty - tp2_qty
             "rth_start": "09:30",
             "or_end": "09:45",
+            # Bars required inside [rth_start, or_end) before OR finalizes / arms.
+            # Default 15 = classic 15-minute OR; set 120 for a 2-hour OR window.
+            "or_bars": 15,
             "eod_cutoff": "15:59",
+            # How many OCO campaigns (initial arm → optional reverse) per session.
+            # Default 1 = classic v2b. Set 2 to allow one re-entry on the same OR.
+            "max_campaigns": 1,
             "use_regime_filter": True,
             "require_regime_dates": False,
             "regime_dates": [],
@@ -50,6 +64,8 @@ class V2BScaleoutStrategy(StrategyPlugin):
             "prior_opposite_entry_qty": None,
             "prior_opposite_tp1_qty": None,
             "prior_opposite_tp2_qty": None,
+            # Same-session ST+PMC same-side gate (continuation / prior-aligned).
+            "prior_aligned_only": False,
             # After entry, flatten if no opposite ST event by this many minutes
             # (uses dynamic_sizing_events with the same opposite-side lookup).
             "invalidate_without_opposite_minutes": None,
@@ -79,6 +95,21 @@ class V2BScaleoutStrategy(StrategyPlugin):
             # Optional per-session earliest arm timestamp (ISO). Arms only when
             # bar.ts >= this instant (e.g. after an hourly ST sweep). Missing → no delay.
             "session_arm_after_ts": {},
+            # Optional precomputed OR levels (e.g. overnight Asia range). When the
+            # session date is present, seed or_high/or_low and finalize on the first
+            # in-session bar instead of accumulating [rth_start, or_end).
+            # session_date -> {"high": float, "low": float}
+            "session_or_ranges": {},
+            # Calendar blackout (NY month 1–12). Same knob as monday_or_breakout.
+            "skip_entry_months": [],
+            # Shadow rolling WR/PF sit-out (unfiltered campaign nets). See
+            # live/asia_range_shadow.py — taken-only windows freeze after PF dips.
+            "shadow_roll_window": 0,
+            "shadow_min_wr": 0.40,
+            "shadow_min_pf": 1.0,
+            # Seed nets and/or path to JSON book updated by the live demo EOD sim.
+            "shadow_campaigns_seed": [],
+            "shadow_campaigns_path": "",
         }
         try:
             self.config.update(json.loads(instance.config_json or "{}"))
@@ -213,18 +244,54 @@ class V2BScaleoutStrategy(StrategyPlugin):
         if invalidate is not None:
             return invalidate
 
+        # Precomputed OR (Asia / overnight): seed + finalize before live OR accumulate.
+        if not state.get("or_finalized"):
+            preset = self._session_or_range(session)
+            if preset is not None:
+                hi, lo = preset
+                state["or_high"] = hi
+                state["or_low"] = lo
+                state["or_count"] = max(1, int(self.config.get("or_bars") or 15))
+                state["or_finalized"] = True
+                state["regime_ok"] = self._session_tradeable(session, state)
+                if state["regime_ok"] and self._is_fbo():
+                    state["phase"] = "wait_first_break"
+                    state["first_break_side"] = ""
+                    state["opposite_armed"] = False
+                else:
+                    state["phase"] = "armed" if state["regime_ok"] else "regime_skip"
+                causal_features.extend(self._opening_range_features(bar.ts, state))
+                if state["regime_ok"] and not self._is_fbo():
+                    directions = self._directions_for_session(session)
+                    causal_features.extend(self._entry_gate_features(bar.ts, state, directions, price=bar.close))
+                    orders.extend(self._arm_initial_entries(bar.ts, state, directions, price=bar.close))
+                    if directions and not bool(self.config.get("suppress_alerts")):
+                        alerts.append(Alert.create(self.instance.strategy_id, "info", "v2b opening range armed"))
+                elif state["regime_ok"] and self._is_fbo() and not bool(self.config.get("suppress_alerts")):
+                    alerts.append(Alert.create(self.instance.strategy_id, "info", "v2b FBO waiting first break"))
+                if bool(self.config.get("record_levels")):
+                    levels.extend(self._levels(bar.ts, state))
+                self._commit_state(state)
+                return StrategyActions(orders, cancels, [], levels, alerts, causal_features)
+
         if t < self._time("or_end"):
             state["or_count"] = int(state.get("or_count", 0)) + 1
             state["or_high"] = bar.high if state.get("or_high") is None else max(float(state["or_high"]), bar.high)
             state["or_low"] = bar.low if state.get("or_low") is None else min(float(state["or_low"]), bar.low)
             if bool(self.config.get("record_levels")):
                 levels.extend(self._levels(bar.ts, state))
-            if state["or_count"] >= 15 and not state.get("or_finalized"):
+            or_bars = max(1, int(self.config.get("or_bars") or 15))
+            if state["or_count"] >= or_bars and not state.get("or_finalized"):
                 state["or_finalized"] = True
-                state["phase"] = "armed" if self._regime_ok(session) else "regime_skip"
-                state["regime_ok"] = self._regime_ok(session)
+                state["regime_ok"] = self._session_tradeable(session, state)
+                if state["regime_ok"] and self._is_fbo():
+                    state["phase"] = "wait_first_break"
+                    state["first_break_side"] = ""
+                    state["opposite_armed"] = False
+                else:
+                    state["phase"] = "armed" if state["regime_ok"] else "regime_skip"
                 causal_features.extend(self._opening_range_features(bar.ts, state))
-                if state["regime_ok"]:
+                if state["regime_ok"] and not self._is_fbo():
                     directions = self._directions_for_session(session)
                     causal_features.extend(self._entry_gate_features(bar.ts, state, directions, price=bar.close))
                     orders.extend(self._arm_initial_entries(bar.ts, state, directions, price=bar.close))
@@ -235,16 +302,39 @@ class V2BScaleoutStrategy(StrategyPlugin):
                         state["open_filter_arm_attempted"] = True
                     if directions and not bool(self.config.get("suppress_alerts")):
                         alerts.append(Alert.create(self.instance.strategy_id, "info", "v2b opening range armed"))
+                elif state["regime_ok"] and self._is_fbo() and not bool(self.config.get("suppress_alerts")):
+                    alerts.append(Alert.create(self.instance.strategy_id, "info", "v2b FBO waiting first break"))
             self._commit_state(state)
             return StrategyActions(orders, cancels, [], levels, alerts, causal_features)
 
         if bool(self.config.get("record_levels")):
             levels.extend(self._levels(bar.ts, state))
 
+        # Late finalize: OR window ended before or_bars (sparse tape) — arm once
+        # when we have a usable range.
+        if (
+            not state.get("or_finalized")
+            and state.get("or_high") is not None
+            and state.get("or_low") is not None
+            and float(state["or_high"]) > float(state["or_low"])
+        ):
+            state["or_finalized"] = True
+            state["regime_ok"] = self._session_tradeable(session, state)
+            if state["regime_ok"] and self._is_fbo():
+                state["phase"] = "wait_first_break"
+                state["first_break_side"] = ""
+                state["opposite_armed"] = False
+            else:
+                state["phase"] = "armed" if state["regime_ok"] else "regime_skip"
+            causal_features.extend(self._opening_range_features(bar.ts, state))
+
         if state.get("regime_ok") and not state.get("done") and not state.get("current_leg_open") and int(state.get("legs_done", 0)) == 0:
             if not self._has_open_entry_order(context):
+                if self._is_fbo():
+                    causal_features.extend(self._opening_range_features(bar.ts, state))
+                    orders.extend(self._first_break_opposite_orders(bar, state))
                 # Skip catch-up arms when open-filter is OR-end-only.
-                if bool(self.config.get("use_open_alignment_filter")) and bool(
+                elif bool(self.config.get("use_open_alignment_filter")) and bool(
                     self.config.get("arm_open_filter_at_or_only")
                 ) and bool(state.get("open_filter_arm_attempted")):
                     pass
@@ -269,6 +359,7 @@ class V2BScaleoutStrategy(StrategyPlugin):
         state.setdefault("done", False)
         state.setdefault("trade_seq", 0)
         state.setdefault("legs_done", 0)
+        state.setdefault("campaigns_done", 0)
         state.setdefault("current_leg_open", False)
         state.setdefault("active_trade_id", "")
         state.setdefault("active_direction", "")
@@ -277,6 +368,7 @@ class V2BScaleoutStrategy(StrategyPlugin):
         return state
 
     def _fresh_session_state(self, session: str) -> Dict[str, Any]:
+        prev = dict(self.state or {})
         return {
             "session_date": session,
             "or_count": 0,
@@ -288,6 +380,7 @@ class V2BScaleoutStrategy(StrategyPlugin):
             "done": False,
             "trade_seq": 0,
             "legs_done": 0,
+            "campaigns_done": 0,
             "current_leg_open": False,
             "active_trade_id": "",
             "active_direction": "",
@@ -298,8 +391,50 @@ class V2BScaleoutStrategy(StrategyPlugin):
             "last_exit_direction": "",
             "opposite_confirmed": False,
             "invalidated": False,
+            "first_break_side": "",
+            "opposite_armed": False,
             "trades": {},
+            # Persist shadow book across calendar sessions.
+            "shadow_campaigns": list(prev.get("shadow_campaigns") or []),
         }
+
+    def _entry_mode(self) -> str:
+        return str(self.config.get("entry_mode") or "oco").strip().lower()
+
+    def _is_fbo(self) -> bool:
+        return self._entry_mode() == "first_break_opposite"
+
+    def _first_break_opposite_orders(self, bar: Bar, state: Dict[str, Any]) -> List[OrderIntent]:
+        """Ignore first OR break, then arm a stop in the opposite direction."""
+        if not self._before_entry_cutoff(bar.ts):
+            return []
+        range_high = _to_float(state.get("or_high"))
+        range_low = _to_float(state.get("or_low"))
+        if range_high is None or range_low is None or range_high <= range_low:
+            return []
+        session = str(state.get("session_date") or _parse_dt(bar.ts).date().isoformat())
+        if not self._arm_time_ok(session, bar.ts):
+            return []
+        break_side = str(state.get("first_break_side") or "")
+        if not break_side:
+            long_hit = float(bar.high) >= float(range_high)
+            short_hit = float(bar.low) <= float(range_low)
+            if long_hit and short_hit:
+                return []  # ambiguous — keep waiting
+            if not long_hit and not short_hit:
+                return []
+            break_side = "Long" if long_hit else "Short"
+            state["first_break_side"] = break_side
+            state["phase"] = "arm_opposite"
+            state["opposite_armed"] = False
+        if bool(state.get("opposite_armed")):
+            return []
+        opposite = "Short" if break_side == "Long" else "Long"
+        allowed = set(self._directions_for_session(session))
+        if opposite not in allowed:
+            return []
+        state["opposite_armed"] = True
+        return self._entry_orders(bar.ts, state, [opposite], price=float(bar.close))
 
     def _maybe_invalidate_without_opposite(
         self,
@@ -356,6 +491,132 @@ class V2BScaleoutStrategy(StrategyPlugin):
         if not self._regime_dates:
             return not bool(self.config.get("require_regime_dates", False))
         return session in self._regime_dates
+
+    def _skip_entry_months(self) -> set:
+        raw = self.config.get("skip_entry_months") or []
+        out = set()
+        if isinstance(raw, (list, tuple)):
+            for m in raw:
+                try:
+                    mi = int(m)
+                except (TypeError, ValueError):
+                    continue
+                if 1 <= mi <= 12:
+                    out.add(mi)
+        return out
+
+    def _month_entry_blocked(self, session: str) -> bool:
+        months = self._skip_entry_months()
+        if not months:
+            return False
+        try:
+            month = int(str(session)[5:7])
+        except (TypeError, ValueError):
+            return False
+        return month in months
+
+    def _shadow_nets(self, state: Dict[str, Any]) -> List[float]:
+        nets = list(state.get("shadow_campaigns") or [])
+        if nets:
+            return [float(x) for x in nets]
+        path = str(self.config.get("shadow_campaigns_path") or "").strip()
+        if path:
+            try:
+                from ..asia_range_shadow import load_shadow_book
+
+                loaded = load_shadow_book(Path(path))
+                if loaded:
+                    state["shadow_campaigns"] = list(loaded)
+                    return loaded
+            except Exception:
+                pass
+        seed = self.config.get("shadow_campaigns_seed") or []
+        out: List[float] = []
+        for x in seed:
+            try:
+                out.append(float(x))
+            except (TypeError, ValueError):
+                continue
+        if out:
+            state["shadow_campaigns"] = list(out)
+        return out
+
+    def _shadow_roll_decision(self, state: Dict[str, Any]) -> Tuple[bool, Dict[str, float]]:
+        """Return (blocked, meta) for the shadow rolling WR/PF gate."""
+        try:
+            window = int(self.config.get("shadow_roll_window") or 0)
+        except (TypeError, ValueError):
+            window = 0
+        if window <= 0:
+            return False, {"n": 0.0, "wr": 0.0, "pf": 0.0, "bad_wr": 0.0, "bad_pf": 0.0, "warmup": 0.0}
+        try:
+            min_wr = float(self.config.get("shadow_min_wr") or 0.40)
+        except (TypeError, ValueError):
+            min_wr = 0.40
+        try:
+            min_pf = float(self.config.get("shadow_min_pf") or 1.0)
+        except (TypeError, ValueError):
+            min_pf = 1.0
+        from ..asia_range_shadow import gate_blocks
+
+        blocked, meta = gate_blocks(
+            self._shadow_nets(state),
+            window=window,
+            min_wr=min_wr,
+            min_pf=min_pf,
+        )
+        return bool(blocked), dict(meta)
+
+    def _shadow_roll_blocked(self, state: Dict[str, Any]) -> bool:
+        blocked, _meta = self._shadow_roll_decision(state)
+        return bool(blocked)
+
+    def session_gate_decision(self, session: str, state: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
+        """Live-parity row fields: skip/take + reason + shadow WR/PF."""
+        st = state if state is not None else dict(self.state or {})
+        from ..asia_range_shadow import gate_reason
+
+        month_block = self._month_entry_blocked(session)
+        roll_block, meta = self._shadow_roll_decision(st)
+        regime_ok = self._regime_ok(session)
+        if not regime_ok:
+            reason = "regime"
+            allowed = False
+        elif month_block:
+            reason = "month"
+            allowed = False
+        elif roll_block:
+            reason = gate_reason(meta, month_block=False)
+            allowed = False
+        else:
+            reason = "take"
+            allowed = True
+        return {
+            "session_date": session,
+            "shadow_50_wr": float(meta.get("wr") or 0.0),
+            "shadow_50_pf": float(meta.get("pf") or 0.0)
+            if meta.get("pf") != float("inf")
+            else 999.0,
+            "shadow_n": int(meta.get("n") or 0),
+            "decision": "take" if allowed else "skip",
+            "reason": reason,
+            "warmup": bool(float(meta.get("warmup") or 0.0) >= 1.0),
+        }
+
+    def _session_tradeable(self, session: str, state: Dict[str, Any]) -> bool:
+        """Regime + calendar blackout + shadow rolling WR/PF gate."""
+        return self.session_gate_decision(session, state).get("decision") == "take"
+
+    def _session_or_range(self, session: str) -> Optional[Tuple[float, float]]:
+        """Return precomputed (high, low) for session, or None."""
+        raw = (self.config.get("session_or_ranges") or {}).get(session)
+        if not isinstance(raw, dict):
+            return None
+        high = _to_float(raw.get("high"))
+        low = _to_float(raw.get("low"))
+        if high is None or low is None or high <= low:
+            return None
+        return float(high), float(low)
 
     def _directions_for_session(self, session: str) -> List[str]:
         """Return which entry sides may arm today.
@@ -451,28 +712,55 @@ class V2BScaleoutStrategy(StrategyPlugin):
     def _maybe_arm_next_leg(self, ts: str, state: Dict[str, Any], context: StrategyContext) -> List[OrderIntent]:
         if state.get("done"):
             return []
+        # FBO is a single opposite-of-failed-break campaign — no reverse leg.
+        if self._is_fbo():
+            return self._finish_campaign(ts, state, context)
         if int(state.get("legs_done", 0)) >= 2:
-            state["phase"] = "done"
-            return []
+            return self._finish_campaign(ts, state, context)
         if context.position_quantity != 0 or self._has_open_entry_order(context):
             return []
         last_direction = str(state.get("last_exit_direction") or "")
         if last_direction not in {"Long", "Short"}:
             return []
         if not self._reverse_allowed(ts, state):
-            state["phase"] = "done"
             state["reverse_suppressed"] = True
-            return []
+            return self._finish_campaign(ts, state, context)
         opposite = "Short" if last_direction == "Long" else "Long"
         session = str(state.get("session_date") or _parse_dt(ts).date().isoformat())
         allowed = set(self._directions_for_session(session))
         if opposite not in allowed:
             # Directional bias / long-only modes: do not reverse into the banned side.
-            state["phase"] = "done"
-            return []
+            return self._finish_campaign(ts, state, context)
         # Prefer last bar close so PMC / open filters can evaluate on reverse arm.
         ref_price = _to_float(state.get("last_bar_close"))
         return self._entry_orders(ts, state, [opposite], price=ref_price)
+
+    def _finish_campaign(self, ts: str, state: Dict[str, Any], context: StrategyContext) -> List[OrderIntent]:
+        """End the current OCO campaign; optionally re-arm a fresh OCO on the same OR."""
+        state["campaigns_done"] = int(state.get("campaigns_done", 0)) + 1
+        max_campaigns = max(1, int(self.config.get("max_campaigns") or 1))
+        if state["campaigns_done"] >= max_campaigns:
+            state["done"] = True
+            state["phase"] = "done"
+            return []
+        # Re-entry: reset leg state and arm a new campaign on the existing OR.
+        state["legs_done"] = 0
+        state["entry_armed"] = []
+        state["last_exit_ts"] = ""
+        state["last_exit_direction"] = ""
+        state["opposite_confirmed"] = False
+        state["invalidated"] = False
+        state["reverse_suppressed"] = False
+        state["first_break_side"] = ""
+        state["opposite_armed"] = False
+        session = str(state.get("session_date") or _parse_dt(ts).date().isoformat())
+        ref_price = _to_float(state.get("last_bar_close"))
+        if self._is_fbo():
+            state["phase"] = "wait_first_break"
+            return []
+        state["phase"] = "reentry_armed"
+        directions = self._directions_for_session(session)
+        return self._arm_initial_entries(ts, state, directions, price=ref_price)
 
     def _reverse_allowed(self, ts: str, state: Dict[str, Any]) -> bool:
         """OR-profile asymmetric reverse gate (`reverse_only_when` config).
@@ -606,7 +894,9 @@ class V2BScaleoutStrategy(StrategyPlugin):
         session = str(state.get("session_date") or _parse_dt(ts).date().isoformat())
         armed = set(str(x) for x in state.get("entry_armed", []))
         for direction in directions:
-            prior_event = self._prior_opposite_event_for_entry(ts, direction)
+            prior_opp = self._prior_opposite_event_for_entry(ts, direction)
+            prior_aligned = self._prior_aligned_event_for_entry(ts, direction)
+            prior_event = prior_opp or prior_aligned
             sizing = self._sizing_for_entry(ts, direction)
             open_ok = self._open_alignment_ok(session, direction, price)
             pmc_ok = self._pmc_fade_ok(session, direction, price)
@@ -625,7 +915,9 @@ class V2BScaleoutStrategy(StrategyPlugin):
                         "direction": direction,
                         "already_armed": direction in armed,
                         "prior_opposite_only": self.config.get("prior_opposite_only"),
-                        "has_prior_opposite_event": prior_event is not None,
+                        "prior_aligned_only": self.config.get("prior_aligned_only"),
+                        "has_prior_opposite_event": prior_opp is not None,
+                        "has_prior_aligned_event": prior_aligned is not None,
                         "prior_event": prior_event or {},
                         "sizing": sizing or {},
                         "range_high": range_high,
@@ -705,7 +997,10 @@ class V2BScaleoutStrategy(StrategyPlugin):
         if not self.config.get("dynamic_sizing_events"):
             return base
         has_prior_opposite = self._prior_opposite_event_for_entry(ts, direction) is not None
+        has_prior_aligned = self._prior_aligned_event_for_entry(ts, direction) is not None
         if bool(self.config.get("prior_opposite_only")) and not has_prior_opposite:
+            return None
+        if bool(self.config.get("prior_aligned_only")) and not has_prior_aligned:
             return None
         if has_prior_opposite and self.config.get("prior_opposite_entry_qty") is not None:
             return {
@@ -718,10 +1013,13 @@ class V2BScaleoutStrategy(StrategyPlugin):
     def _has_prior_opposite_event(self, ts: str, direction: str) -> bool:
         return self._prior_opposite_event_for_entry(ts, direction) is not None
 
-    def _prior_opposite_event_for_entry(self, ts: str, direction: str) -> Optional[Dict[str, Any]]:
+    def _prior_event_for_entry(self, ts: str, direction: str, *, same_side: bool) -> Optional[Dict[str, Any]]:
         dt = _parse_dt(ts)
         session = dt.date().isoformat()
-        wanted = "short" if direction == "Long" else "long"
+        if same_side:
+            wanted = "long" if direction == "Long" else "short"
+        else:
+            wanted = "short" if direction == "Long" else "long"
         events = (self.config.get("dynamic_sizing_events") or {}).get(session, [])
         best: Optional[Dict[str, Any]] = None
         best_ts: Optional[Any] = None
@@ -736,6 +1034,12 @@ class V2BScaleoutStrategy(StrategyPlugin):
                     best = dict(event)
                     best_ts = event_ts
         return best
+
+    def _prior_opposite_event_for_entry(self, ts: str, direction: str) -> Optional[Dict[str, Any]]:
+        return self._prior_event_for_entry(ts, direction, same_side=False)
+
+    def _prior_aligned_event_for_entry(self, ts: str, direction: str) -> Optional[Dict[str, Any]]:
+        return self._prior_event_for_entry(ts, direction, same_side=True)
 
     def _initial_exit_orders(self, trade_id: str, direction: str, state: Dict[str, Any]) -> List[OrderIntent]:
         params = self._params(direction, state)
@@ -856,25 +1160,35 @@ class V2BScaleoutStrategy(StrategyPlugin):
         # Optional runner take-profit (default unset = ride to EOD / runner stop).
         # OR-profile runner ladder: set runner_target_r_mult=3.0 so the runner
         # block banks at 3R when the state's P(2R|1R)·P(3R|2R) chain is strong.
+        #
+        # targeted_runner_qty (optional): apply runner_tp to only N of the
+        # runner block; the remainder stay EOD/BE. Used for prior-opposed
+        # S_1_1_3 + 1×10R (3 EOD runners + 1 targeted @ 10R).
         runner_tp = _to_float(params.get("runner_tp"))
         if runner_qty > 0 and runner_tp is not None:
-            out.append(
-                OrderIntent.create(
-                    strategy_id=self.instance.strategy_id,
-                    trade_id=trade_id,
-                    instrument=self.instance.instrument,
-                    account_mode=self.instance.account_mode,
-                    side=exit_side,
-                    order_type="limit",
-                    quantity=runner_qty,
-                    limit_price=runner_tp,
-                    reason="v2b_runner_tp",
-                    requires_verification=False,
-                    reduce_only=True,
-                    bracket_role="runner_tp",
-                    expires_after_ts=expiry,
+            targeted_raw = trade.get("targeted_runner_qty", self.config.get("targeted_runner_qty"))
+            if targeted_raw is None or str(targeted_raw).strip() == "":
+                tp_qty = runner_qty  # legacy: whole runner block
+            else:
+                tp_qty = max(0, min(runner_qty, int(targeted_raw)))
+            if tp_qty > 0:
+                out.append(
+                    OrderIntent.create(
+                        strategy_id=self.instance.strategy_id,
+                        trade_id=trade_id,
+                        instrument=self.instance.instrument,
+                        account_mode=self.instance.account_mode,
+                        side=exit_side,
+                        order_type="limit",
+                        quantity=tp_qty,
+                        limit_price=runner_tp,
+                        reason="v2b_runner_tp",
+                        requires_verification=False,
+                        reduce_only=True,
+                        bracket_role="runner_tp",
+                        expires_after_ts=expiry,
+                    )
                 )
-            )
         return out
 
     def _params(self, direction: str, state: Dict[str, Any]) -> Optional[Dict[str, float]]:

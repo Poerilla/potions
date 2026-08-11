@@ -1,0 +1,12 @@
+potions: USDJPY Asia-range month+rolling filters complete
+
+Skip months: Jan
+Rolling gate: last 50 campaigns WR<40% or PF<1.00 (shadow unfiltered tape)
+
+Results by N/S:
+  S_3_1_3 [skip_months+roll50_wr40_pf1]  N/S=7.23  net≈$178142  trades=861  wr=48.6  pf=1.294
+  S_3_3_3 [skip_months+roll50_wr40_pf1]  N/S=7.11  net≈$225075  trades=857  wr=48.2  pf=1.288
+  S_0_5_0 [skip_months+roll50_wr40_pf1]  N/S=6.67  net≈$113716  trades=856  wr=48.2  pf=1.259
+  S_3_3_3 [unfiltered]  N/S=2.14  net≈$196627  trades=1673  wr=47.3  pf=1.141
+
+Hub: /home/tester/hsm/potions/live/state/fx_v2b_asia_range_london_usdjpy_filters

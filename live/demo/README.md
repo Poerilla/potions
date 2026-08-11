@@ -14,7 +14,7 @@ export PYTHONPATH="/home/tester/hsm:/home/tester/hsm/potions/v20-python/src"
 
 ## Live status (how to check everything)
 
-### 1) Daemon up / down (all 14)
+### 1) Daemon up / down (inventory)
 
 ```bash
 python3 -m potions.live.cli demo-eurusd-v2b-paper-status
@@ -30,6 +30,9 @@ python3 -m potions.live.cli demo-us30-v2b-oanda-status
 python3 -m potions.live.cli demo-usdjpy-monday-or-paper-status
 python3 -m potions.live.cli demo-usdjpy-monday-or-oanda-status
 
+python3 -m potions.live.cli demo-usdjpy-asia-range-paper-status
+python3 -m potions.live.cli demo-usdjpy-asia-range-oanda-status
+
 python3 -m potions.live.cli demo-us30-hourly-st-pmc-paper-status
 python3 -m potions.live.cli demo-us30-hourly-st-pmc-oanda-status
 python3 -m potions.live.cli demo-us30-hourly-st-pmc-2r10r-paper-status
@@ -42,6 +45,7 @@ python3 -m potions.live.cli demo-nas100-hourly-st-pmc-2r10r-oanda-status
 
 Each prints: `pid=… alive=True|False started_at=… state=…` (OANDA / Monday OR also show `routing=` / `tag=`).
 
+**USDJPY Asia-range London (promoted 2026-08-11):** `S_3_1_3` + Jan skip + shadow roll50 — spawn with `demo-usdjpy-asia-range-{paper,oanda} --daemon`. Shadow book: `live/demo/usdjpy_asia_range_london_*/shadow_campaigns.json`.
 **One-liner inventory** (pidfile + last heartbeat):
 
 ```bash
@@ -222,6 +226,21 @@ Thin wrappers around `oanda_v2b_ungated_common.py`:
 
 Extra note in paper tree: `usdjpy_monday_or_ungated_paper/OR_SEED_NOTE.md` (how Monday OR was seeded after a paper stream bug).
 
+**Charts:** Friday ≥ 15:59 ET end-of-week pack via `monday_or_eow_charts.py`
+(`{instr}_monday_or_week_{monday}.png` + per-trade PNGs) — not daily EOD.
+
+### Asia-range London (USDJPY, filtered `S_3_1_3` — promoted 2026-08-11)
+
+Asia OR **19:00–03:00** → arm v2b at London **03:00** → flatten **11:59**. Book **3/1/3** + Jan blackout + shadow roll50 (WR≥40% / PF≥1 on unfiltered campaign book). See hub `FILTERS.md`.
+
+| Module | Artifacts dir | CLI |
+|--------|---------------|-----|
+| `usdjpy_asia_range_london_paper.py` (+ `…_common.py`) | `usdjpy_asia_range_london_paper/` | `demo-usdjpy-asia-range-paper` |
+| `usdjpy_asia_range_london_oanda.py` | `usdjpy_asia_range_london_oanda/` | `demo-usdjpy-asia-range-oanda` |
+
+Shadow book: `live/demo/usdjpy_asia_range_london_*/shadow_campaigns.json` (seeded from sizing hub last-50; append after London EOD).
+Live-parity audit: `campaign_parity.csv` (session | shadow 50-WR/PF | skip/take | reason | realized net | next shadow n) — compare to research `validation_decision_tape.csv`. Funded-sleeve gates: hub `VALIDATION_GATES.md` (**funded sleeve NOT YET**).
+
 ### Hourly ST+PMC 1mfill (fair 3R + 2R→10R runners)
 
 Plugin `hourly_st_pmc_retest`, stop 50 / target 150 index pts, **1m fill tape**
@@ -246,6 +265,10 @@ Plugin `hourly_st_pmc_retest`, stop 50 / target 150 index pts, **1m fill tape**
 | `nas100_hourly_st_pmc_runners_2r_10r_paper.py` | `nas100_hourly_st_pmc_sl50_tp150_runners_2r_10r_paper/` | `demo-nas100-hourly-st-pmc-2r10r-paper` | same |
 | `nas100_hourly_st_pmc_runners_2r_10r_oanda.py` | `nas100_hourly_st_pmc_sl50_tp150_runners_2r_10r_oanda/` | `demo-nas100-hourly-st-pmc-2r10r-oanda` | same |
 
+**Charts:** not daily EOD. Heartbeat writes trade / open overlays via
+`st_pmc_trade_charts.py` when there is activity
+(`{instr}_st_pmc_trade_*` completed, `{instr}_st_pmc_open_*` while qty ≠ 0).
+
 ### Per-run directory layout
 
 ```text
@@ -255,7 +278,7 @@ live/demo/<run>/
   run.log
   RUN_META.json
   FILE_SIZES.log          # after Friday EOW size dump
-  charts/                 # EOD PNGs from eod_charts.py
+  charts/                 # v2b: daily EOD; Monday OR: Fri EOW; ST+PMC: trade/open
   state/
     fills.csv
     positions.csv
@@ -297,6 +320,9 @@ python3 -m potions.live.cli demo-us30-v2b-oanda --daemon
 
 python3 -m potions.live.cli demo-usdjpy-monday-or-paper --daemon
 python3 -m potions.live.cli demo-usdjpy-monday-or-oanda --daemon
+
+python3 -m potions.live.cli demo-usdjpy-asia-range-paper --daemon
+python3 -m potions.live.cli demo-usdjpy-asia-range-oanda --daemon
 
 python3 -m potions.live.cli demo-us30-hourly-st-pmc-paper --daemon
 python3 -m potions.live.cli demo-us30-hourly-st-pmc-oanda --daemon
@@ -377,7 +403,10 @@ Paper vs OANDA:
 # File growth / rotation planning (also auto on Friday EOW inside daemons)
 python3 -m potions.live.demo.size_report
 
-# EOD charts are written by the daemon; helper lives in eod_charts.py
+# Charts are written by the daemon:
+#   v2b daily EOD     -> eod_charts.py
+#   Monday OR Fri EOW -> monday_or_eow_charts.py
+#   ST+PMC trade/open -> st_pmc_trade_charts.py
 ```
 
 Index CFDs (NAS100 / SPX500 / US30) are OANDA products used as NQ/ES/YM-style proxies — not CME futures.
