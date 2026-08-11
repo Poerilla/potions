@@ -523,10 +523,24 @@ def write_report(
         "verdict": short,
         "oos_winner": oos_winner["book"],
         "full_ns_winner": full_winner["book"],
+        "deployability_winner": "C"
+        if short == "C_PRIMARY_CAPITAL_EFFICIENT_B_ALPHA_CONTROL"
+        else (full_winner["book"] if short == "C_WINS_FORWARD" else oos_winner["book"]),
+        "hierarchy": {
+            "C": "PRIMARY_CAPITAL_EFFICIENT_DEMO",
+            "B": "PRIMARY_ALPHA_RETURN_CONTROL",
+            "A": "UNFILTERED_SHADOW_CONTROL",
+        }
+        if short == "C_PRIMARY_CAPITAL_EFFICIENT_B_ALPHA_CONTROL"
+        else None,
         "c_beats_b_oos_ns": c_beats_b_oos_ns,
         "c_beats_b_oos_net": c_beats_b_oos_net,
         "broker_jan_ran": broker_jan_ran,
+        "locked_at": "2026-08-11"
+        if short == "C_PRIMARY_CAPITAL_EFFICIENT_B_ALPHA_CONTROL"
+        else None,
     }
+    meta = {k: v for k, v in meta.items() if v is not None}
     (output_root / "three_book_forward_meta.json").write_text(
         json.dumps(meta, indent=2) + "\n", encoding="utf-8"
     )
