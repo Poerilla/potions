@@ -1,0 +1,45 @@
+potions update — 2026-08-11
+
+1) THREE-BOOK LOCK CHECKED IN
+Verdict: C_PRIMARY_CAPITAL_EFFICIENT_B_ALPHA_CONTROL
+Hub: live/state/fx_v2b_asia_range_london_usdjpy_filters/THREE_BOOK_FORWARD.md
+Commits (local main, ahead of origin):
+  - 6e1d373 Lock USDJPY Asia-range C as capital-efficient primary book.
+  - f31d1fb Persist three-book hierarchy fields in forward meta JSON.
+  - (+ citations on THREE_BOOK_FORWARD in this follow-up)
+
+Hierarchy:
+  C — PRIMARY CAPITAL-EFFICIENT DEMO (Jan + roll50 WR40/PF1) — broker N/S 7.23
+  B — PRIMARY ALPHA / RETURN CONTROL (January-only) — OOS N/S 6.56
+  A — UNFILTERED SHADOW CONTROL
+
+Broker matched-net: C needs ~1.025× base capital to match B’s $182.6k net at ~−$25.2k stress (~54% below B). Funded sleeve still NO (live parity + non-linear scale validation pending). Practice demos stay on C.
+
+2) DEMO / LIVE STATUS (as of ~15:05 ET / ~19:05 UTC)
+All 30 tracked demos UP (heartbeats ≤5m). No dead pidfiles.
+
+USDJPY Asia-range (book C / S_3_1_3) paper+OANDA:
+  Flat, 0 fills today. asia_bars=0 — waiting for Asia OR collect (19:00 NY) then London inject. Expected quiet until tonight/tomorrow London.
+
+USDJPY Monday OR (M2_S3_R1):
+  Paper flat / 0 fills. OANDA local shows open_positions=1 but no USDJPY fills today (shared practice account — see OANDA snapshot).
+
+Index ST+PMC (active session):
+  US30 3R paper: entry then stop (small scratch). OANDA 3R: several buy entries; still open.
+  NAS100 3R paper: flat/no fills. OANDA 3R: multiple buy entries; still open.
+  NAS100 2R→10R paper: long 3-lot runner stack from ~17:14. OANDA: runner_entry late session; open.
+  US30 2R→10R: no new fills today; OANDA still shows 1 open / many resting orders.
+
+v2b ungated (cash session):
+  EURUSD paper+OANDA: long then wide_stop, short then wide_stop — both legs stopped (scratch/red day path). Flat now.
+  US30 paper+OANDA: long wide_stop → flipped short; tp1 partial cover; still short residual.
+  NAS100: short from ~13:46; OANDA took one wide_stop cover on 1 lot; residual short open.
+  SPX500: short; tp1 (paper) / tp1+tp2 (OANDA); residual short open.
+
+Yearly OR pack (AUDJPY/EURUSD/US30/XAU/XAG paper+OANDA): heartbeats OK, flat, no action today (last_day=2026-08-10).
+
+OANDA practice account (shared):
+  NAV≈$101,966 | bal≈$101,980 | UPL≈−$14 | marginUsed≈$33.2k | marginAvail≈$68.8k
+  Open: US30_USD long 3 (UPL≈−$102), NAS100_USD long 1 (UPL≈+$50), SPX500_USD short 1 (UPL≈+$38)
+
+Stance unchanged: research/practice promote on Asia-range C; funded sleeve NO until live parity after first London campaigns.

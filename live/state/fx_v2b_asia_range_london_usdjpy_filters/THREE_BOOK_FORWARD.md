@@ -123,3 +123,10 @@ Driver: `python -m live.fx_v2b_asia_range_london_usdjpy_three_book_forward --ema
 Optional broker B: add `--broker-jan`.
 
 Hub: `/home/tester/hsm/potions/live/state/fx_v2b_asia_range_london_usdjpy_filters`
+
+## Citations
+
+1. White, H. (2000). *A Reality Check for Data Snooping.* JSTOR:
+   https://www.jstor.org/stable/2999444
+2. Same paper (open PDF metadata): Semantic Scholar
+   https://www.semanticscholar.org/paper/A-Reality-Check-for-Data-Snooping-White/ee1014390904db3c2c7c1f81719f49450e621a70
