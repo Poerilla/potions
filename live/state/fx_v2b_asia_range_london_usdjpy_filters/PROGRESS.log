@@ -111,3 +111,8 @@
 [2026-08-11T14:31:41] THREE_BOOK EMAIL sent
 
 [2026-08-11T18:50Z] Sit-out candle-sim wired on demos; VALIDATION_GATES open-actions: candle-sim done; parity still pending_first_campaigns; funded sleeve NO
+[2026-08-11T14:53:44] VALIDATION load /home/tester/hsm/potions/live/state/fx_v2b_asia_range_london_usdjpy_sizing/states/usdjpy_v2b_asia_range_london_S_3_1_3/unit_trades.csv
+[2026-08-11T14:53:52] VALIDATION wrote /home/tester/hsm/potions/live/state/fx_v2b_asia_range_london_usdjpy_filters/VALIDATION_GATES.md
+[2026-08-11T14:53:53] VALIDATION EMAIL sent
+
+[2026-08-11T18:54Z] Gates confirmation check-in: user checklist (frozen OOS / walk-forward / attribution / path-aware / live-parity / 50-warmup) documented in VALIDATION_GATES+FILTERS. Offline proofs green; live parity pending_first_campaigns; shadow seed nets=50; funded sleeve NO.

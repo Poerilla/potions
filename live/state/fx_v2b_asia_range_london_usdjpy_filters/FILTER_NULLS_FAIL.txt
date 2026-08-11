@@ -1,0 +1,25 @@
+Traceback (most recent call last):
+  File "/home/tester/.pyenv/versions/3.8.0/lib/python3.8/site-packages/pandas/core/indexes/base.py", line 3653, in get_loc
+    return self._engine.get_loc(casted_key)
+  File "pandas/_libs/index.pyx", line 147, in pandas._libs.index.IndexEngine.get_loc
+  File "pandas/_libs/index.pyx", line 176, in pandas._libs.index.IndexEngine.get_loc
+  File "pandas/_libs/hashtable_class_helper.pxi", line 7080, in pandas._libs.hashtable.PyObjectHashTable.get_item
+  File "pandas/_libs/hashtable_class_helper.pxi", line 7088, in pandas._libs.hashtable.PyObjectHashTable.get_item
+KeyError: 'delta_net'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/tester/hsm/potions/live/fx_v2b_asia_range_london_usdjpy_filter_nulls.py", line 1358, in main
+    path = run(
+  File "/home/tester/hsm/potions/live/fx_v2b_asia_range_london_usdjpy_filter_nulls.py", line 1139, in run
+    month_df, month_sum = null_month_placebo(tape)
+  File "/home/tester/hsm/potions/live/fx_v2b_asia_range_london_usdjpy_filter_nulls.py", line 363, in null_month_placebo
+    p_net = float((df["delta_net"] >= jan["delta_net"]).sum() / 12.0)
+  File "/home/tester/.pyenv/versions/3.8.0/lib/python3.8/site-packages/pandas/core/series.py", line 1007, in __getitem__
+    return self._get_value(key)
+  File "/home/tester/.pyenv/versions/3.8.0/lib/python3.8/site-packages/pandas/core/series.py", line 1116, in _get_value
+    loc = self.index.get_loc(label)
+  File "/home/tester/.pyenv/versions/3.8.0/lib/python3.8/site-packages/pandas/core/indexes/base.py", line 3655, in get_loc
+    raise KeyError(key) from err
+KeyError: 'delta_net'

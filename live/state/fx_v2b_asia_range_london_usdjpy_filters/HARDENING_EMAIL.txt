@@ -1,0 +1,19 @@
+USDJPY Asia-range funded-sleeve hardening check-in
+
+Hub: live/state/fx_v2b_asia_range_london_usdjpy_filters/
+Book locked: S_3_1_3 + Jan skip + roll50 WR40/PF1 (no retune)
+50-campaign warmup: demos seed last-50 (live not cold-start); cold research still warms through first 50
+
+Gate scorecard:
+- Frozen-rule OOS (post-2021): PASS
+- Walk-forward stability: PASS
+- Filter attribution (Jan / WR / PF / combined): PASS (Jan not sole; PF dominant sit-outs)
+- Path-aware risk scrape (fills/OCO/slippage/exposure): PASS (weekly post-process logs)
+- Filter nulls: RETAIN AS RISK THROTTLE
+- Three-book forward: B_WINS_FORWARD_C_RISK_THROTTLE (Jan-only wins OOS)
+- Sit-out candle-sim on demos: DONE
+- Live-parity row-compare: pending_first_campaigns (await London sessions)
+- Funded sleeve: NO — hold
+
+Practice demos stay on C (Jan+roll50). Paper+OANDA UP; shadow nets=50.
+Docs: VALIDATION_GATES + FILTERS + CHANGE_LOG + tracker + Platform.

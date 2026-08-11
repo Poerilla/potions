@@ -1,5 +1,20 @@
 # Live Runtime CHANGE_LOG
 
+## 2026-08-11 — USDJPY Asia-range funded-sleeve gates confirmation check-in
+
+- Re-confirmed frozen-rule checklist before any funded-sleeve claim:
+  OOS / walk-forward / attribution / path-aware offline **PASS**; filter nulls =
+  risk throttle; three-book = `B_WINS_FORWARD_C_RISK_THROTTLE`.
+- **50-campaign warmup** called out again: cold research replays pass through
+  first 50 on roll gate; live demos keep last-50 seed (`shadow_campaigns.json`
+  nets=50) so paper/OANDA are warm from day one. Proof windows may shrink only
+  when history/shadow seed already covers the window.
+- Path-aware fills/OCO/slippage/exposure stay in promoted hub logs +
+  `validation_path_aware.json` for daily/weekly post-process (not retune).
+- Live-parity still **pending_first_campaigns** (Asia OR collect → London inject;
+  `campaign_parity.csv` not written yet). Paper+OANDA demos UP on book C.
+- Stance unchanged: research/practice **PROMOTE**; **funded sleeve NO**.
+
 ## 2026-08-11 — USDJPY Asia-range sit-out candle-sim + three-book check-in
 
 - Sit-out candle-sim wired on Asia-range demos (`candle_sim_unfiltered_campaign_net`):
