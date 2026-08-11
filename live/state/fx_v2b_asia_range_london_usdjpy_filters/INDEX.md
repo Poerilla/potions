@@ -22,6 +22,7 @@ Filters:
 - Mechanics: [`FILTERS.md`](FILTERS.md)
 - Funded-sleeve gates: [`VALIDATION_GATES.md`](VALIDATION_GATES.md) (**funded sleeve NOT YET**)
 - Filter nulls: [`FILTER_NULLS.md`](FILTER_NULLS.md) (**RETAIN AS RISK THROTTLE**)
+- Three-book forward: [`THREE_BOOK_FORWARD.md`](THREE_BOOK_FORWARD.md) (**B wins OOS; C = risk throttle**)
 - Research: [`RESEARCH.md`](RESEARCH.md)
 
 - Hub: `/home/tester/hsm/potions/live/state/fx_v2b_asia_range_london_usdjpy_filters`

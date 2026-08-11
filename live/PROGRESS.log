@@ -123,3 +123,7 @@ Append-only research/platform progress notes.
 [2026-08-11T17:53Z] Funded-sleeve hardening follow-up: path-aware now scrapes promoted fills/orders (OCO cancel/fill, fill reasons, adverse-vs-mid, max qty). VALIDATION_GATES open-actions table (parity row-compare + margin ops still pending first live campaigns). 50-campaign warmup called out; demos seeded. Re-ran validation + email. Funded sleeve still NO.
 
 [2026-08-11T18:15Z] Funded-sleeve hardening check-in: FILTER_NULLS RETAIN AS RISK THROTTLE; validation re-ran with parity+margin ops (NAV≈102k marginUsed≈16.5k USDJPY flat); DEMO_FOCUS+margin fields on oanda-practice-sync; docs/tracker/CHANGE_LOG updated. Live parity row-compare still pending first London campaigns. Funded sleeve NO.
+
+[2026-08-11T18:41Z] USDJPY Asia-range three-book forward: A unfiltered / B Jan-only / C Jan+roll50. Verdict B_WINS_FORWARD_C_RISK_THROTTLE (OOS N/S B 6.56 > A 5.35 > C 4.23). Broker Jan-only N/S 3.35. Hub THREE_BOOK_FORWARD.md + email. Practice demos stay on C; funded sleeve NO.
+
+[2026-08-11T18:50Z] Funded-sleeve hardening: sit-out candle-sim wired on Asia-range demos (unfiltered Engine on stored 1m). VALIDATION_GATES / FILTERS / Platform / demo README updated. Three-book + candle-sim docs check-in. Open = live parity row-compare after first London campaigns. Funded sleeve NO.

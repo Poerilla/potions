@@ -95,3 +95,19 @@
 - VALIDATION_GATES regenerated: parity pending_first_campaigns; margin ops snapshot ok
 - OANDA practice: NAV≈102k marginUsed≈16.5k marginAvail≈85.5k; USDJPY flat; demos seeded last-50
 - Funded sleeve: still NO
+[2026-08-11T14:24:15] THREE_BOOK start unit_trades=/home/tester/hsm/potions/live/state/fx_v2b_asia_range_london_usdjpy_sizing/states/usdjpy_v2b_asia_range_london_S_3_1_3/unit_trades.csv
+[2026-08-11T14:24:15] THREE_BOOK broker-jan LOAD USDJPY...
+[2026-08-11T14:25:44] THREE_BOOK broker-jan sessions=1515 (jan skipped=163)
+[2026-08-11T14:25:44]   USDJPY S_3_1_3 sessions=1515
+[2026-08-11T14:26:24]   usdjpy_v2b_asia_range_london_S_3_1_3 250/1515
+[2026-08-11T14:27:05]   usdjpy_v2b_asia_range_london_S_3_1_3 500/1515
+[2026-08-11T14:27:46]   usdjpy_v2b_asia_range_london_S_3_1_3 750/1515
+[2026-08-11T14:28:28]   usdjpy_v2b_asia_range_london_S_3_1_3 1000/1515
+[2026-08-11T14:29:11]   usdjpy_v2b_asia_range_london_S_3_1_3 1250/1515
+[2026-08-11T14:29:55]   usdjpy_v2b_asia_range_london_S_3_1_3 1500/1515
+[2026-08-11T14:31:36] DONE usdjpy_v2b_asia_range_london_S_3_1_3 net_usd=182627.35 N/S=3.35 trades=1508
+[2026-08-11T14:31:36] THREE_BOOK broker-jan DONE net≈$182627 N/S=3.35 trades=1508
+[2026-08-11T14:31:36] THREE_BOOK wrote /home/tester/hsm/potions/live/state/fx_v2b_asia_range_london_usdjpy_filters/THREE_BOOK_FORWARD.md
+[2026-08-11T14:31:41] THREE_BOOK EMAIL sent
+
+[2026-08-11T18:50Z] Sit-out candle-sim wired on demos; VALIDATION_GATES open-actions: candle-sim done; parity still pending_first_campaigns; funded sleeve NO

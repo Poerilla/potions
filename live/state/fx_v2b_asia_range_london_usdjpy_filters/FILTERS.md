@@ -35,7 +35,9 @@ Plugin knobs on `v2b_scaleout`: `skip_entry_months`, `shadow_roll_window`, `shad
 2. Each London day: build Asia H/L from collected 1m quotes (19:00–03:00), inject `session_or_ranges`, arm at 03:00 if filters pass, flatten 11:59.
 3. After EOD: append today’s **unfiltered** campaign net into the shadow book so tomorrow’s gate keeps moving.
    - **Traded days:** append live campaign net from `unit_trades` (when present).
-   - **Sit-out days:** must still append a candle-sim net (same rules, no broker order). Demo currently **logs defer** when there is no live campaign — do not treat taken-only appends as complete; sit-out candle-sim is the live follow-up so the window cannot freeze.
+   - **Sit-out days:** append a candle-sim net (same unfiltered rules, no live broker order)
+     via `candle_sim_unfiltered_campaign_net` in `usdjpy_asia_range_london_common.py`
+     so the roll window cannot freeze.
 
 Gate evaluation itself is live and causal: `_session_tradeable` reads prior-N from the shadow JSON/state before arming.
 
@@ -74,8 +76,17 @@ Proof windows can shrink when the shadow book is already seeded / market history
 
 **Filter nulls:** [`FILTER_NULLS.md`](FILTER_NULLS.md) — **RETAIN AS RISK THROTTLE** (not alpha). Does not unlock funded capital alone.
 
-**Still open before funded:** live parity row-compare (first London campaigns), sit-out candle-sim append so skip days do not freeze the roll window. Margin ops: weekly `oanda-practice-sync` (fields now on snapshot).
+**Three-book forward discriminator:** [`THREE_BOOK_FORWARD.md`](THREE_BOOK_FORWARD.md) —
+A unfiltered / B January-only / C Jan+roll50. Frozen OOS (years > 2021) ranks
+**B > A > C** on shadow N/S; full-sample N/S still favors C. Verdict
+`B_WINS_FORWARD_C_RISK_THROTTLE`. Practice demos stay on C; do not treat C's
+full-sample N/S as funded-rule proof.
+
+**Still open before funded:** live parity row-for-row compare after first London campaigns
+fire (`campaign_parity.csv` vs `validation_decision_tape.csv`). Sit-out candle-sim append
+is wired on demos. Margin ops: weekly `oanda-practice-sync` (fields now on snapshot).
 
 Drivers:
 - `python -m live.fx_v2b_asia_range_london_usdjpy_validation --email`
 - `python -m live.fx_v2b_asia_range_london_usdjpy_filter_nulls --email`
+- `python -m live.fx_v2b_asia_range_london_usdjpy_three_book_forward --email` (optional `--broker-jan`)

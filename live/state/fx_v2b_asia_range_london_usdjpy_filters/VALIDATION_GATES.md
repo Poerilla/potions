@@ -157,7 +157,7 @@ Does **not** unlock funded sleeve by itself; keeps the promote book as an operat
 | Filter nulls (matched-exposure / shift / selection-aware) | **done** — retain as risk throttle |
 | OANDA practice margin fields on snapshot + asia demo in DEMO_FOCUS | **done** (weekly sync) |
 | Live `campaign_parity.csv` row-for-row vs research tape | **pending_first_campaigns** |
-| Sit-out candle-sim append on live skip days | **follow-up** (gate must not freeze) |
+| Sit-out candle-sim append on live skip days | **done** (demo common; unfiltered Engine on stored 1m) |
 
 ## Gate scorecard
 

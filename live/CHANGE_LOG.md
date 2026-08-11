@@ -1,5 +1,23 @@
 # Live Runtime CHANGE_LOG
 
+## 2026-08-11 — USDJPY Asia-range sit-out candle-sim + three-book check-in
+
+- Sit-out candle-sim wired on Asia-range demos (`candle_sim_unfiltered_campaign_net`):
+  skip days advance shadow via unfiltered PaperBroker replay on stored 1m bars.
+- Three-book forward driver + hub (`THREE_BOOK_FORWARD.md`) checked in:
+  verdict `B_WINS_FORWARD_C_RISK_THROTTLE` (Jan-only wins frozen OOS).
+- Funded-sleeve open item reduced to **live parity row-compare** after first London campaigns.
+- Stance unchanged: research/practice **PROMOTE** on C; **funded sleeve NO**.
+
+## 2026-08-11 — USDJPY Asia-range frozen three-book forward
+
+- Driver: `live/fx_v2b_asia_range_london_usdjpy_three_book_forward.py` → `THREE_BOOK_FORWARD.md`.
+- Locked books: **A** unfiltered `S_3_1_3` · **B** January-only · **C** Jan + roll50 WR40/PF1.
+- Shadow OOS (years > 2021): **B wins** N/S 6.56 / net≈+$169k vs C 4.23 / +$102k vs A 5.35 / +$150k.
+- Full-sample shadow N/S still **C** 6.07 (stress −$24k vs B −$54k); broker N/S C 7.23 / B 3.35 / A 2.14.
+- Jan-only PaperBroker state: `…/states/usdjpy_v2b_asia_range_london_S_3_1_3_jan/` (N/S 3.35, +$183k).
+- Verdict **`B_WINS_FORWARD_C_RISK_THROTTLE`**: aligns with FILTER_NULLS; practice demos stay on C; funded sleeve still **NO**.
+
 ## 2026-08-11 — USDJPY Asia-range validation gates + filter nulls check-in
 
 - Offline funded-sleeve gates already green (OOS / walk-forward / attribution / path-aware); **funded sleeve still NO**.
@@ -7,7 +25,7 @@
 - Validation driver now scrapes live-parity status + OANDA margin ops snapshot into `VALIDATION_GATES.md`.
 - `oanda-practice-sync` records `marginUsed` / `marginAvailable` / closeout %; DEMO_FOCUS includes `usdjpy_asia_range_london_oanda`.
 - Practice account (shared): NAV≈$102k, marginUsed≈$16.5k, marginAvail≈$85.5k; USDJPY flat until London inject. Demos UP with **50-campaign** shadow seed.
-- Open: live `campaign_parity.csv` row-compare after first London campaigns; sit-out candle-sim append.
+- Open: live `campaign_parity.csv` row-compare after first London campaigns (sit-out candle-sim now wired).
 
 ## 2026-08-11 — USDJPY Asia-range funded-sleeve validation gates
 
@@ -18,7 +36,6 @@
 - Live-parity: paper/OANDA demos append `campaign_parity.csv`; plugin `session_gate_decision`; research tape `validation_decision_tape.csv`.
 - **50-campaign warmup** documented; demos seed last-50 so live is not cold-start.
 - Path-aware scrape (promoted hub fills/orders): OCO cancelled/filled counts, fill reasons, adverse-vs-mid, max exposure — weekly post-process source, not retune.
-- Open: live parity row-compare after first London campaigns; OANDA margin ops check; sit-out candle-sim append follow-up.
 - Stance unchanged: research/practice **PROMOTE**; **funded sleeve NOT YET**.
 
 ## 2026-08-11 — USDJPY Asia-range London filtered promote

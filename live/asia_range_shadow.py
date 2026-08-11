@@ -9,8 +9,9 @@ taken trades freezes the window after the first PF dip (sit forever).
   sessions from the full unfiltered sizing tape, then broker-replay only the
   allowed days.
 - **Live**: keep a JSON shadow book of unfiltered campaign nets. Seed from the
-  research tape; each London day, append today's unfiltered outcome from an
-  EOD candle-sim (even when live sat out). Gate reads prior-N before arming.
+  research tape; each London day, append today's unfiltered outcome — live
+  ``unit_trades`` when taken, else EOD candle-sim on collected 1m bars when the
+  gate sat out. Gate reads prior-N before arming.
 
 Shadow trades are not broker orders — they are simulated campaign PnLs from
 collected 1m bars that inform the next session's filter.

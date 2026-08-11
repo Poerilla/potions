@@ -1,0 +1,18 @@
+{
+  "frozen": {
+    "book": "S_3_1_3",
+    "skip_months": [
+      1
+    ],
+    "window": 50,
+    "min_wr": 0.4,
+    "min_pf": 1.0,
+    "oos_cut": 2021
+  },
+  "verdict": "B_WINS_FORWARD_C_RISK_THROTTLE",
+  "oos_winner": "B",
+  "full_ns_winner": "C",
+  "c_beats_b_oos_ns": false,
+  "c_beats_b_oos_net": false,
+  "broker_jan_ran": true
+}

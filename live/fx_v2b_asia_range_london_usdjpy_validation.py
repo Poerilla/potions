@@ -719,7 +719,7 @@ def write_report(
             "| OANDA practice margin fields on snapshot + asia demo in DEMO_FOCUS | **done** (weekly sync) |",
             "| Live `campaign_parity.csv` row-for-row vs research tape | **%s** |"
             % ((parity or {}).get("status") or "pending_first_campaigns"),
-            "| Sit-out candle-sim append on live skip days | **follow-up** (gate must not freeze) |",
+            "| Sit-out candle-sim append on live skip days | **done** (demo common; unfiltered Engine on stored 1m) |",
             "",
             "## Gate scorecard",
             "",
