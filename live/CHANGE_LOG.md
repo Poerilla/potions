@@ -1,5 +1,17 @@
 # Live Runtime CHANGE_LOG
 
+## 2026-08-11 — USDJPY Asia-range three-book hierarchy LOCKED (C capital-efficient)
+
+- Locked deployability hierarchy in `THREE_BOOK_FORWARD.md` + tracker:
+  **C** primary capital-efficient demo · **B** alpha/return control · **A** unfiltered shadow.
+- Verdict code **`C_PRIMARY_CAPITAL_EFFICIENT_B_ALPHA_CONTROL`** (supersedes
+  `B_WINS_FORWARD_C_RISK_THROTTLE` for portfolio implementation ranking; OOS facts unchanged —
+  B still wins frozen shadow OOS N/S 6.56).
+- Broker matched-net note: C ≈ **1.025×** base capital matches B’s $182.6k net at ~−$25.2k
+  stress (~54% below B); 1.3× C linear projection ~$231.6k / −$32.0k. Validate lot/margin/OCO.
+- Driver stance string updated so regenerations keep the lock.
+- Practice demos stay on **C**; funded sleeve still **NO**.
+
 ## 2026-08-11 — USDJPY Asia-range funded-sleeve gates confirmation check-in
 
 - Re-confirmed frozen-rule checklist before any funded-sleeve claim:

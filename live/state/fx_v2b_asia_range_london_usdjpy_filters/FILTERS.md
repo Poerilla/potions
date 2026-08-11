@@ -77,10 +77,12 @@ Proof windows can shrink when the shadow book is already seeded / market history
 **Filter nulls:** [`FILTER_NULLS.md`](FILTER_NULLS.md) — **RETAIN AS RISK THROTTLE** (not alpha). Does not unlock funded capital alone.
 
 **Three-book forward discriminator:** [`THREE_BOOK_FORWARD.md`](THREE_BOOK_FORWARD.md) —
-A unfiltered / B January-only / C Jan+roll50. Frozen OOS (years > 2021) ranks
-**B > A > C** on shadow N/S; full-sample N/S still favors C. Verdict
-`B_WINS_FORWARD_C_RISK_THROTTLE`. Practice demos stay on C; do not treat C's
-full-sample N/S as funded-rule proof.
+A unfiltered / B January-only / C Jan+roll50. Locked hierarchy
+`C_PRIMARY_CAPITAL_EFFICIENT_B_ALPHA_CONTROL`: **C** = primary capital-efficient
+demo (broker N/S 7.23; scalable within stress budget); **B** = alpha/return
+control (frozen OOS N/S winner — January is the return lever); **A** = unfiltered
+shadow control. Practice demos stay on C; do not treat C's full-sample N/S as
+funded-rule proof. Scale C with lot/margin/OCO validation, not pure linearity.
 
 **Still open before funded:** live parity row-for-row compare after first London campaigns
 fire (`campaign_parity.csv` vs `validation_decision_tape.csv`). Sit-out candle-sim append

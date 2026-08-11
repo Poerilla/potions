@@ -1,17 +1,24 @@
-potions: USDJPY Asia-range three-book forward
+potions: USDJPY Asia-range three-book hierarchy LOCKED
 
 Frozen: S_3_1_3 | A unfiltered | B Jan-only | C Jan+roll50 WR40/PF1
-OOS cut: years > 2021
 
-Verdict: B_WINS_FORWARD_C_RISK_THROTTLE
+Verdict: C_PRIMARY_CAPITAL_EFFICIENT_B_ALPHA_CONTROL
 
-Shadow OOS N/S: A=5.35 B=6.56 C=4.23
-Shadow OOS net: A=$+150267 B=$+169066 C=$+101690
+Hierarchy:
+  C — PRIMARY CAPITAL-EFFICIENT DEMO (broker N/S 7.23; scale within stress budget)
+  B — PRIMARY ALPHA / RETURN CONTROL (OOS N/S 6.56; January is the return lever)
+  A — UNFILTERED SHADOW CONTROL
+
+Broker deployability:
+  B net $182.6k / stress -$54.6k / N/S 3.35
+  C net $178.1k / stress -$24.6k / N/S 7.23
+  C≈1.025× matches B net at ~-$25.2k stress; 1.3× C → ~$231.6k / ~-$32.0k
+
+Shadow OOS N/S: A=5.35 B=6.56 C=4.23 (B still wins frozen OOS)
 Shadow full N/S: A=2.25 B=3.40 C=6.07
 
-Broker A: N/S=2.14 net≈$153741 stress≈$-71846 trades=1673
-Broker B: N/S=3.35 net≈$182627 stress≈$-54589 trades=1508
-Broker C: N/S=7.23 net≈$178142 stress≈$-24627 trades=861
+Funded sleeve: NO (live parity + non-linear scale validation still open)
+Practice demos stay on C.
 
 Hub: /home/tester/hsm/potions/live/state/fx_v2b_asia_range_london_usdjpy_filters
-Report: /home/tester/hsm/potions/live/state/fx_v2b_asia_range_london_usdjpy_filters/THREE_BOOK_FORWARD.md
+Report: THREE_BOOK_FORWARD.md

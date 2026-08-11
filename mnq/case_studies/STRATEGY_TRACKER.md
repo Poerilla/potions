@@ -24,9 +24,10 @@ Central index of execution variants explored in this workspace / chat threads.
 > mechanics [`FILTERS.md`](../../live/state/fx_v2b_asia_range_london_usdjpy_filters/FILTERS.md) ·
 > funded-sleeve gates [`VALIDATION_GATES.md`](../../live/state/fx_v2b_asia_range_london_usdjpy_filters/VALIDATION_GATES.md)
 > (**funded sleeve NOT YET**; filter nulls = **risk throttle**, not alpha — [`FILTER_NULLS.md`](../../live/state/fx_v2b_asia_range_london_usdjpy_filters/FILTER_NULLS.md)).
-> Frozen three-book forward ([`THREE_BOOK_FORWARD.md`](../../live/state/fx_v2b_asia_range_london_usdjpy_filters/THREE_BOOK_FORWARD.md)):
-> **B (Jan-only) wins OOS** N/S 6.56 vs C 4.23; C keeps full-sample N/S beauty / stress cut —
-> verdict `B_WINS_FORWARD_C_RISK_THROTTLE` (practice demos stay on C).
+> Three-book hierarchy **LOCKED** ([`THREE_BOOK_FORWARD.md`](../../live/state/fx_v2b_asia_range_london_usdjpy_filters/THREE_BOOK_FORWARD.md)):
+> **C** = primary capital-efficient demo (broker N/S 7.23; ~1.025× matches B’s $183k net at ~54% less stress);
+> **B** = alpha/return control (OOS N/S 6.56 — January is the return lever);
+> **A** = unfiltered shadow control. Verdict `C_PRIMARY_CAPITAL_EFFICIENT_B_ALPHA_CONTROL`.
 > London screen (Aug 10–11): ungated / 2h / 4h / v2d / FBO / NY grab / sweep reversal
 > **rejected** for majors; Asia-range USDJPY was the only green path — see CHANGE_LOG.
 
@@ -57,7 +58,7 @@ EURUSD sleeves ranked by broker-like **Net/Stress** (Engine + `PaperBroker`, His
 
 | Rank | Sleeve | Plugin / ID | Net | Stress DD | Net/Stress | WR | Role |
 |---|---|---|---:|---:|---:|---:|---|
-| — | **USDJPY Asia-range London `S_3_1_3` + Jan/roll50** | `v2b_scaleout` · `usdjpy_v2b_asia_range_london_S_3_1_3_flt` | **+$178k** | −$25k | **7.23** | 48.6% | **Research/practice promote** (funded sleeve gated — VALIDATION_GATES + FILTER_NULLS risk-throttle; three-book forward: Jan-only beats C on OOS — `THREE_BOOK_FORWARD.md`; vs Monday OR USDJPY weekly N/S 8.20 — different clock) |
+| — | **USDJPY Asia-range London `S_3_1_3` + Jan/roll50** | `v2b_scaleout` · `usdjpy_v2b_asia_range_london_S_3_1_3_flt` | **+$178k** | −$25k | **7.23** | 48.6% | **Research/practice promote · capital-efficient primary (C)** (funded sleeve gated — VALIDATION_GATES + FILTER_NULLS risk-throttle; three-book lock `C_PRIMARY_CAPITAL_EFFICIENT_B_ALPHA_CONTROL` — `THREE_BOOK_FORWARD.md`; vs Monday OR USDJPY weekly N/S 8.20 — different clock) |
 | 1 | **Monday OR `M1_S2_R2`** (15m, light shifted, max 3/wk) | `monday_or_breakout` · Phase 2 | **+$123.3k** | −$70.9k | **1.74** | — | **Phase 2 hardened · paper-only** (sub-period fail 2020+); full-sample beats ST+PMC · [report](#monday-or-fx-strategy-tracker-report) |
 | — | Monthly ORB FBO 1/1/3 + ema100(1h)+atr80 | same + filter csv | +$69.0k | −$40.4k | 1.71 | 50.7% | Lowest-stress FBO variant; EMA leg costs net vs atr80-only |
 | 2 | **Monthly ORB FBO 1/1/3 + atr80 filter** | `monthly_orb_v2b_oco` + `entry_filter_csv` · `eurusd_monthly_orb_fbo_filt_atr80only_1_1_3` | **+$91.9k** | −$56.8k | **1.62** | 52.1% | **Promoted FX monthly sleeve (filtered)** |

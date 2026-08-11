@@ -9,9 +9,52 @@ shadow = **unfiltered** campaign nets. OOS cut: years **> 2021**.
 | **B** | January-only `S_3_1_3` |
 | **C** | January + roll50 WR40/PF1 `S_3_1_3` (promote cell) |
 
-## Verdict
+## Verdict (locked 2026-08-11)
 
-**B WINS FROZEN FORWARD (net/N/S); C remains risk throttle** — January-only beats combined on OOS net and OOS N/S; roll gate still cuts full-sample stress. Aligns with FILTER_NULLS risk-throttle stance; do **not** treat C's full-sample N/S beauty as funded-rule proof.
+**C PRIMARY CAPITAL-EFFICIENT; B ALPHA / RETURN CONTROL**
+
+On a **capital-efficiency / stress-budget** basis, **C** is the preferred portfolio
+implementation: broker-like net nearly matches B with far lower stress, so C can
+scale toward B’s dollar target while retaining a lower stress budget. C is **not**
+an alpha-selection winner — frozen shadow OOS still favors **B**, and January (not
+the rolling gate) is the positive-return lever. Keep A/B/C as a three-book control
+set; repeated research selection can otherwise overstate a chosen rule
+(White reality-check / data-snooping caution).
+
+Verdict code: **`C_PRIMARY_CAPITAL_EFFICIENT_B_ALPHA_CONTROL`**
+(supersedes `B_WINS_FORWARD_C_RISK_THROTTLE` for deployability ranking; OOS facts unchanged).
+
+### Correct book hierarchy
+
+```text
+C — PRIMARY CAPITAL-EFFICIENT DEMO BOOK
+January + roll50 WR40/PF1
+Reason: highest broker-like N/S; lower stress permits controlled scaling.
+
+B — PRIMARY ALPHA / RETURN CONTROL
+January-only
+Reason: strongest frozen historical OOS net and OOS N/S; establishes that
+the January effect—not the rolling gate—is the positive-return lever.
+
+A — UNFILTERED SHADOW CONTROL
+Reason: preserves the complete opportunity tape and honest filter attribution.
+```
+
+### Broker-like deployability (matched-net / scale)
+
+| Book | Broker net | Stress | N/S | Interpretation |
+|---|---:|---:|---:|---|
+| **B** January-only | $182.6k | −$54.6k | 3.35 | Higher raw net at base size |
+| **C** January + rolling gate | $178.1k | −$24.6k | **7.23** | Nearly the same net with far lower stress |
+
+- To match B’s **$182.6k** broker net, C needs only about **1.025×** base capital
+  (not 1.3×). At that matched-net scale, linear stress ≈ **−$25.2k** (~**54%** below B).
+- At **1.3×** C sizing (simple linear projection): net ≈ **$231.6k**, stress ≈ **−$32.0k**
+  — exceeds B base-size net with ~**41%** less stress than B.
+- **Operational qualification:** validate scaling with broker-like lot sizing, margin,
+  OCO fills, and non-linear costs — do not assume perfect linearity.
+
+### Scorecard bullets (unchanged facts)
 
 - Full-sample shadow N/S winner: **C** (6.07).
 - Frozen OOS shadow N/S winner: **B** (6.56, OOS net $+169066).
@@ -65,15 +108,18 @@ Broker N/S ranks: **C(7.23) > B(3.35) > A(2.14)**.
 
 ## 4. Funded-sleeve implication
 
-- Research/practice promote cell remains **C** for live demos (already wired).
+- Research/practice promote cell remains **C** for live demos (already wired) —
+  **primary capital-efficient demo book**.
+- **B** remains the alpha/return control (Jan-only OOS winner); do not drop it from
+  the three-book forward set.
 - Filter nulls: **RETAIN AS RISK THROTTLE** (`FILTER_NULLS.md`).
-- This forward cut asks whether roll50 is *necessary* beyond January for a
-  defensible funded rule. Verdict code: **`B_WINS_FORWARD_C_RISK_THROTTLE`**.
-- Funded sleeve stays **NO** until live parity + (if keeping C) a clear story that
-  sacrificed OOS net buys robust path risk investors actually need.
+- Locked book hierarchy (2026-08-11): **C** primary capital-efficient demo;
+  **B** alpha/return control; **A** unfiltered shadow control.
+- Verdict code: **`C_PRIMARY_CAPITAL_EFFICIENT_B_ALPHA_CONTROL`**.
+- Funded sleeve stays **NO** until live parity + validated non-linear scaling
+  (lot/margin/OCO) if sizing C up toward B's dollar target within a stress budget.
 
 Driver: `python -m live.fx_v2b_asia_range_london_usdjpy_three_book_forward --email`
 Optional broker B: add `--broker-jan`.
 
 Hub: `/home/tester/hsm/potions/live/state/fx_v2b_asia_range_london_usdjpy_filters`
-

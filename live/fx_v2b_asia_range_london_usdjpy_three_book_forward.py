@@ -286,11 +286,15 @@ def write_report(
         short = "C_WINS_FORWARD"
     elif (not c_beats_b_oos_ns) and (not c_beats_b_oos_net) and c_beats_b_stress:
         stance = (
-            "**B WINS FROZEN FORWARD (net/N/S); C remains risk throttle** — January-only beats "
-            "combined on OOS net and OOS N/S; roll gate still cuts full-sample stress. Aligns with "
-            "FILTER_NULLS risk-throttle stance; do **not** treat C's full-sample N/S beauty as funded-rule proof."
+            "**C PRIMARY CAPITAL-EFFICIENT; B ALPHA / RETURN CONTROL** — on broker-like deployability "
+            "(full-path net + stress budget), C wins: nearly B's broker net with far lower stress "
+            "(broker N/S C ≫ B), so C can match B's dollars at ~1.0×–1.3× scale while retaining lower "
+            "stress. Frozen shadow OOS still favors **B** (January is the positive-return lever; "
+            "roll gate is not an alpha-selection winner). Aligns with FILTER_NULLS risk-throttle; "
+            "do **not** treat C's full-sample N/S beauty as funded-rule proof. Validate scaling with "
+            "lot/margin/OCO (non-linear costs)."
         )
-        short = "B_WINS_FORWARD_C_RISK_THROTTLE"
+        short = "C_PRIMARY_CAPITAL_EFFICIENT_B_ALPHA_CONTROL"
     elif not c_beats_b_oos_ns and not c_beats_b_oos_net:
         stance = (
             "**B WINS FROZEN FORWARD** — January-only dominates combined on OOS; reconsider whether "
@@ -464,10 +468,11 @@ def write_report(
             "",
             "- Research/practice promote cell remains **C** for live demos (already wired).",
             "- Filter nulls: **RETAIN AS RISK THROTTLE** (`FILTER_NULLS.md`).",
-            "- This forward cut asks whether roll50 is *necessary* beyond January for a",
-            "  defensible funded rule. Verdict code: **`%s`**." % short,
-            "- Funded sleeve stays **NO** until live parity + (if keeping C) a clear story that",
-            "  sacrificed OOS net buys robust path risk investors actually need.",
+            "- Locked book hierarchy (2026-08-11): **C** primary capital-efficient demo;",
+            "  **B** alpha/return control; **A** unfiltered shadow control.",
+            "- Verdict code: **`%s`**." % short,
+            "- Funded sleeve stays **NO** until live parity + validated non-linear scaling",
+            "  (lot/margin/OCO) if sizing C up toward B's dollar target within a stress budget.",
             "",
             "Driver: `python -m live.fx_v2b_asia_range_london_usdjpy_three_book_forward --email`",
             "Optional broker B: add `--broker-jan`.",
