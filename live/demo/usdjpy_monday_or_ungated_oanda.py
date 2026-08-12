@@ -15,8 +15,11 @@ import signal
 import socket
 import sys
 import time
+from datetime import time as dt_time
 from pathlib import Path
 from typing import Any, Dict, List, Optional
+
+import pytz
 
 from ..broker import DEFAULT_TICK_SIZE
 from ..engine import Engine
@@ -61,6 +64,8 @@ RUN_DIRNAME = "usdjpy_monday_or_ungated_oanda"
 PHASE2_TAG = PAIR_PHASE2_DEFAULT["USDJPY"]  # M2_S3_R1
 TICK = 0.001
 CLI_COMMAND = "demo-usdjpy-monday-or-oanda"
+NY = pytz.timezone("America/New_York")
+WEEK_END_SIZE_REPORT_NY = dt_time(15, 59)
 
 
 def default_output_root() -> Path:
@@ -111,7 +116,7 @@ def write_run_meta(output_root: Path, *, config: OandaConfig) -> Dict[str, Any]:
         "output_root": str(output_root),
         "state_root": str(state_root_for(output_root)),
         "tracker": "STRATEGY_TRACKER Monday OR FX + monday_or_sizing_sweep_broker USDJPY #1 M2_S3_R1 N/S 8.20",
-        "note": "OANDA practice Monday OR: 15m candles from quote stream; real practice orders.",
+        "note": "OANDA practice Monday OR: 15m candles from quote stream; real practice orders; Fri 15:59 ET EOW chart pack.",
     }
     output_root.mkdir(parents=True, exist_ok=True)
     run_meta_path(output_root).write_text(json.dumps(meta, indent=2, sort_keys=True) + "\n", encoding="utf-8")
@@ -147,7 +152,10 @@ def bootstrap_store(output_root: Path) -> FlatFileStore:
 
 def build_engine(store: FlatFileStore, *, config: OandaConfig, client: OandaApiClient) -> Engine:
     DEFAULT_TICK_SIZE.setdefault(INSTRUMENT, TICK)
-    broker = OandaBroker(store, config=config, client=client, allow_live_routing=False)
+    broker = OandaBroker(
+        store, config=config, client=client, allow_live_routing=False,
+        authority_strategy_ids=[STRATEGY_ID],
+    )
     return Engine(
         store=store,
         broker=broker,
@@ -186,6 +194,7 @@ class MondayOrOandaRunner:
         self.fills_from_oanda = 0
         self.stop_requested = False
         self._weekly_size_week: Optional[str] = None
+        self._weekly_chart_week: Optional[str] = None
 
     def request_stop(self, *_args: Any) -> None:
         self.stop_requested = True
@@ -194,6 +203,7 @@ class MondayOrOandaRunner:
         broker = self.engine.broker
         if isinstance(broker, OandaBroker):
             try:
+                broker.register_authority_strategy(STRATEGY_ID)
                 broker.reconcile_from_account_details()
                 append_progress(
                     self.output_root,
@@ -228,7 +238,7 @@ class MondayOrOandaRunner:
         raw: Optional[Dict[str, Any]] = None,
     ) -> List[Bar]:
         mid_px = float(mid) if mid is not None else (float(bid) + float(ask)) / 2.0
-        day = parse_oanda_ts(ts).astimezone(__import__("pytz").timezone("America/New_York")).date().isoformat()
+        day = parse_oanda_ts(ts).astimezone(NY).date().isoformat()
         payload = {
             "type": "price",
             "instrument": INSTRUMENT,
@@ -254,21 +264,18 @@ class MondayOrOandaRunner:
                 completed_15.append(bar_15)
         self.maybe_poll_changes()
         self._maybe_weekly_size_report(ts)
+        self._maybe_weekly_eow_charts(ts)
         self._maybe_heartbeat()
         return completed_15
 
     def _maybe_weekly_size_report(self, ts: str) -> None:
         """Friday >= 15:59 NY — echo price-data + log sizes once per ISO week."""
-        import pytz
-        from datetime import time as dt_time
-
         from .size_report import append_size_report
 
-        ny = pytz.timezone("America/New_York")
-        wall = parse_oanda_ts(ts).astimezone(ny)
+        wall = parse_oanda_ts(ts).astimezone(NY)
         if wall.weekday() != 4:
             return
-        if wall.time().replace(tzinfo=None) < dt_time(15, 59):
+        if wall.timetz().replace(tzinfo=None) < WEEK_END_SIZE_REPORT_NY:
             return
         week_key = wall.date().isoformat()
         if self._weekly_size_week == week_key:
@@ -283,6 +290,26 @@ class MondayOrOandaRunner:
             )
         except Exception as exc:
             append_progress(self.output_root, "WARN weekly FILE_SIZES failed: %s" % exc)
+
+    def _maybe_weekly_eow_charts(self, ts: str) -> None:
+        """Friday >= 15:59 NY — Monday OR week overview + per-trade chart pack."""
+        from .monday_or_eow_charts import maybe_write_eow_chart_pack
+
+        wall = parse_oanda_ts(ts).astimezone(NY)
+        if wall.weekday() != 4:
+            return
+        if wall.timetz().replace(tzinfo=None) < WEEK_END_SIZE_REPORT_NY:
+            return
+        week_key = wall.date().isoformat()
+        if self._weekly_chart_week == week_key:
+            return
+        self._weekly_chart_week = week_key
+        maybe_write_eow_chart_pack(
+            self.output_root,
+            INSTRUMENT,
+            as_of=wall.date(),
+            log=append_progress,
+        )
 
     def flush(self) -> List[Bar]:
         out: List[Bar] = []

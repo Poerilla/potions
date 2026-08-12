@@ -133,3 +133,10 @@ Append-only research/platform progress notes.
 [2026-08-11T19:00Z] USDJPY Asia-range three-book hierarchy LOCKED: C_PRIMARY_CAPITAL_EFFICIENT_B_ALPHA_CONTROL (C demo capital-efficient / B Jan-only alpha control / A shadow). Broker: C $178k N/S 7.23 vs B $183k N/S 3.35; C~1.025x matches B net at ~54% less stress. Docs: THREE_BOOK_FORWARD + tracker + CHANGE_LOG. Practice demos on C; funded sleeve NO.
 
 [2026-08-11T19:10Z] THREE_BOOK_FORWARD citations added (White 2000 reality-check). Hierarchy lock already committed (C_PRIMARY_CAPITAL_EFFICIENT_B_ALPHA_CONTROL). Demo status emailed separately.
+[2026-08-11T20:38Z] EURUSD/US30 ungated paper+oanda STOPPED. Missed-promote screen+deep-checks → demos UP: EURUSD ST+PMC 3R full + 2R10R half; US30 Monday OR M3_S3_R2 half; EURUSD Monday OR M1_S2_R2 paper-half. London prior-opposed deferred; 4h/M3_S3_R3 reject. Hub live/state/eurusd_us30_missed_promote_screen/ (+ PROMOTE_PACKAGE email).
+
+[2026-08-11T21:50Z] US30 London prior-opposed delayed-arming demos UP at ¼ size (paper+OANDA). Live ST gate from sibling sl50_tp150_3r demos; research seed ~120 sessions; gate_audit.csv + st_events.json. CLI demo-us30-london-prior-opposed-{paper,oanda}. Empty prior_opposite events now block in v2b_scaleout. Half/full promote pending live ST parity + robustness.
+
+[2026-08-12T21:15Z] OANDA A+B fix landed: remote order authority sweep (orphan cancel on startup/timer/gate-off) + modify refresh_entry cancel/resubmit in live/oanda.py. Platform §6 + CHANGE_LOG + adapter tests. Next: restart OANDA demos that rest limits, oanda-practice-sync --repair-demo-positions, HTML email.
+
+[2026-08-12T21:20Z] OANDA demos restarted on A+B patch. nas100 3r gate-blocked zombie LIMIT cancelled (orphan sweep). practice-sync --repair-demo-positions cleaned foreign/stale qty on ST+PMC/v2b/monday-or/asia demos. Remaining remote LIMITs are runner books with gate allowed (local open matches remote). Protective SL/TP untouched. Tests 15 pass.

@@ -1,5 +1,47 @@
 # Live Runtime CHANGE_LOG
 
+## 2026-08-12 — OANDA remote order authority + cancel/resubmit refresh (A+B)
+
+- Root cause: plugin `regime_off` / `_cancel_entry_limits` only cancelled what
+  local `reconcile_orders()` knew; `modify_order` → `replace_order` left ghost
+  OANDA rests (0 cancel events) that kept filling after the gate flipped.
+- **A:** `OandaBroker.sweep_remote_order_authority` on startup reconcile + timer
+  (`poll_account_changes`): cancel tagged entry orphans not in
+  `_active_order_ids`; never touch trade-linked SL/TP; alert when
+  `pending_remote > local_open`.
+- **B:** `modify_order(refresh_entry)` prefers cancel + resubmit with audited
+  cancel events and remapped `_oanda_order_ids` (Paper unchanged).
+- Tests: `live/tests/test_oanda_adapter.py` orphan sweep + cancel/resubmit.
+- Docs: Platform §6 + known concerns. Restart OANDA demos to pick up patch;
+  practice sync repairs local positions.
+
+## 2026-08-11 — US30 London prior-opposed ¼-size demos (live ST gate)
+
+- Wired `demo-us30-london-prior-opposed-{paper,oanda}` — London OR 03:00–03:15 →
+  flatten 11:59, `prior_opposite_only`, **`size_mult=0.25`** (book `S_1_0_0`).
+- Live ST+PMC events from sibling `us30_hourly_st_pmc_sl50_tp150_3r_{paper,oanda}`
+  fills merged into `dynamic_sizing_events` (+ research resting-limit seed).
+- Price source default `st_feed_bars` (sibling 1m tape) to avoid US30 stream caps.
+- Gate audit CSV: session / prior ST ts+side / arm decision / OCO / fill / skip.
+- Plugin: empty `dynamic_sizing_events` now blocks when `prior_opposite_only`.
+- Hub: `live/state/fx_v2b_london_prior_opposed`. Half/full size still gated on live
+  ST parity + concentration clarity (not yet promoted).
+
+## 2026-08-11 — EURUSD/US30 ungated dropped + missed promote demos
+
+- Stopped live **EURUSD/US30 v2b ungated** paper+OANDA (sleeve review losers; broker ungated reject).
+- Offline screen `live/eurusd_us30_missed_promote_screen.py` → hub
+  `live/state/eurusd_us30_missed_promote_screen/` (month blackout + roll WR/PF;
+  ST+PMC WR floor 22%; deep-checks emailed HTML multipart).
+- **Promoted demos (UP):**
+  - EURUSD ST+PMC 50/150 fair 3R full — `demo-eurusd-hourly-st-pmc-{paper,oanda}`
+  - EURUSD ST+PMC 2R→10R **½** — `demo-eurusd-hourly-st-pmc-2r10r-{paper,oanda}`
+  - US30 Monday OR `M3_S3_R2` **½** + Sep skip — `demo-us30-monday-or-{paper,oanda}`
+  - EURUSD Monday OR `M1_S2_R2` **½ paper-only** + Aug skip — `demo-eurusd-monday-or-paper`
+- **Later same day:** US30 London prior-opposed wired at ¼ size (see entry above).
+  London 4h + Monday `M3_S3_R3` remain reject.
+- NAS100/SPX500 ungated v2b left running.
+
 ## 2026-08-11 — USDJPY Asia-range three-book hierarchy LOCKED (C capital-efficient)
 
 - Locked deployability hierarchy in `THREE_BOOK_FORWARD.md` + tracker:

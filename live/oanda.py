@@ -7,7 +7,7 @@ import sys
 from dataclasses import dataclass, field, replace
 from datetime import datetime, timezone
 from pathlib import Path
-from typing import Any, Callable, Dict, Iterable, List, Optional, Tuple
+from typing import Any, Callable, Dict, Iterable, List, Optional, Set, Tuple
 
 from .broker import BaseBroker
 from .live_feed import FeedHealth, LiveFeedAdapter, PersistedLiveFeedAdapter
@@ -42,6 +42,30 @@ DEFAULT_DISPLAY_PRECISION = {
 }
 DEFAULT_PRIMARY_ACCOUNT = "101-002-39860312-001"
 DEFAULT_SECONDARY_ACCOUNT = "101-002-39860312-002"
+# Trade-linked protective orders must never be swept as entry orphans.
+_OANDA_PROTECTIVE_ORDER_TYPES = frozenset(
+    {
+        "STOP_LOSS",
+        "TAKE_PROFIT",
+        "TRAILING_STOP_LOSS",
+        "GUARANTEED_STOP_LOSS",
+    }
+)
+_OANDA_ENTRY_ORPHAN_ORDER_TYPES = frozenset(
+    {
+        "LIMIT",
+        "STOP",
+        "MARKET_IF_TOUCHED",
+    }
+)
+_REMOTE_AUTHORITY_SWEEP_SECONDS = 60.0
+_CANCEL_RESUBMIT_MODIFY_REASONS = frozenset(
+    {
+        "refresh_entry",
+        "modify",
+        "",
+    }
+)
 
 
 class OandaAdapterError(RuntimeError):
@@ -903,6 +927,7 @@ class OandaBroker(BaseBroker):
         client: Optional[OandaApiClient] = None,
         allow_live_routing: bool = False,
         supervisor: Optional[RuntimeSupervisor] = None,
+        authority_strategy_ids: Optional[Iterable[str]] = None,
     ):
         self.store = store
         self.store.ensure()
@@ -921,9 +946,15 @@ class OandaBroker(BaseBroker):
             if order.status in {"submitted", "partially_filled", "working", "pendingnew"}
         }
         self._oanda_order_ids: Dict[str, str] = {}
+        self._authority_strategy_ids: Set[str] = {
+            str(sid).strip() for sid in (authority_strategy_ids or []) if str(sid).strip()
+        }
         self.last_transaction_id: str = ""
         self._pending_fills: List[Fill] = []
         self._display_precision: Dict[str, int] = dict(DEFAULT_DISPLAY_PRECISION)
+        self._last_authority_sweep_at: float = 0.0
+        self._pending_remote_snapshot: List[Dict[str, Any]] = []
+        self._pending_gate_off_sweep_strategy_ids: Set[str] = set()
 
     def display_precision_for(self, instrument: str) -> int:
         key = str(instrument or "").upper()
@@ -953,6 +984,15 @@ class OandaBroker(BaseBroker):
         self._emit_order_event({"event": "submit", "oanda_order": payload, **as_row(order)})
         self._send_create_order(payload, order.broker_order_id)
         return order
+
+    def register_authority_strategy(self, strategy_id: str) -> None:
+        sid = str(strategy_id or "").strip()
+        if sid:
+            self._authority_strategy_ids.add(sid)
+
+    def register_authority_strategies(self, strategy_ids: Iterable[str]) -> None:
+        for strategy_id in strategy_ids:
+            self.register_authority_strategy(strategy_id)
 
     def modify_order(
         self,
@@ -990,6 +1030,11 @@ class OandaBroker(BaseBroker):
                 limit_price=updated.limit_price,
                 stop_price=updated.stop_price,
                 reason=reason or "modify",
+                bracket_stop_price=bracket_stop_price,
+                bracket_target_price=bracket_target_price,
+                requires_verification=False,
+                bracket_role=updated.bracket_role,
+                live_after_ts=updated.live_after_ts,
             )
         else:
             intent = replace(
@@ -998,16 +1043,52 @@ class OandaBroker(BaseBroker):
                 stop_price=updated.stop_price,
                 bracket_stop_price=bracket_stop_price if bracket_stop_price is not None else intent.bracket_stop_price,
                 bracket_target_price=bracket_target_price if bracket_target_price is not None else intent.bracket_target_price,
+                live_after_ts=updated.live_after_ts if updated.live_after_ts is not None else intent.live_after_ts,
             )
+            self._intents_cache[intent.intent_id] = intent
         payload = self.order_intent_to_oanda_order(intent, updated)
-        remote_id = self._oanda_order_ids.get(broker_order_id, "")
+        remote_id = self._resolve_remote_order_id(broker_order_id)
         self._emit_order_event(
             {"event": "modify", "oanda_order_id": remote_id, "oanda_order": payload, "reason": reason, **as_row(updated)}
         )
-        if self.client is not None and remote_id:
+        if self.client is None:
+            return updated
+        # Prefer cancel + resubmit for resting entry refreshes so OANDA never keeps a
+        # ghost id after replace, and every cancel is audited in oanda_order_events.
+        prefer_cancel_resubmit = self._should_cancel_resubmit_modify(order, reason)
+        if prefer_cancel_resubmit:
+            self._cancel_resubmit_remote_order(
+                broker_order_id=broker_order_id,
+                remote_id=remote_id,
+                payload=payload,
+                reason=reason or "refresh_entry",
+            )
+            return updated
+        if remote_id:
             try:
                 raw = self.client.replace_order(remote_id, payload)
+                raw = _jsonable(raw) if not isinstance(raw, dict) else {k: _jsonable(v) for k, v in raw.items()}
                 self._emit_order_event({"event": "network_order_response", "action": "replace", "response": raw})
+                new_remote = self._extract_remote_order_id_from_replace(raw)
+                if new_remote:
+                    self._oanda_order_ids[broker_order_id] = str(new_remote)
+                if remote_id and remote_id in self._oanda_order_ids.values() and self._oanda_order_ids.get(broker_order_id) != remote_id:
+                    # Old remote id must not remain mapped to any local order.
+                    stale = [lid for lid, rid in self._oanda_order_ids.items() if rid == remote_id and lid != broker_order_id]
+                    for lid in stale:
+                        self._oanda_order_ids.pop(lid, None)
+                if self._oanda_order_ids.get(broker_order_id) == remote_id and new_remote and str(new_remote) != remote_id:
+                    self._oanda_order_ids[broker_order_id] = str(new_remote)
+                if remote_id and self._oanda_order_ids.get(broker_order_id) == remote_id and not new_remote:
+                    # Replace without a new id is unsafe — force cancel+resubmit next.
+                    self._emit_order_event(
+                        {
+                            "event": "replace_id_unchanged",
+                            "broker_order_id": broker_order_id,
+                            "oanda_order_id": remote_id,
+                            "reason": reason,
+                        }
+                    )
             except Exception as exc:
                 self._emit_order_event({"event": "network_order_error", "action": "replace", "error": str(exc)})
                 raise
@@ -1021,15 +1102,24 @@ class OandaBroker(BaseBroker):
         self._orders_cache[updated.broker_order_id] = updated
         self._active_order_ids.pop(updated.broker_order_id, None)
         self.store.upsert_row("orders", "broker_order_id", as_row(updated))
-        remote_id = self._oanda_order_ids.get(broker_order_id, "")
+        remote_id = self._resolve_remote_order_id(broker_order_id)
         self._emit_order_event({"event": "cancel", "oanda_order_id": remote_id, "reason": reason, **as_row(updated)})
         if self.client is not None and remote_id:
             try:
                 raw = self.client.cancel_order(remote_id)
                 self._emit_order_event({"event": "network_order_response", "action": "cancel", "response": raw})
+                self._oanda_order_ids.pop(broker_order_id, None)
             except Exception as exc:
                 self._emit_order_event({"event": "network_order_error", "action": "cancel", "error": str(exc)})
                 raise
+        elif self.client is not None and not remote_id:
+            # Local cancel without a mapped remote id — still try clientExtensions.id on snapshot.
+            self._cancel_remote_by_client_id(broker_order_id, reason=reason or "cancel")
+        reason_l = str(reason or "").lower()
+        if any(token in reason_l for token in ("regime_off", "thesis_off", "year_end", "refresh_entry", "go_flat")):
+            # Defer orphan sweep to the next authority timer / poll so a gate-off batch
+            # of N local cancels does not issue N account_details fetches.
+            self._pending_gate_off_sweep_strategy_ids.add(order.strategy_id)
         return updated
 
     def reconcile_orders(self) -> List[BrokerOrder]:
@@ -1053,10 +1143,13 @@ class OandaBroker(BaseBroker):
             "reconciliation_events",
             {"event": "oanda_account_details_start", "last_transaction_id": self.last_transaction_id},
         )
+        raw_orders = []
         for raw_order in account.get("orders") or []:
             if hasattr(raw_order, "dict"):
                 raw_order = raw_order.dict()
+            raw_orders.append(dict(raw_order))
             self.on_order_status(dict(raw_order, type="order_status"))
+        self._ingest_remote_pending_orders(raw_orders)
         self._positions_cache = {}
         for raw_position in account.get("positions") or []:
             if hasattr(raw_position, "dict"):
@@ -1066,6 +1159,12 @@ class OandaBroker(BaseBroker):
                 continue
             self._positions_cache[position.position_id] = position
             self.store.upsert_row("positions", "position_id", as_row(position))
+        sweep = self.sweep_remote_order_authority(
+            pending_orders=raw_orders,
+            cancel_orphans=True,
+            reason="startup_reconcile",
+            force_fetch=False,
+        )
         self.store.append_event(
             "reconciliation_events",
             {
@@ -1073,10 +1172,142 @@ class OandaBroker(BaseBroker):
                 "orders": len(list(self._orders_cache.values())),
                 "positions": len(list(self._positions_cache.values())),
                 "last_transaction_id": self.last_transaction_id,
+                "remote_pending": int(sweep.get("remote_pending") or 0),
+                "orphans_cancelled": int(sweep.get("orphans_cancelled") or 0),
             },
         )
         if self.supervisor is not None:
             self.supervisor.mark_reconciled("oanda_account_details_reconciled")
+
+    def maybe_sweep_remote_order_authority(self, *, min_interval_s: float = _REMOTE_AUTHORITY_SWEEP_SECONDS) -> Dict[str, Any]:
+        import time
+
+        now = time.time()
+        pending_gate = set(self._pending_gate_off_sweep_strategy_ids)
+        if pending_gate:
+            self._pending_gate_off_sweep_strategy_ids.clear()
+            return self.sweep_remote_order_authority(
+                strategy_ids=pending_gate,
+                cancel_orphans=True,
+                reason="orphan_after_gate_off",
+                force_fetch=True,
+            )
+        if self._last_authority_sweep_at and (now - self._last_authority_sweep_at) < float(min_interval_s):
+            return {"skipped": True, "age_s": now - self._last_authority_sweep_at}
+        return self.sweep_remote_order_authority(cancel_orphans=True, reason="timer_sweep", force_fetch=True)
+
+    def sweep_remote_order_authority(
+        self,
+        *,
+        pending_orders: Optional[List[Dict[str, Any]]] = None,
+        strategy_ids: Optional[Iterable[str]] = None,
+        cancel_orphans: bool = True,
+        reason: str = "orphan_sweep",
+        force_fetch: bool = False,
+    ) -> Dict[str, Any]:
+        """Pull remote pending orders tagged for this broker and cancel orphans.
+
+        Orphans = entry-style rests whose clientExtensions.id is not in local
+        ``_active_order_ids``. Protective SL/TP (trade-linked) are never cancelled.
+        """
+        import time
+
+        owned = set(self._authority_strategy_ids_resolved())
+        if strategy_ids is not None:
+            owned = {str(sid).strip() for sid in strategy_ids if str(sid).strip()}
+        if pending_orders is None:
+            if force_fetch and self.client is not None:
+                body = self.client.account_details()
+                account = body.get("account") or body
+                if hasattr(account, "dict"):
+                    account = account.dict()
+                pending_orders = []
+                for raw_order in account.get("orders") or []:
+                    if hasattr(raw_order, "dict"):
+                        raw_order = raw_order.dict()
+                    pending_orders.append(dict(raw_order))
+                self.last_transaction_id = str(
+                    body.get("lastTransactionID") or account.get("lastTransactionID") or self.last_transaction_id
+                )
+            else:
+                pending_orders = list(self._pending_remote_snapshot)
+        self._ingest_remote_pending_orders(pending_orders)
+        remote_for_owned: List[Dict[str, Any]] = []
+        orphans: List[Dict[str, Any]] = []
+        for raw in pending_orders or []:
+            meta = self._remote_order_meta(raw)
+            if meta["order_type"] in _OANDA_PROTECTIVE_ORDER_TYPES:
+                continue
+            if meta["order_type"] not in _OANDA_ENTRY_ORPHAN_ORDER_TYPES:
+                continue
+            if not meta["strategy_id"] or meta["strategy_id"] not in owned:
+                continue
+            remote_for_owned.append(meta)
+            local_id = meta["client_id"]
+            if not local_id or local_id not in self._active_order_ids:
+                orphans.append(meta)
+        local_open = len(self._active_order_ids)
+        remote_pending = len(remote_for_owned)
+        cancelled = 0
+        if cancel_orphans and self.client is not None:
+            for meta in orphans:
+                remote_id = str(meta.get("remote_id") or "")
+                if not remote_id:
+                    continue
+                try:
+                    raw = self.client.cancel_order(remote_id)
+                    cancelled += 1
+                    self._emit_order_event(
+                        {
+                            "event": "cancel",
+                            "oanda_order_id": remote_id,
+                            "reason": reason,
+                            "broker_order_id": meta.get("client_id") or "",
+                            "strategy_id": meta.get("strategy_id") or "",
+                            "orphan": True,
+                        }
+                    )
+                    self._emit_order_event(
+                        {"event": "network_order_response", "action": "orphan_cancel", "response": _jsonable(raw)}
+                    )
+                    local_id = str(meta.get("client_id") or "")
+                    if local_id:
+                        self._oanda_order_ids.pop(local_id, None)
+                        local_order = self._orders_cache.get(local_id)
+                        if local_order is not None and local_order.status in {
+                            "submitted",
+                            "partially_filled",
+                            "working",
+                            "pendingnew",
+                        }:
+                            updated = replace(local_order, status="cancelled", updated_at=utc_now_iso())
+                            self._orders_cache[local_id] = updated
+                            self._active_order_ids.pop(local_id, None)
+                            self.store.upsert_row("orders", "broker_order_id", as_row(updated))
+                except Exception as exc:
+                    self._emit_order_event(
+                        {
+                            "event": "network_order_error",
+                            "action": "orphan_cancel",
+                            "oanda_order_id": remote_id,
+                            "error": str(exc),
+                            "reason": reason,
+                        }
+                    )
+        result = {
+            "owned_strategy_ids": sorted(owned),
+            "local_open": local_open,
+            "remote_pending": remote_pending,
+            "orphans_seen": len(orphans),
+            "orphans_cancelled": cancelled,
+            "pending_gt_local": remote_pending > local_open,
+            "reason": reason,
+        }
+        if remote_pending > local_open:
+            self._emit_order_event({"event": "pending_remote_gt_local_open", **result})
+        self._emit_order_event({"event": "remote_order_authority_sweep", **result})
+        self._last_authority_sweep_at = time.time()
+        return result
 
     def apply_account_changes(self, body: Dict[str, Any]) -> List[Fill]:
         changes = body.get("changes") or {}
@@ -1200,6 +1431,20 @@ class OandaBroker(BaseBroker):
         order = self._orders_cache.get(broker_order_id)
         if order is None:
             return None
+        # Never resurrect terminal local orders from a stale remote PENDING.
+        # Those are orphans for sweep_remote_order_authority to cancel.
+        if order.status in {"cancelled", "filled", "rejected"}:
+            self._active_order_ids.pop(broker_order_id, None)
+            self._emit_order_event(
+                {
+                    "event": "order_status_ignored_terminal_local",
+                    "broker_order_id": broker_order_id,
+                    "local_status": order.status,
+                    "remote_state": event.get("state") or event.get("status"),
+                    "oanda_order_id": oanda_order_id,
+                }
+            )
+            return order
         status = normalize_oanda_order_status(str(event.get("state") or event.get("status") or order.status))
         remaining = int(
             float(
@@ -1500,6 +1745,171 @@ class OandaBroker(BaseBroker):
             realized_pnl=float(raw.get("pl") or 0.0),
             updated_at=utc_now_iso(),
         )
+
+    def _authority_strategy_ids_resolved(self) -> Set[str]:
+        ids = set(self._authority_strategy_ids)
+        for order in self._orders_cache.values():
+            if order.strategy_id:
+                ids.add(str(order.strategy_id))
+        for intent in self._intents_cache.values():
+            if intent.strategy_id:
+                ids.add(str(intent.strategy_id))
+        return ids
+
+    def _remote_order_meta(self, raw: Dict[str, Any]) -> Dict[str, Any]:
+        extensions = raw.get("clientExtensions") or {}
+        if hasattr(extensions, "dict"):
+            extensions = extensions.dict()
+        if not isinstance(extensions, dict):
+            extensions = {}
+        client_id = str(extensions.get("id") or raw.get("clientOrderID") or raw.get("broker_order_id") or "")
+        strategy_id = str(extensions.get("tag") or raw.get("strategy_id") or "")
+        remote_id = str(raw.get("id") or raw.get("orderID") or raw.get("order_id") or "")
+        order_type = str(raw.get("type") or raw.get("orderType") or "").upper()
+        instrument = str(raw.get("instrument") or "")
+        return {
+            "raw": raw,
+            "client_id": client_id,
+            "strategy_id": strategy_id,
+            "remote_id": remote_id,
+            "order_type": order_type,
+            "instrument": instrument,
+        }
+
+    def _ingest_remote_pending_orders(self, pending_orders: Optional[List[Dict[str, Any]]]) -> None:
+        snapshot: List[Dict[str, Any]] = []
+        for raw in pending_orders or []:
+            if hasattr(raw, "dict"):
+                raw = raw.dict()
+            meta = self._remote_order_meta(dict(raw))
+            snapshot.append(dict(raw))
+            client_id = meta["client_id"]
+            remote_id = meta["remote_id"]
+            if client_id and remote_id and client_id in self._orders_cache:
+                self._oanda_order_ids[client_id] = remote_id
+        self._pending_remote_snapshot = snapshot
+
+    def _resolve_remote_order_id(self, broker_order_id: str) -> str:
+        remote_id = str(self._oanda_order_ids.get(broker_order_id) or "")
+        if remote_id:
+            return remote_id
+        for raw in self._pending_remote_snapshot:
+            meta = self._remote_order_meta(raw)
+            if meta["client_id"] == broker_order_id and meta["remote_id"]:
+                self._oanda_order_ids[broker_order_id] = meta["remote_id"]
+                return meta["remote_id"]
+        return ""
+
+    def _cancel_remote_by_client_id(self, broker_order_id: str, *, reason: str) -> None:
+        remote_id = self._resolve_remote_order_id(broker_order_id)
+        if not remote_id or self.client is None:
+            return
+        try:
+            raw = self.client.cancel_order(remote_id)
+            self._emit_order_event(
+                {
+                    "event": "cancel",
+                    "oanda_order_id": remote_id,
+                    "reason": reason,
+                    "broker_order_id": broker_order_id,
+                    "resolved_without_map": True,
+                }
+            )
+            self._emit_order_event({"event": "network_order_response", "action": "cancel", "response": _jsonable(raw)})
+            self._oanda_order_ids.pop(broker_order_id, None)
+        except Exception as exc:
+            self._emit_order_event(
+                {
+                    "event": "network_order_error",
+                    "action": "cancel",
+                    "oanda_order_id": remote_id,
+                    "broker_order_id": broker_order_id,
+                    "error": str(exc),
+                }
+            )
+
+    def _should_cancel_resubmit_modify(self, order: BrokerOrder, reason: str) -> bool:
+        reason_key = str(reason or "").strip().lower()
+        if reason_key.startswith("refresh_entry") or reason_key in _CANCEL_RESUBMIT_MODIFY_REASONS:
+            return True
+        if order.reduce_only:
+            return False
+        return str(order.order_type or "").lower() == "limit"
+
+    def _cancel_resubmit_remote_order(
+        self,
+        *,
+        broker_order_id: str,
+        remote_id: str,
+        payload: Dict[str, Any],
+        reason: str,
+    ) -> None:
+        old_remote = str(remote_id or "")
+        if self.client is None:
+            return
+        if old_remote:
+            try:
+                raw = self.client.cancel_order(old_remote)
+                self._emit_order_event(
+                    {
+                        "event": "cancel",
+                        "oanda_order_id": old_remote,
+                        "reason": reason,
+                        "broker_order_id": broker_order_id,
+                        "cancel_before_resubmit": True,
+                    }
+                )
+                self._emit_order_event(
+                    {"event": "network_order_response", "action": "cancel_before_resubmit", "response": _jsonable(raw)}
+                )
+            except Exception as exc:
+                self._emit_order_event(
+                    {
+                        "event": "network_order_error",
+                        "action": "cancel_before_resubmit",
+                        "oanda_order_id": old_remote,
+                        "error": str(exc),
+                    }
+                )
+                # Still attempt create — remote may already be gone.
+            self._oanda_order_ids.pop(broker_order_id, None)
+            # Ensure old remote id is not mapped to any local order.
+            for lid, rid in list(self._oanda_order_ids.items()):
+                if rid == old_remote:
+                    self._oanda_order_ids.pop(lid, None)
+        self._send_create_order(payload, broker_order_id)
+        new_remote = str(self._oanda_order_ids.get(broker_order_id) or "")
+        if old_remote and old_remote in self._oanda_order_ids.values():
+            raise OandaAdapterError(
+                "cancel+resubmit left old OANDA id %s mapped after refresh of %s" % (old_remote, broker_order_id)
+            )
+        self._emit_order_event(
+            {
+                "event": "cancel_resubmit",
+                "broker_order_id": broker_order_id,
+                "old_oanda_order_id": old_remote,
+                "new_oanda_order_id": new_remote,
+                "reason": reason,
+            }
+        )
+
+    def _extract_remote_order_id_from_replace(self, raw: Dict[str, Any]) -> str:
+        for key in ("orderCreateTransaction", "orderFillTransaction", "orderCancelTransaction"):
+            tx = raw.get(key) or {}
+            if hasattr(tx, "dict"):
+                tx = tx.dict()
+            if isinstance(tx, dict):
+                rid = str(tx.get("id") or tx.get("orderID") or "")
+                if rid and key == "orderCreateTransaction":
+                    return rid
+                if rid and key == "orderFillTransaction":
+                    return str(tx.get("orderID") or rid)
+        order_created = raw.get("orderCreated") or raw.get("order")
+        if hasattr(order_created, "dict"):
+            order_created = order_created.dict()
+        if isinstance(order_created, dict):
+            return str(order_created.get("id") or "")
+        return ""
 
     def _get_order(self, broker_order_id: str) -> BrokerOrder:
         order = self._orders_cache.get(broker_order_id)

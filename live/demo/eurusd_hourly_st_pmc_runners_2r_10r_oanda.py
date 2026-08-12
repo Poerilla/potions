@@ -1,6 +1,6 @@
-"""US30 hourly ST+PMC sl50_tp150_runners_2r_10r — OANDA practice demo.
+"""EURUSD hourly ST+PMC sl50_tp150_runners_2r_10r — OANDA practice demo.
 
-Fair-control 1mfill lot-correct N/S ≈ 24.1. Artifacts: ``live/demo/us30_hourly_st_pmc_sl50_tp150_runners_2r_10r_oanda/``.
+1m-fill lot-correct HALF-SIZE vs full N/S 1.80. Artifacts: ``live/demo/eurusd_hourly_st_pmc_sl50_tp150_runners_2r_10r_oanda/``.
 Streams practice quotes → 1m → 1h; routes practice orders via ``OandaBroker``.
 """
 
@@ -50,11 +50,12 @@ from .oanda_v2b_ungated_common import (
     run_meta_path,
     state_root_for,
 )
-from .us30_hourly_st_pmc_common import (
+from .eurusd_hourly_st_pmc_common import (
     INSTRUMENT,
     STRATEGY_TYPE,
     TICK,
     book_spec,
+    inherit_1m_from_running_demos,
     seed_hourly_history,
     strategy_config_payload,
     upsert_strategy_instance,
@@ -64,9 +65,9 @@ BOOK = "sl50_tp150_runners_2r_10r"
 _SPEC = book_spec(BOOK)
 VARIANT = str(_SPEC["variant"])
 TRACKER_NOTE = str(_SPEC["tracker"])
-STRATEGY_ID = "us30_hourly_st_pmc_sl50_tp150_runners_2r_10r_oanda"
-RUN_DIRNAME = "us30_hourly_st_pmc_sl50_tp150_runners_2r_10r_oanda"
-CLI_COMMAND = "demo-us30-hourly-st-pmc-2r10r-oanda"
+STRATEGY_ID = "eurusd_hourly_st_pmc_sl50_tp150_runners_2r_10r_oanda"
+RUN_DIRNAME = "eurusd_hourly_st_pmc_sl50_tp150_runners_2r_10r_oanda"
+CLI_COMMAND = "demo-eurusd-hourly-st-pmc-2r10r-oanda"
 
 
 def default_output_root() -> Path:
@@ -109,9 +110,12 @@ def bootstrap_store(output_root: Path) -> FlatFileStore:
     store = FlatFileStore(state_root_for(output_root))
     store.ensure()
     upsert_strategy_instance(store, strategy_id=STRATEGY_ID, oanda_routing=True, book=BOOK)
-    n = seed_hourly_history(store, source="us30_1h_csv_seed_oanda")
+    n = seed_hourly_history(store, source="eurusd_1h_csv_seed_oanda")
     if n:
         append_progress(output_root, "SEED 1h history bars=%d" % n)
+    n1 = inherit_1m_from_running_demos(store)
+    if n1:
+        append_progress(output_root, "INHERIT 1m bars=%d from running eurusd v2b demos" % n1)
     return store
 
 
@@ -307,7 +311,7 @@ def run_stream_loop(
     pidfile_path(output_root).write_text(str(os.getpid()) + "\n", encoding="utf-8")
     append_progress(
         output_root,
-        "STARTED US30 ST+PMC oanda variant=%s strategy=%s account=%s state=%s pid=%s"
+        "STARTED EURUSD ST+PMC oanda variant=%s strategy=%s account=%s state=%s pid=%s"
         % (VARIANT, STRATEGY_ID, config.account_id, state_root_for(output_root), os.getpid()),
     )
     append_progress(

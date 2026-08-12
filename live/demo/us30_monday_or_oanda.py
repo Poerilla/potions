@@ -1,7 +1,10 @@
-"""US30 hourly ST+PMC sl50_tp150_runners_2r_10r — OANDA practice demo.
+"""US30 Monday OR Phase 2 primary — OANDA practice demo.
 
-Fair-control 1mfill lot-correct N/S ≈ 24.1. Artifacts: ``live/demo/us30_hourly_st_pmc_sl50_tp150_runners_2r_10r_oanda/``.
-Streams practice quotes → 1m → 1h; routes practice orders via ``OandaBroker``.
+Tracker / Phase 2 default: ``M3_S3_R2`` (``monday_or_breakout``), N/S ≈ 1.85 half-size + Sep skip.
+Artifacts: ``live/demo/us30_monday_or_m3_s3_r2_half_oanda/``.
+
+Streams practice prices, aggregates 1m → 15m (left-labeled like research), routes
+real practice orders via ``OandaBroker``. Local CSVs mirror Account Changes.
 """
 
 from __future__ import annotations
@@ -12,15 +15,19 @@ import signal
 import socket
 import sys
 import time
+from datetime import time as dt_time
 from pathlib import Path
 from typing import Any, Dict, List, Optional
 
+import pytz
+
 from ..broker import DEFAULT_TICK_SIZE
 from ..engine import Engine
-from ..models import Bar, utc_now_iso
+from ..models import Bar, StrategyInstance, as_row, utc_now_iso
+from ..monday_or_phase2_tags import PAIR_PHASE2_DEFAULT, plugin_config
 from ..oanda import (
     DEFAULT_PRIMARY_ACCOUNT,
-    HourlyBarAggregator,
+    FifteenMinuteBarAggregator,
     OandaApiClient,
     OandaBroker,
     OandaConfig,
@@ -50,44 +57,55 @@ from .oanda_v2b_ungated_common import (
     run_meta_path,
     state_root_for,
 )
-from .us30_hourly_st_pmc_common import (
-    INSTRUMENT,
-    STRATEGY_TYPE,
-    TICK,
-    book_spec,
-    seed_hourly_history,
-    strategy_config_payload,
-    upsert_strategy_instance,
-)
 
-BOOK = "sl50_tp150_runners_2r_10r"
-_SPEC = book_spec(BOOK)
-VARIANT = str(_SPEC["variant"])
-TRACKER_NOTE = str(_SPEC["tracker"])
-STRATEGY_ID = "us30_hourly_st_pmc_sl50_tp150_runners_2r_10r_oanda"
-RUN_DIRNAME = "us30_hourly_st_pmc_sl50_tp150_runners_2r_10r_oanda"
-CLI_COMMAND = "demo-us30-hourly-st-pmc-2r10r-oanda"
+INSTRUMENT = "US30"
+STRATEGY_ID = "us30_monday_or_m3_s3_r2_half_oanda"
+RUN_DIRNAME = "us30_monday_or_m3_s3_r2_half_oanda"
+PHASE2_TAG = PAIR_PHASE2_DEFAULT["US30"]  # M3_S3_R2
+TICK = 0.1
+CLI_COMMAND = "demo-us30-monday-or-oanda"
+NY = pytz.timezone("America/New_York")
+WEEK_END_SIZE_REPORT_NY = dt_time(15, 59)
 
 
 def default_output_root() -> Path:
     return demo_run_root(RUN_DIRNAME)
 
 
+def strategy_config_payload() -> Dict[str, Any]:
+    payload = plugin_config(TICK, PHASE2_TAG, pair="US30")
+    payload.update(
+        {
+            "phase2_tag": PHASE2_TAG,
+            "week_end_flatten": "15:59",
+            "paper_only": False,
+            "oanda_routing": True,
+            "signal_price": "mid",
+            "fill_price": "oanda",
+        }
+    )
+    return payload
+
+
 def write_run_meta(output_root: Path, *, config: OandaConfig) -> Dict[str, Any]:
-    payload = strategy_config_payload(oanda_routing=True, book=BOOK)
+    payload = strategy_config_payload()
     meta = {
         "started_at": utc_now_iso(),
         "pid": os.getpid(),
         "hostname": socket.gethostname(),
         "strategy_id": STRATEGY_ID,
-        "strategy_type": STRATEGY_TYPE,
-        "variant": VARIANT,
+        "strategy_type": "monday_or_breakout",
+        "phase2_tag": PHASE2_TAG,
         "instrument": INSTRUMENT,
         "oanda_instrument": config.symbol_for(INSTRUMENT),
         "tick_size": TICK,
-        "timeframe": "1h",
-        "stop_pts": payload["stop_pts"],
-        "target_pts": payload["target_pts"],
+        "timeframe": "15m",
+        "entry_qty": payload["entry_qty"],
+        "dd30_qty": payload["dd30_qty"],
+        "dd50_qty": payload["dd50_qty"],
+        "shifted_entry_qty": payload["shifted_entry_qty"],
+        "max_trades_per_week": payload["max_trades_per_week"],
+        "units_note": "Strategy qty maps 1:1 to OANDA units (tiny practice size; not research 7700 units).",
         "account_mode": "paper",
         "oanda_routing": True,
         "allow_live_routing": False,
@@ -97,8 +115,8 @@ def write_run_meta(output_root: Path, *, config: OandaConfig) -> Dict[str, Any]:
         "oanda_stream_url": config.stream_url,
         "output_root": str(output_root),
         "state_root": str(state_root_for(output_root)),
-        "tracker": TRACKER_NOTE,
-        "note": "OANDA practice ST+PMC: 1h signals; real practice orders; Account Changes mirror fills.",
+        "tracker": "STRATEGY_TRACKER Monday OR FX + monday_or_sizing_sweep_broker US30 #1 M3_S3_R2 N/S 8.20",
+        "note": "OANDA practice Monday OR: 15m candles from quote stream; real practice orders; Fri 15:59 ET EOW chart pack.",
     }
     output_root.mkdir(parents=True, exist_ok=True)
     run_meta_path(output_root).write_text(json.dumps(meta, indent=2, sort_keys=True) + "\n", encoding="utf-8")
@@ -108,10 +126,27 @@ def write_run_meta(output_root: Path, *, config: OandaConfig) -> Dict[str, Any]:
 def bootstrap_store(output_root: Path) -> FlatFileStore:
     store = FlatFileStore(state_root_for(output_root))
     store.ensure()
-    upsert_strategy_instance(store, strategy_id=STRATEGY_ID, oanda_routing=True, book=BOOK)
-    n = seed_hourly_history(store, source="us30_1h_csv_seed_oanda")
-    if n:
-        append_progress(output_root, "SEED 1h history bars=%d" % n)
+    payload = strategy_config_payload()
+    max_qty = max(int(payload["entry_qty"]), int(payload["shifted_entry_qty"]))
+    store.upsert_row(
+        "strategy_instances",
+        "strategy_id",
+        as_row(
+            StrategyInstance(
+                strategy_id=STRATEGY_ID,
+                strategy_type="monday_or_breakout",
+                version="v1",
+                instrument=INSTRUMENT,
+                broker_instrument=INSTRUMENT,
+                account_mode="paper",
+                enabled=True,
+                timeframes="15m",
+                max_contracts=max_qty,
+                max_open_orders=64,
+                config_json=json.dumps(payload, sort_keys=True),
+            )
+        ),
+    )
     return store
 
 
@@ -135,7 +170,7 @@ def build_engine(store: FlatFileStore, *, config: OandaConfig, client: OandaApiC
     )
 
 
-class StPmcOandaRunner:
+class MondayOrOandaRunner:
     def __init__(
         self,
         *,
@@ -149,16 +184,17 @@ class StPmcOandaRunner:
         self.store = bootstrap_store(self.output_root)
         self.client = client or OandaApiClient(config=self.config, store=self.store)
         self.engine = build_engine(self.store, config=self.config, client=self.client)
-        self.builder_1m = QuoteOneMinuteBarBuilder(INSTRUMENT, source="oanda_st_pmc_quote")
-        self.agg_1h = HourlyBarAggregator(INSTRUMENT, source="oanda_st_pmc_1h")
+        self.builder_1m = QuoteOneMinuteBarBuilder(INSTRUMENT, source="oanda_monday_or_quote")
+        self.agg_15m = FifteenMinuteBarAggregator(INSTRUMENT, source="oanda_monday_or_15m")
         self._last_progress_at = 0.0
         self._last_changes_poll_at = 0.0
         self.ticks_logged = 0
         self.bars_1m = 0
-        self.bars_1h = 0
+        self.bars_15m = 0
         self.fills_from_oanda = 0
         self.stop_requested = False
-        self._last_open_chart_at = None
+        self._weekly_size_week: Optional[str] = None
+        self._weekly_chart_week: Optional[str] = None
 
     def request_stop(self, *_args: Any) -> None:
         self.stop_requested = True
@@ -202,7 +238,7 @@ class StPmcOandaRunner:
         raw: Optional[Dict[str, Any]] = None,
     ) -> List[Bar]:
         mid_px = float(mid) if mid is not None else (float(bid) + float(ask)) / 2.0
-        day = parse_oanda_ts(ts).astimezone(__import__("pytz").timezone("America/New_York")).date().isoformat()
+        day = parse_oanda_ts(ts).astimezone(NY).date().isoformat()
         payload = {
             "type": "price",
             "instrument": INSTRUMENT,
@@ -219,39 +255,83 @@ class StPmcOandaRunner:
         self.store.append_event("fx_ticks/%s" % day, payload)
         self.ticks_logged += 1
 
-        completed_1h: List[Bar] = []
+        completed_15: List[Bar] = []
         for bar_1m in self.builder_1m.on_quote(bid=float(bid), ask=float(ask), mid=mid_px, quantity=quantity, ts=ts):
             self.bars_1m += 1
             self.store.append_bar(bar_1m)
-            for bar_1h in self.agg_1h.on_bar(bar_1m):
-                self._handle_1h(bar_1h)
-                completed_1h.append(bar_1h)
+            for bar_15 in self.agg_15m.on_bar(bar_1m):
+                self._handle_15m(bar_15)
+                completed_15.append(bar_15)
         self.maybe_poll_changes()
+        self._maybe_weekly_size_report(ts)
+        self._maybe_weekly_eow_charts(ts)
         self._maybe_heartbeat()
-        return completed_1h
+        return completed_15
+
+    def _maybe_weekly_size_report(self, ts: str) -> None:
+        """Friday >= 15:59 NY — echo price-data + log sizes once per ISO week."""
+        from .size_report import append_size_report
+
+        wall = parse_oanda_ts(ts).astimezone(NY)
+        if wall.weekday() != 4:
+            return
+        if wall.timetz().replace(tzinfo=None) < WEEK_END_SIZE_REPORT_NY:
+            return
+        week_key = wall.date().isoformat()
+        if self._weekly_size_week == week_key:
+            return
+        self._weekly_size_week = week_key
+        try:
+            append_size_report(
+                self.output_root,
+                append_progress,
+                label="weekly_eow",
+                session_date=wall.date(),
+            )
+        except Exception as exc:
+            append_progress(self.output_root, "WARN weekly FILE_SIZES failed: %s" % exc)
+
+    def _maybe_weekly_eow_charts(self, ts: str) -> None:
+        """Friday >= 15:59 NY — Monday OR week overview + per-trade chart pack."""
+        from .monday_or_eow_charts import maybe_write_eow_chart_pack
+
+        wall = parse_oanda_ts(ts).astimezone(NY)
+        if wall.weekday() != 4:
+            return
+        if wall.timetz().replace(tzinfo=None) < WEEK_END_SIZE_REPORT_NY:
+            return
+        week_key = wall.date().isoformat()
+        if self._weekly_chart_week == week_key:
+            return
+        self._weekly_chart_week = week_key
+        maybe_write_eow_chart_pack(
+            self.output_root,
+            INSTRUMENT,
+            as_of=wall.date(),
+            log=append_progress,
+        )
 
     def flush(self) -> List[Bar]:
         out: List[Bar] = []
         for bar_1m in self.builder_1m.flush():
             self.bars_1m += 1
             self.store.append_bar(bar_1m)
-            for bar_1h in self.agg_1h.on_bar(bar_1m):
-                self._handle_1h(bar_1h)
-                out.append(bar_1h)
-        for bar_1h in self.agg_1h.flush():
-            self._handle_1h(bar_1h)
-            out.append(bar_1h)
+            for bar_15 in self.agg_15m.on_bar(bar_1m):
+                self._handle_15m(bar_15)
+                out.append(bar_15)
+        for bar_15 in self.agg_15m.flush():
+            self._handle_15m(bar_15)
+            out.append(bar_15)
+        self.maybe_poll_changes(force=True)
         return out
 
-    def _handle_1h(self, bar: Bar) -> None:
-        self.bars_1h += 1
-        # OandaBroker.process_bar only drains create/close pending fills (no OHLC match).
-        # Keep broker_fills=True so post-submit fills are delivered; real fills also arrive
-        # via Account Changes. Paper demos use broker_fills=False + 1m PaperBroker fills.
+    def _handle_15m(self, bar: Bar) -> None:
+        self.bars_15m += 1
         self.engine.process_bar(bar)
+        self.maybe_poll_changes(force=True)
         append_progress(
             self.output_root,
-            "1h bar ts=%s o=%.1f h=%.1f l=%.1f c=%.1f" % (bar.ts, bar.open, bar.high, bar.low, bar.close),
+            "15m bar ts=%s o=%.3f h=%.3f l=%.3f c=%.3f" % (bar.ts, bar.open, bar.high, bar.low, bar.close),
         )
 
     def _maybe_heartbeat(self) -> None:
@@ -262,27 +342,17 @@ class StPmcOandaRunner:
         open_positions = [
             p for p in self.engine.broker.reconcile_positions() if float(getattr(p, "quantity", 0) or 0) != 0
         ]
-        from .st_pmc_trade_charts import maybe_update_st_pmc_charts
-
-        _, self._last_open_chart_at = maybe_update_st_pmc_charts(
-            self.output_root,
-            INSTRUMENT,
-            open_positions=len(open_positions),
-            last_open_chart_at=self._last_open_chart_at,
-            now=now,
-            log=append_progress,
-        )
         append_progress(
             self.output_root,
-            "heartbeat ticks=%d bars_1m=%d bars_1h=%d orders=%d open_positions=%d oanda_fills=%d variant=%s"
+            "heartbeat ticks=%d bars_1m=%d bars_15m=%d orders=%d open_positions=%d oanda_fills=%d tag=%s"
             % (
                 self.ticks_logged,
                 self.bars_1m,
-                self.bars_1h,
+                self.bars_15m,
                 len(self.engine.broker.reconcile_orders()),
                 len(open_positions),
                 self.fills_from_oanda,
-                VARIANT,
+                PHASE2_TAG,
             ),
         )
 
@@ -302,26 +372,26 @@ def run_stream_loop(
         append_progress(output_root, "REFUSING non-practice OANDA_ENV=%s" % config.env)
         return 2
 
-    runner = StPmcOandaRunner(output_root=output_root, config=config)
+    runner = MondayOrOandaRunner(output_root=output_root, config=config)
     meta = write_run_meta(output_root, config=config)
     pidfile_path(output_root).write_text(str(os.getpid()) + "\n", encoding="utf-8")
     append_progress(
         output_root,
-        "STARTED US30 ST+PMC oanda variant=%s strategy=%s account=%s state=%s pid=%s"
-        % (VARIANT, STRATEGY_ID, config.account_id, state_root_for(output_root), os.getpid()),
+        "STARTED US30 Monday OR OANDA practice tag=%s strategy=%s account=%s state=%s pid=%s"
+        % (PHASE2_TAG, STRATEGY_ID, config.account_id, state_root_for(output_root), os.getpid()),
     )
     append_progress(
         output_root,
         "RUN_META %s"
         % json.dumps(
-            {k: meta[k] for k in ("started_at", "variant", "oanda_env", "oanda_routing", "stop_pts", "target_pts") if k in meta},
+            {k: meta[k] for k in ("started_at", "phase2_tag", "oanda_env", "oanda_routing", "allow_live_routing") if k in meta},
             sort_keys=True,
         ),
     )
-    runner.bootstrap_reconcile()
 
     signal.signal(signal.SIGINT, runner.request_stop)
     signal.signal(signal.SIGTERM, runner.request_stop)
+    runner.bootstrap_reconcile()
 
     client = runner.client
     oanda_name = config.symbol_for(INSTRUMENT)
@@ -370,7 +440,6 @@ def run_stream_loop(
                         break
                     if msg_type == "pricing.PricingHeartbeat" or getattr(msg, "type", None) == "HEARTBEAT":
                         runner.maybe_poll_changes()
-                        runner._maybe_heartbeat()
                         continue
                     event = {
                         "instrument": getattr(msg, "instrument", oanda_name),
@@ -390,9 +459,7 @@ def run_stream_loop(
                         ask = mid + half
                     ts = str(event.get("time") or utc_now_iso())
                     try:
-                        runner.on_price_tick(
-                            bid=float(bid), ask=float(ask), mid=mid, ts=ts, quantity=0.0, raw=event
-                        )
+                        runner.on_price_tick(bid=float(bid), ask=float(ask), mid=mid, ts=ts, quantity=0.0, raw=event)
                     except Exception as tick_exc:
                         _log_stream_error(
                             output_root,
@@ -402,11 +469,11 @@ def run_stream_loop(
                             extra={"event_ts": ts},
                         )
                         continue
-                    session_ticks += 1
                     price_ticks += 1
+                    session_ticks += 1
                     if max_ticks and price_ticks >= max_ticks:
                         append_progress(output_root, "max_ticks=%d reached; stopping" % max_ticks)
-                        runner.request_stop()
+                        runner.stop_requested = True
                         break
             except Exception as stream_exc:
                 _log_stream_error(
@@ -437,73 +504,54 @@ def run_stream_loop(
         exit_code = 1
     finally:
         runner.flush()
-        runner.maybe_poll_changes(force=True)
         append_progress(
             output_root,
-            "STOPPED ticks=%d bars_1m=%d bars_1h=%d oanda_fills=%d reconnect_attempts=%d"
-            % (price_ticks, runner.bars_1m, runner.bars_1h, runner.fills_from_oanda, reconnect_attempt),
+            "STOPPED ticks=%d bars_1m=%d bars_15m=%d oanda_fills=%d reconnect_attempts=%d"
+            % (price_ticks, runner.bars_1m, runner.bars_15m, runner.fills_from_oanda, reconnect_attempt),
         )
         _remove_pidfile(output_root)
     return exit_code
 
 
 def spawn_daemon(*, output_root: Path, max_ticks: int = 0, oanda_config_path: str = "") -> int:
-    output_root.mkdir(parents=True, exist_ok=True)
-    existing = read_pid(output_root)
-    if existing is not None and pid_is_alive(existing):
-        print("Already running as pid %d (see %s)" % (existing, pidfile_path(output_root)))
-        return 1
+    from .oanda_v2b_ungated_common import OandaDemoSpec, spawn_daemon as _spawn
 
-    log_fh = run_log_path(output_root).open("a", encoding="utf-8")
-    cmd = [
-        sys.executable,
-        "-m",
-        "potions.live.cli",
-        "--state-root",
-        str(state_root_for(output_root)),
-        CLI_COMMAND,
-        "--output-root",
-        str(output_root),
-    ]
-    if max_ticks:
-        cmd.extend(["--max-ticks", str(max_ticks)])
-    if oanda_config_path:
-        cmd.extend(["--oanda-config", oanda_config_path])
-
-    env = os.environ.copy()
-    repo = Path(__file__).resolve().parents[2]
-    hsm = repo.parent
-    v20_src = repo / "v20-python" / "src"
-    path_bits = [str(hsm), str(v20_src)]
-    existing_pp = env.get("PYTHONPATH", "")
-    env["PYTHONPATH"] = os.pathsep.join(path_bits + ([existing_pp] if existing_pp else []))
-
-    import subprocess
-
-    proc = subprocess.Popen(
-        cmd,
-        stdout=log_fh,
-        stderr=subprocess.STDOUT,
-        stdin=subprocess.DEVNULL,
-        env=env,
-        start_new_session=True,
+    # Reuse spawn helper; pass a dummy spec (only used for typing in common).
+    spec = OandaDemoSpec(
+        instrument=INSTRUMENT,
+        strategy_id=STRATEGY_ID,
+        run_dirname=RUN_DIRNAME,
+        tick=TICK,
+        strategy_type="monday_or_breakout",
     )
-    pidfile_path(output_root).write_text(str(proc.pid) + "\n", encoding="utf-8")
-    append_progress(output_root, "SPAWNED daemon pid=%d cmd=%s" % (proc.pid, " ".join(cmd)))
-    print("Spawned %s pid=%d log=%s" % (CLI_COMMAND, proc.pid, run_log_path(output_root)))
-    return 0
+    return _spawn(
+        spec,
+        output_root=output_root,
+        cli_command=CLI_COMMAND,
+        max_ticks=max_ticks,
+        oanda_config_path=oanda_config_path,
+    )
 
 
 def status_daemon(output_root: Path) -> int:
     pid = read_pid(output_root)
-    alive = pid is not None and pid_is_alive(pid)
-    prog = ""
-    if progress_path(output_root).exists():
-        lines = progress_path(output_root).read_text(errors="replace").strip().splitlines()
-        prog = lines[-1] if lines else ""
+    meta = {}
+    if run_meta_path(output_root).exists():
+        meta = json.loads(run_meta_path(output_root).read_text(encoding="utf-8"))
+    if pid is None:
+        print("status: not running (no pidfile)")
+        return 1
+    alive = pid_is_alive(pid)
     print(
-        "pid=%s alive=%s state=%s routing=True variant=%s last=%s"
-        % (pid, alive, state_root_for(output_root), VARIANT, prog[:120])
+        "status: pid=%d alive=%s started_at=%s tag=%s state=%s routing=%s"
+        % (
+            pid,
+            alive,
+            meta.get("started_at", "?"),
+            meta.get("phase2_tag", PHASE2_TAG),
+            meta.get("state_root", state_root_for(output_root)),
+            meta.get("oanda_routing", True),
+        )
     )
     return 0 if alive else 1
 

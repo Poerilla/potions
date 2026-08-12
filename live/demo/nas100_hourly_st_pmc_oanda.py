@@ -121,7 +121,10 @@ def bootstrap_store(output_root: Path) -> FlatFileStore:
 
 def build_engine(store: FlatFileStore, *, config: OandaConfig, client: OandaApiClient) -> Engine:
     DEFAULT_TICK_SIZE.setdefault(INSTRUMENT, TICK)
-    broker = OandaBroker(store, config=config, client=client, allow_live_routing=False)
+    broker = OandaBroker(
+        store, config=config, client=client, allow_live_routing=False,
+        authority_strategy_ids=[STRATEGY_ID],
+    )
     return Engine(
         store=store,
         broker=broker,
@@ -159,6 +162,7 @@ class StPmcOandaRunner:
         self.bars_1h = 0
         self.fills_from_oanda = 0
         self.stop_requested = False
+        self._last_open_chart_at = None
 
     def request_stop(self, *_args: Any) -> None:
         self.stop_requested = True
@@ -167,6 +171,7 @@ class StPmcOandaRunner:
         broker = self.engine.broker
         if isinstance(broker, OandaBroker):
             try:
+                broker.register_authority_strategy(STRATEGY_ID)
                 broker.reconcile_from_account_details()
                 append_progress(
                     self.output_root,
@@ -261,6 +266,16 @@ class StPmcOandaRunner:
         open_positions = [
             p for p in self.engine.broker.reconcile_positions() if float(getattr(p, "quantity", 0) or 0) != 0
         ]
+        from .st_pmc_trade_charts import maybe_update_st_pmc_charts
+
+        _, self._last_open_chart_at = maybe_update_st_pmc_charts(
+            self.output_root,
+            INSTRUMENT,
+            open_positions=len(open_positions),
+            last_open_chart_at=self._last_open_chart_at,
+            now=now,
+            log=append_progress,
+        )
         append_progress(
             self.output_root,
             "heartbeat ticks=%d bars_1m=%d bars_1h=%d orders=%d open_positions=%d oanda_fills=%d variant=%s"

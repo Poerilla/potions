@@ -141,6 +141,15 @@ Market/stop fills apply `slippage_ticks` adverse; optional `SpreadModel` widens 
 
 **Validation:** [`live/broker_realism_validation.py`](broker_realism_validation.py) — 10+ known-answer cases with chart artifacts under `live/state/broker_realism_validation/`.
 
+### OANDA remote order authority (2026-08-12)
+
+`OandaBroker` is authoritative for practice rests tagged with this demo’s `strategy_id` (`clientExtensions.tag`):
+
+- **Startup + timer sweep** (`reconcile_from_account_details`, `maybe_sweep_remote_order_authority` via `poll_account_changes`): pull pending OANDA orders; map `clientExtensions.id` → local broker ids; **cancel orphans** (entry `LIMIT`/`STOP`/`MIT` whose client id is not in local `_active_order_ids`). Trade-linked `STOP_LOSS` / `TAKE_PROFIT` are never swept.
+- **Gate-off**: local `cancel_order` resolves remote ids from the pending snapshot when `_oanda_order_ids` is cold after restart; defers a strategy-scoped orphan sweep so remote rests survive a forgotten local open set.
+- **Entry refresh**: `modify_order(..., reason=refresh_entry)` prefers **cancel + resubmit** over `replace_order` so every cancel is audited and the old remote id cannot remain mapped. PaperBroker keeps in-place modify.
+- Alert event `pending_remote_gt_local_open` when tagged remote pending exceeds local open.
+
 ---
 
 ## 7. Causal ordering
@@ -277,6 +286,7 @@ Comparable Core Board rows must pass: variant complete, USD-normalized (JPY), re
 | Concern | Mitigation | Code / artifact | Residual risk | Audit ID |
 |---|---|---|---|---|
 | OHLC fill non-uniqueness | Stop-first, gap-through, realism tests | `broker.py`, `broker_realism_validation.py` | Model-candle proof missing | 1.1 |
+| OANDA ghost resting limits after gate-off / replace | Remote authority sweep + cancel/resubmit refresh | `oanda.py`, `oanda_v2b_ungated_common.poll_account_changes` | Shared practice account still allows sibling stacking (isolation = ops) | OANDA1 |
 | Lookahead / causality | `live_after_ts`, gate events, `FeatureSnapshot`, `CausalityGuard` | `broker.py`, `manager.py`, `causality.py`, Tier-1 plugins | Feature snapshots are opt-in; older/non-Tier-1 plugins may only have order-time checks | CO1/CO2 |
 | Same-minute ambiguity | Scrutiny + tick manifest | execution-scrutiny driver | Tick recon incomplete | 1.4 |
 | Multiple testing | DSR N_eff, gate null | scorecard, random gate replay | Scorecard not yet wired to null | FD3 |
@@ -309,6 +319,8 @@ Comparable Core Board rows must pass: variant complete, USD-normalized (JPY), re
 ## Maintenance
 
 Any change to fill semantics, causality guards, or reported metrics **must update this file** in the same PR as code/tests.
+
+**2026-08-12:** Documented OANDA remote order authority + cancel/resubmit entry refresh (§6).
 
 **2026-08-11:** Documented `v2b_scaleout` `skip_entry_months` + shadow WR/PF sit-out knobs (§5).
 

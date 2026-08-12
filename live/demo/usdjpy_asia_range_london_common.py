@@ -432,7 +432,10 @@ def build_engine(store: FlatFileStore, *, spec: AsiaRangeDemoSpec, config: Optio
     DEFAULT_TICK_SIZE.setdefault(spec.instrument, spec.tick)
     if spec.oanda_routing:
         assert config is not None and client is not None
-        broker = OandaBroker(store, config=config, client=client, allow_live_routing=False)
+        broker = OandaBroker(
+            store, config=config, client=client, allow_live_routing=False,
+            authority_strategy_ids=[spec.strategy_id],
+        )
         return Engine(
             store=store,
             broker=broker,

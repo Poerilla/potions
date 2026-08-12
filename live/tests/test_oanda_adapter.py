@@ -280,3 +280,245 @@ def test_apply_account_changes_returns_fills_and_writes_fills_csv():
         assert (Path(tmp.name) / "fills.csv").exists()
     finally:
         tmp.cleanup()
+
+
+class _FakeOandaClient:
+    def __init__(self, pending=None):
+        self.pending = list(pending or [])
+        self.cancelled = []
+        self.created = []
+        self.replaced = []
+        self._next_id = 1000
+
+    def account_details(self):
+        return {
+            "lastTransactionID": "99",
+            "account": {
+                "lastTransactionID": "99",
+                "orders": list(self.pending),
+                "positions": [],
+            },
+        }
+
+    def cancel_order(self, order_id, account_id=None):
+        self.cancelled.append(str(order_id))
+        self.pending = [o for o in self.pending if str(o.get("id")) != str(order_id)]
+        return {"orderCancelTransaction": {"id": str(order_id), "orderID": str(order_id)}}
+
+    def create_order(self, order_body, account_id=None):
+        self._next_id += 1
+        rid = str(self._next_id)
+        self.created.append({"id": rid, "order": order_body})
+        ext = (order_body or {}).get("clientExtensions") or {}
+        self.pending.append(
+            {
+                "id": rid,
+                "type": order_body.get("type") or "LIMIT",
+                "state": "PENDING",
+                "instrument": order_body.get("instrument"),
+                "units": order_body.get("units"),
+                "price": order_body.get("price"),
+                "clientExtensions": ext,
+            }
+        )
+        return {"orderCreateTransaction": {"id": rid}, "lastTransactionID": rid}
+
+    def replace_order(self, order_id, order_body, account_id=None):
+        self.replaced.append(str(order_id))
+        self._next_id += 1
+        rid = str(self._next_id)
+        self.pending = [o for o in self.pending if str(o.get("id")) != str(order_id)]
+        ext = (order_body or {}).get("clientExtensions") or {}
+        self.pending.append(
+            {
+                "id": rid,
+                "type": order_body.get("type") or "LIMIT",
+                "state": "PENDING",
+                "instrument": order_body.get("instrument"),
+                "clientExtensions": ext,
+            }
+        )
+        return {"orderCreateTransaction": {"id": rid}, "orderCancelTransaction": {"orderID": str(order_id)}}
+
+
+def test_oanda_orphan_sweep_cancels_remote_not_in_local_active():
+    tmp, store = make_store()
+    try:
+        config = OandaConfig(account_id="101-002-39860312-001", instrument_map={"NAS100": "NAS100_USD"})
+        client = _FakeOandaClient(
+            pending=[
+                {
+                    "id": "817",
+                    "type": "LIMIT",
+                    "state": "PENDING",
+                    "instrument": "NAS100_USD",
+                    "clientExtensions": {
+                        "id": "ord_zombie",
+                        "tag": "nas100_hourly_st_pmc_sl50_tp150_3r_oanda",
+                    },
+                },
+                {
+                    "id": "1237",
+                    "type": "TAKE_PROFIT",
+                    "state": "PENDING",
+                    "tradeID": "1236",
+                    "clientExtensions": {},
+                },
+                {
+                    "id": "900",
+                    "type": "LIMIT",
+                    "state": "PENDING",
+                    "instrument": "NAS100_USD",
+                    "clientExtensions": {
+                        "id": "ord_other",
+                        "tag": "other_strategy",
+                    },
+                },
+            ]
+        )
+        broker = OandaBroker(
+            store,
+            config=config,
+            client=client,
+            authority_strategy_ids=["nas100_hourly_st_pmc_sl50_tp150_3r_oanda"],
+        )
+        sweep = broker.sweep_remote_order_authority(cancel_orphans=True, reason="unit_test", force_fetch=True)
+        assert sweep["orphans_cancelled"] == 1
+        assert "817" in client.cancelled
+        assert "1237" not in client.cancelled  # protective
+        assert "900" not in client.cancelled  # other strategy
+        assert all(str(o.get("id")) != "817" for o in client.pending)
+    finally:
+        tmp.cleanup()
+
+
+def test_oanda_modify_refresh_entry_cancel_resubmits_and_drops_old_remote_id():
+    tmp, store = make_store()
+    try:
+        config = OandaConfig(account_id="101-002-39860312-001", instrument_map={"US30": "US30_USD"})
+        client = _FakeOandaClient()
+        broker = OandaBroker(
+            store,
+            config=config,
+            client=client,
+            authority_strategy_ids=["us30_st"],
+        )
+        intent = OrderIntent.create(
+            strategy_id="us30_st",
+            trade_id="t1",
+            instrument="US30",
+            account_mode="paper",
+            side="buy",
+            order_type="limit",
+            quantity=1,
+            limit_price=50000.0,
+            reason="entry",
+            requires_verification=False,
+            bracket_role="entry",
+            bracket_stop_price=49900.0,
+            bracket_target_price=50300.0,
+        )
+        order = broker.submit_order_intent(intent)
+        old_remote = broker._oanda_order_ids[order.broker_order_id]
+        assert old_remote
+        updated = broker.modify_order(
+            order.broker_order_id,
+            limit_price=50100.0,
+            reason="refresh_entry",
+            bracket_stop_price=50000.0,
+            bracket_target_price=50400.0,
+        )
+        assert updated.limit_price == 50100.0
+        assert old_remote in client.cancelled
+        assert client.replaced == []
+        new_remote = broker._oanda_order_ids[order.broker_order_id]
+        assert new_remote
+        assert new_remote != old_remote
+        assert old_remote not in broker._oanda_order_ids.values()
+        events = (Path(tmp.name) / "events" / "oanda_order_events.jsonl").read_text(encoding="utf-8")
+        assert "cancel_before_resubmit" in events or "cancel_resubmit" in events
+    finally:
+        tmp.cleanup()
+
+
+def test_oanda_cancel_resolves_remote_id_from_pending_snapshot():
+    tmp, store = make_store()
+    try:
+        config = OandaConfig(account_id="101-002-39860312-001", instrument_map={"NAS100": "NAS100_USD"})
+        intent = OrderIntent.create(
+            strategy_id="nas100_st",
+            trade_id="t1",
+            instrument="NAS100",
+            account_mode="paper",
+            side="buy",
+            order_type="limit",
+            quantity=1,
+            limit_price=28000.0,
+            reason="entry",
+            requires_verification=False,
+        )
+        # Offline submit first (no client) so local open exists without remote map.
+        broker = OandaBroker(store, config=config, client=None, authority_strategy_ids=["nas100_st"])
+        order = broker.submit_order_intent(intent)
+        assert order.broker_order_id not in broker._oanda_order_ids or not broker._oanda_order_ids.get(order.broker_order_id)
+
+        client = _FakeOandaClient(
+            pending=[
+                {
+                    "id": "555",
+                    "type": "LIMIT",
+                    "state": "PENDING",
+                    "instrument": "NAS100_USD",
+                    "clientExtensions": {"id": order.broker_order_id, "tag": "nas100_st"},
+                }
+            ]
+        )
+        broker.client = client
+        broker._ingest_remote_pending_orders(client.pending)
+        broker.cancel_order(order.broker_order_id, reason="regime_off")
+        assert "555" in client.cancelled
+        assert broker.reconcile_orders() == []
+    finally:
+        tmp.cleanup()
+
+
+def test_oanda_reconcile_does_not_resurrect_cancelled_local_orders():
+    tmp, store = make_store()
+    try:
+        config = OandaConfig(account_id="101-002-39860312-001", instrument_map={"NAS100": "NAS100_USD"})
+        client = _FakeOandaClient()
+        broker = OandaBroker(store, config=config, client=client, authority_strategy_ids=["nas100_st"])
+        intent = OrderIntent.create(
+            strategy_id="nas100_st",
+            trade_id="t1",
+            instrument="NAS100",
+            account_mode="paper",
+            side="buy",
+            order_type="limit",
+            quantity=1,
+            limit_price=28000.0,
+            reason="entry",
+            requires_verification=False,
+        )
+        order = broker.submit_order_intent(intent)
+        remote_id = broker._oanda_order_ids[order.broker_order_id]
+        broker.cancel_order(order.broker_order_id, reason="regime_off")
+        # Remote ghost still pending (simulate cancel never reaching OANDA previously).
+        client.pending = [
+            {
+                "id": remote_id,
+                "type": "LIMIT",
+                "state": "PENDING",
+                "instrument": "NAS100_USD",
+                "clientExtensions": {"id": order.broker_order_id, "tag": "nas100_st"},
+            }
+        ]
+        client.cancelled = []
+        sweep = broker.reconcile_from_account_details()
+        assert broker.reconcile_orders() == []
+        assert order.broker_order_id not in broker._active_order_ids
+        assert broker._orders_cache[order.broker_order_id].status == "cancelled"
+        # Orphan sweep should cancel the remote ghost.
+        assert remote_id in client.cancelled
+    finally:
+        tmp.cleanup()

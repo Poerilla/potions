@@ -187,7 +187,13 @@ def bootstrap_store(output_root: Path, spec: OandaDemoSpec) -> FlatFileStore:
 
 def build_engine(store: FlatFileStore, *, spec: OandaDemoSpec, config: OandaConfig, client: OandaApiClient) -> Engine:
     DEFAULT_TICK_SIZE.setdefault(spec.instrument, spec.tick)
-    broker = OandaBroker(store, config=config, client=client, allow_live_routing=False)
+    broker = OandaBroker(
+        store,
+        config=config,
+        client=client,
+        allow_live_routing=False,
+        authority_strategy_ids=[spec.strategy_id],
+    )
     return Engine(
         store=store,
         broker=broker,
@@ -210,6 +216,13 @@ def poll_account_changes(engine: Engine, client: OandaApiClient, *, instrument: 
     broker = engine.broker
     if not isinstance(broker, OandaBroker):
         return 0
+    # Keep remote-order authority scoped to this engine's strategy ids.
+    try:
+        broker.register_authority_strategies(
+            plugin.instance.strategy_id for plugin in engine.manager.plugins.values()
+        )
+    except Exception:
+        pass
     delivered: List = []
     # Immediate create/close fills queued for Engine (also drain here between bars).
     pending = getattr(broker, "_pending_fills", None)
@@ -239,6 +252,26 @@ def poll_account_changes(engine: Engine, client: OandaApiClient, *, instrument: 
         return 0
     fills = broker.apply_account_changes(body)
     delivered.extend(fills)
+    # Periodic / deferred gate-off orphan sweep (cancel remote rests not in local open).
+    try:
+        sweep = broker.maybe_sweep_remote_order_authority()
+        if sweep and not sweep.get("skipped") and int(sweep.get("orphans_cancelled") or 0) > 0:
+            engine.store.append_event(
+                "reconciliation_events",
+                {
+                    "event": "oanda_remote_authority_sweep",
+                    "orphans_cancelled": sweep.get("orphans_cancelled"),
+                    "remote_pending": sweep.get("remote_pending"),
+                    "local_open": sweep.get("local_open"),
+                    "reason": sweep.get("reason"),
+                    "ts": utc_now_iso(),
+                },
+            )
+    except Exception as exc:
+        engine.store.append_event(
+            "reconciliation_events",
+            {"event": "oanda_remote_authority_sweep_error", "error": str(exc), "ts": utc_now_iso()},
+        )
     local = [f for f in delivered if f.instrument == instrument]
     if local:
         engine.manager.on_fills(local)
@@ -284,6 +317,7 @@ class DemoOandaRunner:
         broker = self.engine.broker
         if isinstance(broker, OandaBroker):
             try:
+                broker.register_authority_strategy(self.spec.strategy_id)
                 broker.reconcile_from_account_details()
                 append_progress(
                     self.output_root,
