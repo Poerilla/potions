@@ -39,6 +39,24 @@ Central index of execution variants explored in this workspace / chat threads.
 > Hubs: [`../../live/state/us30_st_pmc_runner_variants/`](../../live/state/us30_st_pmc_runner_variants/) ·
 > [`../../live/state/fx_index_metals_st_pmc_runner_variants/`](../../live/state/fx_index_metals_st_pmc_runner_variants/).
 
+> **2026-08-11 — EURUSD/US30 ungated dropped + missed promote.** Live v2b ungated
+> EURUSD/US30 paper+OANDA **stopped** (live red / broker reject). Missed positives
+> screened (month + roll WR/PF) + deep-checked → demos:
+> EURUSD ST+PMC 50/150 3R full + 2R→10R half; US30 Monday OR `M3_S3_R2` half;
+> EURUSD Monday OR `M1_S2_R2` paper-half. London prior-opposed/4h / `M3_S3_R3` not demoed.
+> Hub: [`../../live/state/eurusd_us30_missed_promote_screen/`](../../live/state/eurusd_us30_missed_promote_screen/).
+
+> **2026-08-12 — HP size-up nulls: strict classifier + 1.25× shadow rollout.**
+> Matched-added-exposure suite now requires `p_placebo/p_shift/p_master ≤ 0.05`
+> for **SIZE-UP VALIDATED**; `0.05 < p_master ≤ 0.10` = **BORDERLINE PAPER**;
+> `p_master > 0.10` or WF fail = **RISK-BUDGET**. Authorized primary paper tests:
+> **EURUSD ST+PMC Thursday @1.25×** (inc N/S 8.39; book N/S 3.18→**3.52**, Δ+0.34)
+> and **US30 Monday OR hour 11 @1.25×** (inc N/S 6.69; book N/S 1.96→**2.16**, Δ+0.20).
+> 1.5× = borderline / exploratory paper only; **2× not validated**. Shadow armed on
+> the two paper demos (`hp_size_shadow`, no size change yet — qty=1). Hub:
+> [`../../live/state/intraday_hp_sizeup_nulls/`](../../live/state/intraday_hp_sizeup_nulls/) ·
+> [`ROLLOUT.md`](../../live/state/intraday_hp_sizeup_nulls/ROLLOUT.md).
+
 ### Index CFD ST+PMC 50/150 — lot-correct 1mfill ranks (2026-08-08)
 
 | Rank | Market / book | Net | Stress | **N/S** | Live demo |
@@ -47,11 +65,15 @@ Central index of execution variants explored in this workspace / chat threads.
 | 2 | **US30** 2R→10R | +$56.1k | −$2.3k | **24.05** | `demo-us30-hourly-st-pmc-2r10r-{paper,oanda}` |
 | 3 | **NAS100** fair 3R | +$15.2k | −$0.78k | **19.56** | `demo-nas100-hourly-st-pmc-{paper,oanda}` |
 | 4 | **NAS100** 2R→10R | +$34.1k | −$3.1k | **11.13** | `demo-nas100-hourly-st-pmc-2r10r-{paper,oanda}` |
+| 5 | **EURUSD** fair 3R 50/150 | +$64.4k | −$21.4k | **3.01** | `demo-eurusd-hourly-st-pmc-{paper,oanda}` (filt proxy 7.23) |
+| 6 | **EURUSD** 2R→10R 50/150 | +$121k | −$67.3k | **1.80** | `demo-eurusd-hourly-st-pmc-2r10r-{paper,oanda}` (**½ size**) |
 | — | US30 / NAS100 indefinite | sleeve | reachable stress | not ranked | not demoed |
 
-FX/metals 50/150 runner table (EURUSD/GBPUSD/USDJPY/AUDJPY/XAU/XAG) **in progress** under
-[`../../live/state/fx_index_metals_st_pmc_runner_variants/`](../../live/state/fx_index_metals_st_pmc_runner_variants/) —
-update ranks when lot-correct SUMMARY completes. US30 indef sleeve sizing:
+US30 Monday OR CFD sizing: [`../../live/state/monday_or_sizing_sweep_broker_us30/`](../../live/state/monday_or_sizing_sweep_broker_us30/) — live **½** `M3_S3_R2` + Sep skip (`demo-us30-monday-or-{paper,oanda}`).
+
+FX/metals 50/150 runner table (GBPUSD/USDJPY/AUDJPY/XAU/XAG) continues under
+[`../../live/state/fx_index_metals_st_pmc_runner_variants/`](../../live/state/fx_index_metals_st_pmc_runner_variants/).
+US30 indef sleeve sizing:
 [`../../live/state/us30_st_pmc_runner_variants/INDEF_PORTFOLIO_PROFILE/`](../../live/state/us30_st_pmc_runner_variants/INDEF_PORTFOLIO_PROFILE/).
 
 EURUSD sleeves ranked by broker-like **Net/Stress** (Engine + `PaperBroker`, Histdata daily/hourly as noted). Fee conventions differ by family ($1.50 intraday ST+PMC / Monday OR pack vs $7/unit monthly ORB pack) — compare within sleeve, then across with that caveat.
@@ -59,7 +81,9 @@ EURUSD sleeves ranked by broker-like **Net/Stress** (Engine + `PaperBroker`, His
 | Rank | Sleeve | Plugin / ID | Net | Stress DD | Net/Stress | WR | Role |
 |---|---|---|---:|---:|---:|---:|---|
 | — | **USDJPY Asia-range London `S_3_1_3` + Jan/roll50** | `v2b_scaleout` · `usdjpy_v2b_asia_range_london_S_3_1_3_flt` | **+$178k** | −$25k | **7.23** | 48.6% | **Research/practice promote · capital-efficient primary (C)** (funded sleeve gated — VALIDATION_GATES + FILTER_NULLS risk-throttle; three-book lock `C_PRIMARY_CAPITAL_EFFICIENT_B_ALPHA_CONTROL` — `THREE_BOOK_FORWARD.md`; vs Monday OR USDJPY weekly N/S 8.20 — different clock) |
-| 1 | **Monday OR `M1_S2_R2`** (15m, light shifted, max 3/wk) | `monday_or_breakout` · Phase 2 | **+$123.3k** | −$70.9k | **1.74** | — | **Phase 2 hardened · paper-only** (sub-period fail 2020+); full-sample beats ST+PMC · [report](#monday-or-fx-strategy-tracker-report) |
+| — | **Hourly ST+PMC 50/150 fair 3R** (1mfill) | `hourly_st_pmc_retest` · `eurusd_hourly_st_pmc_sl50_tp150_3r_1mfill` | **+$64.4k** | −$21.4k | **3.01** | ~29% | **Practice promote** paper+OANDA (offline Jun/Aug+roll → proxy 7.23) |
+| — | **Hourly ST+PMC 50/150 2R→10R** (1mfill) | same · runners_2r_10r | **+$121k** | −$67.3k | **1.80** | ~32% | **Practice promote @ ½ size** (concentration) |
+| 1 | **Monday OR `M1_S2_R2`** (15m, light shifted, max 3/wk) | `monday_or_breakout` · Phase 2 | **+$123.3k** | −$70.9k | **1.74** | — | **Phase 2 hardened · paper-only @ ½** (`demo-eurusd-monday-or-paper`; Aug skip) · [report](#monday-or-fx-strategy-tracker-report) |
 | — | Monthly ORB FBO 1/1/3 + ema100(1h)+atr80 | same + filter csv | +$69.0k | −$40.4k | 1.71 | 50.7% | Lowest-stress FBO variant; EMA leg costs net vs atr80-only |
 | 2 | **Monthly ORB FBO 1/1/3 + atr80 filter** | `monthly_orb_v2b_oco` + `entry_filter_csv` · `eurusd_monthly_orb_fbo_filt_atr80only_1_1_3` | **+$91.9k** | −$56.8k | **1.62** | 52.1% | **Promoted FX monthly sleeve (filtered)** |
 | 3 | **Hourly ST+PMC 25/75 + MA bull prior** | `hourly_st_pmc_retest` · `eurusd_hourly_st_pmc_sl25_tp75_3r_ma_bull_prior` | **+$23.5k** | −$15.7k | **1.49** | 27.4% | Prior promoted FX intraday baseline |
@@ -92,9 +116,10 @@ Pattern hub: [`FILTERS.md`](../../live/state/fx_v2b_asia_range_london_usdjpy_fil
 Broker-like hubs — **do not promote** majors from these clocks (see `live/CHANGE_LOG.md`):
 
 - `fx_v2b_london_ungated`, `fx_v2b_london_prior_aligned`, `fx_v2d_london`, `fx_v2b_london_fbo`, `fx_ny_liquidity_grab_london`, `fx_london_sweep_reversal` — red / ~0 N/S
-- `fx_v2b_london_2h_or` / `fx_v2b_london_4h_or` — FX red; US30/NAS100 soft (≤~1.6), not FX promotion
-- `fx_v2b_london_prior_opposed` — NAS100/US30 research curiosity only; FX red
+- `fx_v2b_london_2h_or` / `fx_v2b_london_4h_or` — FX red; US30/NAS100 soft (≤~1.6), not FX promotion; US30 4h **reject demo** after roll-PF deep-check (2026-08-11)
+- `fx_v2b_london_prior_opposed` — NAS100/US30 research curiosity; FX red; US30 filt N/S ~10 but concentrated. **Live ¼-size demos UP** (paper+OANDA) with sibling ST+PMC gate feed (`demo-us30-london-prior-opposed-*`); promote half/full only after live ST parity + robustness
 - Only **Asia-range USDJPY** survived → sizing → **filtered `S_3_1_3` promote**
+- Live **NY ungated v2b** EURUSD/US30 demos **dropped** 2026-08-11 (sleeve review + broker reject)
 
 **Monday OR — broker sizing sweep all pairs (2026-07-21):** 27 Phase 1 cells × EURUSD / GBPUSD / USDJPY / AUDJPY / XAUUSD / XAGUSD. Full report: [Monday OR FX Strategy Tracker Report](#monday-or-fx-strategy-tracker-report).
 

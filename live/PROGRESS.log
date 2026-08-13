@@ -140,3 +140,9 @@ Append-only research/platform progress notes.
 [2026-08-12T21:15Z] OANDA A+B fix landed: remote order authority sweep (orphan cancel on startup/timer/gate-off) + modify refresh_entry cancel/resubmit in live/oanda.py. Platform §6 + CHANGE_LOG + adapter tests. Next: restart OANDA demos that rest limits, oanda-practice-sync --repair-demo-positions, HTML email.
 
 [2026-08-12T21:20Z] OANDA demos restarted on A+B patch. nas100 3r gate-blocked zombie LIMIT cancelled (orphan sweep). practice-sync --repair-demo-positions cleaned foreign/stale qty on ST+PMC/v2b/monday-or/asia demos. Remaining remote LIMITs are runner books with gate allowed (local open matches remote). Protective SL/TP untouched. Tests 15 pass.
+
+[2026-08-12T22:30Z] Closed unprotected OANDA practice trades 1256 (orphan US30 +2 @54071.5, realized ~-$726) and 1280 (NAS100 stub ~-$159). Kept ST+PMC US30 +1/+1 with SL/TP. Root fix: OandaBroker.on_fill no longer attaches untagged fills by instrument (false-filled runner_stop ord_4989f404d248 on Aug 11). Platform §6 + CHANGE_LOG + 3 adapter tests (18 pass). Restart OANDA demos for patch; practice-sync repaired positions.
+
+[2026-08-12T22:35Z] OANDA demos restarted on fill-match patch. practice-sync repaired foreign/stale qty after restart. Unprotected orphans closed; ST+PMC US30 +2 with brackets remains. HTML email sent.
+
+[2026-08-13T01:44Z] HP size-up: strict classifier (VALIDATED p_master<=0.05 / BORDERLINE 0.05-0.10 / RISK-BUDGET >0.10). Reclassified banked pairs — EURUSD Thu + US30 h11 VALIDATED @1.25x only; 1.5x borderline; 2x risk-budget. Expected book N/S lift @1.25x: EURUSD +0.34 (3.18->3.52), US30 h11 +0.20 (1.96->2.16); inc N/S 8.39 / 6.69. Shadow armed on both paper demos (hp_size_shadow). Hub live/state/intraday_hp_sizeup_nulls/ROLLOUT.md. Docs+git.

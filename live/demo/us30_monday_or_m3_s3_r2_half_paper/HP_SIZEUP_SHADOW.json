@@ -1,0 +1,13 @@
+{
+  "book": "us30_monday_or",
+  "condition": "Entry hour (NY)",
+  "bucket": "11",
+  "size_mult": 1.25,
+  "decision": "SIZE-UP VALIDATED",
+  "mode": "shadow",
+  "demo": "/home/tester/hsm/potions/live/demo/us30_monday_or_m3_s3_r2_half_paper",
+  "n_entry_fills": 0,
+  "n_hp_hits": 0,
+  "updated_at": "2026-08-13T01:44:04Z",
+  "note": "Shadow only \u2014 no order size change. Integer qty=1 cannot apply 1.25\u00d7; see live/state/intraday_hp_sizeup_nulls/ROLLOUT.md"
+}

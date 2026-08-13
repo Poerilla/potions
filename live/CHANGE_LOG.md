@@ -1,5 +1,31 @@
 # Live Runtime CHANGE_LOG
 
+## 2026-08-12 — HP size-up classifier tightened + 1.25× shadow rollout
+
+- Immutable decision tiers in `live/intraday_hp_sizeup_nulls.py`:
+  **SIZE-UP VALIDATED** (`p_placebo/p_shift/p_master ≤ 0.05` + WF + stress),
+  **BORDERLINE PAPER** (`0.05 < p_master ≤ 0.10`),
+  **RISK-BUDGET PROFILE** (`p_master > 0.10` or WF fail / broad coverage).
+- Reclassified banked pairs (`--reclassify-existing`): EURUSD Thu + US30 h11
+  stay validated **only at 1.25×**; 1.5× → borderline; 2× US30 h11 demoted from
+  false VALIDATED → risk-budget (`p_master=0.106`).
+- Expected book N/S lift @1.25×: EURUSD Thu **3.18→3.52 (Δ+0.34)**; US30 h11
+  **1.96→2.16 (Δ+0.20)**; incremental sleeve N/S stays 8.39 / 6.69 across mults.
+- Rollout started in **shadow** on paper demos (no size change; qty=1):
+  `python -m live.hp_size_shadow --once` → `state/hp_shadow.csv`.
+- Docs: hub `ROLLOUT.md` / `SUMMARY.md`, overlay `LIVE_PLAN.md`, tracker callout.
+
+## 2026-08-12 — OANDA fill matching: no instrument fallback
+
+- Root cause of orphan US30 +2 @ 54071.5: `on_fill` attached untagged shared-account
+  fills to the active v2b `runner_stop` (false local fill @ 53783.8 on Aug 11) while
+  the real OANDA buy-stop stayed pending and filled next day unprotected.
+- `on_fill` now requires `clientExtensions.id` / `clientOrderID` / mapped remote
+  `orderID`; rejects instrument-level guessing; ignores fills on terminal local orders.
+- Ops: closed unprotected trades 1256 (US30) + 1280 (NAS100); left ST+PMC US30 ±1
+  lots with SL/TP; practice-sync repaired demo position CSVs.
+- Tests: `test_oanda_on_fill_rejects_untagged_instrument_fallback` (+ resolve / terminal).
+
 ## 2026-08-12 — OANDA remote order authority + cancel/resubmit refresh (A+B)
 
 - Root cause: plugin `regime_off` / `_cancel_entry_limits` only cancelled what

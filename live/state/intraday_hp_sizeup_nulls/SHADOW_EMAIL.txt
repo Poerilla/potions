@@ -1,0 +1,8 @@
+potions: HP size-up shadow armed (1.25× primary)
+hub: /home/tester/hsm/potions/live/state/intraday_hp_sizeup_nulls
+rollout: /home/tester/hsm/potions/live/state/intraday_hp_sizeup_nulls/ROLLOUT.md
+
+- eurusd_st_pmc_3r | Day of week=Thursday @1.25× mode=shadow entries=0 hp_hits=0
+- us30_monday_or | Entry hour (NY)=11 @1.25× mode=shadow entries=0 hp_hits=0
+
+Stance: 2 pair(s) SIZE-UP VALIDATED @1.25× — shadow first; no 2× deploy.

@@ -1,0 +1,27 @@
+potions: matched-added-exposure suite complete
+hub: /home/tester/hsm/potions/live/state/intraday_hp_sizeup_nulls
+
+- SIZE-UP VALIDATED | eurusd_st_pmc_3r Day of week=Thursday @1.25× hp20% incN/S=8.39 p_plac=0.023
+- BORDERLINE PAPER | eurusd_st_pmc_3r Day of week=Thursday @1.50× hp20% incN/S=8.39 p_plac=0.023
+- RISK-BUDGET PROFILE | eurusd_st_pmc_3r Day of week=Thursday @2.00× hp20% incN/S=8.39 p_plac=0.020
+- SIZE-UP VALIDATED | us30_monday_or Entry hour (NY)=11 @1.25× hp9% incN/S=6.69 p_plac=0.015
+- BORDERLINE PAPER | us30_monday_or Entry hour (NY)=11 @1.50× hp9% incN/S=6.69 p_plac=0.015
+- RISK-BUDGET PROFILE | us30_monday_or Entry hour (NY)=11 @2.00× hp9% incN/S=6.69 p_plac=0.016
+- RISK-BUDGET PROFILE | eurusd_monday_or Hourly RSI vs trade=rsi_against_side @2.00× hp4% incN/S=9.02 p_plac=0.000
+- RISK-BUDGET PROFILE | usdjpy_asia_range Hourly RSI bucket=rsi_gt70 @1.25× hp5% incN/S=6.74 p_plac=0.046
+- RISK-BUDGET PROFILE | usdjpy_asia_range Hourly RSI bucket=rsi_gt70 @2.00× hp5% incN/S=6.74 p_plac=0.035
+- NOT VALIDATED | usdjpy_monday_or Entry hour (NY)=5 @1.25× hp3% incN/S=5.22 p_plac=0.130
+- NOT VALIDATED | usdjpy_monday_or Entry hour (NY)=5 @2.00× hp3% incN/S=5.22 p_plac=0.070
+- NOT VALIDATED | us30_monday_or Day of week=Friday @1.25× hp11% incN/S=1.38 p_plac=0.174
+- NOT VALIDATED | usdjpy_asia_range 5m MA vs trade=ma_opposed @1.25× hp12% incN/S=4.38 p_plac=0.216
+- NOT VALIDATED | usdjpy_asia_range Entry hour (NY)=4 @1.25× hp14% incN/S=6.91 p_plac=0.106
+- NOT VALIDATED | usdjpy_monday_or Day of week=Thursday @1.25× hp16% incN/S=3.00 p_plac=0.194
+- RISK-BUDGET PROFILE | usdjpy_monday_or Entry hour (NY)=4 @1.25× hp3% incN/S=6.37 p_plac=0.011
+- NOT VALIDATED | usdjpy_monday_or Hourly RSI bucket=rsi_gt70 @1.25× hp8% incN/S=5.77 p_plac=0.044
+- RISK-BUDGET PROFILE | usdjpy_monday_or Prior-week range half=week_opposed @1.25× hp70% incN/S=17.20 p_plac=0.001
+- RISK-BUDGET PROFILE | usdjpy_monday_or Week of month=2 @1.25× hp22% incN/S=9.61 p_plac=0.038
+
+Stance: 2 pair(s) SIZE-UP VALIDATED (p_master≤0.05) at stated multiplier only.
+Borderline: 2 pair(s) with 0.05<p_master≤0.10 — exploratory paper only, not a promotion claim.
+
+/home/tester/hsm/potions/live/state/intraday_hp_sizeup_nulls/SUMMARY.md
