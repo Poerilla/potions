@@ -1,0 +1,10 @@
+{
+  "study": "futures_intraday_hp_sizeup_v1",
+  "n_placebo": 5000,
+  "n_shift": 1000,
+  "n_master": 500,
+  "extra": 0.25,
+  "n_pairs": 24,
+  "n_validated": 2,
+  "seed": 20260812
+}

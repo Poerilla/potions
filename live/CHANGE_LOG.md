@@ -1,5 +1,19 @@
 # Live Runtime CHANGE_LOG
 
+## 2026-08-12 — Futures HP size-up v1: Tier A/B/C deployment plan
+
+- Study `futures_intraday_hp_sizeup_v1`: two **SIZE-UP VALIDATED** @1.25×
+  (ES prior-opposed ST-age>180m; YM prior-opposed overnight middle) + NQ
+  prior-opposed OR-norm **PROVISIONAL PAPER**; Tier C shadow-only risk-budget
+  rows. NOT VALIDATED = no action.
+- Compare driver `live/futures_intraday_hp_sizeup_compare.py`: baseline vs
+  1.25/2/3/4× (net, MTM DD, N/S, yearly best/worst/bad) + prior-opposed
+  incremental-sleeve overlap (hold ≤1 HP/session until joint gate clears).
+- Hubs: `live/state/futures_intraday_hp_live_plan/{DEPLOYMENT_PLAN,LIVE_PLAN,COMPARISON}.md`
+  · skill `potions-futures-intraday-hp-sizeup`.
+- Tier A/B bookkeeping: retain 1.0× baseline + book incremental 0.25× separately;
+  do not stack yet. 2–4× = sensitivity only (not validation).
+
 ## 2026-08-12 — HP size-up classifier tightened + 1.25× shadow rollout
 
 - Immutable decision tiers in `live/intraday_hp_sizeup_nulls.py`:

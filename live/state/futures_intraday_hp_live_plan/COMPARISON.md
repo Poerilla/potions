@@ -1,0 +1,74 @@
+# Futures HP size sensitivity vs baseline
+
+Study: `futures_intraday_hp_sizeup_v1`
+
+Linear campaign scaling only. **1.25×** is the only multiplier with a
+null-suite decision. **2×/3×/4×** = sensitivity / stress research — do
+**not** promote from these columns.
+
+Metrics: full-book **net**, **MTM DD** (path max drawdown), **N/S**,
+yearly **worst** (min net), **bad** (min N/S, n≥5), **best** (max net).
+
+## Book-level vs baseline
+
+| tier | book / bucket | mult | net | MTM DD | N/S | stress× | Δnet | ΔN/S | worst yr net | bad yr N/S | best yr net |
+|---|---|---:|---:|---:|---:|---:|---:|---:|---|---|---|
+| A | es_prior_opposed_legacy `st_age_gt180m` | 1× | +$348,688 | -$27,950 | 12.47 | 1.00 | +$0 | +0.00 | 2023 +$22,030 | 2023 0.79 | 2025 +$108,720 |
+| A | es_prior_opposed_legacy `st_age_gt180m` | 1.25× | +$388,232 | -$28,334 | 13.70 | 1.01 | +$39,544 | +1.23 | 2026 +$26,857 | 2023 1.02 | 2025 +$116,586 |
+| A | es_prior_opposed_legacy `st_age_gt180m` | 2× | +$506,865 | -$30,625 | 16.55 | 1.10 | +$158,178 | +4.08 | 2026 +$33,568 | 2023 1.60 | 2025 +$140,185 |
+| A | es_prior_opposed_legacy `st_age_gt180m` | 4× | +$823,220 | -$40,780 | 20.19 | 1.46 | +$474,532 | +7.71 | 2026 +$51,462 | 2023 2.53 | 2021 +$209,280 |
+| A | ym_prior_opposed_rl `on_middle` | 1× | +$289,225 | -$29,694 | 9.74 | 1.00 | +$0 | +0.00 | 2023 +$4,650 | 2023 0.25 | 2025 +$91,458 |
+| A | ym_prior_opposed_rl `on_middle` | 1.25× | +$318,693 | -$31,078 | 10.25 | 1.05 | +$29,468 | +0.51 | 2023 +$12,065 | 2023 0.72 | 2025 +$96,129 |
+| A | ym_prior_opposed_rl `on_middle` | 2× | +$407,098 | -$35,232 | 11.55 | 1.19 | +$117,872 | +1.81 | 2023 +$34,309 | 2026 1.26 | 2025 +$110,145 |
+| A | ym_prior_opposed_rl `on_middle` | 4× | +$642,842 | -$46,310 | 13.88 | 1.56 | +$353,618 | +4.14 | 2026 +$51,101 | 2026 1.10 | 2025 +$147,520 |
+| B | nq_prior_opposed_rl `or_norm` | 1× | +$1,330,920 | -$55,318 | 24.06 | 1.00 | +$0 | +0.00 | 2022 +$21,185 | 2022 0.53 | 2025 +$430,422 |
+| B | nq_prior_opposed_rl `or_norm` | 1.25× | +$1,476,408 | -$51,345 | 28.75 | 0.93 | +$145,488 | +4.70 | 2022 +$26,104 | 2022 0.66 | 2025 +$501,418 |
+| B | nq_prior_opposed_rl `or_norm` | 2× | +$1,912,872 | -$52,752 | 36.26 | 0.95 | +$581,952 | +12.20 | 2022 +$40,862 | 2022 0.89 | 2025 +$714,402 |
+| B | nq_prior_opposed_rl `or_norm` | 4× | +$3,076,778 | -$89,978 | 34.20 | 1.63 | +$1,745,858 | +10.13 | 2022 +$80,218 | 2022 1.26 | 2025 +$1,282,362 |
+| C | nq_st_pmc_3r `11` | 1× | +$349,517 | -$16,277 | 21.47 | 1.00 | +$0 | +0.00 | 2011 -$10,316 | 2011 -1.11 | 2022 +$92,702 |
+| C | nq_st_pmc_3r `11` | 1.25× | +$365,454 | -$15,779 | 23.16 | 0.97 | +$15,937 | +1.69 | 2011 -$10,819 | 2011 -1.13 | 2022 +$94,442 |
+| C | nq_st_pmc_3r `11` | 2× | +$413,266 | -$14,465 | 28.57 | 0.89 | +$63,749 | +7.10 | 2011 -$12,329 | 2011 -1.20 | 2022 +$99,663 |
+| C | nq_st_pmc_3r `11` | 4× | +$540,763 | -$18,117 | 29.85 | 1.11 | +$191,246 | +8.38 | 2011 -$16,355 | 2011 -1.33 | 2022 +$113,586 |
+| C | nq_v2b_s113 `prior_close_mid_third` | 1× | +$867,355 | -$97,510 | 8.89 | 1.00 | +$0 | +0.00 | 2022 +$48,922 | 2023 0.72 | 2021 +$209,236 |
+| C | nq_v2b_s113 `prior_close_mid_third` | 1.25× | +$991,302 | -$113,314 | 8.75 | 1.16 | +$123,947 | -0.15 | 2022 +$51,409 | 2023 0.68 | 2025 +$264,270 |
+| C | nq_v2b_s113 `prior_close_mid_third` | 2× | +$1,363,143 | -$166,598 | 8.18 | 1.71 | +$495,788 | -0.71 | 2022 +$58,868 | 2022 0.59 | 2025 +$435,996 |
+| C | nq_v2b_s113 `prior_close_mid_third` | 4× | +$2,354,719 | -$319,292 | 7.38 | 3.27 | +$1,487,364 | -1.52 | 2022 +$78,758 | 2022 0.39 | 2025 +$893,932 |
+| C | ym_prior_opposed_rl `prior_range_norm` | 1× | +$289,225 | -$29,694 | 9.74 | 1.00 | +$0 | +0.00 | 2023 +$4,650 | 2023 0.25 | 2025 +$91,458 |
+| C | ym_prior_opposed_rl `prior_range_norm` | 1.25× | +$317,078 | -$30,958 | 10.24 | 1.04 | +$27,852 | +0.50 | 2023 +$6,119 | 2023 0.29 | 2025 +$104,415 |
+| C | ym_prior_opposed_rl `prior_range_norm` | 2× | +$400,635 | -$36,499 | 10.98 | 1.23 | +$111,410 | +1.24 | 2023 +$10,528 | 2023 0.36 | 2025 +$143,289 |
+| C | ym_prior_opposed_rl `prior_range_norm` | 4× | +$623,455 | -$51,274 | 12.16 | 1.73 | +$334,230 | +2.42 | 2023 +$22,282 | 2023 0.44 | 2025 +$246,951 |
+| C | ym_st_pmc_3r `Thursday` | 1× | +$106,425 | -$5,894 | 18.06 | 1.00 | +$0 | +0.00 | 2010 -$220 | 2010 -0.12 | 2023 +$18,696 |
+| C | ym_st_pmc_3r `Thursday` | 1.25× | +$115,750 | -$6,028 | 19.20 | 1.02 | +$9,325 | +1.15 | 2010 +$83 | 2010 0.05 | 2023 +$20,306 |
+| C | ym_st_pmc_3r `Thursday` | 2× | +$143,725 | -$6,428 | 22.36 | 1.09 | +$37,299 | +4.30 | 2010 +$993 | 2010 0.52 | 2023 +$25,134 |
+| C | ym_st_pmc_3r `Thursday` | 4× | +$218,323 | -$7,774 | 28.09 | 1.32 | +$111,898 | +10.03 | 2013 +$2,145 | 2017 0.55 | 2023 +$38,010 |
+
+## 1.25× lift snapshot (validated + near misses)
+
+| tier | candidate | base N/S | @1.25 N/S | ΔN/S | base MTM DD | @1.25 MTM DD | stress× |
+|---|---|---:|---:|---:|---:|---:|---:|
+| A | es_prior_opposed_legacy / `st_age_gt180m` | 12.47 | **13.70** | +1.23 | -$27,950 | -$28,334 | 1.014 |
+| A | ym_prior_opposed_rl / `on_middle` | 9.74 | **10.25** | +0.51 | -$29,694 | -$31,078 | 1.047 |
+| B | nq_prior_opposed_rl / `or_norm` | 24.06 | **28.75** | +4.70 | -$55,318 | -$51,345 | 0.928 |
+| C | nq_st_pmc_3r / `11` | 21.47 | **23.16** | +1.69 | -$16,277 | -$15,779 | 0.969 |
+| C | nq_v2b_s113 / `prior_close_mid_third` | 8.89 | **8.75** | -0.15 | -$97,510 | -$113,314 | 1.162 |
+| C | ym_prior_opposed_rl / `prior_range_norm` | 9.74 | **10.24** | +0.50 | -$29,694 | -$30,958 | 1.043 |
+| C | ym_st_pmc_3r / `Thursday` | 18.06 | **19.20** | +1.15 | -$5,894 | -$6,028 | 1.023 |
+
+## Prior-opposed incremental-sleeve overlap
+
+Until this joint gate is explicitly cleared for simultaneous boosts,
+implement **at most one prior-opposed HP multiplier across ES/YM/NQ
+per session**.
+
+| pair | shared HP dates | same-dir | inc corr | joint inc N/S | joint MTM DD | worst sim loss |
+|---|---:|---:|---:|---:|---:|---:|
+| es ↔ ym | 15 | 93% | 0.044 | 26.13 | -$2,642 | -$598 |
+| es ↔ nq | 16 | 100% | 0.109 | 17.66 | -$10,475 | -$1,422 |
+| ym ↔ nq | 16 | 75% | 0.040 | 23.53 | -$7,434 | -$3,157 |
+
+## Artifacts
+
+- `size_sensitivity.csv` / `size_sensitivity_yearly.csv`
+- `prior_opposed_overlap_report.csv`
+- `LIVE_PLAN.md` / `DEPLOYMENT_PLAN.md`
+- Null decisions: `../futures_intraday_hp_sizeup_nulls/SUMMARY.md`

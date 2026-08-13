@@ -35,6 +35,8 @@ Skills encode **workflow**. Hub docs encode **truth** (rankings, fill semantics,
 | Quick / broker-like backtest | [`README.md`](../../../README.md) ranking layers | family driver + `live/state/<slug>/` | `potions-quick-backtest` |
 | Batch finished / completion report | hub `RUN_COMPLETE.json` + `summary.csv` | `COMPLETION_REPORT.md` | `strategy-completion-report` |
 | Per-instrument yearly / robustness / 50W-50L | state root `fills.csv` or `trades.csv` | hub `deep_check/` + `winloss_charts/` | `potions-instrument-deep-check` |
+| Intraday condition / HTF / calendar lift profile | hub `SUMMARY.md` + `notables.csv` | research campaign tapes | `potions-intraday-condition-profile` |
+| Futures HP size-up / 1.25× nulls / deployment tiers | [`live/state/futures_intraday_hp_live_plan/DEPLOYMENT_PLAN.md`](../../../live/state/futures_intraday_hp_live_plan/DEPLOYMENT_PLAN.md) | nulls `SUMMARY.md` + `COMPARISON.md` | `potions-futures-intraday-hp-sizeup` |
 | Large data / Drive backup | [`scripts/LARGE_FILES_MANIFEST.md`](../../../scripts/LARGE_FILES_MANIFEST.md) | pack/unpack scripts | `potions-git-backup` |
 | Workspace map | [`README.md`](../../../README.md) | tracker | — |
 
@@ -63,4 +65,6 @@ Do **not** use Platform.md for strategy rule definitions or leaderboard rankings
 - `potions-tracker-docs` — tracker / CHANGE_LOG / PROGRESS
 - `strategy-completion-report` — headless completion report + email after batches
 - `potions-instrument-deep-check` — yearly net/stress + robustness + win/loss charts
+- `potions-intraday-condition-profile` — DOW / RSI / OBV / MA / ATR / range-half lift vs campaign tape
+- `potions-futures-intraday-hp-sizeup` — futures 1.25× HP nulls, Tier A/B/C plan, size sensitivity
 - `potions-job-email` — **always** email on replay/sweep/job complete or crash

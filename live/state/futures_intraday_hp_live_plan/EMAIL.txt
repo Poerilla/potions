@@ -1,0 +1,19 @@
+Study: futures_intraday_hp_sizeup_v1
+Hub: live/state/futures_intraday_hp_live_plan/
+
+1.25× vs baseline (net / MTM DD / N/S):
+  TierA st_age_gt180m: N/S 12.47→13.70 (Δ+1.23); DD -$27,950→-$28,334; stress×1.014
+  TierA on_middle: N/S 9.74→10.25 (Δ+0.51); DD -$29,694→-$31,078; stress×1.047
+  TierB or_norm: N/S 24.06→28.75 (Δ+4.70); DD -$55,318→-$51,345; stress×0.928
+  TierC 11: N/S 21.47→23.16 (Δ+1.69); DD -$16,277→-$15,779; stress×0.969
+  TierC prior_close_mid_third: N/S 8.89→8.75 (Δ-0.15); DD -$97,510→-$113,314; stress×1.162
+  TierC prior_range_norm: N/S 9.74→10.24 (Δ+0.50); DD -$29,694→-$30,958; stress×1.043
+  TierC Thursday: N/S 18.06→19.20 (Δ+1.15); DD -$5,894→-$6,028; stress×1.023
+
+2×/4× = sensitivity only (not validated).
+Prior-opposed overlap: hold ≤1 HP/session until joint gate clears.
+  es↔ym shared=15 sameDir=93% corr=0.044 worstSim=-$598
+  es↔nq shared=16 sameDir=100% corr=0.109 worstSim=-$1,422
+  ym↔nq shared=16 sameDir=75% corr=0.040 worstSim=-$3,157
+
+Core: two causal-looking 1.25× allocations survived full nulls (ES ST-age>180, YM overnight-middle); NQ OR-norm provisional.

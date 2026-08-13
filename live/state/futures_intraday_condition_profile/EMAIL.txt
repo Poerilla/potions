@@ -1,0 +1,19 @@
+potions: futures_intraday_condition_profile complete
+Hub: live/state/futures_intraday_condition_profile/
+Books: 8
+Shortlist: 24 candidates
+
+es_prior_opposed_legacy | ST-event age=st_age_gt180m | cov=28% incN/S=22.98
+es_prior_opposed_legacy | Week of month=1 | cov=29% incN/S=10.91
+es_prior_opposed_legacy | Prior RTH close location=prior_close_mid_third | cov=25% incN/S=10.56
+es_st_pmc_ma_bull | Day of week=Tuesday | cov=22% incN/S=5.13
+es_st_pmc_ma_bull | ST-event age=st_age_gt180m | cov=28% incN/S=3.70
+es_st_pmc_ma_bull | Prior RTH range percentile=prior_range_norm | cov=26% incN/S=2.83
+nq_or_complement_skipflat | Day of week=Thursday | cov=20% incN/S=5.16
+nq_or_complement_skipflat | Opening 15m range vs ATR=or_norm | cov=29% incN/S=4.74
+nq_or_complement_skipflat | Opening 15m volume percentile=vol_low | cov=29% incN/S=4.63
+nq_prior_opposed_rl | Opening 15m range vs ATR=or_norm | cov=30% incN/S=29.31
+nq_prior_opposed_rl | ST-event age=st_age_30_90m | cov=27% incN/S=20.73
+nq_prior_opposed_rl | NQ-ES dispersion=disp_mid | cov=32% incN/S=15.99
+
+Stance: profile/shortlist only — null suite next.

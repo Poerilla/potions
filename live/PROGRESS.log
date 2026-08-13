@@ -146,3 +146,5 @@ Append-only research/platform progress notes.
 [2026-08-12T22:35Z] OANDA demos restarted on fill-match patch. practice-sync repaired foreign/stale qty after restart. Unprotected orphans closed; ST+PMC US30 +2 with brackets remains. HTML email sent.
 
 [2026-08-13T01:44Z] HP size-up: strict classifier (VALIDATED p_master<=0.05 / BORDERLINE 0.05-0.10 / RISK-BUDGET >0.10). Reclassified banked pairs — EURUSD Thu + US30 h11 VALIDATED @1.25x only; 1.5x borderline; 2x risk-budget. Expected book N/S lift @1.25x: EURUSD +0.34 (3.18->3.52), US30 h11 +0.20 (1.96->2.16); inc N/S 8.39 / 6.69. Shadow armed on both paper demos (hp_size_shadow). Hub live/state/intraday_hp_sizeup_nulls/ROLLOUT.md. Docs+git.
+
+[2026-08-13T02:50Z] Futures HP size-up v1 closed: Tier A paper 1.25x (ES ST-age>180, YM overnight-middle VALIDATED); Tier B provisional NQ OR-norm; Tier C shadow-only four risk-budget rows; NOT VALIDATED no action. Compare: baseline vs 1.25/2/3/4x net/MTM-DD/N/S + yearly extremes; prior-opposed overlap hold <=1 HP/session (15-16 shared dates). Hubs live/state/futures_intraday_hp_{sizeup_nulls,live_plan}/; skill potions-futures-intraday-hp-sizeup. Docs+git.

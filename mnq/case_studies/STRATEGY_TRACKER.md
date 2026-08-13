@@ -57,6 +57,15 @@ Central index of execution variants explored in this workspace / chat threads.
 > [`../../live/state/intraday_hp_sizeup_nulls/`](../../live/state/intraday_hp_sizeup_nulls/) ·
 > [`ROLLOUT.md`](../../live/state/intraday_hp_sizeup_nulls/ROLLOUT.md).
 
+> **2026-08-12 — Futures HP size-up v1 (ES/YM/NQ): two validated 1.25× allocations.**
+> Full null framework survivors: **ES prior-opposed ST-age>180m** (book N/S
+> 12.48→**13.70**) and **YM prior-opposed overnight middle** (9.74→**10.25**).
+> **NQ prior-opposed normal OR** provisional paper (24.06→**28.75**, MTM DD
+> improves). Tier C shadow-only; NOT VALIDATED = no action. Hold ≤1 prior-opposed
+> HP across ES/YM/NQ per session until overlap gate clears. Plan:
+> [`../../live/state/futures_intraday_hp_live_plan/DEPLOYMENT_PLAN.md`](../../live/state/futures_intraday_hp_live_plan/DEPLOYMENT_PLAN.md)
+> · compare [`COMPARISON.md`](../../live/state/futures_intraday_hp_live_plan/COMPARISON.md).
+
 ### Index CFD ST+PMC 50/150 — lot-correct 1mfill ranks (2026-08-08)
 
 | Rank | Market / book | Net | Stress | **N/S** | Live demo |

@@ -1,0 +1,4 @@
+book_a,cond_a,book_b,cond_b,sleeve_a,sleeve_b,same_sleeve,shared_hp_dates,same_dir_rate,inc_corr,max_simultaneous_hp,gate
+es_prior_opposed_legacy,ST-event age=st_age_gt180m,nq_prior_opposed_rl,Opening 15m range vs ATR=or_norm,spx,nasdaq,False,16,1.0,0.10859306228020389,2,PASS
+es_prior_opposed_legacy,ST-event age=st_age_gt180m,ym_prior_opposed_rl,Overnight range third=on_middle,spx,dow,False,15,0.9333333333333333,0.04359175461200724,2,PASS
+nq_prior_opposed_rl,Opening 15m range vs ATR=or_norm,ym_prior_opposed_rl,Overnight range third=on_middle,nasdaq,dow,False,16,0.75,0.04036827778454508,2,PASS

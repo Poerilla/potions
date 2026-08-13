@@ -1,0 +1,77 @@
+{
+  "study": "futures_intraday_hp_sizeup_v1",
+  "books": [
+    {
+      "key": "nq_or_complement_skipflat",
+      "symbol": "NQ",
+      "family": "session_range",
+      "tracker_ns": 22.51,
+      "status": "research-promoted",
+      "n_campaigns": 729,
+      "sleeve": "nasdaq"
+    },
+    {
+      "key": "nq_st_pmc_3r",
+      "symbol": "NQ",
+      "family": "st_pmc",
+      "tracker_ns": 20.51,
+      "status": "research-promoted",
+      "n_campaigns": 679,
+      "sleeve": "nasdaq"
+    },
+    {
+      "key": "nq_prior_opposed_rl",
+      "symbol": "NQ",
+      "family": "prior_opposed",
+      "tracker_ns": 19.4,
+      "status": "research-promoted",
+      "n_campaigns": 432,
+      "sleeve": "nasdaq"
+    },
+    {
+      "key": "nq_v2b_s113",
+      "symbol": "NQ",
+      "family": "opening_range",
+      "tracker_ns": 7.34,
+      "status": "research-promoted",
+      "n_campaigns": 1386,
+      "sleeve": "nasdaq"
+    },
+    {
+      "key": "ym_st_pmc_3r",
+      "symbol": "YM",
+      "family": "st_pmc",
+      "tracker_ns": 17.66,
+      "status": "research-promoted",
+      "n_campaigns": 985,
+      "sleeve": "dow"
+    },
+    {
+      "key": "es_prior_opposed_legacy",
+      "symbol": "ES",
+      "family": "prior_opposed",
+      "tracker_ns": 10.51,
+      "status": "strongest-candidate",
+      "n_campaigns": 245,
+      "sleeve": "spx"
+    },
+    {
+      "key": "ym_prior_opposed_rl",
+      "symbol": "YM",
+      "family": "prior_opposed",
+      "tracker_ns": 8.53,
+      "status": "research-promoted",
+      "n_campaigns": 436,
+      "sleeve": "dow"
+    },
+    {
+      "key": "es_st_pmc_ma_bull",
+      "symbol": "ES",
+      "family": "st_pmc",
+      "tracker_ns": 2.13,
+      "status": "strongest-candidate",
+      "n_campaigns": 223,
+      "sleeve": "spx"
+    }
+  ]
+}

@@ -1,0 +1,4 @@
+book_a,cond_a,book_b,cond_b,shared_hp_dates,same_dir_rate,inc_corr,inc_joint_net,inc_joint_stress,inc_joint_ns,inc_joint_mtm_dd,worst_simultaneous_loss,simultaneous_boosted_extra_units,gate
+es_prior_opposed_legacy,ST-event age=st_age_gt180m,ym_prior_opposed_rl,Overnight range third=on_middle,15,0.933,0.0436,69012.5,2641.56,26.126,-2641.56,-598.44,0.5,HOLD_ONE_HP_PER_SESSION
+es_prior_opposed_legacy,ST-event age=st_age_gt180m,nq_prior_opposed_rl,Opening 15m range vs ATR=or_norm,16,1.0,0.1086,185032.5,10475.0,17.664,-10475.0,-1422.5,0.5,HOLD_ONE_HP_PER_SESSION
+ym_prior_opposed_rl,Overnight range third=on_middle,nq_prior_opposed_rl,Opening 15m range vs ATR=or_norm,16,0.75,0.0404,174956.25,7434.38,23.533,-7434.38,-3157.19,0.5,HOLD_ONE_HP_PER_SESSION
