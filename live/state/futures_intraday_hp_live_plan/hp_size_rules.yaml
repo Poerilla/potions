@@ -2,58 +2,11 @@ study: futures_intraday_hp_sizeup_v1
 base_multiplier: 1.0
 hp_extra: 0.25
 stated_multiplier: 1.25
-tiers:
-  A_paper:
-    - book: es_prior_opposed_legacy
-      condition: "ST-event age"
-      bucket: "st_age_gt180m"
-      multiplier: 1.25
-      decision: SIZE-UP VALIDATED
-    - book: ym_prior_opposed_rl
-      condition: "Overnight range third"
-      bucket: "on_middle"
-      multiplier: 1.25
-      decision: SIZE-UP VALIDATED
-  B_provisional_paper:
-    - book: nq_prior_opposed_rl
-      condition: "Opening 15m range vs ATR"
-      bucket: "or_norm"
-      multiplier: 1.25
-      decision: PROVISIONAL PAPER
-  C_shadow_only:
-    - book: nq_st_pmc_3r
-      condition: "Entry hour (NY)"
-      bucket: "11"
-      decision: RISK-BUDGET PROFILE
-    - book: nq_v2b_s113
-      condition: "Prior RTH close location"
-      bucket: "prior_close_mid_third"
-      decision: RISK-BUDGET PROFILE
-    - book: ym_prior_opposed_rl
-      condition: "Prior RTH range percentile"
-      bucket: "prior_range_norm"
-      decision: RISK-BUDGET PROFILE
-    - book: ym_st_pmc_3r
-      condition: "Day of week"
-      bucket: "Thursday"
-      decision: RISK-BUDGET PROFILE
 rules:
-  - book: es_prior_opposed_legacy
-    condition: "ST-event age"
-    bucket: "st_age_gt180m"
-    multiplier: 1.25
-    decision: SIZE-UP VALIDATED
-    tier: A
-  - book: ym_prior_opposed_rl
-    condition: "Overnight range third"
-    bucket: "on_middle"
-    multiplier: 1.25
-    decision: SIZE-UP VALIDATED
-    tier: A
 notes:
-  - "Only SIZE-UP VALIDATED @ exact 1.25× is Tier A paper."
-  - "Tier B provisional paper @ 1.25× (NQ OR-norm); retain baseline + incremental ledger."
-  - "Tier C shadow profile only — no size change."
-  - "Do not infer 1.5×/2×/3×/4× from a 1.25× pass."
+  - "Only SIZE-UP VALIDATED @ exact 1.25\u00d7 is Tier A paper."
+  - "Tier B provisional paper @ 1.25\u00d7; retain baseline + incremental ledger."
+  - "Tier C shadow profile only \u2014 no size change."
+  - "Do not infer 1.5\u00d7/2\u00d7/3\u00d7/4\u00d7 from a 1.25\u00d7 pass."
   - "At most one prior-opposed HP multiplier across ES/YM/NQ per session until overlap gate clears."
   - "Do not stack yet."

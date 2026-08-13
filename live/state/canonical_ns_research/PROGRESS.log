@@ -1,0 +1,13 @@
+START canonical_ns_research Phase 1 backfill
+  harvest_runner_variants → 36 rows
+  harvest_asia_filters → 4 rows
+  harvest_hp_sizeup_results → 74 rows
+  harvest_prior_opposed_10r → 4 rows
+DONE candidates=118 rankable=100
+START canonical_ns_research Phase 1 backfill
+  harvest_runner_variants → 36 rows
+  harvest_asia_filters → 4 rows
+  harvest_hp_sizeup_results → 74 rows
+  harvest_prior_opposed_10r → 4 rows
+DONE candidates=118 rankable=100
+[2026-08-13] Wrote ALL_RESULTS.md + ALL_RESULTS_WITH_COUPONS.csv (ledger order, unsorted; net/stress/N/S coupons vs baseline).

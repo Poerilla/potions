@@ -1,5 +1,43 @@
 # Live Runtime CHANGE_LOG
 
+## 2026-08-13 — Futures HP ΔN/S Phase-3 repair + portfolio N/S
+
+- **Phase-3 @1.25× rerun** (`--phase3`): ES ST-age + YM overnight-middle →
+  **NOT VALIDATED** under ΔN/S (`p_master_ΔNS`≈0.77 / 0.99). Sole survivor:
+  NQ OR-norm **PROVISIONAL PAPER** (`p_master_ΔNS`≈0.074, ΔN/S +4.70).
+  Tier A empty. Hardened `_progress` against `BrokenPipeError`.
+- **Deployment:** `DEPLOYMENT_PLAN.md` / `LIVE_PLAN.md` / skill /
+  STRATEGY_TRACKER aligned to ΔN/S labels (Aug-12 “two validated 1.25×”
+  superseded). NQ OR-norm @2× remains highest-conviction controlled paper.
+- **Boards:** `canonical_ns_research` finite core excludes prior-opposed 10R
+  addon + indefinite; US30 market harvest fixed (`market=?` → US30);
+  overlay board dedupes null hubs over sensitivity ladder.
+- **Phase 4:** `python -m live.canonical_ns_portfolio --email` →
+  `live/state/canonical_ns_research/portfolio/` (HOLD_ONE + ≤1 prior-opposed
+  HP; additive joint-stress upper bound). Best legal Portfolio N/S ≈ **11.55**
+  with NQ OR-norm @2× + EURUSD Thu @1.50× provisional.
+
+## 2026-08-13 — Canonical N/S selection + NQ OR-norm @2× high-priority paper
+
+- **Policy:** whole-book **N/S** is the canonical higher-is-better score for
+  finite comparable strategies; overlays/size-ups rank by **ΔN/S**. Raw Δnet
+  remains viability/reporting only. Master/placebo/shift nulls select and
+  decide on ΔN/S (`p_master_delta_NS`). Labels: SIZE-UP VALIDATED /
+  PROVISIONAL PAPER / RISK THROTTLE / SENSITIVITY ONLY / NOT VALIDATED.
+- **Code:** `live/intraday_hp_sizeup_nulls.py` `_select_score` + classify;
+  futures driver aliases RISK THROTTLE; sleeve pick uses ΔN/S.
+- **Phase 1 hub:** `live/state/canonical_ns_research/`
+  (`POLICY.md`, `CANDIDATE_LEDGER.csv`, `ELIGIBILITY_AUDIT.csv`,
+  `BASELINE_REGISTRY.csv`, `ECONOMIC_SLEEVE_MAP.csv`, `BOARDS.md`,
+  `ALL_RESULTS.md` / `ALL_RESULTS_WITH_COUPONS.csv` — ledger-order table with
+  net/stress/N/S coupons vs baseline, no sorting) via
+  `python -m live.canonical_ns_research --email`.
+- **NQ prior-opposed RL · OR-normal @2×:** economic conviction **HIGHEST** in
+  current HP sizing research. Δnet ≈ +$582k; N/S 24.06→36.26 (Δ+12.20);
+  MTM DD −$55.3k→−$52.8k; matched + shift pass; master p≈0.064
+  (**SELECTION-AWARE BORDERLINE**). Ops: **HIGH-PRIORITY CONTROLLED PAPER**
+  (not funded-production). Hub `futures_intraday_hp_sizeup_nulls_2x/`.
+
 ## 2026-08-12 — Futures HP size-up v1: Tier A/B/C deployment plan
 
 - Study `futures_intraday_hp_sizeup_v1`: two **SIZE-UP VALIDATED** @1.25×

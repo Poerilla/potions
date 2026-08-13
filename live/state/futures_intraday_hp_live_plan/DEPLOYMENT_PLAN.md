@@ -1,16 +1,24 @@
 # Futures HP deployment plan (`futures_intraday_hp_sizeup_v1`)
 
 Hub: `live/state/futures_intraday_hp_live_plan/`  
-Nulls: `../futures_intraday_hp_sizeup_nulls/`  
+Nulls 1.25×: `../futures_intraday_hp_sizeup_nulls/`  
+Nulls 2×: `../futures_intraday_hp_sizeup_nulls_2x/`  
 Compare: `COMPARISON.md` · `size_sensitivity.csv`
 
-**Core result:** the futures study found **two** distinct, causal-looking
-**1.25×** conditional allocations that survived the full null framework
-(ES ST-age>180m, YM overnight-middle), rather than a large list of attractive
-but untrustworthy historical buckets. NQ prior-opposed OR-norm is provisional.
+**Canonical objective:** whole-book **ΔN/S** (higher better). Δnet is
+viability/reporting only. See `canonical_ns_research/POLICY.md`.
 
-Only **exact 1.25×** is authorized where noted. Do **not** infer 1.5×/2×/3×/4×
-from a 1.25× pass — those columns in `COMPARISON.md` are sensitivity only.
+**Core result (2026-08-13 ΔN/S Phase-3 repair):** under the ΔN/S null
+objective, **no** futures prior-opposed pair is **SIZE-UP VALIDATED** at
+1.25×. ES ST-age and YM overnight-middle — previously Tier A on a Δnet-era
+read — are **NOT VALIDATED** (`p_master_ΔNS` ≈ 0.77 / 0.99). Sole 1.25×
+survivor: **NQ prior-opposed OR-norm** = **PROVISIONAL PAPER**. Highest
+economic conviction remains **NQ OR-norm @ exact 2×** (also provisional;
+see 2× hub).
+
+Only **exact** stated multipliers have null-suite standing. Do **not**
+infer 1.5×/2×/3×/4× from a 1.25× pass — `COMPARISON.md` columns are
+sensitivity only.
 
 ---
 
@@ -18,25 +26,40 @@ from a 1.25× pass — those columns in `COMPARISON.md` are sensitivity only.
 
 ### Tier A — paper 1.25×
 
-| Book | Condition | Decision |
+_None — no SIZE-UP VALIDATED survivors under ΔN/S._
+
+| Book | Condition | Decision (ΔN/S) |
 |---|---|---|
-| ES prior-opposed legacy | ST-event age >180m (`st_age_gt180m`) | SIZE-UP VALIDATED |
-| YM prior-opposed RL | Overnight middle third (`on_middle`) | SIZE-UP VALIDATED |
+| ES prior-opposed legacy | ST-event age >180m (`st_age_gt180m`) | **NOT VALIDATED** (`p_master_ΔNS`≈0.77) |
+| YM prior-opposed RL | Overnight middle third (`on_middle`) | **NOT VALIDATED** (`p_master_ΔNS`≈0.99) |
 
 ### Tier B — provisional paper 1.25×
 
 | Book | Condition | Decision |
 |---|---|---|
-| NQ prior-opposed RL | Normal opening 15m range (`or_norm`) | PROVISIONAL PAPER |
+| NQ prior-opposed RL | Normal opening 15m range (`or_norm`) | PROVISIONAL PAPER (`p_master_ΔNS`≈0.074; ΔN/S +4.70) |
 
-### Tier C — shadow profile only
+### Highest-conviction controlled paper (exact 2×, separate hub)
 
 | Book | Condition | Decision |
 |---|---|---|
-| NQ ST+PMC 3R | Entry hour (NY) = 11 | RISK-BUDGET PROFILE |
-| NQ v2b S_1_1_3 | Prior RTH close mid-third | RISK-BUDGET PROFILE |
-| YM prior-opposed RL | Prior RTH range normal | RISK-BUDGET PROFILE |
-| YM ST+PMC 3R | Thursday | RISK-BUDGET PROFILE |
+| NQ prior-opposed RL | Normal opening 15m range (`or_norm`) | PROVISIONAL PAPER @ **2.00×** (`p_master_ΔNS`≈0.064; ΔN/S **+12.20**) |
+
+ES/YM @2×: **NOT VALIDATED**. Operational stance for NQ @2×:
+**HIGH-PRIORITY CONTROLLED PAPER** — not funded production.
+
+### Tier C — shadow profile only
+
+Historical shortlist RISK-BUDGET / RISK THROTTLE rows (no size change).
+Re-score under ΔN/S before any promotion claim.
+
+| Book | Condition | Notes |
+|---|---|---|
+| ES ST+PMC MA-bull | ST-event age >180m | RISK THROTTLE on shortlist ΔN/S rerun |
+| NQ ST+PMC 3R | Entry hour (NY) = 11 | prior RISK-BUDGET PROFILE |
+| NQ v2b S_1_1_3 | Prior RTH close mid-third | prior RISK-BUDGET PROFILE |
+| YM prior-opposed RL | Prior RTH range normal | prior RISK-BUDGET PROFILE |
+| YM ST+PMC 3R | Thursday | prior RISK-BUDGET PROFILE |
 
 ### No action
 
@@ -44,9 +67,10 @@ All **NOT VALIDATED** conditions — do not size, do not shadow-promote.
 
 ---
 
-## Bookkeeping (Tier A / B)
+## Bookkeeping (Tier B / 2× provisional)
 
-Retain **1.0× baseline** tracking and separately book the **incremental 0.25×** P&L.
+Retain **1.0× baseline** tracking and separately book the **incremental**
+sleeve (0.25× at 1.25× stated, or +1.0× at exact 2×).
 
 Per HP campaign / session row:
 
@@ -56,9 +80,9 @@ Per HP campaign / session row:
 | HP flag | condition true before entry |
 | condition inputs | causal feature values used |
 | baseline intended size | 1.0× |
-| incremental intended size | +0.25× (stated mult 1.25×) |
+| incremental intended size | +0.25× or +1.0× as authorized |
 | actual fills | broker fills at intended sizes |
-| incremental realized P&L | 0.25× sleeve only |
+| incremental realized P&L | incremental sleeve only |
 | incremental stress / MAE | sleeve path |
 | whole-book stress and drawdown | baseline + incremental combined |
 | parity mismatch reason | if intended ≠ filled |
@@ -70,33 +94,18 @@ contract stacking on the same index sleeve.
 
 ## Prior-opposed overlap gate (required before any simultaneous HP)
 
-Three prior-opposed candidates exist (ES / YM / NQ). Before allowing any
-**simultaneous** HP multiplier across them, re-run:
+Three prior-opposed candidates were studied (ES / YM / NQ). With ES/YM
+demoted under ΔN/S, simultaneous prior-opposed HP is not currently in
+scope. If ES/YM are ever re-validated, re-run:
 
 ```bash
 python -m live.futures_intraday_hp_sizeup_compare --email
 ```
 
-Pairs:
-
-1. ES ST-age>180 HP dates ↔ YM overnight-middle HP dates  
-2. ES ST-age>180 HP dates ↔ NQ normal-OR HP dates  
-3. YM overnight-middle HP dates ↔ NQ normal-OR HP dates  
-
-Report (see `prior_opposed_overlap_report.csv`):
-
-- shared HP dates  
-- same-direction rate  
-- incremental P&L correlation  
-- incremental joint stress / MTM DD  
-- worst simultaneous loss  
-- margin at simultaneous boosted positions (`simultaneous_boosted_extra_units`)
-
-**Until that joint gate is explicitly cleared for simultaneous boosts,
+**Until any joint gate is explicitly cleared for simultaneous boosts,
 implement: at most one prior-opposed HP multiplier across ES/YM/NQ per session.**
 
-Current read (research tape): ~15–16 shared dates, high same-dir (75–100%),
-low incremental correlation (~0.04–0.11), gate = `HOLD_ONE_HP_PER_SESSION`.
+Current research-tape read: gate = `HOLD_ONE_HP_PER_SESSION`.
 
 ---
 
@@ -105,8 +114,8 @@ low incremental correlation (~0.04–0.11), gate = `HOLD_ONE_HP_PER_SESSION`.
 - One HP multiplier per economic index sleeve per session (no NQ+MNQ / YM+MYM / ES+MES).  
 - No same-regime ST+PMC stacking without a separate overlap pass.  
 - Tier C stays shadow-annotation only (no order-size change).  
-- Tier A/B: shadow first if lot geometry cannot express 1.25× cleanly; then
-  controlled paper with incremental sleeve ledger above.
+- Tier B / 2× provisional: shadow first if lot geometry cannot express the
+  multiplier cleanly; then controlled paper with incremental sleeve ledger.
 
 ---
 
@@ -119,8 +128,11 @@ export PYTHONPATH="/home/tester/hsm:/home/tester/hsm/potions/v20-python/src"
 # Full study: select → profile → 1.25× nulls → LIVE_PLAN
 python -m live.futures_intraday_hp_sizeup_v1 --email
 
-# Nulls only (reuse profile tape)
-python -m live.futures_intraday_hp_sizeup_nulls --email
+# Phase-3 prior-opposed pairs @ 1.25× (ΔN/S)
+python -m live.futures_intraday_hp_sizeup_nulls --phase3 --email
+
+# Predeclared Tier A/B pairs @ exact 2× (separate hub)
+python -m live.futures_intraday_hp_sizeup_nulls --predeclared-2x --email
 
 # Baseline vs 1.25/2/3/4× + prior-opposed overlap
 python -m live.futures_intraday_hp_sizeup_compare --email

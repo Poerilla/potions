@@ -1,4 +1,4 @@
-# Futures HP size-up nulls (`futures_intraday_hp_sizeup_v1`)
+# Futures HP size-up nulls @ 2× (`futures_intraday_hp_sizeup_v1`, predeclared)
 
 Question: if we add the same extra capital to the same number of
 baseline campaigns, does the HP condition beat random placement of
@@ -31,80 +31,80 @@ validation. Each intended multiplier needs its own null suite.
 
 | decision | book | condition=bucket | mult | hp% | Δnet | ΔN/S | p_plac ΔNS | p_shift ΔNS | p_master ΔNS | WF+ | reapp |
 |---|---|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|
-| PROVISIONAL PAPER | nq_prior_opposed_rl | Opening 15m range vs ATR=or_norm | 1.25× | 30% | +145488 | +4.70 | 0.018 | 0.014 | 0.074 | 100% | 1 |
-| NOT VALIDATED | es_prior_opposed_legacy | ST-event age=st_age_gt180m | 1.25× | 28% | +39544 | +1.23 | 0.088 | 0.088 | 0.774 | 100% | 2 |
-| NOT VALIDATED | ym_prior_opposed_rl | Overnight range third=on_middle | 1.25× | 25% | +29468 | +0.51 | 0.293 | 0.201 | 0.992 | 100% | 1 |
+| NOT VALIDATED | es_prior_opposed_legacy | ST-event age=st_age_gt180m | 2.00× | 28% | +158178 | +4.08 | 0.106 | 0.099 | 0.619 | 100% | 2 |
+| NOT VALIDATED | ym_prior_opposed_rl | Overnight range third=on_middle | 2.00× | 25% | +117872 | +1.81 | 0.161 | 0.100 | 0.980 | 100% | 1 |
+| PROVISIONAL PAPER | nq_prior_opposed_rl | Opening 15m range vs ATR=or_norm | 2.00× | 30% | +581952 | +12.20 | 0.042 | 0.028 | 0.064 | 100% | 1 |
 
-## nq_prior_opposed_rl Opening 15m range vs ATR=or_norm @ 1.25×
-
-```
-HP coverage:               29.9%
-Boosted campaigns:         129
-Incremental net (report):  +145488
-Incremental stress:        4964
-Incremental sleeve N/S:    29.31
-Full-book N/S base→sized:  24.06 → 28.75 (Δ+4.70)
-
-Matched-placebo median ΔN/S: 0.19
-Actual ΔN/S percentile:      98.2
-p_delta_NS (placebo):        0.0182
-p_candidate_NS (book):       0.0182
-p_delta_net (report):        0.0546
-p_drawdown_improvement:      0.0314
-p_shift_delta_NS:            0.0140
-p_master_delta_NS:           0.0739
-Frozen WF pos Δnet frac:     1.00
-Discovery reappear count:    1
-
-Decision: PROVISIONAL PAPER
-```
-
-## es_prior_opposed_legacy ST-event age=st_age_gt180m @ 1.25×
+## es_prior_opposed_legacy ST-event age=st_age_gt180m @ 2.00×
 
 ```
 HP coverage:               27.8%
 Boosted campaigns:         68
-Incremental net (report):  +39544
-Incremental stress:        1721
+Incremental net (report):  +158178
+Incremental stress:        6882
 Incremental sleeve N/S:    22.98
-Full-book N/S base→sized:  12.48 → 13.70 (Δ+1.23)
+Full-book N/S base→sized:  12.48 → 16.55 (Δ+4.08)
 
-Matched-placebo median ΔN/S: 0.23
-Actual ΔN/S percentile:      91.2
-p_delta_NS (placebo):        0.0882
-p_candidate_NS (book):       0.0882
-p_delta_net (report):        0.0452
-p_drawdown_improvement:      0.1922
-p_shift_delta_NS:            0.0879
-p_master_delta_NS:           0.7745
+Matched-placebo median ΔN/S: 0.39
+Actual ΔN/S percentile:      89.4
+p_delta_NS (placebo):        0.1062
+p_candidate_NS (book):       0.1062
+p_delta_net (report):        0.0412
+p_drawdown_improvement:      0.1964
+p_shift_delta_NS:            0.0989
+p_master_delta_NS:           0.6188
 Frozen WF pos Δnet frac:     1.00
 Discovery reappear count:    2
 
 Decision: NOT VALIDATED
 ```
 
-## ym_prior_opposed_rl Overnight range third=on_middle @ 1.25×
+## ym_prior_opposed_rl Overnight range third=on_middle @ 2.00×
 
 ```
 HP coverage:               24.8%
 Boosted campaigns:         108
-Incremental net (report):  +29468
-Incremental stress:        2079
+Incremental net (report):  +117872
+Incremental stress:        8318
 Incremental sleeve N/S:    14.17
-Full-book N/S base→sized:  9.74 → 10.25 (Δ+0.51)
+Full-book N/S base→sized:  9.74 → 11.55 (Δ+1.81)
 
-Matched-placebo median ΔN/S: 0.30
-Actual ΔN/S percentile:      70.7
-p_delta_NS (placebo):        0.2933
-p_candidate_NS (book):       0.2933
-p_delta_net (report):        0.1666
-p_drawdown_improvement:      0.7249
-p_shift_delta_NS:            0.2008
-p_master_delta_NS:           0.9920
+Matched-placebo median ΔN/S: 0.51
+Actual ΔN/S percentile:      83.9
+p_delta_NS (placebo):        0.1614
+p_candidate_NS (book):       0.1614
+p_delta_net (report):        0.1700
+p_drawdown_improvement:      0.3759
+p_shift_delta_NS:            0.0999
+p_master_delta_NS:           0.9800
 Frozen WF pos Δnet frac:     1.00
 Discovery reappear count:    1
 
 Decision: NOT VALIDATED
+```
+
+## nq_prior_opposed_rl Opening 15m range vs ATR=or_norm @ 2.00×
+
+```
+HP coverage:               29.9%
+Boosted campaigns:         129
+Incremental net (report):  +581952
+Incremental stress:        19855
+Incremental sleeve N/S:    29.31
+Full-book N/S base→sized:  24.06 → 36.26 (Δ+12.20)
+
+Matched-placebo median ΔN/S: 0.61
+Actual ΔN/S percentile:      95.8
+p_delta_NS (placebo):        0.0422
+p_candidate_NS (book):       0.0422
+p_delta_net (report):        0.0514
+p_drawdown_improvement:      0.0768
+p_shift_delta_NS:            0.0280
+p_master_delta_NS:           0.0639
+Frozen WF pos Δnet frac:     1.00
+Discovery reappear count:    1
+
+Decision: PROVISIONAL PAPER
 ```
 
 ## Rare HP sizing sensitivity (NOT validation)

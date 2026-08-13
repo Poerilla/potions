@@ -18,8 +18,23 @@ CACHE = REPO / "live" / "state" / "_cache" / "bars"
 STUDY = "futures_intraday_hp_sizeup_v1"
 PROFILE_HUB = REPO / "live" / "state" / "futures_intraday_condition_profile"
 NULLS_HUB = REPO / "live" / "state" / "futures_intraday_hp_sizeup_nulls"
+NULLS_HUB_2X = REPO / "live" / "state" / "futures_intraday_hp_sizeup_nulls_2x"
 LIVE_HUB = REPO / "live" / "state" / "futures_intraday_hp_live_plan"
 SEED = 20260812
+
+# Predeclared 2× null suite (Tier A/B @ 1.25×). Separate hub; no 1.25× LIVE_PLAN overwrite.
+PREDECLARED_2X: List[Tuple[str, str, str]] = [
+    ("es_prior_opposed_legacy", "ST-event age", "st_age_gt180m"),
+    ("ym_prior_opposed_rl", "Overnight range third", "on_middle"),
+    ("nq_prior_opposed_rl", "Opening 15m range vs ATR", "or_norm"),
+]
+
+# Phase-3 ΔN/S objective shortlist @ 1.25× (exact pairs; not shortlist head)
+PHASE3_1_25: List[Tuple[str, str, str]] = [
+    ("nq_prior_opposed_rl", "Opening 15m range vs ATR", "or_norm"),
+    ("es_prior_opposed_legacy", "ST-event age", "st_age_gt180m"),
+    ("ym_prior_opposed_rl", "Overnight range third", "on_middle"),
+]
 FEE_PER_UNIT = 1.5
 
 # Index sleeve for portfolio stacking rules (full contract preferred over micro).

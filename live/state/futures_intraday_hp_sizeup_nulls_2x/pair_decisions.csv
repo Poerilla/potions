@@ -1,0 +1,4 @@
+decision,book,condition,bucket,mult,hp_pct,inc_net,inc_ns,delta_ns,p_placebo,p_shift,p_master,wf_pos_frac,slug
+NOT VALIDATED,es_prior_opposed_legacy,ST-event age,st_age_gt180m,2.0,27.755102040816325,158177.5,22.982564475118053,4.075291373078747,0.10617876424715057,0.0989010989010989,0.6187624750499002,1.0,es_prior_opposed_legacy__ST-event_age__st_age_gt180m__x2.00
+NOT VALIDATED,ym_prior_opposed_rl,Overnight range third,on_middle,2.0,24.770642201834864,117872.5,14.171626089570184,1.8143363679253515,0.16136772645470907,0.0999000999000999,0.9800399201596807,1.0,ym_prior_opposed_rl__Overnight_range_third__on_middle__x2.00
+PROVISIONAL PAPER,nq_prior_opposed_rl,Opening 15m range vs ATR,or_norm,2.0,29.86111111111111,581952.5,29.31012339461093,12.20161161416916,0.042191561687662464,0.027972027972027972,0.06387225548902195,1.0,nq_prior_opposed_rl__Opening_15m_range_vs_ATR__or_norm__x2.00

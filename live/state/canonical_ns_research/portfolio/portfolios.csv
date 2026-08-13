@@ -1,0 +1,20 @@
+label,overlays,prior_opposed_hp_n,hold_one_ok,net,stress,ns,n_sleeves,delta_NS_vs_core,notes
+core_baselines_only,,0,True,796519.3681817877,170246.40545454537,4.678626641514924,6.0,0.0,finite core sleeves only (one per HOLD_ONE group)
+core+overlays,nq_prior_opposed_rl@2.00×(BORDERLINE PAPER),1,True,2359874.9581817877,205960.45545454536,11.457903183276862,6.0,6.779276541761938,HOLD_ONE enforced; additive stress upper bound
+core+overlays,nq_prior_opposed_rl@1.25×(BORDERLINE PAPER),1,True,1923410.5831817877,204552.95545454536,9.402995810584597,6.0,4.724369169069673,HOLD_ONE enforced; additive stress upper bound
+core+overlays,eurusd_st_pmc_3r@1.50×(BORDERLINE PAPER),0,True,814298.5795983442,170180.2454545447,4.784918351853265,6.0,0.10629171033834073,HOLD_ONE enforced; additive stress upper bound
+core+overlays,us30_monday_or@1.50×(BORDERLINE PAPER),0,True,817071.4731817914,186115.88545454468,4.39012216064354,6.0,-0.28850448087138414,HOLD_ONE enforced; additive stress upper bound
+core+overlays,eurusd_st_pmc_3r@1.25×(SIZE-UP VALIDATED),0,True,805544.3858234945,169664.24545454458,4.747873564435301,6.0,0.06924692292037715,HOLD_ONE enforced; additive stress upper bound
+core+overlays,us30_monday_or@1.25×(SIZE-UP VALIDATED),0,True,812946.4006817912,185718.0354545447,4.377315314003327,6.0,-0.3013113275115975,HOLD_ONE enforced; additive stress upper bound
+core+overlays,nq_prior_opposed_rl@2.00×(BORDERLINE PAPER); eurusd_st_pmc_3r@1.50×(BORDERLINE PAPER),1,True,2377654.1695983442,205894.29545454468,11.547936111339517,6.0,6.869309469824593,HOLD_ONE enforced; additive stress upper bound
+core+overlays,nq_prior_opposed_rl@2.00×(BORDERLINE PAPER); us30_monday_or@1.50×(BORDERLINE PAPER),1,True,2380427.0631817915,221829.93545454467,10.730864877655643,6.0,6.0522382361407185,HOLD_ONE enforced; additive stress upper bound
+core+overlays,nq_prior_opposed_rl@2.00×(BORDERLINE PAPER); eurusd_st_pmc_3r@1.25×(SIZE-UP VALIDATED),1,True,2368899.9758234946,205378.2954545446,11.534324844700018,6.0,6.855698203185094,HOLD_ONE enforced; additive stress upper bound
+core+overlays,nq_prior_opposed_rl@2.00×(BORDERLINE PAPER); us30_monday_or@1.25×(SIZE-UP VALIDATED),1,True,2376301.9906817917,221432.0854545447,10.731516102573112,6.0,6.052889461058188,HOLD_ONE enforced; additive stress upper bound
+core+overlays,nq_prior_opposed_rl@1.25×(BORDERLINE PAPER); eurusd_st_pmc_3r@1.50×(BORDERLINE PAPER),1,True,1941189.7945983442,204486.79545454468,9.492983594776176,6.0,4.814356953261251,HOLD_ONE enforced; additive stress upper bound
+core+overlays,nq_prior_opposed_rl@1.25×(BORDERLINE PAPER); us30_monday_or@1.50×(BORDERLINE PAPER),1,True,1943962.6881817912,220422.43545454467,8.819259637400538,6.0,4.140632995885614,HOLD_ONE enforced; additive stress upper bound
+core+overlays,nq_prior_opposed_rl@1.25×(BORDERLINE PAPER); eurusd_st_pmc_3r@1.25×(SIZE-UP VALIDATED),1,True,1932435.6008234946,203970.7954545446,9.47407983832736,6.0,4.795453196812435,HOLD_ONE enforced; additive stress upper bound
+core+overlays,nq_prior_opposed_rl@1.25×(BORDERLINE PAPER); us30_monday_or@1.25×(SIZE-UP VALIDATED),1,True,1939837.6156817912,220024.5854545447,8.816458450196903,6.0,4.1378318086819785,HOLD_ONE enforced; additive stress upper bound
+core+overlays,eurusd_st_pmc_3r@1.50×(BORDERLINE PAPER); us30_monday_or@1.50×(BORDERLINE PAPER),0,True,834850.6845983479,186049.725454544,4.487244915619723,6.0,-0.19138172589520153,HOLD_ONE enforced; additive stress upper bound
+core+overlays,eurusd_st_pmc_3r@1.50×(BORDERLINE PAPER); us30_monday_or@1.25×(SIZE-UP VALIDATED),0,True,830725.6120983477,185651.87545454403,4.47464163808971,6.0,-0.2039850034252142,HOLD_ONE enforced; additive stress upper bound
+core+overlays,us30_monday_or@1.50×(BORDERLINE PAPER); eurusd_st_pmc_3r@1.25×(SIZE-UP VALIDATED),0,True,826096.4908234982,185533.7254545439,4.452540845604339,6.0,-0.22608579591058486,HOLD_ONE enforced; additive stress upper bound
+core+overlays,eurusd_st_pmc_3r@1.25×(SIZE-UP VALIDATED); us30_monday_or@1.25×(SIZE-UP VALIDATED),0,True,821971.4183234981,185135.87545454392,4.439827863213445,6.0,-0.23879877830147933,HOLD_ONE enforced; additive stress upper bound

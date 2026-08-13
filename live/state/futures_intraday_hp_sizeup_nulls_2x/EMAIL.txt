@@ -1,0 +1,16 @@
+Study: futures_intraday_hp_sizeup_v1
+Hub: live/state/futures_intraday_hp_sizeup_nulls_2x/
+Multiplier: 2.00×
+
+potions: matched-added-exposure suite complete
+hub: /home/tester/hsm/potions/live/state/futures_intraday_hp_sizeup_nulls_2x
+
+- NOT VALIDATED | es_prior_opposed_legacy ST-event age=st_age_gt180m @2.00× hp28% incN/S=22.98 p_plac=0.007
+- NOT VALIDATED | ym_prior_opposed_rl Overnight range third=on_middle @2.00× hp25% incN/S=14.17 p_plac=0.021
+- PROVISIONAL PAPER | nq_prior_opposed_rl Opening 15m range vs ATR=or_norm @2.00× hp30% incN/S=29.31 p_plac=0.007
+
+Stance: no SIZE-UP VALIDATED / PROVISIONAL PAPER pairs this run — research / risk-budget only.
+
+/home/tester/hsm/potions/live/state/futures_intraday_hp_sizeup_nulls_2x/SUMMARY.md
+Portfolio: see portfolio_overlap.csv.
+Stance: 0 SIZE-UP VALIDATED @ exact 2× (predeclared Tier A/B). Does not rewrite 1.25× LIVE_PLAN.

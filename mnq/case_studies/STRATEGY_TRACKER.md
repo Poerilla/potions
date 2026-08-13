@@ -14,6 +14,27 @@ Central index of execution variants explored in this workspace / chat threads.
 
 ## Forex Strategy Leaderboard
 
+> **2026-08-13 — Canonical score = whole-book N/S (ΔN/S selects).**
+> For finite comparable books, **N/S = forced-flat net / |reachable stress|**
+> is the canonical higher-is-better score. Overlays/filters/size-ups rank by
+> **ΔN/S** (then candidate N/S). Raw Δnet is viability/reporting only — not
+> the winner selector. Matched placebo, clustered shift, and selection-aware
+> master nulls now select and decide on **ΔN/S** (`p_master_delta_NS`).
+> Hub: [`../../live/state/canonical_ns_research/`](../../live/state/canonical_ns_research/)
+> (`POLICY.md`, `CANDIDATE_LEDGER.csv`, `BOARDS.md`,
+> [`ALL_RESULTS.md`](../../live/state/canonical_ns_research/ALL_RESULTS.md) unsorted coupons).
+
+> **2026-08-13 — NQ prior-opposed RL · normal opening-15m-range @2× —
+> HIGHEST economic conviction in current HP sizing research.**
+> Evidence: Δnet ≈ **+$582k**; whole-book N/S **24.06 → 36.26** (ΔN/S **+12.20**);
+> MTM DD **−$55.3k → −$52.8k**; matched-capital + clustered-timing nulls pass
+> strongly on **ΔN/S**. Statistical class: **SELECTION-AWARE BORDERLINE**
+> (master ΔN/S p≈**0.064** vs best of 77-candidate search under N/S objective).
+> Operational: **HIGH-PRIORITY CONTROLLED PAPER** — not funded-production until
+> execution parity + forward evidence. Under the ΔN/S rerun, ES/YM @2× fall to
+> NOT VALIDATED (ΔN/S placebo); NQ is the sole 2× provisional survivor. Hub:
+> [`../../live/state/futures_intraday_hp_sizeup_nulls_2x/`](../../live/state/futures_intraday_hp_sizeup_nulls_2x/).
+
 > **2026-08-11 — USDJPY Asia-range London filtered `S_3_1_3` PROMOTED (research / practice).**
 > Asia OR 19:00–03:00 → arm London 03:00 → flatten 11:59; book **3/1/3**;
 > **Jan skip** + **shadow roll50** (WR≥40% / PF≥1 on **unfiltered** campaign book —
@@ -57,14 +78,15 @@ Central index of execution variants explored in this workspace / chat threads.
 > [`../../live/state/intraday_hp_sizeup_nulls/`](../../live/state/intraday_hp_sizeup_nulls/) ·
 > [`ROLLOUT.md`](../../live/state/intraday_hp_sizeup_nulls/ROLLOUT.md).
 
-> **2026-08-12 — Futures HP size-up v1 (ES/YM/NQ): two validated 1.25× allocations.**
-> Full null framework survivors: **ES prior-opposed ST-age>180m** (book N/S
-> 12.48→**13.70**) and **YM prior-opposed overnight middle** (9.74→**10.25**).
-> **NQ prior-opposed normal OR** provisional paper (24.06→**28.75**, MTM DD
-> improves). Tier C shadow-only; NOT VALIDATED = no action. Hold ≤1 prior-opposed
-> HP across ES/YM/NQ per session until overlap gate clears. Plan:
-> [`../../live/state/futures_intraday_hp_live_plan/DEPLOYMENT_PLAN.md`](../../live/state/futures_intraday_hp_live_plan/DEPLOYMENT_PLAN.md)
-> · compare [`COMPARISON.md`](../../live/state/futures_intraday_hp_live_plan/COMPARISON.md).
+> **2026-08-13 — Futures HP size-up ΔN/S repair: Tier A empty @1.25×.**
+> Phase-3 prior-opposed re-run under **ΔN/S** selection: **ES ST-age>180m**
+> and **YM overnight-middle** → **NOT VALIDATED** (`p_master_ΔNS`≈0.77 / 0.99).
+> Sole 1.25× survivor: **NQ OR-norm** **PROVISIONAL PAPER** (24.06→**28.75**,
+> ΔN/S +4.70, `p_master_ΔNS`≈0.074). Highest conviction remains NQ OR-norm
+> @**2×** (see callout above). Prior Aug-12 “two validated 1.25×” read was
+> Δnet-era — superseded. Hold ≤1 prior-opposed HP across ES/YM/NQ per session.
+> Plan: [`../../live/state/futures_intraday_hp_live_plan/DEPLOYMENT_PLAN.md`](../../live/state/futures_intraday_hp_live_plan/DEPLOYMENT_PLAN.md)
+> · nulls [`…/futures_intraday_hp_sizeup_nulls/`](../../live/state/futures_intraday_hp_sizeup_nulls/).
 
 ### Index CFD ST+PMC 50/150 — lot-correct 1mfill ranks (2026-08-08)
 

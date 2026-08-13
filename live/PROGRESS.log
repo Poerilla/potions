@@ -149,3 +149,10 @@ Append-only research/platform progress notes.
 
 [2026-08-13T02:50Z] Futures HP size-up v1 closed: Tier A paper 1.25x (ES ST-age>180, YM overnight-middle VALIDATED); Tier B provisional NQ OR-norm; Tier C shadow-only four risk-budget rows; NOT VALIDATED no action. Compare: baseline vs 1.25/2/3/4x net/MTM-DD/N/S + yearly extremes; prior-opposed overlap hold <=1 HP/session (15-16 shared dates). Hubs live/state/futures_intraday_hp_{sizeup_nulls,live_plan}/; skill potions-futures-intraday-hp-sizeup. Docs+git.
 [2026-08-13T03:00Z] Futures HP compare refreshed: COMPARISON.md now shows full 1/1.25/2/3/4x ladder (net/MTM-DD/N/S + yearly worst/bad/best); skill potions-futures-intraday-hp-sizeup documents Tier A/B bookkeeping + overlap gate. Hub live/state/futures_intraday_hp_live_plan/.
+[2026-08-13T03:23Z] Predeclared 2× null suite complete → live/state/futures_intraday_hp_sizeup_nulls_2x/: ES ST-age SIZE-UP VALIDATED (p_m=0.030); YM on_middle RISK-BUDGET (p_m=0.156); NQ or_norm PROVISIONAL (p_m=0.066). 1.25× LIVE_PLAN unchanged.
+
+[2026-08-13T13:40Z] Canonical N/S policy locked: whole-book ΔN/S selects (Δnet report-only). Phase 1 hub live/state/canonical_ns_research/ (118 candidates, 100 rankable). NQ prior-opposed OR-norm @2× tracker: HIGHEST HP conviction / SELECTION-AWARE BORDERLINE (p_master≈0.066) / HIGH-PRIORITY CONTROLLED PAPER — N/S 24.06→36.26 (Δ+12.20), Δnet≈+$582k, MTM DD improves. Rerunning futures 2× nulls under ΔN/S objective.
+
+[2026-08-13T14:40Z] Canonical NS Rerun finished. Phase-3 @1.25x under ΔN/S: ES/YM NOT VALIDATED; NQ OR-norm PROVISIONAL only (Tier A empty). Boards hardened (US30 market, exclude 10R addon from core). Phase-4 portfolio N/S hub live/state/canonical_ns_research/portfolio/ best≈11.55 (NQ@2x + EURUSD Thu@1.5x provisional; HOLD_ONE). DEPLOYMENT_PLAN+tracker+skill aligned. Emails sent.
+
+[2026-08-13T15:25Z] Canonical N/S all-results coupon table: ALL_RESULTS.md + ALL_RESULTS_WITH_COUPONS.csv (118 rows, ledger order, no sort; net/stress/N/S coupons vs baseline). Driver write_all_results_with_coupons wired. Tracker/CHANGE_LOG linked. Git check-in.

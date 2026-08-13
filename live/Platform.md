@@ -149,6 +149,7 @@ Market/stop fills apply `slippage_ticks` adverse; optional `SpreadModel` widens 
 - **Gate-off**: local `cancel_order` resolves remote ids from the pending snapshot when `_oanda_order_ids` is cold after restart; defers a strategy-scoped orphan sweep so remote rests survive a forgotten local open set.
 - **Entry refresh**: `modify_order(..., reason=refresh_entry)` prefers **cancel + resubmit** over `replace_order` so every cancel is audited and the old remote id cannot remain mapped. PaperBroker keeps in-place modify.
 - Alert event `pending_remote_gt_local_open` when tagged remote pending exceeds local open.
+- **Fill matching:** `on_fill` resolves only via `clientExtensions.id` / `clientOrderID` / mapped remote `orderID`. It does **not** attach untagged fills to “any active order on the instrument” (that false-filled a v2b `runner_stop` on a shared account and left the real OANDA STOP live until it opened an unprotected long). Fills against already-terminal local orders are ignored (`fill_ignored_terminal_local`) and surface as `fill_unmatched`.
 
 ---
 

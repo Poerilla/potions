@@ -1,0 +1,37 @@
+{
+  "study": "futures_intraday_hp_sizeup_v1",
+  "base_multiplier": 1.0,
+  "hp_extra": 1.0,
+  "stated_multiplier": 2.0,
+  "predeclared_pairs": [
+    {
+      "book": "es_prior_opposed_legacy",
+      "condition": "ST-event age",
+      "bucket": "st_age_gt180m"
+    },
+    {
+      "book": "ym_prior_opposed_rl",
+      "condition": "Overnight range third",
+      "bucket": "on_middle"
+    },
+    {
+      "book": "nq_prior_opposed_rl",
+      "condition": "Opening 15m range vs ATR",
+      "bucket": "or_norm"
+    }
+  ],
+  "validated": [],
+  "provisional": [
+    {
+      "book": "nq_prior_opposed_rl",
+      "condition": "Opening 15m range vs ATR",
+      "bucket": "or_norm"
+    }
+  ],
+  "risk_budget": [],
+  "notes": [
+    "Exact 2\u00d7 null suite only \u2014 independent of 1.25\u00d7 standing.",
+    "Does not authorize LIVE_PLAN changes; promote only after review.",
+    "At most one prior-opposed HP multiplier across ES/YM/NQ per session until overlap clears."
+  ]
+}

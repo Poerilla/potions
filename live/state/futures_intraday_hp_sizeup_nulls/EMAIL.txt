@@ -1,36 +1,16 @@
 Study: futures_intraday_hp_sizeup_v1
 Hub: live/state/futures_intraday_hp_sizeup_nulls/
+Multiplier: 1.25×
 
 potions: matched-added-exposure suite complete
 hub: /home/tester/hsm/potions/live/state/futures_intraday_hp_sizeup_nulls
 
-- SIZE-UP VALIDATED | es_prior_opposed_legacy ST-event age=st_age_gt180m @1.25× hp28% incN/S=22.98 p_plac=0.007
-- NOT VALIDATED | es_prior_opposed_legacy Week of month=1 @1.25× hp29% incN/S=10.91 p_plac=0.253
-- NOT VALIDATED | es_prior_opposed_legacy Prior RTH close location=prior_close_mid_third @1.25× hp25% incN/S=10.56 p_plac=0.092
-- NOT VALIDATED | es_st_pmc_ma_bull Day of week=Tuesday @1.25× hp22% incN/S=5.13 p_plac=0.082
-- NOT VALIDATED | es_st_pmc_ma_bull ST-event age=st_age_gt180m @1.25× hp28% incN/S=3.70 p_plac=0.084
-- NOT VALIDATED | es_st_pmc_ma_bull Prior RTH range percentile=prior_range_norm @1.25× hp26% incN/S=2.83 p_plac=0.906
-- NOT VALIDATED | nq_or_complement_skipflat Day of week=Thursday @1.25× hp20% incN/S=5.16 p_plac=0.067
-- NOT VALIDATED | nq_or_complement_skipflat Opening 15m range vs ATR=or_norm @1.25× hp29% incN/S=4.74 p_plac=0.026
-- NOT VALIDATED | nq_or_complement_skipflat Opening 15m volume percentile=vol_low @1.25× hp29% incN/S=4.63 p_plac=0.051
-- PROVISIONAL PAPER | nq_prior_opposed_rl Opening 15m range vs ATR=or_norm @1.25× hp30% incN/S=29.31 p_plac=0.008
-- NOT VALIDATED | nq_prior_opposed_rl ST-event age=st_age_30_90m @1.25× hp27% incN/S=20.73 p_plac=0.056
-- NOT VALIDATED | nq_prior_opposed_rl NQ-ES dispersion=disp_mid @1.25× hp32% incN/S=15.99 p_plac=0.182
-- NOT VALIDATED | nq_st_pmc_3r Overnight compression=on_comp @1.25× hp30% incN/S=23.01 p_plac=0.232
-- RISK-BUDGET PROFILE | nq_st_pmc_3r Entry hour (NY)=11 @1.25× hp8% incN/S=21.11 p_plac=0.023
-- NOT VALIDATED | nq_st_pmc_3r Hourly RSI bucket=rsi_55_70 @1.25× hp32% incN/S=20.25 p_plac=0.164
-- RISK-BUDGET PROFILE | nq_v2b_s113 Prior RTH close location=prior_close_mid_third @1.25× hp24% incN/S=6.06 p_plac=0.027
-- NOT VALIDATED | nq_v2b_s113 Opening 15m range vs ATR=or_norm @1.25× hp30% incN/S=6.04 p_plac=0.035
-- NOT VALIDATED | nq_v2b_s113 Overnight range third=on_lower @1.25× hp33% incN/S=4.51 p_plac=0.205
-- SIZE-UP VALIDATED | ym_prior_opposed_rl Overnight range third=on_middle @1.25× hp25% incN/S=14.17 p_plac=0.020
-- NOT VALIDATED | ym_prior_opposed_rl Month=12 @1.25× hp9% incN/S=10.83 p_plac=1.000
-- RISK-BUDGET PROFILE | ym_prior_opposed_rl Prior RTH range percentile=prior_range_norm @1.25× hp29% incN/S=10.28 p_plac=0.046
-- RISK-BUDGET PROFILE | ym_st_pmc_3r Day of week=Thursday @1.25× hp22% incN/S=20.30 p_plac=0.015
-- NOT VALIDATED | ym_st_pmc_3r Overnight compression=on_comp @1.25× hp28% incN/S=15.80 p_plac=0.058
-- NOT VALIDATED | ym_st_pmc_3r Prior RTH range percentile=prior_range_norm @1.25× hp29% incN/S=14.42 p_plac=0.288
+- PROVISIONAL PAPER | nq_prior_opposed_rl Opening 15m range vs ATR=or_norm @1.25× hp30% incN/S=29.31 p_plac=0.007
+- NOT VALIDATED | es_prior_opposed_legacy ST-event age=st_age_gt180m @1.25× hp28% incN/S=22.98 p_plac=0.005
+- NOT VALIDATED | ym_prior_opposed_rl Overnight range third=on_middle @1.25× hp25% incN/S=14.17 p_plac=0.020
 
-Stance: 2 pair(s) SIZE-UP VALIDATED (p_master≤0.05) at stated multiplier only.
+Stance: no SIZE-UP VALIDATED / PROVISIONAL PAPER pairs this run — research / risk-budget only.
 
 /home/tester/hsm/potions/live/state/futures_intraday_hp_sizeup_nulls/SUMMARY.md
-Portfolio: see portfolio_overlap.csv; LIVE_PLAN only keeps sleeve-unique VALIDATED.
-Stance: 2 SIZE-UP VALIDATED @1.25× only — no 1.5×/2× inference.
+Portfolio: see portfolio_overlap.csv.
+Stance: 0 SIZE-UP VALIDATED @1.25× only — no 1.5×/2× inference.

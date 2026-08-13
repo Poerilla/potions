@@ -8,32 +8,44 @@ Answers the random-added-exposure question:
 The linear 2×/4× table is **sizing sensitivity only** — it does not validate
 a multiplier. Each intended multiplier needs its own matched-null run.
 
+Canonical selection score (higher is better)
+--------------------------------------------
+Whole-book N/S = forced-flat net / |reachable full-book stress|.
+For overlays / size-ups: **ΔN/S = N/S_candidate − N/S_baseline**.
+
+Raw Δnet is a viability + reporting field only. Ranking, null winners,
+and promotion use **ΔN/S** (then candidate N/S as tie-break).
+
 Nulls / gates
 -------------
 1. **Matched-extra-size placebo** — same boost count + same extra×, year
    counts exact and month counts where possible (default 5,000). Never
-   stratify on the feature under test.
+   stratify on the feature under test. Decision stat: ``p_delta_ns``.
 2. **Clustered-timing shift** — circular / year-block shifts of the HP mask
    (default 1,000) preserving incidence and run clustering.
+   Decision stat: ``p_delta_ns``.
 3. **Selection-aware master null** — block-permute outcomes, re-search the
-   full candidate ledger, compare to best null winner (White-style).
+   full candidate ledger **selecting by ΔN/S**, compare actual ΔN/S to the
+   distribution of maximum null ΔN/S (White-style Reality Check).
+   Decision stat: ``p_master_delta_ns`` / ``p_delta_ns_vs_best_null``.
 4. **Nested walk-forward** — (a) discovery under HP-coverage cap; (b) frozen
-   candidate forward years vs matched placebo.
+   candidate forward years vs matched placebo (discovery also ranks by ΔN/S).
 
-Decision hierarchy (immutable; p-thresholds are hard):
+Decision hierarchy (immutable; p-thresholds are hard; all p_* on ΔN/S):
 
   SIZE-UP VALIDATED
     p_placebo ≤ 0.05 AND p_shift ≤ 0.05 AND p_master ≤ 0.05
     AND walk-forward gate passes AND stress/margin gate passes
     AND causal live-ready AND HP coverage < 35%.
 
-  BORDERLINE PAPER
+  BORDERLINE PAPER / PROVISIONAL PAPER
     All validated gates pass except 0.05 < p_master ≤ 0.10.
     Shadow / controlled paper only — no historical promotion claim.
 
-  RISK-BUDGET PROFILE
+  RISK THROTTLE (alias: RISK-BUDGET PROFILE)
     p_master > 0.10, or walk-forward stability fails (with some path signal).
-    Monitor / stress research only — not an HP-size deployment claim.
+    May lower stress/DD and raise N/S without superior incremental selection.
+    Monitor / sit-out control — not an HP-size alpha claim.
 
   NOT VALIDATED / PENDING — fails placebo/shift/causal or missing nulls.
 
@@ -121,7 +133,11 @@ def _progress(msg: str) -> None:
     line = msg.rstrip() + "\n"
     with (HUB / "PROGRESS.log").open("a", encoding="utf-8") as f:
         f.write(line)
-    print(msg, flush=True)
+    try:
+        print(msg, flush=True)
+    except BrokenPipeError:
+        # tee/pipe closed mid-run — keep computing; PROGRESS.log already updated
+        pass
 
 
 def _causal(condition: str) -> str:
@@ -395,6 +411,12 @@ def run_placebo_null(
         "actual_stress_improvement": actual_stress_imp,
         "p_inc_net": _p_beat(actual["inc_net"], null_df["inc_net"].to_numpy(), higher_better=True),
         "p_inc_ns": _p_beat(actual["inc_ns"], null_df["inc_ns"].to_numpy(), higher_better=True),
+        "p_delta_ns": _p_beat(
+            actual["delta_ns"], null_df["delta_ns"].to_numpy(), higher_better=True
+        ),
+        "p_delta_net": _p_beat(
+            actual["delta_net"], null_df["delta_net"].to_numpy(), higher_better=True
+        ),
         "p_book_ns": _p_beat(actual["book_ns"], null_df["book_ns"].to_numpy(), higher_better=True),
         "p_book_stress": _p_beat(
             actual["book_stress"], null_df["book_stress"].to_numpy(), higher_better=False
@@ -410,8 +432,12 @@ def run_placebo_null(
         ),
         "null_inc_net_p50": float(null_df["inc_net"].median()),
         "null_inc_ns_p50": float(null_df["inc_ns"].median()),
+        "null_delta_ns_p50": float(null_df["delta_ns"].median()),
         "null_book_ns_p50": float(null_df["book_ns"].median()),
         "null_book_stress_p50": float(null_df["book_stress"].median()),
+        "actual_percentile_delta_ns": float(
+            100.0 * (null_df["delta_ns"].to_numpy() < actual["delta_ns"]).mean()
+        ),
         "actual_percentile_inc_ns": float(
             100.0 * (null_df["inc_ns"].to_numpy() < actual["inc_ns"]).mean()
         ),
@@ -445,16 +471,24 @@ def run_shift_null(
         "n_shifts": int(len(null_df)),
         "actual_inc_net": actual["inc_net"],
         "actual_inc_ns": actual["inc_ns"],
+        "actual_delta_ns": actual["delta_ns"],
         "actual_book_ns": actual["book_ns"],
         "actual_book_stress": actual["book_stress"],
         "p_inc_net": _p_beat(actual["inc_net"], null_df["inc_net"].to_numpy(), higher_better=True),
         "p_inc_ns": _p_beat(actual["inc_ns"], null_df["inc_ns"].to_numpy(), higher_better=True),
+        "p_delta_ns": _p_beat(
+            actual["delta_ns"], null_df["delta_ns"].to_numpy(), higher_better=True
+        ),
+        "p_delta_net": _p_beat(
+            actual["delta_net"], null_df["delta_net"].to_numpy(), higher_better=True
+        ),
         "p_book_ns": _p_beat(actual["book_ns"], null_df["book_ns"].to_numpy(), higher_better=True),
         "p_book_stress": _p_beat(
             actual["book_stress"], null_df["book_stress"].to_numpy(), higher_better=False
         ),
         "null_inc_net_p50": float(null_df["inc_net"].median()),
         "null_inc_ns_p50": float(null_df["inc_ns"].median()),
+        "null_delta_ns_p50": float(null_df["delta_ns"].median()),
     }
     return summary, null_df
 
@@ -507,17 +541,33 @@ def book_candidates(
 
 
 def _select_score(sc: dict, base_ns: float, base_stress: float, base_net: float) -> float:
-    """Research-like ranking for size-up: prefer Δnet with stress/N/S discipline."""
-    if sc["delta_net"] <= 0:
+    """Canonical size-up ranking: OOS ΔN/S primary, candidate N/S secondary.
+
+    Δnet is a hard viability gate (must add dollars) but does **not** decide
+    winners. Tiny-stress books are ineligible so they cannot become false
+    N/S champions. Stress× soft gate demotes but does not invent Δnet winners.
+    """
+    del base_ns  # kept in signature for call-site compatibility
+    if sc.get("book_net", sc.get("delta_net", 0.0)) is None:
         return -1e18
-    stress_ok = sc["book_stress"] <= 1.35 * base_stress + 1.0
-    ns_ok = sc["book_ns"] >= 0.85 * base_ns
-    score = sc["delta_net"]
-    if stress_ok and ns_ok and sc["delta_net"] >= 0.05 * abs(base_net):
-        score += 1e6  # worth_size tier
-    elif stress_ok:
-        score += 1e5  # retain_size tier
-    score += 100.0 * sc["delta_ns"]
+    if float(sc.get("book_net", 0.0)) <= 0:
+        return -1e18
+    if float(sc.get("delta_net", 0.0)) <= 0:
+        return -1e18
+    # Minimum absolute stress: block near-zero-denominator N/S mirages.
+    min_stress = max(500.0, 0.02 * max(abs(float(base_stress)), 1.0))
+    if float(sc.get("book_stress", 0.0)) < min_stress:
+        return -1e18
+    delta_ns = float(sc.get("delta_ns", 0.0))
+    book_ns = float(sc.get("book_ns", 0.0))
+    # Primary ΔN/S (scaled), secondary whole-book N/S as tie-break.
+    score = 1_000_000.0 * delta_ns + book_ns
+    stress_ok = float(sc.get("book_stress", 0.0)) <= 1.35 * float(base_stress) + 1.0
+    if not stress_ok:
+        score -= 1e8
+    # Mild viability bonus when incremental dollars clear a floor vs baseline.
+    if abs(float(base_net)) > 1.0 and float(sc["delta_net"]) >= 0.05 * abs(float(base_net)):
+        score += 1.0
     return float(score)
 
 
@@ -588,9 +638,10 @@ def run_master_null(
                 "winner_bucket": bucket,
                 "inc_net": sc["inc_net"],
                 "inc_ns": sc["inc_ns"],
+                "delta_ns": sc["delta_ns"],
+                "delta_net": sc["delta_net"],
                 "book_ns": sc["book_ns"],
                 "book_stress": sc["book_stress"],
-                "delta_net": sc["delta_net"],
                 "select_score": best_score,
             }
         )
@@ -602,6 +653,8 @@ def run_master_null(
         "actual_rank_among_candidates": int(actual_rank),
         "actual_inc_net": actual["inc_net"],
         "actual_inc_ns": actual["inc_ns"],
+        "actual_delta_ns": actual["delta_ns"],
+        "actual_delta_net": actual["delta_net"],
         "actual_book_ns": actual["book_ns"],
         "p_inc_net_vs_best_null": _p_beat(
             actual["inc_net"], null_df["inc_net"].to_numpy(), higher_better=True
@@ -613,6 +666,17 @@ def run_master_null(
         )
         if not null_df.empty
         else float("nan"),
+        # Primary Reality-Check statistic: actual ΔN/S vs max null ΔN/S.
+        "p_delta_ns_vs_best_null": _p_beat(
+            actual["delta_ns"], null_df["delta_ns"].to_numpy(), higher_better=True
+        )
+        if not null_df.empty
+        else float("nan"),
+        "p_delta_net_vs_best_null": _p_beat(
+            actual["delta_net"], null_df["delta_net"].to_numpy(), higher_better=True
+        )
+        if not null_df.empty
+        else float("nan"),
         "p_book_ns_vs_best_null": _p_beat(
             actual["book_ns"], null_df["book_ns"].to_numpy(), higher_better=True
         )
@@ -620,6 +684,9 @@ def run_master_null(
         else float("nan"),
         "null_best_inc_net_p50": float(null_df["inc_net"].median()) if not null_df.empty else float("nan"),
         "null_best_inc_ns_p50": float(null_df["inc_ns"].median()) if not null_df.empty else float("nan"),
+        "null_best_delta_ns_p50": float(null_df["delta_ns"].median())
+        if not null_df.empty
+        else float("nan"),
     }
     return summary, null_df
 
@@ -836,33 +903,44 @@ def classify_pair(
     causal: str,
     book_stress_x: float,
 ) -> str:
-    """Immutable matched-added-exposure decision hierarchy.
+    """Immutable matched-added-exposure decision hierarchy (ΔN/S objective).
 
     SIZE-UP VALIDATED
       p_placebo≤0.05 AND p_shift≤0.05 AND p_master≤0.05 AND WF + stress gates
       AND causal live-ready AND coverage < HP limit.
+      All p_* use whole-book ΔN/S (not raw Δnet).
 
     BORDERLINE PAPER
       Same as validated except 0.05 < p_master ≤ 0.10.
       Shadow / controlled paper only — no historical size-up promotion claim.
 
-    RISK-BUDGET PROFILE
+    RISK THROTTLE
       p_master > 0.10 or WF fails while placebo/shift still show path signal.
-      Sensitivity / risk-budget research only.
+      Sensitivity / risk-throttle research only (alias: RISK-BUDGET PROFILE).
 
     NOT VALIDATED / PENDING
       Fails placebo/shift/causal/coverage basics, or null artifacts missing.
     """
     if not placebo or not shift or not master:
         return "PENDING"
-    if any(placebo.get(k) is None for k in ("p_inc_ns", "p_inc_net")):
-        return "PENDING"
 
-    p_inc_ns = float(placebo.get("p_inc_ns", 1.0) or 1.0)
-    sh_ns = float(shift.get("p_inc_ns", 1.0) or 1.0)
-    m_ns = float(master.get("p_inc_ns_vs_best_null", 1.0) or 1.0)
+    def _p_delta(d: dict, *keys: str) -> float:
+        for k in keys:
+            if d.get(k) is not None:
+                try:
+                    v = float(d[k])
+                except (TypeError, ValueError):
+                    continue
+                if not math.isnan(v):
+                    return v
+        return 1.0
 
-    beat_placebo = p_inc_ns <= P_ALPHA
+    # Prefer ΔN/S; fall back to legacy inc_ns keys on older RESULT.json.
+    p_plac = _p_delta(placebo, "p_delta_ns", "p_inc_ns")
+    sh_ns = _p_delta(shift, "p_delta_ns", "p_inc_ns")
+    m_ns = _p_delta(master, "p_delta_ns_vs_best_null", "p_inc_ns_vs_best_null")
+
+    beat_placebo = p_plac <= P_ALPHA
     beat_shift = sh_ns <= P_ALPHA
     master_validated = m_ns <= P_ALPHA
     master_borderline = P_ALPHA < m_ns <= P_MASTER_BORDERLINE_HI
@@ -881,8 +959,8 @@ def classify_pair(
     if base_ok and master_borderline and wf_pass:
         return "BORDERLINE PAPER"
     if base_ok and (master_risk or not wf_pass):
-        return "RISK-BUDGET PROFILE"
-    # Coverage too broad but placebo/shift still interesting → risk-budget research
+        return "RISK THROTTLE"
+    # Coverage too broad but placebo/shift still interesting → risk throttle
     if (
         causal_ok
         and (not coverage_ok)
@@ -890,7 +968,7 @@ def classify_pair(
         and beat_shift
         and stress_ok
     ):
-        return "RISK-BUDGET PROFILE"
+        return "RISK THROTTLE"
 
     return "NOT VALIDATED"
 
@@ -1180,15 +1258,27 @@ def evaluate_pair(
         "book_stress_x": book_stress_x,
     }
     out["p_placebo_inc_ns"] = placebo_sum.get("p_inc_ns")
+    out["p_placebo_delta_ns"] = placebo_sum.get("p_delta_ns", placebo_sum.get("p_inc_ns"))
     out["p_placebo_inc_net"] = placebo_sum.get("p_inc_net")
+    out["p_placebo_delta_net"] = placebo_sum.get("p_delta_net", placebo_sum.get("p_inc_net"))
     out["p_placebo_book_ns"] = placebo_sum.get("p_book_ns")
     out["p_placebo_book_stress"] = placebo_sum.get("p_book_stress")
     out["p_drawdown_improvement"] = placebo_sum.get("p_drawdown_improvement")
     out["p_stress_improvement"] = placebo_sum.get("p_stress_improvement")
+    out["placebo_delta_ns_percentile"] = placebo_sum.get(
+        "actual_percentile_delta_ns", placebo_sum.get("actual_percentile_inc_ns")
+    )
     out["placebo_inc_ns_percentile"] = placebo_sum.get("actual_percentile_inc_ns")
     out["p_shift_inc_ns"] = shift_sum.get("p_inc_ns")
+    out["p_shift_delta_ns"] = shift_sum.get("p_delta_ns", shift_sum.get("p_inc_ns"))
     out["p_master_inc_ns"] = master_sum.get("p_inc_ns_vs_best_null")
+    out["p_master_delta_ns"] = master_sum.get(
+        "p_delta_ns_vs_best_null", master_sum.get("p_inc_ns_vs_best_null")
+    )
     out["p_master_inc_net"] = master_sum.get("p_inc_net_vs_best_null")
+    out["p_master_delta_net"] = master_sum.get(
+        "p_delta_net_vs_best_null", master_sum.get("p_inc_net_vs_best_null")
+    )
 
     (pair_dir / "RESULT.json").write_text(json.dumps(out, indent=2, default=str), encoding="utf-8")
 
@@ -1196,12 +1286,12 @@ def evaluate_pair(
         return float(x) if x is not None and not (isinstance(x, float) and math.isnan(x)) else float("nan")
 
     _progress(
-        "  decision=%s p_placebo_inc_ns=%.4f p_shift=%.4f p_master=%.4f wf_reappear=%d"
+        "  decision=%s p_plac_ΔNS=%.4f p_shift_ΔNS=%.4f p_master_ΔNS=%.4f wf_reappear=%d"
         % (
             decision,
-            _p(out["p_placebo_inc_ns"]),
-            _p(out["p_shift_inc_ns"]),
-            _p(out["p_master_inc_ns"]),
+            _p(out["p_placebo_delta_ns"]),
+            _p(out["p_shift_delta_ns"]),
+            _p(out["p_master_delta_ns"]),
             wf_reappear_n,
         )
     )
@@ -1221,31 +1311,38 @@ def render_summary(
         "",
         "Placebo: year|month boost-count matched (never stratifies on the",
         "tested feature). Also: clustered timing shifts, selection-aware",
-        "master null, nested discovery WF (HP coverage ≤35%) + frozen-candidate WF.",
+        "master null (**selects by ΔN/S**), nested discovery WF (HP coverage ≤35%)",
+        "+ frozen-candidate WF.",
+        "",
+        "Canonical objective: whole-book **ΔN/S** (higher better). Δnet is",
+        "viability/reporting only — not the winner selector.",
         "",
         "Linear 2×/3×/4× tables below are **sizing sensitivity only** — not",
         "validation. Each intended multiplier needs its own null suite.",
         "",
         "## Decision rule",
         "",
-        "- **SIZE-UP VALIDATED** — causal, coverage <35%, `p_placebo≤0.05`,",
-        "  `p_shift≤0.05`, `p_master≤0.05`, frozen WF acceptable,",
+        "- **SIZE-UP VALIDATED** — causal, coverage <35%, `p_delta_ns≤0.05`",
+        "  on placebo/shift/master, frozen WF acceptable,",
         "  full-book stress ≤1.35× baseline. Authorized: shadow → controlled paper.",
-        "- **BORDERLINE PAPER** — same gates except `0.05 < p_master ≤ 0.10`.",
+        "- **BORDERLINE PAPER** — same gates except `0.05 < p_master_ΔNS ≤ 0.10`.",
         "  Shadow / controlled paper only — **no** historical size-up promotion claim.",
-        "- **RISK-BUDGET PROFILE** — `p_master > 0.10` or WF fails (or coverage too",
-        "  broad). Sensitivity / stress research only — not an HP-size deployment.",
+        "- **RISK THROTTLE** — `p_master_ΔNS > 0.10` or WF fails (or coverage too",
+        "  broad). May raise N/S without superior incremental selection — not alpha.",
         "- **NOT VALIDATED** — fails equal-added random exposure / timing / causal.",
         "- **PENDING** — required null/multiplier replay missing.",
         "",
         "## Pair results (matched-added-exposure)",
         "",
-        "| decision | book | condition=bucket | mult | hp% | inc net | inc N/S | p_plac N/S | p_shift | p_master | WF+ | reapp |",
+        "| decision | book | condition=bucket | mult | hp% | Δnet | ΔN/S | p_plac ΔNS | p_shift ΔNS | p_master ΔNS | WF+ | reapp |",
         "|---|---|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|",
     ]
     for r in results:
+        p_plac = r.get("p_placebo_delta_ns", r.get("p_placebo_inc_ns"))
+        p_sh = r.get("p_shift_delta_ns", r.get("p_shift_inc_ns"))
+        p_m = r.get("p_master_delta_ns", r.get("p_master_inc_ns"))
         lines.append(
-            "| %s | %s | %s=%s | %.2f× | %.0f%% | %+.0f | %.2f | %.3f | %.3f | %.3f | %.0f%% | %d |"
+            "| %s | %s | %s=%s | %.2f× | %.0f%% | %+.0f | %+.2f | %.3f | %.3f | %.3f | %.0f%% | %d |"
             % (
                 r["decision"],
                 r["book"],
@@ -1254,10 +1351,10 @@ def render_summary(
                 r["size_mult"],
                 100.0 * r["boost_frac"],
                 r["sleeve_inc_net"],
-                r["sleeve_inc_ns"],
-                float(r["p_placebo_inc_ns"]) if r["p_placebo_inc_ns"] is not None else float("nan"),
-                float(r["p_shift_inc_ns"]) if r["p_shift_inc_ns"] is not None else float("nan"),
-                float(r["p_master_inc_ns"]) if r["p_master_inc_ns"] is not None else float("nan"),
+                float(r.get("sleeve_delta_ns") or 0.0),
+                float(p_plac) if p_plac is not None else float("nan"),
+                float(p_sh) if p_sh is not None else float("nan"),
+                float(p_m) if p_m is not None else float("nan"),
                 100.0 * float(r.get("wf_frac_pos_delta") or 0.0),
                 int(r.get("wf_discovery_reappear_n") or 0),
             )
@@ -1276,9 +1373,9 @@ def render_summary(
                 "```",
                 "HP coverage:               %.1f%%" % (100 * prim["boost_frac"]),
                 "Boosted campaigns:         %d" % prim["boost_n"],
-                "Incremental net:           %+.0f" % prim["sleeve_inc_net"],
+                "Incremental net (report):  %+.0f" % prim["sleeve_inc_net"],
                 "Incremental stress:        %.0f" % prim["sleeve_inc_stress"],
-                "Incremental N/S:           %.2f" % prim["sleeve_inc_ns"],
+                "Incremental sleeve N/S:    %.2f" % prim["sleeve_inc_ns"],
                 "Full-book N/S base→sized:  %.2f → %.2f (Δ%+.2f)"
                 % (
                     _pf(prim.get("sleeve_base_ns")),
@@ -1286,16 +1383,22 @@ def render_summary(
                     _pf(prim.get("sleeve_delta_ns")),
                 ),
                 "",
-                "Matched-placebo median N/S: %.2f" % _pf(prim["placebo"].get("null_inc_ns_p50")),
-                "Actual percentile:          %.1f" % _pf(prim.get("placebo_inc_ns_percentile")),
-                "p_incremental_N/S:          %.4f" % _pf(prim["p_placebo_inc_ns"]),
-                "p_incremental_net:          %.4f" % _pf(prim["p_placebo_inc_net"]),
-                "p_full-book_N/S:            %.4f" % _pf(prim.get("p_placebo_book_ns")),
-                "p_drawdown_improvement:     %.4f" % _pf(prim.get("p_drawdown_improvement")),
-                "p_shift_inc_N/S:            %.4f" % _pf(prim["p_shift_inc_ns"]),
-                "p_master_inc_N/S:           %.4f" % _pf(prim["p_master_inc_ns"]),
-                "Frozen WF pos Δnet frac:    %.2f" % _pf(prim.get("wf_frac_pos_delta")),
-                "Discovery reappear count:   %d" % int(prim.get("wf_discovery_reappear_n") or 0),
+                "Matched-placebo median ΔN/S: %.2f"
+                % _pf(prim["placebo"].get("null_delta_ns_p50", prim["placebo"].get("null_inc_ns_p50"))),
+                "Actual ΔN/S percentile:      %.1f"
+                % _pf(prim.get("placebo_delta_ns_percentile", prim.get("placebo_inc_ns_percentile"))),
+                "p_delta_NS (placebo):        %.4f"
+                % _pf(prim.get("p_placebo_delta_ns", prim.get("p_placebo_inc_ns"))),
+                "p_candidate_NS (book):       %.4f" % _pf(prim.get("p_placebo_book_ns")),
+                "p_delta_net (report):        %.4f"
+                % _pf(prim.get("p_placebo_delta_net", prim.get("p_placebo_inc_net"))),
+                "p_drawdown_improvement:      %.4f" % _pf(prim.get("p_drawdown_improvement")),
+                "p_shift_delta_NS:            %.4f"
+                % _pf(prim.get("p_shift_delta_ns", prim.get("p_shift_inc_ns"))),
+                "p_master_delta_NS:           %.4f"
+                % _pf(prim.get("p_master_delta_ns", prim.get("p_master_inc_ns"))),
+                "Frozen WF pos Δnet frac:     %.2f" % _pf(prim.get("wf_frac_pos_delta")),
+                "Discovery reappear count:    %d" % int(prim.get("wf_discovery_reappear_n") or 0),
                 "",
                 "Decision: %s" % prim["decision"],
                 "```",
@@ -1387,7 +1490,11 @@ def phone_email(results: List[dict], rare: pd.DataFrame) -> str:
     if results:
         lines.append("")
         validated = [r for r in results if r["decision"] == "SIZE-UP VALIDATED"]
-        borderline = [r for r in results if r["decision"] == "BORDERLINE PAPER"]
+        borderline = [
+            r
+            for r in results
+            if r["decision"] in ("BORDERLINE PAPER", "PROVISIONAL PAPER")
+        ]
         if validated:
             lines.append(
                 "Stance: %d pair(s) SIZE-UP VALIDATED (p_master≤0.05) at stated multiplier only."
@@ -1395,12 +1502,12 @@ def phone_email(results: List[dict], rare: pd.DataFrame) -> str:
             )
         if borderline:
             lines.append(
-                "Borderline: %d pair(s) with 0.05<p_master≤0.10 — exploratory paper only, not a promotion claim."
+                "Borderline/provisional: %d pair(s) with 0.05<p_master≤0.10 — exploratory paper only, not a promotion claim."
                 % len(borderline)
             )
         if not validated and not borderline:
             lines.append(
-                "Stance: no SIZE-UP VALIDATED / BORDERLINE PAPER pairs this run — research / risk-budget only."
+                "Stance: no SIZE-UP VALIDATED / PROVISIONAL PAPER pairs this run — research / risk-budget only."
             )
     lines.append("")
     lines.append(str(HUB / "SUMMARY.md"))
