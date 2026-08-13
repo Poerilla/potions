@@ -66,25 +66,34 @@ intended multiplier.
 
 ## Deployment tiers (canonical)
 
-See [`DEPLOYMENT_PLAN.md`](../../../live/state/futures_intraday_hp_live_plan/DEPLOYMENT_PLAN.md).
+See [`DEPLOYMENT_PLAN.md`](../../../live/state/futures_intraday_hp_live_plan/DEPLOYMENT_PLAN.md)
+(also `LIVE_PLAN.md`, `hp_size_rules.yaml`).
 
-- **Tier A paper 1.25×:** ES prior-opposed ST-age>180m; YM prior-opposed overnight middle
-- **Tier B provisional paper 1.25×:** NQ prior-opposed normal OR
-- **Tier C shadow only:** NQ ST+PMC h11; NQ v2b prior-RTH mid; YM prior-RTH-norm; YM ST+PMC Thu
-- **No action:** all NOT VALIDATED
+| Tier | Action | Candidates |
+|------|--------|------------|
+| **A** | paper 1.25× | ES prior-opposed ST-age>180m; YM prior-opposed overnight middle |
+| **B** | provisional paper 1.25× | NQ prior-opposed normal OR |
+| **C** | shadow profile only | NQ ST+PMC h11; NQ v2b prior-RTH mid; YM prior-RTH-norm; YM ST+PMC Thu |
+| — | no action | all NOT VALIDATED |
 
-Tier A/B bookkeeping: retain 1.0× baseline + incremental 0.25× ledger (date, HP
-flag, condition inputs, intended sizes, fills, inc P&L/stress, whole-book DD,
-parity mismatch reason). **Do not stack yet.**
+### Tier A/B bookkeeping (do not stack yet)
 
-## Prior-opposed overlap gate
+Retain **1.0× baseline** tracking and separately book the **incremental 0.25×**:
 
-Before any **simultaneous** ES/YM/NQ prior-opposed HP multiplier:
+- campaign date, HP flag, condition inputs
+- baseline intended size, incremental intended size, actual fills
+- incremental realized P&L, incremental stress / MAE
+- whole-book stress and drawdown
+- reason for any parity mismatch
 
-```bash
-python -m live.futures_intraday_hp_sizeup_compare --email
-# → prior_opposed_overlap_report.csv
-```
+### Prior-opposed overlap gate
+
+Three prior-opposed candidates (ES / YM / NQ). Before any **simultaneous** HP
+multiplier, re-run compare → `prior_opposed_overlap_report.csv` and report:
+
+shared HP dates · same-direction rate · incremental P&L correlation ·
+incremental joint stress · worst simultaneous loss · margin at simultaneous
+boosted positions.
 
 Until cleared: **at most one prior-opposed HP multiplier across ES/YM/NQ per session.**
 
@@ -92,9 +101,10 @@ Until cleared: **at most one prior-opposed HP multiplier across ES/YM/NQ per ses
 
 1. Open `DEPLOYMENT_PLAN.md` + `COMPARISON.md` + nulls `SUMMARY.md`.
 2. Lead with Tier A validated survivors and 1.25× vs baseline (net / MTM DD / N/S / yearly).
-3. Note Tier B provisional and Tier C shadow-only; call out 2–4× as sensitivity.
+3. Note Tier B provisional and Tier C shadow-only; call out 2–4× as sensitivity only.
 4. Cite overlap hold-one-HP rule and bookkeeping fields.
 5. Stance: two causal-looking 1.25× allocations survived full nulls — not a long untrustworthy bucket list.
+6. After material runs: `potions-tracker-docs` (tracker / CHANGE_LOG / PROGRESS).
 
 ## Related
 

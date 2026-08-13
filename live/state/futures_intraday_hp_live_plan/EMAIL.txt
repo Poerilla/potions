@@ -10,7 +10,7 @@ Hub: live/state/futures_intraday_hp_live_plan/
   TierC prior_range_norm: N/S 9.74→10.24 (Δ+0.50); DD -$29,694→-$30,958; stress×1.043
   TierC Thursday: N/S 18.06→19.20 (Δ+1.15); DD -$5,894→-$6,028; stress×1.023
 
-2×/4× = sensitivity only (not validated).
+2×/3×/4× = sensitivity only (not validated).
 Prior-opposed overlap: hold ≤1 HP/session until joint gate clears.
   es↔ym shared=15 sameDir=93% corr=0.044 worstSim=-$598
   es↔nq shared=16 sameDir=100% corr=0.109 worstSim=-$1,422

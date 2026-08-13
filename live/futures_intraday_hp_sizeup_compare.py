@@ -343,7 +343,7 @@ def render_comparison_md(br: pd.DataFrame, ov: pd.DataFrame) -> str:
         "| tier | book / bucket | mult | net | MTM DD | N/S | stress× | Δnet | ΔN/S | worst yr net | bad yr N/S | best yr net |",
         "|---|---|---:|---:|---:|---:|---:|---:|---:|---|---|---|",
     ]
-    show = br[br["mult"].isin([1.0, 1.25, 2.0, 4.0])].copy()
+    show = br[br["mult"].isin(list(MULTS))].copy()
     for _, r in show.iterrows():
         lines.append(
             "| %s | %s `%s` | %s× | %s | %s | %.2f | %.2f | %s | %+.2f | %d %s | %d %.2f | %d %s |"
@@ -470,7 +470,7 @@ def phone_body(br: pd.DataFrame, ov: pd.DataFrame) -> str:
             )
         )
     lines.append("")
-    lines.append("2×/4× = sensitivity only (not validated).")
+    lines.append("2×/3×/4× = sensitivity only (not validated).")
     lines.append("Prior-opposed overlap: hold ≤1 HP/session until joint gate clears.")
     for _, r in ov.iterrows():
         lines.append(
