@@ -1,0 +1,8 @@
+{
+  "classification": "stop_only",
+  "recommended_action": "freeze_entries",
+  "instrument": "SPX500",
+  "strategy_id": "spx500_v2b_ungated_oanda",
+  "strategy_type": "v2b_scaleout",
+  "entry_qty": 3
+}

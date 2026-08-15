@@ -151,6 +151,17 @@ Market/stop fills apply `slippage_ticks` adverse; optional `SpreadModel` widens 
 - Alert event `pending_remote_gt_local_open` when tagged remote pending exceeds local open.
 - **Fill matching:** `on_fill` resolves only via `clientExtensions.id` / `clientOrderID` / mapped remote `orderID`. It does **not** attach untagged fills to “any active order on the instrument” (that false-filled a v2b `runner_stop` on a shared account and left the real OANDA STOP live until it opened an unprotected long). Fills against already-terminal local orders are ignored (`fill_ignored_terminal_local`) and surface as `fill_unmatched`.
 
+### OANDA daemon containment (2026-08-15)
+
+Strategy-local containment around the flat-file OANDA demos (`live/demo/oanda_daemon_reconcile.py`):
+
+- **Bracket invariant** (~2m): open focus qty must have stop coverage; full-size v2b without TP → `stop_only` → entry freeze; flat + working protective → orphan cancel; foreign-instrument bleed → flat-for-day.
+- **15m hard reconcile:** owned broker qty vs local; soft one-sided drift adopts account details; opposite-side / both-nonzero unexplained delta → `FLAT_FOR_DAY`.
+- **State:** `daemon_strategy_state.json` transitions + `FLAT_FOR_DAY.json`; `RuntimeSupervisor` modes `entry_frozen` / `flat_for_day` are sticky across `mark_reconciled`.
+- **Default shadow:** `POTIONS_OANDA_CONTAINMENT=shadow` logs would-actions; set `live` to enforce freeze/flatten. Wired on v2b, Monday OR, ST+PMC, asia-range, and London prior-opposed OANDA runners.
+- **Stream staleness (Aug 14 hung-stream class):** no price/heartbeat for ≥180s → `stream_stale` → `DISARMED` + entry freeze; reconnect runs REST hard-reconcile before rearm.
+- **Curated fault env:** `live/tests/fixtures/oanda_faults/` (Aug 13–14 stop-only / orphan / stream-hung missed-entry / no-bracket books + real demo 1m bar slices). Offline harness: `python -m potions.live.demo.oanda_fault_replay` (`--also-plugin-replay --hub live/state/oanda_fault_replay_curated --email`).
+
 ---
 
 ## 7. Causal ordering
@@ -320,6 +331,8 @@ Comparable Core Board rows must pass: variant complete, USD-normalized (JPY), re
 ## Maintenance
 
 Any change to fill semantics, causality guards, or reported metrics **must update this file** in the same PR as code/tests.
+
+**2026-08-15:** Documented OANDA daemon containment / FLAT_FOR_DAY / stream-staleness / fault fixtures (§6).
 
 **2026-08-12:** Documented OANDA remote order authority + cancel/resubmit entry refresh (§6).
 

@@ -17,6 +17,8 @@ python3 -m potions.live.cli demo-us30-v2b-oanda-status
 
 python3 -m potions.live.cli demo-usdjpy-monday-or-paper-status
 python3 -m potions.live.cli demo-usdjpy-monday-or-oanda-status
+python3 -m potions.live.cli demo-usdjpy-asia-range-paper-status
+python3 -m potions.live.cli demo-usdjpy-asia-range-oanda-status
 
 python3 -m potions.live.cli demo-us30-hourly-st-pmc-paper-status
 python3 -m potions.live.cli demo-us30-hourly-st-pmc-oanda-status
@@ -26,6 +28,9 @@ python3 -m potions.live.cli demo-nas100-hourly-st-pmc-paper-status
 python3 -m potions.live.cli demo-nas100-hourly-st-pmc-oanda-status
 python3 -m potions.live.cli demo-nas100-hourly-st-pmc-2r10r-paper-status
 python3 -m potions.live.cli demo-nas100-hourly-st-pmc-2r10r-oanda-status
+
+python3 -m potions.live.cli demo-us30-london-prior-opposed-paper-status
+python3 -m potions.live.cli demo-us30-london-prior-opposed-oanda-status
 ```
 
 ## Tail logs

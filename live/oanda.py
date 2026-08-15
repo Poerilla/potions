@@ -928,6 +928,7 @@ class OandaBroker(BaseBroker):
         allow_live_routing: bool = False,
         supervisor: Optional[RuntimeSupervisor] = None,
         authority_strategy_ids: Optional[Iterable[str]] = None,
+        position_scope_instruments: Optional[Iterable[str]] = None,
     ):
         self.store = store
         self.store.ensure()
@@ -937,9 +938,22 @@ class OandaBroker(BaseBroker):
         self.supervisor = supervisor
         if self.config.env != "practice" and not self.allow_live_routing:
             raise OandaConfigurationError("OANDA live routing is disabled unless allow_live_routing=True")
+        # Shared practice account is account-wide; demos scope to their focus instrument so
+        # reconcile_from_account_details does not bleed sibling NAS100/US30/etc. into local CSV.
+        scope = {
+            str(inst).strip().upper()
+            for inst in (position_scope_instruments or [])
+            if str(inst).strip()
+        }
+        self._position_scope_instruments: Optional[Set[str]] = scope or None
         self._orders_cache: Dict[str, BrokerOrder] = {order.broker_order_id: order for order in self.store.load_orders()}
         self._intents_cache: Dict[str, OrderIntent] = {intent.intent_id: intent for intent in self.store.load_order_intents()}
-        self._positions_cache: Dict[str, Position] = {pos.position_id: pos for pos in self.store.load_positions()}
+        loaded_positions = list(self.store.load_positions())
+        if self._position_scope_instruments is not None:
+            loaded_positions = [
+                pos for pos in loaded_positions if str(pos.instrument or "").upper() in self._position_scope_instruments
+            ]
+        self._positions_cache: Dict[str, Position] = {pos.position_id: pos for pos in loaded_positions}
         self._active_order_ids = {
             order.broker_order_id: True
             for order in self._orders_cache.values()
@@ -1150,15 +1164,7 @@ class OandaBroker(BaseBroker):
             raw_orders.append(dict(raw_order))
             self.on_order_status(dict(raw_order, type="order_status"))
         self._ingest_remote_pending_orders(raw_orders)
-        self._positions_cache = {}
-        for raw_position in account.get("positions") or []:
-            if hasattr(raw_position, "dict"):
-                raw_position = raw_position.dict()
-            position = self._position_from_oanda(raw_position)
-            if position.quantity == 0:
-                continue
-            self._positions_cache[position.position_id] = position
-            self.store.upsert_row("positions", "position_id", as_row(position))
+        self._rewrite_positions_from_account(account, reason="startup_reconcile")
         sweep = self.sweep_remote_order_authority(
             pending_orders=raw_orders,
             cancel_orphans=True,
@@ -1215,12 +1221,14 @@ class OandaBroker(BaseBroker):
         owned = set(self._authority_strategy_ids_resolved())
         if strategy_ids is not None:
             owned = {str(sid).strip() for sid in strategy_ids if str(sid).strip()}
+        account_snapshot: Optional[Dict[str, Any]] = None
         if pending_orders is None:
             if force_fetch and self.client is not None:
                 body = self.client.account_details()
                 account = body.get("account") or body
                 if hasattr(account, "dict"):
                     account = account.dict()
+                account_snapshot = dict(account) if isinstance(account, dict) else None
                 pending_orders = []
                 for raw_order in account.get("orders") or []:
                     if hasattr(raw_order, "dict"):
@@ -1294,6 +1302,10 @@ class OandaBroker(BaseBroker):
                             "reason": reason,
                         }
                     )
+        # When we already paid for account_details, also refresh owned scoped positions so
+        # stopLossOnFill exits clear local ghosts within ~60s (changes.positions is often empty).
+        if account_snapshot is not None and self._position_scope_instruments is not None:
+            self._rewrite_positions_from_account(account_snapshot, reason="authority_sweep:%s" % reason)
         result = {
             "owned_strategy_ids": sorted(owned),
             "local_open": local_open,
@@ -1309,6 +1321,207 @@ class OandaBroker(BaseBroker):
         self._last_authority_sweep_at = time.time()
         return result
 
+    def sweep_orphan_protectives_when_flat(
+        self,
+        *,
+        strategy_id: str,
+        instrument: str,
+        reason: str = "orphan_protective_flat",
+        pending_orders: Optional[List[Dict[str, Any]]] = None,
+    ) -> int:
+        """Cancel strategy-owned protective rests when local+broker focus exposure is flat.
+
+        Entry orphan sweep never cancels ``STOP_LOSS`` / ``TAKE_PROFIT``. After a flat
+        book those can linger (Aug 14 NAS/SPX v2b). Also cancels local working stops
+        tagged to this strategy on the focus instrument when qty==0.
+        """
+        inst = str(instrument or "").upper()
+        sid = str(strategy_id or "").strip()
+        if not sid or not inst:
+            return 0
+        local_qty = sum(
+            float(p.quantity or 0.0)
+            for p in self._positions_cache.values()
+            if str(p.instrument or "").upper() == inst
+            and str(p.strategy_id or "") in {sid, "oanda", ""}
+        )
+        if abs(local_qty) > 1e-9:
+            return 0
+        if pending_orders is None:
+            if self.client is not None:
+                try:
+                    body = self.client.account_details()
+                    account = body.get("account") or body
+                    if hasattr(account, "dict"):
+                        account = account.dict()
+                    pending_orders = []
+                    for raw_order in account.get("orders") or []:
+                        if hasattr(raw_order, "dict"):
+                            raw_order = raw_order.dict()
+                        pending_orders.append(dict(raw_order))
+                    # Confirm broker-owned qty still flat for this tag/instrument.
+                    owned = self._owned_scoped_positions_from_account(
+                        dict(account) if isinstance(account, dict) else {},
+                        authority={sid},
+                    )
+                    broker_qty = sum(
+                        float(p.quantity or 0.0)
+                        for p in owned
+                        if str(p.instrument or "").upper() == inst
+                    )
+                    if abs(broker_qty) > 1e-9:
+                        return 0
+                    open_trade_ids = self._open_trade_ids_from_account(
+                        dict(account) if isinstance(account, dict) else {},
+                        instrument=inst,
+                        authority={sid},
+                    )
+                except Exception as exc:
+                    self._emit_order_event(
+                        {"event": "orphan_protective_sweep_error", "error": str(exc), "reason": reason}
+                    )
+                    pending_orders = list(self._pending_remote_snapshot)
+                    open_trade_ids = set()
+            else:
+                pending_orders = list(self._pending_remote_snapshot)
+                open_trade_ids = set()
+        else:
+            open_trade_ids = set()
+
+        cancelled = 0
+        oanda_inst = self.config.symbol_for(inst)
+        for raw in pending_orders or []:
+            meta = self._remote_order_meta(raw)
+            otype = meta["order_type"]
+            remote_id = str(meta.get("remote_id") or "")
+            if not remote_id:
+                continue
+            trade_id = str(raw.get("tradeID") or raw.get("tradeId") or "")
+            tagged = meta["strategy_id"] == sid
+            linked_orphan = bool(trade_id) and trade_id not in open_trade_ids and (
+                otype in _OANDA_PROTECTIVE_ORDER_TYPES
+            )
+            same_instrument = self.config.internal_for(meta["instrument"] or oanda_inst).upper() == inst
+            if otype in _OANDA_PROTECTIVE_ORDER_TYPES and same_instrument and (tagged or linked_orphan):
+                if self.client is None:
+                    cancelled += 1
+                    continue
+                try:
+                    self.client.cancel_order(remote_id)
+                    cancelled += 1
+                    self._emit_order_event(
+                        {
+                            "event": "cancel",
+                            "oanda_order_id": remote_id,
+                            "reason": reason,
+                            "orphan_protective": True,
+                            "strategy_id": sid,
+                            "tradeID": trade_id,
+                        }
+                    )
+                except Exception as exc:
+                    self._emit_order_event(
+                        {
+                            "event": "network_order_error",
+                            "action": "orphan_protective_cancel",
+                            "oanda_order_id": remote_id,
+                            "error": str(exc),
+                            "reason": reason,
+                        }
+                    )
+            # Local-mirrored entry stops left working while flat (Aug 14 style).
+            if (
+                otype in _OANDA_ENTRY_ORPHAN_ORDER_TYPES
+                and same_instrument
+                and tagged
+                and meta["client_id"]
+                and meta["client_id"] not in self._active_order_ids
+            ):
+                if self.client is None:
+                    cancelled += 1
+                    continue
+                try:
+                    self.client.cancel_order(remote_id)
+                    cancelled += 1
+                    self._emit_order_event(
+                        {
+                            "event": "cancel",
+                            "oanda_order_id": remote_id,
+                            "reason": reason,
+                            "orphan_entry_while_flat": True,
+                            "strategy_id": sid,
+                        }
+                    )
+                except Exception as exc:
+                    self._emit_order_event(
+                        {
+                            "event": "network_order_error",
+                            "action": "orphan_flat_entry_cancel",
+                            "oanda_order_id": remote_id,
+                            "error": str(exc),
+                        }
+                    )
+
+        # Mirror: cancel local working protective/entry-stop rows when flat.
+        for order_id, order in list(self._orders_cache.items()):
+            if order_id not in self._active_order_ids:
+                continue
+            if str(order.instrument or "").upper() != inst:
+                continue
+            if str(order.strategy_id or "") != sid:
+                continue
+            role = str(order.bracket_role or "").lower()
+            otype = str(order.order_type or "").lower()
+            if role in {"entry", "stop", "wide_stop", "runner_stop", "tp1", "tp2", "target"} or otype == "stop":
+                try:
+                    self.cancel_order(order_id, reason=reason)
+                    cancelled += 1
+                except Exception as exc:
+                    self._emit_order_event(
+                        {
+                            "event": "local_orphan_protective_cancel_error",
+                            "broker_order_id": order_id,
+                            "error": str(exc),
+                        }
+                    )
+        self._emit_order_event(
+            {
+                "event": "orphan_protective_sweep",
+                "reason": reason,
+                "strategy_id": sid,
+                "instrument": inst,
+                "cancelled": cancelled,
+            }
+        )
+        return cancelled
+
+    def _open_trade_ids_from_account(
+        self,
+        account: Dict[str, Any],
+        *,
+        instrument: str,
+        authority: Set[str],
+    ) -> Set[str]:
+        inst = str(instrument or "").upper()
+        open_ids: Set[str] = set()
+        for raw_trade in account.get("trades") or []:
+            if hasattr(raw_trade, "dict"):
+                raw_trade = raw_trade.dict()
+            raw_trade = dict(raw_trade)
+            trade_inst = self.config.internal_for(str(raw_trade.get("instrument") or "")).upper()
+            if trade_inst != inst:
+                continue
+            tid = str(raw_trade.get("id") or raw_trade.get("tradeID") or "")
+            if not tid:
+                continue
+            tag = self._strategy_tag_for_open_trade(tid)
+            if tag and tag not in authority:
+                continue
+            # Untagged open trades on focus instrument: still treat as open so we do not
+            # cancel foreign protectives linked to live trades we cannot attribute.
+            open_ids.add(tid)
+        return open_ids
+
     def apply_account_changes(self, body: Dict[str, Any]) -> List[Fill]:
         changes = body.get("changes") or {}
         if hasattr(changes, "dict"):
@@ -1323,10 +1536,16 @@ class OandaBroker(BaseBroker):
             if hasattr(raw_trade, "dict"):
                 raw_trade = raw_trade.dict()
             self._emit_order_event({"event": "trade_opened", **dict(raw_trade)})
+        closed_scoped: Set[str] = set()
         for raw_trade in changes.get("tradesClosed") or []:
             if hasattr(raw_trade, "dict"):
                 raw_trade = raw_trade.dict()
-            self._emit_order_event({"event": "trade_closed", **dict(raw_trade)})
+            raw_trade = dict(raw_trade)
+            self._emit_order_event({"event": "trade_closed", **raw_trade})
+            if self._position_scope_instruments is not None:
+                inst = self.config.internal_for(str(raw_trade.get("instrument") or "")).upper()
+                if inst in self._position_scope_instruments:
+                    closed_scoped.add(inst)
         for raw_fill in changes.get("transactions") or []:
             if hasattr(raw_fill, "dict"):
                 raw_fill = raw_fill.dict()
@@ -1343,12 +1562,221 @@ class OandaBroker(BaseBroker):
                     fills.append(self.on_fill(dict(raw_fill, type="fill")))
                 except KeyError:
                     self._emit_order_event({"event": "fill_unmatched", **dict(raw_fill)})
+        # Broker-linked SL/TP fills often cannot match a local order id (stopLossOnFill).
+        # Without this, strategy-owned position rows ghost after the broker is flat —
+        # heartbeats show open_positions>0 with orders=0 until the next full reconcile.
+        if self._position_scope_instruments is not None:
+            raw_positions = changes.get("positions") or []
+            if raw_positions:
+                self._sync_scoped_positions_from_changes(raw_positions)
+            elif closed_scoped and self.client is not None:
+                local_open_scoped = any(
+                    str(p.instrument or "").upper() in closed_scoped and float(p.quantity or 0) != 0
+                    for p in self._positions_cache.values()
+                )
+                if local_open_scoped:
+                    try:
+                        details = self.client.account_details()
+                        account = details.get("account") or details
+                        if hasattr(account, "dict"):
+                            account = account.dict()
+                        self._rewrite_positions_from_account(
+                            dict(account) if isinstance(account, dict) else {},
+                            reason="trades_closed_ghost_refresh",
+                        )
+                        self.last_transaction_id = str(
+                            details.get("lastTransactionID")
+                            or (account.get("lastTransactionID") if isinstance(account, dict) else "")
+                            or self.last_transaction_id
+                        )
+                    except Exception as exc:
+                        self._emit_order_event(
+                            {
+                                "event": "trades_closed_ghost_refresh_error",
+                                "instruments": sorted(closed_scoped),
+                                "error": str(exc),
+                            }
+                        )
         self.last_transaction_id = str(body.get("lastTransactionID") or self.last_transaction_id)
         self.store.append_event(
             "reconciliation_events",
             {"event": "oanda_account_changes_applied", "last_transaction_id": self.last_transaction_id},
         )
         return fills
+
+    def _rewrite_positions_from_account(self, account: Dict[str, Any], *, reason: str) -> None:
+        """Rewrite local positions from an account snapshot (owned-tag aware when scoped)."""
+        self._positions_cache = {}
+        authority = self._authority_strategy_ids_resolved()
+        if self._position_scope_instruments is not None and authority:
+            # Shared practice account: only mirror trades opened by this demo's strategy tag.
+            for position in self._owned_scoped_positions_from_account(account, authority=authority):
+                self._positions_cache[position.position_id] = position
+        else:
+            for raw_position in account.get("positions") or []:
+                if hasattr(raw_position, "dict"):
+                    raw_position = raw_position.dict()
+                position = self._position_from_oanda(raw_position)
+                if position.quantity == 0:
+                    continue
+                if (
+                    self._position_scope_instruments is not None
+                    and str(position.instrument or "").upper() not in self._position_scope_instruments
+                ):
+                    continue
+                self._positions_cache[position.position_id] = position
+        if self._position_scope_instruments is not None:
+            # Full rewrite drops stale foreign / ghost rows left by prior account-wide upserts.
+            self.store.write_table("positions", [as_row(p) for p in self._positions_cache.values()])
+        else:
+            for position in self._positions_cache.values():
+                self.store.upsert_row("positions", "position_id", as_row(position))
+        self._emit_order_event(
+            {
+                "event": "owned_scoped_positions_rewritten",
+                "reason": reason,
+                "positions": [
+                    {
+                        "instrument": p.instrument,
+                        "quantity": p.quantity,
+                        "strategy_id": p.strategy_id,
+                    }
+                    for p in self._positions_cache.values()
+                ],
+            }
+        )
+
+    def _sync_scoped_positions_from_changes(self, raw_positions: List[Any]) -> None:
+        """Apply Account Changes position snapshots for scoped instruments (broker truth).
+
+        When authority strategies are registered, only **flat** snapshots clear local
+        rows. Non-zero account qty is not imported (sibling demos share instruments on
+        the practice account); ownership is restored via matched fills or full
+        ``reconcile_from_account_details``.
+        """
+        if not raw_positions:
+            return
+        authority = self._authority_strategy_ids_resolved()
+        touched: Set[str] = set()
+        for raw_position in raw_positions:
+            if hasattr(raw_position, "dict"):
+                raw_position = raw_position.dict()
+            position = self._position_from_oanda(dict(raw_position))
+            inst = str(position.instrument or "").upper()
+            if inst not in self._position_scope_instruments:
+                continue
+            qty = float(position.quantity or 0)
+            if authority and qty != 0:
+                # Sibling sleeve inventory — do not stamp into this demo.
+                continue
+            touched.add(inst)
+            # Drop strategy-owned / ghost rows for this instrument, then mirror broker qty.
+            for pid, pos in list(self._positions_cache.items()):
+                if str(pos.instrument or "").upper() == inst:
+                    del self._positions_cache[pid]
+            if qty != 0:
+                self._positions_cache[position.position_id] = position
+        if not touched:
+            return
+        self.store.write_table("positions", [as_row(p) for p in self._positions_cache.values()])
+        self._emit_order_event(
+            {
+                "event": "scoped_positions_synced_from_changes",
+                "instruments": sorted(touched),
+                "open": [
+                    {"instrument": p.instrument, "quantity": p.quantity, "strategy_id": p.strategy_id}
+                    for p in self._positions_cache.values()
+                    if str(p.instrument or "").upper() in touched
+                ],
+            }
+        )
+
+    def _tx_dict_for_id(self, tx_id: str) -> Dict[str, Any]:
+        if self.client is None or not tx_id:
+            return {}
+        try:
+            resp = self.client.ctx.transaction.get(self.config.account_id, str(tx_id))
+        except Exception:
+            return {}
+        body = getattr(resp, "body", None) or {}
+        raw = body.get("transaction") if isinstance(body, dict) else None
+        if raw is None:
+            return {}
+        if hasattr(raw, "dict"):
+            return dict(raw.dict())
+        return dict(raw) if isinstance(raw, dict) else {}
+
+    def _strategy_tag_for_open_trade(self, trade_id: str) -> Optional[str]:
+        fill = self._tx_dict_for_id(str(trade_id))
+        order_id = str(fill.get("orderID") or fill.get("order_id") or "")
+        if not order_id:
+            return None
+        order_tx = self._tx_dict_for_id(order_id)
+        extensions = order_tx.get("clientExtensions") or {}
+        if hasattr(extensions, "dict"):
+            extensions = extensions.dict()
+        if not isinstance(extensions, dict):
+            extensions = {}
+        tag = str(extensions.get("tag") or "").strip()
+        return tag or None
+
+    def _owned_scoped_positions_from_account(
+        self,
+        account: Dict[str, Any],
+        *,
+        authority: Set[str],
+    ) -> List[Position]:
+        """Build positions for scoped instruments owned by authority strategy tags."""
+        scope = self._position_scope_instruments or set()
+        # Accumulate owned qty/avg per (strategy, instrument).
+        buckets: Dict[Tuple[str, str], Dict[str, float]] = {}
+        for raw_trade in account.get("trades") or []:
+            if hasattr(raw_trade, "dict"):
+                raw_trade = raw_trade.dict()
+            raw_trade = dict(raw_trade)
+            trade_id = str(raw_trade.get("id") or "")
+            inst = self.config.internal_for(str(raw_trade.get("instrument") or "")).upper()
+            if not trade_id or inst not in scope:
+                continue
+            try:
+                qty = float(raw_trade.get("currentUnits") or raw_trade.get("initialUnits") or 0)
+            except (TypeError, ValueError):
+                continue
+            if qty == 0:
+                continue
+            try:
+                avg = float(raw_trade.get("price") or 0)
+            except (TypeError, ValueError):
+                avg = 0.0
+            tag = self._strategy_tag_for_open_trade(trade_id)
+            if not tag or tag not in authority:
+                continue
+            key = (tag, inst)
+            cur = buckets.get(key) or {"qty": 0.0, "avg_price": avg}
+            old_qty = float(cur["qty"])
+            new_qty = old_qty + qty
+            if new_qty != 0 and old_qty != 0:
+                cur["avg_price"] = (old_qty * float(cur["avg_price"]) + qty * avg) / new_qty
+            else:
+                cur["avg_price"] = avg
+            cur["qty"] = new_qty
+            buckets[key] = cur
+        account_mode = "paper" if self.config.env == "practice" else "live"
+        out: List[Position] = []
+        for (strategy_id, inst), vals in buckets.items():
+            out.append(
+                Position(
+                    position_id="%s|%s|%s" % (strategy_id, inst, account_mode),
+                    strategy_id=strategy_id,
+                    instrument=inst,
+                    account_mode=account_mode,
+                    quantity=float(vals["qty"]),
+                    avg_price=float(vals["avg_price"]),
+                    realized_pnl=0.0,
+                    updated_at=utc_now_iso(),
+                )
+            )
+        return out
 
     def attach_bracket(self, parent_order: BrokerOrder, intent: OrderIntent) -> List[BrokerOrder]:
         # Prefer SL/TP on fill at submit time; local attach is paper/practice only.
@@ -1468,18 +1896,25 @@ class OandaBroker(BaseBroker):
         return updated
 
     def on_fill(self, event: Dict[str, Any]) -> Fill:
-        broker_order_id = str(event.get("broker_order_id") or event.get("clientOrderID") or "")
-        extensions = event.get("clientExtensions")
-        if not broker_order_id and isinstance(extensions, dict):
-            broker_order_id = str(extensions.get("id") or "")
+        broker_order_id = self._resolve_fill_broker_order_id(event)
         if not broker_order_id:
-            # Fall back to most recent active order for instrument if offline fixture omits id.
-            instrument = self.config.internal_for(str(event.get("instrument") or ""))
-            for order in self._orders_cache.values():
-                if order.instrument == instrument and order.broker_order_id in self._active_order_ids:
-                    broker_order_id = order.broker_order_id
-                    break
+            # Never guess by instrument: on a shared practice account that attaches
+            # sibling fills to the wrong resting order (false local fill → remote orphan).
+            raise KeyError("fill missing client order id")
         order = self._get_order(broker_order_id)
+        if order.status in {"cancelled", "filled", "rejected"}:
+            self._emit_order_event(
+                {
+                    "event": "fill_ignored_terminal_local",
+                    "broker_order_id": broker_order_id,
+                    "local_status": order.status,
+                    "oanda_order_id": str(event.get("orderID") or event.get("order_id") or ""),
+                    "fill_id": str(event.get("fill_id") or event.get("id") or ""),
+                    "price": event.get("price") or event.get("fillPrice"),
+                    "units": event.get("units") or event.get("quantity"),
+                }
+            )
+            raise KeyError("fill for terminal local order %s" % broker_order_id)
         units = event.get("units") or event.get("quantity") or event.get("fillQty") or order.remaining_quantity
         quantity = abs(int(float(units)))
         price = float(event.get("price") or event.get("fillPrice") or event.get("averagePrice") or event.get("pl") or 0)
@@ -1523,6 +1958,20 @@ class OandaBroker(BaseBroker):
         self._cancel_local_oco_peers(updated)
         self._emit_order_event({"event": "fill", **as_row(fill)})
         return fill
+
+    def _resolve_fill_broker_order_id(self, event: Dict[str, Any]) -> str:
+        """Map an OANDA fill to a local broker order id without instrument guessing."""
+        broker_order_id = str(event.get("broker_order_id") or event.get("clientOrderID") or "")
+        extensions = event.get("clientExtensions")
+        if not broker_order_id and isinstance(extensions, dict):
+            broker_order_id = str(extensions.get("id") or "")
+        oanda_order_id = str(event.get("orderID") or event.get("order_id") or "")
+        if not broker_order_id and oanda_order_id:
+            for local_id, remote_id in self._oanda_order_ids.items():
+                if remote_id == oanda_order_id:
+                    broker_order_id = local_id
+                    break
+        return broker_order_id
 
     def go_flat(self, instruments: Iterable[str] = DEFAULT_INSTRUMENTS) -> List[Dict[str, Any]]:
         if self.supervisor is not None:

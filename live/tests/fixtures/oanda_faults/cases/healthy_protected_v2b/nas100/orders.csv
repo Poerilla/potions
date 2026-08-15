@@ -1,0 +1,4 @@
+broker_order_id,intent_id,strategy_id,trade_id,instrument,account_mode,side,order_type,quantity,remaining_quantity,status,limit_price,stop_price,reduce_only,bracket_role,parent_order_id,oco_group,live_after_ts,expires_after_ts,created_at,updated_at
+ord_sl,intent_s,nas100_v2b_ungated_oanda,t1,NAS100,paper,sell,stop,3.0,3.0,working,,28800.0,True,wide_stop,,,2026-08-13T14:00:00Z,,2026-08-13T14:00:00Z,2026-08-13T15:00:00Z
+ord_tp1,intent_t,nas100_v2b_ungated_oanda,t1,NAS100,paper,sell,limit,1.0,1.0,working,29200.0,,True,tp1,,,2026-08-13T14:00:00Z,,2026-08-13T14:00:00Z,2026-08-13T15:00:00Z
+ord_tp2,intent_u,nas100_v2b_ungated_oanda,t1,NAS100,paper,sell,limit,1.0,1.0,working,29400.0,,True,tp2,,,2026-08-13T14:00:00Z,,2026-08-13T14:00:00Z,2026-08-13T15:00:00Z

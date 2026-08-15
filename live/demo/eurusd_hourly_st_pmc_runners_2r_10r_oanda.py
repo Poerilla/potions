@@ -50,6 +50,14 @@ from .oanda_v2b_ungated_common import (
     run_meta_path,
     state_root_for,
 )
+from .oanda_daemon_reconcile import (
+    containment_bootstrap,
+    containment_note_activity,
+    containment_on_reconnect,
+    containment_poll,
+    install_containment,
+    oanda_broker_with_supervisor,
+)
 from .eurusd_hourly_st_pmc_common import (
     INSTRUMENT,
     STRATEGY_TYPE,
@@ -121,9 +129,13 @@ def bootstrap_store(output_root: Path) -> FlatFileStore:
 
 def build_engine(store: FlatFileStore, *, config: OandaConfig, client: OandaApiClient) -> Engine:
     DEFAULT_TICK_SIZE.setdefault(INSTRUMENT, TICK)
-    broker = OandaBroker(
-        store, config=config, client=client, allow_live_routing=False,
-        authority_strategy_ids=[STRATEGY_ID],
+    broker = oanda_broker_with_supervisor(
+        store,
+        config=config,
+        client=client,
+        strategy_id=STRATEGY_ID,
+        instrument=INSTRUMENT,
+        allow_live_routing=False,
     )
     return Engine(
         store=store,
@@ -164,6 +176,14 @@ class StPmcOandaRunner:
         self.stop_requested = False
         self._last_open_chart_at = None
 
+        install_containment(
+            self,
+            instrument=INSTRUMENT,
+            strategy_id=STRATEGY_ID,
+            strategy_type=STRATEGY_TYPE,
+            entry_qty=float(strategy_config_payload(oanda_routing=True, book=BOOK).get("entry_qty") or 0),
+        )
+
     def request_stop(self, *_args: Any) -> None:
         self.stop_requested = True
 
@@ -184,6 +204,7 @@ class StPmcOandaRunner:
                 )
             except Exception as exc:
                 append_progress(self.output_root, "WARN reconcile_from_account_details failed: %s" % exc)
+        containment_bootstrap(self, append_progress_fn=append_progress)
 
     def maybe_poll_changes(self, *, force: bool = False) -> None:
         now = time.time()
@@ -194,6 +215,7 @@ class StPmcOandaRunner:
         if n:
             self.fills_from_oanda += n
             append_progress(self.output_root, "OANDA fills applied n=%d total=%d" % (n, self.fills_from_oanda))
+        containment_poll(self, append_progress_fn=append_progress)
 
     def on_price_tick(
         self,
@@ -222,6 +244,7 @@ class StPmcOandaRunner:
             payload["raw"] = _jsonable(raw)
         self.store.append_event("fx_ticks/%s" % day, payload)
         self.ticks_logged += 1
+        containment_note_activity(self)
 
         completed_1h: List[Bar] = []
         for bar_1m in self.builder_1m.on_quote(bid=float(bid), ask=float(ask), mid=mid_px, quantity=quantity, ts=ts):

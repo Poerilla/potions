@@ -379,3 +379,83 @@ def test_paper_broker_ny_expiry_not_tripped_by_utc_noon_bar():
         assert broker._get_order(order.broker_order_id).status == "submitted"
     finally:
         tmp.cleanup()
+
+
+def test_htf_signal_bar_does_not_lookahead_fill_when_broker_fills_disabled():
+    """1h OHLC must not fill resting limits when broker_fills=False; 1m tape does."""
+    from potions.live.engine import Engine
+
+    tmp, store = make_store()
+    try:
+        engine = Engine(
+            store=store,
+            persist_bars=False,
+            persist_health=False,
+            slippage_ticks=0.0,
+            tick_size={"US30": 0.1},
+            emit_order_alerts=False,
+            broker_log_events=False,
+        )
+        limit = OrderIntent.create(
+            "s1",
+            "t1",
+            "US30",
+            "paper",
+            "buy",
+            "limit",
+            1,
+            limit_price=100.0,
+            live_after_ts="2026-01-01T10:00:00-05:00",
+            requires_verification=False,
+            bracket_role="entry",
+        )
+        order = engine.broker.submit_order_intent(limit)
+        oid = order.broker_order_id
+
+        # Hourly bar spans down to 99, but must not fill at the hour stamp.
+        engine.process_bar(
+            Bar("US30", "1h", "2026-01-01T11:00:00-05:00", 105.0, 106.0, 99.0, 104.0),
+            broker_fills=False,
+        )
+        assert engine.broker._get_order(oid).status == "submitted"
+
+        # Contrast: same hourly bar WITH fills would lookahead-match immediately.
+        engine2 = Engine(
+            store=FlatFileStore(Path(tmp.name) / "contrast"),
+            persist_bars=False,
+            persist_health=False,
+            slippage_ticks=0.0,
+            tick_size={"US30": 0.1},
+            emit_order_alerts=False,
+            broker_log_events=False,
+        )
+        engine2.store.ensure()
+        order2 = engine2.broker.submit_order_intent(
+            OrderIntent.create(
+                "s1",
+                "t2",
+                "US30",
+                "paper",
+                "buy",
+                "limit",
+                1,
+                limit_price=100.0,
+                live_after_ts="2026-01-01T10:00:00-05:00",
+                requires_verification=False,
+            )
+        )
+        engine2.process_bar(Bar("US30", "1h", "2026-01-01T11:00:00-05:00", 105.0, 106.0, 99.0, 104.0))
+        assert engine2.broker._get_order(order2.broker_order_id).status == "filled"
+
+        # First 1m of the hour does not touch — still open on the signal-only path.
+        engine.process_bar(Bar("US30", "1m", "2026-01-01T11:01:00-05:00", 105.0, 105.5, 104.5, 105.0))
+        assert engine.broker._get_order(oid).status == "submitted"
+
+        # Later 1m touches the limit — fill at true touch time.
+        engine.process_bar(Bar("US30", "1m", "2026-01-01T11:44:00-05:00", 101.0, 101.5, 99.5, 100.5))
+        assert engine.broker._get_order(oid).status == "filled"
+        pos = engine.broker.reconcile_positions()
+        qty = sum(int(p.quantity) for p in pos if p.strategy_id == "s1")
+        assert qty == 1
+    finally:
+        tmp.cleanup()

@@ -1,0 +1,10 @@
+PASS 2026-08-13_foreign_bleed_synthetic/focus_eurusd class=foreign_bleed action=detect:foreign_bleed,flattened:EURUSD,supervisor_flat_for_day supervisor=flat_for_day bars=0 plugin=None
+PASS 2026-08-13_stop_only_v2b/nas100 class=stop_only action=detect:stop_only,freeze_entries supervisor=entry_frozen bars=1537 plugin=ok live_fills=0/1
+PASS 2026-08-13_stop_only_v2b/spx500 class=stop_only action=detect:stop_only,freeze_entries supervisor=entry_frozen bars=1514 plugin=ok live_fills=0/1
+PASS 2026-08-13_us30_3r_open_no_bracket/us30 class=open_without_brackets action=detect:open_without_brackets,freeze_entries supervisor=entry_frozen bars=0 plugin=None
+PASS 2026-08-14_orphan_stop_flat_v2b/nas100 class=orphan_protective action=detect:orphan_protective,cancel_orphan_protectives:1 supervisor=running bars=1286 plugin=ok live_fills=0/0
+PASS 2026-08-14_orphan_stop_flat_v2b/spx500 class=orphan_protective action=detect:orphan_protective,cancel_orphan_protectives:1 supervisor=running bars=1624 plugin=ok live_fills=0/0
+PASS 2026-08-14_stream_hung_missed_entry/nas100 class=stream_stale action=detect:stream_stale,freeze_entries supervisor=entry_frozen bars=1286 plugin=ok live_fills=0/0
+PASS healthy_protected_v2b/nas100 class=ok action=- supervisor=running bars=0 plugin=None
+PASS qty_mismatch_hard/nas100 class=qty_mismatch action=detect:qty_mismatch,flattened:NAS100,supervisor_flat_for_day supervisor=flat_for_day bars=0 plugin=None
+summary: 9/9 pass

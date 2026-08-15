@@ -1,0 +1,13 @@
+{
+  "incident": "2026-08-14 evening \u2014 OANDA streams hung ~4h after 429; NAS100 v2b missed cash-session sim entries",
+  "provenance": [
+    "live/demo/ADHERENCE_ISSUES.md",
+    "live/state/_oanda_live_sim_reconcile/summary.json"
+  ],
+  "as_of": "2026-08-14T21:15:00Z",
+  "expected": {
+    "classification": "stream_stale",
+    "recommended_action": "freeze_entries"
+  },
+  "note": "Book flat; fault is dead pricing stream (pid alive). Containment must DISARM/freeze entries and require REST reconcile on reconnect before rearm."
+}

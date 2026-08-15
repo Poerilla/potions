@@ -39,7 +39,15 @@ from ..oanda import (
 from ..replay_realism import hardened_replay_engine_kwargs
 from ..store import FlatFileStore
 from ..verification import QuietPaperVerificationProvider, SpoofVerificationProvider
-from . import DEMO_ROOT, demo_run_root
+from . import DEMO_ROOT, demo_run_root, next_stream_backoff
+from .oanda_daemon_reconcile import (
+    containment_bootstrap,
+    containment_note_activity,
+    containment_on_reconnect,
+    containment_poll,
+    install_containment,
+    oanda_broker_with_supervisor,
+)
 
 NY = pytz.timezone("America/New_York")
 ASIA_START = dt_time(19, 0)
@@ -47,6 +55,7 @@ ASIA_END = dt_time(3, 0)
 LONDON_OPEN = dt_time(3, 0)
 EOD = dt_time(11, 59)
 PROGRESS_HEARTBEAT_SECONDS = 300
+ACCOUNT_CHANGES_POLL_SECONDS = 2.0
 MIN_ASIA_BARS = 180
 BOOK = "S_3_1_3"
 TICK = 0.001
@@ -432,9 +441,13 @@ def build_engine(store: FlatFileStore, *, spec: AsiaRangeDemoSpec, config: Optio
     DEFAULT_TICK_SIZE.setdefault(spec.instrument, spec.tick)
     if spec.oanda_routing:
         assert config is not None and client is not None
-        broker = OandaBroker(
-            store, config=config, client=client, allow_live_routing=False,
-            authority_strategy_ids=[spec.strategy_id],
+        broker = oanda_broker_with_supervisor(
+            store,
+            config=config,
+            client=client,
+            strategy_id=spec.strategy_id,
+            instrument=spec.instrument,
+            allow_live_routing=False,
         )
         return Engine(
             store=store,
@@ -493,8 +506,10 @@ class AsiaRangeRunner:
             source="oanda_asia_range_%s" % ("paper" if spec.paper_only else "oanda"),
         )
         self._last_progress_at = 0.0
+        self._last_changes_poll_at = 0.0
         self.ticks_logged = 0
         self.bars_1m = 0
+        self.fills_from_oanda = 0
         self.stop_requested = False
         self._asia_hi: Optional[float] = None
         self._asia_lo: Optional[float] = None
@@ -502,9 +517,55 @@ class AsiaRangeRunner:
         self._asia_session: Optional[date] = None  # London session date this Asia window feeds
         self._injected_session: Optional[str] = None
         self._shadow_done_session: Optional[str] = None
+        self.containment = None
+        if spec.oanda_routing:
+            install_containment(
+                self,
+                instrument=spec.instrument,
+                strategy_id=spec.strategy_id,
+                strategy_type=spec.strategy_type,
+                entry_qty=float(strategy_config_payload(spec, self.output_root).get("entry_qty") or 0),
+            )
 
     def request_stop(self, *_args: Any) -> None:
         self.stop_requested = True
+
+    def bootstrap_reconcile(self) -> None:
+        broker = self.engine.broker
+        if isinstance(broker, OandaBroker):
+            try:
+                broker.register_authority_strategy(self.spec.strategy_id)
+                broker.reconcile_from_account_details()
+                append_progress(
+                    self.output_root,
+                    "OANDA reconcile lastTransactionID=%s open_orders=%d positions=%d"
+                    % (
+                        broker.last_transaction_id,
+                        len(broker.reconcile_orders()),
+                        len([p for p in broker.reconcile_positions() if p.quantity != 0]),
+                    ),
+                )
+            except Exception as exc:
+                append_progress(self.output_root, "WARN reconcile_from_account_details failed: %s" % exc)
+        containment_bootstrap(self, append_progress_fn=append_progress)
+
+    def maybe_poll_changes(self, *, force: bool = False) -> None:
+        if not self.spec.oanda_routing:
+            return
+        now = time.time()
+        if (not force) and (now - self._last_changes_poll_at < ACCOUNT_CHANGES_POLL_SECONDS):
+            return
+        self._last_changes_poll_at = now
+        from .oanda_v2b_ungated_common import poll_account_changes
+
+        n = poll_account_changes(self.engine, self.client, instrument=self.spec.instrument)
+        if n:
+            self.fills_from_oanda += n
+            append_progress(
+                self.output_root,
+                "OANDA fills applied n=%d total=%d" % (n, self.fills_from_oanda),
+            )
+        containment_poll(self, append_progress_fn=append_progress)
 
     def _london_session_for_asia_ts(self, wall: datetime) -> date:
         """Asia [19:00, 03:00) feeds the London calendar date at/after 03:00."""
@@ -810,6 +871,7 @@ class AsiaRangeRunner:
             payload["raw"] = _jsonable(raw)
         self.store.append_event("fx_ticks/%s" % day, payload)
         self.ticks_logged += 1
+        containment_note_activity(self)
 
         completed: List[Bar] = []
         for bar_1m in self.builder_1m.on_quote(bid=float(bid), ask=float(ask), mid=mid_px, quantity=quantity, ts=ts):
@@ -819,6 +881,7 @@ class AsiaRangeRunner:
             self._maybe_inject_session_or(parse_oanda_ts(bar_1m.ts).astimezone(NY))
             self.engine.process_bar(bar_1m)
             completed.append(bar_1m)
+        self.maybe_poll_changes()
         self._maybe_append_shadow_from_live(wall)
         self._maybe_heartbeat()
         return completed
@@ -977,6 +1040,7 @@ def run_stream_loop(
     root = Path(output_root) if output_root is not None else default_output_root(spec)
     meta = write_run_meta(root, spec=spec, config=cfg)
     runner = AsiaRangeRunner(spec=spec, output_root=root, config=cfg)
+    runner.bootstrap_reconcile()
     pidfile_path(root).write_text(str(os.getpid()) + "\n", encoding="utf-8")
     append_progress(
         root,
@@ -1030,10 +1094,11 @@ def run_stream_loop(
                     break
                 append_progress(root, "RECONNECT sleeping %.1fs after stream_open failure" % backoff)
                 _interruptible_sleep(runner, backoff)
-                backoff = min(backoff * 2.0, reconnect_max_seconds)
+                backoff = next_stream_backoff(backoff, reconnect_max_seconds, open_exc)
                 continue
 
             append_progress(root, "STREAM connected attempt=%d status=200" % reconnect_attempt)
+            containment_on_reconnect(runner, append_progress_fn=append_progress)
             backoff = float(reconnect_initial_seconds)
             session_ticks = 0
             try:
@@ -1041,6 +1106,7 @@ def run_stream_loop(
                     if runner.stop_requested:
                         break
                     if msg_type == "pricing.PricingHeartbeat" or getattr(msg, "type", None) == "HEARTBEAT":
+                        containment_note_activity(runner)
                         runner._maybe_heartbeat()
                         continue
                     event = {
@@ -1091,7 +1157,7 @@ def run_stream_loop(
                     break
                 append_progress(root, "RECONNECT sleeping %.1fs after stream_read failure" % backoff)
                 _interruptible_sleep(runner, backoff)
-                backoff = min(backoff * 2.0, reconnect_max_seconds)
+                backoff = next_stream_backoff(backoff, reconnect_max_seconds, stream_exc)
                 continue
 
             if runner.stop_requested:
@@ -1102,7 +1168,7 @@ def run_stream_loop(
                 % (reconnect_attempt, session_ticks, backoff),
             )
             _interruptible_sleep(runner, backoff)
-            backoff = min(backoff * 2.0, reconnect_max_seconds)
+            backoff = next_stream_backoff(backoff, reconnect_max_seconds)
     except Exception as fatal_exc:
         _log_stream_error(root, runner.store, stage="fatal", exc=fatal_exc)
         exit_code = 1

@@ -1,0 +1,13 @@
+{
+  "incident": "2026-08-13 evening adherence \u2014 NAS100/SPX500 v2b OANDA stop-only after re-entry",
+  "provenance": [
+    "live/demo/ADHERENCE_ISSUES.md",
+    "live/demo/ADHERENCE_INVENTORY_2026-08-13.csv"
+  ],
+  "as_of": "2026-08-13T18:35:00Z",
+  "expected": {
+    "classification": "stop_only",
+    "recommended_action": "freeze_entries"
+  },
+  "note": "Reconstructed from inventory; live demo dirs later flattened."
+}

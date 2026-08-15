@@ -1,5 +1,59 @@
 # Live Runtime CHANGE_LOG
 
+## 2026-08-15 — OANDA daemon containment + curated fault fixtures
+
+- **Containment:** `live/demo/oanda_daemon_reconcile.py` — bracket invariant watchdog
+  (~2m), 15m hard reconcile, daemon state machine, `FLAT_FOR_DAY.json`. Default
+  `POTIONS_OANDA_CONTAINMENT=shadow` (would-actions only); `live` freezes / flattens.
+  Foreign-bleed check reads the **unscoped** store (scope-filtered broker mirrors
+  were hiding sibling-instrument rows).
+- **Stream staleness:** ≥180s without tick/heartbeat → `stream_stale` DISARM + entry
+  freeze; reconnect path REST-reconciles then rearms. Covers Aug 14 hung-stream
+  missed-entry class. Wired on v2b / Monday OR / ST+PMC / asia-range / London
+  prior-opposed OANDA stream loops.
+- **Wire:** v2b OANDA common + Monday OR OANDA + hourly ST+PMC OANDA + asia-range
+  London + US30 London prior-opposed (`install_containment` /
+  `oanda_broker_with_supervisor`).
+- **Broker:** `sweep_orphan_protectives_when_flat` cancels lingering SL/TP when flat
+  (Aug 14 orphan class). Supervisor sticky modes survive `mark_reconciled`.
+- **Backoff:** `next_stream_backoff` adds ±20% jitter (429 floor unchanged).
+- **Curated fault env:** `live/tests/fixtures/oanda_faults/` with Aug 13–14 **real
+  OANDA demo 1m bar slices** + frozen books (incl. `2026-08-14_stream_hung_missed_entry`);
+  harness `python -m potions.live.demo.oanda_fault_replay`
+  (`--also-plugin-replay --hub live/state/oanda_fault_replay_curated --email`).
+  Tests: `test_oanda_daemon_containment.py`, `test_oanda_fault_day_replay.py`.
+- Spec: `live/specs/OANDA_DAEMON_RECONCILE_FLAT_FOR_DAY_TODO.md`.
+
+## 2026-08-15 — MAE percentile sweep (p80/85/90/95) + OANDA reconcile TODO
+
+- **MAE study:** `live/oanda_winner_mae_carry.py` now sweeps winner-MAE carry at
+  **p80 / p85 / p90 / p95**; hub `live/state/oanda_winner_mae_carry/`. Favorable
+  **2/15**: EURUSD ST+PMC 3R → `p80_winner_mae` (Δ+$16k); NAS100 ST+PMC runners
+  → `p95_winner_mae` (Δ+$3.2k). Risk-guard overlay accepts any `pXX_winner_mae`.
+- **TODO:** was plan-only; superseded by containment implementation above.
+
+
+## 2026-08-15 — Risk-guard shadow + winner MAE / p80 carry
+
+- **Daemon:** `live/risk_guard_shadow.py` + `scripts/risk_guard_shadow.sh` —
+  shadow (log-only) through **2026-08-28**, avg-loss pts threshold; would-actions
+  to `live/state/risk_guard_shadow/actions.csv`. No freeze/close/stop.
+- **MAE study:** `live/oanda_winner_mae_carry.py` →
+  `live/state/oanda_winner_mae_carry/` — winner path MAE + p80-carry vs hard stops
+  on 15 OANDA practice books. **1/15 favorable** (`eurusd_hourly_st_pmc_sl50_tp150_3r`);
+  daemon overlays p80 MAE thr for that book only.
+- HTML multipart emails sent (armed / MAE complete / overnight digest).
+
+## 2026-08-14 — OANDA stream hung-fix + 429 backoff
+
+- **Ops:** Cleared orphan NAS100/SPX500 v2b protective STOPs (broker STOP=0).
+  Cooldown + stagger-restart recovered USDJPY/US30 Monday OR OANDA after
+  post-429 zombies. NAS100/SPX500 v2b OANDA left stopped overnight (cash
+  closed) to protect rate limit — restart before Mon RTH.
+- **Code:** `live/demo.next_stream_backoff` — 429 reconnects use ≥120s / ≤300s
+  ceiling (Monday OR OANDA + `oanda_v2b_ungated_common`). Ledger:
+  `live/demo/ADHERENCE_ISSUES.md` remediation section.
+
 ## 2026-08-13 — Futures HP ΔN/S Phase-3 repair + portfolio N/S
 
 - **Phase-3 @1.25× rerun** (`--phase3`): ES ST-age + YM overnight-middle →

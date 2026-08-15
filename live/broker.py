@@ -244,7 +244,11 @@ class PaperBroker(BaseBroker):
                 requires_verification=False,
                 parent_intent_id=intent.intent_id,
                 reduce_only=True,
-                bracket_role="runner_stop" if intent.bracket_role == "runner_entry" else "stop",
+                bracket_role=(
+                    "runner_stop"
+                    if str(intent.bracket_role or "").startswith("runner_entry")
+                    else "stop"
+                ),
                 oco_group=oco,
             )
             stop_intent = replace(stop_intent, status="submitted", updated_at=utc_now_iso())

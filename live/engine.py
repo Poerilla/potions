@@ -68,25 +68,34 @@ class Engine:
             causality_guard=self.causality_guard,
         )
 
-    def process_bar(self, bar: Bar) -> None:
+    def process_bar(self, bar: Bar, *, broker_fills: bool = True) -> None:
+        """Process one completed bar through broker fills + strategy callbacks.
+
+        ``broker_fills=False`` runs strategy/signal evaluation only (no PaperBroker
+        matching). Use this for higher-timeframe signal bars when a finer fill
+        tape (e.g. 1m) is responsible for resting-order fills — otherwise the
+        HTF bar's full OHLC would lookahead-fill at the bar timestamp.
+        """
         if self.persist_bars:
             self.store.append_bar(bar)
         process_bar = getattr(self.broker, "process_bar", None)
         process_market_close_bar = getattr(self.broker, "process_market_close_bar", None)
-        for _ in range(20):
-            fills = process_bar(bar) if callable(process_bar) else []
-            if not fills:
-                break
-            self.manager.on_fills(fills)
+        if broker_fills:
+            for _ in range(20):
+                fills = process_bar(bar) if callable(process_bar) else []
+                if not fills:
+                    break
+                self.manager.on_fills(fills)
         self.manager.on_bar_close(bar)
-        for _ in range(20):
-            fills = process_bar(bar) if callable(process_bar) else []
-            if not fills:
-                break
-            self.manager.on_fills(fills)
-        close_fills = process_market_close_bar(bar) if callable(process_market_close_bar) else []
-        if close_fills:
-            self.manager.on_fills(close_fills)
+        if broker_fills:
+            for _ in range(20):
+                fills = process_bar(bar) if callable(process_bar) else []
+                if not fills:
+                    break
+                self.manager.on_fills(fills)
+            close_fills = process_market_close_bar(bar) if callable(process_market_close_bar) else []
+            if close_fills:
+                self.manager.on_fills(close_fills)
         if self.persist_health:
             self.store.write_json(
                 "health.json",

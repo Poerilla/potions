@@ -1,0 +1,21 @@
+potions: OANDA containment + curated fault env
+
+live/state/oanda_fault_replay_curated
+Fixtures: live/tests/fixtures/oanda_faults/
+Harness: python -m potions.live.demo.oanda_fault_replay --also-plugin-replay
+
+Fault harness (live mode): 9/9 PASS
+- 2026-08-13_foreign_bleed_synthetic/focus_eurusd → foreign_bleed (detect:foreign_bleed,flattened:EURUSD,supervisor_flat_for_day)
+- 2026-08-13_stop_only_v2b/nas100 → stop_only (detect:stop_only,freeze_entries)
+- 2026-08-13_stop_only_v2b/spx500 → stop_only (detect:stop_only,freeze_entries)
+- 2026-08-13_us30_3r_open_no_bracket/us30 → open_without_brackets (detect:open_without_brackets,freeze_entries)
+- 2026-08-14_orphan_stop_flat_v2b/nas100 → orphan_protective (detect:orphan_protective,cancel_orphan_protectives:1)
+- 2026-08-14_orphan_stop_flat_v2b/spx500 → orphan_protective (detect:orphan_protective,cancel_orphan_protectives:1)
+- 2026-08-14_stream_hung_missed_entry/nas100 → stream_stale (detect:stream_stale,freeze_entries)
+- healthy_protected_v2b/nas100 → ok (none)
+- qty_mismatch_hard/nas100 → qty_mismatch (detect:qty_mismatch,flattened:NAS100,supervisor_flat_for_day)
+
+Wired runners: v2b / Monday OR / ST+PMC / asia-range / London prior-opposed
+Env: POTIONS_OANDA_CONTAINMENT=shadow (keep until ≥1 week practice shadow)
+
+Stance: promote shadow on practice daemons; do not enable live flatten yet.

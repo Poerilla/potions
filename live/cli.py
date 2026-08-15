@@ -821,6 +821,183 @@ def cmd_demo_usdjpy_monday_or_paper_stop(args) -> int:
     return stop_daemon(_demo_usdjpy_monday_or_paper_output_root(args))
 
 
+
+
+def _demo_eurusd_st_pmc_paper_output_root(args) -> Path:
+    from .demo.eurusd_hourly_st_pmc_paper import default_output_root
+    return Path(args.output_root) if getattr(args, "output_root", "") else default_output_root()
+
+
+def cmd_demo_eurusd_hourly_st_pmc_paper(args) -> int:
+    from .demo.eurusd_hourly_st_pmc_paper import run_stream_loop, spawn_daemon
+    from .oanda import OandaConfig
+    output_root = _demo_eurusd_st_pmc_paper_output_root(args)
+    if args.daemon:
+        return spawn_daemon(output_root=output_root, max_ticks=int(args.max_ticks or 0), oanda_config_path=getattr(args, "oanda_config", "") or "")
+    config = OandaConfig.from_json_file(Path(args.oanda_config)) if getattr(args, "oanda_config", "") else OandaConfig.from_env()
+    return run_stream_loop(output_root=output_root, config=config, max_ticks=int(args.max_ticks or 0))
+
+
+def cmd_demo_eurusd_hourly_st_pmc_paper_status(args) -> int:
+    from .demo.eurusd_hourly_st_pmc_paper import status_daemon
+    return status_daemon(_demo_eurusd_st_pmc_paper_output_root(args))
+
+
+def cmd_demo_eurusd_hourly_st_pmc_paper_stop(args) -> int:
+    from .demo.eurusd_hourly_st_pmc_paper import stop_daemon
+    return stop_daemon(_demo_eurusd_st_pmc_paper_output_root(args))
+
+
+def _demo_eurusd_st_pmc_oanda_output_root(args) -> Path:
+    from .demo.eurusd_hourly_st_pmc_oanda import default_output_root
+    return Path(args.output_root) if getattr(args, "output_root", "") else default_output_root()
+
+
+def cmd_demo_eurusd_hourly_st_pmc_oanda(args) -> int:
+    from .demo.eurusd_hourly_st_pmc_oanda import run_stream_loop, spawn_daemon
+    from .oanda import OandaConfig
+    output_root = _demo_eurusd_st_pmc_oanda_output_root(args)
+    if args.daemon:
+        return spawn_daemon(output_root=output_root, max_ticks=int(args.max_ticks or 0), oanda_config_path=getattr(args, "oanda_config", "") or "")
+    config = OandaConfig.from_json_file(Path(args.oanda_config)) if getattr(args, "oanda_config", "") else OandaConfig.from_env()
+    return run_stream_loop(output_root=output_root, config=config, max_ticks=int(args.max_ticks or 0))
+
+
+def cmd_demo_eurusd_hourly_st_pmc_oanda_status(args) -> int:
+    from .demo.eurusd_hourly_st_pmc_oanda import status_daemon
+    return status_daemon(_demo_eurusd_st_pmc_oanda_output_root(args))
+
+
+def cmd_demo_eurusd_hourly_st_pmc_oanda_stop(args) -> int:
+    from .demo.eurusd_hourly_st_pmc_oanda import stop_daemon
+    return stop_daemon(_demo_eurusd_st_pmc_oanda_output_root(args))
+
+
+def _demo_eurusd_st_pmc_2r10r_paper_output_root(args) -> Path:
+    from .demo.eurusd_hourly_st_pmc_runners_2r_10r_paper import default_output_root
+    return Path(args.output_root) if getattr(args, "output_root", "") else default_output_root()
+
+
+def cmd_demo_eurusd_hourly_st_pmc_2r10r_paper(args) -> int:
+    from .demo.eurusd_hourly_st_pmc_runners_2r_10r_paper import run_stream_loop, spawn_daemon
+    from .oanda import OandaConfig
+    output_root = _demo_eurusd_st_pmc_2r10r_paper_output_root(args)
+    if args.daemon:
+        return spawn_daemon(output_root=output_root, max_ticks=int(args.max_ticks or 0), oanda_config_path=getattr(args, "oanda_config", "") or "")
+    config = OandaConfig.from_json_file(Path(args.oanda_config)) if getattr(args, "oanda_config", "") else OandaConfig.from_env()
+    return run_stream_loop(output_root=output_root, config=config, max_ticks=int(args.max_ticks or 0))
+
+
+def cmd_demo_eurusd_hourly_st_pmc_2r10r_paper_status(args) -> int:
+    from .demo.eurusd_hourly_st_pmc_runners_2r_10r_paper import status_daemon
+    return status_daemon(_demo_eurusd_st_pmc_2r10r_paper_output_root(args))
+
+
+def cmd_demo_eurusd_hourly_st_pmc_2r10r_paper_stop(args) -> int:
+    from .demo.eurusd_hourly_st_pmc_runners_2r_10r_paper import stop_daemon
+    return stop_daemon(_demo_eurusd_st_pmc_2r10r_paper_output_root(args))
+
+
+def _demo_eurusd_st_pmc_2r10r_oanda_output_root(args) -> Path:
+    from .demo.eurusd_hourly_st_pmc_runners_2r_10r_oanda import default_output_root
+    return Path(args.output_root) if getattr(args, "output_root", "") else default_output_root()
+
+
+def cmd_demo_eurusd_hourly_st_pmc_2r10r_oanda(args) -> int:
+    from .demo.eurusd_hourly_st_pmc_runners_2r_10r_oanda import run_stream_loop, spawn_daemon
+    from .oanda import OandaConfig
+    output_root = _demo_eurusd_st_pmc_2r10r_oanda_output_root(args)
+    if args.daemon:
+        return spawn_daemon(output_root=output_root, max_ticks=int(args.max_ticks or 0), oanda_config_path=getattr(args, "oanda_config", "") or "")
+    config = OandaConfig.from_json_file(Path(args.oanda_config)) if getattr(args, "oanda_config", "") else OandaConfig.from_env()
+    return run_stream_loop(output_root=output_root, config=config, max_ticks=int(args.max_ticks or 0))
+
+
+def cmd_demo_eurusd_hourly_st_pmc_2r10r_oanda_status(args) -> int:
+    from .demo.eurusd_hourly_st_pmc_runners_2r_10r_oanda import status_daemon
+    return status_daemon(_demo_eurusd_st_pmc_2r10r_oanda_output_root(args))
+
+
+def cmd_demo_eurusd_hourly_st_pmc_2r10r_oanda_stop(args) -> int:
+    from .demo.eurusd_hourly_st_pmc_runners_2r_10r_oanda import stop_daemon
+    return stop_daemon(_demo_eurusd_st_pmc_2r10r_oanda_output_root(args))
+
+
+def _demo_us30_monday_or_paper_output_root(args) -> Path:
+    from .demo.us30_monday_or_paper import default_output_root
+    return Path(args.output_root) if getattr(args, "output_root", "") else default_output_root()
+
+
+def cmd_demo_us30_monday_or_paper(args) -> int:
+    from .demo.us30_monday_or_paper import run_stream_loop, spawn_daemon
+    from .oanda import OandaConfig
+    output_root = _demo_us30_monday_or_paper_output_root(args)
+    if args.daemon:
+        return spawn_daemon(output_root=output_root, max_ticks=int(args.max_ticks or 0), oanda_config_path=getattr(args, "oanda_config", "") or "")
+    config = OandaConfig.from_json_file(Path(args.oanda_config)) if getattr(args, "oanda_config", "") else OandaConfig.from_env()
+    return run_stream_loop(output_root=output_root, config=config, max_ticks=int(args.max_ticks or 0))
+
+
+def cmd_demo_us30_monday_or_paper_status(args) -> int:
+    from .demo.us30_monday_or_paper import status_daemon
+    return status_daemon(_demo_us30_monday_or_paper_output_root(args))
+
+
+def cmd_demo_us30_monday_or_paper_stop(args) -> int:
+    from .demo.us30_monday_or_paper import stop_daemon
+    return stop_daemon(_demo_us30_monday_or_paper_output_root(args))
+
+
+def _demo_us30_monday_or_oanda_output_root(args) -> Path:
+    from .demo.us30_monday_or_oanda import default_output_root
+    return Path(args.output_root) if getattr(args, "output_root", "") else default_output_root()
+
+
+def cmd_demo_us30_monday_or_oanda(args) -> int:
+    from .demo.us30_monday_or_oanda import run_stream_loop, spawn_daemon
+    from .oanda import OandaConfig
+    output_root = _demo_us30_monday_or_oanda_output_root(args)
+    if args.daemon:
+        return spawn_daemon(output_root=output_root, max_ticks=int(args.max_ticks or 0), oanda_config_path=getattr(args, "oanda_config", "") or "")
+    config = OandaConfig.from_json_file(Path(args.oanda_config)) if getattr(args, "oanda_config", "") else OandaConfig.from_env()
+    return run_stream_loop(output_root=output_root, config=config, max_ticks=int(args.max_ticks or 0))
+
+
+def cmd_demo_us30_monday_or_oanda_status(args) -> int:
+    from .demo.us30_monday_or_oanda import status_daemon
+    return status_daemon(_demo_us30_monday_or_oanda_output_root(args))
+
+
+def cmd_demo_us30_monday_or_oanda_stop(args) -> int:
+    from .demo.us30_monday_or_oanda import stop_daemon
+    return stop_daemon(_demo_us30_monday_or_oanda_output_root(args))
+
+
+def _demo_eurusd_monday_or_paper_output_root(args) -> Path:
+    from .demo.eurusd_monday_or_paper import default_output_root
+    return Path(args.output_root) if getattr(args, "output_root", "") else default_output_root()
+
+
+def cmd_demo_eurusd_monday_or_paper(args) -> int:
+    from .demo.eurusd_monday_or_paper import run_stream_loop, spawn_daemon
+    from .oanda import OandaConfig
+    output_root = _demo_eurusd_monday_or_paper_output_root(args)
+    if args.daemon:
+        return spawn_daemon(output_root=output_root, max_ticks=int(args.max_ticks or 0), oanda_config_path=getattr(args, "oanda_config", "") or "")
+    config = OandaConfig.from_json_file(Path(args.oanda_config)) if getattr(args, "oanda_config", "") else OandaConfig.from_env()
+    return run_stream_loop(output_root=output_root, config=config, max_ticks=int(args.max_ticks or 0))
+
+
+def cmd_demo_eurusd_monday_or_paper_status(args) -> int:
+    from .demo.eurusd_monday_or_paper import status_daemon
+    return status_daemon(_demo_eurusd_monday_or_paper_output_root(args))
+
+
+def cmd_demo_eurusd_monday_or_paper_stop(args) -> int:
+    from .demo.eurusd_monday_or_paper import stop_daemon
+    return stop_daemon(_demo_eurusd_monday_or_paper_output_root(args))
+
+
 def _demo_usdjpy_asia_range_paper_output_root(args) -> Path:
     from .demo.usdjpy_asia_range_london_paper import default_output_root
 
@@ -887,6 +1064,82 @@ def cmd_demo_usdjpy_asia_range_oanda_stop(args) -> int:
     from .demo.usdjpy_asia_range_london_oanda import stop_daemon
 
     return stop_daemon(_demo_usdjpy_asia_range_oanda_output_root(args))
+
+
+def _demo_us30_london_prior_opposed_paper_output_root(args) -> Path:
+    from .demo.us30_london_prior_opposed_paper import default_output_root
+
+    return Path(args.output_root) if getattr(args, "output_root", "") else default_output_root()
+
+
+def cmd_demo_us30_london_prior_opposed_paper(args) -> int:
+    from .demo.us30_london_prior_opposed_common import oanda_config_from_env
+    from .demo.us30_london_prior_opposed_paper import run_stream_loop, spawn_daemon
+    from .oanda import OandaConfig
+
+    output_root = _demo_us30_london_prior_opposed_paper_output_root(args)
+    if args.daemon:
+        return spawn_daemon(
+            output_root=output_root,
+            max_ticks=int(args.max_ticks or 0),
+            oanda_config_path=getattr(args, "oanda_config", "") or "",
+        )
+    config = (
+        OandaConfig.from_json_file(Path(args.oanda_config))
+        if getattr(args, "oanda_config", "")
+        else oanda_config_from_env()
+    )
+    return run_stream_loop(output_root=output_root, config=config, max_ticks=int(args.max_ticks or 0))
+
+
+def cmd_demo_us30_london_prior_opposed_paper_status(args) -> int:
+    from .demo.us30_london_prior_opposed_paper import status_daemon
+
+    return status_daemon(_demo_us30_london_prior_opposed_paper_output_root(args))
+
+
+def cmd_demo_us30_london_prior_opposed_paper_stop(args) -> int:
+    from .demo.us30_london_prior_opposed_paper import stop_daemon
+
+    return stop_daemon(_demo_us30_london_prior_opposed_paper_output_root(args))
+
+
+def _demo_us30_london_prior_opposed_oanda_output_root(args) -> Path:
+    from .demo.us30_london_prior_opposed_oanda import default_output_root
+
+    return Path(args.output_root) if getattr(args, "output_root", "") else default_output_root()
+
+
+def cmd_demo_us30_london_prior_opposed_oanda(args) -> int:
+    from .demo.us30_london_prior_opposed_common import oanda_config_from_env
+    from .demo.us30_london_prior_opposed_oanda import run_stream_loop, spawn_daemon
+    from .oanda import OandaConfig
+
+    output_root = _demo_us30_london_prior_opposed_oanda_output_root(args)
+    if args.daemon:
+        return spawn_daemon(
+            output_root=output_root,
+            max_ticks=int(args.max_ticks or 0),
+            oanda_config_path=getattr(args, "oanda_config", "") or "",
+        )
+    config = (
+        OandaConfig.from_json_file(Path(args.oanda_config))
+        if getattr(args, "oanda_config", "")
+        else oanda_config_from_env()
+    )
+    return run_stream_loop(output_root=output_root, config=config, max_ticks=int(args.max_ticks or 0))
+
+
+def cmd_demo_us30_london_prior_opposed_oanda_status(args) -> int:
+    from .demo.us30_london_prior_opposed_oanda import status_daemon
+
+    return status_daemon(_demo_us30_london_prior_opposed_oanda_output_root(args))
+
+
+def cmd_demo_us30_london_prior_opposed_oanda_stop(args) -> int:
+    from .demo.us30_london_prior_opposed_oanda import stop_daemon
+
+    return stop_daemon(_demo_us30_london_prior_opposed_oanda_output_root(args))
 
 
 def _demo_us30_st_pmc_paper_output_root(args) -> Path:
@@ -1738,6 +1991,54 @@ def build_parser() -> argparse.ArgumentParser:
     demo_usdjpy_asia_oanda_stop.add_argument("--output-root", default="")
     demo_usdjpy_asia_oanda_stop.set_defaults(func=cmd_demo_usdjpy_asia_range_oanda_stop)
 
+    demo_us30_london_po_paper = sub.add_parser(
+        "demo-us30-london-prior-opposed-paper",
+        help="US30 London prior-opposed delayed-arming paper demo (0.25 size, live ST gate)",
+    )
+    demo_us30_london_po_paper.add_argument("--output-root", default="")
+    demo_us30_london_po_paper.add_argument("--oanda-config", default="")
+    demo_us30_london_po_paper.add_argument("--max-ticks", type=int, default=0)
+    demo_us30_london_po_paper.add_argument("--daemon", action="store_true")
+    demo_us30_london_po_paper.set_defaults(func=cmd_demo_us30_london_prior_opposed_paper)
+
+    demo_us30_london_po_paper_status = sub.add_parser(
+        "demo-us30-london-prior-opposed-paper-status",
+        help="Status of US30 London prior-opposed paper demo",
+    )
+    demo_us30_london_po_paper_status.add_argument("--output-root", default="")
+    demo_us30_london_po_paper_status.set_defaults(func=cmd_demo_us30_london_prior_opposed_paper_status)
+
+    demo_us30_london_po_paper_stop = sub.add_parser(
+        "demo-us30-london-prior-opposed-paper-stop",
+        help="Stop US30 London prior-opposed paper demo",
+    )
+    demo_us30_london_po_paper_stop.add_argument("--output-root", default="")
+    demo_us30_london_po_paper_stop.set_defaults(func=cmd_demo_us30_london_prior_opposed_paper_stop)
+
+    demo_us30_london_po_oanda = sub.add_parser(
+        "demo-us30-london-prior-opposed-oanda",
+        help="US30 London prior-opposed delayed-arming OANDA practice demo (0.25 size, live ST gate)",
+    )
+    demo_us30_london_po_oanda.add_argument("--output-root", default="")
+    demo_us30_london_po_oanda.add_argument("--oanda-config", default="")
+    demo_us30_london_po_oanda.add_argument("--max-ticks", type=int, default=0)
+    demo_us30_london_po_oanda.add_argument("--daemon", action="store_true")
+    demo_us30_london_po_oanda.set_defaults(func=cmd_demo_us30_london_prior_opposed_oanda)
+
+    demo_us30_london_po_oanda_status = sub.add_parser(
+        "demo-us30-london-prior-opposed-oanda-status",
+        help="Status of US30 London prior-opposed OANDA demo",
+    )
+    demo_us30_london_po_oanda_status.add_argument("--output-root", default="")
+    demo_us30_london_po_oanda_status.set_defaults(func=cmd_demo_us30_london_prior_opposed_oanda_status)
+
+    demo_us30_london_po_oanda_stop = sub.add_parser(
+        "demo-us30-london-prior-opposed-oanda-stop",
+        help="Stop US30 London prior-opposed OANDA demo",
+    )
+    demo_us30_london_po_oanda_stop.add_argument("--output-root", default="")
+    demo_us30_london_po_oanda_stop.set_defaults(func=cmd_demo_us30_london_prior_opposed_oanda_stop)
+
     demo_us30_st_pmc_paper = sub.add_parser(
         "demo-us30-hourly-st-pmc-paper",
         help="US30 hourly ST+PMC sl50_tp150_3r paper demo (OANDA prices, PaperBroker)",
@@ -1929,6 +2230,70 @@ def build_parser() -> argparse.ArgumentParser:
     )
     demo_nas100_st_pmc_2r10r_oanda_stop.add_argument("--output-root", default="")
     demo_nas100_st_pmc_2r10r_oanda_stop.set_defaults(func=cmd_demo_nas100_hourly_st_pmc_2r10r_oanda_stop)
+
+    def _add_missed_promote_demo(name, help_text, func, status_func, stop_func):
+        p = sub.add_parser(name, help=help_text)
+        p.add_argument("--output-root", default="")
+        p.add_argument("--oanda-config", default="")
+        p.add_argument("--max-ticks", type=int, default=0)
+        p.add_argument("--daemon", action="store_true")
+        p.set_defaults(func=func)
+        ps = sub.add_parser(name + "-status", help="Status of " + name)
+        ps.add_argument("--output-root", default="")
+        ps.set_defaults(func=status_func)
+        pst = sub.add_parser(name + "-stop", help="Stop " + name)
+        pst.add_argument("--output-root", default="")
+        pst.set_defaults(func=stop_func)
+
+    _add_missed_promote_demo(
+        "demo-eurusd-hourly-st-pmc-paper",
+        "EURUSD ST+PMC 3R paper demo",
+        cmd_demo_eurusd_hourly_st_pmc_paper,
+        cmd_demo_eurusd_hourly_st_pmc_paper_status,
+        cmd_demo_eurusd_hourly_st_pmc_paper_stop,
+    )
+    _add_missed_promote_demo(
+        "demo-eurusd-hourly-st-pmc-oanda",
+        "EURUSD ST+PMC 3R OANDA practice demo",
+        cmd_demo_eurusd_hourly_st_pmc_oanda,
+        cmd_demo_eurusd_hourly_st_pmc_oanda_status,
+        cmd_demo_eurusd_hourly_st_pmc_oanda_stop,
+    )
+    _add_missed_promote_demo(
+        "demo-eurusd-hourly-st-pmc-2r10r-paper",
+        "EURUSD ST+PMC half-size 2R runner paper",
+        cmd_demo_eurusd_hourly_st_pmc_2r10r_paper,
+        cmd_demo_eurusd_hourly_st_pmc_2r10r_paper_status,
+        cmd_demo_eurusd_hourly_st_pmc_2r10r_paper_stop,
+    )
+    _add_missed_promote_demo(
+        "demo-eurusd-hourly-st-pmc-2r10r-oanda",
+        "EURUSD ST+PMC half-size 2R runner OANDA",
+        cmd_demo_eurusd_hourly_st_pmc_2r10r_oanda,
+        cmd_demo_eurusd_hourly_st_pmc_2r10r_oanda_status,
+        cmd_demo_eurusd_hourly_st_pmc_2r10r_oanda_stop,
+    )
+    _add_missed_promote_demo(
+        "demo-us30-monday-or-paper",
+        "US30 Monday OR M3_S3_R2 half-size paper",
+        cmd_demo_us30_monday_or_paper,
+        cmd_demo_us30_monday_or_paper_status,
+        cmd_demo_us30_monday_or_paper_stop,
+    )
+    _add_missed_promote_demo(
+        "demo-us30-monday-or-oanda",
+        "US30 Monday OR M3_S3_R2 half-size OANDA",
+        cmd_demo_us30_monday_or_oanda,
+        cmd_demo_us30_monday_or_oanda_status,
+        cmd_demo_us30_monday_or_oanda_stop,
+    )
+    _add_missed_promote_demo(
+        "demo-eurusd-monday-or-paper",
+        "EURUSD Monday OR M1_S2_R2 paper-half",
+        cmd_demo_eurusd_monday_or_paper,
+        cmd_demo_eurusd_monday_or_paper_status,
+        cmd_demo_eurusd_monday_or_paper_stop,
+    )
 
     demo_yor_paper = sub.add_parser(
         "demo-yearly-orb-paper",

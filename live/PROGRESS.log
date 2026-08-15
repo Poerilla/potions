@@ -156,3 +156,23 @@ Append-only research/platform progress notes.
 [2026-08-13T14:40Z] Canonical NS Rerun finished. Phase-3 @1.25x under ΔN/S: ES/YM NOT VALIDATED; NQ OR-norm PROVISIONAL only (Tier A empty). Boards hardened (US30 market, exclude 10R addon from core). Phase-4 portfolio N/S hub live/state/canonical_ns_research/portfolio/ best≈11.55 (NQ@2x + EURUSD Thu@1.5x provisional; HOLD_ONE). DEPLOYMENT_PLAN+tracker+skill aligned. Emails sent.
 
 [2026-08-13T15:25Z] Canonical N/S all-results coupon table: ALL_RESULTS.md + ALL_RESULTS_WITH_COUPONS.csv (118 rows, ledger order, no sort; net/stress/N/S coupons vs baseline). Driver write_all_results_with_coupons wired. Tracker/CHANGE_LOG linked. Git check-in.
+
+[2026-08-13T18:35Z] Live/demo adherence (no PnL): 35/35 alive, no stale PROGRESS, no open-without-orders. FLAGs: nas100_v2b_ungated_oanda + spx500_v2b_ungated_oanda open qty=3 stop-only (bracket_role=entry; missing resting tp1/tp2 after re-entry); NAS100 paper twin has runner_stop+tp2. Paper fill reasons adherent. Stream 429/timeout noise recovered. OANDA open-row bleed clear vs midday. Ledger live/demo/ADHERENCE_ISSUES.md; inventory ADHERENCE_INVENTORY_2026-08-13.csv; email EMAIL_ADHERENCE_2026-08-13_1835Z.txt.
+[2026-08-14T00:40Z] NAS100 NQ-lead prior-opposed HP add-on (was missing from today's futures mill): profile+1.25× nulls → live/state/futures_intraday_hp_nas100_nq_lead/. Shortlist: RSI-against / ST-opposed-proxy RISK THROTTLE (p_master~0.70); overnight on_comp NOT VALIDATED. No SIZE-UP VALIDATED / PROVISIONAL. LIVE_PLAN untouched.
+[2026-08-15T01:35Z] ADHERENCE evening: paper OK; FLAG hung OANDA streams (4) + live↔sim miss nas100/spx500 v2b + nas100 ST+PMC 3R; orphan v2b stops
+
+[2026-08-15T02:20Z] ADHERENCE remediation: cleared orphan v2b STOPs; cooldown+restart USDJPY/US30 Monday OR OANDA (STREAM connected); NAS/SPX v2b OANDA stopped overnight post-cash to protect 429; next_stream_backoff 429 ceiling 300s. Ledger ADHERENCE_ISSUES.md + EMAIL_ADHERENCE_2026-08-14_remediation.txt.
+[2026-08-15T02:22Z] ADHERENCE recheck post-remediation: broker open=0 STOP=0; Monday OR OANDA up; v2b OANDA still overnight-stopped; 33/33 alive; EMAIL_ADHERENCE_2026-08-14_recheck.txt
+
+[2026-08-15T03:58Z] Risk-guard SHADOW armed through 2026-08-28 (avg-loss thr; log-only). Winner MAE + p80-carry hub live/state/oanda_winner_mae_carry/ — 1/15 favorable (EURUSD ST+PMC 3R → p80 thr overlay). Emails: daemon armed + MAE complete + overnight digest.
+
+[2026-08-15T05:42Z] MAE percentile sweep p80/85/90/95 complete → live/state/oanda_winner_mae_carry/ (2/15 favorable: EURUSD 3R p80; NAS100 runners p95). Risk-guard overlay accepts pXX. TODO plan only: live/specs/OANDA_DAEMON_RECONCILE_FLAT_FOR_DAY_TODO.md (15m reconcile → flat-for-day on hard mismatch).
+
+## 2026-08-15 — OANDA containment ship (shadow)
+- Implemented daemon containment (bracket watchdog + 15m hard reconcile + FLAT_FOR_DAY) in live/demo/oanda_daemon_reconcile.py; wired to v2b OANDA common. Default POTIONS_OANDA_CONTAINMENT=shadow. Curated Aug13-14 fixtures under live/tests/fixtures/oanda_faults/; 15 containment tests green.
+
+[2026-08-15T17:40Z] Fault-day curated env: sliced real OANDA demo 1m bars (Aug 13–14 NAS100/SPX500) into fixtures; harness `oanda_fault_replay` (8/8 PASS + plugin smoke); foreign-bleed reads unscoped store; wired Monday OR + ST+PMC OANDA containment helpers. Tests: 20 green (containment + fault-day).
+
+[2026-08-15T17:50Z] Stream-staleness DISARM (≥180s) + reconnect REST-rearm; fixture `2026-08-14_stream_hung_missed_entry` (real Aug 14 NAS100 bars). Fault harness + containment tests re-run.
+
+[2026-08-15T17:55Z] Wired asia-range + London prior-opposed OANDA commons to DaemonContainmentController; fault harness --hub/--email + live_fills compare; 9/9 PASS + 21 containment tests; emailed hub live/state/oanda_fault_replay_curated/.

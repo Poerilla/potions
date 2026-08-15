@@ -1,0 +1,2 @@
+fill_id,broker_order_id,intent_id,strategy_id,trade_id,instrument,account_mode,side,quantity,price,ts,reason,mid_price,bid_price,ask_price,spread
+fill_entry_spx500,ord_entry_spx500,intent_e,spx500_v2b_ungated_oanda,spx500_v2b_ungated_oanda_20260813,SPX500,paper,buy,3.0,7750.0,2026-08-13T13:46:00Z,entry,,,,

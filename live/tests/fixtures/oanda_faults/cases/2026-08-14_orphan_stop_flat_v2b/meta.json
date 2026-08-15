@@ -1,0 +1,11 @@
+{
+  "incident": "2026-08-14 evening \u2014 orphan protective STOPs on flat NAS100/SPX500 v2b OANDA",
+  "provenance": [
+    "live/demo/ADHERENCE_ISSUES.md remediation"
+  ],
+  "as_of": "2026-08-14T21:35:00-04:00",
+  "expected": {
+    "classification": "orphan_protective",
+    "recommended_action": "cancel_orphans"
+  }
+}

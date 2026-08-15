@@ -43,7 +43,15 @@ from ..oanda import (
 from ..replay_realism import hardened_replay_engine_kwargs
 from ..store import FlatFileStore
 from ..verification import SpoofVerificationProvider
-from . import DEMO_ROOT, demo_run_root
+from . import DEMO_ROOT, demo_run_root, next_stream_backoff
+from .oanda_daemon_reconcile import (
+    containment_bootstrap,
+    containment_note_activity,
+    containment_on_reconnect,
+    containment_poll,
+    install_containment,
+    oanda_broker_with_supervisor,
+)
 
 NY = pytz.timezone("America/New_York")
 LONDON_OPEN = dt_time(3, 0)
@@ -504,12 +512,13 @@ def build_engine(
     DEFAULT_TICK_SIZE.setdefault(spec.instrument, spec.tick)
     if spec.oanda_routing:
         assert config is not None
-        broker = OandaBroker(
+        broker = oanda_broker_with_supervisor(
             store,
             config=config,
             client=client or OandaApiClient(config=config, store=store),
+            strategy_id=spec.strategy_id,
+            instrument=spec.instrument,
             allow_live_routing=False,
-            authority_strategy_ids=[spec.strategy_id],
         )
         return Engine(
             store=store,
@@ -692,6 +701,15 @@ class DemoLondonPriorOpposedRunner:
         self.st_injects = 0
         self.fills_from_oanda = 0
         self.stop_requested = False
+        self.containment = None
+        if spec.oanda_routing:
+            install_containment(
+                self,
+                instrument=spec.instrument,
+                strategy_id=spec.strategy_id,
+                strategy_type=str(getattr(spec, "strategy_type", None) or "v2b_scaleout"),
+                entry_qty=float(spec.entry_qty or 0),
+            )
 
     def _prime_seen_fills(self) -> None:
         """Avoid re-auditing historical fills after a daemon restart."""
@@ -787,6 +805,7 @@ class DemoLondonPriorOpposedRunner:
         broker = self.engine.broker
         if isinstance(broker, OandaBroker):
             try:
+                broker.register_authority_strategy(self.spec.strategy_id)
                 broker.reconcile_from_account_details()
                 append_progress(
                     self.output_root,
@@ -795,6 +814,7 @@ class DemoLondonPriorOpposedRunner:
                 )
             except Exception as exc:
                 append_progress(self.output_root, "WARN reconcile failed: %s" % exc)
+        containment_bootstrap(self, append_progress_fn=append_progress)
 
     def _inject_st_events(self, *, force: bool = False) -> int:
         now = float(self._clock())
@@ -916,6 +936,7 @@ class DemoLondonPriorOpposedRunner:
         self._last_changes_poll_at = now
         n = poll_account_changes(self.engine, self.client, instrument=self.spec.instrument)
         self.fills_from_oanda += n
+        containment_poll(self, append_progress_fn=append_progress)
         return n
 
     def on_price_tick(
@@ -930,6 +951,7 @@ class DemoLondonPriorOpposedRunner:
     ) -> None:
         del raw
         self.ticks_logged += 1
+        containment_note_activity(self)
         self._inject_st_events()
         self._poll_account_changes()
         for bar in self.builder.on_quote(ts=ts, bid=bid, ask=ask, mid=mid, quantity=quantity):
@@ -1222,6 +1244,7 @@ def _run_st_feed_bar_loop(
     while not runner.stop_requested:
         runner._inject_st_events()
         runner._poll_account_changes()
+        containment_note_activity(runner)
         bars = feed.read_bars(spec.instrument, "1m")
         # Only scan the tip — full history was primed into ``seen``.
         new_bars = [b for b in bars[-80:] if str(b.ts) not in seen]
@@ -1298,10 +1321,11 @@ def _run_pricing_stream_loop(
                 break
             append_progress(root, "RECONNECT sleeping %.1fs after stream_open failure" % backoff)
             _interruptible_sleep(runner, backoff)
-            backoff = min(backoff * 2.0, reconnect_max_seconds)
+            backoff = next_stream_backoff(backoff, reconnect_max_seconds, open_exc)
             continue
 
         append_progress(root, "STREAM connected attempt=%d status=200" % reconnect_attempt)
+        containment_on_reconnect(runner, append_progress_fn=append_progress)
         backoff = float(reconnect_initial_seconds)
         session_ticks = 0
         try:
@@ -1309,6 +1333,7 @@ def _run_pricing_stream_loop(
                 if runner.stop_requested:
                     break
                 if msg_type == "pricing.PricingHeartbeat" or getattr(msg, "type", None) == "HEARTBEAT":
+                    containment_note_activity(runner)
                     runner._maybe_heartbeat()
                     continue
                 event = {
@@ -1363,7 +1388,7 @@ def _run_pricing_stream_loop(
                 break
             append_progress(root, "RECONNECT sleeping %.1fs after stream_read failure" % backoff)
             _interruptible_sleep(runner, backoff)
-            backoff = min(backoff * 2.0, reconnect_max_seconds)
+            backoff = next_stream_backoff(backoff, reconnect_max_seconds, stream_exc)
             continue
 
         if runner.stop_requested:
@@ -1374,5 +1399,5 @@ def _run_pricing_stream_loop(
             % (reconnect_attempt, session_ticks, backoff),
         )
         _interruptible_sleep(runner, backoff)
-        backoff = min(backoff * 2.0, reconnect_max_seconds)
+        backoff = next_stream_backoff(backoff, reconnect_max_seconds)
     return exit_code, price_ticks, reconnect_attempt

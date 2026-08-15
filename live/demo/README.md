@@ -17,15 +17,12 @@ export PYTHONPATH="/home/tester/hsm:/home/tester/hsm/potions/v20-python/src"
 ### 1) Daemon up / down (inventory)
 
 ```bash
-python3 -m potions.live.cli demo-eurusd-v2b-paper-status
 python3 -m potions.live.cli demo-nas100-v2b-paper-status
 python3 -m potions.live.cli demo-spx500-v2b-paper-status
-python3 -m potions.live.cli demo-us30-v2b-paper-status
+# EURUSD/US30 ungated stopped 2026-08-11 — prefer ST+PMC / Monday OR below
 
-python3 -m potions.live.cli demo-eurusd-v2b-oanda-status
 python3 -m potions.live.cli demo-nas100-v2b-oanda-status
 python3 -m potions.live.cli demo-spx500-v2b-oanda-status
-python3 -m potions.live.cli demo-us30-v2b-oanda-status
 
 python3 -m potions.live.cli demo-usdjpy-monday-or-paper-status
 python3 -m potions.live.cli demo-usdjpy-monday-or-oanda-status
@@ -41,7 +38,19 @@ python3 -m potions.live.cli demo-nas100-hourly-st-pmc-paper-status
 python3 -m potions.live.cli demo-nas100-hourly-st-pmc-oanda-status
 python3 -m potions.live.cli demo-nas100-hourly-st-pmc-2r10r-paper-status
 python3 -m potions.live.cli demo-nas100-hourly-st-pmc-2r10r-oanda-status
+
+python3 -m potions.live.cli demo-us30-london-prior-opposed-paper-status
+python3 -m potions.live.cli demo-us30-london-prior-opposed-oanda-status
+
+python3 -m potions.live.cli demo-eurusd-hourly-st-pmc-paper-status
+python3 -m potions.live.cli demo-eurusd-hourly-st-pmc-oanda-status
+python3 -m potions.live.cli demo-eurusd-hourly-st-pmc-2r10r-paper-status
+python3 -m potions.live.cli demo-eurusd-hourly-st-pmc-2r10r-oanda-status
+python3 -m potions.live.cli demo-us30-monday-or-paper-status
+python3 -m potions.live.cli demo-us30-monday-or-oanda-status
+python3 -m potions.live.cli demo-eurusd-monday-or-paper-status
 ```
+
 
 Each prints: `pid=… alive=True|False started_at=… state=…` (OANDA / Monday OR also show `routing=` / `tag=`).
 
@@ -187,6 +196,8 @@ tail -40 live/demo/us30_v2b_ungated_oanda/run.log
 | `__init__.py` | `DEMO_ROOT`, `demo_run_root(name)` |
 | `.env` | Practice creds (`OANDA_ENV`, `OANDA_ACCOUNT_ID`, `OANDA_TOKEN`) — **do not commit** |
 | `oanda_v2b_ungated_common.py` | Shared OANDA practice v2b runner (stream, Account Changes, daemon helpers) |
+| `oanda_daemon_reconcile.py` | Bracket watchdog + 15m hard reconcile + FLAT_FOR_DAY (shadow default) |
+| `oanda_fault_replay.py` | Offline curated fault-day harness (demo bar slices + frozen books) |
 | `session_pnl.py` | Session FIFO PnL + append to results CSVs |
 | `eod_charts.py` | NY RTH close position charts → `charts/` |
 | `size_report.py` | Friday EOW file-size lines → `PROGRESS.log` / `FILE_SIZES.log` |
@@ -197,12 +208,12 @@ tail -40 live/demo/us30_v2b_ungated_oanda/run.log
 
 ### Paper v2b runners (prices from OANDA; **PaperBroker** fills)
 
-| Module | Artifacts dir | CLI |
-|--------|---------------|-----|
-| `eurusd_v2b_ungated_paper.py` | `eurusd_v2b_ungated_paper/` | `demo-eurusd-v2b-paper` |
-| `nas100_v2b_ungated_paper.py` | `nas100_v2b_ungated_paper/` | `demo-nas100-v2b-paper` |
-| `spx500_v2b_ungated_paper.py` | `spx500_v2b_ungated_paper/` | `demo-spx500-v2b-paper` |
-| `us30_v2b_ungated_paper.py` | `us30_v2b_ungated_paper/` | `demo-us30-v2b-paper` |
+| Module | Artifacts dir | CLI | Status |
+|--------|---------------|-----|--------|
+| `eurusd_v2b_ungated_paper.py` | `eurusd_v2b_ungated_paper/` | `demo-eurusd-v2b-paper` | **STOPPED 2026-08-11** (sleeve loser) |
+| `nas100_v2b_ungated_paper.py` | `nas100_v2b_ungated_paper/` | `demo-nas100-v2b-paper` | running |
+| `spx500_v2b_ungated_paper.py` | `spx500_v2b_ungated_paper/` | `demo-spx500-v2b-paper` | running |
+| `us30_v2b_ungated_paper.py` | `us30_v2b_ungated_paper/` | `demo-us30-v2b-paper` | **STOPPED 2026-08-11** (sleeve loser) |
 
 Each CLI has `-status` / `-stop` siblings (e.g. `demo-us30-v2b-paper-status`).
 
@@ -210,19 +221,24 @@ Each CLI has `-status` / `-stop` siblings (e.g. `demo-us30-v2b-paper-status`).
 
 Thin wrappers around `oanda_v2b_ungated_common.py`:
 
-| Module | Artifacts dir | CLI |
-|--------|---------------|-----|
-| `eurusd_v2b_ungated_oanda.py` | `eurusd_v2b_ungated_oanda/` | `demo-eurusd-v2b-oanda` |
-| `nas100_v2b_ungated_oanda.py` | `nas100_v2b_ungated_oanda/` | `demo-nas100-v2b-oanda` |
-| `spx500_v2b_ungated_oanda.py` | `spx500_v2b_ungated_oanda/` | `demo-spx500-v2b-oanda` |
-| `us30_v2b_ungated_oanda.py` | `us30_v2b_ungated_oanda/` | `demo-us30-v2b-oanda` |
+| Module | Artifacts dir | CLI | Status |
+|--------|---------------|-----|--------|
+| `eurusd_v2b_ungated_oanda.py` | `eurusd_v2b_ungated_oanda/` | `demo-eurusd-v2b-oanda` | **STOPPED 2026-08-11** |
+| `nas100_v2b_ungated_oanda.py` | `nas100_v2b_ungated_oanda/` | `demo-nas100-v2b-oanda` | running |
+| `spx500_v2b_ungated_oanda.py` | `spx500_v2b_ungated_oanda/` | `demo-spx500-v2b-oanda` | running |
+| `us30_v2b_ungated_oanda.py` | `us30_v2b_ungated_oanda/` | `demo-us30-v2b-oanda` | **STOPPED 2026-08-11** |
 
-### Monday OR (USDJPY, Phase 2 `M2_S3_R1`)
+### Monday OR (USDJPY Phase 2 `M2_S3_R1` + EURUSD/US30 half promotes)
 
 | Module | Artifacts dir | CLI |
 |--------|---------------|-----|
 | `usdjpy_monday_or_ungated_paper.py` | `usdjpy_monday_or_ungated_paper/` | `demo-usdjpy-monday-or-paper` |
 | `usdjpy_monday_or_ungated_oanda.py` | `usdjpy_monday_or_ungated_oanda/` | `demo-usdjpy-monday-or-oanda` |
+| `us30_monday_or_paper.py` | `us30_monday_or_m3_s3_r2_half_paper/` | `demo-us30-monday-or-paper` |
+| `us30_monday_or_oanda.py` | `us30_monday_or_m3_s3_r2_half_oanda/` | `demo-us30-monday-or-oanda` |
+| `eurusd_monday_or_paper.py` | `eurusd_monday_or_m1_s2_r2_half_paper/` | `demo-eurusd-monday-or-paper` (paper-only) |
+
+US30 `M3_S3_R2` @ ½ + Sep skip; EURUSD `M1_S2_R2` @ ½ paper-only + Aug skip. Screen hub: `live/state/eurusd_us30_missed_promote_screen/`.
 
 Extra note in paper tree: `usdjpy_monday_or_ungated_paper/OR_SEED_NOTE.md` (how Monday OR was seeded after a paper stream bug).
 
@@ -243,6 +259,26 @@ Live-parity audit: `campaign_parity.csv` (session | shadow 50-WR/PF | skip/take 
 Funded-sleeve gates: hub `VALIDATION_GATES.md` (**funded sleeve NOT YET**; offline OOS/attribution/path-aware PASS; filter nulls = risk throttle — `FILTER_NULLS.md`; three-book lock `C_PRIMARY_CAPITAL_EFFICIENT_B_ALPHA_CONTROL` — C capital-efficient demo / B alpha control / A shadow; sit-out candle-sim wired; margin ops via `oanda-practice-sync`; live parity row-compare pending first campaigns).
 Shadow EOD: taken days append live `unit_trades`; sit-out days run unfiltered candle-sim on stored 1m (`candle_sim_unfiltered_campaign_net`) so roll50 cannot freeze. **50-campaign warmup** avoided on live via last-50 seed.
 Shadow warmup: demos seed last **50** unfiltered campaign nets so the roll gate is warm from day one.
+
+### US30 London prior-opposed delayed-arming (¼ size — live ST gate)
+
+Research curiosity book `S_1_1_3` (London OR **03:00–03:15** → flatten **11:59**) gated by
+**same-session opposite-side** hourly ST+PMC (`sl50_tp150_3r`). Live sleeve is **`S_1_0_0` @
+`size_mult=0.25` (1 unit)** until live ST parity + concentration clarity justify half/full.
+
+| Module | Artifacts dir | CLI | ST feed |
+|--------|---------------|-----|---------|
+| `us30_london_prior_opposed_paper.py` (+ `…_common.py`) | `us30_london_prior_opposed_paper/` | `demo-us30-london-prior-opposed-paper` | `us30_hourly_st_pmc_sl50_tp150_3r_paper` |
+| `us30_london_prior_opposed_oanda.py` | `us30_london_prior_opposed_oanda/` | `demo-us30-london-prior-opposed-oanda` | `us30_hourly_st_pmc_sl50_tp150_3r_oanda` |
+
+**Wiring:**
+- Bootstrap seeds research resting-limit ST events, then merges **live sibling ST+PMC entry fills** every ~15s into `dynamic_sizing_events`.
+- Prices default to **`st_feed_bars`** (sibling ST demo 1m tape) to avoid another US30 OANDA pricing stream under practice caps.
+- Plugin fix: empty `dynamic_sizing_events` **blocks** when `prior_opposite_only` (no ungated window before first inject).
+
+**Gate audit** (`gate_audit.csv` + `PROGRESS.log` lines): session date, prior-opposed long/short ok, prior ST event ts/side, gate arm/disarm decision, entry eligible ts, OCO state, open entry orders, position qty, fill/no-fill result, skip reason, size_mult.
+
+Hub: `live/state/fx_v2b_london_prior_opposed`. Promote half/full only after enough live London sessions with ST parity + robustness (top-10 concentration / weak years).
 
 ### Hourly ST+PMC 1mfill (fair 3R + 2R→10R runners)
 
@@ -267,6 +303,10 @@ Plugin `hourly_st_pmc_retest`, stop 50 / target 150 index pts, **1m fill tape**
 | `nas100_hourly_st_pmc_oanda.py` | `nas100_hourly_st_pmc_sl50_tp150_3r_oanda/` | `demo-nas100-hourly-st-pmc-oanda` | same |
 | `nas100_hourly_st_pmc_runners_2r_10r_paper.py` | `nas100_hourly_st_pmc_sl50_tp150_runners_2r_10r_paper/` | `demo-nas100-hourly-st-pmc-2r10r-paper` | same |
 | `nas100_hourly_st_pmc_runners_2r_10r_oanda.py` | `nas100_hourly_st_pmc_sl50_tp150_runners_2r_10r_oanda/` | `demo-nas100-hourly-st-pmc-2r10r-oanda` | same |
+| `eurusd_hourly_st_pmc_paper.py` | `eurusd_hourly_st_pmc_sl50_tp150_3r_paper/` | `demo-eurusd-hourly-st-pmc-paper` | `fx/eurusd_1h.csv` (~300h); N/S 3.01 |
+| `eurusd_hourly_st_pmc_oanda.py` | `eurusd_hourly_st_pmc_sl50_tp150_3r_oanda/` | `demo-eurusd-hourly-st-pmc-oanda` | same |
+| `eurusd_hourly_st_pmc_runners_2r_10r_paper.py` | `eurusd_hourly_st_pmc_sl50_tp150_runners_2r_10r_paper/` | `demo-eurusd-hourly-st-pmc-2r10r-paper` | **½ size** (concentration) |
+| `eurusd_hourly_st_pmc_runners_2r_10r_oanda.py` | `eurusd_hourly_st_pmc_sl50_tp150_runners_2r_10r_oanda/` | `demo-eurusd-hourly-st-pmc-2r10r-oanda` | **½ size** |
 
 **Charts:** not daily EOD. Heartbeat writes trade / open overlays via
 `st_pmc_trade_charts.py` when there is activity
@@ -311,15 +351,11 @@ live/demo/<run>/
 export PYTHONPATH="/home/tester/hsm:/home/tester/hsm/potions/v20-python/src"
 # load .env or export OANDA_* first
 
-python3 -m potions.live.cli demo-eurusd-v2b-paper --daemon
+# NAS100/SPX500 ungated still OK; EURUSD/US30 ungated STOPPED 2026-08-11
 python3 -m potions.live.cli demo-nas100-v2b-paper --daemon
 python3 -m potions.live.cli demo-spx500-v2b-paper --daemon
-python3 -m potions.live.cli demo-us30-v2b-paper --daemon
-
-python3 -m potions.live.cli demo-eurusd-v2b-oanda --daemon
 python3 -m potions.live.cli demo-nas100-v2b-oanda --daemon
 python3 -m potions.live.cli demo-spx500-v2b-oanda --daemon
-python3 -m potions.live.cli demo-us30-v2b-oanda --daemon
 
 python3 -m potions.live.cli demo-usdjpy-monday-or-paper --daemon
 python3 -m potions.live.cli demo-usdjpy-monday-or-oanda --daemon
@@ -335,6 +371,15 @@ python3 -m potions.live.cli demo-nas100-hourly-st-pmc-paper --daemon
 python3 -m potions.live.cli demo-nas100-hourly-st-pmc-oanda --daemon
 python3 -m potions.live.cli demo-nas100-hourly-st-pmc-2r10r-paper --daemon
 python3 -m potions.live.cli demo-nas100-hourly-st-pmc-2r10r-oanda --daemon
+
+# Missed-promote pack (2026-08-11)
+python3 -m potions.live.cli demo-eurusd-hourly-st-pmc-paper --daemon
+python3 -m potions.live.cli demo-eurusd-hourly-st-pmc-oanda --daemon
+python3 -m potions.live.cli demo-eurusd-hourly-st-pmc-2r10r-paper --daemon
+python3 -m potions.live.cli demo-eurusd-hourly-st-pmc-2r10r-oanda --daemon
+python3 -m potions.live.cli demo-us30-monday-or-paper --daemon
+python3 -m potions.live.cli demo-us30-monday-or-oanda --daemon
+python3 -m potions.live.cli demo-eurusd-monday-or-paper --daemon
 ```
 
 Foreground (debug): omit `--daemon`. Optional `--max-ticks N`, `--output-root PATH`, `--oanda-config PATH`.

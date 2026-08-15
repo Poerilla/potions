@@ -1,0 +1,9 @@
+{
+  "classification": "foreign_bleed",
+  "recommended_action": "flat_for_day",
+  "instrument": "EURUSD",
+  "strategy_id": "eurusd_v2b_ungated_oanda",
+  "strategy_type": "v2b_scaleout",
+  "entry_qty": 3,
+  "detector": "foreign_bleed"
+}

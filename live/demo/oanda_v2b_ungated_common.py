@@ -33,8 +33,10 @@ from ..oanda import (
     parse_oanda_ts,
 )
 from ..store import FlatFileStore
+from ..supervisor import RuntimeSupervisor
 from ..verification import SpoofVerificationProvider
-from . import demo_run_root
+from . import demo_run_root, next_stream_backoff
+from .oanda_daemon_reconcile import DaemonContainmentController, containment_on_reconnect
 from .session_pnl import append_session_result
 
 NY_TZ = pytz.timezone("America/New_York")
@@ -187,12 +189,15 @@ def bootstrap_store(output_root: Path, spec: OandaDemoSpec) -> FlatFileStore:
 
 def build_engine(store: FlatFileStore, *, spec: OandaDemoSpec, config: OandaConfig, client: OandaApiClient) -> Engine:
     DEFAULT_TICK_SIZE.setdefault(spec.instrument, spec.tick)
+    supervisor = RuntimeSupervisor(store, provider="oanda")
     broker = OandaBroker(
         store,
         config=config,
         client=client,
         allow_live_routing=False,
+        supervisor=supervisor,
         authority_strategy_ids=[spec.strategy_id],
+        position_scope_instruments=[spec.instrument],
     )
     return Engine(
         store=store,
@@ -309,6 +314,19 @@ class DemoOandaRunner:
         self.bars_engine = 0
         self.fills_from_oanda = 0
         self.stop_requested = False
+        broker = self.engine.broker
+        supervisor = getattr(broker, "supervisor", None) if isinstance(broker, OandaBroker) else None
+        self.containment = DaemonContainmentController(
+            store=self.store,
+            broker=broker,
+            supervisor=supervisor,
+            instrument=spec.instrument,
+            strategy_id=spec.strategy_id,
+            strategy_type=spec.strategy_type,
+            entry_qty=float(spec.entry_qty),
+            output_root=self.output_root,
+            clock=self._clock,
+        ) if isinstance(broker, OandaBroker) else None
 
     def request_stop(self, *_args: Any) -> None:
         self.stop_requested = True
@@ -330,6 +348,21 @@ class DemoOandaRunner:
                 )
             except Exception as exc:
                 append_progress(self.output_root, "WARN reconcile_from_account_details failed: %s" % exc)
+        if self.containment is not None:
+            try:
+                result = self.containment.bootstrap()
+                append_progress(
+                    self.output_root,
+                    "containment bootstrap mode=%s state=%s actions=%s ok=%s"
+                    % (
+                        result.mode,
+                        result.state,
+                        ",".join(result.actions) or "-",
+                        None if result.invariant is None else result.invariant.ok,
+                    ),
+                )
+            except Exception as exc:
+                append_progress(self.output_root, "WARN containment bootstrap failed: %s" % exc)
 
     def maybe_poll_changes(self, *, force: bool = False) -> None:
         now = self._clock()
@@ -340,6 +373,29 @@ class DemoOandaRunner:
         if n:
             self.fills_from_oanda += n
             append_progress(self.output_root, "OANDA fills applied n=%d total=%d" % (n, self.fills_from_oanda))
+        self._maybe_containment()
+
+    def _maybe_containment(self, *, force: bool = False) -> None:
+        if self.containment is None:
+            return
+        try:
+            result = self.containment.maybe_run(force=force)
+        except Exception as exc:
+            append_progress(self.output_root, "WARN containment cycle failed: %s" % exc)
+            return
+        if result is None:
+            return
+        if result.invariant is not None and not result.invariant.ok:
+            append_progress(
+                self.output_root,
+                "containment %s class=%s actions=%s shadow=%s"
+                % (
+                    result.phase,
+                    result.invariant.classification,
+                    ",".join(result.actions) or "-",
+                    result.shadow,
+                ),
+            )
 
     def on_price_tick(
         self,
@@ -383,6 +439,8 @@ class DemoOandaRunner:
         completed = self.builder.on_quote(bid=float(bid), ask=float(ask), mid=mid, quantity=quantity, ts=ts)
         for bar in completed:
             self._handle_completed_bar(bar)
+        if self.containment is not None:
+            self.containment.note_stream_activity()
         self.maybe_poll_changes()
         self._maybe_heartbeat()
         return completed
@@ -458,6 +516,17 @@ class DemoOandaRunner:
                     except Exception as exc:
                         append_progress(self.output_root, "WARN weekly FILE_SIZES failed: %s" % exc)
 
+    def _maybe_annotate_hp_flags(self) -> None:
+        # NAS100 v2b only — RSI-against / ST-opposed shadow flags for Tier-C HP.
+        if getattr(self.spec, "instrument", "") != "NAS100":
+            return
+        try:
+            from ..nas100_v2b_hp_flags import annotate_demo
+
+            annotate_demo("live/demo/nas100_v2b_ungated_oanda", log_progress=True)
+        except Exception as exc:
+            append_progress(self.output_root, "WARN HP_FLAGS annotate failed: %s" % exc)
+
     def _maybe_heartbeat(self) -> None:
         now = self._clock()
         if now - self._last_progress_at < PROGRESS_HEARTBEAT_SECONDS:
@@ -480,6 +549,7 @@ class DemoOandaRunner:
                 self.fills_from_oanda,
             ),
         )
+        self._maybe_annotate_hp_flags()
 
 
 def _jsonable(value: Any) -> Any:
@@ -602,17 +672,21 @@ def run_stream_loop(
                     break
                 append_progress(output_root, "RECONNECT sleeping %.1fs after stream_open failure" % backoff)
                 _interruptible_sleep(runner, backoff)
-                backoff = min(backoff * 2.0, reconnect_max_seconds)
+                backoff = next_stream_backoff(backoff, reconnect_max_seconds, open_exc)
                 continue
 
             append_progress(output_root, "STREAM connected attempt=%d status=200" % reconnect_attempt)
             backoff = float(reconnect_initial_seconds)
             session_ticks = 0
+            if reconnect_attempt > 1:
+                containment_on_reconnect(runner, append_progress_fn=append_progress)
             try:
                 for msg_type, msg in response.parts():
                     if runner.stop_requested:
                         break
                     if msg_type == "pricing.PricingHeartbeat" or getattr(msg, "type", None) == "HEARTBEAT":
+                        if runner.containment is not None:
+                            runner.containment.note_stream_activity()
                         runner.maybe_poll_changes()
                         continue
                     event = {
@@ -671,7 +745,7 @@ def run_stream_loop(
                     % (backoff, session_ticks, price_ticks),
                 )
                 _interruptible_sleep(runner, backoff)
-                backoff = min(backoff * 2.0, reconnect_max_seconds)
+                backoff = next_stream_backoff(backoff, reconnect_max_seconds, stream_exc)
                 continue
 
             if runner.stop_requested:
@@ -682,7 +756,7 @@ def run_stream_loop(
                 % (reconnect_attempt, session_ticks, backoff),
             )
             _interruptible_sleep(runner, backoff)
-            backoff = min(backoff * 2.0, reconnect_max_seconds)
+            backoff = next_stream_backoff(backoff, reconnect_max_seconds)
     except Exception as fatal_exc:
         _log_stream_error(output_root, runner.store, stage="fatal", exc=fatal_exc)
         exit_code = 1

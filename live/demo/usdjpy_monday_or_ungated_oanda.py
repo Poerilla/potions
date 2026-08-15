@@ -38,6 +38,7 @@ from ..oanda import (
 )
 from ..store import FlatFileStore
 from ..verification import SpoofVerificationProvider
+from . import next_stream_backoff
 from . import demo_run_root
 from .oanda_v2b_ungated_common import (
     ACCOUNT_CHANGES_POLL_SECONDS,
@@ -56,6 +57,14 @@ from .oanda_v2b_ungated_common import (
     run_log_path,
     run_meta_path,
     state_root_for,
+)
+from .oanda_daemon_reconcile import (
+    containment_bootstrap,
+    containment_note_activity,
+    containment_on_reconnect,
+    containment_poll,
+    install_containment,
+    oanda_broker_with_supervisor,
 )
 
 INSTRUMENT = "USDJPY"
@@ -152,9 +161,13 @@ def bootstrap_store(output_root: Path) -> FlatFileStore:
 
 def build_engine(store: FlatFileStore, *, config: OandaConfig, client: OandaApiClient) -> Engine:
     DEFAULT_TICK_SIZE.setdefault(INSTRUMENT, TICK)
-    broker = OandaBroker(
-        store, config=config, client=client, allow_live_routing=False,
-        authority_strategy_ids=[STRATEGY_ID],
+    broker = oanda_broker_with_supervisor(
+        store,
+        config=config,
+        client=client,
+        strategy_id=STRATEGY_ID,
+        instrument=INSTRUMENT,
+        allow_live_routing=False,
     )
     return Engine(
         store=store,
@@ -196,6 +209,14 @@ class MondayOrOandaRunner:
         self._weekly_size_week: Optional[str] = None
         self._weekly_chart_week: Optional[str] = None
 
+        install_containment(
+            self,
+            instrument=INSTRUMENT,
+            strategy_id=STRATEGY_ID,
+            strategy_type='monday_or_breakout',
+            entry_qty=float(strategy_config_payload().get("entry_qty") or 0),
+        )
+
     def request_stop(self, *_args: Any) -> None:
         self.stop_requested = True
 
@@ -216,6 +237,7 @@ class MondayOrOandaRunner:
                 )
             except Exception as exc:
                 append_progress(self.output_root, "WARN reconcile_from_account_details failed: %s" % exc)
+        containment_bootstrap(self, append_progress_fn=append_progress)
 
     def maybe_poll_changes(self, *, force: bool = False) -> None:
         now = time.time()
@@ -226,6 +248,7 @@ class MondayOrOandaRunner:
         if n:
             self.fills_from_oanda += n
             append_progress(self.output_root, "OANDA fills applied n=%d total=%d" % (n, self.fills_from_oanda))
+        containment_poll(self, append_progress_fn=append_progress)
 
     def on_price_tick(
         self,
@@ -254,6 +277,7 @@ class MondayOrOandaRunner:
             payload["raw"] = _jsonable(raw)
         self.store.append_event("fx_ticks/%s" % day, payload)
         self.ticks_logged += 1
+        containment_note_activity(self)
 
         completed_15: List[Bar] = []
         for bar_1m in self.builder_1m.on_quote(bid=float(bid), ask=float(ask), mid=mid_px, quantity=quantity, ts=ts):
@@ -428,17 +452,20 @@ def run_stream_loop(
                     break
                 append_progress(output_root, "RECONNECT sleeping %.1fs after stream_open failure" % backoff)
                 _interruptible_sleep(runner, backoff)
-                backoff = min(backoff * 2.0, reconnect_max_seconds)
+                backoff = next_stream_backoff(backoff, reconnect_max_seconds, open_exc)
                 continue
 
             append_progress(output_root, "STREAM connected attempt=%d status=200" % reconnect_attempt)
             backoff = float(reconnect_initial_seconds)
             session_ticks = 0
+            if reconnect_attempt > 1:
+                containment_on_reconnect(runner, append_progress_fn=append_progress)
             try:
                 for msg_type, msg in response.parts():
                     if runner.stop_requested:
                         break
                     if msg_type == "pricing.PricingHeartbeat" or getattr(msg, "type", None) == "HEARTBEAT":
+                        containment_note_activity(runner)
                         runner.maybe_poll_changes()
                         continue
                     event = {
@@ -487,7 +514,7 @@ def run_stream_loop(
                     break
                 append_progress(output_root, "RECONNECT sleeping %.1fs after stream_read failure" % backoff)
                 _interruptible_sleep(runner, backoff)
-                backoff = min(backoff * 2.0, reconnect_max_seconds)
+                backoff = next_stream_backoff(backoff, reconnect_max_seconds, stream_exc)
                 continue
 
             if runner.stop_requested:
@@ -498,7 +525,7 @@ def run_stream_loop(
                 % (reconnect_attempt, session_ticks, backoff),
             )
             _interruptible_sleep(runner, backoff)
-            backoff = min(backoff * 2.0, reconnect_max_seconds)
+            backoff = next_stream_backoff(backoff, reconnect_max_seconds)
     except Exception as fatal_exc:
         _log_stream_error(output_root, runner.store, stage="fatal", exc=fatal_exc)
         exit_code = 1

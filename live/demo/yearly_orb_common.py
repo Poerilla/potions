@@ -245,6 +245,7 @@ def build_oanda_engine(store: FlatFileStore, *, spec: YearlyOrbSpec, config: Oan
     broker = OandaBroker(
         store, config=config, client=client, allow_live_routing=False,
         authority_strategy_ids=[spec.strategy_id_oanda],
+        position_scope_instruments=[spec.instrument],
     )
     return Engine(
         store=store,

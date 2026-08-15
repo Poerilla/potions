@@ -1,0 +1,11 @@
+{
+  "instrument": "NAS100",
+  "strategy_id": "nas100_v2b_ungated_oanda",
+  "strategy_type": "v2b_scaleout",
+  "entry_qty": 3,
+  "classification": "stream_stale",
+  "recommended_action": "freeze_entries",
+  "detector": "stream_stale",
+  "stream_age_s": 14400,
+  "as_of": "2026-08-14T21:15:00Z"
+}

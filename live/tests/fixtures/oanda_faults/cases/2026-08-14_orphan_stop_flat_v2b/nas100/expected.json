@@ -1,0 +1,19 @@
+{
+  "classification": "orphan_protective",
+  "recommended_action": "cancel_orphans",
+  "instrument": "NAS100",
+  "strategy_id": "nas100_v2b_ungated_oanda",
+  "strategy_type": "v2b_scaleout",
+  "entry_qty": 3,
+  "remote_pending": [
+    {
+      "id": "remote_nas100",
+      "type": "STOP_LOSS",
+      "instrument": "NAS100_USD",
+      "tradeID": "dead_trade",
+      "clientExtensions": {
+        "tag": "nas100_v2b_ungated_oanda"
+      }
+    }
+  ]
+}

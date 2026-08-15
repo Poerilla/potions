@@ -13,6 +13,10 @@ ENTRY_FROZEN = "entry_frozen"
 RECONCILING = "reconciling"
 EMERGENCY_FLATTEN = "emergency_flatten"
 BLOCKED = "blocked"
+FLAT_FOR_DAY = "flat_for_day"
+
+# Modes that must survive account-details reconcile / mark_reconciled.
+_STICKY_BLOCK_MODES = frozenset({BLOCKED, FLAT_FOR_DAY, EMERGENCY_FLATTEN, ENTRY_FROZEN})
 
 
 @dataclass(frozen=True)
@@ -94,11 +98,32 @@ class RuntimeSupervisor:
         return self._set_mode(ENTRY_FROZEN, reason)
 
     def start_reconciliation(self, reason: str, payload: Optional[Dict[str, Any]] = None) -> RuntimeStatus:
+        # Do not clear sticky containment while pulling broker truth.
+        if self._status.mode in _STICKY_BLOCK_MODES:
+            self._append_reconciliation_event(
+                {
+                    "event": "reconciling_deferred_sticky",
+                    "reason": reason,
+                    "sticky_mode": self._status.mode,
+                }
+            )
+            return self._status
         self._fault("reconciling", reason, "warning", payload)
         return self._set_mode(RECONCILING, reason)
 
     def mark_reconciled(self, reason: str = "broker_state_reconciled") -> RuntimeStatus:
         self._append_reconciliation_event({"event": "reconciled", "reason": reason})
+        # Containment / freeze must outlive periodic account_details reconcile.
+        if self._status.mode in _STICKY_BLOCK_MODES:
+            self._status = RuntimeStatus(
+                mode=self._status.mode,
+                reason=self._status.reason,
+                provider=self.provider,
+                updated_at=utc_now_iso(),
+                last_reconciliation_at=utc_now_iso(),
+            )
+            self._persist()
+            return self._status
         self._status = RuntimeStatus(
             mode=RUNNING,
             reason=reason,
@@ -116,6 +141,16 @@ class RuntimeSupervisor:
     def block(self, reason: str, payload: Optional[Dict[str, Any]] = None) -> RuntimeStatus:
         self._fault("blocked", reason, "critical", payload)
         return self._set_mode(BLOCKED, reason)
+
+    def mark_flat_for_day(self, reason: str, payload: Optional[Dict[str, Any]] = None) -> RuntimeStatus:
+        """Block new entries until NY day roll or explicit clear."""
+        self._fault("flat_for_day", reason, "critical", payload)
+        return self._set_mode(FLAT_FOR_DAY, reason)
+
+    def clear_flat_for_day(self, reason: str = "flat_for_day_cleared") -> RuntimeStatus:
+        if self._status.mode != FLAT_FOR_DAY:
+            return self._status
+        return self.mark_running(reason)
 
     def observe_heartbeat_age(self, age_ms: float, source: str = "") -> RuntimeStatus:
         if float(age_ms) > self.heartbeat_freeze_ms:

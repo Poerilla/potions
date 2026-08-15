@@ -1,0 +1,19 @@
+{
+  "classification": "orphan_protective",
+  "recommended_action": "cancel_orphans",
+  "instrument": "SPX500",
+  "strategy_id": "spx500_v2b_ungated_oanda",
+  "strategy_type": "v2b_scaleout",
+  "entry_qty": 3,
+  "remote_pending": [
+    {
+      "id": "remote_spx500",
+      "type": "STOP_LOSS",
+      "instrument": "SPX500_USD",
+      "tradeID": "dead_trade",
+      "clientExtensions": {
+        "tag": "spx500_v2b_ungated_oanda"
+      }
+    }
+  ]
+}

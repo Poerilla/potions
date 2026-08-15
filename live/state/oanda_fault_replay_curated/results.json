@@ -1,0 +1,290 @@
+{
+  "generated_at": "2026-08-15T17:57:23Z",
+  "mode": "live",
+  "n": 9,
+  "n_fail": 0,
+  "results": [
+    {
+      "case": "2026-08-13_foreign_bleed_synthetic",
+      "book": "focus_eurusd",
+      "instrument": "EURUSD",
+      "strategy_id": "eurusd_v2b_ungated_oanda",
+      "as_of": "",
+      "bar_count": 0,
+      "bars_path": "",
+      "detector_classification": "foreign_bleed",
+      "detector_action": "flat_for_day",
+      "containment_classification": "foreign_bleed",
+      "containment_actions": [
+        "detect:foreign_bleed",
+        "flattened:EURUSD",
+        "supervisor_flat_for_day"
+      ],
+      "supervisor_mode": "flat_for_day",
+      "expected_classification": "foreign_bleed",
+      "expected_action": "flat_for_day",
+      "ok": true,
+      "plugin_replay": null,
+      "live_fill_compare": null,
+      "notes": [
+        "no_bar_slice",
+        "plugin_replay_skipped"
+      ]
+    },
+    {
+      "case": "2026-08-13_stop_only_v2b",
+      "book": "nas100",
+      "instrument": "NAS100",
+      "strategy_id": "nas100_v2b_ungated_oanda",
+      "as_of": "2026-08-13T18:35:00Z",
+      "bar_count": 1537,
+      "bars_path": "/home/tester/hsm/potions/live/tests/fixtures/oanda_faults/cases/2026-08-13_stop_only_v2b/nas100/bars",
+      "detector_classification": "stop_only",
+      "detector_action": "freeze_entries",
+      "containment_classification": "stop_only",
+      "containment_actions": [
+        "detect:stop_only",
+        "freeze_entries"
+      ],
+      "supervisor_mode": "entry_frozen",
+      "expected_classification": "stop_only",
+      "expected_action": "freeze_entries",
+      "ok": true,
+      "plugin_replay": {
+        "status": "ok",
+        "bars_played": 1537,
+        "errors": 0,
+        "fills": 2,
+        "open_positions": 1
+      },
+      "live_fill_compare": {
+        "live_fill_rows": 1,
+        "live_non_eod_fills": 0,
+        "live_reasons": [
+          "eod_close"
+        ],
+        "plugin_fills": 2,
+        "source": "live_fills_that_day.csv"
+      },
+      "notes": []
+    },
+    {
+      "case": "2026-08-13_stop_only_v2b",
+      "book": "spx500",
+      "instrument": "SPX500",
+      "strategy_id": "spx500_v2b_ungated_oanda",
+      "as_of": "2026-08-13T18:35:00Z",
+      "bar_count": 1514,
+      "bars_path": "/home/tester/hsm/potions/live/tests/fixtures/oanda_faults/cases/2026-08-13_stop_only_v2b/spx500/bars",
+      "detector_classification": "stop_only",
+      "detector_action": "freeze_entries",
+      "containment_classification": "stop_only",
+      "containment_actions": [
+        "detect:stop_only",
+        "freeze_entries"
+      ],
+      "supervisor_mode": "entry_frozen",
+      "expected_classification": "stop_only",
+      "expected_action": "freeze_entries",
+      "ok": true,
+      "plugin_replay": {
+        "status": "ok",
+        "bars_played": 1514,
+        "errors": 0,
+        "fills": 3,
+        "open_positions": 0
+      },
+      "live_fill_compare": {
+        "live_fill_rows": 1,
+        "live_non_eod_fills": 0,
+        "live_reasons": [
+          "eod_close"
+        ],
+        "plugin_fills": 3,
+        "source": "live_fills_that_day.csv"
+      },
+      "notes": []
+    },
+    {
+      "case": "2026-08-13_us30_3r_open_no_bracket",
+      "book": "us30",
+      "instrument": "US30",
+      "strategy_id": "us30_hourly_st_pmc_sl50_tp150_3r_oanda",
+      "as_of": "",
+      "bar_count": 0,
+      "bars_path": "",
+      "detector_classification": "open_without_brackets",
+      "detector_action": "freeze_entries",
+      "containment_classification": "open_without_brackets",
+      "containment_actions": [
+        "detect:open_without_brackets",
+        "freeze_entries"
+      ],
+      "supervisor_mode": "entry_frozen",
+      "expected_classification": "open_without_brackets",
+      "expected_action": "freeze_entries",
+      "ok": true,
+      "plugin_replay": null,
+      "live_fill_compare": null,
+      "notes": [
+        "no_bar_slice",
+        "plugin_replay_skipped"
+      ]
+    },
+    {
+      "case": "2026-08-14_orphan_stop_flat_v2b",
+      "book": "nas100",
+      "instrument": "NAS100",
+      "strategy_id": "nas100_v2b_ungated_oanda",
+      "as_of": "2026-08-14T21:35:00-04:00",
+      "bar_count": 1286,
+      "bars_path": "/home/tester/hsm/potions/live/tests/fixtures/oanda_faults/cases/2026-08-14_orphan_stop_flat_v2b/nas100/bars",
+      "detector_classification": "orphan_protective",
+      "detector_action": "cancel_orphans",
+      "containment_classification": "orphan_protective",
+      "containment_actions": [
+        "detect:orphan_protective",
+        "cancel_orphan_protectives:1"
+      ],
+      "supervisor_mode": "running",
+      "expected_classification": "orphan_protective",
+      "expected_action": "cancel_orphans",
+      "ok": true,
+      "plugin_replay": {
+        "status": "ok",
+        "bars_played": 1286,
+        "errors": 0,
+        "fills": 5,
+        "open_positions": 0
+      },
+      "live_fill_compare": {
+        "live_fill_rows": 0,
+        "live_non_eod_fills": 0,
+        "live_reasons": [],
+        "plugin_fills": 5,
+        "source": "fills.csv"
+      },
+      "notes": []
+    },
+    {
+      "case": "2026-08-14_orphan_stop_flat_v2b",
+      "book": "spx500",
+      "instrument": "SPX500",
+      "strategy_id": "spx500_v2b_ungated_oanda",
+      "as_of": "2026-08-14T21:35:00-04:00",
+      "bar_count": 1624,
+      "bars_path": "/home/tester/hsm/potions/live/tests/fixtures/oanda_faults/cases/2026-08-14_orphan_stop_flat_v2b/spx500/bars",
+      "detector_classification": "orphan_protective",
+      "detector_action": "cancel_orphans",
+      "containment_classification": "orphan_protective",
+      "containment_actions": [
+        "detect:orphan_protective",
+        "cancel_orphan_protectives:1"
+      ],
+      "supervisor_mode": "running",
+      "expected_classification": "orphan_protective",
+      "expected_action": "cancel_orphans",
+      "ok": true,
+      "plugin_replay": {
+        "status": "ok",
+        "bars_played": 1624,
+        "errors": 0,
+        "fills": 5,
+        "open_positions": 0
+      },
+      "live_fill_compare": {
+        "live_fill_rows": 0,
+        "live_non_eod_fills": 0,
+        "live_reasons": [],
+        "plugin_fills": 5,
+        "source": "fills.csv"
+      },
+      "notes": []
+    },
+    {
+      "case": "2026-08-14_stream_hung_missed_entry",
+      "book": "nas100",
+      "instrument": "NAS100",
+      "strategy_id": "nas100_v2b_ungated_oanda",
+      "as_of": "2026-08-14T21:15:00Z",
+      "bar_count": 1286,
+      "bars_path": "/home/tester/hsm/potions/live/tests/fixtures/oanda_faults/cases/2026-08-14_stream_hung_missed_entry/nas100/bars",
+      "detector_classification": "ok",
+      "detector_action": "none",
+      "containment_classification": "stream_stale",
+      "containment_actions": [
+        "detect:stream_stale",
+        "freeze_entries"
+      ],
+      "supervisor_mode": "entry_frozen",
+      "expected_classification": "stream_stale",
+      "expected_action": "freeze_entries",
+      "ok": true,
+      "plugin_replay": {
+        "status": "ok",
+        "bars_played": 1286,
+        "errors": 0,
+        "fills": 5,
+        "open_positions": 0
+      },
+      "live_fill_compare": {
+        "live_fill_rows": 0,
+        "live_non_eod_fills": 0,
+        "live_reasons": [],
+        "plugin_fills": 5,
+        "source": "fills.csv"
+      },
+      "notes": []
+    },
+    {
+      "case": "healthy_protected_v2b",
+      "book": "nas100",
+      "instrument": "NAS100",
+      "strategy_id": "nas100_v2b_ungated_oanda",
+      "as_of": "",
+      "bar_count": 0,
+      "bars_path": "",
+      "detector_classification": "ok",
+      "detector_action": "none",
+      "containment_classification": "ok",
+      "containment_actions": [],
+      "supervisor_mode": "running",
+      "expected_classification": "ok",
+      "expected_action": "none",
+      "ok": true,
+      "plugin_replay": null,
+      "live_fill_compare": null,
+      "notes": [
+        "no_bar_slice",
+        "plugin_replay_skipped"
+      ]
+    },
+    {
+      "case": "qty_mismatch_hard",
+      "book": "nas100",
+      "instrument": "NAS100",
+      "strategy_id": "nas100_v2b_ungated_oanda",
+      "as_of": "2026-08-13T18:00:00Z",
+      "bar_count": 0,
+      "bars_path": "",
+      "detector_classification": "qty_mismatch",
+      "detector_action": "flat_for_day",
+      "containment_classification": "qty_mismatch",
+      "containment_actions": [
+        "detect:qty_mismatch",
+        "flattened:NAS100",
+        "supervisor_flat_for_day"
+      ],
+      "supervisor_mode": "flat_for_day",
+      "expected_classification": "qty_mismatch",
+      "expected_action": "flat_for_day",
+      "ok": true,
+      "plugin_replay": null,
+      "live_fill_compare": null,
+      "notes": [
+        "no_bar_slice",
+        "plugin_replay_skipped"
+      ]
+    }
+  ]
+}

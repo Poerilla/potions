@@ -1,0 +1,10 @@
+{
+  "classification": "qty_mismatch",
+  "recommended_action": "flat_for_day",
+  "instrument": "NAS100",
+  "strategy_id": "nas100_v2b_ungated_oanda",
+  "strategy_type": "v2b_scaleout",
+  "entry_qty": 3,
+  "broker_qty": -3.0,
+  "note": "Opposite-side hard mismatch (local long vs broker short)."
+}

@@ -34,7 +34,7 @@ When a demo shows foreign instruments or wrong qty vs live:
 python3 -m potions.live.cli oanda-practice-sync --repair-demo-positions
 ```
 
-Rewrites each mapped `*_oanda` demo’s `state/positions.csv` to **focus instrument only** (or header-only if flat). Does **not** rewrite `orders.csv` (daemon race) — compare LIVE pending orders in the report to local `orders.csv` manually.
+Rewrites each mapped `*_oanda` demo’s `state/positions.csv` to **strategy-owned** focus qty only (opening-order `clientExtensions.tag`), or header-only if that demo does not own the open trade. Clears foreign-instrument bleed and same-instrument sibling claims. Does **not** rewrite `orders.csv` (daemon race) — compare LIVE pending orders in the report to local `orders.csv` manually.
 
 ## Focus map
 
@@ -50,6 +50,11 @@ Rewrites each mapped `*_oanda` demo’s `state/positions.csv` to **focus instrum
 | `nas100_hourly_st_pmc_sl50_tp150_3r_oanda` | NAS100 |
 | `us30_hourly_st_pmc_sl50_tp150_runners_2r_10r_oanda` | US30 |
 | `nas100_hourly_st_pmc_sl50_tp150_runners_2r_10r_oanda` | NAS100 |
+| `eurusd_hourly_st_pmc_sl50_tp150_3r_oanda` | EURUSD |
+| `eurusd_hourly_st_pmc_sl50_tp150_runners_2r_10r_oanda` | EURUSD |
+| `us30_london_prior_opposed_oanda` | US30 |
+| `us30_monday_or_m3_s3_r2_half_oanda` | US30 |
+| `us30_yearly_orb_oanda` / `eurusd_yearly_orb_oanda` / `audjpy_yearly_orb_oanda` / `xauusd_yearly_orb_oanda` / `xagusd_yearly_orb_oanda` | focus instrument |
 
 ## Safety
 
@@ -57,7 +62,19 @@ Rewrites each mapped `*_oanda` demo’s `state/positions.csv` to **focus instrum
 - No place/cancel/flatten (use `oanda-emergency-flatten` / demo stop only when user asks)
 - After repair, re-check with `potions-demo-status`
 
+## Related: in-daemon containment (not this skill)
+
+Ops sync above is one-shot. Continuous containment lives in
+`live/demo/oanda_daemon_reconcile.py` (wired on v2b OANDA common):
+
+- ~2m bracket invariant + 15m hard reconcile
+- Default `POTIONS_OANDA_CONTAINMENT=shadow` (would-actions); `live` enforces
+  freeze / `FLAT_FOR_DAY`
+- Curated regressions: `live/tests/fixtures/oanda_faults/`
+- Spec: `live/specs/OANDA_DAEMON_RECONCILE_FLAT_FOR_DAY_TODO.md`
+
 ## Related skills
 
 - `potions-demo-status` — heartbeats / open inventory
 - `potions-repo-router` — `live/demo` vs `live/state`
+- `potions-oanda-live-sim-reconcile` — live vs StrategyPlugin tape on demo bars

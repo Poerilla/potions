@@ -1,0 +1,6 @@
+{
+  "incident": "synthetic hard qty mismatch (opposite side)",
+  "as_of": "2026-08-13T18:00:00Z",
+  "expected": {"classification": "qty_mismatch", "recommended_action": "flat_for_day"},
+  "note": "Local +3 vs broker -3 triggers hard FLAT_FOR_DAY (not soft adopt)."
+}
