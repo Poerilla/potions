@@ -115,7 +115,7 @@ def write_run_meta(output_root: Path, *, config: OandaConfig) -> Dict[str, Any]:
         "output_root": str(output_root),
         "state_root": str(state_root_for(output_root)),
         "tracker": "STRATEGY_TRACKER Monday OR FX + monday_or_sizing_sweep_broker USDJPY #1 M2_S3_R1 N/S 8.20",
-        "note": "Paper Monday OR: 15m from practice quote stream; PaperBroker fills; Fri 15:59 ET flatten only.",
+        "note": "Paper Monday OR: 15m from practice quote stream; PaperBroker fills; Fri 15:59 ET flatten + EOW chart pack.",
     }
     output_root.mkdir(parents=True, exist_ok=True)
     run_meta_path(output_root).write_text(json.dumps(meta, indent=2, sort_keys=True) + "\n", encoding="utf-8")
@@ -186,6 +186,7 @@ class MondayOrPaperRunner:
         self.bars_15m = 0
         self.stop_requested = False
         self._weekly_size_week: Optional[str] = None
+        self._weekly_chart_week: Optional[str] = None
 
     def request_stop(self, *_args: Any) -> None:
         self.stop_requested = True
@@ -226,6 +227,7 @@ class MondayOrPaperRunner:
                 self._handle_15m(bar_15)
                 completed_15.append(bar_15)
         self._maybe_weekly_size_report(ts)
+        self._maybe_weekly_eow_charts(ts)
         self._maybe_heartbeat()
         return completed_15
 
@@ -251,6 +253,26 @@ class MondayOrPaperRunner:
             )
         except Exception as exc:
             append_progress(self.output_root, "WARN weekly FILE_SIZES failed: %s" % exc)
+
+    def _maybe_weekly_eow_charts(self, ts: str) -> None:
+        """Friday >= 15:59 NY — Monday OR week overview + per-trade chart pack."""
+        from .monday_or_eow_charts import maybe_write_eow_chart_pack
+
+        wall = parse_oanda_ts(ts).astimezone(NY)
+        if wall.weekday() != 4:
+            return
+        if wall.timetz().replace(tzinfo=None) < WEEK_END_SIZE_REPORT_NY:
+            return
+        week_key = wall.date().isoformat()
+        if self._weekly_chart_week == week_key:
+            return
+        self._weekly_chart_week = week_key
+        maybe_write_eow_chart_pack(
+            self.output_root,
+            INSTRUMENT,
+            as_of=wall.date(),
+            log=append_progress,
+        )
 
     def flush(self) -> List[Bar]:
         out: List[Bar] = []

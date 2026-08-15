@@ -470,6 +470,7 @@ def run(
     invalidate_without_opposite_minutes: Optional[int] = None,
     strategy_id_suffix: str = "",
     require_prior_validation: Optional[bool] = None,
+    book: str = "S_1_1_3",
 ) -> Result:
     """Replay gated/provisional v2b.
 
@@ -482,19 +483,30 @@ def run(
     """
 
     market = market.lower()
+    book = str(book or "S_1_1_3").strip()
+    if book not in {"S_1_1_3", "S_1_1_3_plus_1x10R"}:
+        raise ValueError("book must be S_1_1_3 or S_1_1_3_plus_1x10R, got %r" % book)
     cfg = MARKETS[market]
     if dbn_path is not None:
         cfg = replace(cfg, dbn_path=dbn_path)
     instrument = cfg.instrument
     output_root.mkdir(parents=True, exist_ok=True)
     suffix = str(strategy_id_suffix or "")
+    book_tag = book
     if prior_opposite_only:
-        strategy_id = f"{market}_v2b_prior_opposed_stpmc_only_S_1_1_3{suffix}"
+        strategy_id = f"{market}_v2b_prior_opposed_stpmc_only_{book_tag}{suffix}"
     else:
-        strategy_id = f"{market}_v2b_provisional_stpmc_S_1_1_3{suffix}"
+        strategy_id = f"{market}_v2b_provisional_stpmc_{book_tag}{suffix}"
     state_root = output_root / "states" / strategy_id
     if force and state_root.exists():
         shutil.rmtree(state_root)
+    # S_1_1_3 = 5 lots (1/1/3 EOD). plus_1x10R adds one targeted runner @ 10R → 6 lots.
+    if book == "S_1_1_3_plus_1x10R":
+        entry_qty, max_contracts = 6, 6
+        targeted_runner_qty, runner_target_r_mult = 1, 10.0
+    else:
+        entry_qty, max_contracts = 5, 5
+        targeted_runner_qty, runner_target_r_mult = None, None
     st_strategy_id = st_strategy_id or DEFAULT_ST_STRATEGY_IDS[market]
     st_fills = st_fills_path or default_st_fills_path(market)
     if not st_fills.exists() and gate_mode not in {"resting_limit", "resting_limit_left_label"}:
@@ -551,7 +563,7 @@ def run(
     strategy_config: Dict[str, Any] = {
         "market": market,
         "mode": "oco_then_reverse",
-        "entry_qty": 5,
+        "entry_qty": entry_qty,
         "tp1_qty": 1,
         "tp2_qty": 1,
         "tick_size": 0.25,
@@ -562,11 +574,16 @@ def run(
         "dynamic_sizing_events": st_events,
         "prior_opposite_only": bool(prior_opposite_only),
         "gate_mode": mode,
+        "book": book,
     }
+    if targeted_runner_qty is not None:
+        strategy_config["targeted_runner_qty"] = int(targeted_runner_qty)
+    if runner_target_r_mult is not None:
+        strategy_config["runner_target_r_mult"] = float(runner_target_r_mult)
     if prior_opposite_only:
         strategy_config.update(
             {
-                "prior_opposite_entry_qty": 5,
+                "prior_opposite_entry_qty": entry_qty,
                 "prior_opposite_tp1_qty": 1,
                 "prior_opposite_tp2_qty": 1,
             }
@@ -585,7 +602,7 @@ def run(
         account_mode="paper",
         enabled=True,
         timeframes="1m",
-        max_contracts=5,
+        max_contracts=max_contracts,
         max_open_orders=64,
         config_json=json.dumps(strategy_config, sort_keys=True),
     )
@@ -672,8 +689,10 @@ def run(
             "strategy_id": strategy_id,
             "market": market,
             "start": start.isoformat(),
-            "entry_qty": 5,
-            "sizing": "S_1_1_3",
+            "entry_qty": entry_qty,
+            "sizing": book,
+            "targeted_runner_qty": targeted_runner_qty,
+            "runner_target_r_mult": runner_target_r_mult,
             "gate_mode": mode,
             "prior_opposite_only": prior_opposite_only,
             "invalidate_without_opposite_minutes": invalidate_without_opposite_minutes,
@@ -816,6 +835,12 @@ def main(argv: Optional[List[str]] = None) -> int:
         help="Flatten if no opposite ST event within N minutes after entry.",
     )
     parser.add_argument("--no-refine-st-touches", action="store_true", help="Use raw hourly ST fill stamps.")
+    parser.add_argument(
+        "--book",
+        choices=["S_1_1_3", "S_1_1_3_plus_1x10R"],
+        default="S_1_1_3",
+        help="Unit book. plus_1x10R = freeze 1/1/3 EOD and add one runner targeting 10×R.",
+    )
     parser.add_argument("--no-force", action="store_true")
     args = parser.parse_args(argv)
     try:
@@ -823,6 +848,8 @@ def main(argv: Optional[List[str]] = None) -> int:
     except ValueError as exc:
         raise SystemExit("--start must be YYYY-MM-DD") from exc
     output_root = args.output_root or _default_output_root(args.market)
+    if args.book == "S_1_1_3_plus_1x10R" and args.output_root is None:
+        output_root = REPO / f"live/state/{args.market}_v2b_prior_opposed_plus_1x10R"
     result = run(
         output_root,
         force=not args.no_force,
@@ -836,6 +863,7 @@ def main(argv: Optional[List[str]] = None) -> int:
         gate_mode=args.gate_mode,
         prior_opposite_only=not args.no_prior_opposite_only,
         invalidate_without_opposite_minutes=args.invalidate_without_opposite_minutes,
+        book=args.book,
     )
     print("Wrote %s (Net/Stress %.2f)" % (output_root / "INDEX.md", result.net_stress))
     return 0

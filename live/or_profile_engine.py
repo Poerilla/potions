@@ -46,6 +46,7 @@ from typing import Dict, List, Optional, Sequence, Tuple
 import pandas as pd
 
 from .bars import rth_bars
+from .fx_or_markets import FX_MARKETS, FxClock, load_market_gby, session_bars
 from .v2b_strategy_cross_market_replay import MARKETS, load_1m_by_ny_date_any
 
 REPO = Path(__file__).resolve().parents[1]
@@ -53,6 +54,9 @@ DEFAULT_OUTPUT_ROOT = REPO / "live" / "state" / "or_profile_engine"
 
 OR_START = time(9, 30)
 OR_END = time(9, 45)
+MIN_RAW_RTH_BARS = 300  # excludes holidays / half-days (futures RTH)
+MIN_RAW_OR_BARS = 10
+RTH_CLOCK = FxClock("rth", OR_START, OR_END, time(16, 0), time(15, 59), MIN_RAW_RTH_BARS)
 TRIGGERS = ("touch", "close5")
 TRAIL_WINDOW = 250
 MIN_TRAIL_SESSIONS = 50
@@ -60,8 +64,6 @@ MIN_N_ACTIONABLE = 30
 MIN_N_YEAR = 10
 STABILITY_THRESHOLD = 0.70
 MIN_STABILITY_YEARS = 3
-MIN_RAW_RTH_BARS = 300  # excludes holidays / half-days
-MIN_RAW_OR_BARS = 10
 
 EVENT_COLUMNS = [
     "market",
@@ -309,9 +311,10 @@ def walk_session(
     orh: float,
     orl: float,
     trigger: str,
+    or_end: time = OR_END,
 ) -> WalkResult:
     walker = SessionWalker(market, session_date, orh, orl, trigger)
-    post_or = dense[dense.index.map(lambda ts: ts.time() >= OR_END)]
+    post_or = dense[dense.index.map(lambda ts: ts.time() >= or_end)]
 
     if trigger == "touch":
         bars = post_or
@@ -375,15 +378,25 @@ def _or_loc_bucket(or_loc: Optional[float]) -> str:
     return "upper_third"
 
 
-def _break_tod_bucket(ts: Optional[pd.Timestamp]) -> str:
+def _break_tod_bucket(ts: Optional[pd.Timestamp], or_end: time = OR_END) -> str:
+    """Absolute NY buckets for RTH; relative early/mid/late for other clocks."""
     if ts is None:
         return ""
     t = ts.time()
-    if t <= time(10, 30):
-        return "0945_1030"
-    if t <= time(12, 0):
-        return "1030_1200"
-    return "1200_eod"
+    if or_end == OR_END:
+        if t <= time(10, 30):
+            return "0945_1030"
+        if t <= time(12, 0):
+            return "1030_1200"
+        return "1200_eod"
+    # relative to OR end: +45m / +2h30m
+    mins = t.hour * 60 + t.minute
+    base = or_end.hour * 60 + or_end.minute
+    if mins <= base + 45:
+        return "early"
+    if mins <= base + 150:
+        return "mid"
+    return "late"
 
 
 def _trailing_percentile(history: Sequence[float], value: float) -> Optional[float]:
@@ -420,12 +433,26 @@ def run_market(
     end: Optional[date] = None,
     max_days: Optional[int] = None,
 ) -> Optional[Path]:
-    cfg = MARKETS[market.lower()]
-    if not cfg.dbn_path.exists():
-        print("SKIP %s: missing 1m data at %s" % (market, cfg.dbn_path), flush=True)
-        return None
+    key = market.lower()
+    fx = FX_MARKETS.get(key)
+    if fx is not None:
+        if not fx.path.exists():
+            print("SKIP %s: missing 1m data at %s" % (market, fx.path), flush=True)
+            return None
+        gby = load_market_gby(fx)
+        clock = fx.clock
+        label_market = fx.key
+        instrument_label = fx.symbol
+    else:
+        cfg = MARKETS[key]
+        if not cfg.dbn_path.exists():
+            print("SKIP %s: missing 1m data at %s" % (market, cfg.dbn_path), flush=True)
+            return None
+        gby = load_1m_by_ny_date_any(cfg.dbn_path.resolve(), cfg.market)
+        clock = RTH_CLOCK
+        label_market = cfg.market
+        instrument_label = cfg.instrument
 
-    gby = load_1m_by_ny_date_any(cfg.dbn_path.resolve(), cfg.market)
     days = sorted(gby)
     if start is not None:
         days = [d for d in days if d >= start]
@@ -434,7 +461,7 @@ def run_market(
     if max_days is not None:
         days = days[:max_days]
 
-    out_dir = output_root / market.lower() / asof
+    out_dir = output_root / key / asof
     out_dir.mkdir(parents=True, exist_ok=True)
 
     event_rows: List[Dict[str, object]] = []
@@ -444,17 +471,25 @@ def run_market(
     n_walked = n_skipped = 0
 
     for idx, day in enumerate(days, start=1):
-        raw = rth_bars(gby.get(day), day, dense=False)
-        if raw.empty or len(raw) < MIN_RAW_RTH_BARS:
+        if fx is not None:
+            raw = session_bars(gby.get(day), day, clock, dense=False)
+            dense = session_bars(gby.get(day), day, clock, dense=True)
+        else:
+            raw = rth_bars(gby.get(day), day, dense=False)
+            dense = rth_bars(gby.get(day), day, dense=True)
+
+        if raw.empty or len(raw) < max(40, clock.min_session_bars // 4):
             n_skipped += 1
             continue
-        raw_or = raw[raw.index.map(lambda ts: ts.time() < OR_END)]
-        if len(raw_or) < MIN_RAW_OR_BARS:
+        raw_or = raw[raw.index.map(lambda ts: ts.time() < clock.or_end)]
+        if len(raw_or) < clock.min_or_bars:
+            n_skipped += 1
+            continue
+        if dense.empty or len(dense) < max(60, clock.min_session_bars // 2):
             n_skipped += 1
             continue
 
-        dense = rth_bars(gby.get(day), day, dense=True)
-        or_bars = dense[dense.index.map(lambda ts: ts.time() < OR_END)]
+        or_bars = dense[dense.index.map(lambda ts: ts.time() < clock.or_end)]
         orh = float(or_bars["high"].max())
         orl = float(or_bars["low"].min())
         r = orh - orl
@@ -477,31 +512,32 @@ def run_market(
         or_loc = ((or_mid - prior_low) / prior_range) if (prior_range and prior_low is not None) else None
 
         base_features = {
-            "or_high": round(orh, 4),
-            "or_low": round(orl, 4),
-            "or_width_pts": round(r, 4),
+            "or_high": round(orh, 6),
+            "or_low": round(orl, 6),
+            "or_width_pts": round(r, 6),
             "or_width_pctile": round(or_pctile, 1) if or_pctile is not None else "",
             "or_width_q": _quartile(or_pctile),
-            "prior_close": round(prior_close, 4) if prior_close is not None else "",
-            "prior_range": round(prior_range, 4) if prior_range is not None else "",
-            "gap_pts": round(gap_pts, 4) if gap_pts is not None else "",
+            "prior_close": round(prior_close, 6) if prior_close is not None else "",
+            "prior_range": round(prior_range, 6) if prior_range is not None else "",
+            "gap_pts": round(gap_pts, 6) if gap_pts is not None else "",
             "gap_prior_range": round(gap_pr, 4) if gap_pr is not None else "",
             "gap_bucket": _gap_bucket(gap_pr),
             "or_loc": round(or_loc, 4) if or_loc is not None else "",
             "or_loc_bucket": _or_loc_bucket(or_loc),
-            "session_open": round(session_open, 4),
-            "session_close": round(session_close, 4),
+            "session_open": round(session_open, 6),
+            "session_close": round(session_close, 6),
+            "clock": clock.name,
         }
 
         for trigger in TRIGGERS:
-            res = walk_session(cfg.market, day, dense, orh, orl, trigger)
+            res = walk_session(label_market, day, dense, orh, orl, trigger, or_end=clock.or_end)
             event_rows.extend(res.events)
             close_vs_or = (
                 "above" if session_close > orh else ("below" if session_close < orl else "inside")
             )
             session_rows.append(
                 {
-                    "market": cfg.market,
+                    "market": label_market,
                     "session_date": day.isoformat(),
                     "year": day.year,
                     "trigger": trigger,
@@ -510,7 +546,7 @@ def run_market(
                     "first_break": int(res.first_break),
                     "first_break_side": res.first_break_side,
                     "first_break_ts": res.first_break_ts.isoformat() if res.first_break_ts is not None else "",
-                    "break_tod_bucket": _break_tod_bucket(res.first_break_ts),
+                    "break_tod_bucket": _break_tod_bucket(res.first_break_ts, clock.or_end),
                     "hit_1r": int(res.hit_1r),
                     "hit_2r": int(res.hit_2r),
                     "hit_3r": int(res.hit_3r),
@@ -539,11 +575,11 @@ def run_market(
         prior_close = session_close
         n_walked += 1
         if idx % 500 == 0:
-            print("  %s: %d/%d sessions walked" % (cfg.instrument, idx, len(days)), flush=True)
+            print("  %s: %d/%d sessions walked" % (instrument_label, idx, len(days)), flush=True)
 
     print(
         "%s: %d sessions walked, %d skipped (holiday/half-day/missing OR)"
-        % (cfg.instrument, n_walked, n_skipped),
+        % (instrument_label, n_walked, n_skipped),
         flush=True,
     )
     if not session_rows:
@@ -558,7 +594,7 @@ def run_market(
     tables_df.to_csv(out_dir / "tables.csv", index=False)
     timing_df = emit_reentry_timing(sessions_df)
     timing_df.to_csv(out_dir / "reentry_timing.csv", index=False)
-    write_market_summary(out_dir, cfg.market, sessions_df, tables_df, timing_df)
+    write_market_summary(out_dir, label_market, sessions_df, tables_df, timing_df)
     return out_dir
 
 

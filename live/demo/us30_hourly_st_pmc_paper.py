@@ -149,6 +149,7 @@ class StPmcPaperRunner:
         self.bars_1m = 0
         self.bars_1h = 0
         self.stop_requested = False
+        self._last_open_chart_at = None
 
     def request_stop(self, *_args: Any) -> None:
         self.stop_requested = True
@@ -222,6 +223,16 @@ class StPmcPaperRunner:
         open_positions = [
             p for p in self.engine.broker.reconcile_positions() if float(getattr(p, "quantity", 0) or 0) != 0
         ]
+        from .st_pmc_trade_charts import maybe_update_st_pmc_charts
+
+        _, self._last_open_chart_at = maybe_update_st_pmc_charts(
+            self.output_root,
+            INSTRUMENT,
+            open_positions=len(open_positions),
+            last_open_chart_at=self._last_open_chart_at,
+            now=now,
+            log=append_progress,
+        )
         append_progress(
             self.output_root,
             "heartbeat ticks=%d bars_1m=%d bars_1h=%d orders=%d open_positions=%d variant=%s"

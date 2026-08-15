@@ -18,6 +18,7 @@ from __future__ import annotations
 import argparse
 import csv
 from dataclasses import asdict, dataclass
+from datetime import datetime
 from pathlib import Path
 from typing import Dict, List, Optional, Sequence, Tuple
 
@@ -59,6 +60,8 @@ class LotBookResult:
     ns_forced_flat_reachable: float
     max_open_units: int
     max_gross_notional: float
+    hold_hours_median: float
+    hold_hours_p90: float
     terminal_ts: str
     terminal_px: float
     notes: str = ""
@@ -195,6 +198,7 @@ def reaudit_book(
     stress = float(audit.intrabar_mtm_dd_usd)
     ns = (forced_flat / abs(stress)) if stress else 0.0
     rankable = variant in RANKABLE_VARIANTS
+    hold_med, hold_p90 = _hold_hours_distribution(closed_only)
 
     return LotBookResult(
         market=market,
@@ -214,6 +218,8 @@ def reaudit_book(
         ns_forced_flat_reachable=round(ns, 3),
         max_open_units=int(audit.max_open_units),
         max_gross_notional=round(max_notional, 2),
+        hold_hours_median=hold_med,
+        hold_hours_p90=hold_p90,
         terminal_ts=terminal_ts,
         terminal_px=terminal_px,
         notes=(
@@ -222,6 +228,32 @@ def reaudit_book(
             else "lot-correct reconciliation"
         ),
     )
+
+
+def _parse_ts(ts: str) -> Optional[datetime]:
+    if not ts:
+        return None
+    try:
+        return datetime.fromisoformat(str(ts).replace("Z", "+00:00"))
+    except Exception:
+        return None
+
+
+def _hold_hours_distribution(units: Sequence[Unit]) -> Tuple[float, float]:
+    hours: List[float] = []
+    for u in units:
+        a = _parse_ts(u.entry_ts)
+        b = _parse_ts(u.exit_ts)
+        if a is None or b is None:
+            continue
+        hours.append(max(0.0, (b - a).total_seconds() / 3600.0))
+    if not hours:
+        return 0.0, 0.0
+    hours.sort()
+    n = len(hours)
+    mid = hours[n // 2] if n % 2 else 0.5 * (hours[n // 2 - 1] + hours[n // 2])
+    p90 = hours[min(n - 1, int(round(0.9 * (n - 1))))]
+    return round(mid, 2), round(p90, 2)
 
 
 _FX_STOP_PTS = {
@@ -385,12 +417,12 @@ def write_reports(hub: Path, hub_name: str, rows: Sequence[LotBookResult]) -> No
         "",
         "## Results",
         "",
-        "| market | variant | rankable | realized | continuous | forced-flat | friction | reachable stress | raw stress | N/S flat | open lots | max open |",
-        "|---|---|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|",
+        "| market | variant | rankable | realized | continuous | forced-flat | friction | reachable stress | raw stress | N/S flat | open lots | max open | hold med h | hold p90 h |",
+        "|---|---|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|",
     ]
     for r in rows:
         lines.append(
-            "| `%s` | `%s` | %s | $%.0f | $%.0f | $%.0f | $%.0f | $%.0f | $%.0f | %.2f | %d | %d |"
+            "| `%s` | `%s` | %s | $%.0f | $%.0f | $%.0f | $%.0f | $%.0f | $%.0f | %.2f | %d | %d | %.0f | %.0f |"
             % (
                 r.market,
                 r.variant,
@@ -404,6 +436,8 @@ def write_reports(hub: Path, hub_name: str, rows: Sequence[LotBookResult]) -> No
                 r.ns_forced_flat_reachable,
                 r.open_lots_terminal,
                 r.max_open_units,
+                r.hold_hours_median,
+                r.hold_hours_p90,
             )
         )
 

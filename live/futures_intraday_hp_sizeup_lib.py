@@ -177,6 +177,20 @@ BOOK_UNIVERSE: Tuple[FuturesBook, ...] = (
         notes="micro mirror of NQ prior-opposed",
     ),
     FuturesBook(
+        "nas100_nq_lead_prior_opposed",
+        "NAS100 prior-opposed NQ-lead sync S_1_1_1 (×40 $ std)",
+        "NAS100",
+        "prior_opposed",
+        REPO
+        / "live/state/nas100_v2b_nq_lead_synced_broker_like/states/nas100_v2b_nq_lead_synced_S_1_1_1/fills.csv",
+        17.94,  # native net/|closed DD|; ×40 reading identical ratio
+        845_183.0,  # ×40 dollar standard (native $21,130)
+        47_102.0,  # ×40 closed DD
+        280,
+        "research-promoted",
+        notes="gate_mode=nq_lead_sync; CFD sleeve distinct from NQ futures prior-opposed; native fills $1/pt",
+    ),
+    FuturesBook(
         "ym_prior_opposed_rl",
         "YM prior-opposed v2b resting-limit S_1_1_3",
         "YM",
@@ -569,7 +583,15 @@ DAILY_CSV = {
     "ES": REPO / "es/es_daily.csv",
     "MNQ": REPO / "nq/nq_daily.csv",  # proxy scale not needed for features that use ratios
     "MYM": REPO / "ym/ym_daily.csv",
+    "NAS100": REPO / "fx/nas100_daily.csv",
 }
+
+
+def book_by_key(key: str) -> FuturesBook:
+    for b in BOOK_UNIVERSE:
+        if b.key == key:
+            return b
+    raise KeyError("unknown futures HP book key: %s" % key)
 
 
 def _load_dbn_1m_frame(symbol: str) -> Optional[pd.DataFrame]:

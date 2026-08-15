@@ -4,6 +4,7 @@ This workspace is the research and replay lab for the MNQ/NQ ORB family,
 cross-market futures systems, and ETF accumulation studies. The detailed source
 of truth is the strategy tracker:
 
+- Agent skills (workflows): [`.cursor/skills/README.md`](.cursor/skills/README.md)
 - Main tracker: [`mnq/case_studies/STRATEGY_TRACKER.md`](mnq/case_studies/STRATEGY_TRACKER.md)
 - Fair capital benchmark: [`mnq/case_studies/fair_benchmark_comparison/TOP_STRATS.md`](mnq/case_studies/fair_benchmark_comparison/TOP_STRATS.md)
 - Broker realism notes: [`live/CHANGE_LOG.md`](live/CHANGE_LOG.md)

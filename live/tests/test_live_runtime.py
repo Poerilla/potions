@@ -327,6 +327,49 @@ def test_v2b_scaleout_honors_zero_tp2_qty():
         tmp.cleanup()
 
 
+def test_v2b_scaleout_targeted_runner_qty_splits_10r_sleeve():
+    """S_1_1_3 + 1×10R: 4 runners → only 1 gets runner_tp."""
+    tmp, store = make_store()
+    try:
+        inst = StrategyInstance(
+            strategy_id="v2b_plus_10r",
+            strategy_type="v2b_scaleout",
+            version="v1",
+            instrument="NQ",
+            broker_instrument="NQ",
+            account_mode="paper",
+            enabled=True,
+            timeframes="1m",
+            max_contracts=6,
+            max_open_orders=16,
+            config_json=json.dumps(
+                {
+                    "entry_qty": 6,
+                    "tp1_qty": 1,
+                    "tp2_qty": 1,
+                    "tick_size": 0.25,
+                    "targeted_runner_qty": 1,
+                    "runner_target_r_mult": 10.0,
+                }
+            ),
+        )
+        plugin = StrategyRegistry().create(store, inst)
+        assert plugin._unit_quantities() == (1, 1, 4)
+        state = {
+            "or_high": 100.0,
+            "or_low": 90.0,
+            "session_date": "2024-01-02",
+            "trades": {"t1": {"entry_qty": 6, "tp1_qty": 1, "tp2_qty": 1}},
+        }
+        orders = plugin._runner_exit_orders("t1", "Long", state)
+        roles = {o.bracket_role: o.quantity for o in orders}
+        assert roles.get("runner_tp") == 1
+        assert roles.get("tp2") == 1
+        assert roles.get("runner_stop") == 5  # tp2 + 4 runners
+    finally:
+        tmp.cleanup()
+
+
 def test_v2b_deploy_mode_can_require_regime_dates():
     tmp, store = make_store()
     try:

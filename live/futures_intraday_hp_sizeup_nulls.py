@@ -536,12 +536,21 @@ def run(
     predeclared_2x: bool = False,
     phase3: bool = False,
     pairs_override: Optional[Sequence[Tuple[str, str, str]]] = None,
+    hub_override: Optional[Path] = None,
+    profile_hub: Optional[Path] = None,
+    write_plan: bool = True,
 ) -> Path:
-    hub = NULLS_HUB_2X if predeclared_2x else NULLS_HUB
+    hub = hub_override or (NULLS_HUB_2X if predeclared_2x else NULLS_HUB)
     extra = EXTRA_2X if predeclared_2x else EXTRA_SIZE
     size_mult = 1.0 + extra
+    profile = profile_hub or PROFILE_HUB
 
     _patch_fx_globals()
+    # Allow add-on studies to point at a dedicated profile hub
+    if profile_hub is not None:
+        fxnulls.PROFILE_HUB = profile
+        fxnulls.OVERLAY_HUB = profile
+        overlay.PROFILE_HUB = profile
     # Point pair artifact writer at the active hub (1.25× or 2×)
     fxnulls.HUB = hub
     hub.mkdir(parents=True, exist_ok=True)
@@ -552,7 +561,7 @@ def run(
         hub=hub,
     )
 
-    campaigns = pd.read_csv(PROFILE_HUB / "all_campaigns.csv")
+    campaigns = pd.read_csv(profile / "all_campaigns.csv")
     campaigns["entry_ts"] = pd.to_datetime(campaigns["entry_ts"], utc=True)
     if "session_date" not in campaigns.columns:
         campaigns["session_date"] = pd.to_datetime(campaigns["entry_ts"], utc=True).dt.strftime("%Y-%m-%d")
@@ -561,7 +570,7 @@ def run(
     if "sleeve" not in campaigns.columns and "symbol" in campaigns.columns:
         campaigns["sleeve"] = campaigns["symbol"].map(lambda s: SLEEVE.get(str(s).upper(), str(s).lower()))
 
-    notables = pd.read_csv(PROFILE_HUB / "notables.csv") if (PROFILE_HUB / "notables.csv").exists() else pd.DataFrame()
+    notables = pd.read_csv(profile / "notables.csv") if (profile / "notables.csv").exists() else pd.DataFrame()
     singles = overlay.select_single_book_hits(notables) if not notables.empty else pd.DataFrame()
     crosses = overlay.select_cross_book_hits(notables, min_books=2) if not notables.empty else pd.DataFrame()
 
@@ -583,7 +592,16 @@ def run(
             hub=hub,
         )
     else:
-        pairs = load_shortlist_pairs()
+        # Prefer shortlist under the active profile hub
+        short_path = profile / "shortlist.csv"
+        if short_path.exists():
+            sl = pd.read_csv(short_path)
+            pairs = [
+                (str(r["book"]), str(r["condition"]), str(r["bucket"]))
+                for _, r in sl.iterrows()
+            ]
+        else:
+            pairs = load_shortlist_pairs()
         if max_pairs is not None:
             pairs = pairs[: max_pairs]
         _progress("pairs=%d (from shortlist)" % len(pairs), hub=hub)
@@ -641,9 +659,11 @@ def run(
 
     if predeclared_2x:
         _write_2x_plan(results, portfolio, hub)
-    else:
+    elif write_plan:
         # Apply sleeve uniqueness to decisions before reports (1.25× LIVE_PLAN only)
         write_live_plan(results, portfolio)
+    else:
+        _progress("skip write_live_plan (add-on / hub_override)", hub=hub)
 
     # Pair decisions table
     dec_rows = []

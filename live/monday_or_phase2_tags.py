@@ -79,6 +79,18 @@ PHASE2_TAGS: Dict[str, TagSpec] = {
         "max_trades_per_week": 2,
         "label": "USDJPY robustness (lighter sidecar)",
     },
+    # US30 Phase 1 #2 (max 3/wk). Live demos use HALF-SIZE overlay via PAIR_TUNEUPS.
+    "M3_S3_R2": {
+        "entry_qty": 2,
+        "dd30_qty": 1,
+        "dd50_qty": 1,
+        "shifted_entry_qty": 4,
+        "shifted_dd30_qty": 2,
+        "shifted_dd50_qty": 2,
+        "max_trades_per_week": 3,
+        "skip_entry_months": [9],
+        "label": "US30 Phase 1 #2 (main 1@30/1@50 + heavy shifted, max 3/wk; skip Sep)",
+    },
 }
 
 # Default tag per pair for live/broker drivers
@@ -88,6 +100,7 @@ PAIR_PHASE2_DEFAULT: Dict[str, str] = {
     "GBPUSD": "M1_S1_R2",
     "AUDJPY": "M1_S2_R2",
     "XAUUSD": "M2_S2_R3",
+    "US30": "M3_S3_R2",
     # Silver excluded from Phase 2 (Phase 1 reject)
     # "XAGUSD": "M2_S2_R3",
 }
@@ -146,6 +159,18 @@ PAIR_TUNEUPS: Dict[Tuple[str, str], Dict[str, Any]] = {
         "week_sitout_blocks_shifted": True,
         "skip_entry_months": [7, 9, 12],
         "tuneup_note": "sitout +100 pts + skip Jul/Sep/Dec",
+    },
+    # US30 M3_S3_R2: Sep skip from month audit; HALF-SIZE qtys (robustness concentration).
+    ("US30", "M3_S3_R2"): {
+        "entry_qty": 1,
+        "dd30_qty": 0,
+        "dd50_qty": 1,
+        "shifted_entry_qty": 2,
+        "shifted_dd30_qty": 1,
+        "shifted_dd50_qty": 1,
+        "max_trades_per_week": 3,
+        "skip_entry_months": [9],
+        "tuneup_note": "half-size (1-lot main) + skip Sep (missed_promote_screen 2026-08-11)",
     },
     # EURUSD skip-1-after-W: fill-proxy OK, broker ΔN/S≈0 / −$11k → OFF
     # GBPUSD skip-1-after-W: fill-proxy OK, broker N/S 2.67→1.60 → OFF

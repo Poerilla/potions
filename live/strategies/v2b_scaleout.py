@@ -994,13 +994,20 @@ class V2BScaleoutStrategy(StrategyPlugin):
             "tp1_qty": 1 if self.config.get("tp1_qty") is None else int(self.config.get("tp1_qty")),
             "tp2_qty": 1 if self.config.get("tp2_qty") is None else int(self.config.get("tp2_qty")),
         }
-        if not self.config.get("dynamic_sizing_events"):
+        events = self.config.get("dynamic_sizing_events")
+        prior_opp_only = bool(self.config.get("prior_opposite_only"))
+        prior_aligned_only = bool(self.config.get("prior_aligned_only"))
+        # Empty / missing event map must still gate when prior_*_only is set —
+        # otherwise live demos briefly trade ungated before the first ST inject.
+        if not events:
+            if prior_opp_only or prior_aligned_only:
+                return None
             return base
         has_prior_opposite = self._prior_opposite_event_for_entry(ts, direction) is not None
         has_prior_aligned = self._prior_aligned_event_for_entry(ts, direction) is not None
-        if bool(self.config.get("prior_opposite_only")) and not has_prior_opposite:
+        if prior_opp_only and not has_prior_opposite:
             return None
-        if bool(self.config.get("prior_aligned_only")) and not has_prior_aligned:
+        if prior_aligned_only and not has_prior_aligned:
             return None
         if has_prior_opposite and self.config.get("prior_opposite_entry_qty") is not None:
             return {

@@ -343,6 +343,16 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
     keys = [s.key for s in specs]
     ap.add_argument("--markets", nargs="*", default=keys, choices=sorted(set(keys + ["spx500"])))
     ap.add_argument("--only", nargs="*", default=None, help="Variant name filter(s)")
+    ap.add_argument(
+        "--snapshot",
+        action="store_true",
+        help="Refresh LATEST_SNAPSHOT / COMPLETION_EMAIL after summary write",
+    )
+    ap.add_argument(
+        "--email",
+        action="store_true",
+        help="Refresh snapshot and email decision-oriented interim/completion body",
+    )
     args = ap.parse_args(list(argv) if argv is not None else None)
 
     want = {m.lower() for m in args.markets}
@@ -357,6 +367,14 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
     for spec in selected:
         all_rows.extend(run_market(spec, force=bool(args.force), only=args.only))
         write_summary(all_rows)
+    if args.snapshot or args.email:
+        from .refresh_hub_snapshot import refresh_hub_snapshot
+
+        snap = refresh_hub_snapshot(OUT, email=bool(args.email))
+        print(
+            "snapshot status=%s complete=%s" % (snap.get("status"), snap.get("complete")),
+            flush=True,
+        )
     return 0
 
 

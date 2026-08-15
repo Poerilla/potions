@@ -224,7 +224,8 @@ def _run_one(
         seen_1m = 0
         one_m_index = one_m.index
         for i, h_ts in enumerate(h_times):
-            engine.process_bar(h_bars[pd.Timestamp(h_ts)])
+            # Signal only — do not fill on hourly OHLC (lookahead vs 1m tape).
+            engine.process_bar(h_bars[pd.Timestamp(h_ts)], broker_fills=False)
             if not _broker_needs_1m(engine, strategy_id):
                 if (i + 1) % 10000 == 0:
                     print("  1h %d/%d (1m fills %d)" % (i + 1, len(h_times), seen_1m), flush=True)

@@ -105,3 +105,22 @@ _Eligible: finite 3R / 2R→10R / filters. Prior-opposed 10R addon + indefinite 
 | YM | ym_prior_opposed_rl | 3.00× | 11.67 | SENSITIVITY ONLY — not promotional until exact-m |
 | NQ | nq_v2b_s113 | 3.00× | 7.80 | SENSITIVITY ONLY — not promotional until exact-m |
 | NQ | nq_v2b_s113 | 4.00× | 7.37 | SENSITIVITY ONLY — not promotional until exact-m |
+
+## 5. $250k standalone boards (common risk budget)
+
+Built by `python -m live.canonical_250k_board [--email]`.
+
+| Board | Score | Notes |
+|---|---|---|
+| [`INDIVIDUAL_250K_STANDALONE_RANKING.md`](INDIVIDUAL_250K_STANDALONE_RANKING.md) | annualized_net_on_250k | capital=$250k, stress=$25k, max MTM DD=$37.5k, max margin=$125k; no 3×/4× |
+| [`INDIVIDUAL_250K_RESEARCH_EFFICIENCY.md`](INDIVIDUAL_250K_RESEARCH_EFFICIENCY.md) | candidate_NS | research ranking (selection-aware status retained) |
+| [`INDIVIDUAL_250K_LEVERAGE_LADDER.md`](INDIVIDUAL_250K_LEVERAGE_LADDER.md) | ladder | sensitivity 3×/4× — **not** deployable |
+
+## 6. FX sleeve-overlap & joint-stress
+
+Built by `python -m live.fx_sleeve_overlap_board [--email]`.
+
+| Board | Path |
+|---|---|
+| Pairwise overlap / joint stress / max margin | [`fx_sleeve_overlap/BOARD.md`](fx_sleeve_overlap/BOARD.md) |
+

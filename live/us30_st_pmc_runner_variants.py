@@ -98,6 +98,8 @@ def main() -> int:
         default=None,
         help="Optional variant name filter(s).",
     )
+    ap.add_argument("--snapshot", action="store_true")
+    ap.add_argument("--email", action="store_true")
     args = ap.parse_args()
 
     POINT_VALUES[SYM] = 1.0
@@ -283,6 +285,14 @@ def main() -> int:
     (OUT / "SUMMARY.md").write_text("\n".join(lines), encoding="utf-8")
     print("Wrote %s" % csv_path, flush=True)
     print("Wrote %s" % (OUT / "SUMMARY.md"), flush=True)
+    if args.snapshot or args.email:
+        from .refresh_hub_snapshot import refresh_hub_snapshot
+
+        snap = refresh_hub_snapshot(OUT, email=bool(args.email))
+        print(
+            "snapshot status=%s complete=%s" % (snap.get("status"), snap.get("complete")),
+            flush=True,
+        )
     return 0
 
 

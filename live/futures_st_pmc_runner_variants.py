@@ -313,6 +313,8 @@ def main() -> int:
         choices=sorted(k for k in MARKET_CONFIGS if k in {"ym", "mym", "nq", "mnq", "mes", "es"}),
     )
     ap.add_argument("--only", nargs="*", default=None, help="Variant name filter(s).")
+    ap.add_argument("--snapshot", action="store_true")
+    ap.add_argument("--email", action="store_true")
     args = ap.parse_args()
 
     variants = _variant_configs()
@@ -331,6 +333,14 @@ def main() -> int:
         all_rows.extend(run_market(market, variants=variants, force=bool(args.force)))
         # Persist incrementally so long NQ runs leave a partial summary.
         write_summary(all_rows)
+    if args.snapshot or args.email:
+        from .refresh_hub_snapshot import refresh_hub_snapshot
+
+        snap = refresh_hub_snapshot(OUT, email=bool(args.email))
+        print(
+            "snapshot status=%s complete=%s" % (snap.get("status"), snap.get("complete")),
+            flush=True,
+        )
     return 0
 
 

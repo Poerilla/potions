@@ -1,7 +1,7 @@
 # OR Profile — research plans (2026-08-02)
 
 Status: **Plan A executed & rejected**; **Plan B executed — time≤12:00 promoted**;
-Plan C still queued.
+**Plan C steps 1–4 executed (2026H2fx)** — policy derive (step 5) deferred pending review.
 
 Three planned follow-ups from the OR Profile Probability Engine work
 (`live/or_profile_engine.py`, tables at `live/state/or_profile_engine/<mkt>/2026H2/`).
@@ -97,19 +97,18 @@ families) and check which stable futures cells carry over.
 
 **Steps:**
 
-1. Engine: market-config clock + OANDA loader (no logic changes).
-2. Run US30 + NAS100 (asof 2026H2fx); compare headline chains and the five
-   cross-market stable cells vs futures. Carry-over test: same sign + CI
-   overlap.
-3. Run EURUSD/USDJPY (both OR clocks) + XAU (NY clock).
-4. Join to the profitable model tapes:
-   - US30/NAS100 ST+PMC 1mfill unit tapes (`live/state/st_pmc_1mfill_cross_market/`)
-     -> expectancy by OR-profile state (does flat-gap/q4 transfer?).
-   - Monday-OR FX tapes -> weekly analogue: does q1-width Monday OR predict
-     the breakout edge?
-5. Only after review: derive skip/size policies per market with the same
-   frozen fit -> validation protocol, and evaluate a q1-fakeout satellite on
-   US30/NAS100 (subject to the futures satellite's verdict).
+1. ~~Engine: market-config clock + OANDA loader (no logic changes).~~ Done
+   (`live/fx_or_markets.py` + FX path in `or_profile_engine.run_market`).
+2. ~~Run US30 + NAS100 (asof 2026H2fx); compare headline chains.~~ Done —
+   chains ≈ NQ (see `2026H2fx_PLAN_C.md`).
+3. ~~Run EURUSD/USDJPY + XAU.~~ Done (EURUSD London+NY, USDJPY NY, XAU NY).
+4. Join to profitable model tapes:
+   - ~~US30/NAS100 ST+PMC 1mfill~~ Done — **flat-gap/q4 do NOT transfer**
+     (edges opposite NQ). Also joined EURUSD/USDJPY/XAU (relative ranks only;
+     pip scaling not applied).
+   - Monday-OR FX tapes — **still open**.
+5. Policy derive + q1-fakeout satellite on US30/NAS100 — **deferred**.
+   Futures satellite already BINNED; skip CFD satellite unless a new cell
+   appears. Per-market FX policies must be re-fit (do not copy NQ P1/P3).
 
-**Order of execution:** after the q1 fakeout satellite review (this plan's
-step 5 depends on that verdict).
+**Order of execution:** after the q1 fakeout satellite review (done — BINNED).

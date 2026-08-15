@@ -141,6 +141,7 @@ def scan_close5_fades(gby, regime: set) -> List[Trade]:
         t.or_high, t.or_low, t.r = or_high, or_low, r
         t.break_side, t.break_ts, t.failed_extreme = break_side, break_ts, float(extreme)
         t.confirm_ts = confirm_ts
+        t.close_out_ts = close_out_ts  # gate 2 timestamp (5m close outside), for charting
         if break_side == "up":
             t.stop = t.failed_extreme + TICK
             t.tp_bound, t.tp_1r = or_low, or_low - r

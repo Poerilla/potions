@@ -339,6 +339,14 @@ class DemoPaperRunner:
                     except Exception as exc:
                         append_progress(self.output_root, "WARN weekly FILE_SIZES failed: %s" % exc)
 
+    def _maybe_annotate_hp_flags(self) -> None:
+        try:
+            from ..nas100_v2b_hp_flags import annotate_demo
+
+            annotate_demo("live/demo/nas100_v2b_ungated_paper", log_progress=True)
+        except Exception as exc:
+            append_progress(self.output_root, "WARN HP_FLAGS annotate failed: %s" % exc)
+
     def _maybe_heartbeat(self) -> None:
         now = self._clock()
         if now - self._last_progress_at < PROGRESS_HEARTBEAT_SECONDS:
@@ -360,6 +368,7 @@ class DemoPaperRunner:
                 pos_qty,
             ),
         )
+        self._maybe_annotate_hp_flags()
 
 
 def _jsonable(value: Any) -> Any:

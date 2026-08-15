@@ -26,63 +26,62 @@ from potions.live.v2b_strategy_cross_market_replay import _rth_bars, load_1m_by_
 
 
 def compute_supertrend(df: pd.DataFrame, atr_len: int = 14, multiplier: float = 3.0) -> pd.DataFrame:
+    """ATR SuperTrend (Wilder ATR via EWM). Numpy loop — same semantics as prior pandas loop."""
     out = df.copy()
-    high = pd.to_numeric(out["high"], errors="coerce")
-    low = pd.to_numeric(out["low"], errors="coerce")
-    close = pd.to_numeric(out["close"], errors="coerce")
-    prev_close = close.shift(1)
-    tr = pd.concat(
-        [
-            high - low,
-            (high - prev_close).abs(),
-            (low - prev_close).abs(),
-        ],
-        axis=1,
-    ).max(axis=1)
-    atr = tr.ewm(alpha=1.0 / float(atr_len), adjust=False, min_periods=atr_len).mean()
-    hl2 = (high + low) / 2.0
+    high = pd.to_numeric(out["high"], errors="coerce").to_numpy(dtype=float)
+    low = pd.to_numeric(out["low"], errors="coerce").to_numpy(dtype=float)
+    close = pd.to_numeric(out["close"], errors="coerce").to_numpy(dtype=float)
+    n = len(out)
+    tr = np.empty(n, dtype=float)
+    tr[0] = high[0] - low[0] if n else np.nan
+    for i in range(1, n):
+        tr[i] = max(high[i] - low[i], abs(high[i] - close[i - 1]), abs(low[i] - close[i - 1]))
+    atr = np.full(n, np.nan, dtype=float)
+    alpha = 1.0 / float(atr_len)
+    # Match pandas ewm(alpha=1/len, adjust=False, min_periods=atr_len)
+    if n:
+        atr_run = float(tr[0])
+        atr[0] = atr_run
+        for i in range(1, n):
+            atr_run = (1.0 - alpha) * atr_run + alpha * tr[i]
+            atr[i] = atr_run
+        if atr_len > 1:
+            atr[: atr_len - 1] = np.nan
+    hl2 = 0.5 * (high + low)
     basic_upper = hl2 + multiplier * atr
     basic_lower = hl2 - multiplier * atr
-
-    final_upper = pd.Series(index=out.index, dtype="float64")
-    final_lower = pd.Series(index=out.index, dtype="float64")
-    trend = pd.Series(index=out.index, dtype="int64")
-    st = pd.Series(index=out.index, dtype="float64")
-
-    for i in range(len(out)):
-        if i == 0 or pd.isna(atr.iloc[i]):
-            final_upper.iloc[i] = basic_upper.iloc[i]
-            final_lower.iloc[i] = basic_lower.iloc[i]
-            trend.iloc[i] = 1
-            st.iloc[i] = np.nan
+    final_upper = np.empty(n, dtype=float)
+    final_lower = np.empty(n, dtype=float)
+    trend = np.empty(n, dtype=np.int64)
+    st = np.full(n, np.nan, dtype=float)
+    for i in range(n):
+        if i == 0 or np.isnan(atr[i]):
+            final_upper[i] = basic_upper[i]
+            final_lower[i] = basic_lower[i]
+            trend[i] = 1
             continue
-
-        prev_i = i - 1
         if (
-            pd.isna(final_upper.iloc[prev_i])
-            or basic_upper.iloc[i] < final_upper.iloc[prev_i]
-            or close.iloc[prev_i] > final_upper.iloc[prev_i]
+            np.isnan(final_upper[i - 1])
+            or basic_upper[i] < final_upper[i - 1]
+            or close[i - 1] > final_upper[i - 1]
         ):
-            final_upper.iloc[i] = basic_upper.iloc[i]
+            final_upper[i] = basic_upper[i]
         else:
-            final_upper.iloc[i] = final_upper.iloc[prev_i]
-
+            final_upper[i] = final_upper[i - 1]
         if (
-            pd.isna(final_lower.iloc[prev_i])
-            or basic_lower.iloc[i] > final_lower.iloc[prev_i]
-            or close.iloc[prev_i] < final_lower.iloc[prev_i]
+            np.isnan(final_lower[i - 1])
+            or basic_lower[i] > final_lower[i - 1]
+            or close[i - 1] < final_lower[i - 1]
         ):
-            final_lower.iloc[i] = basic_lower.iloc[i]
+            final_lower[i] = basic_lower[i]
         else:
-            final_lower.iloc[i] = final_lower.iloc[prev_i]
-
-        prev_trend = int(trend.iloc[prev_i]) if not pd.isna(trend.iloc[prev_i]) else 1
+            final_lower[i] = final_lower[i - 1]
+        prev_trend = int(trend[i - 1])
         if prev_trend == 1:
-            trend.iloc[i] = -1 if close.iloc[i] < final_lower.iloc[i] else 1
+            trend[i] = -1 if close[i] < final_lower[i] else 1
         else:
-            trend.iloc[i] = 1 if close.iloc[i] > final_upper.iloc[i] else -1
-        st.iloc[i] = final_lower.iloc[i] if trend.iloc[i] == 1 else final_upper.iloc[i]
-
+            trend[i] = 1 if close[i] > final_upper[i] else -1
+        st[i] = final_lower[i] if trend[i] == 1 else final_upper[i]
     out["atr"] = atr
     out["supertrend"] = st
     out["supertrend_trend"] = trend

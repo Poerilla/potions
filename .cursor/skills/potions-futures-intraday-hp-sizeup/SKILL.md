@@ -46,6 +46,9 @@ python -m live.futures_intraday_hp_sizeup_nulls --predeclared-2x --email
 
 # Standalone compare (baseline vs 1.25/2/3/4× + prior-opposed overlap)
 python -m live.futures_intraday_hp_sizeup_compare --email
+
+# Add-on: NAS100 NQ-lead prior-opposed (dedicated hub; does not rewrite LIVE_PLAN)
+python -m live.futures_intraday_hp_sizeup_nas100_nq_lead --email
 ```
 
 Drivers:

@@ -48,6 +48,11 @@ class HourlyStPmcRetestStrategy(StrategyPlugin):
             "runner_qty": 0,
             "runner_target_pts": 0.0,
             "runner_stop_to_be_after_tp1": False,
+            # Optional multi-runner list: [{"qty": 1, "target_pts": 300}, {"qty": 1, "target_pts": null}]
+            # null/omitted target_pts => indefinite (stop only; optional year-end flatten).
+            "runner_specs": [],
+            "year_end_flatten_runners": False,
+            "runners_do_not_block_entries": False,
             "ma_filter": "none",
             "close_against_entry_exit": False,
             "st_flip_exit": False,
@@ -73,6 +78,8 @@ class HourlyStPmcRetestStrategy(StrategyPlugin):
         except json.JSONDecodeError:
             pass
         self._pmc_ts_map: Dict[Tuple[int, int], str] = {}
+        self._month_end_close: Dict[Tuple[int, int], float] = {}
+        self._month_end_ts: Dict[Tuple[int, int], str] = {}
         self._pmc_map = self._load_prev_month_close_map()
         self._hourly_cache: Optional[List[Bar]] = None
         self._st_processed = 0
@@ -100,7 +107,9 @@ class HourlyStPmcRetestStrategy(StrategyPlugin):
     def on_fill(self, fill, context: StrategyContext) -> StrategyActions:
         state = self._state()
         modifies: List[ModifyIntent] = []
-        if fill.reason in {"entry", "runner_entry", "add", "retest_add", "bb_add"}:
+        reason = str(fill.reason or "")
+        is_runner_entry = reason == "runner_entry" or reason.startswith("runner_entry")
+        if reason in {"entry", "add", "retest_add", "bb_add"} or is_runner_entry:
             state["active_trade_id"] = fill.trade_id
             state["pending_entry_trade_id"] = ""
             state["close_pending"] = ""
@@ -110,36 +119,46 @@ class HourlyStPmcRetestStrategy(StrategyPlugin):
                     state["bb_add_count"] = int(state.get("bb_add_count") or 0) + 1
                 else:
                     state["retest_add_count"] = int(state.get("retest_add_count") or 0) + 1
-            if fill.reason == "entry" and state.get("anchor_entry") in (None, "", 0, 0.0):
-                entry_px = float(fill.price)
-                stop_pts = float(self.config["stop_pts"])
-                target_pts = float(self.config["target_pts"])
-                side = str(fill.side or "").lower()
-                state["anchor_entry"] = entry_px
-                state["anchor_side"] = "buy" if side == "buy" else "sell"
-                if state["anchor_side"] == "buy":
-                    state["anchor_stop"] = entry_px - stop_pts
-                    state["anchor_target"] = entry_px + target_pts
-                else:
-                    state["anchor_stop"] = entry_px + stop_pts
-                    state["anchor_target"] = entry_px - target_pts
-            if fill.reason == "runner_entry":
+            if reason == "entry":
+                qty = max(1, int(float(fill.quantity or 1)))
+                state["blocking_qty"] = int(state.get("blocking_qty") or 0) + qty
+                if state.get("anchor_entry") in (None, "", 0, 0.0):
+                    entry_px = float(fill.price)
+                    stop_pts = float(self.config["stop_pts"])
+                    target_pts = float(self.config["target_pts"])
+                    side = str(fill.side or "").lower()
+                    state["anchor_entry"] = entry_px
+                    state["anchor_side"] = "buy" if side == "buy" else "sell"
+                    if state["anchor_side"] == "buy":
+                        state["anchor_stop"] = entry_px - stop_pts
+                        state["anchor_target"] = entry_px + target_pts
+                    else:
+                        state["anchor_stop"] = entry_px + stop_pts
+                        state["anchor_target"] = entry_px - target_pts
+            if is_runner_entry:
                 runner_entries = dict(state.get("runner_entry_price_by_trade") or {})
                 runner_entries[fill.trade_id] = float(fill.price)
                 state["runner_entry_price_by_trade"] = runner_entries
             self.state = state
             self.save_state()
-        elif fill.reason == "target":
+        elif reason == "target":
+            # Primary TP (or any target): drop blocking qty first, then BE runners on TP1.
+            qty = max(1, int(float(fill.quantity or 1)))
+            blocking = int(state.get("blocking_qty") or 0)
+            if blocking > 0:
+                state["blocking_qty"] = max(0, blocking - qty)
             if bool(self.config.get("runner_stop_to_be_after_tp1")):
                 runner_entries = dict(state.get("runner_entry_price_by_trade") or {})
                 entry_price = runner_entries.get(fill.trade_id)
+                if entry_price in (None, "", 0, 0.0):
+                    entry_price = state.get("anchor_entry")
                 if entry_price is not None:
                     for order in context.strategy_open_orders:
                         if (
                             order.trade_id == fill.trade_id
                             and order.reduce_only
                             and order.order_type == "stop"
-                            and order.bracket_role == "runner_stop"
+                            and str(order.bracket_role or "").startswith("runner_stop")
                         ):
                             modifies.append(
                                 ModifyIntent(
@@ -152,9 +171,17 @@ class HourlyStPmcRetestStrategy(StrategyPlugin):
                             )
             if context.position_quantity == 0:
                 self._clear_position_state(state)
-                self.state = state
-                self.save_state()
-        elif fill.reason in {"stop", "protective_stop", "close"}:
+            self.state = state
+            self.save_state()
+        elif reason in {"stop", "protective_stop", "close", "year_end_flatten"}:
+            if reason == "stop":
+                qty = max(1, int(float(fill.quantity or 1)))
+                state["blocking_qty"] = max(0, int(state.get("blocking_qty") or 0) - qty)
+            if context.position_quantity == 0:
+                self._clear_position_state(state)
+            self.state = state
+            self.save_state()
+        elif reason == "runner_stop" or reason.startswith("runner_stop"):
             if context.position_quantity == 0:
                 self._clear_position_state(state)
                 self.state = state
@@ -179,6 +206,50 @@ class HourlyStPmcRetestStrategy(StrategyPlugin):
         levels: List[LevelUpdate] = []
         causal_features: List[FeatureSnapshot] = self._signal_features(bar, pmc, now, ma_context)
 
+        bar_year = _parse_date(bar.ts).year
+        prev_year = state.get("last_bar_year")
+        if (
+            bool(self.config.get("year_end_flatten_runners"))
+            and prev_year is not None
+            and int(prev_year) < bar_year
+            and context.position_quantity != 0
+            and self._open_close_order(context) is None
+        ):
+            flatten_qty = abs(context.position_quantity)
+            # Drop resting brackets/entries so the market flatten is clean.
+            cancels.extend(self._cancel_protective_orders(context, "year_end_flatten"))
+            cancels.extend(self._cancel_entry_limits(context, "year_end_flatten"))
+            exit_side = "sell" if context.position_quantity > 0 else "buy"
+            orders.append(
+                OrderIntent.create(
+                    strategy_id=self.instance.strategy_id,
+                    trade_id=state.get("active_trade_id") or self._next_trade_id(state),
+                    instrument=self.instance.instrument,
+                    account_mode=self.instance.account_mode,
+                    side=exit_side,
+                    order_type="market",
+                    quantity=flatten_qty,
+                    reason="year_end_flatten",
+                    requires_verification=False,
+                    reduce_only=True,
+                    bracket_role="year_end_flatten",
+                    live_after_ts=bar.ts,
+                )
+            )
+            state["close_pending"] = "year_end_flatten"
+            state["year_end_flatten_events"] = int(state.get("year_end_flatten_events") or 0) + 1
+            state["year_end_flatten_qty"] = int(state.get("year_end_flatten_qty") or 0) + flatten_qty
+            by_year = dict(state.get("year_end_flatten_by_year") or {})
+            # Attribute inventory to the year that just ended.
+            ended = str(int(prev_year))
+            by_year[ended] = int(by_year.get(ended) or 0) + flatten_qty
+            state["year_end_flatten_by_year"] = by_year
+            state["last_bar_year"] = bar_year
+            self.state = state
+            self.save_state()
+            return StrategyActions(orders, cancels, [], levels, [], causal_features)
+        state["last_bar_year"] = bar_year
+
         if bool(self.config.get("record_levels")):
             levels.append(
                 LevelUpdate(
@@ -199,7 +270,11 @@ class HourlyStPmcRetestStrategy(StrategyPlugin):
                 )
             )
 
-        if context.position_quantity != 0:
+        blocking_qty = int(state.get("blocking_qty") or 0)
+        runners_only = context.position_quantity != 0 and blocking_qty <= 0
+        allow_stack = bool(self.config.get("runners_do_not_block_entries")) and runners_only
+
+        if context.position_quantity != 0 and not allow_stack:
             retest_on = bool(self.config.get("retest_add_enabled"))
             cancels.extend(
                 self._cancel_entry_limits(
@@ -250,8 +325,18 @@ class HourlyStPmcRetestStrategy(StrategyPlugin):
                 self.save_state()
             return StrategyActions(orders, cancels, [], levels, [], causal_features)
 
-        if state.get("active_trade_id"):
+        if context.position_quantity == 0 and state.get("active_trade_id"):
             self._clear_position_state(state)
+            self.state = state
+            self.save_state()
+        elif allow_stack:
+            # Keep runner inventory; clear primary anchors so a new campaign can arm.
+            state["pending_entry_trade_id"] = ""
+            state["anchor_entry"] = None
+            state["anchor_stop"] = None
+            state["anchor_target"] = None
+            state["anchor_side"] = ""
+            state["blocking_qty"] = 0
             self.state = state
             self.save_state()
 
@@ -313,7 +398,7 @@ class HourlyStPmcRetestStrategy(StrategyPlugin):
                     order_type="limit",
                     quantity=int(bucket["qty"]),
                     limit_price=limit_px,
-                    reason="entry",
+                    reason="entry" if bucket["role"] == "entry" else str(bucket["role"]),
                     requires_verification=True,
                     bracket_role=bucket["role"],
                     bracket_stop_price=bucket["stop"],
@@ -417,19 +502,38 @@ class HourlyStPmcRetestStrategy(StrategyPlugin):
             return ("sell", st, st + stop_pts, st - target_pts)
         return None
 
-    def _entry_buckets(self, side: str, limit_px: float, stop_px: float, target_px: float) -> List[Dict[str, float]]:
+    def _entry_buckets(self, side: str, limit_px: float, stop_px: float, target_px: float) -> List[Dict[str, Any]]:
         tp1_qty = int(float(self.config.get("tp1_qty") or 0))
         runner_qty = int(float(self.config.get("runner_qty") or 0))
-        if tp1_qty <= 0 and runner_qty <= 0:
+        if tp1_qty <= 0 and runner_qty <= 0 and not self.config.get("runner_specs"):
             tp1_qty = int(float(self.config.get("entry_qty") or 1))
 
-        buckets: List[Dict[str, float]] = []
+        buckets: List[Dict[str, Any]] = []
         if tp1_qty > 0:
             buckets.append({"role": "entry", "qty": tp1_qty, "stop": stop_px, "target": target_px})
-        if runner_qty > 0:
-            runner_target_pts = float(self.config.get("runner_target_pts") or self.config.get("target_pts") or 0.0)
-            runner_target = limit_px + runner_target_pts if side == "buy" else limit_px - runner_target_pts
-            buckets.append({"role": "runner_entry", "qty": runner_qty, "stop": stop_px, "target": runner_target})
+
+        specs = self.config.get("runner_specs") or []
+        if not specs and runner_qty > 0:
+            specs = [
+                {
+                    "qty": runner_qty,
+                    "target_pts": float(self.config.get("runner_target_pts") or self.config.get("target_pts") or 0.0),
+                }
+            ]
+        for i, spec in enumerate(specs):
+            if not isinstance(spec, dict):
+                continue
+            qty = int(float(spec.get("qty") or 0))
+            if qty <= 0:
+                continue
+            raw_t = spec.get("target_pts", None)
+            if raw_t is None or raw_t == "" or (isinstance(raw_t, float) and math.isnan(raw_t)):
+                runner_target: Optional[float] = None
+            else:
+                tpts = float(raw_t)
+                runner_target = limit_px + tpts if side == "buy" else limit_px - tpts
+            role = "runner_entry" if i == 0 else "runner_entry_%d" % (i + 1)
+            buckets.append({"role": role, "qty": qty, "stop": stop_px, "target": runner_target})
         return buckets
 
     def _ma_context(self, hourly: List[Bar]) -> Dict[str, str]:
@@ -526,7 +630,11 @@ class HourlyStPmcRetestStrategy(StrategyPlugin):
         rows.sort(key=lambda item: item[0])
         by_month: Dict[Tuple[int, int], Tuple[date, float]] = {}
         for d, close in rows:
+            # Sorted ascending → last row per calendar month is the month-end close.
             by_month[(d.year, d.month)] = (d, close)
+        self._month_end_close = {k: float(v[1]) for k, v in by_month.items()}
+        self._month_end_ts = {k: v[0].isoformat() for k, v in by_month.items()}
+        # Compat map: months present in the CSV → that month's prior-month close.
         out: Dict[Tuple[int, int], float] = {}
         for (y, m) in by_month:
             py, pm = (y, m - 1) if m > 1 else (y - 1, 12)
@@ -536,12 +644,24 @@ class HourlyStPmcRetestStrategy(StrategyPlugin):
                 self._pmc_ts_map[(y, m)] = prev_day.isoformat()
         return out
 
+    @staticmethod
+    def _prior_calendar_month(d: date) -> Tuple[int, int]:
+        return (d.year, d.month - 1) if d.month > 1 else (d.year - 1, 12)
+
     def _prev_month_close(self, ts: str) -> Optional[float]:
+        """Prior calendar-month last close (does not require current month in CSV)."""
         d = _parse_date(ts)
+        py, pm = self._prior_calendar_month(d)
+        if (py, pm) in self._month_end_close:
+            return float(self._month_end_close[(py, pm)])
+        # Fallback for older callers / partial loads.
         return self._pmc_map.get((d.year, d.month))
 
     def _pmc_event_ts(self, ts: str) -> str:
         d = _parse_date(ts)
+        py, pm = self._prior_calendar_month(d)
+        if (py, pm) in self._month_end_ts:
+            return self._month_end_ts[(py, pm)]
         return self._pmc_ts_map.get((d.year, d.month), "")
 
     def _hourly_bars(self, bar: Bar) -> List[Bar]:
@@ -850,10 +970,12 @@ class HourlyStPmcRetestStrategy(StrategyPlugin):
         state["adds"] = 0
         state["retest_add_count"] = 0
         state["bb_add_count"] = 0
+        state["runner_entry_price_by_trade"] = {}
         state["anchor_entry"] = None
         state["anchor_stop"] = None
         state["anchor_target"] = None
         state["anchor_side"] = ""
+        state["blocking_qty"] = 0
 
     def _state(self) -> Dict[str, Any]:
         state = dict(self.state or {})
@@ -869,7 +991,22 @@ class HourlyStPmcRetestStrategy(StrategyPlugin):
         state.setdefault("anchor_stop", None)
         state.setdefault("anchor_target", None)
         state.setdefault("anchor_side", "")
+        state.setdefault("blocking_qty", 0)
+        state.setdefault("last_bar_year", None)
+        state.setdefault("year_end_flatten_events", 0)
+        state.setdefault("year_end_flatten_qty", 0)
+        state.setdefault("year_end_flatten_by_year", {})
         return state
+
+    def _cancel_protective_orders(self, context: StrategyContext, reason: str) -> List[CancelIntent]:
+        cancels: List[CancelIntent] = []
+        for order in context.strategy_open_orders:
+            if not order.reduce_only:
+                continue
+            if order.order_type not in {"stop", "limit"}:
+                continue
+            cancels.append(CancelIntent(self.instance.strategy_id, order.broker_order_id, reason))
+        return cancels
 
     def _next_trade_id(self, state: Dict[str, Any]) -> str:
         state["trade_seq"] = int(state.get("trade_seq", 0)) + 1
@@ -901,7 +1038,11 @@ class HourlyStPmcRetestStrategy(StrategyPlugin):
 
     def _open_close_order(self, context: StrategyContext):
         for order in context.strategy_open_orders:
-            if order.reduce_only and order.order_type == "market" and order.bracket_role == "close":
+            if (
+                order.reduce_only
+                and order.order_type == "market"
+                and order.bracket_role in {"close", "year_end_flatten"}
+            ):
                 return order
         return None
 

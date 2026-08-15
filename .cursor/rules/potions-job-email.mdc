@@ -1,0 +1,15 @@
+---
+description: Always email completion/failure for potions replays, sweeps, and long jobs
+alwaysApply: true
+---
+
+# Always email job results
+
+When you start or finish a potions **market replay**, **backtest**, **sweep**, **causality audit**, **plugin batch**, or other multi-minute research job:
+
+1. Prefer drivers with `--email` (writes hub `EMAIL.txt` + Resend).
+2. If a job runs without `--email`, send a Resend summary yourself via `live.notify_email.send_email` when it completes or crashes.
+3. Include hub path, markets/book, key metrics or traceback tip, and promote/reject stance when relevant.
+4. Do **not** wait for the user to ask for the email.
+
+Inbound Gmail prompts (`potions-prompt` / `Re: potions-prompt`) are separate — see skill `potions-job-email`.
