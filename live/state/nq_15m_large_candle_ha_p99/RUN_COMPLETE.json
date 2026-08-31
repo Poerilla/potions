@@ -1,0 +1,20 @@
+{
+  "ok": true,
+  "smoke": false,
+  "po_n": 432,
+  "hi": "p99",
+  "lo": "p95",
+  "flag": "hp_after_win_fade_st",
+  "sleeve": {
+    "hi": "p99",
+    "lo": "p95",
+    "n_days": 3986,
+    "n_hi_days": 1432,
+    "n_hi_bars": 5051,
+    "hi_day_frac": 0.35925740090316105,
+    "enough_days": true,
+    "enough_n": true,
+    "use_hi": true,
+    "reason": "hi"
+  }
+}

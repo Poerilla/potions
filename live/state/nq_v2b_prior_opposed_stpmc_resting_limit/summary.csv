@@ -1,0 +1,2 @@
+strategy_id,start_date,trades,units,net_usd,closed_dd_usd,intrabar_stress_dd_usd,win_rate_pct,profit_factor,net_over_stress,causality_violations,prior_opposite_entries,long_trades,short_trades,gate_mode,invalidate_without_opposite_minutes,entry_live_after_delay_minutes,state_root
+nq_v2b_prior_opposed_stpmc_only_S_1_1_3,2021-03-04,439,2195,1342157.50,-68110.00,-68610.00,65.83,2.323,19.56,0,439,190,249,resting_limit,,,/home/tester/hsm/potions/live/state/nq_v2b_prior_opposed_stpmc_resting_limit/states/nq_v2b_prior_opposed_stpmc_only_S_1_1_3

@@ -247,6 +247,14 @@ class OrderIntent:
         )
 
 
+# Resting / working order statuses across PaperBroker + OANDA/Tradovate adapters.
+# OANDA marks accepted rests as ``working`` (and sometimes ``pendingnew``); plugins and
+# RiskGate must treat these as open or entry refresh stacks a new arm each bar.
+OPEN_ORDER_STATUSES = frozenset(
+    {"submitted", "partially_filled", "working", "pendingnew", "accepted", "pending"}
+)
+
+
 @dataclass(frozen=True)
 class BrokerOrder:
     broker_order_id: str

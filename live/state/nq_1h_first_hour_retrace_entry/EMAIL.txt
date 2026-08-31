@@ -1,0 +1,14 @@
+NQ first-hour MAE + retrace entries complete
+Hub: /home/tester/hsm/potions/live/state/nq_1h_first_hour_retrace_entry
+
+Base MAE (body): median=1.00 p75=1.22 p90=1.82 | ≥32/50/72=80/72/63%
+
+close entry 3×body (base): n=3968 WR=38.2% net=$+243008 N/S=9.32
+retrace body 32% → SL extreme → 3R: n=3204 fill=81% WR=41.0% net=$+131196 N/S=1.76
+retrace body 50% → SL extreme → 3R: n=2878 fill=73% WR=38.8% net=$+101120 N/S=1.54
+retrace body 72% → SL extreme → 3R: n=2522 fill=64% WR=36.4% net=$+110780 N/S=2.22
+retrace range 32% → SL extreme → 3R: n=3360 fill=85% WR=39.6% net=$-77768 N/S=-0.46
+retrace range 50% → SL extreme → 3R: n=2852 fill=72% WR=36.3% net=$+40127 N/S=0.40
+retrace range 72% → SL extreme → 3R: n=2189 fill=55% WR=32.3% net=$+75646 N/S=2.64
+
+Stance: diagnostic — rebuild broker-like before promote.

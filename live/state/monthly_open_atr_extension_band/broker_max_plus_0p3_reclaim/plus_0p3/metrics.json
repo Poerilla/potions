@@ -1,0 +1,17 @@
+{
+  "bars": 95471.0,
+  "close_dd": -334978.59687665,
+  "entry_mode": "max",
+  "entry_trigger": "traverse_reclaim",
+  "equity_curve": "live/state/monthly_open_atr_extension_band/broker_max_plus_0p3_reclaim/plus_0p3/audits/nq_mo_ext_band_max_plus_0p3_reclaim_r6m/equity_curve.csv",
+  "loss_units": 430.0,
+  "net_usd": 517402.0730548394,
+  "ns": 1.543200424586581,
+  "sl_mode": "plus_0.3",
+  "state_root": "live/state/monthly_open_atr_extension_band/broker_max_plus_0p3_reclaim/plus_0p3/states/nq_mo_ext_band_max_plus_0p3_reclaim_r6m",
+  "strategy_id": "nq_mo_ext_band_max_plus_0p3_reclaim_r6m",
+  "stress_dd": -335278.59687665,
+  "trades": 64.0,
+  "units": 640.0,
+  "win_units": 210.0
+}

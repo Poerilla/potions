@@ -1,0 +1,25 @@
+pair,family,name,strategy_id,status,units,trades,net_usd,stress_usd,ns,wr_units
+XAUUSD,yearly_orb,Yearly ORB scaleout3,xauusd_yearly_orb_scaleout3,ok,273,91,541254,-47903,11.3,93.8
+XAGUSD,yearly_orb,Yearly ORB scaleout3,xagusd_yearly_orb_scaleout3,ok,267,89,121185,-19508,6.21,88.8
+XAUUSD,yearly_orb,Yearly ORB scaleout3 20% range-close,xauusd_yearly_orb_scaleout3_range_close_20pct,ok,162,54,407982,-86821,4.7,43.8
+XAUUSD,hourly_st_pmc,ST+PMC sl25_tp75_3r_ma_bull_prior,xauusd_hourly_st_pmc_sl25_tp75_3r_ma_bull_prior,ok,353,353,202746,-61325,3.31,31.7
+XAUUSD,atr_st,ATR daily 3-initial 10-max,xauusd_atr_daily_3initial_10max,ok,787,200,918830,-390893,2.35,28.0
+XAUUSD,hourly_st_pmc,ST+PMC sl40_tp120_3r,xauusd_hourly_st_pmc_sl40_tp120_3r,ok,269,269,231363,-100799,2.3,31.2
+XAUUSD,atr_st,ATR daily ladder 1/1/2/2/2 10-max,xauusd_atr_daily_ladder112221_10max,ok,481,200,561150,-256769,2.19,35.8
+XAUUSD,monthly_orb,Monthly ORB restricted scaleout3,xauusd_monthly_orb_restricted_scaleout3,ok,951,317,243868,-123102,1.98,57.4
+XAGUSD,atr_st,ATR daily ladder 1/1/2/2/2 10-max,xagusd_atr_daily_ladder112221_10max,ok,379,153,256057,-133837,1.91,31.1
+XAGUSD,atr_st,ATR daily 3-initial 10-max,xagusd_atr_daily_3initial_10max,ok,612,153,322523,-177396,1.82,29.4
+XAGUSD,yearly_orb,Yearly ORB scaleout3 20% range-close,xagusd_yearly_orb_scaleout3_range_close_20pct,ok,177,59,82079,-46474,1.77,36.2
+XAUUSD,hourly_st_pmc,ST+PMC sl25_tp75_3r,xauusd_hourly_st_pmc_sl25_tp75_3r,ok,487,487,105108,-71425,1.47,27.9
+XAGUSD,hourly_st_pmc,ST+PMC sl25_tp75_3r_ma_bull_prior,xagusd_hourly_st_pmc_sl25_tp75_3r_ma_bull_prior,ok,179,179,44950,-34813,1.29,30.2
+XAUUSD,monthly_orb,Monthly ORB restricted scaleout3 boundary-stop entry,xauusd_monthly_orb_restricted_scaleout3_boundary_stop,ok,1890,630,247166,-194794,1.27,39.7
+XAGUSD,atr_st,ATR weekly 2-initial / 3-add / 6-max,xagusd_atr_weekly_2initial_3add_6max,ok,182,57,387539,-322566,1.2,19.8
+XAGUSD,hourly_st_pmc,ST+PMC sl40_tp120_3r,xagusd_hourly_st_pmc_sl40_tp120_3r,ok,100,100,31656,-41341,0.77,29.0
+XAUUSD,atr_st,ATR weekly 2-initial / 3-add / 6-max,xauusd_atr_weekly_2initial_3add_6max,ok,212,68,198654,-351182,0.57,17.5
+XAGUSD,hourly_st_pmc,ST+PMC sl25_tp75_3r,xagusd_hourly_st_pmc_sl25_tp75_3r,ok,200,200,28650,-49922,0.57,28.0
+XAUUSD,monthly_fbo,FBO 1_1_3 base,xauusd_fbo_1_1_3_base,ok,760,152,108457,-191724,0.57,45.5
+XAUUSD,monthly_fbo,FBO 1_1_3 atr80,xauusd_fbo_1_1_3_atr80,ok,600,120,62605,-173000,0.36,46.5
+XAGUSD,monthly_orb,Monthly ORB restricted scaleout3,xagusd_monthly_orb_restricted_scaleout3,ok,882,294,-6365,-91385,-0.07,58.8
+XAGUSD,monthly_fbo,FBO 1_1_3 atr80,xagusd_fbo_1_1_3_atr80,ok,640,128,-7392,-33044,-0.22,39.8
+XAGUSD,monthly_orb,Monthly ORB restricted scaleout3 boundary-stop entry,xagusd_monthly_orb_restricted_scaleout3_boundary_stop,ok,1917,639,-40107,-139148,-0.29,36.6
+XAGUSD,monthly_fbo,FBO 1_1_3 base,xagusd_fbo_1_1_3_base,ok,770,154,-67760,-141739,-0.48,38.7

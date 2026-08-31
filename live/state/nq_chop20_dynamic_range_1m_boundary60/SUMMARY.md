@@ -1,0 +1,36 @@
+# NQ CHOP20 Dynamic Range — 1m Path Proof
+
+Variant: `touch_broken_boundary_max_age_60`
+
+- Daily CHOP20 range + close breakout = **signal only**
+- Entry = daily close (+1 tick adverse) at last RTH 1m of the signal day
+- Stop = touch broken range boundary; targets 0.5R / 1R / 4R
+- Max range age = 60 daily bars
+- 1m fills with **stop-first** same-bar policy
+- Not a StrategyPlugin yet (path-aware research replay)
+
+| Metric | Daily diagnostic (same structure) | 1m path |
+|---|---:|---:|
+| Trades | 75 | 69 |
+| Net | $483,732 | $470,087 |
+| MTM DD | $-57,100 | $-68,679 |
+| Net/Stress | 8.47 | 6.84 |
+| Win rate | 36.0% | 37.7% |
+| Long net | $410,632 | $421,236 |
+| Short net | $73,100 | $48,852 |
+
+**Stance:** research — 1m path supports daily structure
+
+DSR: `TRL-2026-00176`
+
+Hub: `/home/tester/hsm/potions/live/state/nq_chop20_dynamic_range_1m_boundary60`
+
+## Exit mix (1m)
+
+| Reason | Units | Net |
+|---|---:|---:|
+| tp_4r | 12 | $+407202 |
+| tp_1r | 22 | $+185462 |
+| tp_0_5r | 28 | $+122600 |
+| stop_touch_broken_boundary | 146 | $-237089 |
+

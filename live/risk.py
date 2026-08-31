@@ -3,7 +3,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Dict, List, Optional
 
-from .models import OrderIntent, StrategyInstance
+from .models import OPEN_ORDER_STATUSES, OrderIntent, StrategyInstance
 from .store import FlatFileStore
 from .supervisor import RuntimeSupervisor
 
@@ -67,7 +67,7 @@ class RiskManager:
                 row.get("strategy_id") != strategy_id
                 or row.get("instrument") != instrument
                 or row.get("account_mode") != account_mode
-                or row.get("status") not in {"submitted", "partially_filled"}
+                or row.get("status") not in OPEN_ORDER_STATUSES
                 or row.get("reduce_only") == "true"
             ):
                 continue
@@ -90,7 +90,7 @@ class RiskManager:
                 row.get("strategy_id") == strategy_id
                 and row.get("instrument") == instrument
                 and row.get("account_mode") == account_mode
-                and row.get("status") in {"submitted", "partially_filled"}
+                and row.get("status") in OPEN_ORDER_STATUSES
             ):
                 n += 1
         return n
@@ -115,6 +115,6 @@ class RiskManager:
                 continue
             if row.get("strategy_id") == instance.strategy_id:
                 continue
-            if row.get("status") in {"submitted", "partially_filled"}:
+            if row.get("status") in OPEN_ORDER_STATUSES:
                 return False
         return True

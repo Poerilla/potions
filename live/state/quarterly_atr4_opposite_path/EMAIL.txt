@@ -1,0 +1,29 @@
+potions: quarterly ±4→opp4 path + best-path MAE complete
+
+Hub: /home/tester/hsm/potions/live/state/quarterly_atr4_opposite_path
+Highest-WR path per market (n>=5) + MAE tattoo → risk_atr_mult.
+
+  EURUSD  touch=91  first_win=36 (40%)  fail8=54  |  after_win reverse_win=9/36 (25%)  rev_fail8=24
+  GBPUSD  touch=91  first_win=39 (43%)  fail8=50  |  after_win reverse_win=11/39 (28%)  rev_fail8=27
+  USDJPY  touch=91  first_win=23 (25%)  fail8=66  |  after_win reverse_win=9/23 (39%)  rev_fail8=13
+  AUDJPY  touch=89  first_win=25 (28%)  fail8=63  |  after_win reverse_win=7/25 (28%)  rev_fail8=12
+  XAUUSD  touch=88  first_win=30 (34%)  fail8=57  |  after_win reverse_win=11/30 (37%)  rev_fail8=18
+  XAGUSD  touch=85  first_win=23 (27%)  fail8=48  |  after_win reverse_win=8/23 (35%)  rev_fail8=12
+  US30  touch=32  first_win=13 (41%)  fail8=19  |  after_win reverse_win=7/13 (54%)  rev_fail8=4
+  NAS100  touch=33  first_win=8 (24%)  fail8=25  |  after_win reverse_win=2/8 (25%)  rev_fail8=6
+  NQ  touch=61  first_win=16 (26%)  fail8=44  |  after_win reverse_win=6/16 (38%)  rev_fail8=10
+  YM  touch=61  first_win=22 (36%)  fail8=39  |  after_win reverse_win=10/22 (45%)  rev_fail8=10
+
+Best path / risk:
+  EURUSD  second_after_upper  WR=41% (n=17)  risk=2.00×ATR  tattoo_mae_atr=1.93
+  GBPUSD  first_lower  WR=58% (n=53)  risk=2.00×ATR  tattoo_mae_atr=1.96
+  USDJPY  second_after_lower  WR=50% (n=8)  risk=1.50×ATR  tattoo_mae_atr=1.37
+  AUDJPY  second_after_lower  WR=36% (n=11)  risk=2.50×ATR  tattoo_mae_atr=2.38
+  XAUUSD  second_after_upper  WR=54% (n=13)  risk=0.50×ATR  tattoo_mae_atr=0.25
+  XAGUSD  second_after_lower  WR=44% (n=9)  risk=1.50×ATR  tattoo_mae_atr=1.49
+  US30  first_lower  WR=73% (n=11)  risk=0.50×ATR  tattoo_mae_atr=0.32
+  NAS100  first_lower  WR=56% (n=9)  risk=2.00×ATR  tattoo_mae_atr=1.88
+  NQ  second_after_upper  WR=50% (n=8)  risk=1.50×ATR  tattoo_mae_atr=1.13
+  YM  second_after_upper  WR=56% (n=9)  risk=1.00×ATR  tattoo_mae_atr=0.68
+
+See SUMMARY.md / best_path.csv.

@@ -1,0 +1,13 @@
+{
+  "env": "practice",
+  "account_id": "101-002-39860312-006",
+  "label": "USDJPY Monthly ORB FBO 1/1/3 atr80",
+  "demo": "usdjpy_monthly_orb_fbo_oanda",
+  "cli": "demo-usdjpy-monthly-fbo-oanda",
+  "strategy_type": "monthly_orb_v2b_oco",
+  "book": "fbo_1_1_3_atr80",
+  "n_s_banked": 4.25,
+  "research_hub": "live/state/fx_cross_pair_tracker_leaders/states/fbo_1_1_3_atr80_usdjpy",
+  "equity_chart": "live/state/fx_cross_pair_tracker_leaders/charts/usdjpy_fbo_1_1_3_atr80_equity.png",
+  "note": "Best monthly FX/metal/CFD broker book (~+$108k / -$25k / N/S 4.25). Dedicated $100k practice account -006."
+}

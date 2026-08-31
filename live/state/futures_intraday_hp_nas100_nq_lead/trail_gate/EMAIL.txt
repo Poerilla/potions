@@ -1,0 +1,8 @@
+NAS100 first-hour follow 3R strong + sweep_with_side broker-like complete
+Hub: /home/tester/hsm/potions/live/state/futures_intraday_hp_nas100_nq_lead/trail_gate
+
+follow_3r_strong_sweep: trades=56 WR=50.0% net=$-55 stress=$-1118 N/S=-0.05
+follow_3r_strong_sweep_st_trail: trades=56 WR=50.0% net=$-41 stress=$-1100 N/S=-0.04
+Trail bounce: approach_trades=8 bounce_rate=75% agr_rate=8% median=33.2pts significant=False charts=0
+
+HP mill: /home/tester/hsm/potions/live/state/futures_intraday_hp_nas100_nq_lead/trail_gate/hp_mill (ran because trail improved the gated book)

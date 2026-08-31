@@ -1,0 +1,7 @@
+potions: HP ~80× US30 CFD (YM liquidity proxy) + EURUSD (non-CFD/non-futures)
+
+US30 h11 @80× qty=160: net $1,334,852 / stress $204,697 / N/S 6.52; $250k→$1,584,852. YM-proxy med/p90 risk-eq entry-bar 8.08%/16.89%; >10% days 32%; raw-CFD med 40.40%; notional $4,669,376; ≈IM $80,000.
+
+EURUSD Thu @80× qty=80: net $2,831,045 / stress $329,155 / N/S 8.60; $250k→$3,081,045; tick med/p90 entry-bar 0.00%/0.00%; ≈IM $200,000. Tape not binding.
+
+Stance: sensitivity only — do not promote 80×. Hub: live/state/hp_extreme_80x_us30_eurusd

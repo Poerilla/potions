@@ -1,0 +1,16 @@
+family,name,strategy_id,status,units,trades,net_usd,stress_dd_usd,ns,wr_units,phantoms,source,fade
+st_pmc_phantom_fade,fade sl50_tp150_3r × sl25_tp75,us30_fade_stpmc_sl50_tp150_3r__sl25_tp75,ok,1072,1072,-15908.7,-15955.6,-1.0,11.8,1074,sl50_tp150_3r,sl25_tp75
+st_pmc_phantom_fade,fade sl50_tp150_3r × sl40_tp120,us30_fade_stpmc_sl50_tp150_3r__sl40_tp120,ok,1067,1067,-23211.7,-23407.1,-0.99,12.5,1074,sl50_tp150_3r,sl40_tp120
+st_pmc_phantom_fade,fade sl50_tp150_3r × sl50_tp150,us30_fade_stpmc_sl50_tp150_3r__sl50_tp150,ok,1053,1053,-26341.9,-26587.3,-0.99,13.4,1074,sl50_tp150_3r,sl50_tp150
+st_pmc_phantom_fade,fade sl40_tp120_3r × sl25_tp75,us30_fade_stpmc_sl40_tp120_3r__sl25_tp75,ok,1154,1154,-15686.7,-15733.6,-1.0,13.0,1155,sl40_tp120_3r,sl25_tp75
+st_pmc_phantom_fade,fade sl40_tp120_3r × sl40_tp120,us30_fade_stpmc_sl40_tp120_3r__sl40_tp120,ok,1148,1148,-22314.8,-22548.4,-0.99,13.9,1155,sl40_tp120_3r,sl40_tp120
+st_pmc_phantom_fade,fade sl40_tp120_3r × sl50_tp150,us30_fade_stpmc_sl40_tp120_3r__sl50_tp150,ok,1115,1115,-24469.2,-24714.6,-0.99,14.9,1155,sl40_tp120_3r,sl50_tp150
+st_pmc_phantom_fade,fade sl25_tp75_3r × sl25_tp75,us30_fade_stpmc_sl25_tp75_3r__sl25_tp75,ok,1313,1313,-15383.8,-15482.0,-0.99,14.9,1320,sl25_tp75_3r,sl25_tp75
+st_pmc_phantom_fade,fade sl25_tp75_3r × sl40_tp120,us30_fade_stpmc_sl25_tp75_3r__sl40_tp120,ok,1238,1238,-22782.3,-23165.0,-0.98,14.5,1320,sl25_tp75_3r,sl40_tp120
+st_pmc_phantom_fade,fade sl25_tp75_3r × sl50_tp150,us30_fade_stpmc_sl25_tp75_3r__sl50_tp150,ok,1197,1197,-26712.3,-27206.4,-0.98,14.8,1320,sl25_tp75_3r,sl50_tp150
+st_pmc_phantom_fade,fade sl25_tp75_3r_ma_directional_prior × sl25_tp75,us30_fade_stpmc_sl25_tp75_3r_ma_directional_prior__sl25_tp75,ok,1014,1014,-11705.6,-11859.7,-0.99,15.1,1021,sl25_tp75_3r_ma_directional_prior,sl25_tp75
+st_pmc_phantom_fade,fade sl25_tp75_3r_ma_directional_prior × sl40_tp120,us30_fade_stpmc_sl25_tp75_3r_ma_directional_prior__sl40_tp120,ok,954,954,-18476.4,-18794.2,-0.98,13.9,1021,sl25_tp75_3r_ma_directional_prior,sl40_tp120
+st_pmc_phantom_fade,fade sl25_tp75_3r_ma_directional_prior × sl50_tp150,us30_fade_stpmc_sl25_tp75_3r_ma_directional_prior__sl50_tp150,ok,928,928,-21231.8,-21738.6,-0.98,14.5,1021,sl25_tp75_3r_ma_directional_prior,sl50_tp150
+v2b_phantom_fade,fade v2b × sl25_tp75,us30_fade_v2b_prior_opposed__sl25_tp75,ok,271,271,-1302.7,-1703.8,-0.76,21.8,276,v2b_prior_opposed,sl25_tp75
+v2b_phantom_fade,fade v2b × sl40_tp120,us30_fade_v2b_prior_opposed__sl40_tp120,ok,260,260,-729.7,-1420.0,-0.51,24.2,276,v2b_prior_opposed,sl40_tp120
+v2b_phantom_fade,fade v2b × sl50_tp150,us30_fade_v2b_prior_opposed__sl50_tp150,ok,245,245,-235.9,-1867.1,-0.13,25.3,276,v2b_prior_opposed,sl50_tp150

@@ -1,0 +1,18 @@
+NAS100 weekly OD — half-to-target + EOW/3R runners (bull×hivol, full hist)
+
+Hub: live/state/weekly_open_day_breakout_od_half_runner_bull_hivol
+Scale: 1@0.5×OD-R + 1@1×OD-R (BE) + 1 runner; SL=OD far; unlimited/wk
+
+Results:
+  half+EOW:     trades=202 net=$+12831 N/S=1.43 WR=56.8%
+  half+3×OD:    trades=202 net=$+12278 N/S=1.38 WR=56.8%
+  half+EOW nohol: trades=175 net=$+10189 N/S=1.07 WR=56.8%
+  half+3R nohol:  trades=175 net=$+10058 N/S=1.07 WR=56.8%
+
+Baselines:
+  OCO 1R bull×hivol:     N/S 1.15 / +$3.3k / 202
+  2/1/1 scale bull×hivol: N/S 1.36 / +$15.1k / 198
+
+Stance: half+EOW edges OCO and 2/1/1 on N/S (1.43) but trails 2/1/1 net;
+3R runner not better than EOW; holiday/thin Monday filter cuts N/S — skip it.
+Research — half+EOW worth keeping vs OCO; still below 2/1/1 dollar net.

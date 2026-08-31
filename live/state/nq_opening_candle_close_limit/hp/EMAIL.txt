@@ -1,0 +1,45 @@
+NQ opening-candle close-limit HP complete
+Hub: /home/tester/hsm/potions/live/state/nq_opening_candle_close_limit/hp
+Book: open1h_close_limit_3r
+
+Baseline: n=3906 WR=38.5% net=$+144018 N/S=4.08
+
+Top notables:
+  First-hour body conviction=strong n=1084 WR=51% (+12.7pp) avg=$+0 N/S=3.66
+  Large-candle vs PO side=candle_with_po n=238 WR=48% (+9.9pp) avg=$+0 N/S=3.29
+  Trade side vs PO side=trade_with_po n=238 WR=48% (+9.9pp) avg=$+0 N/S=3.29
+  PO regime=during_counter_with_po n=221 WR=48% (+10.0pp) avg=$+0 N/S=2.47
+  First-hour range size=fh_p95 n=628 WR=44% (+5.2pp) avg=$+0 N/S=1.96
+  First-hour range size=fh_p90 n=600 WR=44% (+5.2pp) avg=$+0 N/S=3.69
+  Hourly RSI bucket=rsi_gt70 n=394 WR=44% (+6.0pp) avg=$+0 N/S=1.30
+  PO v2b session state=during_po n=247 WR=45% (+6.9pp) avg=$+0 N/S=1.77
+  Prior-week range half=week_opposed n=2213 WR=41% (+2.4pp) avg=$+0 N/S=3.82
+  Hourly RSI vs trade=rsi_with_side n=2016 WR=41% (+2.3pp) avg=$+0 N/S=6.94
+  Opening 15m direction vs trade=or_aligned n=2752 WR=40% (+2.0pp) avg=$+0 N/S=5.65
+  First-hour vs prior day=above_pdh n=499 WR=42% (+3.8pp) avg=$+0 N/S=1.65
+  OR15 vs first hour=or15_agree n=2739 WR=40% (+2.0pp) avg=$+0 N/S=5.69
+  Day of week=Friday n=776 WR=41% (+3.0pp) avg=$+0 N/S=2.21
+  Week of month=4 n=884 WR=41% (+2.8pp) avg=$+0 N/S=6.38
+  ATR14 quartile=atr_q4 n=974 WR=41% (+2.4pp) avg=$+0 N/S=3.54
+  Month=4 n=305 WR=42% (+3.8pp) avg=$+0 N/S=4.98
+  Month=12 n=328 WR=42% (+3.3pp) avg=$+0 N/S=1.27
+  Prior RTH range percentile=prior_range_norm n=1192 WR=40% (+1.9pp) avg=$+0 N/S=2.96
+  Overnight compression=on_norm n=1223 WR=40% (+1.4pp) avg=$+0 N/S=10.97
+  Opening 15m volume percentile=vol_mid n=1219 WR=40% (+1.4pp) avg=$+0 N/S=6.87
+  First-hour close location=lower n=1233 WR=40% (+1.4pp) avg=$+0 N/S=3.48
+  Entry hour (NY)=11 n=48 WR=44% (+5.3pp) avg=$+0 N/S=4.94
+  ATR causal rolling percentile=atr_p75_100 n=1087 WR=40% (+1.1pp) avg=$+0 N/S=1.54
+  Week of month=1 n=874 WR=39% (+1.0pp) avg=$+0 N/S=2.68
+
+vs current PO HP:
+  Opening 15m range vs ATR=or_norm n=1230 book WR lift -1.0pp
+  ST-event age=st_age_30_90m n=3830 book WR lift -0.0pp
+  NQ-ES dispersion=disp_mid n=1277 book WR lift -0.3pp
+  Hourly RSI vs trade=rsi_against_side n=859 book WR lift -4.1pp
+  5m MA vs trade=ma_aligned n=3401 book WR lift +1.4pp
+  ST-event direction vs trade=st_opposed_proxy n=0 book WR lift +0.0pp
+  Week of month=2 n=926 book WR lift -1.1pp
+  Day of week=Friday n=776 book WR lift +3.0pp
+
+Stance: HP diagnostic on working limit book; no size-up from notables alone.
+Parent hub: /home/tester/hsm/potions/live/state/nq_opening_candle_close_limit

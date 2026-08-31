@@ -1,0 +1,10 @@
+{
+  "strategy_id": "nq_or_norm_rl_or_norm_only",
+  "symbol": "NQ",
+  "quote": "USD",
+  "market": "nq",
+  "strategy_type": "nq_v2b_prior_opposed_stpmc_only_S_1_1_3",
+  "entry_mode": "resting_limit",
+  "hp_filter": "Opening 15m range vs ATR / or_norm",
+  "hp_mult_note": "Base replay 5 NQ; lock sleeve 4x = 20 NQ linear"
+}

@@ -1,0 +1,24 @@
+Study: futures_intraday_hp_sizeup_v1
+Hub: live/state/es_intraday_htf_hp_nulls/
+Multiplier: 1.25×
+
+potions: matched-added-exposure suite complete
+hub: /home/tester/hsm/potions/live/state/es_intraday_htf_hp_nulls
+
+- NOT VALIDATED | es_prior_opposed_legacy ST-event age=st_age_gt180m @1.25× hp28% incN/S=22.98 p_plac=0.007
+- NOT VALIDATED | es_prior_opposed_legacy Week of month=1 @1.25× hp29% incN/S=10.91 p_plac=0.253
+- NOT VALIDATED | es_prior_opposed_legacy Prior RTH close location=prior_close_mid_third @1.25× hp25% incN/S=10.56 p_plac=0.092
+- NOT VALIDATED | es_st_pmc_ma_bull Day of week=Tuesday @1.25× hp22% incN/S=5.13 p_plac=0.082
+- RISK THROTTLE | es_st_pmc_ma_bull ST-event age=st_age_gt180m @1.25× hp28% incN/S=3.70 p_plac=0.084
+- NOT VALIDATED | es_st_pmc_ma_bull Prior RTH range percentile=prior_range_norm @1.25× hp26% incN/S=2.83 p_plac=0.906
+- NOT VALIDATED | es_prior_opposed_legacy Yearly ORB direction=yor_up @1.25× hp57% incN/S=14.59 p_plac=0.423
+- NOT VALIDATED | es_prior_opposed_legacy Monthly OR direction=mor_down @1.25× hp32% incN/S=8.51 p_plac=0.265
+- NOT VALIDATED | es_st_pmc_ma_bull Monthly OR direction=mor_up @1.25× hp60% incN/S=5.40 p_plac=0.866
+- NOT VALIDATED | es_prior_opposed_legacy Weekly ATR trend vs trade=w_atr_aligned @1.25× hp43% incN/S=8.25 p_plac=0.420
+- NOT VALIDATED | es_prior_opposed_legacy Prior quarter type=q_break_up @1.25× hp77% incN/S=16.80 p_plac=1.000
+
+Stance: no SIZE-UP VALIDATED / PROVISIONAL PAPER pairs this run — research / risk-budget only.
+
+/home/tester/hsm/potions/live/state/es_intraday_htf_hp_nulls/SUMMARY.md
+Portfolio: see portfolio_overlap.csv.
+Stance: 0 SIZE-UP VALIDATED @1.25× only — no 1.5×/2× inference.

@@ -1,0 +1,18 @@
+potions: quarterly ATR4 best-book stress + yearly board
+
+Hub: /home/tester/hsm/potions/live/state/quarterly_atr4_stress_yearly
+
+Exact full-window intrabar stress DD:
+  GBPUSD best_path/first_lower: net=$404,130.30  stress=$-50,565.07  N/S=7.99
+  NAS100 best_path/first_lower: net=$33,127.04  stress=$-7,471.20  N/S=4.43
+  NQ best_path/second_after_upper: net=$306,961.80  stress=$-121,107.66  N/S=2.53
+  EURUSD best_path/second_after_upper: net=$84,626.68  stress=$-34,661.64  N/S=2.44
+  XAUUSD family/first_only_lower: net=$251,054.42  stress=$-61,550.70  N/S=4.08
+
+MAE tattoos (best-path):
+  EURUSD second_after_upper: MAE=1.93×ATR → risk=2.0×ATR
+  GBPUSD first_lower: MAE=1.96×ATR → risk=2.0×ATR
+  NAS100 first_lower: MAE=1.88×ATR → risk=2.0×ATR
+  NQ second_after_upper: MAE=1.13×ATR → risk=1.5×ATR
+
+Full year-by-year tables: STRESS_YEARLY.md + per-book deep_check/YEARLY.md

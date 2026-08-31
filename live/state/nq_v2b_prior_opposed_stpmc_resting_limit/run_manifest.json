@@ -1,0 +1,106 @@
+{
+  "broker_realism_config": {
+    "directional_adverse_path": true,
+    "fee_per_unit": 1.5,
+    "slippage_ticks": 1.0,
+    "spread_model": "default"
+  },
+  "causality_mode": "audit",
+  "command": [
+    "/home/tester/hsm/potions/live/nq_v2b_prior_opposed_replay.py",
+    "--market",
+    "nq",
+    "--gate-mode",
+    "resting_limit",
+    "--st-signal-stamp",
+    "completed_hour",
+    "--st-fills",
+    "/home/tester/hsm/potions/live/state/hourly_st_pmc_sl25_completed_hour/nq/states/nq_hourly_st_pmc_sl25_tp75_3r/fills.csv",
+    "--st-orders",
+    "/home/tester/hsm/potions/live/state/hourly_st_pmc_sl25_completed_hour/nq/states/nq_hourly_st_pmc_sl25_tp75_3r/orders.csv",
+    "--output-root",
+    "/home/tester/hsm/potions/live/state/nq_v2b_prior_opposed_stpmc_resting_limit",
+    "--email"
+  ],
+  "created_at": "2026-08-23T12:22:37Z",
+  "cwd": "/home/tester/hsm/potions",
+  "data_inputs": [
+    {
+      "bytes": 107854460,
+      "exists": true,
+      "path": "/home/tester/hsm/potions/nq/raw/glbx-mdp3-20100606-20260616.ohlcv-1m.dbn.zst",
+      "sha256": "7c72c95dfe2e8e69c25ac3e71e509bf1f1e3e30b4fbfe6729dd9f3a66f350fd0"
+    },
+    {
+      "bytes": 650105,
+      "exists": true,
+      "path": "/home/tester/hsm/potions/live/state/hourly_st_pmc_sl25_completed_hour/nq/states/nq_hourly_st_pmc_sl25_tp75_3r/fills.csv",
+      "sha256": "012b85342a6cd44eef98b8ffa4b72d7a7e79aa2515b20a647635f9d1cce77e60"
+    },
+    {
+      "bytes": 1335402,
+      "exists": true,
+      "path": "/home/tester/hsm/potions/live/state/hourly_st_pmc_sl25_completed_hour/nq/states/nq_hourly_st_pmc_sl25_tp75_3r/orders.csv",
+      "sha256": "8942f5c07acc83a676f6fda26e09d459c1dd546bc4345400d8487e062527c1f0"
+    }
+  ],
+  "extra": {
+    "causality_violations": 0,
+    "driver": "nq_v2b_prior_opposed_replay",
+    "entry_live_after_delay_minutes": null,
+    "touch_outside_fill_hour": null,
+    "touch_resolved": null,
+    "touch_unresolved": null
+  },
+  "git": {
+    "commit": "",
+    "dirty": false,
+    "repo_root": "/home/tester/hsm/potions/live/state/nq_v2b_prior_opposed_stpmc_resting_limit",
+    "status_short": []
+  },
+  "outputs": [
+    {
+      "bytes": 546,
+      "exists": true,
+      "path": "summary.csv",
+      "sha256": "f347d2cff5d5550783f8226b3ddc7e623c51735aa2ecc51718b7e024dc7a6500"
+    },
+    {
+      "bytes": 651,
+      "exists": true,
+      "path": "INDEX.md",
+      "sha256": "dc6eb49bc8db1975a251a9c1217f503d02c2f60ee611a93de3effb889efb808b"
+    },
+    {
+      "bytes": 268092,
+      "exists": true,
+      "path": "states/nq_v2b_prior_opposed_stpmc_only_S_1_1_3/fills.csv",
+      "sha256": "6dbe39840090d3d78cc66678ce28baf58c55e7b24461679a5f96457470e81e6d"
+    },
+    {
+      "bytes": 699190,
+      "exists": true,
+      "path": "states/nq_v2b_prior_opposed_stpmc_only_S_1_1_3/orders.csv",
+      "sha256": "5bee799939dec9b729c4037a5c71dd8145b16a6917ca0141335157242e008c2d"
+    }
+  ],
+  "python": {
+    "executable": "/home/tester/.pyenv/versions/3.8.0/bin/python",
+    "platform": "Linux-5.15.0-185-generic-x86_64-with-glibc2.34",
+    "version": "3.8.0 (default, Feb 11 2026, 11:18:58) \n[GCC 11.4.0]"
+  },
+  "run_id": "run_9b7c7adf3599",
+  "strategy_config": {
+    "entry_live_after_delay_minutes": null,
+    "entry_qty": 5,
+    "gate_mode": "resting_limit",
+    "invalidate_without_opposite_minutes": null,
+    "market": "nq",
+    "prior_opposite_only": true,
+    "runner_target_r_mult": null,
+    "sizing": "S_1_1_3",
+    "start": "2021-03-04",
+    "strategy_id": "nq_v2b_prior_opposed_stpmc_only_S_1_1_3",
+    "targeted_runner_qty": null
+  }
+}

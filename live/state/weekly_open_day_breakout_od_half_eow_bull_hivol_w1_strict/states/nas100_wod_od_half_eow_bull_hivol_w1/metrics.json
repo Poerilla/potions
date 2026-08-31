@@ -1,0 +1,21 @@
+{
+  "bars_1m": 3077535,
+  "bars_4h": 13767,
+  "closed_dd_usd": -4088.399999999965,
+  "dsr_trial": "TRL-2026-00165",
+  "feed_tf": "1m",
+  "intrabar_stress_dd_usd": -4400.999999999967,
+  "label": "half+EOW bull\u00d7hivol; week-of-month=1 entry gate",
+  "market": "NAS100",
+  "max_open_units": 3,
+  "net_over_stress": 1.8247557373324423,
+  "net_usd": 8030.750000000019,
+  "profit_factor": 1.8503547225751842,
+  "signal_tf": "4h",
+  "stance": "weak \u2014 needs tune",
+  "strategy_id": "nas100_wod_od_half_eow_bull_hivol_w1",
+  "trades": 53,
+  "units": 159,
+  "variant": "od_half_eow_bull_hivol_w1",
+  "win_rate": 0.6477987421383647
+}

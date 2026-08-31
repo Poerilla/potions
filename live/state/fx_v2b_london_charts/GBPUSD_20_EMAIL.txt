@@ -1,0 +1,32 @@
+potions: 20 GBPUSD London-session 5m bias charts
+
+Hub: live/state/fx_v2b_london_charts/ungated/gbpusd
+Book: S_1_1_3 (existing London chart pack)
+Session: London 03:00–12:00 America/New_York
+Overlays: prior NY H/L, 4h SuperTrend ATR(14)×3, 4h structure bias, v2b markers
+
+Attached: first 20 charts from the generated pack:
+  01  001_2015-06-03_long_loss.png
+  02  002_2015-07-23_long_loss.png
+  03  003_2015-09-10_long_loss.png
+  04  004_2017-03-21_short_loss.png
+  05  005_2017-05-25_short_loss.png
+  06  006_2017-07-17_long_loss.png
+  07  007_2017-09-05_short_loss.png
+  08  008_2017-10-26_long_loss.png
+  09  009_2017-12-14_short_loss.png
+  10  010_2018-02-06_long_loss.png
+  11  011_2018-03-28_long_loss.png
+  12  012_2018-05-17_short_win.png
+  13  013_2019-04-04_short_loss.png
+  14  014_2019-05-24_long_loss.png
+  15  015_2019-12-18_long_loss.png
+  16  016_2020-02-07_short_loss.png
+  17  017_2020-08-04_short_win.png
+  18  018_2020-09-24_short_win.png
+  19  019_2020-11-12_short_win.png
+  20  020_2021-01-06_long_win.png
+
+Full index: /home/tester/hsm/potions/live/state/fx_v2b_london_charts/ungated/gbpusd/INDEX.md
+
+(Gmail API message id: 19feba2fc6ec914b — PNGs attached on that message)

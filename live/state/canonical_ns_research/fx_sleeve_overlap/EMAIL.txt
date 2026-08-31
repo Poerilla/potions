@@ -1,0 +1,21 @@
+FX sleeve-overlap & joint-stress board
+Hub: live/state/canonical_ns_research/fx_sleeve_overlap/
+
+pair | shared | same-dir | joint stress | daily ρ | max margin | regime
+------------------------------------------------------------------------
+USDJPY Asia-range ↔ USDJPY Monday OR | 413 | 81.6% | -$54,421 | +0.022 | +$22,000 | CONDITIONAL_OVERLAP
+USDJPY Asia-range ↔ USDJPY filtered Asia | 770 | 100.0% | -$59,735 | +1.000 | +$28,000 | SAME_SLEEVE
+USDJPY Monday OR ↔ GBPUSD fair 3R | 266 | 56.8% | -$20,940 | -0.075 | +$10,000 | SEPARATE_REGIMES
+USDJPY Monday OR ↔ EURUSD ST+PMC Thursday | 46 | 50.0% | -$18,730 | -0.184 | +$10,500 | SEPARATE_REGIMES
+EURUSD ST+PMC Thursday ↔ GBPUSD fair 3R | 42 | 88.1% | -$13,007 | +0.288 | +$4,500 | CONDITIONAL_OVERLAP
+USDJPY filtered Asia (demo) ↔ USDJPY Monday OR | 207 | 82.6% | -$26,216 | -0.130 | +$22,000 | CONDITIONAL_OVERLAP
+
+Stance tips:
+- USDJPY Asia-range ↔ USDJPY Monday OR → CONDITIONAL_OVERLAP (shared risk cap when both fire)
+- USDJPY Asia-range ↔ USDJPY filtered Asia → SAME_SLEEVE (do not stack full independent risk)
+- USDJPY Monday OR ↔ GBPUSD fair 3R → SEPARATE_REGIMES (independent allocations ok under portfolio caps)
+- USDJPY Monday OR ↔ EURUSD ST+PMC Thursday → SEPARATE_REGIMES (independent allocations ok under portfolio caps)
+- EURUSD ST+PMC Thursday ↔ GBPUSD fair 3R → CONDITIONAL_OVERLAP (shared risk cap when both fire)
+- USDJPY filtered Asia (demo) ↔ USDJPY Monday OR → CONDITIONAL_OVERLAP (shared risk cap when both fire)
+
+Artifacts: BOARD.md · overlap_board.csv · EMAIL.txt

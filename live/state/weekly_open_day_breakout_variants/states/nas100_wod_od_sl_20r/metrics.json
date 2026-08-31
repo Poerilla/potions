@@ -1,0 +1,21 @@
+{
+  "bars_1m": 1064489,
+  "bars_4h": 4963,
+  "closed_dd_usd": -7001.150000000003,
+  "dsr_trial": "TRL-2026-00162",
+  "feed_tf": "1m",
+  "intrabar_stress_dd_usd": -7943.1500000000015,
+  "label": "OD far SL + 2/1/1/1 runner\u219220R BE (v4)",
+  "market": "NAS100",
+  "max_open_units": 5,
+  "net_over_stress": 1.1448291924488456,
+  "net_usd": 9093.55000000005,
+  "profit_factor": 1.6924910426336421,
+  "signal_tf": "4h",
+  "stance": "weak \u2014 needs tune",
+  "strategy_id": "nas100_wod_od_sl_20r",
+  "trades": 27,
+  "units": 135,
+  "variant": "od_sl_20r",
+  "win_rate": 0.35555555555555557
+}

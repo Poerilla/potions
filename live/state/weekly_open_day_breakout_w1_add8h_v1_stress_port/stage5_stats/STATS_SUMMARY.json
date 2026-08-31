@@ -1,0 +1,55 @@
+{
+  "blocks": [
+    {
+      "block": "2016-2019",
+      "n": 17,
+      "net": 4422.849999999846,
+      "path_dd": -1093.300000000011,
+      "ns_path": 4.045412969907437
+    },
+    {
+      "block": "2020-2022",
+      "n": 19,
+      "net": 9395.59999999988,
+      "path_dd": -3144.350000000002,
+      "ns_path": 2.9880897482786186
+    },
+    {
+      "block": "2023-2026",
+      "n": 17,
+      "net": 10752.40000000051,
+      "path_dd": -5355.849999999846,
+      "ns_path": 2.0075991672658535
+    }
+  ],
+  "bootstrap": {
+    "n_boot": 1000,
+    "ns_mean": 5.760706867339224,
+    "ns_p05": 0.7352863277142302,
+    "ns_p50": 4.737375113283621,
+    "ns_p95": 13.554217570760718,
+    "frac_ns_below_1": 0.074,
+    "frac_ns_below_base_1_82": 0.151
+  },
+  "selection": {
+    "variants_inspected_approx": [
+      "week_gate",
+      "bull_condition",
+      "high_vol_condition",
+      "od_half_geometry",
+      "eow_exit",
+      "add_cadence_8h",
+      "holiday_filter",
+      "3r_runner",
+      "oco_1r",
+      "candle_sl",
+      "od_sl_20r"
+    ],
+    "n_variants_approx": 11,
+    "note": "Deflated / selection-aware analysis: with ~11 related variants inspected before this frozen v1, treat headline N/S as optimistic until DSR is computed on the full trial ledger (TRL-2026-00161..00168).",
+    "primary_path_ns_ref": 3.343436486728512,
+    "loco_ns_min": 3.274366954917542,
+    "loco_ns_max": 8.678136975845621
+  },
+  "rolling_n": 76
+}

@@ -1,0 +1,27 @@
+FX/index/metals ST+PMC results
+
+market  book     net      stress   N/S     units/WR/max/EOY
+------------------------------------------------------------------------
+eurusd  3R       net=$64.4k   stress=-$21.4k  N/S=3.01    units=866 WR=29.0% max=1 EOY=0
+eurusd  2R→10R   net=$121.2k  stress=-$67.3k  N/S=1.80    units=855 WR=17.1% max=3 EOY=0
+eurusd  indef    net=$339.8k  stress=-$228.4k N/S=1.49    units=2589 WR=20.0% max=239 EOY=48
+gbpusd  3R       net=$108.1k  stress=-$13.3k  N/S=8.12    units=1026 WR=30.6% max=1 EOY=0
+gbpusd  2R→10R   net=$101.4k  stress=-$41.1k  N/S=2.47    units=1110 WR=16.5% max=3 EOY=0
+gbpusd  indef    net=$220.8k  stress=-$267.6k N/S=0.82    units=3072 WR=18.7% max=212 EOY=21
+usdjpy  3R       net=$4040.0k stress=-$2282.4k N/S=1.77    units=869 WR=27.5% max=1 EOY=0
+usdjpy  2R→10R   net=$2801.3k stress=-$6519.9k N/S=0.43    units=870 WR=14.5% max=3 EOY=0
+usdjpy  indef    net=$14374.7k stress=-$42280.0k N/S=0.34    units=2544 WR=18.5% max=199 EOY=50
+
+Fair 3R leaderboard (rankable)
+----------------------------------------
+1. us30    N/S=20.97  net=$19.0k stress=-$907
+2. nas100  N/S=19.56  net=$15.2k stress=-$778
+3. gbpusd  N/S=8.12   net=$108.1k stress=-$13.3k
+4. audjpy  N/S=7.89   net=$9171.2k stress=-$1163.0k
+5. eurusd  N/S=3.01   net=$64.4k stress=-$21.4k
+6. usdjpy  N/S=1.77   net=$4040.0k stress=-$2282.4k
+7. xagusd  N/S=1.17   net=$68.7k stress=-$58.6k
+8. xauusd  N/S=0.83   net=$77.3k stress=-$92.9k
+
+Hub: /home/tester/hsm/potions/live/state/fx_index_metals_st_pmc_runner_variants
+

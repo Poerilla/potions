@@ -1,0 +1,18 @@
+potions: nq_wick_reject_4h_24h_5m_protected_pivot_touch_response_v1 COMPLETE
+
+Hub: /home/tester/hsm/potions/live/state/nq_wick_reject_4h_24h_5m_protected_pivot_touch_response_v1
+config_hash: 46c3e3de3527fef5
+smoke: False
+policy: POLICY_A_FULL_AVAILABLE_FUTURES_DATA
+eligible_seeds: 91
+candidates: 85 (bear=42 bull=43)
+bear_hold_180m: 34.6%
+bull_hold_180m: 48.3%
+bear_touch favors/inval (n_ev=3): 66.7% / 33.3%
+bull_touch favors/inval (n_ev=2): 0.0% / 100.0%
+causality: PASS
+decision: NEGATIVE_OR_WEAK
+stance: DESCRIPTIVE ONLY — does not meet predeclared preservation screens
+
+DESCRIPTIVE ONLY — no trade / plugin / session selector.
+Independent of NY-open protected-pivot archives.

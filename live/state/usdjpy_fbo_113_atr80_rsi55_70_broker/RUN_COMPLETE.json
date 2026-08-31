@@ -1,0 +1,21 @@
+{
+  "ok": true,
+  "row": {
+    "variant": "1_1_3_atr80_rsi55_70",
+    "instrument": "USDJPY",
+    "campaigns": 102,
+    "wr": 49.0,
+    "trades": 102,
+    "units": 510,
+    "net_jpy": 3623555.0,
+    "stress_jpy": -5705420.0,
+    "ns": 0.64,
+    "net_usd_approx": 32941.41,
+    "stress_usd_approx": -51867.45,
+    "baseline_atr80_net_usd": 107890.0,
+    "baseline_atr80_ns": 4.25,
+    "ha_filter_paper_n": 38,
+    "ha_filter_paper_net_usd": 91726.0,
+    "stance": "weak \u2014 prefer unfiltered atr80"
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "filter": "prior_width quartile Q4_large only (same mid-SL ladder)",
+  "n": 20,
+  "win_rate": 0.75,
+  "net_usd": 1311726.0,
+  "baseline_all_net": 1437858.0,
+  "skip_q4_net": 126131.99999999988,
+  "closed_dd_campaign": -286190.0,
+  "stress_sum_yearly_closed": -406316.0,
+  "net_over_stress": 3.228339518995068,
+  "stop_rate": 0.1,
+  "avg_net": 65586.3,
+  "avg_R": 0.27514594481197596,
+  "w_min": 1854.25,
+  "w_max": 6474.75,
+  "w_med": 2696.0,
+  "long_n": 15,
+  "short_n": 5,
+  "long_net": 1098572.0,
+  "short_net": 213153.99999999994,
+  "years_with_trades": 6
+}

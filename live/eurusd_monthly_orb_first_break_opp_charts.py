@@ -11,6 +11,7 @@ from typing import Dict, List, Optional, Tuple
 import matplotlib
 
 matplotlib.use("Agg")
+import matplotlib.dates as mdates
 import matplotlib.pyplot as plt
 import pandas as pd
 from matplotlib.patches import Rectangle
@@ -44,18 +45,31 @@ def _month_key(d: date) -> str:
 
 def _load_bars(path: Path) -> pd.DataFrame:
     df = pd.read_csv(path)
-    df["day"] = pd.to_datetime(df["ts"]).dt.tz_localize(None).dt.normalize()
-    return df.sort_values("day").reset_index(drop=True)
+    ts_col = "ts" if "ts" in df.columns else ("ts_event" if "ts_event" in df.columns else None)
+    if ts_col is None:
+        raise KeyError("bars csv needs ts or ts_event: %s" % path)
+    ts = pd.to_datetime(df[ts_col], utc=True, errors="coerce")
+    if getattr(ts.dt, "tz", None) is not None:
+        ts = ts.dt.tz_convert(None)
+    df["ts"] = ts
+    df["day"] = ts.dt.normalize()
+    return df.sort_values("ts").reset_index(drop=True)
 
 
 def _load_fills(path: Path) -> pd.DataFrame:
     df = pd.read_csv(path)
-    df["day"] = pd.to_datetime(df["ts"]).dt.tz_localize(None).dt.normalize()
+    ts = pd.to_datetime(df["ts"], utc=True, errors="coerce")
+    if ts.dt.tz is not None:
+        ts = ts.dt.tz_convert(None)
+    df["ts"] = ts
+    df["day"] = ts.dt.normalize()
     df["month"] = df["day"].dt.strftime("%Y-%m")
     return df
 
 
 def _or_levels(month_bars: pd.DataFrame, or_sessions: int = 3) -> Tuple[float, float, float]:
+    # OR is always first N *daily* sessions — callers pass daily bars for OR, or
+    # precomputed rh/rl.
     orb = month_bars.iloc[:or_sessions]
     rh = float(orb["high"].max())
     rl = float(orb["low"].min())
@@ -69,23 +83,50 @@ def _plot_month(
     title: str,
     or_sessions: int = 3,
     ylabel: str = "EURUSD",
+    *,
+    or_rh: Optional[float] = None,
+    or_rl: Optional[float] = None,
+    legend_loc: str = "upper left",
+    x_is_datetime: bool = False,
 ) -> None:
     fig, ax = plt.subplots(figsize=(14, 7))
-    xs = list(range(len(month_bars)))
-    x_map = {d.strftime("%Y-%m-%d"): i for i, d in enumerate(month_bars["day"])}
-    width = 0.65
+    n = len(month_bars)
+    if x_is_datetime:
+        xs = list(month_bars["ts"])
+        width = pd.Timedelta(hours=2.5)
+    else:
+        xs = list(range(n))
+        width = 0.65
     for i, row in enumerate(month_bars.itertuples()):
         o, h, l, c = float(row.open), float(row.high), float(row.low), float(row.close)
         color = "#15803d" if c >= o else "#b91c1c"
-        ax.vlines(i, l, h, color=color, linewidth=1.0)
+        x = xs[i]
+        ax.vlines(x, l, h, color=color, linewidth=1.0)
         body_lo, body_hi = min(o, c), max(o, c)
         if body_hi - body_lo < 1e-6:
             body_hi = body_lo + 1e-5
-        ax.add_patch(
-            Rectangle((i - width / 2, body_lo), width, body_hi - body_lo, facecolor=color, edgecolor=color, alpha=0.85)
-        )
+        if x_is_datetime:
+            # ~3h body width in day units
+            xnum = mdates.date2num(pd.Timestamp(x).to_pydatetime())
+            ax.add_patch(
+                Rectangle(
+                    (xnum - 0.06, body_lo),
+                    0.12,
+                    body_hi - body_lo,
+                    facecolor=color,
+                    edgecolor=color,
+                    alpha=0.85,
+                )
+            )
+        else:
+            ax.add_patch(
+                Rectangle((x - width / 2, body_lo), width, body_hi - body_lo, facecolor=color, edgecolor=color, alpha=0.85)
+            )
 
-    rh, rl, r = _or_levels(month_bars, or_sessions)
+    if or_rh is not None and or_rl is not None:
+        rh, rl, r = float(or_rh), float(or_rl), float(or_rh) - float(or_rl)
+    else:
+        rh, rl, r = _or_levels(month_bars, or_sessions)
     ax.axhline(rh, color="#2563eb", lw=1.4, label="ORH")
     ax.axhline(rl, color="#9333ea", lw=1.4, label="ORL")
     ax.axhline(rh + 0.25 * r, color="#2563eb", ls="--", lw=0.9, alpha=0.8, label="Long 0.25R")
@@ -94,14 +135,21 @@ def _plot_month(
     ax.axhline(rl - 0.25 * r, color="#9333ea", ls="--", lw=0.9, alpha=0.8, label="Short 0.25R")
     ax.axhline(rl - 1.0 * r, color="#9333ea", ls=":", lw=0.9, alpha=0.8, label="Short 1R")
     ax.axhline(rl - 2.0 * r, color="#9333ea", ls="-.", lw=0.9, alpha=0.7, label="Short 2R")
-    if len(month_bars) > or_sessions:
-        ax.axvline(or_sessions - 0.5, color="#64748b", lw=1.0, alpha=0.7)
 
     for _, f in month_fills.iterrows():
-        key = pd.Timestamp(f["day"]).strftime("%Y-%m-%d")
-        if key not in x_map:
-            continue
-        x = x_map[key]
+        fts = pd.Timestamp(f["ts"])
+        if x_is_datetime:
+            # snap to nearest 4h bar
+            diffs = (month_bars["ts"] - fts).abs()
+            if diffs.empty:
+                continue
+            x = month_bars.loc[diffs.idxmin(), "ts"]
+        else:
+            key = pd.Timestamp(f["day"]).strftime("%Y-%m-%d")
+            x_map = {d.strftime("%Y-%m-%d"): i for i, d in enumerate(month_bars["day"])}
+            if key not in x_map:
+                continue
+            x = x_map[key]
         reason = str(f["reason"])
         side = str(f["side"])
         if reason == "entry":
@@ -116,7 +164,6 @@ def _plot_month(
             marker, color, label = ("x", "#334155", "close")
         ax.scatter([x], [float(f["price"])], marker=marker, c=color, s=55, zorder=5, label=label)
 
-    # de-dupe legend
     handles, labels = ax.get_legend_handles_labels()
     seen = set()
     uniq = []
@@ -125,14 +172,26 @@ def _plot_month(
             continue
         seen.add(lab)
         uniq.append((h, lab))
-    ax.legend([h for h, _ in uniq], [lab for _, lab in uniq], loc="upper left", fontsize=8, ncol=2)
+    ax.legend(
+        [h for h, _ in uniq],
+        [lab for _, lab in uniq],
+        loc=legend_loc,
+        fontsize=8,
+        ncol=2,
+        framealpha=0.9,
+    )
     ax.set_title(title)
     ax.set_ylabel(ylabel)
     ax.grid(True, alpha=0.18)
-    labels_x = [pd.Timestamp(d).strftime("%m-%d") for d in month_bars["day"]]
-    step = max(1, len(labels_x) // 10)
-    ax.set_xticks(xs[::step])
-    ax.set_xticklabels(labels_x[::step], rotation=45, ha="right")
+    if x_is_datetime:
+        ax.xaxis.set_major_formatter(mdates.DateFormatter("%m-%d %Hh"))
+        ax.xaxis.set_major_locator(mdates.AutoDateLocator())
+        fig.autofmt_xdate(rotation=45, ha="right")
+    else:
+        labels_x = [pd.Timestamp(d).strftime("%m-%d") for d in month_bars["day"]]
+        step = max(1, len(labels_x) // 10)
+        ax.set_xticks(list(range(n))[::step])
+        ax.set_xticklabels(labels_x[::step], rotation=45, ha="right")
     fig.tight_layout()
     out.parent.mkdir(parents=True, exist_ok=True)
     fig.savefig(out, dpi=140)
@@ -149,33 +208,57 @@ def run(
     point_value: float = 100000.0,
     fee_per_unit: float = 7.0,
     max_charts: int = 300,
+    *,
+    chart_bars_path: Optional[Path] = None,
+    chart_timeframe: str = "D",
+    legend_loc: str = "upper left",
 ) -> List[Path]:
     instrument = instrument.upper()
-    bars = _load_bars(state_root / "bars" / ("%s_D.csv" % instrument))
+    daily = _load_bars(state_root / "bars" / ("%s_D.csv" % instrument))
+    if chart_bars_path is not None:
+        chart_bars = _load_bars(chart_bars_path)
+        x_is_datetime = chart_timeframe.upper() != "D"
+    else:
+        chart_bars = daily
+        x_is_datetime = False
     fills = _load_fills(state_root / "fills.csv")
     trade_months = sorted(fills.loc[fills["reason"] == "entry", "month"].unique())
     if max_charts > 0 and len(trade_months) > max_charts:
         trade_months = trade_months[-max_charts:]
     built: List[Path] = []
+    tf_note = "4h candles" if chart_timeframe.upper() == "4H" else "daily candles"
     index_lines = [
-        "# %s %s — trade months" % (instrument, label),
+        "# %s %s — trade months (%s)" % (instrument, label, tf_note),
         "",
         "Ignore first OR break → arm opposite. %s" % ladder_note,
-        "Markers: entry (^/v), tp1, tp2, tp3 (*), close (x).",
+        "Markers: entry (^/v), tp1, tp2, tp3 (*), close (x). Legend: %s." % legend_loc,
         "",
         "| Month | Entries | Chart |",
         "|---|---:|---|",
     ]
     for mk in trade_months:
         year, month = mk.split("-")
-        mbar = bars[bars["day"].dt.strftime("%Y-%m") == mk].copy()
+        dbar = daily[daily["day"].dt.strftime("%Y-%m") == mk].copy()
+        mbar = chart_bars[chart_bars["day"].dt.strftime("%Y-%m") == mk].copy()
         mfill = fills[fills["month"] == mk].copy()
-        if mbar.empty:
+        if mbar.empty or dbar.empty:
             continue
+        rh, rl, _ = _or_levels(dbar, or_sessions)
         n_entry = int((mfill["reason"] == "entry").sum())
         out = output_root / year / ("%s.png" % mk)
-        title = "%s %s — %s (%d entries)" % (instrument, label, mk, n_entry)
-        _plot_month(mbar, mfill, out, title, or_sessions=or_sessions, ylabel=instrument)
+        title = "%s %s — %s (%d entries, %s)" % (instrument, label, mk, n_entry, tf_note)
+        _plot_month(
+            mbar,
+            mfill,
+            out,
+            title,
+            or_sessions=or_sessions,
+            ylabel=instrument,
+            or_rh=rh,
+            or_rl=rl,
+            legend_loc=legend_loc,
+            x_is_datetime=x_is_datetime,
+        )
         built.append(out)
         rel = "%s/%s.png" % (year, mk)
         index_lines.append("| %s | %d | [%s](%s) |" % (mk, n_entry, rel, rel))

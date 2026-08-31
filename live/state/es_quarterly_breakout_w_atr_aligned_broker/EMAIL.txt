@@ -1,0 +1,13 @@
+ES quarterly breakout — Weekly ATR aligned causal broker-like complete.
+
+HP coupon: Weekly ATR aligned n=49 +1.8pp +$0.7k NOT VALIDATED (ΔN/S −0.81, p_master 1.00)
+
+Hub: /home/tester/hsm/potions/live/state/es_quarterly_breakout_w_atr_aligned_broker
+Gate: require_w_atr_aligns=w_atr_aligned (plugin, causal)
+
+Baseline: trades=60 net=$1258367.50 stress=$-225184.00 N/S=5.59
+w_atr_aligned gated: trades=58 net=$1169911.50 stress=$-235924.50 N/S=4.96
+
+Stance: research — plugin-gated w_atr_aligned book; HP size-up stays NOT VALIDATED
+
+COMPARE: /home/tester/hsm/potions/live/state/es_quarterly_breakout_w_atr_aligned_broker/COMPARE.md

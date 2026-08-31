@@ -1,0 +1,20 @@
+{
+  "allowed_sides": [
+    "lower"
+  ],
+  "bars": 36439,
+  "closed_dd_usd": -163647.99999999988,
+  "intrabar_stress_dd_usd": -167720.0,
+  "market": "XAUUSD",
+  "max_open_units": 20,
+  "net_over_stress": 4.243814269538472,
+  "net_usd": 711772.5292869925,
+  "path_id": "",
+  "profit_factor": 2.7862271930249816,
+  "risk_atr_mult": 2.0,
+  "strategy_id": "xauusd_quarterly_atr4_fade_ladder",
+  "trade_mode": "first_only",
+  "trades": 30,
+  "units": 600,
+  "win_rate": 0.36666666666666664
+}

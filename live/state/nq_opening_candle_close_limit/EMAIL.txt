@@ -1,0 +1,10 @@
+NQ opening-candle close-limit 3R study complete
+Hub: /home/tester/hsm/potions/live/state/nq_opening_candle_close_limit
+
+Stance: WORKS — best limit book N/S 3.91; proceed to HP analysis
+HP candidate: open1h_close_limit_3r
+
+open30_close_limit_3r: trades=3904 WR=34.3% net=$+81395 N/S=1.92 | entry=3959 stop=2385 tp=683 eod=847
+open1h_close_limit_3r: trades=3906 WR=38.5% net=$+144018 N/S=3.91 | entry=3985 stop=2081 tp=563 eod=1276
+open30_market_close_3r: trades=3958 WR=32.2% net=$+162050 N/S=5.26 | entry=4014 stop=2497 tp=607 eod=866
+open1h_market_close_3r: trades=3943 WR=37.2% net=$+176743 N/S=5.57 | entry=4028 stop=2143 tp=518 eod=1296

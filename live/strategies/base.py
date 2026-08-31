@@ -3,7 +3,15 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import List
 
-from ..models import Bar, BrokerOrder, Fill, Position, StrategyActions, StrategyInstance
+from ..models import (
+    OPEN_ORDER_STATUSES,
+    Bar,
+    BrokerOrder,
+    Fill,
+    Position,
+    StrategyActions,
+    StrategyInstance,
+)
 from ..store import FlatFileStore
 
 
@@ -34,7 +42,7 @@ class StrategyContext:
             if order.strategy_id == self.instance.strategy_id
             and order.instrument == self.instance.instrument
             and order.account_mode == self.instance.account_mode
-            and order.status in {"submitted", "partially_filled"}
+            and order.status in OPEN_ORDER_STATUSES
         ]
 
 

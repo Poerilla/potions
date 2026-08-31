@@ -1,0 +1,73 @@
+CORRECTED STANCE: prior auto-stance mis-parsed NOT VALIDATED as VALIDATED.
+True nulls outcome: 1× RISK THROTTLE (week-of-month=1) + 4× NOT VALIDATED.
+Do not size-up.
+
+potions: weekly OD half+EOW HA mill complete
+
+Hub: /home/tester/hsm/potions/live/state/weekly_open_day_breakout_od_half_eow_ha_conditions
+Book: NAS100 1@0.5×OD + 1@1×OD (BE) + 1 EOW bull×hivol (~$+12.8k / −$9.0k stress / N/S 1.43 / 202)
+DSR: TRL-2026-00166 (parallel ledger)
+Stance: RISK THROTTLE / NOT VALIDATED — shadow only; no size-up promote
+
+Variant N/S reminder (weekly OD bull×hivol family, broker-like):
+
+  This book (1m Engine+PaperBroker):
+    1@0.5×OD + 1@1×OD (BE) + 1 EOW     N/S 1.43  (+$12.8k / 202)
+  Same pack refs:
+    half + 3×OD runner                 N/S 1.38  (+$12.3k / 202)
+    OCO 1R                             N/S 1.15  (+$3.3k / 202)
+    2/1/1 scale                        N/S 1.36  (+$15.1k / 198)
+  Holiday/thin Monday filter on half+EOW: N/S 1.07 — do not promote.
+
+
+=== PROFILE ===
+potions: weekly OD half+EOW HA profile complete
+
+Hub: /home/tester/hsm/potions/live/state/weekly_open_day_breakout_od_half_eow_ha_conditions/profile
+Book: nas100_wod_od_half_eow_bull_hivol
+campaigns: 202  notables: 7
+baseline net=$12831 N/S=1.46
+DSR: TRL-2026-00166 (parallel)
+
+Variant N/S reminder (weekly OD bull×hivol family, broker-like):
+
+  This book (1m Engine+PaperBroker):
+    1@0.5×OD + 1@1×OD (BE) + 1 EOW     N/S 1.43  (+$12.8k / 202)
+  Same pack refs:
+    half + 3×OD runner                 N/S 1.38  (+$12.3k / 202)
+    OCO 1R                             N/S 1.15  (+$3.3k / 202)
+    2/1/1 scale                        N/S 1.36  (+$15.1k / 198)
+  Holiday/thin Monday filter on half+EOW: N/S 1.07 — do not promote.
+
+=== OVERLAY ===
+potions: weekly OD half+EOW HA overlay complete
+
+Hub: /home/tester/hsm/potions/live/state/weekly_open_day_breakout_od_half_eow_ha_conditions/overlay
+Candidates: 7
+
+Top full-tape by ΔN/S:
+  Week of month=1 | filter | hp=22% ΔN/S=+4.06 Δnet=$-3162
+  ATR14 quartile=atr_q3 | filter | hp=25% ΔN/S=+2.62 Δnet=$-4437
+  Day of week=Thursday | filter | hp=15% ΔN/S=+2.61 Δnet=$-9024
+  Hourly RSI bucket=rsi_55_70 | filter | hp=37% ΔN/S=+1.09 Δnet=$-2263
+  Day of week=Wednesday | filter | hp=21% ΔN/S=+0.72 Δnet=$-7795
+  ATR14 quartile=atr_q4 | filter | hp=25% ΔN/S=+0.60 Δnet=$-4565
+  ATR14 quartile=atr_q3 | size_1.5 | hp=25% ΔN/S=+0.48 Δnet=$+4197
+  Week of month=1 | size_1.5 | hp=22% ΔN/S=+0.40 Δnet=$+4834
+  Hourly RSI bucket=rsi_55_70 | size_1.5 | hp=37% ΔN/S=+0.27 Δnet=$+5284
+  Entry hour (NY)=12 | size_1.5 | hp=14% ΔN/S=+0.25 Δnet=$+1849
+  ATR14 quartile=atr_q3 | size_1.25 | hp=25% ΔN/S=+0.24 Δnet=$+2098
+  Week of month=1 | size_1.25 | hp=22% ΔN/S=+0.21 Δnet=$+2417
+
+=== NULLS ===
+potions: weekly OD half+EOW HA nulls complete
+
+Hub: /home/tester/hsm/potions/live/state/weekly_open_day_breakout_od_half_eow_ha_conditions/nulls
+Pairs: 5
+
+  Week of month=1 | RISK THROTTLE | ΔN/S=+0.21 hp=22%
+  Hourly RSI bucket=rsi_55_70 | NOT VALIDATED | ΔN/S=+0.14 hp=37%
+  Entry hour (NY)=12 | NOT VALIDATED | ΔN/S=+0.12 hp=14%
+  Day of week=Thursday | NOT VALIDATED | ΔN/S=+0.08 hp=15%
+  Day of week=Wednesday | NOT VALIDATED | ΔN/S=+0.05 hp=21%
+

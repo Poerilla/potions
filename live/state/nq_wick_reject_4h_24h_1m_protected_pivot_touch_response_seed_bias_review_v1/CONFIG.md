@@ -1,0 +1,14 @@
+# CONFIG — nq_wick_reject_4h_24h_1m_protected_pivot_touch_response_seed_bias_review_v1
+
+```
+study_id=nq_wick_reject_4h_24h_1m_protected_pivot_touch_response_seed_bias_review_v1
+parent=nq_wick_reject_4h_24h_1m_protected_pivot_touch_response_v1
+parent_config_hash=402795e0a05e2fbc
+remap=nq_wick_reject_4h_24h_1m_protected_pivot_touch_response_v1_against_seed_bias
+chart_generator=seed_bias_review_charts_v1
+data_version=nq/raw/glbx-mdp3-20100606-20260616.ohlcv-1m.dbn.zst
+policy=POLICY_A_FULL_AVAILABLE_FUTURES_DATA
+descriptive_only=true
+visual_review_only=true
+no_trade_model=true
+```

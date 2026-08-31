@@ -1,0 +1,24 @@
+Monthly ATR pct75 lookback overlay (skip/size)
+
+Hub: live/state/monthly_open_atr_extension_band/lookback_overlay
+
+Baselines:
+  NQ n=102 net=$344,824 N/S=1.44
+  US30 n=54 net=$-3,935 N/S=-0.11
+  YM n=93 net=$-12,513 N/S=-0.10
+  PORT n=249 net=$328,375 N/S=0.87
+
+
+Note: US30/YM full-tape nets are flat/negative — size/filter there is salvage, not promote.
+
+worth_* OOS (positive baseline + net/N/S, not lift):
+  NQ prior_atr_reverted=true size_1.25 hit=8 Δnet=+72,407 ΔNS=+0.23
+  NQ prior_atr_reverted=true size_1.5 hit=8 Δnet=+144,814 ΔNS=+0.44
+  NQ swept_swing_low_6m=true size_1.25 hit=5 Δnet=+32,128 ΔNS=+0.03
+  NQ swept_swing_low_6m=true size_1.5 hit=5 Δnet=+64,256 ΔNS=+0.06
+  US30 prior_bear=true size_1.25 hit=9 Δnet=+2,458 ΔNS=+0.12
+  US30 prior_bear=true size_1.5 hit=9 Δnet=+4,916 ΔNS=+0.22
+
+Stance: primary shadow = NQ prior_atr_reverted size; US30 prior_bear OOS-only — still no promote; nulls required.
+NQ baseline: n=102 net=$344,824 N/S=1.44
+Artifacts: SUMMARY.md, overlay_results.csv, trades_pct75.csv

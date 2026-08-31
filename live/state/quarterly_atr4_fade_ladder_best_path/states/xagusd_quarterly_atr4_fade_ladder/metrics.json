@@ -1,0 +1,20 @@
+{
+  "allowed_sides": [
+    "upper"
+  ],
+  "bars": 35920,
+  "closed_dd_usd": -14416.027998535696,
+  "intrabar_stress_dd_usd": -14715.942950558656,
+  "market": "XAGUSD",
+  "max_open_units": 10,
+  "net_over_stress": -0.1621059298796395,
+  "net_usd": -2385.5416160560367,
+  "path_id": "second_after_lower",
+  "profit_factor": 0.8947017671431235,
+  "risk_atr_mult": 1.5,
+  "strategy_id": "xagusd_quarterly_atr4_fade_ladder",
+  "trade_mode": "second_only",
+  "trades": 9,
+  "units": 90,
+  "win_rate": 0.24444444444444444
+}

@@ -1,0 +1,13 @@
+family,name,strategy_id,status,units,trades,net_jpy,stress_jpy,ns,wr_units,net_usd_approx,error
+yearly_orb,Yearly ORB scaleout3,audjpy_yearly_orb_scaleout3,ok,438.0,146.0,21133709.0,-1384635.0,15.26,88.8,192125.0,
+yearly_orb,Yearly ORB scaleout3 20% range-close,audjpy_yearly_orb_scaleout3_range_close_20pct,ok,246.0,82.0,-714747.0,-13378433.0,-0.05,29.7,-6498.0,
+monthly_orb,Monthly ORB restricted scaleout3,audjpy_monthly_orb_restricted_scaleout3,ok,960.0,320.0,6365455.0,-7912227.0,0.8,57.9,57868.0,
+monthly_orb,Monthly ORB restricted scaleout3 boundary-stop entry,audjpy_monthly_orb_restricted_scaleout3_boundary_stop,ok,1848.0,616.0,3302239.0,-7459045.0,0.44,40.4,30020.0,
+atr_st,ATR daily ladder 1/1/2/2/2 10-max,audjpy_atr_daily_ladder112221_10max,ok,472.0,216.0,2110396.0,-15451003.0,0.14,28.4,19185.0,
+atr_st,ATR daily 3-initial 10-max,audjpy_atr_daily_3initial_10max,ok,830.0,216.0,1910290.0,-15298126.0,0.12,21.7,17366.0,
+atr_st,ATR weekly 2-initial / 3-add / 6-max,audjpy_atr_weekly_2initial_3add_6max,ok,202.0,64.0,-1178014.0,-18034491.0,-0.07,20.8,-10709.0,
+hourly_st_pmc,ST+PMC base_1x_50sl_150tp,audjpy_hourly_st_pmc_base_1x_50sl_150tp,ok,1338.0,1338.0,602475.0,-2606044.0,0.23,25.5,5477.0,
+hourly_st_pmc,ST+PMC sl40_tp120_3r,audjpy_hourly_st_pmc_sl40_tp120_3r,ok,1557.0,1557.0,335769.0,-2516177.0,0.13,25.4,3052.0,
+hourly_st_pmc,ST+PMC sl25_tp75_3r,audjpy_hourly_st_pmc_sl25_tp75_3r,ok,1981.0,1981.0,4268502.0,-1727364.0,2.47,27.4,38805.0,
+hourly_st_pmc,ST+PMC sl40_tp120_3r_ma_directional_prior,audjpy_hourly_st_pmc_sl40_tp120_3r_ma_directional_prior,ok,1268.0,1268.0,1089236.0,-1583776.0,0.69,25.9,9902.0,
+v2b_prior_opposed,v2b OCO prior-opposed S_1_1_3 (2015+),audjpy_v2b_oco_prior_opposed_S_1_1_3,ok,,,-10789495.0,-11374771.0,-0.95,0.0,-98086.0,

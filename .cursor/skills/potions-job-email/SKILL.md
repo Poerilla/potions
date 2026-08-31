@@ -35,6 +35,12 @@ Drivers should accept `--email` and write `EMAIL.txt` + call `send_email` on fin
 - Key metrics (net, stress, N/S, trades) or crash traceback tip
 - Promote / reject stance when applicable
 
+## Run ledger (always)
+
+Also append/complete a row in `data/validation/broker_run_ledger.csv` via skill
+`potions-run-ledger` (`live.run_ledger`). Covers Engine, pandas, deep-check, sweeps.
+Do this even when the driver already emailed.
+
 ## Arming watchers
 
 For background batches already running without `--email`:

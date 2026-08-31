@@ -1,0 +1,18 @@
+potions: US30 PMC fade × 4h structure-bias QUEUED
+
+Hub: live/state/us30_pmc_failed_break_fade_structure_bias/
+DSR: TRL-2026-00189 (append on start; not peeked)
+Parent: us30_pmc_failed_break_fade confirmed N=129 net+$2612 N/S=0.81 WR=49.6% runner_share=72% (RESEARCH_WEAK_POSITIVE)
+
+Blocked on: continuation slippage stress pid 824591 (~tick=1 ~61%; ticks 2/4/8 pending; ~5h ETA for full set).
+Queue pid: see hub/queue.pid — fires agent after stress exits.
+
+Pre-registered only:
+  Phase 1 — descriptive ALIGNED / OPPOSED / NEUTRAL / UNAVAILABLE on confirmed fades
+  Phase 2 — baseline | aligned_only | aligned_plus_neut
+  Bias — existing StructureProgramEngine on completed 4h (buy/sell/neutral/unavailable)
+  No size-up, no scale-in, no extra filters, no second structure engine
+
+Gates: archive if ALIGNED ≤ baseline; shadow if N≲50; plugin candidate only if higher N/S + lower stress + stable + no worse runner share.
+
+Plan: hub/RESEARCH_PLAN.md

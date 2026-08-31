@@ -1,0 +1,9 @@
+# CONFIG — nq_wick_reject_4h_24h_1m_protected_pivot_touch_response_opposed_bias_audit_v1
+
+parent=nq_wick_reject_4h_24h_1m_protected_pivot_touch_response_v1
+parent_config_hash=402795e0a05e2fbc
+mode=OPPOSED_STRUCTURE_BIAS_MIRROR
+descriptive_only=true
+mirror_audit_only=true
+no_trade_model=true
+

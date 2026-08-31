@@ -1,0 +1,208 @@
+{
+  "definition": {
+    "mid": "adverse path from prior breakout edge reaches prior mid (0.5W back into range)",
+    "far_100pct": "adverse path reaches opposite prior extreme (prior_low for longs / prior_high for shorts) = 1.0W back",
+    "window": "signal next bar through end of breakout quarter",
+    "mid_only": "touched mid but never opposite extreme within quarter"
+  },
+  "overall": {
+    "n": 60.0,
+    "mean_W": 336.45,
+    "touch_mid_rate": 0.23333333333333334,
+    "touch_far_rate": 0.08333333333333333,
+    "mid_only_rate": 0.15,
+    "mid_then_far_rate": 0.08333333333333333,
+    "P_far_given_mid": 0.35714285714285715,
+    "median_mae_over_W": 0.19298587296616793,
+    "mean_mae_over_W": 0.37231032153845944,
+    "median_deepest_W": 0.19298587296616793,
+    "mean_deepest_W": 0.37231032153845944,
+    "pct_deepest_ge_0.5": 0.23333333333333334,
+    "pct_deepest_ge_1.0": 0.08333333333333333,
+    "pct_deepest_lt_0.5": 0.7666666666666667
+  },
+  "Q4_large": {
+    "n": 15.0,
+    "mean_W": 682.4166666666666,
+    "touch_mid_rate": 0.3333333333333333,
+    "touch_far_rate": 0.06666666666666667,
+    "mid_only_rate": 0.26666666666666666,
+    "mid_then_far_rate": 0.06666666666666667,
+    "P_far_given_mid": 0.2,
+    "median_mae_over_W": 0.20269200316706254,
+    "mean_mae_over_W": 0.3829430370462002,
+    "median_deepest_W": 0.20269200316706254,
+    "mean_deepest_W": 0.3829430370462002,
+    "pct_deepest_ge_0.5": 0.3333333333333333,
+    "pct_deepest_ge_1.0": 0.06666666666666667,
+    "pct_deepest_lt_0.5": 0.6666666666666666
+  },
+  "Q1_Q3": {
+    "n": 45.0,
+    "mean_W": 221.12777777777777,
+    "touch_mid_rate": 0.2,
+    "touch_far_rate": 0.08888888888888889,
+    "mid_only_rate": 0.1111111111111111,
+    "mid_then_far_rate": 0.08888888888888889,
+    "P_far_given_mid": 0.4444444444444444,
+    "median_mae_over_W": 0.1832797427652733,
+    "mean_mae_over_W": 0.3687660830358792,
+    "median_deepest_W": 0.1832797427652733,
+    "mean_deepest_W": 0.3687660830358792,
+    "pct_deepest_ge_0.5": 0.2,
+    "pct_deepest_ge_1.0": 0.08888888888888889,
+    "pct_deepest_lt_0.5": 0.8
+  },
+  "by_quartile": [
+    {
+      "width_q": "Q1_small",
+      "n": 15.0,
+      "mean_W": 120.51666666666667,
+      "touch_mid_rate": 0.2,
+      "touch_far_rate": 0.13333333333333333,
+      "mid_only_rate": 0.06666666666666667,
+      "mid_then_far_rate": 0.13333333333333333,
+      "P_far_given_mid": 0.6666666666666666,
+      "median_mae_over_W": 0.1311787072243346,
+      "mean_mae_over_W": 0.34787416476791055,
+      "median_deepest_W": 0.1311787072243346,
+      "mean_deepest_W": 0.34787416476791055,
+      "pct_deepest_ge_0.5": 0.2,
+      "pct_deepest_ge_1.0": 0.13333333333333333,
+      "pct_deepest_lt_0.5": 0.8
+    },
+    {
+      "width_q": "Q2",
+      "n": 16.0,
+      "mean_W": 197.09375,
+      "touch_mid_rate": 0.1875,
+      "touch_far_rate": 0.0,
+      "mid_only_rate": 0.1875,
+      "mid_then_far_rate": 0.0,
+      "P_far_given_mid": 0.0,
+      "median_mae_over_W": 0.15445394173439544,
+      "mean_mae_over_W": 0.3081244561547556,
+      "median_deepest_W": 0.15445394173439544,
+      "mean_deepest_W": 0.3081244561547556,
+      "pct_deepest_ge_0.5": 0.1875,
+      "pct_deepest_ge_1.0": 0.0,
+      "pct_deepest_lt_0.5": 0.8125
+    },
+    {
+      "width_q": "Q3",
+      "n": 14.0,
+      "mean_W": 356.39285714285717,
+      "touch_mid_rate": 0.21428571428571427,
+      "touch_far_rate": 0.14285714285714285,
+      "mid_only_rate": 0.07142857142857142,
+      "mid_then_far_rate": 0.14285714285714285,
+      "P_far_given_mid": 0.6666666666666666,
+      "median_mae_over_W": 0.22822574466047313,
+      "mean_mae_over_W": 0.4604549976157008,
+      "median_deepest_W": 0.22822574466047313,
+      "mean_deepest_W": 0.4604549976157008,
+      "pct_deepest_ge_0.5": 0.21428571428571427,
+      "pct_deepest_ge_1.0": 0.14285714285714285,
+      "pct_deepest_lt_0.5": 0.7857142857142857
+    },
+    {
+      "width_q": "Q4_large",
+      "n": 15.0,
+      "mean_W": 682.4166666666666,
+      "touch_mid_rate": 0.3333333333333333,
+      "touch_far_rate": 0.06666666666666667,
+      "mid_only_rate": 0.26666666666666666,
+      "mid_then_far_rate": 0.06666666666666667,
+      "P_far_given_mid": 0.2,
+      "median_mae_over_W": 0.20269200316706254,
+      "mean_mae_over_W": 0.3829430370462002,
+      "median_deepest_W": 0.20269200316706254,
+      "mean_deepest_W": 0.3829430370462002,
+      "pct_deepest_ge_0.5": 0.3333333333333333,
+      "pct_deepest_ge_1.0": 0.06666666666666667,
+      "pct_deepest_lt_0.5": 0.6666666666666666
+    }
+  ],
+  "by_p75_large": [
+    {
+      "is_large": false,
+      "n": 45.0,
+      "mean_W": 221.12777777777777,
+      "touch_mid_rate": 0.2,
+      "touch_far_rate": 0.08888888888888889,
+      "mid_only_rate": 0.1111111111111111,
+      "mid_then_far_rate": 0.08888888888888889,
+      "P_far_given_mid": 0.4444444444444444,
+      "median_mae_over_W": 0.1832797427652733,
+      "mean_mae_over_W": 0.3687660830358792,
+      "median_deepest_W": 0.1832797427652733,
+      "mean_deepest_W": 0.3687660830358792,
+      "pct_deepest_ge_0.5": 0.2,
+      "pct_deepest_ge_1.0": 0.08888888888888889,
+      "pct_deepest_lt_0.5": 0.8
+    },
+    {
+      "is_large": true,
+      "n": 15.0,
+      "mean_W": 682.4166666666666,
+      "touch_mid_rate": 0.3333333333333333,
+      "touch_far_rate": 0.06666666666666667,
+      "mid_only_rate": 0.26666666666666666,
+      "mid_then_far_rate": 0.06666666666666667,
+      "P_far_given_mid": 0.2,
+      "median_mae_over_W": 0.20269200316706254,
+      "mean_mae_over_W": 0.3829430370462002,
+      "median_deepest_W": 0.20269200316706254,
+      "mean_deepest_W": 0.3829430370462002,
+      "pct_deepest_ge_0.5": 0.3333333333333333,
+      "pct_deepest_ge_1.0": 0.06666666666666667,
+      "pct_deepest_lt_0.5": 0.6666666666666666
+    }
+  ],
+  "depth_mix_pct_by_q": [
+    {
+      "width_q": "Q1_small",
+      "beyond_far_>1W": 6.666666666666667,
+      "past_mid_not_far_0.5-1W": 6.666666666666667,
+      "shallow_<0.25W": 60.0,
+      "to_far_~1W": 6.666666666666667,
+      "to_near_mid_0.25-0.5W": 20.0
+    },
+    {
+      "width_q": "Q2",
+      "beyond_far_>1W": 0.0,
+      "past_mid_not_far_0.5-1W": 18.75,
+      "shallow_<0.25W": 56.25,
+      "to_far_~1W": 0.0,
+      "to_near_mid_0.25-0.5W": 25.0
+    },
+    {
+      "width_q": "Q3",
+      "beyond_far_>1W": 14.285714285714285,
+      "past_mid_not_far_0.5-1W": 7.142857142857142,
+      "shallow_<0.25W": 57.14285714285714,
+      "to_far_~1W": 0.0,
+      "to_near_mid_0.25-0.5W": 21.428571428571427
+    },
+    {
+      "width_q": "Q4_large",
+      "beyond_far_>1W": 0.0,
+      "past_mid_not_far_0.5-1W": 26.666666666666668,
+      "shallow_<0.25W": 53.333333333333336,
+      "to_far_~1W": 6.666666666666667,
+      "to_near_mid_0.25-0.5W": 13.333333333333334
+    }
+  ],
+  "timing_Q4": {
+    "median_days_to_mid": 32.0,
+    "median_days_to_far": 83.0
+  },
+  "timing_rest": {
+    "median_days_to_mid": 40.0,
+    "median_days_to_far": 62.0
+  },
+  "timing_all": {
+    "median_days_to_mid": 35.5,
+    "median_days_to_far": 68.0
+  }
+}

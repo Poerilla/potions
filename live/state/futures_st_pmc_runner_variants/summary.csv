@@ -1,13 +1,13 @@
 market,instrument,variant,units,trades,net_usd,stress_dd_usd,ns,wr_pct,max_open,eoy_flatten_events,eoy_flatten_units,eoy_flatten_by_year,notes
-mnq,MNQ,sl50_tp150_3r_1mfill,342,342,23170.75,-1195.44,19.383,42.7,1,0,0,{},fair control: 1 unit SL50 / TP150 on 1m fill tape
-mnq,MNQ,sl50_tp150_runners_2r_10r,627,209,49898.83,-4953.29,10.074,24.2,3,0,0,{},3 units: TP150 + runner@300 + runner@1500; both runners SL→BE after TP1
-mnq,MNQ,sl50_tp150_runners_2r_indef,987,329,96682.72,-52542.34,1.84,56.4,45,3,6,"{""2023"": 1, ""2024"": 4, ""2025"": 1}",3 units: TP150 + runner@300 + indefinite; SL→BE after TP1; EOY flatten; indefinite runners do not block later campaigns
-mym,MYM,sl50_tp150_3r_1mfill,496,496,6515.86,-1365.5,4.772,40.3,1,0,0,{},fair control: 1 unit SL50 / TP150 on 1m fill tape
-mym,MYM,sl50_tp150_runners_2r_10r,1020,340,20600.29,-4468.0,4.611,24.2,3,0,0,{},3 units: TP150 + runner@300 + runner@1500; both runners SL→BE after TP1
-mym,MYM,sl50_tp150_runners_2r_indef,1448,484,53167.47,-31777.22,1.673,59.0,46,5,13,"{""2020"": 2, ""2021"": 2, ""2024"": 5, ""2025"": 3, ""2026"": 1}",3 units: TP150 + runner@300 + indefinite; SL→BE after TP1; EOY flatten; indefinite runners do not block later campaigns
-nq,NQ,sl50_tp150_3r_1mfill,679,679,349516.91,-17038.45,20.513,38.3,1,0,0,{},fair control: 1 unit SL50 / TP150 on 1m fill tape
-nq,NQ,sl50_tp150_runners_2r_10r,876,292,775763.48,-58523.83,13.256,24.2,3,0,0,{},3 units: TP150 + runner@300 + runner@1500; both runners SL→BE after TP1
-nq,NQ,sl50_tp150_runners_2r_indef,1929,644,4573428.88,-1948590.51,2.347,61.3,137,10,41,"{""2011"": 7, ""2014"": 6, ""2015"": 3, ""2018"": 3, ""2019"": 2, ""2020"": 6, ""2021"": 8, ""2023"": 1, ""2024"": 4, ""2025"": 1}",3 units: TP150 + runner@300 + indefinite; SL→BE after TP1; EOY flatten; indefinite runners do not block later campaigns
-ym,YM,sl50_tp150_3r_1mfill,985,985,106425.46,-6025.72,17.662,36.8,1,0,0,{},fair control: 1 unit SL50 / TP150 on 1m fill tape
-ym,YM,sl50_tp150_runners_2r_10r,1734,578,313302.5,-21423.78,14.624,22.2,3,0,0,{},3 units: TP150 + runner@300 + runner@1500; both runners SL→BE after TP1
-ym,YM,sl50_tp150_runners_2r_indef,2857,953,970817.69,-715046.0,1.358,59.0,108,9,28,"{""2011"": 2, ""2012"": 2, ""2014"": 5, ""2016"": 2, ""2017"": 2, ""2020"": 2, ""2021"": 3, ""2024"": 8, ""2025"": 2}",3 units: TP150 + runner@300 + indefinite; SL→BE after TP1; EOY flatten; indefinite runners do not block later campaigns
+mnq,MNQ,sl50_tp150_3r_1mfill,606,606,1995.12,-4808.88,0.415,26.6,1,0,0,{},fair control: 1 unit SL50 / TP150 on 1m fill tape
+mnq,MNQ,sl50_tp150_runners_2r_10r,1104,368,10938.16,-12751.97,0.858,14.9,3,0,0,{},3 units: TP150 + runner@300 + runner@1500; both runners SL→BE after TP1
+mnq,MNQ,sl50_tp150_runners_2r_indef,1818,606,3170.08,-43787.26,0.072,14.7,56,3,8,"{""2023"": 2, ""2024"": 4, ""2025"": 2}",3 units: TP150 + runner@300 + indefinite; SL→BE after TP1; EOY flatten; indefinite runners do not block later campaigns
+mym,MYM,sl50_tp150_3r_1mfill,884,884,-1617.04,-2413.74,-0.67,25.2,1,0,0,{},fair control: 1 unit SL50 / TP150 on 1m fill tape
+mym,MYM,sl50_tp150_runners_2r_10r,1812,604,1960.79,-4871.37,0.403,14.8,3,0,0,{},3 units: TP150 + runner@300 + runner@1500; both runners SL→BE after TP1
+mym,MYM,sl50_tp150_runners_2r_indef,2652,884,-444.99,-14955.2,-0.03,14.1,51,5,11,"{""2020"": 1, ""2023"": 1, ""2024"": 5, ""2025"": 3, ""2026"": 1}",3 units: TP150 + runner@300 + indefinite; SL→BE after TP1; EOY flatten; indefinite runners do not block later campaigns
+nq,NQ,sl50_tp150_3r_1mfill,1128,1128,27571.76,-59227.89,0.466,26.0,1,0,0,{},fair control: 1 unit SL50 / TP150 on 1m fill tape
+nq,NQ,sl50_tp150_runners_2r_10r,1509,503,259027.38,-154947.57,1.672,14.9,3,0,0,{},3 units: TP150 + runner@300 + runner@1500; both runners SL→BE after TP1
+nq,NQ,sl50_tp150_runners_2r_indef,3468,1156,149662.75,-1313831.3,0.114,16.2,190,12,51,"{""2011"": 12, ""2012"": 3, ""2014"": 5, ""2015"": 3, ""2017"": 3, ""2018"": 3, ""2019"": 2, ""2020"": 4, ""2021"": 8, ""2023"": 2, ""2024"": 4, ""2025"": 2}",3 units: TP150 + runner@300 + indefinite; SL→BE after TP1; EOY flatten; indefinite runners do not block later campaigns
+ym,YM,sl50_tp150_3r_1mfill,1762,1762,-33985.55,-44938.27,-0.756,24.0,1,0,0,{},fair control: 1 unit SL50 / TP150 on 1m fill tape
+ym,YM,sl50_tp150_runners_2r_10r,3063,1021,17436.02,-62549.88,0.279,13.8,3,0,0,{},3 units: TP150 + runner@300 + runner@1500; both runners SL→BE after TP1
+ym,YM,sl50_tp150_runners_2r_indef,5301,1767,-64974.17,-436358.97,-0.149,13.9,143,10,25,"{""2011"": 4, ""2012"": 2, ""2014"": 3, ""2016"": 2, ""2017"": 2, ""2020"": 1, ""2021"": 1, ""2023"": 1, ""2024"": 7, ""2025"": 2}",3 units: TP150 + runner@300 + indefinite; SL→BE after TP1; EOY flatten; indefinite runners do not block later campaigns

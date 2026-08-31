@@ -1,0 +1,16 @@
+potions: FX metals yearly ORB 19-cell sizing sweep complete
+
+Hub: live/state/yearly_orb_sizing_sweep_fx_metals
+Cells: 19 × markets AUDJPY, XAGUSD, XAUUSD
+Rank by Net/Stress (currency-invariant). AUDJPY ~USD @110.
+
+Best per market:
+
+AUDJPY: limit_retest 4/1/1 (4/1/1) N/S=24.87 net=¥46,217,168 stress=¥-1,858,200
+  baseline 1/1/1 N/S=15.26 (Δ +9.61)
+XAGUSD: limit_retest 5/2/1 (5/2/1) N/S=8.58 net=$301,375.75 stress=$-35,142.50
+  baseline 1/1/1 N/S=6.21 (Δ +2.36)
+XAUUSD: limit_retest 4/2/1 (4/2/1) N/S=15.32 net=$1,037,710.80 stress=$-67,741.50
+  baseline 1/1/1 N/S=11.30 (Δ +4.02)
+
+Stance: compare front-heavy vs runner-heavy vs baseline; prefer N/S leaders over max-net alone.

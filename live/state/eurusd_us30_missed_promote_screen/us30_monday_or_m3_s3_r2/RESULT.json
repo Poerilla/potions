@@ -1,0 +1,36 @@
+{
+  "candidate": "us30_monday_or_m3_s3_r2",
+  "label": "US30 Monday OR M3_S3_R2 (max 3/wk)",
+  "symbol": "US30",
+  "family": "monday_or",
+  "sizing_note": "27-cell Phase 1 sizing sweep #2",
+  "unit_path": "/home/tester/hsm/potions/live/state/monday_or_sizing_sweep_broker_us30/audits/us30_m3_s3_r2/us30_m3_s3_r2/unit_fills.csv",
+  "skip_months": [
+    9
+  ],
+  "unfiltered_net": 31330.0,
+  "unfiltered_stress": -16941.0,
+  "unfiltered_ns": 1.85,
+  "n_campaigns": 1121,
+  "n_taken": 78,
+  "n_skipped": 1043,
+  "reasons": {
+    "month": 105,
+    "roll": 938,
+    "take": 78,
+    "warmup": 50
+  },
+  "filtered_net": 4263.86,
+  "filtered_closed_dd": -2049.0,
+  "filtered_ns_proxy": 2.080946803318692,
+  "filtered_wr": 0.2948717948717949,
+  "filtered_pf": 1.697046283823549,
+  "unfiltered_wr": 0.2925958965209634,
+  "unfiltered_pf": 1.160350320056976,
+  "unfiltered_closed_dd": -15261.049999999988,
+  "gate_min_wr": 0.4,
+  "gate_min_pf": 1.0,
+  "stance": "promote",
+  "size_mult": 1.0,
+  "reason": "solid mid N/S; skip months [9]; filters lift N/S 1.85\u21922.08"
+}

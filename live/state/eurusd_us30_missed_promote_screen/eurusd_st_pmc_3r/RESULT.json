@@ -1,0 +1,37 @@
+{
+  "candidate": "eurusd_st_pmc_3r",
+  "label": "EURUSD ST+PMC 50/150 fair 3R",
+  "symbol": "EURUSD",
+  "family": "hourly_st_pmc",
+  "sizing_note": "variant grid 3R / 2R\u219210R / indef (fx_index_metals_st_pmc_runner_variants)",
+  "unit_path": "/home/tester/hsm/potions/live/state/fx_index_metals_st_pmc_runner_variants/eurusd/audits/eurusd_hourly_st_pmc_sl50_tp150_3r_1mfill/eurusd_hourly_st_pmc_sl50_tp150_3r_1mfill/unit_fills.csv",
+  "skip_months": [
+    6,
+    8
+  ],
+  "unfiltered_net": 64449.0,
+  "unfiltered_stress": -21432.0,
+  "unfiltered_ns": 3.01,
+  "n_campaigns": 866,
+  "n_taken": 553,
+  "n_skipped": 313,
+  "reasons": {
+    "month": 136,
+    "roll": 177,
+    "take": 553,
+    "warmup": 38
+  },
+  "filtered_net": 61625.73999999999,
+  "filtered_closed_dd": -8526.0,
+  "filtered_ns_proxy": 7.227977949800609,
+  "filtered_wr": 0.3074141048824593,
+  "filtered_pf": 1.318686364979496,
+  "unfiltered_wr": 0.28983833718244806,
+  "unfiltered_pf": 1.211576141816387,
+  "unfiltered_closed_dd": -20118.0,
+  "gate_min_wr": 0.22,
+  "gate_min_pf": 1.0,
+  "stance": "promote",
+  "size_mult": 1.0,
+  "reason": "strong unfiltered N/S + positive filtered book; skip months [6, 8]; filters lift N/S 3.01\u21927.23"
+}

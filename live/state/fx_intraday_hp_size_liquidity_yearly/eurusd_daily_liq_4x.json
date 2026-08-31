@@ -1,0 +1,22 @@
+{
+  "source": "daily_tick_adv",
+  "symbol": "EURUSD",
+  "mult": 4.0,
+  "qty": 4,
+  "n": 175,
+  "missing": 0,
+  "note": "Daily volume is tick ADV in these CSVs \u2014 share is relative only.",
+  "median_day_vol": 261501595003.0,
+  "p10_day_vol": 89706344002.0,
+  "median_pct_day": 1.5296273814139111e-09,
+  "p90_pct_day": 4.4589939510526594e-09,
+  "p95_pct_day": 4.971729848868221e-09,
+  "max_pct_day": 5.064566894281343e-09,
+  "frac_gt_0_1pct": 0.0,
+  "frac_gt_0_5pct": 0.0,
+  "frac_gt_1pct": 0.0,
+  "median_notional": 400000.0,
+  "approx_im": 10000.0,
+  "median_sqrt_participation": 3.9110451051015905e-06,
+  "p90_sqrt_participation": 6.677569880617244e-06
+}

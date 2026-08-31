@@ -1,0 +1,19 @@
+potions: FX metals yearly ORB best-per-market deep-checks complete
+
+Hub: live/state/yearly_orb_sizing_sweep_fx_metals/
+
+Best per market (sized) + deep-check:
+- AUDJPY limit_retest 4/1/1 — N/S 24.87 (Δ +9.61 vs 1/1/1)
+  net ¥46,217,168 / stress ¥-1,858,200 · weakest year 2006 · WR 90%
+  deep_check/audjpy_yorb_sizing_L_4_1_1/ · winloss 52 charts · ONE_PAGE_AUDJPY_L_4_1_1.md
+- XAUUSD limit_retest 4/2/1 — N/S 15.32 (Δ +4.02 vs 1/1/1)
+  net $1,037,711 / stress $-67,742 · weakest year 2012 · WR 95%
+  deep_check/xauusd_yorb_sizing_L_4_2_1/ · winloss charts · ONE_PAGE_XAUUSD_L_4_2_1.md
+- XAGUSD limit_retest 5/2/1 — N/S 8.58 (Δ +2.36 vs 1/1/1)
+  net $301,376 / stress $-35,143 · weakest year 2004 · WR 87%
+  deep_check/xagusd_yorb_sizing_L_5_2_1/ · winloss charts · ONE_PAGE_XAGUSD_L_5_2_1.md
+
+Docs updated: STRATEGY_TRACKER, TOP_STRATS, YEARLY_ORB_RESEARCH_NOTES (how we got here),
+fx_metals_top4 SUMMARY, CHANGE_LOG, PROGRESS.log.
+
+Stance: research / deep-check complete — human promote.

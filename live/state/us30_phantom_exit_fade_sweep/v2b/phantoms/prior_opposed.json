@@ -1,0 +1,2210 @@
+[
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20170424_01",
+    "source_entry_side": "buy",
+    "source_exit_reason": "wide_stop",
+    "trigger_ts": "2017-04-24T11:26:00-04:00",
+    "trigger_price": 20728.9,
+    "fade_side": "buy"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20171031_01",
+    "source_entry_side": "sell",
+    "source_exit_reason": "wide_stop",
+    "trigger_ts": "2017-10-31T11:13:00-04:00",
+    "trigger_price": 23377.1,
+    "fade_side": "sell"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20171101_01",
+    "source_entry_side": "buy",
+    "source_exit_reason": "wide_stop",
+    "trigger_ts": "2017-11-01T11:04:00-04:00",
+    "trigger_price": 23465.9,
+    "fade_side": "buy"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20171101_02",
+    "source_entry_side": "sell",
+    "source_exit_reason": "tp1",
+    "trigger_ts": "2017-11-01T11:35:00-04:00",
+    "trigger_price": 23435.0,
+    "fade_side": "buy"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20171102_01",
+    "source_entry_side": "sell",
+    "source_exit_reason": "tp1",
+    "trigger_ts": "2017-11-02T10:03:00-04:00",
+    "trigger_price": 23401.0,
+    "fade_side": "buy"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20171102_02",
+    "source_entry_side": "buy",
+    "source_exit_reason": "wide_stop",
+    "trigger_ts": "2017-11-02T11:25:00-04:00",
+    "trigger_price": 23424.9,
+    "fade_side": "buy"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20171103_01",
+    "source_entry_side": "sell",
+    "source_exit_reason": "wide_stop",
+    "trigger_ts": "2017-11-03T12:15:00-04:00",
+    "trigger_price": 23544.1,
+    "fade_side": "sell"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20171106_01",
+    "source_entry_side": "sell",
+    "source_exit_reason": "wide_stop",
+    "trigger_ts": "2017-11-06T09:59:00-05:00",
+    "trigger_price": 23548.1,
+    "fade_side": "sell"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20171106_02",
+    "source_entry_side": "buy",
+    "source_exit_reason": "wide_stop",
+    "trigger_ts": "2017-11-06T11:13:00-05:00",
+    "trigger_price": 23522.9,
+    "fade_side": "buy"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20171107_01",
+    "source_entry_side": "buy",
+    "source_exit_reason": "wide_stop",
+    "trigger_ts": "2017-11-07T10:25:00-05:00",
+    "trigger_price": 23560.9,
+    "fade_side": "buy"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20171107_02",
+    "source_entry_side": "sell",
+    "source_exit_reason": "tp1",
+    "trigger_ts": "2017-11-07T10:44:00-05:00",
+    "trigger_price": 23537.0,
+    "fade_side": "buy"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20180313_01",
+    "source_entry_side": "buy",
+    "source_exit_reason": "wide_stop",
+    "trigger_ts": "2018-03-13T10:35:00-04:00",
+    "trigger_price": 25265.9,
+    "fade_side": "buy"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20180313_02",
+    "source_entry_side": "sell",
+    "source_exit_reason": "tp1",
+    "trigger_ts": "2018-03-13T11:27:00-04:00",
+    "trigger_price": 25176.0,
+    "fade_side": "buy"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20180314_01",
+    "source_entry_side": "sell",
+    "source_exit_reason": "tp1",
+    "trigger_ts": "2018-03-14T11:03:00-04:00",
+    "trigger_price": 24900.0,
+    "fade_side": "buy"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20180315_01",
+    "source_entry_side": "sell",
+    "source_exit_reason": "wide_stop",
+    "trigger_ts": "2018-03-15T10:05:00-04:00",
+    "trigger_price": 24865.1,
+    "fade_side": "sell"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20180315_02",
+    "source_entry_side": "buy",
+    "source_exit_reason": "tp1",
+    "trigger_ts": "2018-03-15T11:13:00-04:00",
+    "trigger_price": 24972.0,
+    "fade_side": "sell"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20180319_01",
+    "source_entry_side": "sell",
+    "source_exit_reason": "tp1",
+    "trigger_ts": "2018-03-19T11:47:00-04:00",
+    "trigger_price": 24632.0,
+    "fade_side": "buy"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20180321_01",
+    "source_entry_side": "sell",
+    "source_exit_reason": "wide_stop",
+    "trigger_ts": "2018-03-21T11:37:00-04:00",
+    "trigger_price": 24755.1,
+    "fade_side": "sell"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20180321_02",
+    "source_entry_side": "buy",
+    "source_exit_reason": "tp1",
+    "trigger_ts": "2018-03-21T11:51:00-04:00",
+    "trigger_price": 24818.0,
+    "fade_side": "sell"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20180322_01",
+    "source_entry_side": "buy",
+    "source_exit_reason": "wide_stop",
+    "trigger_ts": "2018-03-22T10:47:00-04:00",
+    "trigger_price": 24329.9,
+    "fade_side": "buy"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20180322_02",
+    "source_entry_side": "sell",
+    "source_exit_reason": "tp1",
+    "trigger_ts": "2018-03-22T11:40:00-04:00",
+    "trigger_price": 24213.0,
+    "fade_side": "buy"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20180323_01",
+    "source_entry_side": "sell",
+    "source_exit_reason": "wide_stop",
+    "trigger_ts": "2018-03-23T11:00:00-04:00",
+    "trigger_price": 24099.1,
+    "fade_side": "sell"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20180323_02",
+    "source_entry_side": "buy",
+    "source_exit_reason": "wide_stop",
+    "trigger_ts": "2018-03-23T14:15:00-04:00",
+    "trigger_price": 23965.9,
+    "fade_side": "buy"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20180326_01",
+    "source_entry_side": "buy",
+    "source_exit_reason": "wide_stop",
+    "trigger_ts": "2018-03-26T10:26:00-04:00",
+    "trigger_price": 23906.9,
+    "fade_side": "buy"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20180326_02",
+    "source_entry_side": "sell",
+    "source_exit_reason": "tp1",
+    "trigger_ts": "2018-03-26T11:18:00-04:00",
+    "trigger_price": 23772.0,
+    "fade_side": "buy"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20180327_01",
+    "source_entry_side": "sell",
+    "source_exit_reason": "wide_stop",
+    "trigger_ts": "2018-03-27T10:56:00-04:00",
+    "trigger_price": 24324.1,
+    "fade_side": "sell"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20180327_02",
+    "source_entry_side": "buy",
+    "source_exit_reason": "tp1",
+    "trigger_ts": "2018-03-27T12:04:00-04:00",
+    "trigger_price": 24434.0,
+    "fade_side": "sell"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20180328_01",
+    "source_entry_side": "buy",
+    "source_exit_reason": "wide_stop",
+    "trigger_ts": "2018-03-28T10:41:00-04:00",
+    "trigger_price": 23803.9,
+    "fade_side": "buy"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20180328_02",
+    "source_entry_side": "sell",
+    "source_exit_reason": "wide_stop",
+    "trigger_ts": "2018-03-28T12:12:00-04:00",
+    "trigger_price": 23990.1,
+    "fade_side": "sell"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20180329_01",
+    "source_entry_side": "sell",
+    "source_exit_reason": "wide_stop",
+    "trigger_ts": "2018-03-29T10:51:00-04:00",
+    "trigger_price": 24041.1,
+    "fade_side": "sell"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20180329_02",
+    "source_entry_side": "buy",
+    "source_exit_reason": "tp1",
+    "trigger_ts": "2018-03-29T11:01:00-04:00",
+    "trigger_price": 24116.0,
+    "fade_side": "sell"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20181030_01",
+    "source_entry_side": "buy",
+    "source_exit_reason": "tp1",
+    "trigger_ts": "2018-10-30T10:20:00-04:00",
+    "trigger_price": 24717.0,
+    "fade_side": "sell"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20181031_01",
+    "source_entry_side": "buy",
+    "source_exit_reason": "tp1",
+    "trigger_ts": "2018-10-31T10:45:00-04:00",
+    "trigger_price": 25262.0,
+    "fade_side": "sell"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20181101_01",
+    "source_entry_side": "sell",
+    "source_exit_reason": "tp1",
+    "trigger_ts": "2018-11-01T10:00:00-04:00",
+    "trigger_price": 25134.0,
+    "fade_side": "buy"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20181101_02",
+    "source_entry_side": "buy",
+    "source_exit_reason": "tp1",
+    "trigger_ts": "2018-11-01T11:29:00-04:00",
+    "trigger_price": 25347.0,
+    "fade_side": "sell"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20181102_01",
+    "source_entry_side": "sell",
+    "source_exit_reason": "tp1",
+    "trigger_ts": "2018-11-02T10:28:00-04:00",
+    "trigger_price": 25411.0,
+    "fade_side": "buy"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20181105_01",
+    "source_entry_side": "sell",
+    "source_exit_reason": "wide_stop",
+    "trigger_ts": "2018-11-05T10:38:00-05:00",
+    "trigger_price": 25384.1,
+    "fade_side": "sell"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20181105_02",
+    "source_entry_side": "buy",
+    "source_exit_reason": "tp1",
+    "trigger_ts": "2018-11-05T14:20:00-05:00",
+    "trigger_price": 25469.0,
+    "fade_side": "sell"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20190312_01",
+    "source_entry_side": "sell",
+    "source_exit_reason": "wide_stop",
+    "trigger_ts": "2019-03-12T10:30:00-04:00",
+    "trigger_price": 25654.1,
+    "fade_side": "sell"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20190312_02",
+    "source_entry_side": "buy",
+    "source_exit_reason": "wide_stop",
+    "trigger_ts": "2019-03-12T11:03:00-04:00",
+    "trigger_price": 25588.9,
+    "fade_side": "buy"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20190313_01",
+    "source_entry_side": "sell",
+    "source_exit_reason": "wide_stop",
+    "trigger_ts": "2019-03-13T09:55:00-04:00",
+    "trigger_price": 25677.1,
+    "fade_side": "sell"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20190313_02",
+    "source_entry_side": "buy",
+    "source_exit_reason": "tp1",
+    "trigger_ts": "2019-03-13T11:08:00-04:00",
+    "trigger_price": 25721.0,
+    "fade_side": "sell"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20190314_01",
+    "source_entry_side": "sell",
+    "source_exit_reason": "tp1",
+    "trigger_ts": "2019-03-14T10:07:00-04:00",
+    "trigger_price": 25627.0,
+    "fade_side": "buy"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20190314_02",
+    "source_entry_side": "buy",
+    "source_exit_reason": "wide_stop",
+    "trigger_ts": "2019-03-14T14:51:00-04:00",
+    "trigger_price": 25673.9,
+    "fade_side": "buy"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20190315_01",
+    "source_entry_side": "sell",
+    "source_exit_reason": "tp1",
+    "trigger_ts": "2019-03-15T10:38:00-04:00",
+    "trigger_price": 25650.0,
+    "fade_side": "buy"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20190315_02",
+    "source_entry_side": "buy",
+    "source_exit_reason": "tp1",
+    "trigger_ts": "2019-03-15T11:49:00-04:00",
+    "trigger_price": 25839.0,
+    "fade_side": "sell"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20190318_01",
+    "source_entry_side": "buy",
+    "source_exit_reason": "tp1",
+    "trigger_ts": "2019-03-18T10:52:00-04:00",
+    "trigger_price": 25880.0,
+    "fade_side": "sell"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20190318_02",
+    "source_entry_side": "sell",
+    "source_exit_reason": "wide_stop",
+    "trigger_ts": "2019-03-18T12:28:00-04:00",
+    "trigger_price": 25842.1,
+    "fade_side": "sell"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20190319_01",
+    "source_entry_side": "sell",
+    "source_exit_reason": "wide_stop",
+    "trigger_ts": "2019-03-19T10:19:00-04:00",
+    "trigger_price": 26054.1,
+    "fade_side": "sell"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20190319_02",
+    "source_entry_side": "buy",
+    "source_exit_reason": "wide_stop",
+    "trigger_ts": "2019-03-19T10:59:00-04:00",
+    "trigger_price": 26011.9,
+    "fade_side": "buy"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20190320_01",
+    "source_entry_side": "sell",
+    "source_exit_reason": "wide_stop",
+    "trigger_ts": "2019-03-20T14:03:00-04:00",
+    "trigger_price": 25861.1,
+    "fade_side": "sell"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20190320_02",
+    "source_entry_side": "buy",
+    "source_exit_reason": "wide_stop",
+    "trigger_ts": "2019-03-20T15:54:00-04:00",
+    "trigger_price": 25747.9,
+    "fade_side": "buy"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20190321_01",
+    "source_entry_side": "buy",
+    "source_exit_reason": "tp1",
+    "trigger_ts": "2019-03-21T11:01:00-04:00",
+    "trigger_price": 25893.0,
+    "fade_side": "sell"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20190322_01",
+    "source_entry_side": "sell",
+    "source_exit_reason": "tp1",
+    "trigger_ts": "2019-03-22T09:53:00-04:00",
+    "trigger_price": 25715.0,
+    "fade_side": "buy"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20190325_01",
+    "source_entry_side": "sell",
+    "source_exit_reason": "wide_stop",
+    "trigger_ts": "2019-03-25T11:21:00-04:00",
+    "trigger_price": 25576.1,
+    "fade_side": "sell"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20190325_02",
+    "source_entry_side": "buy",
+    "source_exit_reason": "wide_stop",
+    "trigger_ts": "2019-03-25T12:36:00-04:00",
+    "trigger_price": 25464.9,
+    "fade_side": "buy"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20190326_01",
+    "source_entry_side": "buy",
+    "source_exit_reason": "wide_stop",
+    "trigger_ts": "2019-03-26T10:07:00-04:00",
+    "trigger_price": 25714.9,
+    "fade_side": "buy"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20190326_02",
+    "source_entry_side": "sell",
+    "source_exit_reason": "wide_stop",
+    "trigger_ts": "2019-03-26T10:28:00-04:00",
+    "trigger_price": 25762.1,
+    "fade_side": "sell"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20190327_01",
+    "source_entry_side": "sell",
+    "source_exit_reason": "tp1",
+    "trigger_ts": "2019-03-27T10:45:00-04:00",
+    "trigger_price": 25593.0,
+    "fade_side": "buy"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20190328_01",
+    "source_entry_side": "sell",
+    "source_exit_reason": "tp1",
+    "trigger_ts": "2019-03-28T12:14:00-04:00",
+    "trigger_price": 25577.0,
+    "fade_side": "buy"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20190329_01",
+    "source_entry_side": "sell",
+    "source_exit_reason": "wide_stop",
+    "trigger_ts": "2019-03-29T14:52:00-04:00",
+    "trigger_price": 25887.1,
+    "fade_side": "sell"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20190401_01",
+    "source_entry_side": "buy",
+    "source_exit_reason": "tp1",
+    "trigger_ts": "2019-04-01T14:09:00-04:00",
+    "trigger_price": 26228.0,
+    "fade_side": "sell"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20191029_01",
+    "source_entry_side": "buy",
+    "source_exit_reason": "tp1",
+    "trigger_ts": "2019-10-29T10:47:00-04:00",
+    "trigger_price": 27153.0,
+    "fade_side": "sell"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20191029_02",
+    "source_entry_side": "sell",
+    "source_exit_reason": "wide_stop",
+    "trigger_ts": "2019-10-29T12:17:00-04:00",
+    "trigger_price": 27096.1,
+    "fade_side": "sell"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20191030_01",
+    "source_entry_side": "sell",
+    "source_exit_reason": "wide_stop",
+    "trigger_ts": "2019-10-30T12:42:00-04:00",
+    "trigger_price": 27097.1,
+    "fade_side": "sell"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20191030_02",
+    "source_entry_side": "buy",
+    "source_exit_reason": "tp1",
+    "trigger_ts": "2019-10-30T15:23:00-04:00",
+    "trigger_price": 27176.0,
+    "fade_side": "sell"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20191031_01",
+    "source_entry_side": "sell",
+    "source_exit_reason": "tp1",
+    "trigger_ts": "2019-10-31T10:11:00-04:00",
+    "trigger_price": 27052.0,
+    "fade_side": "buy"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20191101_01",
+    "source_entry_side": "buy",
+    "source_exit_reason": "tp1",
+    "trigger_ts": "2019-11-01T10:02:00-04:00",
+    "trigger_price": 27238.0,
+    "fade_side": "sell"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20191104_01",
+    "source_entry_side": "sell",
+    "source_exit_reason": "tp1",
+    "trigger_ts": "2019-11-04T12:02:00-05:00",
+    "trigger_price": 27441.0,
+    "fade_side": "buy"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20200310_01",
+    "source_entry_side": "sell",
+    "source_exit_reason": "tp1",
+    "trigger_ts": "2020-03-10T10:52:00-04:00",
+    "trigger_price": 24152.0,
+    "fade_side": "buy"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20200311_01",
+    "source_entry_side": "sell",
+    "source_exit_reason": "tp1",
+    "trigger_ts": "2020-03-11T10:49:00-04:00",
+    "trigger_price": 24008.0,
+    "fade_side": "buy"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20200313_01",
+    "source_entry_side": "sell",
+    "source_exit_reason": "wide_stop",
+    "trigger_ts": "2020-03-13T15:50:00-04:00",
+    "trigger_price": 22515.1,
+    "fade_side": "sell"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20200707_01",
+    "source_entry_side": "buy",
+    "source_exit_reason": "wide_stop",
+    "trigger_ts": "2020-07-07T14:31:00-04:00",
+    "trigger_price": 26043.9,
+    "fade_side": "buy"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20200707_02",
+    "source_entry_side": "sell",
+    "source_exit_reason": "tp1",
+    "trigger_ts": "2020-07-07T15:31:00-04:00",
+    "trigger_price": 25973.0,
+    "fade_side": "buy"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20201027_01",
+    "source_entry_side": "buy",
+    "source_exit_reason": "wide_stop",
+    "trigger_ts": "2020-10-27T10:19:00-04:00",
+    "trigger_price": 27598.9,
+    "fade_side": "buy"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20201027_02",
+    "source_entry_side": "sell",
+    "source_exit_reason": "tp1",
+    "trigger_ts": "2020-10-27T14:46:00-04:00",
+    "trigger_price": 27494.0,
+    "fade_side": "buy"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20201028_01",
+    "source_entry_side": "buy",
+    "source_exit_reason": "wide_stop",
+    "trigger_ts": "2020-10-28T09:59:00-04:00",
+    "trigger_price": 26868.9,
+    "fade_side": "buy"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20201028_02",
+    "source_entry_side": "sell",
+    "source_exit_reason": "tp1",
+    "trigger_ts": "2020-10-28T10:27:00-04:00",
+    "trigger_price": 26690.0,
+    "fade_side": "buy"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20201029_01",
+    "source_entry_side": "buy",
+    "source_exit_reason": "tp1",
+    "trigger_ts": "2020-10-29T14:00:00-04:00",
+    "trigger_price": 26789.0,
+    "fade_side": "sell"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20201030_01",
+    "source_entry_side": "sell",
+    "source_exit_reason": "tp1",
+    "trigger_ts": "2020-10-30T10:25:00-04:00",
+    "trigger_price": 26354.0,
+    "fade_side": "buy"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20201102_01",
+    "source_entry_side": "sell",
+    "source_exit_reason": "wide_stop",
+    "trigger_ts": "2020-11-02T10:00:00-05:00",
+    "trigger_price": 26924.1,
+    "fade_side": "sell"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20201102_02",
+    "source_entry_side": "buy",
+    "source_exit_reason": "wide_stop",
+    "trigger_ts": "2020-11-02T13:21:00-05:00",
+    "trigger_price": 26720.9,
+    "fade_side": "buy"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20201103_01",
+    "source_entry_side": "buy",
+    "source_exit_reason": "tp1",
+    "trigger_ts": "2020-11-03T09:51:00-05:00",
+    "trigger_price": 27423.0,
+    "fade_side": "sell"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20210316_01",
+    "source_entry_side": "sell",
+    "source_exit_reason": "tp1",
+    "trigger_ts": "2021-03-16T10:05:00-04:00",
+    "trigger_price": 32836.0,
+    "fade_side": "buy"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20210317_01",
+    "source_entry_side": "buy",
+    "source_exit_reason": "wide_stop",
+    "trigger_ts": "2021-03-17T10:05:00-04:00",
+    "trigger_price": 32830.9,
+    "fade_side": "buy"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20210317_02",
+    "source_entry_side": "sell",
+    "source_exit_reason": "wide_stop",
+    "trigger_ts": "2021-03-17T11:35:00-04:00",
+    "trigger_price": 32918.1,
+    "fade_side": "sell"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20210318_01",
+    "source_entry_side": "buy",
+    "source_exit_reason": "tp1",
+    "trigger_ts": "2021-03-18T11:52:00-04:00",
+    "trigger_price": 33200.0,
+    "fade_side": "sell"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20210318_02",
+    "source_entry_side": "sell",
+    "source_exit_reason": "tp1",
+    "trigger_ts": "2021-03-18T15:48:00-04:00",
+    "trigger_price": 32843.0,
+    "fade_side": "buy"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20210322_01",
+    "source_entry_side": "buy",
+    "source_exit_reason": "tp1",
+    "trigger_ts": "2021-03-22T10:20:00-04:00",
+    "trigger_price": 32682.0,
+    "fade_side": "sell"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20210323_01",
+    "source_entry_side": "buy",
+    "source_exit_reason": "wide_stop",
+    "trigger_ts": "2021-03-23T10:37:00-04:00",
+    "trigger_price": 32626.9,
+    "fade_side": "buy"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20210323_02",
+    "source_entry_side": "sell",
+    "source_exit_reason": "wide_stop",
+    "trigger_ts": "2021-03-23T11:12:00-04:00",
+    "trigger_price": 32698.1,
+    "fade_side": "sell"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20210324_01",
+    "source_entry_side": "buy",
+    "source_exit_reason": "wide_stop",
+    "trigger_ts": "2021-03-24T15:32:00-04:00",
+    "trigger_price": 32531.9,
+    "fade_side": "buy"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20210325_01",
+    "source_entry_side": "sell",
+    "source_exit_reason": "wide_stop",
+    "trigger_ts": "2021-03-25T10:07:00-04:00",
+    "trigger_price": 32300.1,
+    "fade_side": "sell"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20210325_02",
+    "source_entry_side": "buy",
+    "source_exit_reason": "wide_stop",
+    "trigger_ts": "2021-03-25T10:43:00-04:00",
+    "trigger_price": 32181.9,
+    "fade_side": "buy"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20210326_01",
+    "source_entry_side": "sell",
+    "source_exit_reason": "wide_stop",
+    "trigger_ts": "2021-03-26T10:14:00-04:00",
+    "trigger_price": 32799.1,
+    "fade_side": "sell"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20210326_02",
+    "source_entry_side": "buy",
+    "source_exit_reason": "tp1",
+    "trigger_ts": "2021-03-26T10:30:00-04:00",
+    "trigger_price": 32859.0,
+    "fade_side": "sell"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20210329_01",
+    "source_entry_side": "sell",
+    "source_exit_reason": "wide_stop",
+    "trigger_ts": "2021-03-29T12:41:00-04:00",
+    "trigger_price": 33100.1,
+    "fade_side": "sell"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20211102_01",
+    "source_entry_side": "sell",
+    "source_exit_reason": "wide_stop",
+    "trigger_ts": "2021-11-02T10:10:00-04:00",
+    "trigger_price": 35968.1,
+    "fade_side": "sell"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20211102_02",
+    "source_entry_side": "buy",
+    "source_exit_reason": "tp1",
+    "trigger_ts": "2021-11-02T11:39:00-04:00",
+    "trigger_price": 36039.0,
+    "fade_side": "sell"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20211103_01",
+    "source_entry_side": "sell",
+    "source_exit_reason": "wide_stop",
+    "trigger_ts": "2021-11-03T14:21:00-04:00",
+    "trigger_price": 36016.1,
+    "fade_side": "sell"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20211103_02",
+    "source_entry_side": "buy",
+    "source_exit_reason": "tp1",
+    "trigger_ts": "2021-11-03T14:51:00-04:00",
+    "trigger_price": 36109.0,
+    "fade_side": "sell"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20211104_01",
+    "source_entry_side": "buy",
+    "source_exit_reason": "wide_stop",
+    "trigger_ts": "2021-11-04T10:54:00-04:00",
+    "trigger_price": 36065.9,
+    "fade_side": "buy"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20211104_02",
+    "source_entry_side": "sell",
+    "source_exit_reason": "tp1",
+    "trigger_ts": "2021-11-04T14:39:00-04:00",
+    "trigger_price": 35978.0,
+    "fade_side": "buy"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20211105_01",
+    "source_entry_side": "buy",
+    "source_exit_reason": "wide_stop",
+    "trigger_ts": "2021-11-05T13:24:00-04:00",
+    "trigger_price": 36263.9,
+    "fade_side": "buy"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20211108_01",
+    "source_entry_side": "sell",
+    "source_exit_reason": "tp1",
+    "trigger_ts": "2021-11-08T12:04:00-05:00",
+    "trigger_price": 36349.0,
+    "fade_side": "buy"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20230314_01",
+    "source_entry_side": "buy",
+    "source_exit_reason": "wide_stop",
+    "trigger_ts": "2023-03-14T13:08:00-04:00",
+    "trigger_price": 32051.9,
+    "fade_side": "buy"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20230314_02",
+    "source_entry_side": "sell",
+    "source_exit_reason": "tp1",
+    "trigger_ts": "2023-03-14T13:16:00-04:00",
+    "trigger_price": 31914.0,
+    "fade_side": "buy"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20230315_01",
+    "source_entry_side": "sell",
+    "source_exit_reason": "wide_stop",
+    "trigger_ts": "2023-03-15T14:24:00-04:00",
+    "trigger_price": 31769.1,
+    "fade_side": "sell"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20230316_01",
+    "source_entry_side": "sell",
+    "source_exit_reason": "wide_stop",
+    "trigger_ts": "2023-03-16T10:41:00-04:00",
+    "trigger_price": 31733.1,
+    "fade_side": "sell"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20230316_02",
+    "source_entry_side": "buy",
+    "source_exit_reason": "tp1",
+    "trigger_ts": "2023-03-16T10:49:00-04:00",
+    "trigger_price": 31858.0,
+    "fade_side": "sell"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20230317_01",
+    "source_entry_side": "sell",
+    "source_exit_reason": "tp1",
+    "trigger_ts": "2023-03-17T10:23:00-04:00",
+    "trigger_price": 31920.0,
+    "fade_side": "buy"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20230321_01",
+    "source_entry_side": "sell",
+    "source_exit_reason": "tp1",
+    "trigger_ts": "2023-03-21T11:39:00-04:00",
+    "trigger_price": 32432.0,
+    "fade_side": "buy"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20230322_01",
+    "source_entry_side": "buy",
+    "source_exit_reason": "wide_stop",
+    "trigger_ts": "2023-03-22T11:13:00-04:00",
+    "trigger_price": 32524.9,
+    "fade_side": "buy"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20230322_02",
+    "source_entry_side": "sell",
+    "source_exit_reason": "tp1",
+    "trigger_ts": "2023-03-22T13:04:00-04:00",
+    "trigger_price": 32439.0,
+    "fade_side": "buy"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20230323_01",
+    "source_entry_side": "buy",
+    "source_exit_reason": "tp1",
+    "trigger_ts": "2023-03-23T10:46:00-04:00",
+    "trigger_price": 32389.0,
+    "fade_side": "sell"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20230323_02",
+    "source_entry_side": "sell",
+    "source_exit_reason": "tp1",
+    "trigger_ts": "2023-03-23T14:34:00-04:00",
+    "trigger_price": 32020.0,
+    "fade_side": "buy"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20230324_01",
+    "source_entry_side": "sell",
+    "source_exit_reason": "wide_stop",
+    "trigger_ts": "2023-03-24T10:00:00-04:00",
+    "trigger_price": 31982.1,
+    "fade_side": "sell"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20230324_02",
+    "source_entry_side": "buy",
+    "source_exit_reason": "wide_stop",
+    "trigger_ts": "2023-03-24T10:21:00-04:00",
+    "trigger_price": 31853.9,
+    "fade_side": "buy"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20230327_01",
+    "source_entry_side": "sell",
+    "source_exit_reason": "wide_stop",
+    "trigger_ts": "2023-03-27T14:38:00-04:00",
+    "trigger_price": 32553.1,
+    "fade_side": "sell"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20240312_01",
+    "source_entry_side": "sell",
+    "source_exit_reason": "wide_stop",
+    "trigger_ts": "2024-03-12T10:23:00-04:00",
+    "trigger_price": 38941.9,
+    "fade_side": "sell"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20240313_01",
+    "source_entry_side": "buy",
+    "source_exit_reason": "tp1",
+    "trigger_ts": "2024-03-13T11:20:00-04:00",
+    "trigger_price": 39236.1,
+    "fade_side": "sell"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20240313_02",
+    "source_entry_side": "sell",
+    "source_exit_reason": "tp1",
+    "trigger_ts": "2024-03-13T15:29:00-04:00",
+    "trigger_price": 38996.1,
+    "fade_side": "buy"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20240314_01",
+    "source_entry_side": "sell",
+    "source_exit_reason": "tp1",
+    "trigger_ts": "2024-03-14T09:50:00-04:00",
+    "trigger_price": 39015.4,
+    "fade_side": "buy"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20240318_01",
+    "source_entry_side": "sell",
+    "source_exit_reason": "wide_stop",
+    "trigger_ts": "2024-03-18T10:25:00-04:00",
+    "trigger_price": 38929.5,
+    "fade_side": "sell"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20240318_02",
+    "source_entry_side": "buy",
+    "source_exit_reason": "wide_stop",
+    "trigger_ts": "2024-03-18T13:47:00-04:00",
+    "trigger_price": 38836.7,
+    "fade_side": "buy"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20240319_01",
+    "source_entry_side": "buy",
+    "source_exit_reason": "tp1",
+    "trigger_ts": "2024-03-19T11:27:00-04:00",
+    "trigger_price": 39025.1,
+    "fade_side": "sell"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20240320_01",
+    "source_entry_side": "buy",
+    "source_exit_reason": "tp1",
+    "trigger_ts": "2024-03-20T11:14:00-04:00",
+    "trigger_price": 39224.50000000001,
+    "fade_side": "sell"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20240322_01",
+    "source_entry_side": "sell",
+    "source_exit_reason": "tp1",
+    "trigger_ts": "2024-03-22T10:27:00-04:00",
+    "trigger_price": 39696.3,
+    "fade_side": "buy"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20240325_01",
+    "source_entry_side": "sell",
+    "source_exit_reason": "tp1",
+    "trigger_ts": "2024-03-25T11:26:00-04:00",
+    "trigger_price": 39373.7,
+    "fade_side": "buy"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20240326_01",
+    "source_entry_side": "sell",
+    "source_exit_reason": "wide_stop",
+    "trigger_ts": "2024-03-26T10:40:00-04:00",
+    "trigger_price": 39434.7,
+    "fade_side": "sell"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20240326_02",
+    "source_entry_side": "buy",
+    "source_exit_reason": "wide_stop",
+    "trigger_ts": "2024-03-26T15:48:00-04:00",
+    "trigger_price": 39353.6,
+    "fade_side": "buy"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20240327_01",
+    "source_entry_side": "buy",
+    "source_exit_reason": "wide_stop",
+    "trigger_ts": "2024-03-27T10:22:00-04:00",
+    "trigger_price": 39535.6,
+    "fade_side": "buy"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20240327_02",
+    "source_entry_side": "sell",
+    "source_exit_reason": "wide_stop",
+    "trigger_ts": "2024-03-27T14:30:00-04:00",
+    "trigger_price": 39638.8,
+    "fade_side": "sell"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20240328_01",
+    "source_entry_side": "sell",
+    "source_exit_reason": "wide_stop",
+    "trigger_ts": "2024-03-28T15:26:00-04:00",
+    "trigger_price": 39906.8,
+    "fade_side": "sell"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20240328_02",
+    "source_entry_side": "buy",
+    "source_exit_reason": "wide_stop",
+    "trigger_ts": "2024-03-28T15:59:00-04:00",
+    "trigger_price": 39822.6,
+    "fade_side": "buy"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20240401_01",
+    "source_entry_side": "sell",
+    "source_exit_reason": "tp1",
+    "trigger_ts": "2024-04-01T10:18:00-04:00",
+    "trigger_price": 39628.7,
+    "fade_side": "buy"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20241029_01",
+    "source_entry_side": "buy",
+    "source_exit_reason": "tp1",
+    "trigger_ts": "2024-10-29T10:07:00-04:00",
+    "trigger_price": 42430.8,
+    "fade_side": "sell"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20241030_01",
+    "source_entry_side": "buy",
+    "source_exit_reason": "tp1",
+    "trigger_ts": "2024-10-30T09:56:00-04:00",
+    "trigger_price": 42398.9,
+    "fade_side": "sell"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20241031_01",
+    "source_entry_side": "sell",
+    "source_exit_reason": "tp1",
+    "trigger_ts": "2024-10-31T10:47:00-04:00",
+    "trigger_price": 41820.9,
+    "fade_side": "buy"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20241101_01",
+    "source_entry_side": "buy",
+    "source_exit_reason": "tp1",
+    "trigger_ts": "2024-11-01T11:15:00-04:00",
+    "trigger_price": 42326.0,
+    "fade_side": "sell"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20241104_01",
+    "source_entry_side": "sell",
+    "source_exit_reason": "tp1",
+    "trigger_ts": "2024-11-04T11:46:00-05:00",
+    "trigger_price": 41725.9,
+    "fade_side": "buy"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20241105_01",
+    "source_entry_side": "buy",
+    "source_exit_reason": "tp1",
+    "trigger_ts": "2024-11-05T10:03:00-05:00",
+    "trigger_price": 42091.9,
+    "fade_side": "sell"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20241106_01",
+    "source_entry_side": "sell",
+    "source_exit_reason": "wide_stop",
+    "trigger_ts": "2024-11-06T10:17:00-05:00",
+    "trigger_price": 43638.0,
+    "fade_side": "sell"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20241106_02",
+    "source_entry_side": "buy",
+    "source_exit_reason": "tp1",
+    "trigger_ts": "2024-11-06T15:15:00-05:00",
+    "trigger_price": 43826.9,
+    "fade_side": "sell"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20241107_01",
+    "source_entry_side": "buy",
+    "source_exit_reason": "wide_stop",
+    "trigger_ts": "2024-11-07T14:42:00-05:00",
+    "trigger_price": 43716.8,
+    "fade_side": "buy"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20241108_01",
+    "source_entry_side": "buy",
+    "source_exit_reason": "tp1",
+    "trigger_ts": "2024-11-08T14:01:00-05:00",
+    "trigger_price": 44110.7,
+    "fade_side": "sell"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20241112_01",
+    "source_entry_side": "sell",
+    "source_exit_reason": "tp1",
+    "trigger_ts": "2024-11-12T10:03:00-05:00",
+    "trigger_price": 44318.9,
+    "fade_side": "buy"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20241113_01",
+    "source_entry_side": "sell",
+    "source_exit_reason": "tp1",
+    "trigger_ts": "2024-11-13T10:07:00-05:00",
+    "trigger_price": 43902.9,
+    "fade_side": "buy"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20241113_02",
+    "source_entry_side": "buy",
+    "source_exit_reason": "tp1",
+    "trigger_ts": "2024-11-13T11:46:00-05:00",
+    "trigger_price": 44175.9,
+    "fade_side": "sell"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20241114_01",
+    "source_entry_side": "sell",
+    "source_exit_reason": "tp1",
+    "trigger_ts": "2024-11-14T15:07:00-05:00",
+    "trigger_price": 43782.9,
+    "fade_side": "buy"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20241115_01",
+    "source_entry_side": "sell",
+    "source_exit_reason": "tp1",
+    "trigger_ts": "2024-11-15T10:05:00-05:00",
+    "trigger_price": 43521.9,
+    "fade_side": "buy"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20241118_01",
+    "source_entry_side": "sell",
+    "source_exit_reason": "wide_stop",
+    "trigger_ts": "2024-11-18T10:44:00-05:00",
+    "trigger_price": 43495.0,
+    "fade_side": "sell"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20241118_02",
+    "source_entry_side": "buy",
+    "source_exit_reason": "wide_stop",
+    "trigger_ts": "2024-11-18T13:47:00-05:00",
+    "trigger_price": 43394.8,
+    "fade_side": "buy"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20241119_01",
+    "source_entry_side": "sell",
+    "source_exit_reason": "tp1",
+    "trigger_ts": "2024-11-19T09:51:00-05:00",
+    "trigger_price": 43005.9,
+    "fade_side": "buy"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20241119_02",
+    "source_entry_side": "buy",
+    "source_exit_reason": "tp1",
+    "trigger_ts": "2024-11-19T10:33:00-05:00",
+    "trigger_price": 43224.00000000001,
+    "fade_side": "sell"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20241120_01",
+    "source_entry_side": "sell",
+    "source_exit_reason": "wide_stop",
+    "trigger_ts": "2024-11-20T15:32:00-05:00",
+    "trigger_price": 43414.0,
+    "fade_side": "sell"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20241121_01",
+    "source_entry_side": "buy",
+    "source_exit_reason": "tp1",
+    "trigger_ts": "2024-11-21T11:28:00-05:00",
+    "trigger_price": 43878.3,
+    "fade_side": "sell"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20241126_01",
+    "source_entry_side": "sell",
+    "source_exit_reason": "wide_stop",
+    "trigger_ts": "2024-11-26T12:40:00-05:00",
+    "trigger_price": 44723.0,
+    "fade_side": "sell"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20241126_02",
+    "source_entry_side": "buy",
+    "source_exit_reason": "tp1",
+    "trigger_ts": "2024-11-26T14:34:00-05:00",
+    "trigger_price": 44854.9,
+    "fade_side": "sell"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20241127_01",
+    "source_entry_side": "sell",
+    "source_exit_reason": "tp1",
+    "trigger_ts": "2024-11-27T13:27:00-05:00",
+    "trigger_price": 44790.7,
+    "fade_side": "buy"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20241128_01",
+    "source_entry_side": "buy",
+    "source_exit_reason": "tp1",
+    "trigger_ts": "2024-11-28T10:35:00-05:00",
+    "trigger_price": 44913.9,
+    "fade_side": "sell"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20241129_01",
+    "source_entry_side": "buy",
+    "source_exit_reason": "tp1",
+    "trigger_ts": "2024-11-29T11:54:00-05:00",
+    "trigger_price": 45108.0,
+    "fade_side": "sell"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20241204_01",
+    "source_entry_side": "sell",
+    "source_exit_reason": "wide_stop",
+    "trigger_ts": "2024-12-04T15:10:00-05:00",
+    "trigger_price": 45098.7,
+    "fade_side": "sell"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20241205_01",
+    "source_entry_side": "buy",
+    "source_exit_reason": "wide_stop",
+    "trigger_ts": "2024-12-05T10:30:00-05:00",
+    "trigger_price": 44994.8,
+    "fade_side": "buy"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20241205_02",
+    "source_entry_side": "sell",
+    "source_exit_reason": "tp1",
+    "trigger_ts": "2024-12-05T15:27:00-05:00",
+    "trigger_price": 44855.9,
+    "fade_side": "buy"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20241206_01",
+    "source_entry_side": "sell",
+    "source_exit_reason": "tp1",
+    "trigger_ts": "2024-12-06T11:11:00-05:00",
+    "trigger_price": 44817.0,
+    "fade_side": "buy"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20241209_01",
+    "source_entry_side": "sell",
+    "source_exit_reason": "tp1",
+    "trigger_ts": "2024-12-09T13:01:00-05:00",
+    "trigger_price": 44584.9,
+    "fade_side": "buy"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20241211_01",
+    "source_entry_side": "sell",
+    "source_exit_reason": "tp1",
+    "trigger_ts": "2024-12-11T10:00:00-05:00",
+    "trigger_price": 44256.2,
+    "fade_side": "buy"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20241212_01",
+    "source_entry_side": "sell",
+    "source_exit_reason": "tp1",
+    "trigger_ts": "2024-12-12T13:35:00-05:00",
+    "trigger_price": 44073.9,
+    "fade_side": "buy"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20241213_01",
+    "source_entry_side": "sell",
+    "source_exit_reason": "tp1",
+    "trigger_ts": "2024-12-13T12:23:00-05:00",
+    "trigger_price": 43886.9,
+    "fade_side": "buy"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20241216_01",
+    "source_entry_side": "buy",
+    "source_exit_reason": "tp1",
+    "trigger_ts": "2024-12-16T10:07:00-05:00",
+    "trigger_price": 44074.9,
+    "fade_side": "sell"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20241216_02",
+    "source_entry_side": "sell",
+    "source_exit_reason": "tp1",
+    "trigger_ts": "2024-12-16T15:52:00-05:00",
+    "trigger_price": 43852.9,
+    "fade_side": "buy"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20241218_01",
+    "source_entry_side": "buy",
+    "source_exit_reason": "tp1",
+    "trigger_ts": "2024-12-18T10:37:00-05:00",
+    "trigger_price": 43821.9,
+    "fade_side": "sell"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20241218_02",
+    "source_entry_side": "sell",
+    "source_exit_reason": "tp1",
+    "trigger_ts": "2024-12-18T14:07:00-05:00",
+    "trigger_price": 43494.9,
+    "fade_side": "buy"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20241219_01",
+    "source_entry_side": "sell",
+    "source_exit_reason": "tp1",
+    "trigger_ts": "2024-12-19T10:22:00-05:00",
+    "trigger_price": 42593.7,
+    "fade_side": "buy"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20241220_01",
+    "source_entry_side": "buy",
+    "source_exit_reason": "tp1",
+    "trigger_ts": "2024-12-20T10:31:00-05:00",
+    "trigger_price": 42781.7,
+    "fade_side": "sell"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20241223_01",
+    "source_entry_side": "sell",
+    "source_exit_reason": "tp1",
+    "trigger_ts": "2024-12-23T09:52:00-05:00",
+    "trigger_price": 42695.9,
+    "fade_side": "buy"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20241223_02",
+    "source_entry_side": "buy",
+    "source_exit_reason": "tp1",
+    "trigger_ts": "2024-12-23T15:42:00-05:00",
+    "trigger_price": 43025.9,
+    "fade_side": "sell"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20241224_01",
+    "source_entry_side": "buy",
+    "source_exit_reason": "tp1",
+    "trigger_ts": "2024-12-24T10:15:00-05:00",
+    "trigger_price": 43133.9,
+    "fade_side": "sell"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20241227_01",
+    "source_entry_side": "buy",
+    "source_exit_reason": "wide_stop",
+    "trigger_ts": "2024-12-27T10:12:00-05:00",
+    "trigger_price": 43098.7,
+    "fade_side": "buy"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20241227_02",
+    "source_entry_side": "sell",
+    "source_exit_reason": "tp1",
+    "trigger_ts": "2024-12-27T10:30:00-05:00",
+    "trigger_price": 42957.7,
+    "fade_side": "buy"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20241230_01",
+    "source_entry_side": "sell",
+    "source_exit_reason": "wide_stop",
+    "trigger_ts": "2024-12-30T11:20:00-05:00",
+    "trigger_price": 42624.9,
+    "fade_side": "sell"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20241230_02",
+    "source_entry_side": "buy",
+    "source_exit_reason": "tp1",
+    "trigger_ts": "2024-12-30T12:48:00-05:00",
+    "trigger_price": 42803.3,
+    "fade_side": "sell"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20241231_01",
+    "source_entry_side": "buy",
+    "source_exit_reason": "wide_stop",
+    "trigger_ts": "2024-12-31T10:34:00-05:00",
+    "trigger_price": 42689.8,
+    "fade_side": "buy"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20241231_02",
+    "source_entry_side": "sell",
+    "source_exit_reason": "tp1",
+    "trigger_ts": "2024-12-31T11:20:00-05:00",
+    "trigger_price": 42587.9,
+    "fade_side": "buy"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20250102_01",
+    "source_entry_side": "buy",
+    "source_exit_reason": "wide_stop",
+    "trigger_ts": "2025-01-02T10:22:00-05:00",
+    "trigger_price": 42726.8,
+    "fade_side": "buy"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20250102_02",
+    "source_entry_side": "sell",
+    "source_exit_reason": "tp1",
+    "trigger_ts": "2025-01-02T11:10:00-05:00",
+    "trigger_price": 42501.9,
+    "fade_side": "buy"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20250103_01",
+    "source_entry_side": "sell",
+    "source_exit_reason": "tp1",
+    "trigger_ts": "2025-01-03T10:20:00-05:00",
+    "trigger_price": 42501.7,
+    "fade_side": "buy"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20250106_01",
+    "source_entry_side": "buy",
+    "source_exit_reason": "tp1",
+    "trigger_ts": "2025-01-06T10:03:00-05:00",
+    "trigger_price": 43069.9,
+    "fade_side": "sell"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20250106_02",
+    "source_entry_side": "sell",
+    "source_exit_reason": "tp1",
+    "trigger_ts": "2025-01-06T14:57:00-05:00",
+    "trigger_price": 42730.9,
+    "fade_side": "buy"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20250107_01",
+    "source_entry_side": "sell",
+    "source_exit_reason": "tp1",
+    "trigger_ts": "2025-01-07T10:01:00-05:00",
+    "trigger_price": 42824.9,
+    "fade_side": "buy"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20250108_01",
+    "source_entry_side": "sell",
+    "source_exit_reason": "wide_stop",
+    "trigger_ts": "2025-01-08T11:10:00-05:00",
+    "trigger_price": 42573.9,
+    "fade_side": "sell"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20250108_02",
+    "source_entry_side": "buy",
+    "source_exit_reason": "wide_stop",
+    "trigger_ts": "2025-01-08T12:29:00-05:00",
+    "trigger_price": 42392.8,
+    "fade_side": "buy"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20250110_01",
+    "source_entry_side": "sell",
+    "source_exit_reason": "tp1",
+    "trigger_ts": "2025-01-10T10:01:00-05:00",
+    "trigger_price": 42118.0,
+    "fade_side": "buy"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20250113_01",
+    "source_entry_side": "buy",
+    "source_exit_reason": "tp1",
+    "trigger_ts": "2025-01-13T13:46:00-05:00",
+    "trigger_price": 42251.0,
+    "fade_side": "sell"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20250114_01",
+    "source_entry_side": "sell",
+    "source_exit_reason": "wide_stop",
+    "trigger_ts": "2025-01-14T10:19:00-05:00",
+    "trigger_price": 42521.0,
+    "fade_side": "sell"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20250114_02",
+    "source_entry_side": "buy",
+    "source_exit_reason": "wide_stop",
+    "trigger_ts": "2025-01-14T11:01:00-05:00",
+    "trigger_price": 42431.8,
+    "fade_side": "buy"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20250115_01",
+    "source_entry_side": "buy",
+    "source_exit_reason": "wide_stop",
+    "trigger_ts": "2025-01-15T11:32:00-05:00",
+    "trigger_price": 43110.8,
+    "fade_side": "buy"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20250115_02",
+    "source_entry_side": "sell",
+    "source_exit_reason": "wide_stop",
+    "trigger_ts": "2025-01-15T12:41:00-05:00",
+    "trigger_price": 43229.0,
+    "fade_side": "sell"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20250117_01",
+    "source_entry_side": "buy",
+    "source_exit_reason": "tp1",
+    "trigger_ts": "2025-01-17T11:15:00-05:00",
+    "trigger_price": 43610.9,
+    "fade_side": "sell"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20250120_01",
+    "source_entry_side": "buy",
+    "source_exit_reason": "wide_stop",
+    "trigger_ts": "2025-01-20T10:16:00-05:00",
+    "trigger_price": 43730.7,
+    "fade_side": "buy"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20250120_02",
+    "source_entry_side": "sell",
+    "source_exit_reason": "tp1",
+    "trigger_ts": "2025-01-20T10:31:00-05:00",
+    "trigger_price": 43634.7,
+    "fade_side": "buy"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20250122_01",
+    "source_entry_side": "sell",
+    "source_exit_reason": "wide_stop",
+    "trigger_ts": "2025-01-22T10:15:00-05:00",
+    "trigger_price": 44223.9,
+    "fade_side": "sell"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20250122_02",
+    "source_entry_side": "buy",
+    "source_exit_reason": "wide_stop",
+    "trigger_ts": "2025-01-22T10:48:00-05:00",
+    "trigger_price": 44112.8,
+    "fade_side": "buy"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20250123_01",
+    "source_entry_side": "buy",
+    "source_exit_reason": "tp1",
+    "trigger_ts": "2025-01-23T11:19:00-05:00",
+    "trigger_price": 44399.5,
+    "fade_side": "sell"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20250124_01",
+    "source_entry_side": "buy",
+    "source_exit_reason": "wide_stop",
+    "trigger_ts": "2025-01-24T09:49:00-05:00",
+    "trigger_price": 44480.2,
+    "fade_side": "buy"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20250124_02",
+    "source_entry_side": "sell",
+    "source_exit_reason": "wide_stop",
+    "trigger_ts": "2025-01-24T12:07:00-05:00",
+    "trigger_price": 44556.7,
+    "fade_side": "sell"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20250127_01",
+    "source_entry_side": "buy",
+    "source_exit_reason": "tp1",
+    "trigger_ts": "2025-01-27T14:25:00-05:00",
+    "trigger_price": 44703.5,
+    "fade_side": "sell"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20250128_01",
+    "source_entry_side": "sell",
+    "source_exit_reason": "wide_stop",
+    "trigger_ts": "2025-01-28T10:06:00-05:00",
+    "trigger_price": 44826.7,
+    "fade_side": "sell"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20250128_02",
+    "source_entry_side": "buy",
+    "source_exit_reason": "tp1",
+    "trigger_ts": "2025-01-28T10:41:00-05:00",
+    "trigger_price": 44931.3,
+    "fade_side": "sell"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20250129_01",
+    "source_entry_side": "buy",
+    "source_exit_reason": "wide_stop",
+    "trigger_ts": "2025-01-29T11:42:00-05:00",
+    "trigger_price": 44851.8,
+    "fade_side": "buy"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20250129_02",
+    "source_entry_side": "sell",
+    "source_exit_reason": "tp1",
+    "trigger_ts": "2025-01-29T13:03:00-05:00",
+    "trigger_price": 44736.9,
+    "fade_side": "buy"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20250130_01",
+    "source_entry_side": "buy",
+    "source_exit_reason": "tp1",
+    "trigger_ts": "2025-01-30T13:31:00-05:00",
+    "trigger_price": 44982.0,
+    "fade_side": "sell"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20250130_02",
+    "source_entry_side": "sell",
+    "source_exit_reason": "wide_stop",
+    "trigger_ts": "2025-01-30T15:49:00-05:00",
+    "trigger_price": 44835.0,
+    "fade_side": "sell"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20250131_01",
+    "source_entry_side": "sell",
+    "source_exit_reason": "tp1",
+    "trigger_ts": "2025-01-31T12:08:00-05:00",
+    "trigger_price": 44865.0,
+    "fade_side": "buy"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20250203_01",
+    "source_entry_side": "sell",
+    "source_exit_reason": "wide_stop",
+    "trigger_ts": "2025-02-03T10:24:00-05:00",
+    "trigger_price": 44205.0,
+    "fade_side": "sell"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20250203_02",
+    "source_entry_side": "buy",
+    "source_exit_reason": "tp1",
+    "trigger_ts": "2025-02-03T10:41:00-05:00",
+    "trigger_price": 44430.0,
+    "fade_side": "sell"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20250204_01",
+    "source_entry_side": "sell",
+    "source_exit_reason": "wide_stop",
+    "trigger_ts": "2025-02-04T10:04:00-05:00",
+    "trigger_price": 44455.4,
+    "fade_side": "sell"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20250204_02",
+    "source_entry_side": "buy",
+    "source_exit_reason": "tp1",
+    "trigger_ts": "2025-02-04T11:17:00-05:00",
+    "trigger_price": 44547.7,
+    "fade_side": "sell"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20250205_01",
+    "source_entry_side": "sell",
+    "source_exit_reason": "tp1",
+    "trigger_ts": "2025-02-05T10:03:00-05:00",
+    "trigger_price": 44450.9,
+    "fade_side": "buy"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20250205_02",
+    "source_entry_side": "buy",
+    "source_exit_reason": "tp1",
+    "trigger_ts": "2025-02-05T13:14:00-05:00",
+    "trigger_price": 44750.9,
+    "fade_side": "sell"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20250206_01",
+    "source_entry_side": "sell",
+    "source_exit_reason": "tp1",
+    "trigger_ts": "2025-02-06T10:24:00-05:00",
+    "trigger_price": 44845.0,
+    "fade_side": "buy"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20250207_01",
+    "source_entry_side": "buy",
+    "source_exit_reason": "wide_stop",
+    "trigger_ts": "2025-02-07T10:00:00-05:00",
+    "trigger_price": 44713.8,
+    "fade_side": "buy"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20250207_02",
+    "source_entry_side": "sell",
+    "source_exit_reason": "tp1",
+    "trigger_ts": "2025-02-07T10:53:00-05:00",
+    "trigger_price": 44611.9,
+    "fade_side": "buy"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20250211_01",
+    "source_entry_side": "buy",
+    "source_exit_reason": "wide_stop",
+    "trigger_ts": "2025-02-11T10:07:00-05:00",
+    "trigger_price": 44348.7,
+    "fade_side": "buy"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20250211_02",
+    "source_entry_side": "sell",
+    "source_exit_reason": "wide_stop",
+    "trigger_ts": "2025-02-11T10:28:00-05:00",
+    "trigger_price": 44421.0,
+    "fade_side": "sell"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20250212_01",
+    "source_entry_side": "buy",
+    "source_exit_reason": "tp1",
+    "trigger_ts": "2025-02-12T12:22:00-05:00",
+    "trigger_price": 44470.7,
+    "fade_side": "sell"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20250213_01",
+    "source_entry_side": "buy",
+    "source_exit_reason": "tp1",
+    "trigger_ts": "2025-02-13T14:08:00-05:00",
+    "trigger_price": 44701.9,
+    "fade_side": "sell"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20250214_01",
+    "source_entry_side": "buy",
+    "source_exit_reason": "wide_stop",
+    "trigger_ts": "2025-02-14T10:23:00-05:00",
+    "trigger_price": 44642.8,
+    "fade_side": "buy"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20250214_02",
+    "source_entry_side": "sell",
+    "source_exit_reason": "tp1",
+    "trigger_ts": "2025-02-14T15:27:00-05:00",
+    "trigger_price": 44538.9,
+    "fade_side": "buy"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20250217_01",
+    "source_entry_side": "sell",
+    "source_exit_reason": "wide_stop",
+    "trigger_ts": "2025-02-17T11:29:00-05:00",
+    "trigger_price": 44660.4,
+    "fade_side": "sell"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20250219_01",
+    "source_entry_side": "buy",
+    "source_exit_reason": "wide_stop",
+    "trigger_ts": "2025-02-19T10:57:00-05:00",
+    "trigger_price": 44376.8,
+    "fade_side": "buy"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20250219_02",
+    "source_entry_side": "sell",
+    "source_exit_reason": "wide_stop",
+    "trigger_ts": "2025-02-19T11:11:00-05:00",
+    "trigger_price": 44447.0,
+    "fade_side": "sell"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20250220_01",
+    "source_entry_side": "sell",
+    "source_exit_reason": "tp1",
+    "trigger_ts": "2025-02-20T10:00:00-05:00",
+    "trigger_price": 44269.9,
+    "fade_side": "buy"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20250221_01",
+    "source_entry_side": "sell",
+    "source_exit_reason": "tp1",
+    "trigger_ts": "2025-02-21T09:50:00-05:00",
+    "trigger_price": 43794.9,
+    "fade_side": "buy"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20250224_01",
+    "source_entry_side": "sell",
+    "source_exit_reason": "tp1",
+    "trigger_ts": "2025-02-24T10:05:00-05:00",
+    "trigger_price": 43389.9,
+    "fade_side": "buy"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20250224_02",
+    "source_entry_side": "buy",
+    "source_exit_reason": "wide_stop",
+    "trigger_ts": "2025-02-24T15:53:00-05:00",
+    "trigger_price": 43534.8,
+    "fade_side": "buy"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20250225_01",
+    "source_entry_side": "sell",
+    "source_exit_reason": "tp1",
+    "trigger_ts": "2025-02-25T10:21:00-05:00",
+    "trigger_price": 43392.7,
+    "fade_side": "buy"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20250226_01",
+    "source_entry_side": "buy",
+    "source_exit_reason": "tp1",
+    "trigger_ts": "2025-02-26T10:13:00-05:00",
+    "trigger_price": 43842.3,
+    "fade_side": "sell"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20250226_02",
+    "source_entry_side": "sell",
+    "source_exit_reason": "tp1",
+    "trigger_ts": "2025-02-26T13:17:00-05:00",
+    "trigger_price": 43459.8,
+    "fade_side": "buy"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20250227_01",
+    "source_entry_side": "buy",
+    "source_exit_reason": "tp1",
+    "trigger_ts": "2025-02-27T10:23:00-05:00",
+    "trigger_price": 43922.0,
+    "fade_side": "sell"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20250227_02",
+    "source_entry_side": "sell",
+    "source_exit_reason": "tp1",
+    "trigger_ts": "2025-02-27T15:56:00-05:00",
+    "trigger_price": 43279.7,
+    "fade_side": "buy"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20250228_01",
+    "source_entry_side": "buy",
+    "source_exit_reason": "wide_stop",
+    "trigger_ts": "2025-02-28T12:47:00-05:00",
+    "trigger_price": 43260.8,
+    "fade_side": "buy"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20250228_02",
+    "source_entry_side": "sell",
+    "source_exit_reason": "wide_stop",
+    "trigger_ts": "2025-02-28T14:36:00-05:00",
+    "trigger_price": 43420.0,
+    "fade_side": "sell"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20250303_01",
+    "source_entry_side": "sell",
+    "source_exit_reason": "tp1",
+    "trigger_ts": "2025-03-03T10:00:00-05:00",
+    "trigger_price": 43816.7,
+    "fade_side": "buy"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20250304_01",
+    "source_entry_side": "sell",
+    "source_exit_reason": "tp1",
+    "trigger_ts": "2025-03-04T10:17:00-05:00",
+    "trigger_price": 42528.0,
+    "fade_side": "buy"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20250304_02",
+    "source_entry_side": "buy",
+    "source_exit_reason": "wide_stop",
+    "trigger_ts": "2025-03-04T15:40:00-05:00",
+    "trigger_price": 42756.8,
+    "fade_side": "buy"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20250305_01",
+    "source_entry_side": "buy",
+    "source_exit_reason": "wide_stop",
+    "trigger_ts": "2025-03-05T11:11:00-05:00",
+    "trigger_price": 42519.2,
+    "fade_side": "buy"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20250305_02",
+    "source_entry_side": "sell",
+    "source_exit_reason": "wide_stop",
+    "trigger_ts": "2025-03-05T12:28:00-05:00",
+    "trigger_price": 42772.0,
+    "fade_side": "sell"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20250306_01",
+    "source_entry_side": "buy",
+    "source_exit_reason": "tp1",
+    "trigger_ts": "2025-03-06T10:39:00-05:00",
+    "trigger_price": 42907.9,
+    "fade_side": "sell"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20250306_02",
+    "source_entry_side": "sell",
+    "source_exit_reason": "wide_stop",
+    "trigger_ts": "2025-03-06T14:48:00-05:00",
+    "trigger_price": 42672.0,
+    "fade_side": "sell"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20250307_01",
+    "source_entry_side": "buy",
+    "source_exit_reason": "wide_stop",
+    "trigger_ts": "2025-03-07T10:37:00-05:00",
+    "trigger_price": 42413.2,
+    "fade_side": "buy"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20250307_02",
+    "source_entry_side": "sell",
+    "source_exit_reason": "wide_stop",
+    "trigger_ts": "2025-03-07T10:49:00-05:00",
+    "trigger_price": 42649.7,
+    "fade_side": "sell"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20250310_01",
+    "source_entry_side": "buy",
+    "source_exit_reason": "wide_stop",
+    "trigger_ts": "2025-03-10T12:05:00-04:00",
+    "trigger_price": 42329.7,
+    "fade_side": "buy"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20250310_02",
+    "source_entry_side": "sell",
+    "source_exit_reason": "tp1",
+    "trigger_ts": "2025-03-10T13:36:00-04:00",
+    "trigger_price": 42103.7,
+    "fade_side": "buy"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20250311_01",
+    "source_entry_side": "sell",
+    "source_exit_reason": "tp1",
+    "trigger_ts": "2025-03-11T10:37:00-04:00",
+    "trigger_price": 41465.3,
+    "fade_side": "buy"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20250312_01",
+    "source_entry_side": "sell",
+    "source_exit_reason": "tp1",
+    "trigger_ts": "2025-03-12T11:08:00-04:00",
+    "trigger_price": 41090.9,
+    "fade_side": "buy"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20250313_01",
+    "source_entry_side": "sell",
+    "source_exit_reason": "wide_stop",
+    "trigger_ts": "2025-03-13T10:15:00-04:00",
+    "trigger_price": 41391.0,
+    "fade_side": "sell"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20250313_02",
+    "source_entry_side": "buy",
+    "source_exit_reason": "wide_stop",
+    "trigger_ts": "2025-03-13T10:42:00-04:00",
+    "trigger_price": 41235.8,
+    "fade_side": "buy"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20250314_01",
+    "source_entry_side": "buy",
+    "source_exit_reason": "tp1",
+    "trigger_ts": "2025-03-14T11:16:00-04:00",
+    "trigger_price": 41401.2,
+    "fade_side": "sell"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20250318_01",
+    "source_entry_side": "sell",
+    "source_exit_reason": "tp1",
+    "trigger_ts": "2025-03-18T12:51:00-04:00",
+    "trigger_price": 41472.0,
+    "fade_side": "buy"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20250319_01",
+    "source_entry_side": "buy",
+    "source_exit_reason": "tp1",
+    "trigger_ts": "2025-03-19T11:48:00-04:00",
+    "trigger_price": 41914.9,
+    "fade_side": "sell"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20250319_02",
+    "source_entry_side": "sell",
+    "source_exit_reason": "wide_stop",
+    "trigger_ts": "2025-03-19T14:00:00-04:00",
+    "trigger_price": 41795.0,
+    "fade_side": "sell"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20250320_01",
+    "source_entry_side": "buy",
+    "source_exit_reason": "tp1",
+    "trigger_ts": "2025-03-20T10:00:00-04:00",
+    "trigger_price": 42003.9,
+    "fade_side": "sell"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20250321_01",
+    "source_entry_side": "sell",
+    "source_exit_reason": "wide_stop",
+    "trigger_ts": "2025-03-21T10:50:00-04:00",
+    "trigger_price": 41649.0,
+    "fade_side": "sell"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20250321_02",
+    "source_entry_side": "buy",
+    "source_exit_reason": "tp1",
+    "trigger_ts": "2025-03-21T12:12:00-04:00",
+    "trigger_price": 41794.9,
+    "fade_side": "sell"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20250326_01",
+    "source_entry_side": "sell",
+    "source_exit_reason": "tp1",
+    "trigger_ts": "2025-03-26T13:17:00-04:00",
+    "trigger_price": 42483.7,
+    "fade_side": "buy"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20250702_01",
+    "source_entry_side": "sell",
+    "source_exit_reason": "wide_stop",
+    "trigger_ts": "2025-07-02T11:25:00-04:00",
+    "trigger_price": 44551.5,
+    "fade_side": "sell"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20250703_01",
+    "source_entry_side": "buy",
+    "source_exit_reason": "tp1",
+    "trigger_ts": "2025-07-03T10:41:00-04:00",
+    "trigger_price": 44875.1,
+    "fade_side": "sell"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20250708_01",
+    "source_entry_side": "buy",
+    "source_exit_reason": "wide_stop",
+    "trigger_ts": "2025-07-08T10:05:00-04:00",
+    "trigger_price": 44309.4,
+    "fade_side": "buy"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20250708_02",
+    "source_entry_side": "sell",
+    "source_exit_reason": "wide_stop",
+    "trigger_ts": "2025-07-08T12:29:00-04:00",
+    "trigger_price": 44413.0,
+    "fade_side": "sell"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20250709_01",
+    "source_entry_side": "buy",
+    "source_exit_reason": "wide_stop",
+    "trigger_ts": "2025-07-09T10:27:00-04:00",
+    "trigger_price": 44439.0,
+    "fade_side": "buy"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20250709_02",
+    "source_entry_side": "sell",
+    "source_exit_reason": "tp1",
+    "trigger_ts": "2025-07-09T10:42:00-04:00",
+    "trigger_price": 44327.1,
+    "fade_side": "buy"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20250710_01",
+    "source_entry_side": "buy",
+    "source_exit_reason": "tp1",
+    "trigger_ts": "2025-07-10T10:06:00-04:00",
+    "trigger_price": 44549.7,
+    "fade_side": "sell"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20250711_01",
+    "source_entry_side": "sell",
+    "source_exit_reason": "wide_stop",
+    "trigger_ts": "2025-07-11T10:22:00-04:00",
+    "trigger_price": 44452.2,
+    "fade_side": "sell"
+  },
+  {
+    "source_trade_id": "us30_v2b_oco_prior_opposed_S_1_1_3_20250715_01",
+    "source_entry_side": "sell",
+    "source_exit_reason": "tp1",
+    "trigger_ts": "2025-07-15T13:16:00-04:00",
+    "trigger_price": 44087.3,
+    "fade_side": "buy"
+  }
+]

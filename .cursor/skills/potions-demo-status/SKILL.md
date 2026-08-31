@@ -73,6 +73,7 @@ Summarize: how many UP, any DOWN, flat vs open, last fill times, today’s strea
 ## Related skills
 
 - `potions-oanda-reconcile` — query OANDA practice / repair local `positions.csv`
+- `potions-oanda-pl-attribution` — balance vs resettablePL / fill PL by instrument
 - `potions-oanda-live-sim-reconcile` — live fills vs StrategyPlugin replay on demo bars
 - `potions-repo-router` — doc routing
 - `potions-tracker-docs` — research progress ≠ demo heartbeats

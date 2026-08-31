@@ -1,0 +1,12 @@
+NAS100 weekly OD — OCO 1×OD-R + bull×high-vol (full history)
+
+Hub: live/state/weekly_open_day_breakout_od_oco_1r_bull_hivol
+Charts: live/state/weekly_open_day_breakout_od_oco_1r_bull_hivol/weekly_levels/nas100/charts (169 trade weeks overlaid)
+
+Rules: limit @ breakout close; SL = OD far side; TP = 1× Monday range (OCO);
+bull×hivol gate; no weekly trade cap; Fri flatten residual.
+
+Result: trades=202 net=$+3295 N/S=1.15 WR=55.9%
+Vs scale-out 2/1/1 bull×hivol: N/S 1.36 / +$15.1k / 198 trades
+
+Stance: OCO 1R weaker than scale-out sleeve — research only.

@@ -1,0 +1,28 @@
+potions: quarterly ATR4 exit-mix / runner analysis
+
+Hub: live/state/quarterly_atr4_stress_yearly/
+Report: EXIT_MIX.md
+
+Ladder: 10ct, 2 off @ +2/+4/+6/+8 (tp1–tp4), 2 residual → intended BE → EOQ flatten.
+Board: GBPUSD, NAS100, NQ, EURUSD (best-path) + XAUUSD (family).
+
+WHERE THE “ONLY” COMES FROM (share of positive exit PnL)
+  flatten (EOQ runners)  30.8%
+  tp4 (+8 ATR)           24.9%
+  tp3 (+6 ATR)           19.9%
+  tp2 (+4 ATR)           16.0%
+  tp1 (+2 ATR)            8.5%
+
+Runner is #1 or #2 on every name. When it flattens, mean excursion is ~14–43 ATR (not a scratch).
+BE assumption is wrong on this tape: post-tp4 “stops” often fill at the ORIGINAL risk stop, not entry.
+
+WHAT-IF residual off at +8 vs +6 (vs actual $1,080k board)
+  runner capped @ +8:  $1,049k  (−$31k)  — helps NQ/GBPUSD, hurts NAS100/EURUSD/XAUUSD
+  remaining @ +6:      $893k   (−$187k)  — worse on all material books
+
+STANCE
+  Keep +2/+4/+6/+8 ladder. Do NOT take residual at +6.
+  Hard residual @ +8 is mixed / not a clear upgrade; EOQ runner is a real edge where it works.
+  Follow-up: BE arm after tp4 is not effective in these replays.
+
+CSVs: exit_contribution_board.csv, campaign_runner_fates.csv, runner_whatif_summary.csv

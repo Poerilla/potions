@@ -1,0 +1,36 @@
+{
+  "candidate": "us30_monday_or_m3_s3_r3",
+  "label": "US30 Monday OR M3_S3_R3",
+  "symbol": "US30",
+  "family": "monday_or",
+  "sizing_note": "27-cell Phase 1 sizing sweep (monday_or_sizing_sweep_broker_us30)",
+  "unit_path": "/home/tester/hsm/potions/live/state/monday_or_sizing_sweep_broker_us30/audits/us30_m3_s3_r3/us30_m3_s3_r3/unit_fills.csv",
+  "skip_months": [
+    1
+  ],
+  "unfiltered_net": 29891.0,
+  "unfiltered_stress": -15899.0,
+  "unfiltered_ns": 1.88,
+  "n_campaigns": 1675,
+  "n_taken": 78,
+  "n_skipped": 1597,
+  "reasons": {
+    "month": 229,
+    "roll": 1368,
+    "take": 78,
+    "warmup": 50
+  },
+  "filtered_net": 459.79999999999933,
+  "filtered_closed_dd": -1921.6000000000004,
+  "filtered_ns_proxy": 0.23927976686094882,
+  "filtered_wr": 0.2692307692307692,
+  "filtered_pf": 1.094609442837213,
+  "unfiltered_wr": 0.28,
+  "unfiltered_pf": 1.1332396944781897,
+  "unfiltered_closed_dd": -13217.6,
+  "gate_min_wr": 0.4,
+  "gate_min_pf": 1.0,
+  "stance": "half_size",
+  "size_mult": 0.5,
+  "reason": "marginal / soft after filters \u2014 1/2 size; skip months [1]; filters N/S proxy 0.24 vs unfilt 1.88"
+}

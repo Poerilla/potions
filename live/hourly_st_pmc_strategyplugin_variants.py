@@ -198,6 +198,7 @@ def run_variant(
     force: bool = True,
     quiet: bool = True,
     one_m: Optional["pd.DataFrame"] = None,
+    signal_offset_minutes: int = 60,
 ) -> VariantReplayResult:
     strategy_id = "%s_hourly_st_pmc_%s" % (market, cfg.name)
     state_root = output_root / "states" / strategy_id
@@ -244,6 +245,7 @@ def run_variant(
             label=cfg.name,
             # BB mid needs contiguous 1m; plain 1m-fill control can skip dead tape.
             always_1m=bool(cfg.bb_add_enabled),
+            signal_offset_minutes=int(signal_offset_minutes),
         )
     else:
         for idx, bar in enumerate(bars, start=1):
@@ -353,68 +355,110 @@ def _replay_hourly_with_1m(
     source: str,
     label: str,
     always_1m: bool = False,
+    signal_offset_minutes: int = 60,
 ) -> None:
-    """1h signals (no broker fills) then 1m tape in (hour, next_hour] for fills.
+    """Completed 1h signals (no broker fills) with 1m tape for fills.
 
-    Hourly bars must not match resting orders: their OHLC spans the whole hour,
-    so filling on the hour timestamp would lookahead before the 1m path trades
-    through the level (live demos fill on 1m, then emit the completed 1h).
+    The shared hourly resampler is left-labeled: a bar timestamped 11:00 spans
+    11:00-11:59. The strategy can only consume that bar at 12:00, so this
+    helper shifts the signal timestamp forward ``signal_offset_minutes`` (default
+    60) and feeds the 1m tape chronologically before each signal. Early-close
+    experiments pass truncated hourly OHLC plus a smaller offset (e.g. through
+    minute 58 → offset 59). Hourly bars must not match resting orders; fills
+    happen exclusively on the 1m path.
 
     When ``always_1m`` is False, skip 1m segments while flat with no working
     orders (same speed trick as EURUSD day-bias DCA broker replay).
     """
     import pandas as pd
 
+    if int(signal_offset_minutes) < 1 or int(signal_offset_minutes) > 60:
+        raise ValueError(
+            "signal_offset_minutes must be in [1, 60], got %r" % (signal_offset_minutes,)
+        )
+    offset = pd.Timedelta(minutes=int(signal_offset_minutes))
+
     idx = one_m.index
     seen_1m = 0
     skipped_hours = 0
     n_h = len(hourly_bars)
-    for i, hbar in enumerate(hourly_bars):
-        # Signal / arm only — PaperBroker fills exclusively on the 1m tape below.
-        engine.process_bar(hbar, broker_fills=False)
+
+    def shifted_signal_bar(bar: Bar, signal_ts: "pd.Timestamp") -> Bar:
+        return Bar(
+            instrument=bar.instrument,
+            timeframe=bar.timeframe,
+            ts=signal_ts.isoformat(),
+            open=bar.open,
+            high=bar.high,
+            low=bar.low,
+            close=bar.close,
+            volume=bar.volume,
+            complete=bar.complete,
+            source=bar.source,
+        )
+
+    def replay_1m_until(cursor: Optional["pd.Timestamp"], end: "pd.Timestamp") -> int:
+        """Replay 1m bars with ``cursor <= ts < end``.
+
+        The right edge is intentionally exclusive because a 1m bar stamped at
+        the hourly completion time contains price action after that timestamp.
+        Orders emitted from the completed-hour signal should not fill on that
+        same timestamp in replay; the broker's strict ``live_after_ts`` check
+        enforces that while still letting older working orders see the full tape.
+        """
+        nonlocal seen_1m
         if not always_1m and not _broker_needs_1m(engine):
+            return 0
+        lo = 0 if cursor is None else idx.searchsorted(cursor, side="left")
+        hi = idx.searchsorted(end, side="left")
+        if lo >= hi:
+            return 0
+        sl = one_m.iloc[lo:hi]
+        vol = sl["volume"] if "volume" in sl.columns else None
+        for j, (ts, o, h, l, c) in enumerate(
+            zip(sl.index, sl["open"], sl["high"], sl["low"], sl["close"])
+        ):
+            engine.process_bar(
+                Bar(
+                    instrument=instrument,
+                    timeframe="1m",
+                    ts=pd.Timestamp(ts).isoformat(),
+                    open=float(o),
+                    high=float(h),
+                    low=float(l),
+                    close=float(c),
+                    volume=float(vol.iloc[j]) if vol is not None else 0.0,
+                    complete=True,
+                    source=source,
+                )
+            )
+            seen_1m += 1
+        return len(sl)
+
+    cursor: Optional["pd.Timestamp"] = None
+    for i, hbar in enumerate(hourly_bars):
+        signal_ts = pd.Timestamp(hbar.ts) + offset
+
+        # First replay all 1m data that could have happened before the completed
+        # hourly signal was known. Any resting orders here are from earlier bars.
+        before_seen = seen_1m
+        replay_1m_until(cursor, signal_ts)
+        if seen_1m == before_seen and not always_1m and not _broker_needs_1m(engine):
             skipped_hours += 1
-            if (i + 1) % 10000 == 0:
-                print(
-                    "  %s hourly %d/%d (1m=%d skipped_h=%d)"
-                    % (label, i + 1, n_h, seen_1m, skipped_hours),
-                    flush=True,
-                )
-            continue
-        left = pd.Timestamp(hbar.ts)
-        if i + 1 < n_h:
-            right = pd.Timestamp(hourly_bars[i + 1].ts)
-        else:
-            right = idx[-1] + pd.Timedelta(minutes=1)
-        lo = idx.searchsorted(left, side="right")
-        hi = idx.searchsorted(right, side="right")
-        if lo < hi:
-            sl = one_m.iloc[lo:hi]
-            vol = sl["volume"] if "volume" in sl.columns else None
-            for j, (ts, o, h, l, c) in enumerate(
-                zip(sl.index, sl["open"], sl["high"], sl["low"], sl["close"])
-            ):
-                engine.process_bar(
-                    Bar(
-                        instrument=instrument,
-                        timeframe="1m",
-                        ts=pd.Timestamp(ts).isoformat(),
-                        open=float(o),
-                        high=float(h),
-                        low=float(l),
-                        close=float(c),
-                        volume=float(vol.iloc[j]) if vol is not None else 0.0,
-                        complete=True,
-                        source=source,
-                    )
-                )
-                seen_1m += 1
+
+        # Signal / arm only after the (possibly early-close) hourly bar completed.
+        engine.process_bar(shifted_signal_bar(hbar, signal_ts), broker_fills=False)
+        cursor = signal_ts
+
         if (i + 1) % 5000 == 0:
             print(
                 "  %s hourly %d/%d (1m=%d skipped_h=%d)"
                 % (label, i + 1, n_h, seen_1m, skipped_hours),
                 flush=True,
             )
+    if len(idx) > 0:
+        # Flush remaining 1m tape after the last completed-hour signal.
+        replay_1m_until(cursor, idx[-1] + pd.Timedelta(minutes=1))
     print(
         "  %s done: 1m bars=%d skipped_hours=%d" % (label, seen_1m, skipped_hours),
         flush=True,

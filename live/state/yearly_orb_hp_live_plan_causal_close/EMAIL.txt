@@ -1,0 +1,23 @@
+potions: yearly ORB HP size-up LIVE_PLAN complete
+
+Study: yearly_orb_hp_sizeup_causal_close
+Hub: /home/tester/hsm/potions/live/state/yearly_orb_hp_live_plan_causal_close
+
+NQ WR recount: 20/68 = 29.4% (95% CI 19.9–41.1%).
+86% claim: DOES NOT HOLD (CI does not cover 86%).
+
+1.25× decisions:
+  NOT VALIDATED  nq_yorb week_of_month=2  ΔN/S=+2.21  p_master=0.210
+  NOT VALIDATED  nq_yorb or_width_bucket=or_wide  ΔN/S=-0.18  p_master=1.000
+  NOT VALIDATED  es_yorb rsi_align=rsi_against_side  ΔN/S=+0.24  p_master=0.858
+  NOT VALIDATED  es_yorb quarter=Q4  ΔN/S=+0.09  p_master=1.000
+  NOT VALIDATED  ym_yorb atr_pct_bucket=atr_pctl_q4  ΔN/S=-0.02  p_master=1.000
+  NOT VALIDATED  ym_yorb prior_year_ret_bucket=prior_yr_mid  ΔN/S=+0.75  p_master=0.563
+2× decisions:
+  NOT VALIDATED  nq_yorb week_of_month=2  ΔN/S=+8.33  p_master=0.056
+  NOT VALIDATED  nq_yorb or_width_bucket=or_wide  ΔN/S=-0.45  p_master=1.000
+  NOT VALIDATED  es_yorb rsi_align=rsi_against_side  ΔN/S=+0.66  p_master=0.944
+  NOT VALIDATED  es_yorb quarter=Q4  ΔN/S=+0.35  p_master=1.000
+  NOT VALIDATED  ym_yorb atr_pct_bucket=atr_pctl_q4  ΔN/S=-0.04  p_master=1.000
+  NOT VALIDATED  ym_yorb prior_year_ret_bucket=prior_yr_mid  ΔN/S=+2.92  p_master=0.469
+Stance: no yearly-ORB HP size-up validated — baseline 1.0× only.

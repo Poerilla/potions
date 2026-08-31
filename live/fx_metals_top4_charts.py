@@ -183,7 +183,11 @@ def build_usdjpy_fbo_charts(*, force: bool = False, max_charts: int = 300) -> Tu
     )
     out = CHARTS_ROOT / "usdjpy_fbo_1_1_3_atr80"
     if force and out.exists():
-        shutil.rmtree(out)
+        # break symlink then wipe
+        if out.is_symlink():
+            out.unlink()
+        else:
+            shutil.rmtree(out)
     built = run_fbo_month_charts(
         state,
         out,
@@ -194,6 +198,9 @@ def build_usdjpy_fbo_charts(*, force: bool = False, max_charts: int = 300) -> Tu
         point_value=POINT_VALUES["USDJPY"],
         fee_per_unit=7.0,
         max_charts=max_charts,
+        chart_bars_path=REPO / "fx" / "usdjpy_4h.csv",
+        chart_timeframe="4H",
+        legend_loc="lower right",
     )
     return ("USDJPY FBO 1/1/3 atr80", out, len(built))
 

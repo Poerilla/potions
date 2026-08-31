@@ -1,0 +1,2 @@
+strategy_id,symbol,family,quote,book,clock,or_window,or_bars,sizing,regime_days,start,units,trades,net_usd,closed_dd_usd,stress_dd_usd,net_over_stress,win_rate,profit_factor,max_open_units,state_root
+eurusd_v2b_london_2h_or_S_1_1_3,EURUSD,fx,USD,S_1_1_3,london_2h_or,03:00-05:00,120,S_1_1_3,5,2015-01-02,40,8,-5880.000000000671,-6290.000000000477,-6315.000000000529,-0.9311163895487218,7.5,0.058145122537229754,5,live/state/fx_v2b_london_2h_or_smoke/states/eurusd_v2b_london_2h_or_S_1_1_3

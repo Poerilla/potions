@@ -1,0 +1,16 @@
+{
+  "study": "futures_intraday_hp_sizeup_v1",
+  "addon": "nas100_nq_lead_prior_opposed",
+  "books": [
+    {
+      "key": "nas100_nq_lead_prior_opposed",
+      "symbol": "NAS100",
+      "family": "prior_opposed",
+      "tracker_ns": 17.94,
+      "status": "research-promoted",
+      "n_campaigns": 280,
+      "sleeve": "nas100",
+      "notes": "gate_mode=nq_lead_sync; CFD sleeve distinct from NQ futures prior-opposed; native fills $1/pt"
+    }
+  ]
+}

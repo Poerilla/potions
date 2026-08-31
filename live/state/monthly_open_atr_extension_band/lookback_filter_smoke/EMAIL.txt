@@ -1,0 +1,13 @@
+Monthly open ATR extension — pct75 lookback filter
+
+Hub: live/state/monthly_open_atr_extension_band/lookback_filter_smoke
+
+Base rates (months reaching pct75 band after open week):
+  NQ: N=169  pct75_any=94%  max_any=80%
+
+Strongest true-bucket lifts (pct75 any, lift≥1.2, |z|≥1.2):
+  [NQ]
+    (none)
+
+Stance: diagnostic filter hunt — use SUMMARY.md before wiring skip/size rules.
+Artifacts: months_features.csv, lift_*.csv, SUMMARY.md

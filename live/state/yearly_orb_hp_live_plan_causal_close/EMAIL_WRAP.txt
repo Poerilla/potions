@@ -1,0 +1,29 @@
+potions: yearly ORB causal-close HP + charts complete
+
+Rebuilt the whole HP / chart package on causal broker-like fills throughout
+(next-open range-close, not same-bar-open scratches).
+
+Same books as the scratch-inflated emails: NQ L_4_1_1, ES L_4_2_1, YM L_4_1_1.
+
+Book WR (campaign net>0):
+  NQ  20/68 = 29.4%   net $764,503   (was 86.8% / $1.42M)
+  ES  15/73 = 20.5%   net $68,396    (was 76.7%)
+  YM  18/81 = 22.2%   net $157,766   (was 90.1%)
+
+NQ buckets (every campaign, PNG not zip — subjects say causal-close):
+  mixed MA  18  33.3%  (6/12)  avg $16,859  lift +$5,616
+  wide OR   20  40.0%  (8/12)  avg $35,492  lift +$24,249
+  ATR q4    24  41.7% (10/14)  avg $19,023  lift +$7,780
+  union 41 campaigns / 26 losses  (was 41 / 1 loss)
+
+HP 1.25× and 2×: all six pairs NOT VALIDATED. Stay 1.0×.
+Closest miss: NQ week-of-month=2 @ 2×  ΔN/S +8.33  p_master=0.056  wf_reappear=0.
+
+Hubs:
+  live/state/yearly_orb_hp_live_plan_causal_close/
+  live/state/yearly_daily_condition_profile_futures_causal_close/
+  live/state/yearly_orb_hp_charts_causal_close/   (best wins + nq_buckets/)
+
+Stance: REJECT the pre-causal 86–100% WR recount and those bucket charts.
+Causal NQ is a 29% WR trend book. Do not HP-size mixed-MA / wide-OR / ATR-q4.
+

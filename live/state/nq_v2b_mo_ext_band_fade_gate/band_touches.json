@@ -1,0 +1,802 @@
+[
+  {
+    "ts": "2012-03-14T14:00:00Z",
+    "available_at_ts": "2012-03-14T14:00:00Z",
+    "side": "short",
+    "month_key": "2012-03",
+    "entry": 2709.6911305774775,
+    "source": "mo_ext_band_touch"
+  },
+  {
+    "ts": "2012-06-11T09:00:00Z",
+    "available_at_ts": "2012-06-11T09:00:00Z",
+    "side": "short",
+    "month_key": "2012-06",
+    "entry": 2576.6991876599295,
+    "source": "mo_ext_band_touch"
+  },
+  {
+    "ts": "2012-07-12T13:00:00Z",
+    "available_at_ts": "2012-07-12T13:00:00Z",
+    "side": "long",
+    "month_key": "2012-07",
+    "entry": 2531.2603524239535,
+    "source": "mo_ext_band_touch"
+  },
+  {
+    "ts": "2012-08-07T14:00:00Z",
+    "available_at_ts": "2012-08-07T14:00:00Z",
+    "side": "short",
+    "month_key": "2012-08",
+    "entry": 2707.826492175464,
+    "source": "mo_ext_band_touch"
+  },
+  {
+    "ts": "2012-09-13T18:00:00Z",
+    "available_at_ts": "2012-09-13T18:00:00Z",
+    "side": "short",
+    "month_key": "2012-09",
+    "entry": 2839.0554702948994,
+    "source": "mo_ext_band_touch"
+  },
+  {
+    "ts": "2012-10-15T00:00:00Z",
+    "available_at_ts": "2012-10-15T00:00:00Z",
+    "side": "long",
+    "month_key": "2012-10",
+    "entry": 2706.7970926328553,
+    "source": "mo_ext_band_touch"
+  },
+  {
+    "ts": "2012-11-13T14:00:00Z",
+    "available_at_ts": "2012-11-13T14:00:00Z",
+    "side": "long",
+    "month_key": "2012-11",
+    "entry": 2555.374987912929,
+    "source": "mo_ext_band_touch"
+  },
+  {
+    "ts": "2013-01-10T13:00:00Z",
+    "available_at_ts": "2013-01-10T13:00:00Z",
+    "side": "short",
+    "month_key": "2013-01",
+    "entry": 2738.651487301854,
+    "source": "mo_ext_band_touch"
+  },
+  {
+    "ts": "2013-03-05T14:00:00Z",
+    "available_at_ts": "2013-03-05T14:00:00Z",
+    "side": "short",
+    "month_key": "2013-03",
+    "entry": 2778.804046304819,
+    "source": "mo_ext_band_touch"
+  },
+  {
+    "ts": "2013-04-10T15:00:00Z",
+    "available_at_ts": "2013-04-10T15:00:00Z",
+    "side": "short",
+    "month_key": "2013-04",
+    "entry": 2849.8591847880753,
+    "source": "mo_ext_band_touch"
+  },
+  {
+    "ts": "2013-07-08T14:00:00Z",
+    "available_at_ts": "2013-07-08T14:00:00Z",
+    "side": "short",
+    "month_key": "2013-07",
+    "entry": 2960.261635272819,
+    "source": "mo_ext_band_touch"
+  },
+  {
+    "ts": "2013-10-17T19:00:00Z",
+    "available_at_ts": "2013-10-17T19:00:00Z",
+    "side": "short",
+    "month_key": "2013-10",
+    "entry": 3293.5489111009715,
+    "source": "mo_ext_band_touch"
+  },
+  {
+    "ts": "2013-11-27T16:00:00Z",
+    "available_at_ts": "2013-11-27T16:00:00Z",
+    "side": "short",
+    "month_key": "2013-11",
+    "entry": 3468.9822946897248,
+    "source": "mo_ext_band_touch"
+  },
+  {
+    "ts": "2014-02-11T18:00:00Z",
+    "available_at_ts": "2014-02-11T18:00:00Z",
+    "side": "short",
+    "month_key": "2014-02",
+    "entry": 3609.4431703090036,
+    "source": "mo_ext_band_touch"
+  },
+  {
+    "ts": "2014-08-15T13:00:00Z",
+    "available_at_ts": "2014-08-15T13:00:00Z",
+    "side": "short",
+    "month_key": "2014-08",
+    "entry": 3990.177516790683,
+    "source": "mo_ext_band_touch"
+  },
+  {
+    "ts": "2014-10-31T05:00:00Z",
+    "available_at_ts": "2014-10-31T05:00:00Z",
+    "side": "short",
+    "month_key": "2014-10",
+    "entry": 4121.854477078043,
+    "source": "mo_ext_band_touch"
+  },
+  {
+    "ts": "2014-11-21T08:00:00Z",
+    "available_at_ts": "2014-11-21T08:00:00Z",
+    "side": "short",
+    "month_key": "2014-11",
+    "entry": 4255.025189884708,
+    "source": "mo_ext_band_touch"
+  },
+  {
+    "ts": "2015-01-06T16:00:00Z",
+    "available_at_ts": "2015-01-06T16:00:00Z",
+    "side": "long",
+    "month_key": "2015-01",
+    "entry": 4130.808112491913,
+    "source": "mo_ext_band_touch"
+  },
+  {
+    "ts": "2015-03-11T19:00:00Z",
+    "available_at_ts": "2015-03-11T19:00:00Z",
+    "side": "long",
+    "month_key": "2015-03",
+    "entry": 4309.963395941498,
+    "source": "mo_ext_band_touch"
+  },
+  {
+    "ts": "2015-06-09T09:00:00Z",
+    "available_at_ts": "2015-06-09T09:00:00Z",
+    "side": "long",
+    "month_key": "2015-06",
+    "entry": 4417.00036436057,
+    "source": "mo_ext_band_touch"
+  },
+  {
+    "ts": "2016-02-08T09:00:00Z",
+    "available_at_ts": "2016-02-08T09:00:00Z",
+    "side": "long",
+    "month_key": "2016-02",
+    "entry": 3979.480417355897,
+    "source": "mo_ext_band_touch"
+  },
+  {
+    "ts": "2016-03-07T16:00:00Z",
+    "available_at_ts": "2016-03-07T16:00:00Z",
+    "side": "short",
+    "month_key": "2016-03",
+    "entry": 4329.250736968912,
+    "source": "mo_ext_band_touch"
+  },
+  {
+    "ts": "2016-05-24T14:00:00Z",
+    "available_at_ts": "2016-05-24T14:00:00Z",
+    "side": "short",
+    "month_key": "2016-05",
+    "entry": 4414.545693534847,
+    "source": "mo_ext_band_touch"
+  },
+  {
+    "ts": "2016-06-24T02:00:00Z",
+    "available_at_ts": "2016-06-24T02:00:00Z",
+    "side": "long",
+    "month_key": "2016-06",
+    "entry": 4339.697214290051,
+    "source": "mo_ext_band_touch"
+  },
+  {
+    "ts": "2016-07-08T13:00:00Z",
+    "available_at_ts": "2016-07-08T13:00:00Z",
+    "side": "short",
+    "month_key": "2016-07",
+    "entry": 4488.539797758718,
+    "source": "mo_ext_band_touch"
+  },
+  {
+    "ts": "2016-12-11T23:00:00Z",
+    "available_at_ts": "2016-12-11T23:00:00Z",
+    "side": "short",
+    "month_key": "2016-12",
+    "entry": 4906.781625298853,
+    "source": "mo_ext_band_touch"
+  },
+  {
+    "ts": "2017-02-10T18:00:00Z",
+    "available_at_ts": "2017-02-10T18:00:00Z",
+    "side": "short",
+    "month_key": "2017-02",
+    "entry": 5232.433071481544,
+    "source": "mo_ext_band_touch"
+  },
+  {
+    "ts": "2017-03-15T19:00:00Z",
+    "available_at_ts": "2017-03-15T19:00:00Z",
+    "side": "short",
+    "month_key": "2017-03",
+    "entry": 5430.399445875878,
+    "source": "mo_ext_band_touch"
+  },
+  {
+    "ts": "2017-04-25T13:00:00Z",
+    "available_at_ts": "2017-04-25T13:00:00Z",
+    "side": "short",
+    "month_key": "2017-04",
+    "entry": 5526.38072263476,
+    "source": "mo_ext_band_touch"
+  },
+  {
+    "ts": "2017-05-09T14:00:00Z",
+    "available_at_ts": "2017-05-09T14:00:00Z",
+    "side": "short",
+    "month_key": "2017-05",
+    "entry": 5684.259567959303,
+    "source": "mo_ext_band_touch"
+  },
+  {
+    "ts": "2017-07-12T18:00:00Z",
+    "available_at_ts": "2017-07-12T18:00:00Z",
+    "side": "short",
+    "month_key": "2017-07",
+    "entry": 5781.364672483659,
+    "source": "mo_ext_band_touch"
+  },
+  {
+    "ts": "2018-03-09T16:00:00Z",
+    "available_at_ts": "2018-03-09T16:00:00Z",
+    "side": "short",
+    "month_key": "2018-03",
+    "entry": 7083.3110648308475,
+    "source": "mo_ext_band_touch"
+  },
+  {
+    "ts": "2018-04-17T18:00:00Z",
+    "available_at_ts": "2018-04-17T18:00:00Z",
+    "side": "short",
+    "month_key": "2018-04",
+    "entry": 6835.887901091979,
+    "source": "mo_ext_band_touch"
+  },
+  {
+    "ts": "2018-05-09T18:00:00Z",
+    "available_at_ts": "2018-05-09T18:00:00Z",
+    "side": "short",
+    "month_key": "2018-05",
+    "entry": 6895.108281319651,
+    "source": "mo_ext_band_touch"
+  },
+  {
+    "ts": "2018-06-14T14:00:00Z",
+    "available_at_ts": "2018-06-14T14:00:00Z",
+    "side": "short",
+    "month_key": "2018-06",
+    "entry": 7298.453215109319,
+    "source": "mo_ext_band_touch"
+  },
+  {
+    "ts": "2018-07-12T23:00:00Z",
+    "available_at_ts": "2018-07-12T23:00:00Z",
+    "side": "short",
+    "month_key": "2018-07",
+    "entry": 7397.037525553766,
+    "source": "mo_ext_band_touch"
+  },
+  {
+    "ts": "2018-08-27T00:00:00Z",
+    "available_at_ts": "2018-08-27T00:00:00Z",
+    "side": "short",
+    "month_key": "2018-08",
+    "entry": 7526.65463665718,
+    "source": "mo_ext_band_touch"
+  },
+  {
+    "ts": "2018-11-14T17:00:00Z",
+    "available_at_ts": "2018-11-14T17:00:00Z",
+    "side": "long",
+    "month_key": "2018-11",
+    "entry": 6776.285565219754,
+    "source": "mo_ext_band_touch"
+  },
+  {
+    "ts": "2018-12-05T23:00:00Z",
+    "available_at_ts": "2018-12-05T23:00:00Z",
+    "side": "long",
+    "month_key": "2018-12",
+    "entry": 6731.128860883471,
+    "source": "mo_ext_band_touch"
+  },
+  {
+    "ts": "2019-01-08T13:00:00Z",
+    "available_at_ts": "2019-01-08T13:00:00Z",
+    "side": "short",
+    "month_key": "2019-01",
+    "entry": 6559.492651158384,
+    "source": "mo_ext_band_touch"
+  },
+  {
+    "ts": "2019-02-20T15:00:00Z",
+    "available_at_ts": "2019-02-20T15:00:00Z",
+    "side": "short",
+    "month_key": "2019-02",
+    "entry": 7099.302312494461,
+    "source": "mo_ext_band_touch"
+  },
+  {
+    "ts": "2019-03-13T15:00:00Z",
+    "available_at_ts": "2019-03-13T15:00:00Z",
+    "side": "short",
+    "month_key": "2019-03",
+    "entry": 7304.494594158721,
+    "source": "mo_ext_band_touch"
+  },
+  {
+    "ts": "2019-04-16T14:00:00Z",
+    "available_at_ts": "2019-04-16T14:00:00Z",
+    "side": "short",
+    "month_key": "2019-04",
+    "entry": 7692.654871851598,
+    "source": "mo_ext_band_touch"
+  },
+  {
+    "ts": "2019-06-07T13:00:00Z",
+    "available_at_ts": "2019-06-07T13:00:00Z",
+    "side": "short",
+    "month_key": "2019-06",
+    "entry": 7344.763283297947,
+    "source": "mo_ext_band_touch"
+  },
+  {
+    "ts": "2019-08-08T19:00:00Z",
+    "available_at_ts": "2019-08-08T19:00:00Z",
+    "side": "long",
+    "month_key": "2019-08",
+    "entry": 7723.739894139063,
+    "source": "mo_ext_band_touch"
+  },
+  {
+    "ts": "2019-09-05T14:00:00Z",
+    "available_at_ts": "2019-09-05T14:00:00Z",
+    "side": "short",
+    "month_key": "2019-09",
+    "entry": 7863.569056983549,
+    "source": "mo_ext_band_touch"
+  },
+  {
+    "ts": "2019-10-09T22:00:00Z",
+    "available_at_ts": "2019-10-09T22:00:00Z",
+    "side": "long",
+    "month_key": "2019-10",
+    "entry": 7595.844775031109,
+    "source": "mo_ext_band_touch"
+  },
+  {
+    "ts": "2019-10-25T15:00:00Z",
+    "available_at_ts": "2019-10-25T15:00:00Z",
+    "side": "short",
+    "month_key": "2019-10",
+    "entry": 8034.134699029989,
+    "source": "mo_ext_band_touch"
+  },
+  {
+    "ts": "2019-12-02T15:00:00Z",
+    "available_at_ts": "2019-12-02T15:00:00Z",
+    "side": "long",
+    "month_key": "2019-12",
+    "entry": 8277.93506696457,
+    "source": "mo_ext_band_touch"
+  },
+  {
+    "ts": "2019-12-19T20:00:00Z",
+    "available_at_ts": "2019-12-19T20:00:00Z",
+    "side": "short",
+    "month_key": "2019-12",
+    "entry": 8672.47738533777,
+    "source": "mo_ext_band_touch"
+  },
+  {
+    "ts": "2020-01-09T08:00:00Z",
+    "available_at_ts": "2020-01-09T08:00:00Z",
+    "side": "short",
+    "month_key": "2020-01",
+    "entry": 8990.88755714139,
+    "source": "mo_ext_band_touch"
+  },
+  {
+    "ts": "2020-02-04T09:00:00Z",
+    "available_at_ts": "2020-02-04T09:00:00Z",
+    "side": "short",
+    "month_key": "2020-02",
+    "entry": 9230.657095263812,
+    "source": "mo_ext_band_touch"
+  },
+  {
+    "ts": "2020-02-25T20:00:00Z",
+    "available_at_ts": "2020-02-25T20:00:00Z",
+    "side": "long",
+    "month_key": "2020-02",
+    "entry": 8815.809391416302,
+    "source": "mo_ext_band_touch"
+  },
+  {
+    "ts": "2020-03-02T20:00:00Z",
+    "available_at_ts": "2020-03-02T20:00:00Z",
+    "side": "short",
+    "month_key": "2020-03",
+    "entry": 8741.132401914203,
+    "source": "mo_ext_band_touch"
+  },
+  {
+    "ts": "2020-04-07T07:00:00Z",
+    "available_at_ts": "2020-04-07T07:00:00Z",
+    "side": "short",
+    "month_key": "2020-04",
+    "entry": 8197.030647580106,
+    "source": "mo_ext_band_touch"
+  },
+  {
+    "ts": "2020-05-21T13:00:00Z",
+    "available_at_ts": "2020-05-21T13:00:00Z",
+    "side": "short",
+    "month_key": "2020-05",
+    "entry": 9510.011004505892,
+    "source": "mo_ext_band_touch"
+  },
+  {
+    "ts": "2020-06-23T17:00:00Z",
+    "available_at_ts": "2020-06-23T17:00:00Z",
+    "side": "short",
+    "month_key": "2020-06",
+    "entry": 10284.183665583532,
+    "source": "mo_ext_band_touch"
+  },
+  {
+    "ts": "2020-07-12T22:00:00Z",
+    "available_at_ts": "2020-07-12T22:00:00Z",
+    "side": "short",
+    "month_key": "2020-07",
+    "entry": 10898.402729774987,
+    "source": "mo_ext_band_touch"
+  },
+  {
+    "ts": "2020-08-25T20:00:00Z",
+    "available_at_ts": "2020-08-25T20:00:00Z",
+    "side": "short",
+    "month_key": "2020-08",
+    "entry": 11729.649200899528,
+    "source": "mo_ext_band_touch"
+  },
+  {
+    "ts": "2020-10-13T10:00:00Z",
+    "available_at_ts": "2020-10-13T10:00:00Z",
+    "side": "short",
+    "month_key": "2020-10",
+    "entry": 12232.340360086138,
+    "source": "mo_ext_band_touch"
+  },
+  {
+    "ts": "2020-10-28T17:00:00Z",
+    "available_at_ts": "2020-10-28T17:00:00Z",
+    "side": "long",
+    "month_key": "2020-10",
+    "entry": 11168.228690013904,
+    "source": "mo_ext_band_touch"
+  },
+  {
+    "ts": "2020-11-04T03:00:00Z",
+    "available_at_ts": "2020-11-04T03:00:00Z",
+    "side": "short",
+    "month_key": "2020-11",
+    "entry": 11684.30726547956,
+    "source": "mo_ext_band_touch"
+  },
+  {
+    "ts": "2021-01-04T17:00:00Z",
+    "available_at_ts": "2021-01-04T17:00:00Z",
+    "side": "long",
+    "month_key": "2021-01",
+    "entry": 12542.119206758394,
+    "source": "mo_ext_band_touch"
+  },
+  {
+    "ts": "2021-01-26T21:00:00Z",
+    "available_at_ts": "2021-01-26T21:00:00Z",
+    "side": "short",
+    "month_key": "2021-01",
+    "entry": 13558.238155166384,
+    "source": "mo_ext_band_touch"
+  },
+  {
+    "ts": "2021-03-08T13:00:00Z",
+    "available_at_ts": "2021-03-08T13:00:00Z",
+    "side": "long",
+    "month_key": "2021-03",
+    "entry": 12610.719047798804,
+    "source": "mo_ext_band_touch"
+  },
+  {
+    "ts": "2021-06-15T00:00:00Z",
+    "available_at_ts": "2021-06-15T00:00:00Z",
+    "side": "short",
+    "month_key": "2021-06",
+    "entry": 14132.111913307155,
+    "source": "mo_ext_band_touch"
+  },
+  {
+    "ts": "2021-07-23T15:00:00Z",
+    "available_at_ts": "2021-07-23T15:00:00Z",
+    "side": "short",
+    "month_key": "2021-07",
+    "entry": 15054.29991958846,
+    "source": "mo_ext_band_touch"
+  },
+  {
+    "ts": "2021-08-27T17:00:00Z",
+    "available_at_ts": "2021-08-27T17:00:00Z",
+    "side": "short",
+    "month_key": "2021-08",
+    "entry": 15436.812090310963,
+    "source": "mo_ext_band_touch"
+  },
+  {
+    "ts": "2021-10-14T16:00:00Z",
+    "available_at_ts": "2021-10-14T16:00:00Z",
+    "side": "short",
+    "month_key": "2021-10",
+    "entry": 15020.139357347804,
+    "source": "mo_ext_band_touch"
+  },
+  {
+    "ts": "2021-11-08T10:00:00Z",
+    "available_at_ts": "2021-11-08T10:00:00Z",
+    "side": "short",
+    "month_key": "2021-11",
+    "entry": 16345.908339642163,
+    "source": "mo_ext_band_touch"
+  },
+  {
+    "ts": "2022-03-22T15:00:00Z",
+    "available_at_ts": "2022-03-22T15:00:00Z",
+    "side": "short",
+    "month_key": "2022-03",
+    "entry": 14680.760328580389,
+    "source": "mo_ext_band_touch"
+  },
+  {
+    "ts": "2022-05-04T18:00:00Z",
+    "available_at_ts": "2022-05-04T18:00:00Z",
+    "side": "short",
+    "month_key": "2022-05",
+    "entry": 13344.690184143323,
+    "source": "mo_ext_band_touch"
+  },
+  {
+    "ts": "2022-08-11T00:00:00Z",
+    "available_at_ts": "2022-08-11T00:00:00Z",
+    "side": "short",
+    "month_key": "2022-08",
+    "entry": 13448.94088527045,
+    "source": "mo_ext_band_touch"
+  },
+  {
+    "ts": "2022-09-12T07:00:00Z",
+    "available_at_ts": "2022-09-12T07:00:00Z",
+    "side": "short",
+    "month_key": "2022-09",
+    "entry": 12744.081164762421,
+    "source": "mo_ext_band_touch"
+  },
+  {
+    "ts": "2022-10-04T13:00:00Z",
+    "available_at_ts": "2022-10-04T13:00:00Z",
+    "side": "short",
+    "month_key": "2022-10",
+    "entry": 11599.773440755196,
+    "source": "mo_ext_band_touch"
+  },
+  {
+    "ts": "2022-11-15T13:00:00Z",
+    "available_at_ts": "2022-11-15T13:00:00Z",
+    "side": "short",
+    "month_key": "2022-11",
+    "entry": 12100.660072453371,
+    "source": "mo_ext_band_touch"
+  },
+  {
+    "ts": "2023-02-07T17:00:00Z",
+    "available_at_ts": "2023-02-07T17:00:00Z",
+    "side": "short",
+    "month_key": "2023-02",
+    "entry": 12726.297207118227,
+    "source": "mo_ext_band_touch"
+  },
+  {
+    "ts": "2023-07-18T16:00:00Z",
+    "available_at_ts": "2023-07-18T16:00:00Z",
+    "side": "short",
+    "month_key": "2023-07",
+    "entry": 15906.528970697706,
+    "source": "mo_ext_band_touch"
+  },
+  {
+    "ts": "2023-09-07T12:00:00Z",
+    "available_at_ts": "2023-09-07T12:00:00Z",
+    "side": "long",
+    "month_key": "2023-09",
+    "entry": 15241.309365496885,
+    "source": "mo_ext_band_touch"
+  },
+  {
+    "ts": "2023-10-10T15:00:00Z",
+    "available_at_ts": "2023-10-10T15:00:00Z",
+    "side": "short",
+    "month_key": "2023-10",
+    "entry": 15373.901998093079,
+    "source": "mo_ext_band_touch"
+  },
+  {
+    "ts": "2023-10-23T09:00:00Z",
+    "available_at_ts": "2023-10-23T09:00:00Z",
+    "side": "long",
+    "month_key": "2023-10",
+    "entry": 14575.655605183318,
+    "source": "mo_ext_band_touch"
+  },
+  {
+    "ts": "2023-12-12T13:00:00Z",
+    "available_at_ts": "2023-12-12T13:00:00Z",
+    "side": "short",
+    "month_key": "2023-12",
+    "entry": 16529.0522585762,
+    "source": "mo_ext_band_touch"
+  },
+  {
+    "ts": "2024-01-08T14:00:00Z",
+    "available_at_ts": "2024-01-08T14:00:00Z",
+    "side": "long",
+    "month_key": "2024-01",
+    "entry": 16558.412491026935,
+    "source": "mo_ext_band_touch"
+  },
+  {
+    "ts": "2024-01-24T05:00:00Z",
+    "available_at_ts": "2024-01-24T05:00:00Z",
+    "side": "short",
+    "month_key": "2024-01",
+    "entry": 17600.261947726947,
+    "source": "mo_ext_band_touch"
+  },
+  {
+    "ts": "2024-02-09T08:00:00Z",
+    "available_at_ts": "2024-02-09T08:00:00Z",
+    "side": "short",
+    "month_key": "2024-02",
+    "entry": 17907.320473648924,
+    "source": "mo_ext_band_touch"
+  },
+  {
+    "ts": "2024-05-06T19:00:00Z",
+    "available_at_ts": "2024-05-06T19:00:00Z",
+    "side": "short",
+    "month_key": "2024-05",
+    "entry": 18186.985195471614,
+    "source": "mo_ext_band_touch"
+  },
+  {
+    "ts": "2024-06-11T18:00:00Z",
+    "available_at_ts": "2024-06-11T18:00:00Z",
+    "side": "short",
+    "month_key": "2024-06",
+    "entry": 19223.743503322596,
+    "source": "mo_ext_band_touch"
+  },
+  {
+    "ts": "2024-07-08T23:00:00Z",
+    "available_at_ts": "2024-07-08T23:00:00Z",
+    "side": "short",
+    "month_key": "2024-07",
+    "entry": 20725.250259074463,
+    "source": "mo_ext_band_touch"
+  },
+  {
+    "ts": "2024-07-19T17:00:00Z",
+    "available_at_ts": "2024-07-19T17:00:00Z",
+    "side": "long",
+    "month_key": "2024-07",
+    "entry": 19660.08123474092,
+    "source": "mo_ext_band_touch"
+  },
+  {
+    "ts": "2024-08-15T12:00:00Z",
+    "available_at_ts": "2024-08-15T12:00:00Z",
+    "side": "long",
+    "month_key": "2024-08",
+    "entry": 19252.411083491035,
+    "source": "mo_ext_band_touch"
+  },
+  {
+    "ts": "2024-09-04T01:00:00Z",
+    "available_at_ts": "2024-09-04T01:00:00Z",
+    "side": "long",
+    "month_key": "2024-09",
+    "entry": 18832.4281743274,
+    "source": "mo_ext_band_touch"
+  },
+  {
+    "ts": "2024-09-26T03:00:00Z",
+    "available_at_ts": "2024-09-26T03:00:00Z",
+    "side": "short",
+    "month_key": "2024-09",
+    "entry": 20357.091285745344,
+    "source": "mo_ext_band_touch"
+  },
+  {
+    "ts": "2024-11-07T05:00:00Z",
+    "available_at_ts": "2024-11-07T05:00:00Z",
+    "side": "short",
+    "month_key": "2024-11",
+    "entry": 20941.02168829932,
+    "source": "mo_ext_band_touch"
+  },
+  {
+    "ts": "2024-12-11T16:00:00Z",
+    "available_at_ts": "2024-12-11T16:00:00Z",
+    "side": "short",
+    "month_key": "2024-12",
+    "entry": 21758.428110830275,
+    "source": "mo_ext_band_touch"
+  },
+  {
+    "ts": "2025-01-22T14:00:00Z",
+    "available_at_ts": "2025-01-22T14:00:00Z",
+    "side": "short",
+    "month_key": "2025-01",
+    "entry": 21958.23370382206,
+    "source": "mo_ext_band_touch"
+  },
+  {
+    "ts": "2025-02-06T20:00:00Z",
+    "available_at_ts": "2025-02-06T20:00:00Z",
+    "side": "short",
+    "month_key": "2025-02",
+    "entry": 21853.303470034392,
+    "source": "mo_ext_band_touch"
+  },
+  {
+    "ts": "2025-05-12T07:00:00Z",
+    "available_at_ts": "2025-05-12T07:00:00Z",
+    "side": "short",
+    "month_key": "2025-05",
+    "entry": 20708.927167446476,
+    "source": "mo_ext_band_touch"
+  },
+  {
+    "ts": "2025-10-26T23:00:00Z",
+    "available_at_ts": "2025-10-26T23:00:00Z",
+    "side": "short",
+    "month_key": "2025-10",
+    "entry": 25715.462828278705,
+    "source": "mo_ext_band_touch"
+  },
+  {
+    "ts": "2026-01-28T05:00:00Z",
+    "available_at_ts": "2026-01-28T05:00:00Z",
+    "side": "short",
+    "month_key": "2026-01",
+    "entry": 26233.72612949584,
+    "source": "mo_ext_band_touch"
+  },
+  {
+    "ts": "2026-05-06T10:00:00Z",
+    "available_at_ts": "2026-05-06T10:00:00Z",
+    "side": "short",
+    "month_key": "2026-05",
+    "entry": 28549.233008547624,
+    "source": "mo_ext_band_touch"
+  }
+]

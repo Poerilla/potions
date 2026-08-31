@@ -1,0 +1,36 @@
+{
+  "ok": true,
+  "pairs": [
+    [
+      "nq_yorb",
+      "week_of_month",
+      "2"
+    ],
+    [
+      "nq_yorb",
+      "or_width_bucket",
+      "or_wide"
+    ],
+    [
+      "es_yorb",
+      "rsi_align",
+      "rsi_against_side"
+    ],
+    [
+      "es_yorb",
+      "quarter",
+      "Q4"
+    ],
+    [
+      "ym_yorb",
+      "atr_pct_bucket",
+      "atr_pctl_q4"
+    ],
+    [
+      "ym_yorb",
+      "prior_year_ret_bucket",
+      "prior_yr_mid"
+    ]
+  ],
+  "study": "yearly_orb_hp_sizeup_causal_close"
+}

@@ -1,0 +1,23 @@
+potions: deep-check US30 ST+PMC 3R (1m fill broker)
+
+Hub: /home/tester/hsm/potions/live/state/us30_st_pmc_runner_variants/deep_check/us30_hourly_st_pmc_sl50_tp150_3r_1mfill
+State: /home/tester/hsm/potions/live/state/us30_st_pmc_runner_variants/states/us30_hourly_st_pmc_sl50_tp150_3r_1mfill
+Net=$19027.57  trades=578  full_SL=332 (57.4%)  hit_TP=0.0%  EOD=0.0%
+
+Year | net | stress | N/S | ret on start eq
+2016 | $445.50 | $0.00 | 0.00 | +0.45%
+2017 | $1060.81 | $-329.35 | 3.22 | +1.06%
+2018 | $1165.13 | $-258.00 | 4.52 | +1.15%
+2019 | $2467.11 | $-430.52 | 5.73 | +2.40%
+2020 | $676.14 | $-412.80 | 1.64 | +0.64%
+2021 | $2768.68 | $-415.75 | 6.66 | +2.62%
+2022 | $2375.31 | $-315.18 | 7.54 | +2.19%
+2023 | $3377.98 | $-258.00 | 13.09 | +3.04%
+2024 | $2875.03 | $-412.80 | 6.96 | +2.51%
+2025 | $1815.90 | $-361.20 | 5.03 | +1.55%
+
+Weakest N/S year: 2016 ($445.50 net, N/S=0.00)
+
+End equity if $100k at year-1 start: $119027.57
+
+See YEARLY.md + ROBUSTNESS_AUDIT.md in hub.

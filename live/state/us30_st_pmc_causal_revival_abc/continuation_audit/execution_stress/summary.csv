@@ -1,0 +1,5 @@
+slippage_ticks,net_usd,stress_dd_usd,ns,units,trades,max_open,state_root
+1,25370.6,-13783.1,1.841,5207,1736,3,live/state/us30_st_pmc_causal_revival_abc/continuation_audit/execution_stress/states/us30_cont_v1_slip_1
+2,24468.4,-14154.7,1.729,5207,1736,3,live/state/us30_st_pmc_causal_revival_abc/continuation_audit/execution_stress/states/us30_cont_v1_slip_2
+4,22664.0,-14897.9,1.521,5207,1736,3,live/state/us30_st_pmc_causal_revival_abc/continuation_audit/execution_stress/states/us30_cont_v1_slip_4
+8,19112.0,-16384.3,1.166,5207,1736,3,live/state/us30_st_pmc_causal_revival_abc/continuation_audit/execution_stress/states/us30_cont_v1_slip_8

@@ -1,0 +1,19 @@
+First-hour follow 3R all-days broker-like complete
+Hub: /home/tester/hsm/potions/live/state/first_hour_follow_broker
+Book: follow 3R every NY first hour (09:30–10:30) via StrategyPlugin first_hour_follow
+
+NQ (futures): trades=3943 WR=37.2% net=$+176743 stress=$-31718 N/S=5.57
+NAS100 (cfd): trades=2213 WR=37.6% net=$+7728 stress=$-1889 N/S=4.09
+GBPUSD (fx): trades=5908 WR=28.8% net=$-384 stress=$-42389 N/S=-0.01
+MES (futures): trades=1075 WR=32.1% net=$-1665 stress=$-5288 N/S=-0.31
+US30 (cfd): trades=2051 WR=31.9% net=$-4491 stress=$-12027 N/S=-0.37
+EURUSD (fx): trades=5909 WR=25.8% net=$-16369 stress=$-29620 N/S=-0.55
+AUDJPY (fx): trades=5744 WR=25.9% net=$-33386 stress=$-38399 N/S=-0.87
+YM (futures): trades=3981 WR=33.1% net=$-51174 stress=$-58156 N/S=-0.88
+XAUUSD (metal): trades=5825 WR=24.4% net=$-114413 stress=$-127535 N/S=-0.90
+USDJPY (fx): trades=5856 WR=25.7% net=$-28380 stress=$-31011 N/S=-0.92
+XAGUSD (metal): trades=5426 WR=17.3% net=$-181272 stress=$-183008 N/S=-0.99
+
+Skipped: ES (ES 1m DBN missing locally (daily only))
+
+Lead N/S: NQ 5.57. Diagnostic — large FH-open stop; do not promote from this pass alone.

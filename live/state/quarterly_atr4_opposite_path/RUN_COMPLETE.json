@@ -1,0 +1,87 @@
+{
+  "ok": true,
+  "markets": [
+    "EURUSD",
+    "GBPUSD",
+    "USDJPY",
+    "AUDJPY",
+    "XAUUSD",
+    "XAGUSD",
+    "US30",
+    "NAS100",
+    "NQ",
+    "YM"
+  ],
+  "best_paths": [
+    {
+      "market": "EURUSD",
+      "path_id": "second_after_upper",
+      "trade_mode": "second_only",
+      "risk_atr_mult": 2.0,
+      "win_rate": 0.4117647058823529
+    },
+    {
+      "market": "GBPUSD",
+      "path_id": "first_lower",
+      "trade_mode": "first_only",
+      "risk_atr_mult": 2.0,
+      "win_rate": 0.5849056603773585
+    },
+    {
+      "market": "USDJPY",
+      "path_id": "second_after_lower",
+      "trade_mode": "second_only",
+      "risk_atr_mult": 1.5,
+      "win_rate": 0.5
+    },
+    {
+      "market": "AUDJPY",
+      "path_id": "second_after_lower",
+      "trade_mode": "second_only",
+      "risk_atr_mult": 2.5,
+      "win_rate": 0.36363636363636365
+    },
+    {
+      "market": "XAUUSD",
+      "path_id": "second_after_upper",
+      "trade_mode": "second_only",
+      "risk_atr_mult": 0.5,
+      "win_rate": 0.5384615384615384
+    },
+    {
+      "market": "XAGUSD",
+      "path_id": "second_after_lower",
+      "trade_mode": "second_only",
+      "risk_atr_mult": 1.5,
+      "win_rate": 0.4444444444444444
+    },
+    {
+      "market": "US30",
+      "path_id": "first_lower",
+      "trade_mode": "first_only",
+      "risk_atr_mult": 0.5,
+      "win_rate": 0.7272727272727273
+    },
+    {
+      "market": "NAS100",
+      "path_id": "first_lower",
+      "trade_mode": "first_only",
+      "risk_atr_mult": 2.0,
+      "win_rate": 0.5555555555555556
+    },
+    {
+      "market": "NQ",
+      "path_id": "second_after_upper",
+      "trade_mode": "second_only",
+      "risk_atr_mult": 1.5,
+      "win_rate": 0.5
+    },
+    {
+      "market": "YM",
+      "path_id": "second_after_upper",
+      "trade_mode": "second_only",
+      "risk_atr_mult": 1.0,
+      "win_rate": 0.5555555555555556
+    }
+  ]
+}

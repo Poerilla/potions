@@ -1,0 +1,9 @@
+potions: USDJPY FBO HA nulls complete
+
+Hub: /home/tester/hsm/potions/live/state/usdjpy_monthly_orb_fbo_ha_conditions/nulls
+Pairs: 4
+
+  Day of week=Monday | NOT VALIDATED | ΔN/S=+0.89 hp=19%
+  Day of week=Thursday | NOT VALIDATED | ΔN/S=+0.97 hp=19%
+  Hourly RSI bucket=rsi_55_70 | NOT VALIDATED | ΔN/S=+0.61 hp=24%
+  Prior-month range half=month_aligned | NOT VALIDATED | ΔN/S=+0.69 hp=39%

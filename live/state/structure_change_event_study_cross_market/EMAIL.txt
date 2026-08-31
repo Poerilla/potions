@@ -1,0 +1,21 @@
+potions: structure-change atlas — cross-market PENDING NQ approval
+
+NQ Phase 0 freeze remains; Phase 1 still waits on CPU (stress → structure-bias).
+
+Armed (no compute) under:
+  live/state/structure_change_event_study_cross_market/
+
+PENDING_NQ_APPROVAL:
+  Index CFDs:  nas100, us30
+  FX/metal:    usdjpy_ny, eurusd_ny, xauusd_ny (gold)
+  Micros:      mnq, mym
+
+BLOCKED_DATA:
+  mes — mes_1min_raw.csv missing (only 5m / 4h-from-1m on disk)
+
+Optional later (1m present, not in FX_MARKETS): SPX500, GBPUSD
+
+Gate: APPROVAL_GATE.md status=pending
+  → open only after NQ Phases 1–4 review; CPU-clear email alone is not approval.
+
+Post-approval run order: mnq → nas100 → us30 → mym → usdjpy_ny → xauusd_ny → eurusd_ny

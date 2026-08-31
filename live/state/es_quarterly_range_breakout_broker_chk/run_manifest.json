@@ -1,0 +1,71 @@
+{
+  "broker_realism_config": {
+    "fee_per_unit": 1.5,
+    "slippage_ticks": 1.0
+  },
+  "causality_mode": "audit",
+  "command": [
+    "/home/tester/hsm/potions/live/quarterly_range_breakout_broker.py",
+    "--instrument",
+    "ES",
+    "--daily",
+    "es/es_daily.csv",
+    "--output-root",
+    "live/state/es_quarterly_range_breakout_broker_chk",
+    "--force"
+  ],
+  "created_at": "2026-08-22T03:44:55Z",
+  "cwd": "/home/tester/hsm/potions",
+  "data_inputs": [
+    {
+      "bytes": 261180,
+      "exists": true,
+      "path": "es/es_daily.csv",
+      "sha256": "0a720103b17dfba77bfa998a74c62a81d5b0dcc6c5f9f5daca6cb58a26637ce8"
+    }
+  ],
+  "extra": {
+    "notes": "ES daily honest quarterly range breakout (mid SL, 2@0.2W ladder, sides=long,short, mor=none, yor=none, w_atr=none, sidecar=off)"
+  },
+  "git": {
+    "commit": "",
+    "dirty": false,
+    "repo_root": "/home/tester/hsm/potions/live/state/es_quarterly_range_breakout_broker_chk",
+    "status_short": []
+  },
+  "outputs": [],
+  "python": {
+    "executable": "/home/tester/.pyenv/versions/3.8.0/bin/python3",
+    "platform": "Linux-5.15.0-185-generic-x86_64-with-glibc2.34",
+    "version": "3.8.0 (default, Feb 11 2026, 11:18:58) \n[GCC 11.4.0]"
+  },
+  "run_id": "run_2db7b4b40c04",
+  "strategy_config": {
+    "allowed_sides": [
+      "long",
+      "short"
+    ],
+    "be": false,
+    "enable_mid_sidecar": false,
+    "entry_qty": 8,
+    "instrument": "ES",
+    "require_mor_dirs": [],
+    "require_w_atr_aligns": [],
+    "require_yor_dirs": [],
+    "scale_qty": 2,
+    "scale_step_width_mult": 0.2,
+    "sidecar_eoq": "be_carry",
+    "sidecar_min_hist": 8,
+    "sidecar_min_prior_width": 0.0,
+    "sidecar_min_width_quantile": 0.75,
+    "sidecar_r_targets": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "stop": "prior_range_mid",
+    "strategy_type": "quarterly_range_breakout",
+    "version": "v2_honest"
+  }
+}

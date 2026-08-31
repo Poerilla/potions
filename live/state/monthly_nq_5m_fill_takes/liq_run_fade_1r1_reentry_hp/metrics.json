@@ -1,0 +1,18 @@
+{
+  "close_dd": -523185.00000000244,
+  "equity_curve": "/home/tester/hsm/potions/live/state/monthly_nq_5m_fill_takes/audits/nq_liq_run_fade_1r1_reentry_hp_5m/equity_curve.csv",
+  "fill_tf": "5m",
+  "label": "Liq-run fade 1:1 reentry HP (5m)",
+  "loss_units": 960.0,
+  "n_plans": 118,
+  "net_usd": 557115.0,
+  "ns": 1.0354623769829052,
+  "signal_tf": "5m",
+  "slug": "liq_run_fade_1r1_reentry_hp",
+  "state_root": "/home/tester/hsm/potions/live/state/monthly_nq_5m_fill_takes/liq_run_fade_1r1_reentry_hp/states/nq_liq_run_fade_1r1_reentry_hp_5m",
+  "strategy_id": "nq_liq_run_fade_1r1_reentry_hp_5m",
+  "stress_dd": -538035.0000000024,
+  "trades": 184.0,
+  "units": 1840.0,
+  "win_units": 880.0
+}

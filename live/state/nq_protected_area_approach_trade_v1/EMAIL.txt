@@ -1,0 +1,41 @@
+potions: nq_protected_area_approach_trade_v1
+
+# NQ Protected-Area Approach Trade V1
+
+STATUS: RESEARCH TRIAL (pandas 1m path)
+Parent structure ledger hash: `402795e0a05e2fbc`
+
+## Rules
+- Arm RTH 09:30–16:00 only; cancel outside window.
+- Above area → BUY limit @ area_high (approach from above).
+- Below area → SELL limit @ area_low (approach from below).
+- 4 contracts; take 3 off at +$1000 combined (16.6667 pts); runner to +$2000 (100.0 pts).
+- SL: 1m **close** beyond far side of area (wick alone does not stop).
+- One attempt per frozen completed candidate through seed_expiry.
+
+## Results
+| Metric | Value |
+|---|---:|
+| Candidates | 90 |
+| Fills | 87 (97%) |
+| Net | $+10803 |
+| Closed DD | $-5140 |
+| N/S | 2.10 |
+| Win rate | 29% |
+| Long / short net | $+10459 / $+344 |
+| Scale / runner / stops | 25 / 4 / 83 |
+
+## Exit mix
+
+| reason | n | net |
+|---|---:|---:|
+| tp_scale_1000usd | 25 | $+24887 |
+| tp_runner_2000usd | 4 | $+7994 |
+| sl_close_beyond_area | 83 | $-22078 |
+
+**Stance:** research — interesting; needs causality plugin + OOS before promote
+
+Hub: `/home/tester/hsm/potions/live/state/nq_protected_area_approach_trade_v1`
+DSR: `TRL-2026-00191`
+smoke=False
+

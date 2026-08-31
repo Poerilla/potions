@@ -9,6 +9,23 @@ Artifacts per check often also live as:
 
 ---
 
+## 2026-08-24 — account `-004` rotation
+
+Source: `oanda_account_configs/ACCOUNT_004_ROTATION_2026-08-24.md`
+
+| Severity | Issue | Status at write |
+|----------|-------|-----------------|
+| NOTE | Dedicated OANDA account `-004` removed from NAS100 ST+PMC 2R->10R active rotation | replaced |
+| NOTE | Account `-004` now maps to USDJPY Asia-range London filtered `S_3_1_3` | active map updated |
+| NOTE | Replacement causality review: 3,772 feature snapshots, 0 causality violations, 0 entry fills at/before activation | pass at 1m bar resolution |
+| NOTE | OANDA alias update and `--max-ticks=3` smoke test on account `-004` | pass; stopped cleanly |
+
+Operator note: historical NAS100 ST+PMC logs remain for audit, but do **not**
+restart `demo-nas100-hourly-st-pmc-2r10r-oanda` on account `-004`. Use
+`demo-usdjpy-asia-range-oanda --oanda-config .../usdjpy_asia_range_004.json`.
+
+---
+
 ## 2026-08-13 — midday email (~17:27 UTC / 13:27 EDT)
 
 Source: `EMAIL_ADHERENCE_2026-08-13.txt`
@@ -197,3 +214,107 @@ Sources: `ADHERENCE_INVENTORY_2026-08-14_post_remediation.csv`;
 
 ### Verdict
 Remediation holding. No further ops action tonight. **Monday AM:** restart NAS100 + SPX500 v2b OANDA before cash open.
+
+## 2026-08-17 19:30Z — OANDA adherence + performance email
+
+- Alive 15/20; flagged 10; local opens 0.
+- broker snapshot skipped: ModuleNotFoundError
+- Email: EMAIL_ADHERENCE_TODAY.txt + PL attribution hub.
+
+## 2026-08-17 19:35Z — strategy adherence + reconcile
+
+- Repaired US30 2r10r local positions to +3 (owned).
+- Broker TP/SL present (SL~-50; TP +150/+300/+1500). 63 orphan LIMITs remain.
+- Live↔sim: mostly MATCH; MISMATCH eurusd_v2b (down) + nas100 ST+PMC 3r missed entries.
+- Email: EMAIL_ADHERENCE_STRATEGY_RECONCILE_TODAY.txt
+
+---
+
+## 2026-08-19 ~17:25Z — OANDA adherence + orphan / containment check
+
+Sources: `oanda-practice-sync` REPORT, `ADHERENCE_INVENTORY_TODAY.csv`,
+`EMAIL_ADHERENCE_TODAY.txt`, per-demo `containment_email_digest.json` + PROGRESS.
+
+### Inventory
+- OANDA demos: **17/19 alive**
+- DOWN: `eurusd_v2b_ungated_oanda`, `us30_v2b_ungated_oanda` (no pid; stopped Aug 11–12)
+- Local↔owned positions: **all ok** (no foreign bleed)
+- LIVE: **NAS100 +2** @ 29335.4 owned by `nas100_hourly_st_pmc_sl50_tp150_runners_2r_10r_oanda`
+
+### Open-book brackets
+| Check | Result |
+|-------|--------|
+| Broker SL/TP on open NAS100 trades | **OK** — SL −50 ×2; TP +300 and +1500 (2R/10R) |
+| Local `orders.csv` working rows | **0** → FLAG `OPEN_NO_BRACKET` (local drift; broker has protectives) |
+| Containment | shadow `open_without_brackets` ×102 (would freeze entries only) |
+
+### Broker orphans (pending=19)
+| Class | Count | Notes |
+|-------|------:|-------|
+| Trade-linked SL/TP | 4 | Keep — covers open NAS100 |
+| US30 orphan entry LIMIT (+onFill 50/150–1500) | 11 | Flat US30 — **cancel candidates** |
+| NAS100 entry LIMIT @ fill price (+onFill 50/150) | 3 | While already +2 — add-on risk |
+| NAS100 bare STOP qty=3 @ 29672.5 | 1 | Stray |
+| **Entry-style orphans total** | **15** | Regrown after 2026-08-18 mass-cancel of 53 |
+
+### Containment “prevented” orphans (shadow — detect only)
+`POTIONS_OANDA_CONTAINMENT=shadow`: **would-cancel / would-freeze logged, not executed**.
+
+| Demo | Digest highlights |
+|------|-------------------|
+| `us30_monday_or_m3_s3_r2_half_oanda` | `orphan_protective` **369** |
+| `us30_…_3r_oanda` | `orphan_protective` 141 |
+| `nas100_…_3r_oanda` | `orphan_protective` 115 |
+| `nas100_v2b_ungated_oanda` | `orphan_protective` 105; `stop_only` 13 |
+| `us30_…_runners` | `orphan_protective` 63 |
+| `nas100_…_runners` | `open_without_brackets` 102; `orphan_protective` 39 |
+| `spx500_v2b_ungated_oanda` | `stop_only` 26; `orphan_protective` 2 |
+| EURUSD ST+PMC | prior `stream_stale` 34 |
+
+Reconnect paths also log `shadow_would_cancel_orphan_protectives` + `stream_reconciled_ok`
+(USDJPY MonOR / Asia / US30 MonOR) — intent only while shadow.
+
+### Local flat demos with resting entry orders
+`nas100_…_3r` rest=3; `nas100_v2b` rest=1; `us30_…_3r` rest=5; `us30_…_runners` rest=6 —
+repeatedly flagged `orphan_protective` in shadow.
+
+### Verdict
+Ownership OK; open NAS100 runners **broker brackets adherent**.
+**Main risk:** 15 live broker orphan entry LIMITs/STOP (esp. US30 + NAS100 add-ons).
+Containment is **watching, not cancelling**. Ops options (ask first): mass-cancel orphans again,
+or set `POTIONS_OANDA_CONTAINMENT=live` for cancel-on-detect.
+
+
+## 2026-08-19 — containment FP fix + cross-book gate
+
+- Classifier no longer treats intentional entry arms as `orphan_protective` (`armed_entry`).
+- `cross_book_entry` when flat+entries while account holds focus instrument (shadow detect).
+- Always-on broker gate suppresses 3r/v2b re-arms while NAS100 open.
+- Cancelled 1719/1756/1758/1760 and restart re-arm 1767. Containment stays shadow.
+
+## 2026-08-19 — root cause narrative (orphans + false positives)
+
+### Where the orphans came from
+
+Shared **practice** account (`101-002-39860312-001`) feeds many `*_oanda` demos.
+Each strategy only mirrors **its own** tag, so books that are locally flat still
+see a quiet account and **re-arm** entries while another book already holds the
+instrument.
+
+| OANDA id | Source | Why it was hazardous |
+|---|---|---|
+| **1719** | `nas100_v2b_ungated_oanda` entry STOP @29672.5 (13:45Z OCO arm) | Still working while runners held NAS100 +2 |
+| **1756/1758/1760** | `nas100_…_3r_oanda` hourly LIMIT re-arms @29335.4 (15/16/17Z) | Same price as open trades 1737/1740; duplicate-entry risk |
+| **1767** | 3r re-arm on restart (18:00Z bar, pre-gate process) | Cancelled after new gate landed |
+
+Valid non-orphans that were **mis-labeled** by containment: 11× US30 ST+PMC
+resting entry LIMITs (intentional arms) + trade-linked NAS100 SL/TP on runners.
+
+### Classifier false positive
+
+`_STOP_ROLES` included **`entry`**, so flat + working entry → `orphan_protective`.
+Fix: intentional entry → `armed_entry` (ok); true SL/TP → orphan; flat+entries
+while account qty ≠ 0 → `cross_book_entry` (shadow detect). Always-on broker
+gate: `cross_book_instrument_open`. Containment remains **shadow**.
+
+Artifacts: `ORPHAN_4_CANCEL.md`, `CHANGE_LOG` 2026-08-19, Platform §6.

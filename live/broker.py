@@ -21,6 +21,7 @@ from .models import (
     utc_now_iso,
 )
 from .directional_path import pessimistic_limit_fill_allowed
+from .entry_gap import entry_limit_gap_blocked, session_gap as _session_gap
 from .spread_model import SpreadModel
 from .store import FlatFileStore
 
@@ -126,20 +127,26 @@ class PaperBroker(BaseBroker):
         self.slippage_ticks = float(slippage_ticks)
         self.tick_size: Dict[str, float] = dict(DEFAULT_TICK_SIZE)
         if tick_size:
-            self.tick_size.update({k.upper(): float(v) for k, v in tick_size.items()})
+            self.tick_size.update({k.upper(): float(v)
+                                  for k, v in tick_size.items()})
         self.strict_moc = bool(strict_moc)
         self.spread_model = spread_model
         self.directional_adverse_path = bool(directional_adverse_path)
         self.log_events = bool(log_events)
         self.persist_modifications = bool(persist_modifications)
-        self._orders_cache: Dict[str, BrokerOrder] = {order.broker_order_id: order for order in self.store.load_orders()}
-        self._intents_cache: Dict[str, OrderIntent] = {intent.intent_id: intent for intent in self.store.load_order_intents()}
-        self._positions_cache: Dict[str, Position] = {pos.position_id: pos for pos in self.store.load_positions()}
+        self._orders_cache: Dict[str, BrokerOrder] = {
+            order.broker_order_id: order for order in self.store.load_orders()}
+        self._intents_cache: Dict[str, OrderIntent] = {
+            intent.intent_id: intent for intent in self.store.load_order_intents()}
+        self._positions_cache: Dict[str, Position] = {
+            pos.position_id: pos for pos in self.store.load_positions()}
         self._active_order_ids = {
             order.broker_order_id: True
             for order in self._orders_cache.values()
             if order.status in {"submitted", "partially_filled"}
         }
+        self._last_bar_close: Dict[str, float] = {}
+        self._last_bar_ts: Dict[str, str] = {}
 
     def get_active_contract(self, instrument: str) -> str:
         return instrument
@@ -154,10 +161,12 @@ class PaperBroker(BaseBroker):
         self._intents_cache[intent.intent_id] = intent
         self._orders_cache[order.broker_order_id] = order
         self._active_order_ids[order.broker_order_id] = True
-        self.store.upsert_row("order_intents", "intent_id", dict(as_row(intent), status="submitted"))
+        self.store.upsert_row("order_intents", "intent_id", dict(
+            as_row(intent), status="submitted"))
         self.store.upsert_row("orders", "broker_order_id", as_row(order))
         if self.log_events:
-            self.store.append_event("broker_actions", {"event": "submit", **as_row(order)})
+            self.store.append_event(
+                "broker_actions", {"event": "submit", **as_row(order)})
         return order
 
     def modify_order(
@@ -172,7 +181,8 @@ class PaperBroker(BaseBroker):
     ) -> BrokerOrder:
         order = self._get_order(broker_order_id)
         if order.status not in {"submitted", "partially_filled"}:
-            raise ValueError("Cannot modify order %s in status %s" % (broker_order_id, order.status))
+            raise ValueError("Cannot modify order %s in status %s" %
+                             (broker_order_id, order.status))
         updated = replace(
             order,
             limit_price=limit_price if limit_price is not None else order.limit_price,
@@ -193,7 +203,8 @@ class PaperBroker(BaseBroker):
             )
             self._intents_cache[intent.intent_id] = intent
             if self.persist_modifications:
-                self.store.upsert_row("order_intents", "intent_id", dict(as_row(intent), status="submitted"))
+                self.store.upsert_row("order_intents", "intent_id", dict(
+                    as_row(intent), status="submitted"))
         if self.persist_modifications:
             self.store.upsert_row("orders", "broker_order_id", as_row(updated))
         if self.log_events:
@@ -251,14 +262,18 @@ class PaperBroker(BaseBroker):
                 ),
                 oco_group=oco,
             )
-            stop_intent = replace(stop_intent, status="submitted", updated_at=utc_now_iso())
+            stop_intent = replace(
+                stop_intent, status="submitted", updated_at=utc_now_iso())
             stop_order = BrokerOrder.from_intent(stop_intent)
-            stop_order = replace(stop_order, parent_order_id=parent_order.broker_order_id)
+            stop_order = replace(
+                stop_order, parent_order_id=parent_order.broker_order_id)
             self._intents_cache[stop_intent.intent_id] = stop_intent
             self._orders_cache[stop_order.broker_order_id] = stop_order
             self._active_order_ids[stop_order.broker_order_id] = True
-            self.store.upsert_row("order_intents", "intent_id", dict(as_row(stop_intent), status="submitted"))
-            self.store.upsert_row("orders", "broker_order_id", as_row(stop_order))
+            self.store.upsert_row("order_intents", "intent_id", dict(
+                as_row(stop_intent), status="submitted"))
+            self.store.upsert_row(
+                "orders", "broker_order_id", as_row(stop_order))
             children.append(stop_order)
         if intent.bracket_target_price is not None:
             target_intent = OrderIntent.create(
@@ -277,14 +292,18 @@ class PaperBroker(BaseBroker):
                 bracket_role="target",
                 oco_group=oco,
             )
-            target_intent = replace(target_intent, status="submitted", updated_at=utc_now_iso())
+            target_intent = replace(
+                target_intent, status="submitted", updated_at=utc_now_iso())
             target_order = BrokerOrder.from_intent(target_intent)
-            target_order = replace(target_order, parent_order_id=parent_order.broker_order_id)
+            target_order = replace(
+                target_order, parent_order_id=parent_order.broker_order_id)
             self._intents_cache[target_intent.intent_id] = target_intent
             self._orders_cache[target_order.broker_order_id] = target_order
             self._active_order_ids[target_order.broker_order_id] = True
-            self.store.upsert_row("order_intents", "intent_id", dict(as_row(target_intent), status="submitted"))
-            self.store.upsert_row("orders", "broker_order_id", as_row(target_order))
+            self.store.upsert_row("order_intents", "intent_id", dict(
+                as_row(target_intent), status="submitted"))
+            self.store.upsert_row(
+                "orders", "broker_order_id", as_row(target_order))
             children.append(target_order)
         if children:
             if self.log_events:
@@ -343,35 +362,45 @@ class PaperBroker(BaseBroker):
                 if order.live_after_ts and not _ts_after(bar.ts, order.live_after_ts):
                     continue
             if order.expires_after_ts and _ts_after(bar.ts, order.expires_after_ts):
-                self.cancel_order(order.broker_order_id, reason="expired_before_bar")
+                self.cancel_order(order.broker_order_id,
+                                  reason="expired_before_bar")
                 continue
             fill_qty = order.remaining_quantity
             if order.reduce_only:
-                pos_qty = self._position_qty(order.strategy_id, order.instrument, order.account_mode)
+                pos_qty = self._position_qty(
+                    order.strategy_id, order.instrument, order.account_mode)
                 if pos_qty == 0:
-                    self.cancel_order(order.broker_order_id, reason="reduce_only_no_position")
+                    self.cancel_order(order.broker_order_id,
+                                      reason="reduce_only_no_position")
                     continue
                 if order.side == "sell" and pos_qty <= 0:
-                    self.cancel_order(order.broker_order_id, reason="reduce_only_wrong_side")
+                    self.cancel_order(order.broker_order_id,
+                                      reason="reduce_only_wrong_side")
                     continue
                 if order.side == "buy" and pos_qty >= 0:
-                    self.cancel_order(order.broker_order_id, reason="reduce_only_wrong_side")
+                    self.cancel_order(order.broker_order_id,
+                                      reason="reduce_only_wrong_side")
                     continue
                 fill_qty = min(order.remaining_quantity, abs(pos_qty))
-            pos_qty = self._position_qty(order.strategy_id, order.instrument, order.account_mode)
+            pos_qty = self._position_qty(
+                order.strategy_id, order.instrument, order.account_mode)
             if not self._directional_fill_allowed(order, bar, pos_qty):
                 continue
             price = self._fill_price(order, bar)
             if price is None:
                 continue
-            fill = self._fill_order(order, price, bar.ts, fill_qty=fill_qty, bar=bar)
+            fill = self._fill_order(
+                order, price, bar.ts, fill_qty=fill_qty, bar=bar)
             fills.append(fill)
             order_after_fill = self._get_order(order.broker_order_id)
             intent = self._get_intent(order.intent_id)
             if not order_after_fill.reduce_only:
                 self.attach_bracket(order_after_fill, intent)
             if order_after_fill.oco_group:
-                cancelled_in_bar.update(self._cancel_oco_peers(order_after_fill))
+                cancelled_in_bar.update(
+                    self._cancel_oco_peers(order_after_fill))
+        self._last_bar_close[bar.instrument] = float(bar.close)
+        self._last_bar_ts[bar.instrument] = str(bar.ts)
         return fills
 
     def _priority_sorted_active_ids(self) -> List[str]:
@@ -427,9 +456,24 @@ class PaperBroker(BaseBroker):
         if order.order_type == "limit":
             if order.limit_price is None:
                 return None
+            if not order.reduce_only:
+                intent = self._intents_cache.get(order.intent_id)
+                prev_close = self._last_bar_close.get(order.instrument)
+                prev_ts = self._last_bar_ts.get(order.instrument)
+                stop = intent.bracket_stop_price if intent is not None else None
+                if entry_limit_gap_blocked(
+                    side=order.side,
+                    entry=float(order.limit_price),
+                    stop=stop,
+                    prev_close=prev_close,
+                    bar_open=float(bar.open),
+                    session_gap=_session_gap(prev_ts or "", bar.ts),
+                ):
+                    return None
             touched = False
             if self.spread_model is not None and not quotes:
-                touched = self.spread_model.limit_touch_ok(order.side, bar, order.limit_price)
+                touched = self.spread_model.limit_touch_ok(
+                    order.side, bar, order.limit_price)
             elif order.side == "buy":
                 touched = bar.low <= order.limit_price
             else:
@@ -504,8 +548,10 @@ class PaperBroker(BaseBroker):
     ) -> Fill:
         fill_qty = fill_qty if fill_qty is not None else order.remaining_quantity
         mid_price = float(bar.close) if bar is not None else None
-        bid_price = float(bar.bid_close) if bar is not None and bar.bid_close is not None else None
-        ask_price = float(bar.ask_close) if bar is not None and bar.ask_close is not None else None
+        bid_price = float(
+            bar.bid_close) if bar is not None and bar.bid_close is not None else None
+        ask_price = float(
+            bar.ask_close) if bar is not None and bar.ask_close is not None else None
         spread = None
         if bid_price is not None and ask_price is not None:
             spread = ask_price - bid_price
@@ -547,9 +593,12 @@ class PaperBroker(BaseBroker):
         return fill
 
     def flush_state(self) -> None:
-        self.store.write_table("order_intents", [as_row(intent) for intent in self._intents_cache.values()])
-        self.store.write_table("orders", [as_row(order) for order in self._orders_cache.values()])
-        self.store.write_table("positions", [as_row(pos) for pos in self._positions_cache.values()])
+        self.store.write_table("order_intents", [as_row(
+            intent) for intent in self._intents_cache.values()])
+        self.store.write_table(
+            "orders", [as_row(order) for order in self._orders_cache.values()])
+        self.store.write_table("positions", [as_row(
+            pos) for pos in self._positions_cache.values()])
 
     def _position_qty(self, strategy_id: str, instrument: str, account_mode: str) -> int:
         for pos in self._positions_cache.values():
@@ -558,7 +607,8 @@ class PaperBroker(BaseBroker):
         return 0
 
     def _apply_fill_to_position(self, fill: Fill) -> None:
-        key = "%s|%s|%s" % (fill.strategy_id, fill.instrument, fill.account_mode)
+        key = "%s|%s|%s" % (
+            fill.strategy_id, fill.instrument, fill.account_mode)
         pos = self._positions_cache.get(key)
         signed_qty = fill.quantity if fill.side == "buy" else -fill.quantity
         if pos is None:
@@ -572,7 +622,8 @@ class PaperBroker(BaseBroker):
             realized = pos.realized_pnl
             if old_qty == 0 or (old_qty > 0 and signed_qty > 0) or (old_qty < 0 and signed_qty < 0):
                 total_abs = abs(old_qty) + abs(signed_qty)
-                avg_price = ((abs(old_qty) * pos.avg_price) + (abs(signed_qty) * fill.price)) / max(total_abs, 1)
+                avg_price = ((abs(old_qty) * pos.avg_price) +
+                             (abs(signed_qty) * fill.price)) / max(total_abs, 1)
             else:
                 closing_qty = min(abs(old_qty), abs(signed_qty))
                 if old_qty > 0:
@@ -602,7 +653,8 @@ class PaperBroker(BaseBroker):
             if order.broker_order_id == filled_order.broker_order_id:
                 continue
             if order.oco_group and order.oco_group == filled_order.oco_group and order.status == "submitted":
-                self.cancel_order(order.broker_order_id, reason="oco_peer_filled")
+                self.cancel_order(order.broker_order_id,
+                                  reason="oco_peer_filled")
                 cancelled.append(order.broker_order_id)
         return cancelled
 
@@ -684,7 +736,8 @@ class TradovateBroker(BaseBroker):
         self.config_path = Path(config_path) if config_path else None
         self.allow_live_routing = allow_live_routing
         if allow_live_routing:
-            raise NotImplementedError("Tradovate live routing is not implemented in v0")
+            raise NotImplementedError(
+                "Tradovate live routing is not implemented in v0")
 
     def get_active_contract(self, instrument: str) -> str:
         raise NotImplementedError("Tradovate adapter shell only")

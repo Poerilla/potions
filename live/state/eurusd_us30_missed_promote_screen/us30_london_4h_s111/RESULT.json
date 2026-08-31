@@ -1,0 +1,37 @@
+{
+  "candidate": "us30_london_4h_s111",
+  "label": "US30 London 4h OR S_1_1_1",
+  "symbol": "US30",
+  "family": "v2b_london",
+  "sizing_note": "London 4h screen; soft per tracker (\u2264~1.6)",
+  "unit_path": "/home/tester/hsm/potions/live/state/fx_v2b_london_4h_or/states/us30_v2b_london_4h_or_S_1_1_1/unit_trades.csv",
+  "skip_months": [
+    2,
+    6
+  ],
+  "unfiltered_net": 22708.25,
+  "unfiltered_stress": -14472.75,
+  "unfiltered_ns": 1.57,
+  "n_campaigns": 1355,
+  "n_taken": 659,
+  "n_skipped": 696,
+  "reasons": {
+    "month": 282,
+    "roll": 414,
+    "take": 659,
+    "warmup": 22
+  },
+  "filtered_net": 21653.649999999958,
+  "filtered_closed_dd": -6261.850000000011,
+  "filtered_ns_proxy": 3.458027579708859,
+  "filtered_wr": 0.5477996965098634,
+  "filtered_pf": 1.2674136933485738,
+  "unfiltered_wr": 0.5276752767527675,
+  "unfiltered_pf": 1.1279236770272547,
+  "unfiltered_closed_dd": -13790.649999999969,
+  "gate_min_wr": 0.4,
+  "gate_min_pf": 1.0,
+  "stance": "half_size",
+  "size_mult": 0.5,
+  "reason": "marginal / soft after filters \u2014 1/2 size; skip months [2, 6]; filters lift N/S 1.57\u21923.46"
+}

@@ -1,0 +1,17 @@
+potions: monthly ±4×ATR fade ladder broker-like complete (1h)
+
+Hub: /home/tester/hsm/potions/live/state/monthly_atr4_fade_ladder
+Calendar month; 10ct ladder: 2 off @ +2/+4/+6/+8 ATR, BE + 2 runners to EOM.
+
+  EURUSD    first_only  risk=2.00×ATR  net=$-115,794  N/S=-0.63  trades=135  WR=19%  PF=0.67
+  GBPUSD    first_only  risk=2.00×ATR  net=$-56,492  N/S=-0.53  trades=152  WR=23%  PF=0.88
+  USDJPY    first_only  risk=2.00×ATR  net=$-1,015,397  N/S=-0.19  trades=131  WR=25%  PF=0.97
+  AUDJPY    first_only  risk=2.00×ATR  net=$6,711,160  N/S=0.99  trades=107  WR=27%  PF=1.22
+  XAUUSD    first_only  risk=2.00×ATR  net=$75,968  N/S=0.34  trades=113  WR=25%  PF=1.12
+  XAGUSD    first_only  risk=2.00×ATR  net=$3,330  N/S=0.07  trades=93  WR=29%  PF=1.01
+  US30    second_only  risk=0.50×ATR  net=$-4,702  N/S=-0.36  trades=33  WR=11%  PF=0.59
+  NAS100    second_only  risk=0.50×ATR  net=$-3,855  N/S=-0.48  trades=32  WR=9%  PF=0.59
+  NQ    second_only  risk=0.50×ATR  net=$11,795  N/S=0.07  trades=61  WR=9%  PF=1.07
+  YM    second_only  risk=0.50×ATR  net=$-50,051  N/S=-0.63  trades=58  WR=11%  PF=0.56
+
+See SUMMARY.md for table.

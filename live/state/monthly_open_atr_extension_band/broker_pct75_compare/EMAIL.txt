@@ -1,0 +1,33 @@
+potions: NQ pct75 extension band — broker-like SL compare (incl wide_2.5x)
+
+Hub: live/state/monthly_open_atr_extension_band/broker_pct75_compare
+
+# NQ monthly open extension band — pct75 broker-like compare
+
+Engine + PaperBroker on **1h** bars. Entry **pct75**; band **6-month rolling**.
+
+
+Entry at min + 75%·(max−min); SL at mean(max).
+
+Entry at min + 75%·(max−min); SL max + 2×(max−entry).
+
+Entry at min + 75%·(max−min); SL max + 2.5×(max−entry).
+
+- Slippage: **1** tick · fee **$1.50**/unit · NQ $20/pt
+- Qty: **10** per entry · target = month open
+
+## Risk-adjusted comparison
+
+| SL mode | Trades | Net $ | Stress DD $ | N/S | Sharpe | Sortino | Calmar |
+|---|---:|---:|---:|---:|---:|---:|---:|
+| mean_max | 73 | -205,600 | -499,147 | -0.41 | -0.02 | -0.00 | -0.42 |
+| wide_2x | 73 | 593,461 | -559,208 | 1.06 | 0.04 | 0.01 | 1.07 |
+| wide_2.5x | 73 | 607,969 | -463,005 | 1.31 | 0.04 | 0.02 | 1.32 |
+
+## Verdict
+
+- Best **N/S**: `wide_2.5x` (1.31)
+- Best **Sharpe**: `wide_2x` (0.04)
+
+Pandas diagnostic hubs (no spread/slip): `variants/pct75/` for mean_max tuning.
+

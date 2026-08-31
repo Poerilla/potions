@@ -1,0 +1,27 @@
+potions: futures yearly ORB causal-close complete
+
+Hub: live/state/yearly_orb_sizing_sweep_futures_causal_close/
+COMPARISON.md in that hub. Same pass as FX/metals yearly ORBs.
+
+The NQ mixed-MA / wide-OR / ATR-q4 charts were pre-causal. Those favorable
+scratches are same-bar-open range-closes (28/68 NQ campaigns; 17 with $0–$5k).
+
+NQ L_4_1_1:  86.8% WR / N/S 11.01  →  29.4% WR / N/S 4.80  (net $1.42M → $765k)
+ES L_4_2_1:  76.7% WR / N/S  9.90  →  20.5% WR / N/S 0.40  (died)
+YM L_4_1_1:  90.1% WR / N/S  7.64  →  22.2% WR / N/S 1.78
+
+NQ buckets on causal L_4_1_1:
+  mixed MA  18  100% → 33.3%  (6/12)  avg $36k → $17k  median -$3.7k
+  wide OR   20   95% → 40.0%  (8/12)  avg $54k → $35k
+  ATR q4    24   96% → 41.7% (10/14)  avg $32k → $19k
+
+Buckets still lift vs the new 29% book WR; they are not 95–100% WR sleeves.
+
+NQ OCO 4/2/1 + 20% range-close held up: 54.3% → 47.8% WR, N/S 6.74 → 5.82.
+
+FX analog: AUDJPY died; XAU/XAG survived weak. Here ES died; NQ survives as a
+29% WR trend book; YM is weak.
+
+Stance: REJECT pre-causal futures yearly-ORB N/S and the 86% WR recount.
+Causal NQ L_4_1_1 N/S 4.80 is still a book. Do not HP-size the scratch buckets.
+Promote/reject: research sit — same as FX metals causal close.

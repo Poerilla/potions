@@ -10,6 +10,26 @@ export PYTHONPATH="/home/tester/hsm:/home/tester/hsm/potions/v20-python/src"
 # Or export the same vars in the shell before spawning daemons.
 ```
 
+### Top-3 OANDA validation priority (2026-08-20)
+
+Shared primary `101-002-39860312-001` is **dormant**. Only these three OANDA daemons should run, each on a dedicated account (configs under [`oanda_account_configs/`](oanda_account_configs/TOP3_ACCOUNT_MAP.md)):
+
+| Strategy | Account | CLI |
+|---|---|---|
+| NAS100 clean-break trail06_m4_e2_out_be | `-003` | `demo-nas100-clean-break-trail-oanda --daemon --oanda-config …/nas100_clean_break_trail_003.json` |
+| USDJPY Asia Range `S_3_1_3` | `-004` | `demo-usdjpy-asia-range-oanda --daemon --oanda-config …/usdjpy_asia_range_004.json` |
+| USDJPY Monday OR `M2_S3_R1` | `-005` | `demo-usdjpy-monday-or-oanda --daemon --oanda-config …/usdjpy_monday_or_005.json` |
+| USDJPY Monthly FBO 1/1/3 atr80 | `-006` | `demo-usdjpy-monthly-fbo-oanda --daemon --oanda-config …/usdjpy_monthly_fbo_006.json` |
+
+Fleet freeze + cutover log: [`oanda_practice_snapshot/TOP3_CUTOVER_FREEZE_LATEST.md`](oanda_practice_snapshot/TOP3_CUTOVER_FREEZE_LATEST.md).
+
+**2026-08-24 account rotation:** account `-004` is no longer the NAS100 ST+PMC
+2R->10R practice sleeve. It is reserved for the causal USDJPY Asia-range London
+StrategyPlugin path. Validation: `$178,142 / -$24,627 / 7.23 N/S`, 3,772
+feature snapshots, 0 causality violations, 0 entry fills at/before activation,
+and earliest entry fill 1m after the 03:00 London arm. See
+[`../state/usdjpy_causality_review_2026_08/CAUSALITY_REVIEW.md`](../state/usdjpy_causality_review_2026_08/CAUSALITY_REVIEW.md).
+
 ---
 
 ## Live status (how to check everything)
@@ -26,6 +46,7 @@ python3 -m potions.live.cli demo-spx500-v2b-oanda-status
 
 python3 -m potions.live.cli demo-usdjpy-monday-or-paper-status
 python3 -m potions.live.cli demo-usdjpy-monday-or-oanda-status
+python3 -m potions.live.cli demo-usdjpy-monthly-fbo-oanda-status
 
 python3 -m potions.live.cli demo-usdjpy-asia-range-paper-status
 python3 -m potions.live.cli demo-usdjpy-asia-range-oanda-status
@@ -302,7 +323,7 @@ Plugin `hourly_st_pmc_retest`, stop 50 / target 150 index pts, **1m fill tape**
 | `nas100_hourly_st_pmc_paper.py` | `nas100_hourly_st_pmc_sl50_tp150_3r_paper/` | `demo-nas100-hourly-st-pmc-paper` | `fx/nas100_1h.csv` + inherit 1m from `nas100_v2b_*` |
 | `nas100_hourly_st_pmc_oanda.py` | `nas100_hourly_st_pmc_sl50_tp150_3r_oanda/` | `demo-nas100-hourly-st-pmc-oanda` | same |
 | `nas100_hourly_st_pmc_runners_2r_10r_paper.py` | `nas100_hourly_st_pmc_sl50_tp150_runners_2r_10r_paper/` | `demo-nas100-hourly-st-pmc-2r10r-paper` | same |
-| `nas100_hourly_st_pmc_runners_2r_10r_oanda.py` | `nas100_hourly_st_pmc_sl50_tp150_runners_2r_10r_oanda/` | `demo-nas100-hourly-st-pmc-2r10r-oanda` | same |
+| `nas100_hourly_st_pmc_runners_2r_10r_oanda.py` | `nas100_hourly_st_pmc_sl50_tp150_runners_2r_10r_oanda/` | `demo-nas100-hourly-st-pmc-2r10r-oanda` | retired from dedicated account `-004` on 2026-08-24; keep only as non-priority research/demo history |
 | `eurusd_hourly_st_pmc_paper.py` | `eurusd_hourly_st_pmc_sl50_tp150_3r_paper/` | `demo-eurusd-hourly-st-pmc-paper` | `fx/eurusd_1h.csv` (~300h); N/S 3.01 |
 | `eurusd_hourly_st_pmc_oanda.py` | `eurusd_hourly_st_pmc_sl50_tp150_3r_oanda/` | `demo-eurusd-hourly-st-pmc-oanda` | same |
 | `eurusd_hourly_st_pmc_runners_2r_10r_paper.py` | `eurusd_hourly_st_pmc_sl50_tp150_runners_2r_10r_paper/` | `demo-eurusd-hourly-st-pmc-2r10r-paper` | **½ size** (concentration) |
@@ -370,7 +391,8 @@ python3 -m potions.live.cli demo-us30-hourly-st-pmc-2r10r-oanda --daemon
 python3 -m potions.live.cli demo-nas100-hourly-st-pmc-paper --daemon
 python3 -m potions.live.cli demo-nas100-hourly-st-pmc-oanda --daemon
 python3 -m potions.live.cli demo-nas100-hourly-st-pmc-2r10r-paper --daemon
-python3 -m potions.live.cli demo-nas100-hourly-st-pmc-2r10r-oanda --daemon
+# NAS100 2R->10R OANDA retired from active dedicated-account rotation 2026-08-24.
+# Do not start it on account -004; that account is USDJPY Asia Range.
 
 # Missed-promote pack (2026-08-11)
 python3 -m potions.live.cli demo-eurusd-hourly-st-pmc-paper --daemon

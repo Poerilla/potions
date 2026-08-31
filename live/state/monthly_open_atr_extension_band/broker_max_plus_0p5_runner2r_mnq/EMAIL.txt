@@ -1,0 +1,11 @@
+potions: MNQ band-max +50% SL · open TP + runner 2R (all vs no-w4)
+
+Hub: /home/tester/hsm/potions/live/state/monthly_open_atr_extension_band/broker_max_plus_0p5_runner2r_mnq
+DSR: TRL-2026-00128
+Entry max; SL plus_0.5; ladder 0/5/5; runner = open±2R after BE
+
+all_weeks: net=$34,157 stress=$44,342 N/S=0.77 Sharpe=0.07 trades=11 skip_w4=no
+no_w4: net=$37,987 stress=$45,177 N/S=0.84 Sharpe=0.07 trades=11 skip_w4=yes
+
+Best N/S: no_w4 (0.84)
+Stance: research / lean reject vs pct75 wide_2.5x (N/S ~1.31).

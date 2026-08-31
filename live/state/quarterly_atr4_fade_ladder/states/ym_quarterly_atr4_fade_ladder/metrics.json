@@ -1,0 +1,21 @@
+{
+  "allowed_sides": [
+    "lower",
+    "upper"
+  ],
+  "bars": 25378,
+  "closed_dd_usd": -49046.51222244113,
+  "intrabar_stress_dd_usd": -49396.74781767416,
+  "market": "YM",
+  "max_open_units": 10,
+  "net_over_stress": 0.4955167619667456,
+  "net_usd": 24476.916530301805,
+  "path_id": "",
+  "profit_factor": 1.4287718904591167,
+  "risk_atr_mult": 0.5,
+  "strategy_id": "ym_quarterly_atr4_fade_ladder",
+  "trade_mode": "second_only",
+  "trades": 21,
+  "units": 210,
+  "win_rate": 0.19047619047619047
+}

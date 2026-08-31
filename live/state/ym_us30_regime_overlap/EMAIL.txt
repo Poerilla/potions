@@ -1,0 +1,30 @@
+YM ↔ US30 regime overlap — analysis
+
+Question: do YM prior-opposed and US30 ST+PMC (and cross pairs)
+share execution days / direction enough that they are one risk sleeve?
+Join: NY session date (+ direction). Not trade_id across markets.
+
+VERDICT (primary YM PO vs US30 ST+PMC 3R): SEPARATE_REGIMES
+Sizing: independent strategy allocations; still subject to underlying-market and portfolio stress caps
+
+Primary metrics:
+  shared days 150 / union 783 (Jaccard 19%)
+  dir-agree on shared days: 0.06
+  same-day same-dir events: 9
+  shared-day PnL ρ: -0.107 (n=150)
+  union-day PnL ρ: -0.059
+  YM-only / US30-only days: 271 / 362
+  identity_a: ym_v2b_prior_opposed_stpmc_only_S_1_1_3
+  identity_b: us30_hourly_st_pmc_sl50_tp150_3r_1mfill
+
+Cross-check pairs:
+  ym_v2b_prior_opposed_stpmc_only_S_1_1_3 vs us30_v2b_oco_prior_opposed_S_1_1_3 | Jaccard=0.13 ρ=0.549 dir-agree=0.986 class=CONDITIONAL_OVERLAP
+  ym_hourly_st_pmc_sl50_tp150_3r_1mfill vs us30_hourly_st_pmc_sl50_tp150_3r_1mfill | Jaccard=0.42 ρ=0.851 dir-agree=0.998 class=SAME_SLEEVE
+  ym_hourly_st_pmc_sl50_tp150_3r_1mfill vs us30_v2b_oco_prior_opposed_S_1_1_3 | Jaccard=0.05 ρ=0.004 dir-agree=0.788 class=CONDITIONAL_OVERLAP
+  ym_v2b_prior_opposed_stpmc_only_S_1_1_3 vs ym_hourly_st_pmc_sl50_tp150_3r_1mfill | Jaccard=0.16 ρ=-0.129 dir-agree=0.044 class=SEPARATE_REGIMES
+  us30_v2b_oco_prior_opposed_S_1_1_3 vs us30_hourly_st_pmc_sl50_tp150_3r_1mfill | Jaccard=0.08 ρ=0.052 dir-agree=0.808 class=CONDITIONAL_OVERLAP
+
+Note: low Jaccard + high conditional ρ/dir-agree => CONDITIONAL_OVERLAP,
+not SEPARATE_REGIMES. Exact book identity required for each conclusion.
+
+Hub: live/state/ym_us30_regime_overlap/

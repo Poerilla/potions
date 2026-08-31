@@ -1,0 +1,4 @@
+potions: nq_wick_reject_range_seed_oco_stop_v1 STARTED
+
+Hub: /home/tester/hsm/potions/live/state/nq_wick_reject_range_seed_oco_stop_v1
+OCO buy-stop@high+1tick / sell-stop@low−1tick; primary excludes same-1m dual.

@@ -1,0 +1,73 @@
+{
+  "broker_realism_config": {},
+  "causality_mode": "strict",
+  "command": [
+    "/home/tester/hsm/potions/live/weekly_open_day_breakout_variants_broker.py",
+    "--market",
+    "NAS100",
+    "--variant",
+    "od_half_eow_ungated_allweeks_add8h_swing_struct",
+    "--years",
+    "10",
+    "--force",
+    "--causality-mode",
+    "strict",
+    "--email",
+    "--output-root",
+    "/home/tester/hsm/potions/live/state/weekly_open_day_breakout_swing_struct_allweeks"
+  ],
+  "created_at": "2026-08-28T17:16:20Z",
+  "cwd": "/home/tester/hsm/potions",
+  "data_inputs": [
+    {
+      "bytes": 859049,
+      "exists": true,
+      "path": "/home/tester/hsm/potions/fx/nas100_4h.csv",
+      "sha256": "f49d40bf21265556773695c011381a50554a043808d2996d43e35fe82845232e"
+    },
+    {
+      "bytes": 192113637,
+      "exists": true,
+      "path": "/home/tester/hsm/potions/fx/nas100_1m.csv",
+      "sha256": "522b23ed6e3f530c5d201bdc5682c26862502824760a7f7f69bc8accf449e52e"
+    }
+  ],
+  "extra": {
+    "causality_mode": "strict",
+    "dsr_trial_id": "TRL-2026-00165",
+    "skipped": []
+  },
+  "git": {
+    "commit": "",
+    "dirty": false,
+    "repo_root": "/home/tester/hsm/potions/live/state/weekly_open_day_breakout_swing_struct_allweeks",
+    "status_short": []
+  },
+  "outputs": [
+    {
+      "bytes": 550,
+      "exists": true,
+      "path": "summary.csv",
+      "sha256": "24e0c4b9b9738d3a926650f3738af46335dfbe892d7507964921078bcc986480"
+    },
+    {
+      "bytes": 437,
+      "exists": true,
+      "path": "SUMMARY.md",
+      "sha256": "28f7ce0aadb751898e9ca267562a8becd86d861c45664102d66cd586cf78a389"
+    }
+  ],
+  "python": {
+    "executable": "/home/tester/.pyenv/versions/3.8.0/bin/python",
+    "platform": "Linux-5.15.0-185-generic-x86_64-with-glibc2.34",
+    "version": "3.8.0 (default, Feb 11 2026, 11:18:58) \n[GCC 11.4.0]"
+  },
+  "run_id": "run_1611bea9dec5",
+  "strategy_config": {
+    "plugin_version": "v6",
+    "strategy_type": "weekly_open_day_breakout",
+    "variants": [
+      "od_half_eow_ungated_allweeks_add8h_swing_struct"
+    ]
+  }
+}

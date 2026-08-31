@@ -1,0 +1,22 @@
+# Week-1 half+EOW — futures base vs +1/8h
+
+Base: `od_half_eow_bull_hivol_w1` · Add: frozen v1 +1/8h max_adds=9
+Hub: `/home/tester/hsm/potions/live/state/weekly_open_day_breakout_w1_base_add8h_futures`
+
+| Market | Variant | Trades | Units | Adds | Net | Stress | N/S | Net/$pt |
+|---|---|---:|---:|---:|---:|---:|---:|---:|
+| NQ | base_w1 | 63 | 189 | 0 | $+51985 | $-90579 | 0.57 | $2599 |
+| NQ | add8h_w1 | 63 | 486 | 297 | $+178337 | $-186668 | 0.96 | $8917 |
+| MNQ | base_w1 | 25 | 75 | 0 | $+6484 | $-7580 | 0.86 | $3242 |
+| MNQ | add8h_w1 | 25 | 221 | 146 | $+17177 | $-14440 | 1.19 | $8588 |
+| YM | base_w1 | 57 | 171 | 0 | $+51864 | $-27397 | 1.89 | $10373 |
+| YM | add8h_w1 | 57 | 409 | 238 | $+153150 | $-53131 | 2.88 | $30630 |
+| MYM | base_w1 | 32 | 96 | 0 | $+2570 | $-2835 | 0.91 | $5139 |
+| MYM | add8h_w1 | 32 | 234 | 138 | $+11909 | $-5416 | 2.20 | $23818 |
+
+## NAS100 reference (prior)
+| Variant | Net | N/S | Trades |
+|---|---:|---:|---:|
+| base | $+8031 | 1.82 | 53 |
+| +1/8h | $+25211 | 3.34 | 53 |
+

@@ -1,0 +1,61 @@
+{
+  "ok": true,
+  "results": [
+    {
+      "strategy_id": "nq_fh_follow_3r_all",
+      "slug": "follow_3r_all",
+      "label": "follow 3R all first-hour",
+      "bars": 310840,
+      "units": 3943,
+      "trades": 3943,
+      "win_rate": 0.3720517372558965,
+      "net_usd": 176743.0,
+      "closed_dd_usd": -31658.0,
+      "intrabar_stress_dd_usd": -31718.0,
+      "net_over_stress": 5.5723248628539,
+      "max_open_units": 1,
+      "config": {
+        "tick_size": 0.25,
+        "entry_qty": 1,
+        "r_mult": 3.0,
+        "fade": false,
+        "fh_start": "09:30",
+        "fh_end": "10:30",
+        "bar_minutes": 5,
+        "eod_cutoff": "15:59",
+        "min_fh_bars": 10,
+        "require_fh_body": "",
+        "strong_body_min": 0.66,
+        "suppress_alerts": true
+      }
+    },
+    {
+      "strategy_id": "nq_fh_follow_3r_strong",
+      "slug": "follow_3r_strong",
+      "label": "follow 3R first-hour body=strong",
+      "bars": 310840,
+      "units": 1102,
+      "trades": 1102,
+      "win_rate": 0.5136116152450091,
+      "net_usd": 127212.0,
+      "closed_dd_usd": -31635.0,
+      "intrabar_stress_dd_usd": -31945.0,
+      "net_over_stress": 3.982219439661919,
+      "max_open_units": 1,
+      "config": {
+        "tick_size": 0.25,
+        "entry_qty": 1,
+        "r_mult": 3.0,
+        "fade": false,
+        "fh_start": "09:30",
+        "fh_end": "10:30",
+        "bar_minutes": 5,
+        "eod_cutoff": "15:59",
+        "min_fh_bars": 10,
+        "require_fh_body": "strong",
+        "strong_body_min": 0.66,
+        "suppress_alerts": true
+      }
+    }
+  ]
+}

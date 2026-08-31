@@ -1,0 +1,28 @@
+{
+  "study": "fx_metals_cfd_intraday_hp_sizeup_nulls",
+  "profile_study": "fx_metals_cfd_intraday_condition_profile_v1",
+  "base_multiplier": 1.0,
+  "hp_extra": 0.25,
+  "stated_multiplier": 1.25,
+  "tiers": {
+    "A_paper": [],
+    "B_provisional_paper": [],
+    "C_shadow_only": [
+      {
+        "book": "us30_london_prior_opposed",
+        "condition": "London OR width vs ATR",
+        "bucket": "lor_norm",
+        "decision": "RISK THROTTLE",
+        "tier": "C"
+      }
+    ]
+  },
+  "notes": [
+    "Only SIZE-UP VALIDATED @ exact 1.25\u00d7 is Tier A paper.",
+    "Tier B provisional @ 1.25\u00d7; retain baseline + incremental ledger.",
+    "Tier C shadow only \u2014 no size change.",
+    "At most one HP multiplier per symbol per session.",
+    "Quarterly breakout + intraday HP on same symbol requires overlap pass.",
+    "Do not infer 2\u00d7/3\u00d7 from a 1.25\u00d7 pass."
+  ]
+}

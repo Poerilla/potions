@@ -1,0 +1,49 @@
+potions: yearly ORB null + HP vs baselines
+
+Tape: causal next-open range-close (NQ/ES/YM L_4_*). MNQ = NQ micro proxy (no separate mnq_yorb null hub).
+
+=== Baseline books (1.0×, no HP size-up) ===
+Book       n   WR      Net         vs pre-causal WR
+nq_yorb   68  29.4%   $764,503    was 86.8% (REJECT scratch WR)
+es_yorb   73  20.5%    $68,396    was 76.7%
+ym_yorb   81  22.2%   $157,766    was 90.1%
+
+Causal vs pre-causal N/S (sizing sweep):
+  NQ L_4_1_1  11.01 → 4.80   survives as ~29% WR trend book
+  ES L_4_2_1   9.90 → 0.40   died
+  YM L_4_1_1   7.64 → 1.78   weak
+  NQ O_4_2_1_rc20 causal N/S 5.82 = most stable cell
+
+=== HP condition profile (hypotheses only) ===
+vs book baseline WR/avg — top NQ lifts:
+  week_of_month=2   n=22  WR 45.5% (+16pp)  avg $24.3k (+$13.1k)
+  or_wide           n=20  WR 40.0% (+11pp)  avg $35.5k (+$24.2k)
+  atr_pctl_q4       n=24  WR 41.7% (+12pp)  avg $19.0k (+$7.8k)
+  ma_mixed          n=18  WR 33.3% (+4pp)   avg $16.9k (+$5.6k)
+
+Cross-book repeats (WRΔ): atr_q4 +16.5pp, week2 +7.3pp, ma_mixed +10.2pp, or_wide +5.4pp
+
+=== Null size-up vs same-capital baseline (ΔN/S) ===
+All six pairs NOT VALIDATED at 1.25× and 2×. Tier A/B empty.
+
+1.25× (base N/S → sized | ΔN/S | p_master):
+  NQ week2     12.63→14.85  +2.21   p=0.210  NOT VALIDATED
+  NQ or_wide   12.63→12.45  -0.18   p=1.000  NOT VALIDATED
+  ES rsi_against 0.47→0.71  +0.24   p=0.858  NOT VALIDATED
+  ES Q4        0.47→0.57    +0.09   p=1.000  NOT VALIDATED
+  YM atr_q4    2.60→2.58    -0.02   p=1.000  NOT VALIDATED
+  YM prior_mid 2.60→3.34    +0.75   p=0.563  NOT VALIDATED
+
+2× closest miss: NQ week2 12.63→20.96 ΔN/S +8.33 p_master=0.056 (still NOT VALIDATED; wf_reappear=0)
+
+=== Stance ===
+REJECT pre-causal 86–100% WR / bucket charts.
+NO HP size-up — keep baseline 1.0× only.
+Causal NQ yearly ORB is a ~29% WR trend book; do not size mixed-MA / wide-OR / ATR-q4 / week2.
+
+Hubs:
+  live/state/yearly_orb_hp_live_plan_causal_close/
+  live/state/yearly_orb_hp_sizeup_nulls_causal_close/
+  live/state/yearly_orb_hp_sizeup_nulls_2x_causal_close/
+  live/state/yearly_daily_condition_profile_futures_causal_close/
+  live/state/yearly_orb_sizing_sweep_futures_causal_close/COMPARISON.md

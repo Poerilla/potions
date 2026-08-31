@@ -1,0 +1,47 @@
+{
+  "broker_realism_config": {},
+  "causality_mode": "audit",
+  "command": [
+    "/home/tester/hsm/potions/live/yearly_orb_sizing_sweep.py",
+    "--markets",
+    "xagusd",
+    "--scenario-set",
+    "xag_range_frontload",
+    "--output-root",
+    "live/state/yearly_orb_xagusd_range_frontload",
+    "--email"
+  ],
+  "created_at": "2026-08-17T17:43:24Z",
+  "cwd": "/home/tester/hsm/potions",
+  "data_inputs": [
+    {
+      "bytes": 403686,
+      "exists": true,
+      "path": "/home/tester/hsm/potions/fx/xagusd_daily.csv",
+      "sha256": "42c6687829a3a7a0b5faa463a6c6413d8c1d2ccc13bd62b090063076fd7779cf"
+    }
+  ],
+  "extra": {
+    "job": "yearly_orb_sizing_sweep",
+    "markets": [
+      "xagusd"
+    ],
+    "n_cells": 17,
+    "n_results": 17,
+    "scenario_set": "xag_range_frontload"
+  },
+  "git": {
+    "commit": "",
+    "dirty": false,
+    "repo_root": "/home/tester/hsm/potions/live/state/yearly_orb_xagusd_range_frontload",
+    "status_short": []
+  },
+  "outputs": [],
+  "python": {
+    "executable": "/home/tester/.pyenv/versions/3.8.0/bin/python3",
+    "platform": "Linux-5.15.0-185-generic-x86_64-with-glibc2.34",
+    "version": "3.8.0 (default, Feb 11 2026, 11:18:58) \n[GCC 11.4.0]"
+  },
+  "run_id": "run_7a5769d3476e",
+  "strategy_config": {}
+}

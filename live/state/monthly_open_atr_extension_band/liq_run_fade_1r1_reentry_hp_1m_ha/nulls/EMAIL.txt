@@ -1,0 +1,10 @@
+potions: NQ liq-run fade HA nulls complete
+
+Hub: /home/tester/hsm/potions/live/state/monthly_open_atr_extension_band/liq_run_fade_1r1_reentry_hp_1m_ha/nulls
+Pairs: 5
+
+  Day of week=Monday | NOT VALIDATED | ΔN/S=+0.22 hp=15%
+  Hourly RSI bucket=rsi_gt70 | NOT VALIDATED | ΔN/S=+0.18 hp=9%
+  Prior-month range half=month_opposed | NOT VALIDATED | ΔN/S=+0.13 hp=32%
+  Hourly RSI bucket=rsi_30_45 | NOT VALIDATED | ΔN/S=+0.18 hp=27%
+  Day of week=Tuesday | NOT VALIDATED | ΔN/S=+0.00 hp=26%

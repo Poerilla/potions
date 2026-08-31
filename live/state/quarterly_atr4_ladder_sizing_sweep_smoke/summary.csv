@@ -1,0 +1,2 @@
+market,book_source,sizing_tag,sizing_label,entry_qty,runner_qty,scale_qtys,path_id,trade_mode,risk_atr_mult,net_usd,stress_dd,net_over_stress,net_per_10ct,stress_per_10ct,ns_risk_norm,trades,units,win_rate,profit_factor,note
+NAS100,best_path,contrib_1_2_2_3_8,1/2/2/3/8,16,8,"[1, 2, 2, 3]",first_lower,first_only,2.0,93167.30910349787,0.0,5.003242164295251,58229.56818968617,0.0,0.0,9,144,0.35416666666666674,8.553015431990994,contrib-shaped among scales; runner=8 (~share-weighted)

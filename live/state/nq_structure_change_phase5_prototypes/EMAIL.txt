@@ -1,0 +1,19 @@
+potions: NQ structure-change Phase 5 — locked read
+
+Hub: live/state/nq_structure_change_phase5_prototypes/
+Charts: 5 per class (sample_charts.zip) — emailed earlier.
+
+Q1 Prototype A close-break 1R/1R:
+  DEV n=126 net=-$9,969 avg=-$79 PF=0.74 → REJECT
+  Holdout n=47 net=+$26k but does not overturn failed locked primary.
+  Causality ok 173/173; gap-through stops 16 (fat-tail R).
+
+Q2 Prototype B wick-reject fade 1R/1R:
+  DEV n=95 net=+$2,178 avg=+$23 PF=1.05 meanR=-0.21 → RESEARCH (fragile)
+  Holdout n=27 net=+$15k (thin; locked).
+
+Q3 Prototype C reclaim exit on A:
+  0/173 reclaim exits used. All 62 paired reclaims arrived AFTER A already
+  hit stop or 1R. Vacuous under this geometry → N/A / deferred.
+
+See STRATEGY_PROTOTYPES.md. No promote. Holdout untouched for tuning.

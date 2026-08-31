@@ -1,0 +1,30 @@
+potions: 20 GBPUSD quarterly 4h charts
+
+Hub: /home/tester/hsm/potions/live/state/gbpusd_quarterly_4h_charts
+Book: 4h candles, alternating week shades, opening-week H/L,
+±1..4×ATR(14) from open-week mid, month closes.
+Window: 3 months per chart; full pack = 89 quarters (2004–2026 Q1).
+
+Attached: 20 most recent quarters:
+  01  gbpusd_4h_2021_Q2.png
+  02  gbpusd_4h_2021_Q3.png
+  03  gbpusd_4h_2021_Q4.png
+  04  gbpusd_4h_2022_Q1.png
+  05  gbpusd_4h_2022_Q2.png
+  06  gbpusd_4h_2022_Q3.png
+  07  gbpusd_4h_2022_Q4.png
+  08  gbpusd_4h_2023_Q1.png
+  09  gbpusd_4h_2023_Q2.png
+  10  gbpusd_4h_2023_Q3.png
+  11  gbpusd_4h_2023_Q4.png
+  12  gbpusd_4h_2024_Q1.png
+  13  gbpusd_4h_2024_Q2.png
+  14  gbpusd_4h_2024_Q3.png
+  15  gbpusd_4h_2024_Q4.png
+  16  gbpusd_4h_2025_Q1.png
+  17  gbpusd_4h_2025_Q2.png
+  18  gbpusd_4h_2025_Q3.png
+  19  gbpusd_4h_2025_Q4.png
+  20  gbpusd_4h_2026_Q1.png
+
+Full index: /home/tester/hsm/potions/live/state/gbpusd_quarterly_4h_charts/INDEX.md

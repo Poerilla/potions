@@ -1,0 +1,63 @@
+{
+  "broker_realism_config": {},
+  "causality_mode": "audit",
+  "command": [
+    "/home/tester/hsm/potions/live/weekly_open_day_breakout_variants_broker.py",
+    "--output-root",
+    "/home/tester/hsm/potions/live/state/weekly_open_day_breakout_od_oco_1r_bull_hivol",
+    "--market",
+    "NAS100",
+    "--variant",
+    "od_oco_1r_bull_hivol",
+    "--years",
+    "10",
+    "--force",
+    "--email"
+  ],
+  "created_at": "2026-08-27T20:01:06Z",
+  "cwd": "/home/tester/hsm/potions",
+  "data_inputs": [
+    {
+      "bytes": 859049,
+      "exists": true,
+      "path": "/home/tester/hsm/potions/fx/nas100_4h.csv",
+      "sha256": "f49d40bf21265556773695c011381a50554a043808d2996d43e35fe82845232e"
+    }
+  ],
+  "extra": {
+    "dsr_trial_id": "TRL-2026-00164",
+    "skipped": []
+  },
+  "git": {
+    "commit": "",
+    "dirty": false,
+    "repo_root": "/home/tester/hsm/potions/live/state/weekly_open_day_breakout_od_oco_1r_bull_hivol",
+    "status_short": []
+  },
+  "outputs": [
+    {
+      "bytes": 496,
+      "exists": true,
+      "path": "summary.csv",
+      "sha256": "d623de941eff25492fb16d6fba9e4754537526cde54b7368d098c5e9e1452f3e"
+    },
+    {
+      "bytes": 413,
+      "exists": true,
+      "path": "SUMMARY.md",
+      "sha256": "469e28b95562a7438b8257e5ef32e204c5d634397ba96fa2530799c6c4491b8f"
+    }
+  ],
+  "python": {
+    "executable": "/home/tester/.pyenv/versions/3.8.0/bin/python",
+    "platform": "Linux-5.15.0-185-generic-x86_64-with-glibc2.34",
+    "version": "3.8.0 (default, Feb 11 2026, 11:18:58) \n[GCC 11.4.0]"
+  },
+  "run_id": "run_e19b257fda3f",
+  "strategy_config": {
+    "strategy_type": "weekly_open_day_breakout",
+    "variants": [
+      "od_oco_1r_bull_hivol"
+    ]
+  }
+}

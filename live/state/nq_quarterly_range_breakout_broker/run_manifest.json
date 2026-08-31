@@ -1,0 +1,53 @@
+{
+  "broker_realism_config": {
+    "fee_per_unit": 1.5,
+    "slippage_ticks": 1.0
+  },
+  "causality_mode": "audit",
+  "command": [
+    "/home/tester/hsm/potions/live/quarterly_range_breakout_broker.py",
+    "--force",
+    "--email"
+  ],
+  "created_at": "2026-08-21T19:49:38Z",
+  "cwd": "/home/tester/hsm/potions",
+  "data_inputs": [
+    {
+      "bytes": 263866,
+      "exists": true,
+      "path": "/home/tester/hsm/potions/nq/nq_daily.csv",
+      "sha256": "af2175c6276a07f3931686f7a1c96afe1d93bc3e2297b32908a03487b25ebdda"
+    }
+  ],
+  "extra": {
+    "notes": "Pyramid add on DD; SL at prior mid; uncapped winners hold to EOQ"
+  },
+  "git": {
+    "commit": "",
+    "dirty": false,
+    "repo_root": "/home/tester/hsm/potions/live/state/nq_quarterly_range_breakout_broker",
+    "status_short": []
+  },
+  "outputs": [],
+  "python": {
+    "executable": "/home/tester/.pyenv/versions/3.8.0/bin/python3",
+    "platform": "Linux-5.15.0-185-generic-x86_64-with-glibc2.34",
+    "version": "3.8.0 (default, Feb 11 2026, 11:18:58) \n[GCC 11.4.0]"
+  },
+  "run_id": "run_6c92e26d6536",
+  "strategy_config": {
+    "add_qty": 2,
+    "dd_fracs": [
+      0.2,
+      0.4,
+      0.6,
+      0.8
+    ],
+    "entry_qty": 2,
+    "mae_pts": 179.0,
+    "profit_target": null,
+    "stop": "prior_mid",
+    "strategy_type": "quarterly_range_breakout",
+    "version": "v6_pyramid_mid_uncapped"
+  }
+}

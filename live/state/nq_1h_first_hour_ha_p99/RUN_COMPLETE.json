@@ -1,0 +1,23 @@
+{
+  "ok": true,
+  "smoke": false,
+  "po_n": 432,
+  "first_hour_n": 4045,
+  "charts": 154,
+  "chart_sleeve": "follow 3R p95",
+  "hi": "p99",
+  "lo": "p95",
+  "flag": "hp_after_win_fade_st",
+  "sleeve": {
+    "hi": "p99",
+    "lo": "p95",
+    "n_days": 4045,
+    "n_hi_days": 238,
+    "n_hi_bars": 238,
+    "hi_day_frac": 0.0588380716934487,
+    "enough_days": false,
+    "enough_n": true,
+    "use_hi": false,
+    "reason": "hi days too rare (5.9% < 8%)"
+  }
+}

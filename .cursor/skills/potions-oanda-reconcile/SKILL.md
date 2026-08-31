@@ -48,6 +48,7 @@ Rewrites each mapped `*_oanda` demo’s `state/positions.csv` to **strategy-owne
 | `usdjpy_asia_range_london_oanda` | USDJPY |
 | `us30_hourly_st_pmc_sl50_tp150_3r_oanda` | US30 |
 | `nas100_hourly_st_pmc_sl50_tp150_3r_oanda` | NAS100 |
+| `nas100_v2b_clean_break_trail06_m4_e2_out_be_oanda` | NAS100 |
 | `us30_hourly_st_pmc_sl50_tp150_runners_2r_10r_oanda` | US30 |
 | `nas100_hourly_st_pmc_sl50_tp150_runners_2r_10r_oanda` | NAS100 |
 | `eurusd_hourly_st_pmc_sl50_tp150_3r_oanda` | EURUSD |
@@ -76,5 +77,6 @@ Ops sync above is one-shot. Continuous containment lives in
 ## Related skills
 
 - `potions-demo-status` — heartbeats / open inventory
+- `potions-oanda-pl-attribution` — balance vs resettablePL / fill PL by instrument
 - `potions-repo-router` — `live/demo` vs `live/state`
 - `potions-oanda-live-sim-reconcile` — live vs StrategyPlugin tape on demo bars

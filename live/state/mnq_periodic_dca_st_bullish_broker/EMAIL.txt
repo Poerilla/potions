@@ -1,0 +1,13 @@
+MNQ periodic DCA ST-bullish gate (broker-like) complete
+Hub: /home/tester/hsm/potions/live/state/mnq_periodic_dca_st_bullish_broker
+
+Gate: prior-close daily ATR Supertrend 14x3.0 bullish on period-open.
+
+monthly: buys=52 skips=31 final_qty=52 net=$+882598 close_dd=$-475614 stress_dd=$-498683 N/S=1.77
+quarterly: buys=17 skips=11 final_qty=17 net=$+281675 close_dd=$-155498 stress_dd=$-163009 N/S=1.73
+
+vs ungated:
+  monthly: ungated net=$+1513696 → gated $+882598 (Δ $-631098); stress $-826630 → $-498683
+  quarterly: ungated net=$+526323 → gated $+281675 (Δ $-244648); stress $-284118 → $-163009
+
+Stance: diagnostic only (buy-and-hold DCA benchmark).

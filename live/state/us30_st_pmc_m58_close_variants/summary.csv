@@ -1,0 +1,4 @@
+variant,units,trades,net_usd,stress_dd_usd,ns,wr_pct,max_open,eoy_flatten_events,eoy_flatten_units,eoy_flatten_by_year,notes
+sl50_tp150_3r_1mfill,1018,1018,-2419.54,-5349.93,-0.452,25.0,1,0,0,{},fair control: 1 unit SL50 / TP150; :58 early-close signal
+sl50_tp150_runners_2r_10r,1944,648,16922.94,-7602.91,2.226,14.5,3,0,0,{},3 units: TP150 + runner@300 + runner@1500; :58 early-close
+sl50_tp150_runners_2r_indef,3054,1018,10304.31,-37355.84,0.276,14.7,84,5,14,"{""2017"": 2, ""2020"": 1, ""2023"": 1, ""2024"": 5, ""2025"": 5}",3 units: TP150 + runner@300 + indefinite; :58 early-close; EOY flatten; indefinite runners do not block later campaigns

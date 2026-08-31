@@ -1,0 +1,100 @@
+{
+  "broker_realism_config": {
+    "directional_adverse_path": true,
+    "fee_per_unit": 1.5,
+    "slippage_ticks": 1.0,
+    "spread_model": "default"
+  },
+  "causality_mode": "audit",
+  "command": [
+    "/home/tester/hsm/potions/live/nq_v2b_prior_opposed_replay.py",
+    "--market",
+    "mnq",
+    "--gate-mode",
+    "resting_limit",
+    "--book",
+    "S_1_1_1",
+    "--email"
+  ],
+  "created_at": "2026-08-20T13:41:53Z",
+  "cwd": "/home/tester/hsm/potions",
+  "data_inputs": [
+    {
+      "bytes": 326883970,
+      "exists": true,
+      "path": "/home/tester/hsm/potions/mnq/raw/glbx-mdp3-20210304-20260303.ohlcv-1m.csv",
+      "sha256": "9fbc803a3898e16eb611f32702d65646f8f8e441f72aba81f279d24af8cb1b85"
+    },
+    {
+      "bytes": 299030,
+      "exists": true,
+      "path": "/home/tester/hsm/potions/live/state/hourly_st_pmc_strategyplugin_variants_cross_market/mnq/combined_state/fills.csv",
+      "sha256": "ed8638701fadf9e7071b960ae16b298fce607237883b51ab1baf444a5c772fd6"
+    },
+    {
+      "bytes": 646334,
+      "exists": true,
+      "path": "/home/tester/hsm/potions/live/state/hourly_st_pmc_strategyplugin_variants_cross_market/mnq/combined_state/orders.csv",
+      "sha256": "40dfef4004cd3bb9fa5436db2631c0c00c4c87b9559ae4be126231bd3d45abba"
+    }
+  ],
+  "extra": {
+    "causality_violations": 0,
+    "driver": "nq_v2b_prior_opposed_replay",
+    "entry_live_after_delay_minutes": null,
+    "touch_outside_fill_hour": null,
+    "touch_resolved": null,
+    "touch_unresolved": null
+  },
+  "git": {
+    "commit": "",
+    "dirty": false,
+    "repo_root": "/home/tester/hsm/potions/live/state/mnq_v2b_prior_opposed_stpmc_resting_limit_S_1_1_1",
+    "status_short": []
+  },
+  "outputs": [
+    {
+      "bytes": 553,
+      "exists": true,
+      "path": "summary.csv",
+      "sha256": "37a5a87e045d6bdc4be3fd86d854b8d54b761b2b26d2db6caa7ef0508d004845"
+    },
+    {
+      "bytes": 649,
+      "exists": true,
+      "path": "INDEX.md",
+      "sha256": "205f4cf71735c10a01d71b2d7afc57d70ec886ea322212f86fb08fb930b64bbc"
+    },
+    {
+      "bytes": 264510,
+      "exists": true,
+      "path": "states/mnq_v2b_prior_opposed_stpmc_only_S_1_1_1/fills.csv",
+      "sha256": "5d6064da73b2a4348d7873b2bfbc2c3ee239d5d2b594f76e26d547003c5c71b9"
+    },
+    {
+      "bytes": 690120,
+      "exists": true,
+      "path": "states/mnq_v2b_prior_opposed_stpmc_only_S_1_1_1/orders.csv",
+      "sha256": "4db60f77f30ba1c02cd06e04a891c9a2940bbed7ee20dfbf601814ad72c6ea92"
+    }
+  ],
+  "python": {
+    "executable": "/home/tester/.pyenv/versions/3.8.0/bin/python3",
+    "platform": "Linux-5.15.0-185-generic-x86_64-with-glibc2.34",
+    "version": "3.8.0 (default, Feb 11 2026, 11:18:58) \n[GCC 11.4.0]"
+  },
+  "run_id": "run_37ba58274340",
+  "strategy_config": {
+    "entry_live_after_delay_minutes": null,
+    "entry_qty": 3,
+    "gate_mode": "resting_limit",
+    "invalidate_without_opposite_minutes": null,
+    "market": "mnq",
+    "prior_opposite_only": true,
+    "runner_target_r_mult": null,
+    "sizing": "S_1_1_1",
+    "start": "2021-03-04",
+    "strategy_id": "mnq_v2b_prior_opposed_stpmc_only_S_1_1_1",
+    "targeted_runner_qty": null
+  }
+}

@@ -24,6 +24,17 @@ Central index of execution variants explored in this workspace / chat threads.
 > (`POLICY.md`, `CANDIDATE_LEDGER.csv`, `BOARDS.md`,
 > [`ALL_RESULTS.md`](../../live/state/canonical_ns_research/ALL_RESULTS.md) unsorted coupons).
 
+> **2026-08-17 — HP research capital LOCK v1 (NQ/ES @4× + EURUSD Thu @40×).**
+> Research sizing package locked for planning / $250k paths (linear sensitivity —
+> **not** null-suite auth at these mults). **NQ OR-norm @4×** N/S **34.19**
+> ($250k→$3.33M; ≈IM ~$400k; liq OK); **ES ST-age>180m @4×** N/S **20.19**
+> ($250k→$1.07M; research only / NOT VALIDATED); **EURUSD ST+PMC Thursday @40×**
+> N/S **8.50** ($250k→$1.68M; ≈IM ~$100k; tape OK). US30 high-size **excluded**
+> (YM-proxy liq binds ~80×). Deploy auth unchanged: NQ provisional ≤2×; FX HP
+> VALIDATED @**1.25×** only. Hub:
+> [`../../live/state/hp_size_lock_v1/`](../../live/state/hp_size_lock_v1/)
+> (`LOCKED_PLAN.md`).
+
 > **2026-08-13 — NQ prior-opposed RL · normal opening-15m-range @2× —
 > HIGHEST economic conviction in current HP sizing research.**
 > Evidence: Δnet ≈ **+$582k**; whole-book N/S **24.06 → 36.26** (ΔN/S **+12.20**);
@@ -51,6 +62,12 @@ Central index of execution variants explored in this workspace / chat threads.
 > **A** = unfiltered shadow control. Verdict `C_PRIMARY_CAPITAL_EFFICIENT_B_ALPHA_CONTROL`.
 > London screen (Aug 10–11): ungated / 2h / 4h / v2d / FBO / NY grab / sweep reversal
 > **rejected** for majors; Asia-range USDJPY was the only green path — see CHANGE_LOG.
+> **2026-08-24 account rotation:** dedicated OANDA practice account `-004`
+> now maps to this causal USDJPY Asia-range StrategyPlugin path, replacing the
+> stale NAS100 ST+PMC 2R->10R account-004 sleeve. Validation: **3,772**
+> feature snapshots, **0** causality violations, **0** entry fills at/before
+> activation; earliest entry fill **1m** after the 03:00 London arm.
+> Config: [`../../live/demo/oanda_account_configs/usdjpy_asia_range_004.json`](../../live/demo/oanda_account_configs/usdjpy_asia_range_004.json).
 
 > **2026-08-08 — ST+PMC lot-correct runners (index CFDs).** Fair 3R and
 > **2R→10R** are rankable after trade_id lot match + reachable stress.
@@ -88,16 +105,32 @@ Central index of execution variants explored in this workspace / chat threads.
 > Plan: [`../../live/state/futures_intraday_hp_live_plan/DEPLOYMENT_PLAN.md`](../../live/state/futures_intraday_hp_live_plan/DEPLOYMENT_PLAN.md)
 > · nulls [`…/futures_intraday_hp_sizeup_nulls/`](../../live/state/futures_intraday_hp_sizeup_nulls/).
 
-### Index CFD ST+PMC 50/150 — lot-correct 1mfill ranks (2026-08-08)
+### Index CFD ST+PMC 50/150 — completed-hour causal ranks (2026-08-29)
+
+> **2026-08-29 — US30 fair-3R alpha invalidated.** Left-label hourly timing
+> produced the retired N/S **29.39** tape; under completed-hour causality the
+> same fair 3R is **N/S −0.21**. Demo `demo_us30_hourly_st_pmc` is
+> **lifecycle / reconcile only** (not alpha). Attribution:
+> [`../../live/state/us30_st_pmc_signal_hour_attribution/`](../../live/state/us30_st_pmc_signal_hour_attribution/).
+> Revival paths A/B/C (DSR `TRL-2026-00186`): A/B **rejected**; C continuation
+> 2R→10R board N/S **1.84** but **research_candidate only** (demo=false).
+> Campaign audit: **1736** independent campaigns (not 5207 units); one-entry/signal
+> PASS; N/S **collapses** under 2R/3R profit caps → sparse runner/tail.
+> Contract + audit:
+> [`RESEARCH_CONTRACT.md`](../../live/state/us30_st_pmc_causal_revival_abc/RESEARCH_CONTRACT.md) ·
+> [`CONTINUATION_AUDIT.md`](../../live/state/us30_st_pmc_causal_revival_abc/CONTINUATION_AUDIT.md) ·
+> hub [`../../live/state/us30_st_pmc_causal_revival_abc/`](../../live/state/us30_st_pmc_causal_revival_abc/).
+> Completed-hour control hub: [`../../live/state/us30_st_pmc_runner_variants/`](../../live/state/us30_st_pmc_runner_variants/).
 
 | Rank | Market / book | Net | Stress | **N/S** | Live demo |
 |---:|---|---:|---:|---:|---|
-| 1 | **US30** fair 3R | +$19.0k | −$0.65k | **29.39** | `demo-us30-hourly-st-pmc-{paper,oanda}` |
-| 2 | **US30** 2R→10R | +$56.1k | −$2.3k | **24.05** | `demo-us30-hourly-st-pmc-2r10r-{paper,oanda}` |
-| 3 | **NAS100** fair 3R | +$15.2k | −$0.78k | **19.56** | `demo-nas100-hourly-st-pmc-{paper,oanda}` |
-| 4 | **NAS100** 2R→10R | +$34.1k | −$3.1k | **11.13** | `demo-nas100-hourly-st-pmc-2r10r-{paper,oanda}` |
-| 5 | **EURUSD** fair 3R 50/150 | +$64.4k | −$21.4k | **3.01** | `demo-eurusd-hourly-st-pmc-{paper,oanda}` (filt proxy 7.23) |
-| 6 | **EURUSD** 2R→10R 50/150 | +$121k | −$67.3k | **1.80** | `demo-eurusd-hourly-st-pmc-2r10r-{paper,oanda}` (**½ size**) |
+| — | **US30** fair 3R (completed-hour) | −$0.98k | −$4.6k | **−0.21** | **invalidated** — stop / lifecycle-only |
+| 1 | **US30** 2R→10R (completed-hour) | +$13.3k | −$9.1k | **1.47** | retain as control only (not demo-promote) |
+| — | **US30** fair 3R (retired left-label) | +$19.0k | −$0.65k | ~~29.39~~ | audit lesson — do not cite as alpha |
+| 2 | **NAS100** fair 3R | +$15.2k | −$0.78k | **19.56** | `demo-nas100-hourly-st-pmc-{paper,oanda}` (re-audit pending) |
+| 3 | **NAS100** 2R→10R | +$34.1k | −$3.1k | **11.13** | `demo-nas100-hourly-st-pmc-2r10r-{paper,oanda}` |
+| 4 | **EURUSD** fair 3R 50/150 | +$64.4k | −$21.4k | **3.01** | `demo-eurusd-hourly-st-pmc-{paper,oanda}` (filt proxy 7.23) |
+| 5 | **EURUSD** 2R→10R 50/150 | +$121k | −$67.3k | **1.80** | `demo-eurusd-hourly-st-pmc-2r10r-{paper,oanda}` (**½ size**) |
 | — | US30 / NAS100 indefinite | sleeve | reachable stress | not ranked | not demoed |
 
 US30 Monday OR CFD sizing: [`../../live/state/monday_or_sizing_sweep_broker_us30/`](../../live/state/monday_or_sizing_sweep_broker_us30/) — live **½** `M3_S3_R2` + Sep skip (`demo-us30-monday-or-{paper,oanda}`).
@@ -111,7 +144,7 @@ EURUSD sleeves ranked by broker-like **Net/Stress** (Engine + `PaperBroker`, His
 
 | Rank | Sleeve | Plugin / ID | Net | Stress DD | Net/Stress | WR | Role |
 |---|---|---|---:|---:|---:|---:|---|
-| — | **USDJPY Asia-range London `S_3_1_3` + Jan/roll50** | `v2b_scaleout` · `usdjpy_v2b_asia_range_london_S_3_1_3_flt` | **+$178k** | −$25k | **7.23** | 48.6% | **Research/practice promote · capital-efficient primary (C)** (funded sleeve gated — VALIDATION_GATES + FILTER_NULLS risk-throttle; three-book lock `C_PRIMARY_CAPITAL_EFFICIENT_B_ALPHA_CONTROL` — `THREE_BOOK_FORWARD.md`; vs Monday OR USDJPY weekly N/S 8.20 — different clock) |
+| — | **USDJPY Asia-range London `S_3_1_3` + Jan/roll50** | `v2b_scaleout` · `usdjpy_v2b_asia_range_london_S_3_1_3_flt` | **+$178k** | −$25k | **7.23** | 48.6% | **Research/practice promote · capital-efficient primary (C)** (funded sleeve gated — VALIDATION_GATES + FILTER_NULLS risk-throttle; three-book lock `C_PRIMARY_CAPITAL_EFFICIENT_B_ALPHA_CONTROL` — `THREE_BOOK_FORWARD.md`; vs Monday OR USDJPY baseline N/S 8.28 / Phase 2 core 10.60 — different clock) |
 | — | **Hourly ST+PMC 50/150 fair 3R** (1mfill) | `hourly_st_pmc_retest` · `eurusd_hourly_st_pmc_sl50_tp150_3r_1mfill` | **+$64.4k** | −$21.4k | **3.01** | ~29% | **Practice promote** paper+OANDA (offline Jun/Aug+roll → proxy 7.23) |
 | — | **Hourly ST+PMC 50/150 2R→10R** (1mfill) | same · runners_2r_10r | **+$121k** | −$67.3k | **1.80** | ~32% | **Practice promote @ ½ size** (concentration) |
 | 1 | **Monday OR `M1_S2_R2`** (15m, light shifted, max 3/wk) | `monday_or_breakout` · Phase 2 | **+$123.3k** | −$70.9k | **1.74** | — | **Phase 2 hardened · paper-only @ ½** (`demo-eurusd-monday-or-paper`; Aug skip) · [report](#monday-or-fx-strategy-tracker-report) |
@@ -156,7 +189,7 @@ Broker-like hubs — **do not promote** majors from these clocks (see `live/CHAN
 
 | Pair | Broker #1 | N/S | ≈USD net | vs baseline | Status |
 |---|---|---:|---:|---|---|
-| **USDJPY** | **`M2_S3_R1`** | **8.20** | +$219k | 4.27 → 8.20 | **Phase 2 hardened** (live/paper eligible) |
+| **USDJPY** | **`M2_S3_R1`** | **8.28** | +$222k | 4.27 → 8.28 | **Phase 2 hardened** (live/paper eligible; Phase 2 core with sitout+Aug/Sep skip is 10.60 N/S) |
 | **GBPUSD** | **`M1_S1_R2`** | **2.67** | +$231k | 1.87 → 2.67 | Phase 2 extended · **paper-only** (sub-period FAIL) |
 | **XAUUSD** | **`M2_S2_R3`** | **1.90** | +$438k | 1.04 → 1.90 (stress −$230k) | Phase 2 extended · heat / default do-not-fund |
 | **AUDJPY** | **`M1_S2_R2`** | **1.83** | +$96k | 1.07 → 1.83 | Phase 2 extended · satellite (sub-period PASS) |
@@ -238,7 +271,7 @@ Phase 1 completed a 27-cell broker-like sweep through Engine + PaperBroker acros
 | Pair | Baseline `M1_S1_R1` | Broker #1 | Net/Stress | Approx. USD Net | Stress |
 |---|---|---|---:|---:|---:|
 | EURUSD | 0.83, +$76k | `M1_S2_R2` | 1.74 | +$123k | −$71k |
-| USDJPY | 4.27, +$138k | `M2_S3_R1` | 8.20 | +$219k | −$27k |
+| USDJPY | 4.27, +$138k | `M2_S3_R1` | 8.28 | +$222k | −$27k |
 
 EURUSD preferred a lighter shifted sidecar; USDJPY preferred a runner-heavier main leg plus a larger shifted sidecar.
 
@@ -253,7 +286,7 @@ EURUSD preferred a lighter shifted sidecar; USDJPY preferred a runner-heavier ma
 
 | Pair | Broker #1 | N/S | Status |
 |---|---|---:|---|
-| USDJPY | `M2_S3_R1` | 8.20 | Phase 2 hardened · live/paper |
+| USDJPY | `M2_S3_R1` | 8.28 | Phase 2 hardened · live/paper |
 | GBPUSD | `M1_S1_R2` | 2.67 | Phase 2 extended · paper-only |
 | XAUUSD | `M2_S2_R3` | 1.90 | Phase 2 extended · heat / do-not-fund default |
 | AUDJPY | `M1_S2_R2` | 1.83 | Phase 2 extended · satellite |
@@ -270,7 +303,7 @@ EURUSD preferred a lighter shifted sidecar; USDJPY preferred a runner-heavier ma
 
 #### USDJPY — `M2_S3_R1` / `M2_S3_R2`
 
-- Primary: main 3 = 1@30, 2@50; shifted 4 = 2@30, 2@50; max **2**/week (`R1`) → N/S **8.20**.
+- Primary: main 3 = 1@30, 2@50; shifted 4 = 2@30, 2@50; max **2**/week (`R1`) → N/S **8.28** on the fresh causal baseline; Phase 2 core with sitout+Aug/Sep skip is **10.60**.
 - Alternate `M2_S3_R2` (max 3/week): N/S **8.19**, ~+$9k more net, slightly more stress.
 - EURUSD’s light-sidecar recipe is **weak** on USDJPY (~rank 26) — do not cross-use.
 
@@ -315,8 +348,8 @@ Phase 2 locks the pair-specific winners and hardens them for promotion — **not
 | Current promoted tag | `M1_S2_R2` | `M2_S3_R1` |
 | Alternate tag | — | `M2_S3_R2` |
 | Baseline tag | `M1_S1_R1` | `M1_S1_R1` |
-| Broker Net/Stress | 1.74 | 8.20 |
-| Approx. USD Net | +$123k | +$219k |
+| Broker Net/Stress | 1.74 | 8.28 |
+| Approx. USD Net | +$123k | +$222k |
 | Stress | −$71k | −$27k |
 | Structural read | Front-loaded main + light sidecar | Runner-heavy main + heavy sidecar |
 | Status | Phase 2 hardened · **paper-only** | Phase 2 hardened · live/paper eligible |
@@ -328,7 +361,7 @@ This family broadens the intraday sleeve mix beyond plain CTA trend: Monday OR b
 
 ### Current conclusions
 
-Phase 1 delivered pair-specific winners; Phase 2 locked and hardened them. **USDJPY `M2_S3_R1`** is the default Monday OR sleeve for live/paper under 3–5M caps. **EURUSD `M1_S2_R2`** remains the full-sample EURUSD N/S leader vs ST+PMC but is **paper-only** until post-2019 slices improve. Sizing is **not portable across pairs**. Phase 3 = live track-record (USDJPY-first).
+Phase 1 delivered pair-specific winners; Phase 2 locked and hardened them. **USDJPY `M2_S3_R1`** is the default Monday OR sleeve for live/paper under 3–5M caps. Fresh 2026-08-24 causal rerun with feature snapshots shows baseline **8.28** N/S and Phase 2 core **10.60** N/S with **0** causality violations. **EURUSD `M1_S2_R2`** remains the full-sample EURUSD N/S leader vs ST+PMC but is **paper-only** until post-2019 slices improve. Sizing is **not portable across pairs**. Phase 3 = live track-record (USDJPY-first).
 
 **Cross-pair generalization (2026-07-19, [`../../live/state/fx_cross_pair_tracker_leaders/`](../../live/state/fx_cross_pair_tracker_leaders/)):**
 
@@ -347,12 +380,16 @@ XAUUSD/XAGUSD converted from `fx/raw/` (PV 100 / 1000). Silver 2011-01-20 100× 
 
 | Rank | Pair | Strategy | Net | MTM stress | **N/S** | CAGR | Sharpe | Max DD | Worst mo | Worst yr | Charts |
 |---:|---|---|---:|---:|---:|---:|---:|---:|---:|---:|---|
-| 1 | **AUDJPY** | Yearly ORB scaleout3 | +$194k | −$9.0k | **15.26** | 2.60% | **1.03*** | −2.7%* | −1.33% | −0.40% | [24 yr](../../live/state/fx_metals_top4_report/charts/yearly_orb/audjpy_yearly_orb_scaleout3/INDEX.md) |
-| 2 | **XAUUSD** | Yearly ORB scaleout3 | +$541k | −$48k | **11.30** | 5.16% | 0.76 | −10.4% | −5.60% | −0.36% | [24 yr](../../live/state/fx_metals_top4_report/charts/yearly_orb/xauusd_yearly_orb_scaleout3/INDEX.md) |
-| 3 | **XAGUSD** | Yearly ORB scaleout3 | +$121k | −$20k | **6.21** | 1.74% | 0.65 | −5.5% | −2.34% | −0.01% | [24 yr](../../live/state/fx_metals_top4_report/charts/yearly_orb/xagusd_yearly_orb_scaleout3/INDEX.md) |
+| 1 | **AUDJPY** | Yearly ORB **`4/1/1`** (sized) | +$420k | −$16.9k | **24.87** | — | — | — | — | — | [deep-check](../../live/state/yearly_orb_sizing_sweep_fx_metals/deep_check/audjpy_yorb_sizing_L_4_1_1/) |
+| 2 | **XAUUSD** | Yearly ORB **`4/2/1`** (sized) | +$1,038k | −$67.7k | **15.32** | — | — | — | — | — | [deep-check](../../live/state/yearly_orb_sizing_sweep_fx_metals/deep_check/xauusd_yorb_sizing_L_4_2_1/) |
+| 3 | **XAGUSD** | Yearly ORB **`5/2/1`** (sized) | +$301k | −$35.1k | **8.58** | — | — | — | — | — | [deep-check](../../live/state/yearly_orb_sizing_sweep_fx_metals/deep_check/xagusd_yorb_sizing_L_5_2_1/) |
 | 4 | **USDJPY** | Monthly ORB FBO 1/1/3 atr80 | +$93k | −$27k | **4.25** | 1.39% | 0.29 | −9.0% | −4.94% | −4.23% | [134 mo](../../live/state/fx_metals_top4_report/charts/usdjpy_fbo_1_1_3_atr80/INDEX.md) |
 
-\*AUDJPY Sharpe/Max DD from validated `$250k` report (`audjpy_futures_strats_sweep/best_report_yearly_orb/`). Rank 5: XAUUSD ST+PMC MA-bull N/S **3.31** — [112 profitable trade charts](../../live/state/fx_metals_top4_report/charts/xauusd_stpmc_ma_bull_profitable/INDEX.md).
+**Baseline `1/1/1` (pre-sizing, still the charted top-4 reference):** AUDJPY **15.26** / XAU **11.30** / XAG **6.21** — [24 yr packs](../../live/state/fx_metals_top4_report/charts/INDEX.md). Sized ΔN/S vs baseline: AUDJPY **+9.61**, XAU **+4.02**, XAG **+2.36**. AUDJPY Sharpe/Max DD on the banked `$250k` `1/1/1` report remains **1.03 / −2.69%** (`audjpy_futures_strats_sweep/best_report_yearly_orb/`). Rank 5 unchanged: XAUUSD ST+PMC MA-bull N/S **3.31**.
+
+**2026-08-17 causal + exit-variant follow-up (research sit):** next-bar-open causal close crushed pre-causal N/S; mid_close helps XAU (`L_0_3_3_mid` N/S **4.75** hub `yearly_orb_xauusd_mid_tprunner/`); XAG stays range front-load (`L_6_2_1` **1.37** hub `yearly_orb_xagusd_range_frontload/`); AUDJPY sit out. Attribution: `yearly_orb_exit_variants_fx_metals/PNL_ATTRIBUTION.md`. **Do not promote** from the 2026-08-16 pre-causal metals top-4 numbers.
+
+**2026-08-16 FX/metals sizing + deep-check:** hub [`../../live/state/yearly_orb_sizing_sweep_fx_metals/SUMMARY.md`](../../live/state/yearly_orb_sizing_sweep_fx_metals/SUMMARY.md); one-pagers `ONE_PAGE_*`; path note [`YEARLY_ORB_RESEARCH_NOTES.md`](YEARLY_ORB_RESEARCH_NOTES.md). Stance: **research / deep-check complete — human promote**.
 
 **2026-07-30 note:** Exact `sl50_tp150_3r_1mfill` on metals is **not** a promote path — XAU N/S **0.16**, XAG 0 closed units. Index CFD 1mfill live demos are US30 + NAS100 only ([`../../live/state/st_pmc_1mfill_cross_market/SUMMARY.md`](../../live/state/st_pmc_1mfill_cross_market/SUMMARY.md)).
 
@@ -491,6 +528,12 @@ Read: the complement satellite adds ~44% net on ~24% more stress and *raises* ne
 
   **NQ long-history raw rerun (2026-06-17).** After restoring the long NQ 1m DBN, the strict delayed-arming NQ replay was rerun separately from **2010-06-06** using `nq/raw/glbx-mdp3-20100606-20260616.ohlcv-1m.dbn.zst`. The supporting daily regime file and hourly ST+PMC gate tape currently end in early March 2026, so this is effectively a **2010-06-06 -> 2026-03-06** validated-window run even though the raw DBN extends to 2026-06-16. Result: **877 campaigns / 4,385 units**, **$1,713,277.50 net**, **-$53,172 closed DD**, **-$53,847 intrabar stress DD**, **64.77% win**, **2.427 PF**, **31.82 Net/Stress**, **877 / 877 prior-opposite entries**, **0 causal violations**. Compared with the banked 2021-start row, the added pre-2021 section contributes **525 campaigns** and **$528,692.50 net** without deepening full-window closed or intrabar stress DD. Output: [`../../live/state/nq_v2b_prior_opposed_stpmc_full_history_raw/INDEX.md`](../../live/state/nq_v2b_prior_opposed_stpmc_full_history_raw/INDEX.md). Read: this long-history tape still uses the **legacy hourly fill-stamp** gate; re-run with resting-limit before treating full-history Net/Stress as promotion truth.
 
+  **2026-08-18 Heikin Ashi overlay + NQ 5m large-candle 3R (research curiosity, not promote).** Causal 5m HA at prior-opposed entry: NQ HA-with-prior-trend n=105 WR **71.4%** / avg **$4.4k** vs HA-with-fade n=327 WR 64.2% / avg $2.7k — lift exists but does not beat the live HP bucket (OR-norm). YM prefers HA-with-fade. After PO exit, a 3R that *follows the next 5m candle* in ST-continuation vs fade-again is **WR 18–22%** (≤ fair 3R). Separate NQ RTH 5m large-range study: follow p90 candle close, SL at open, TP 3R — raw p90 WR **25.6%** (fair ~25%); ATR-normalized p90 WR **29.2%** / PF **1.07**. Charts: [`../../live/state/nq_5m_large_candle/charts/INDEX.md`](../../live/state/nq_5m_large_candle/charts/INDEX.md). Hubs: [`prior_opposed_ha`](../../live/state/prior_opposed_ha/SUMMARY.md), [`nq_5m_large_candle`](../../live/state/nq_5m_large_candle/SUMMARY.md).
+
+  **2026-08-18 NQ 15m large-candle + first-hour 1h follow/fade (diagnostic → broker retain).** Same p90-range 3R contract on **15m** (resampled 5m): follow p90 WR **29.2%** / N/S **2.96** vs non-large control −0.76; ATR-norm p90 WR **32.7%** / N/S 3.90. Unconditional fade/1R still lose; during-PO fade-ST 3R n=574 WR 34.1% / N/S **7.41**. **First hour only** (09:30–10:30): diagnostic follow-3R n=3968 WR **38.2%** / N/S **9.32**; fade dies. **Broker-like confirmation (2026-08-19):** see **[RTH first-hour follow](#rth-first-hour-follow--broker-like-retain-sleeve)** — NQ baseline N/S **5.57**, NAS100 **4.09**; **RETAIN** 3×body. Hubs: [`nq_15m_large_candle`](../../live/state/nq_15m_large_candle/SUMMARY.md), [`nq_15m_large_candle_ha`](../../live/state/nq_15m_large_candle_ha/SUMMARY.md), [`nq_1h_first_hour_ha`](../../live/state/nq_1h_first_hour_ha/SUMMARY.md).
+
+  **2026-08-18 NQ 15m + first-hour p99 (fallback p95) large-candle (research, not promote).** Causal expanding **p99** range; fallback **p95** if p99 days <8% or events <80. **15m kept p99** (1,432 days / 5,051 bars): follow-3R n=2290 WR **34.5%** / N/S **1.52** (WR up vs p90 29.2%, N/S down vs 2.96). **p95 15m** n=6738 WR 31.1% / N/S **4.46** is the better economic sleeve. ATR-norm p99 WR **39.0%** / N/S 3.61. Fade/1R still lose. During-PO fade-ST 3R n=71 WR **52.1%** / N/S 4.67. Last hour (15:00) p99 WR **51.2%**. **First-hour p99 too rare** (5.9% of days, n=238, N/S 0.20) → **p95 sleeve** n=879 WR **43.8%** / N/S **2.56** (WR matches p90 43.6%; N/S down vs 6.64). Fade still dies. Hubs: [`nq_15m_large_candle_p99`](../../live/state/nq_15m_large_candle_p99/SUMMARY.md), [`nq_15m_large_candle_ha_p99`](../../live/state/nq_15m_large_candle_ha_p99/SUMMARY.md), [`nq_1h_first_hour_ha_p99`](../../live/state/nq_1h_first_hour_ha_p99/SUMMARY.md).
+
   Outputs: cross-market resting-limit [`v2b_prior_opposed_resting_limit_cross_market`](../../live/state/v2b_prior_opposed_resting_limit_cross_market/INDEX.md); NQ [`causal_proxies/resting_limit`](../../live/state/nq_v2b_prior_opposed_causal_proxies/resting_limit/INDEX.md) + [`LOOKAHEAD_REVIEW`](../../live/state/nq_v2b_prior_opposed_causal_proxies/resting_limit/LOOKAHEAD_REVIEW.md); MNQ/YM/MYM [`mnq`](../../live/state/mnq_v2b_prior_opposed_stpmc_resting_limit/INDEX.md) / [`ym`](../../live/state/ym_v2b_prior_opposed_stpmc_resting_limit/INDEX.md) / [`mym`](../../live/state/mym_v2b_prior_opposed_stpmc_resting_limit/INDEX.md). Legacy fill-stamp diagnostics remain under `*_stpmc_broker_like/`. ES resting-limit pending 1m DBN restore.
 
   Robustness pressure points match across markets but the best risk lever differs by market. **NQ:** 2022 is weak (**$13,425 / 1.17 PF**), gap-through stop cost is large, and widest opening-range days degrade sharply (Q4 OR-width only **1.52 Net/closed-DD**); reducing Q4 OR-width campaigns to `1/1/1` keeps **$1,137,539 net** while improving reconstructed Net/Stress from **25.60** to **30.04**. **MNQ:** 2022 is also weak (**$874.50 / 1.11 PF / 0.27 Net/closed-DD**), gap-through stop cost beyond the baseline 1 tick is **$51,483**, and Q4 OR-width has only **1.44 Net/closed-DD**; the same Q4 OR-width `1/1/1` lever keeps **$109,077.50 net** while improving reconstructed Net/Stress from **24.40** to **28.47**. **ES:** weakest year is **2023** (**$22,030 / 1.27 PF / 0.79 Net/closed-DD**), gap-through cost is **$233,375**, and Q4 OR-width is the soft bucket (**3.48 Net/closed-DD**); best filter is `skip_2022_or_or_q4`, improving reconstructed Net/Stress from **11.92** to **13.95** but cutting net to **$242,295**. **YM:** base is the best filter/event row (**$320,190 / reconstructed 13.18 Net/Stress**), but there are **13** rolling 50-campaign PF<1 windows, **$161,525** gap-through cost, and Q3 OR-width is the soft bucket (**3.46 Net/closed-DD**). **MYM:** weakest year is **2024** (**$1,789 / 1.16 PF / 0.72 Net/closed-DD**), gap-through cost is **$17,096**, and Q3 OR-width is weak (**0.81 Net/closed-DD**); reducing Q4 OR-width to `1/1/1` improves reconstructed Net/Stress from **10.18** to **11.14** while keeping **$22,530** net. CPI/FOMC day skipping did not beat base on NQ/MNQ/YM; ES event-day skipping and MYM event-day size reduction improve reconstructed efficiency but need tick/date-overfit review before becoming rules.
@@ -539,6 +582,37 @@ Key files:
 - Causal daily correction: `mym/case_studies/atr_supertrend_daily_primary_no_weekly_flat_3initial_causal/README.md`
 - Actual weekly correction: `mym/case_studies/atr_supertrend_actual_weekly_primary_3initial_causal/README.md`
 - Pine parity script: `pine/atr_supertrend_dca_10max_entry_guard_3initial.pine`
+
+## RTH first-hour follow — broker-like retain sleeve
+
+> **2026-08-19 — RETAIN (not funded-prod).** Plugin `first_hour_follow`: NY RTH
+> **09:30–10:30** candle → `market_close` at FH close → **follow** direction;
+> flatten ~15:59. **Why it works:** open continuation — first-hour body often
+> sets the day’s bias; ~37% WR is fine because **3× body** targets pay for
+> stops at FH open (~1× body). Fade dies. Outside prior-opposed / ST+PMC /
+> Asia-range leaders this is a **good capital-efficient daily book**,
+> especially the **SL=open / TP=3×body** contract.
+> Mechanics: [`../../live/state/nq_1h_first_hour_broker_variants/MECHANICS.md`](../../live/state/nq_1h_first_hour_broker_variants/MECHANICS.md).
+
+| Rank | Market / book | Trades | WR | Net | Stress | **N/S** | Stance |
+|---:|---|---:|---:|---:|---:|---:|---|
+| 1 | **NQ** baseline SL=open TP=**3×body** 1-lot | 3943 | 37.2% | +$177k | −$32k | **5.57** | **RETAIN** primary |
+| 2 | NQ half-body SL + 3R 1-lot | 3952 | 30.4% | +$119k | −$25k | 4.74 | retain secondary |
+| 3 | NQ 0.75-body 1R/2R/3R ladder 3-lot | 3958 | 40.4% | +$361k | −$91k | 3.95 | dollars only (worse N/S) |
+| 4 | **NAS100** baseline SL=open TP=**3×body** 1-lot | 2213 | 37.6% | +$7.7k | −$1.9k | **4.09** | **RETAIN** CFD mirror |
+| 5 | NAS100 half-body SL + 3R 1-lot | 2247 | 30.0% | +$4.5k | −$1.5k | 2.96 | retain secondary |
+| 6 | NAS100 0.75-body ladder 3-lot | 2255 | 40.4% | +$11.4k | −$5.6k | 2.04 | dollars only |
+| — | NQ / NAS100 retrace 72% → extreme → 3R | 2625 / 1465 | ~33–34% | weak | deep | **0.33** | **reject** |
+| — | NQ strong+sweep (+ ST trail) | ~53–56 | — | ~0 / neg | — | ~0 | **reject** |
+
+- Realism: Engine + PaperBroker, slip 1 tick, spread, fee $1.50/unit; NQ $20/pt; NAS100 CFD $1/pt.
+- Diagnostic NQ follow-3R N/S **9.32** → broker **5.57** (expected haircut; still mid-tier green).
+- Drivers: `python -m live.nq_1h_first_hour_broker_variants --email` ·
+  `python -m live.nas100_1h_first_hour_broker_variants --email`.
+- Hubs: [`nq_1h_first_hour_broker_variants`](../../live/state/nq_1h_first_hour_broker_variants/SUMMARY.md) ·
+  [`nas100_1h_first_hour_broker_variants`](../../live/state/nas100_1h_first_hour_broker_variants/SUMMARY.md).
+- **Not demoed.** Do not displace prior-opposed / ST+PMC / Asia-range capital; keep as a
+  simple RTH continuation sleeve when portfolio room exists.
 
 ## Broker-Like Bar Replay Rankings
 
@@ -953,6 +1027,22 @@ Current practical read: the old ATR weekly-primary leaderboard remains historica
 
 Recommended promotion candidate per market: **`L_4_2_1` (limit_retest, 4 / 2 / 1)** as the user-friendly default — it's the user's own pick, in the top-3 on 5 markets and #1 on ES, and gives ~2× the baseline's net with no worse Net/Stress. The `L_4_1_1` rows have higher Net/Stress on most markets, but only marginally and at the cost of meaningful TP and runner contribution.
 
+**2026-08-17 causal close (same pass as FX/metals):** the sizing-sweep table above is **lookahead-inflated**. Range-close filled on the decision bar's open; plugin now waits for the next daily open. Hub [`../../live/state/yearly_orb_sizing_sweep_futures_causal_close/COMPARISON.md`](../../live/state/yearly_orb_sizing_sweep_futures_causal_close/COMPARISON.md). NQ `L_4_1_1` **11.01 / 86.8% WR → 4.80 / 29.4% WR**; ES `L_4_2_1` **9.90 → 0.40** (died); YM `L_4_1_1` **7.64 → 1.78**. NQ mixed-MA / wide-OR / ATR-q4 bucket WRs **100/95/96% → 33/40/42%**. NQ OCO `4/2/1` rc20 held **6.74 → 5.82**. **Do not promote** from the pre-causal futures N/S or the 86% WR recount.
+
+HP + bucket charts were rebuilt on that causal tape throughout ([`../../live/state/yearly_orb_hp_live_plan_causal_close/LIVE_PLAN.md`](../../live/state/yearly_orb_hp_live_plan_causal_close/LIVE_PLAN.md), charts [`../../live/state/yearly_orb_hp_charts_causal_close/`](../../live/state/yearly_orb_hp_charts_causal_close/)). Book WR 29.4 / 20.5 / 22.2%. All HP pairs **NOT VALIDATED**. Stay 1.0×.
+
+### FX/metals sizing sweep (2026-08-16) — same front-heavy answer
+
+Closed the FX/metals gap with the same 19-cell grid on AUDJPY / XAUUSD / XAGUSD ([`../../live/state/yearly_orb_sizing_sweep_fx_metals/SUMMARY.md`](../../live/state/yearly_orb_sizing_sweep_fx_metals/SUMMARY.md)). Driver: `live/yearly_orb_sizing_sweep.py --markets audjpy,xauusd,xagusd`.
+
+| Market | Best sizing | TP25 / TP / Runner | Net | Stress DD | **N/S** | vs `1/1/1` |
+|---|---|---|---:|---:|---:|---:|
+| AUDJPY | `L_4_1_1` | 4 / 1 / 1 | ¥46,217,168 (~$420k) | ¥−1,858,200 (~$−17k) | **24.87** | +9.61 vs 15.26 |
+| XAUUSD | `L_4_2_1` | 4 / 2 / 1 | $1,037,711 | $−67,742 | **15.32** | +4.02 vs 11.30 |
+| XAGUSD | `L_5_2_1` | 5 / 2 / 1 | $301,376 | $−35,143 | **8.58** | +2.36 vs 6.21 |
+
+Read: front-heavy TP25 again; RC20/OCO still lose. Deep-checks emailed (yearly + robustness + 50W/50L). One-pagers under the hub. Path: [`YEARLY_ORB_RESEARCH_NOTES.md`](YEARLY_ORB_RESEARCH_NOTES.md).
+
 - MNQ 2020-2025: **26 trades**, **$68,082 gross**, **-$3,026 DD**, **38.5%** win rate, **22.50 Net/DD**.
 - NQ 2011-2025: **71 trades**, **$758,754 gross**, **-$30,210 DD**, **32.4%** win rate, **25.12 Net/DD**.
 - Portfolio note: the current cross-market test to preserve is **1 MNQ unit + 4 MYM units**, where each unit is the full 3-contract scaleout ladder. That means **3 MNQ + 12 MYM**, with combined 2020-2025 net **$135,878**, closed DD **-$3,292**, and open-heat stress DD **-$6,239**. Details: `mnq/case_studies/yearly_orb_mnq_mym_portfolio/README.md`.
@@ -1005,6 +1095,7 @@ The old **ATR Supertrend DCA weekly-primary / 10 max / 3 initial / entry guard**
 | Adaptive **50/150 + children** (single simulator) | `mnq/v2d/orb_adaptive_50_150_child.py` |
 | v2d regime **winners / losers** case PNGs | `case_studies/v2d_regime_case_studies/` (`build_v2d_winners_losers.py`) |
 | **v2e London sweep (breaker / piercer)** | `mnq/v2e/README.md` |
+| **RTH first-hour follow** (broker retain; 3×body) | [`../../live/state/nq_1h_first_hour_broker_variants/MECHANICS.md`](../../live/state/nq_1h_first_hour_broker_variants/MECHANICS.md) · plugin `live/strategies/first_hour_follow.py` |
 
 ## Adaptive 50/150 + **v2b_child**
 

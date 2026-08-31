@@ -11,14 +11,17 @@ import pytest
 from potions.live.demo.oanda_daemon_reconcile import (
     DaemonContainmentController,
     detect_foreign_bleed,
+    evaluate_bracket_invariant,
     evaluate_fixture_book,
     maybe_clear_flat_for_day_on_session_roll,
     ny_session_date,
     read_flat_for_day,
     write_flat_for_day,
+    containment_email_mode,
+    ny_past_containment_email_eod,
 )
 from potions.live.models import OrderIntent, utc_now_iso
-from potions.live.oanda import OandaBroker, OandaConfig
+from potions.live.oanda import OandaBroker, OandaConfig, OandaRoutingBlocked
 from potions.live.store import FlatFileStore
 from potions.live.supervisor import ENTRY_FROZEN, FLAT_FOR_DAY, RUNNING, RuntimeSupervisor
 
@@ -97,7 +100,7 @@ def test_fixture_detectors_match_expected(case_name, book_dir, expected):
         )
     assert result.classification == expected["classification"], case_name
     assert result.recommended_action == expected["recommended_action"], case_name
-    if expected["classification"] == "ok":
+    if expected["classification"] in {"ok", "armed_entry"}:
         assert result.ok
     else:
         assert not result.ok
@@ -412,3 +415,159 @@ def test_next_stream_backoff_has_jitter_and_429_floor():
     assert min(vals) >= 96.0  # 120 * 0.8
     assert max(vals) <= 300.0
     assert len(vals) > 1  # jitter varies
+
+
+def test_containment_email_eod_digest_once_per_session(monkeypatch):
+    """Watchdog findings accumulate; one email after NY 16:00 per session."""
+    import potions.live.demo.oanda_daemon_reconcile as mod
+    from potions.live.demo.oanda_daemon_reconcile import (
+        BracketInvariantResult,
+        ContainmentCycleResult,
+    )
+
+    monkeypatch.setenv("POTIONS_OANDA_CONTAINMENT_EMAIL", "eod")
+    assert containment_email_mode() == "eod"
+
+    tmp, store = make_store()
+    try:
+        config = OandaConfig(account_id="101-002-39860312-001", instrument_map={"US30": "US30_USD"})
+        broker = OandaBroker(store, config=config, client=None, authority_strategy_ids=["us30_st"])
+        ctrl = DaemonContainmentController(
+            store=store,
+            broker=broker,
+            supervisor=None,
+            instrument="US30",
+            strategy_id="us30_st",
+            email_on_action=True,
+        )
+        assert ctrl.email_mode == "eod"
+        sent = []
+        monkeypatch.setattr(
+            "potions.live.notify_email.send_email",
+            lambda **kw: sent.append(kw.get("subject") or ""),
+        )
+        inv = BracketInvariantResult(
+            ok=False,
+            classification="orphan_protective",
+            ownership_certain=True,
+            local_qty=0.0,
+            stop_qty=0.0,
+            tp_qty=0.0,
+            working_roles=[],
+            reasons=["flat_with_working_protectives=1"],
+            recommended_action="cancel_orphans",
+        )
+        result = ContainmentCycleResult(
+            mode="shadow",
+            phase="bracket_watchdog",
+            state="ARMED_FLAT",
+            invariant=inv,
+            actions=["detect:orphan_protective", "shadow_would_cancel_orphan_protectives"],
+            shadow=True,
+        )
+        ctrl._record_email_digest(result)
+        ctrl._record_email_digest(result)
+        digest = json.loads((store.root / "containment_email_digest.json").read_text(encoding="utf-8"))
+        assert digest["by_class"]["orphan_protective"] == 2
+
+        monkeypatch.setattr(mod, "ny_past_containment_email_eod", lambda now=None: False)
+        ctrl._maybe_flush_eod_email()
+        assert sent == []
+
+        monkeypatch.setattr(mod, "ny_past_containment_email_eod", lambda now=None: True)
+        ctrl._maybe_flush_eod_email()
+        assert len(sent) == 1
+        assert "EOD digest" in sent[0]
+        ctrl._maybe_flush_eod_email()
+        assert len(sent) == 1
+    finally:
+        tmp.cleanup()
+
+
+def test_flat_entry_limit_is_armed_entry_not_orphan():
+    result = evaluate_bracket_invariant(
+        instrument="US30",
+        strategy_id="us30_3r",
+        positions=[],
+        orders=[
+            {
+                "broker_order_id": "e1",
+                "strategy_id": "us30_3r",
+                "instrument": "US30",
+                "status": "working",
+                "order_type": "limit",
+                "bracket_role": "entry",
+                "quantity": 1,
+                "reduce_only": False,
+            }
+        ],
+    )
+    assert result.ok
+    assert result.classification == "armed_entry"
+    assert result.recommended_action == "none"
+
+
+def test_flat_entry_with_account_qty_is_cross_book():
+    result = evaluate_bracket_invariant(
+        instrument="NAS100",
+        strategy_id="nas100_3r",
+        positions=[],
+        orders=[
+            {
+                "broker_order_id": "e1",
+                "strategy_id": "nas100_3r",
+                "instrument": "NAS100",
+                "status": "working",
+                "order_type": "limit",
+                "bracket_role": "entry",
+                "quantity": 1,
+                "reduce_only": False,
+            }
+        ],
+        account_instrument_qty=2.0,
+    )
+    assert not result.ok
+    assert result.classification == "cross_book_entry"
+    assert result.recommended_action == "cancel_orphans"
+
+
+def test_cross_book_entry_gate_blocks_submit_when_sibling_open():
+    tmp, store = make_store()
+    try:
+        config = OandaConfig(account_id="101-002-39860312-001", instrument_map={"NAS100": "NAS100_USD"})
+        client = _FakeClient(
+            pending=[],
+            trades=[
+                {
+                    "id": "t_runners",
+                    "instrument": "NAS100_USD",
+                    "currentUnits": "2",
+                    "price": "29335.4",
+                    "clientExtensions": {"tag": "nas100_hourly_st_pmc_sl50_tp150_runners_2r_10r_oanda"},
+                }
+            ],
+        )
+        broker = OandaBroker(
+            store,
+            config=config,
+            client=client,
+            authority_strategy_ids=["nas100_hourly_st_pmc_sl50_tp150_3r_oanda"],
+            position_scope_instruments=["NAS100"],
+        )
+        intent = OrderIntent.create(
+            strategy_id="nas100_hourly_st_pmc_sl50_tp150_3r_oanda",
+            trade_id="pending",
+            instrument="NAS100",
+            account_mode="paper",
+            side="buy",
+            order_type="limit",
+            quantity=1,
+            limit_price=29335.4,
+            reason="entry",
+            bracket_role="entry",
+            requires_verification=False,
+        )
+        with pytest.raises(OandaRoutingBlocked, match="cross_book_instrument_open"):
+            broker.submit_order_intent(intent)
+    finally:
+        tmp.cleanup()

@@ -1,34 +1,21 @@
-# YM v2b Prior-Opposed Resting-Limit (hour-complete)
+# YM v2b Prior-Opposed / Provisional ST+PMC Broker-Like Replay (resting_limit)
 
-True `Engine + PaperBroker + StrategyPlugin` replay. Arms v2b only after the
-same-session opposite ST+PMC entry limit is **knowably resting** at
-**hour-complete** (`live_after_ts + 1h`).
+True `Engine + PaperBroker + StrategyPlugin` replay.
 
-| Trades | Units | Net | Closed DD | Intrabar / MTM Stress DD | Win % | PF | Net/Stress |
+| Trades | Units | Net | Closed DD | Intrabar Stress DD | Win % | PF | Net/Stress |
 |---:|---:|---:|---:|---:|---:|---:|---:|
-| 436 | 2180 | $289,225.00 | $-33,325.00 | **$-33,893.75** | 61.01 | 1.593 | **8.53** |
+| 447 | 2235 | $299295.00 | $-33751.00 | $-34076.00 | 61.07 | 1.607 | 8.78 |
 
 ## Causality / gate
 
-- Gate mode: **resting_limit** (hour-complete)
-- Prior-opposite entries: **436 / 436**
+- Regime sessions replayed: **1182**
+- Replay start: **2021-03-04**
+- Gate mode: **resting_limit**
+- Prior-opposite entries found: **447 / 447**
 - Causal violations: **0**
-- Direction mix: **199 long / 237 short**
-
-## vs legacy hourly fill stamp
-
-| Metric | Hour-complete resting | Legacy fill stamp |
-|---|---:|---:|
-| Campaigns | 436 | 351 |
-| Net | $289,225.00 | $318,791.25 |
-| MTM stress | $-33,893.75 | $-26,910.00 |
-| Net/Stress | 8.53 | 11.85 |
-
-Legacy folder (diagnostic): [`../ym_v2b_prior_opposed_stpmc_broker_like/`](../ym_v2b_prior_opposed_stpmc_broker_like/INDEX.md).
-
-Cross-market table: [`../v2b_prior_opposed_resting_limit_cross_market/INDEX.md`](../v2b_prior_opposed_resting_limit_cross_market/INDEX.md).
+- Direction mix: **203 long / 244 short**
 
 Files:
 
 - `summary.csv`
-- `states/`
+- `states/ym_v2b_prior_opposed_stpmc_only_S_1_1_3/`

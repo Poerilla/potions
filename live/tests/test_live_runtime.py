@@ -276,6 +276,135 @@ def test_yearly_orb_paper_replay_creates_three_retest_orders():
         tmp.cleanup()
 
 
+def test_yearly_orb_range_close_fills_next_bar_open_not_same_bar():
+    """Range-close decided on a completed daily bar must not fill that bar's open."""
+    tmp, store = make_store()
+    try:
+        inst = StrategyInstance(
+            strategy_id="yorb_rc",
+            strategy_type="yearly_orb_scaleout3",
+            version="v1",
+            instrument="XAUUSD",
+            broker_instrument="XAUUSD",
+            account_mode="paper",
+            enabled=True,
+            timeframes="D",
+            max_contracts=3,
+            max_open_orders=24,
+            config_json='{"batch_qty": 1, "tick_size": 0.01}',
+        )
+        store.upsert_row("strategy_instances", "strategy_id", as_row(inst))
+        engine = Engine(store=store, persist_bars=False, persist_health=False)
+        # Build YOR Jan–Mar, break short in April, then close back inside range.
+        bars = [
+            Bar("XAUUSD", "D", "2004-01-02", 400, 420, 390, 410, complete=True),
+            Bar("XAUUSD", "D", "2004-02-02", 410, 430, 400, 420, complete=True),
+            Bar("XAUUSD", "D", "2004-03-31", 420, 440, 380, 400, complete=True),  # YOR 440/380
+            Bar("XAUUSD", "D", "2004-04-01", 400, 410, 370, 375, complete=True),  # close below YOR low → short retest
+            Bar("XAUUSD", "D", "2004-04-02", 375, 385, 370, 372, complete=True),  # fill short retest; stay outside
+            # Still short into a day that closes back inside YOR → range_close decision
+            Bar("XAUUSD", "D", "2004-04-05", 382, 390, 378, 400, complete=True),
+            # Causal fill must land on the *next* open, not 2004-04-05 open
+            Bar("XAUUSD", "D", "2004-04-06", 401, 405, 395, 402, complete=True),
+        ]
+        engine.replay_bars(bars)
+        fills = store.read_table("fills")
+        close_fills = [f for f in fills if str(f.get("reason")) == "close"]
+        assert close_fills, "expected a range-close flatten fill"
+        assert all(str(f["ts"]).startswith("2004-04-06") for f in close_fills)
+        # Market fill uses next bar open (+/- slippage if configured; default 0).
+        assert all(abs(float(f["price"]) - 401.0) < 1e-9 for f in close_fills)
+        orders = [o for o in store.read_table("orders") if str(o.get("bracket_role")) == "close"]
+        assert orders and all(str(o.get("live_after_ts", "")).startswith("2004-04-05") for o in orders)
+    finally:
+        tmp.cleanup()
+
+
+def test_yearly_orb_mid_close_fills_next_bar_open():
+    """mid_close: long flattens when close <= YOR mid; fill waits for next open."""
+    tmp, store = make_store()
+    try:
+        inst = StrategyInstance(
+            strategy_id="yorb_mid",
+            strategy_type="yearly_orb_scaleout3",
+            version="v1",
+            instrument="XAUUSD",
+            broker_instrument="XAUUSD",
+            account_mode="paper",
+            enabled=True,
+            timeframes="D",
+            max_contracts=3,
+            max_open_orders=24,
+            config_json='{"batch_qty": 1, "exit_mode": "mid_close", "tick_size": 0.01}',
+        )
+        store.upsert_row("strategy_instances", "strategy_id", as_row(inst))
+        engine = Engine(store=store, persist_bars=False, persist_health=False)
+        # YOR 440/380 → mid=410. Short below 380, then close back above mid (not mid exit),
+        # then close at/above mid from short side? Short exit: close >= mid.
+        bars = [
+            Bar("XAUUSD", "D", "2004-01-02", 400, 420, 390, 410, complete=True),
+            Bar("XAUUSD", "D", "2004-02-02", 410, 430, 400, 420, complete=True),
+            Bar("XAUUSD", "D", "2004-03-31", 420, 440, 380, 400, complete=True),  # YOR 440/380 mid 410
+            Bar("XAUUSD", "D", "2004-04-01", 400, 410, 370, 375, complete=True),  # short break
+            Bar("XAUUSD", "D", "2004-04-02", 375, 385, 370, 372, complete=True),  # fill short
+            # Close inside range but below mid — should NOT mid-close a short (need close >= 410)
+            Bar("XAUUSD", "D", "2004-04-05", 382, 400, 378, 395, complete=True),
+            # Close at mid → mid_close decision
+            Bar("XAUUSD", "D", "2004-04-06", 395, 415, 390, 410, complete=True),
+            Bar("XAUUSD", "D", "2004-04-07", 412, 418, 405, 414, complete=True),
+        ]
+        engine.replay_bars(bars)
+        fills = store.read_table("fills")
+        close_fills = [f for f in fills if str(f.get("reason")) == "close"]
+        assert close_fills, "expected mid_close flatten fill"
+        assert all(str(f["ts"]).startswith("2004-04-07") for f in close_fills)
+        assert all(abs(float(f["price"]) - 412.0) < 1e-9 for f in close_fills)
+        orders = [o for o in store.read_table("orders") if str(o.get("bracket_role")) == "close"]
+        assert orders and all(str(o.get("live_after_ts", "")).startswith("2004-04-06") for o in orders)
+    finally:
+        tmp.cleanup()
+
+
+def test_yearly_orb_inside_swing_take_skips_range_close_and_trails_stop():
+    """inside_swing_take: no range_close flatten; stop ratchets to new inside swing."""
+    tmp, store = make_store()
+    try:
+        inst = StrategyInstance(
+            strategy_id="yorb_swing",
+            strategy_type="yearly_orb_scaleout3",
+            version="v1",
+            instrument="XAUUSD",
+            broker_instrument="XAUUSD",
+            account_mode="paper",
+            enabled=True,
+            timeframes="D",
+            max_contracts=3,
+            max_open_orders=24,
+            config_json='{"batch_qty": 1, "exit_mode": "inside_swing_take", "tick_size": 0.01}',
+        )
+        store.upsert_row("strategy_instances", "strategy_id", as_row(inst))
+        engine = Engine(store=store, persist_bars=False, persist_health=False)
+        bars = [
+            Bar("XAUUSD", "D", "2004-01-02", 400, 420, 390, 410, complete=True),
+            Bar("XAUUSD", "D", "2004-02-02", 410, 430, 400, 420, complete=True),
+            Bar("XAUUSD", "D", "2004-03-31", 420, 440, 380, 400, complete=True),  # YOR 440/380
+            Bar("XAUUSD", "D", "2004-04-01", 400, 410, 370, 375, complete=True),  # short break
+            Bar("XAUUSD", "D", "2004-04-02", 375, 385, 370, 372, complete=True),  # fill short
+            # Close deep inside range — default range_close would flatten; swing mode must not.
+            Bar("XAUUSD", "D", "2004-04-05", 382, 400, 378, 390, complete=True),
+            Bar("XAUUSD", "D", "2004-04-06", 390, 405, 385, 395, complete=True),
+        ]
+        engine.replay_bars(bars)
+        fills = store.read_table("fills")
+        assert not any(str(f.get("reason")) in {"range_close", "mid_close"} for f in fills)
+        # Still short after inside closes (no market flatten).
+        assert any(str(f.get("side")) == "sell" and str(f.get("reason")) in {"entry", "short_tp25_entry", "short_tp_entry", "short_runner_entry"} for f in fills)
+        pos = store.read_table("positions")
+        assert pos and float(pos[-1].get("quantity") or 0) < 0
+    finally:
+        tmp.cleanup()
+
+
 def test_hourly_st_pmc_retest_registers_and_places_limit():
     tmp, store = make_store()
     try:
@@ -450,3 +579,55 @@ def test_config_runner_blocks_non_paper_broker_mode():
         assert "Only the local PaperBroker" in str(exc)
     else:
         raise AssertionError("broker-live should not be enabled by the bootstrap runner")
+
+
+def test_strategy_open_orders_includes_oanda_working_status():
+    """OANDA rests land as status=working; plugins must see them for refresh/cancel."""
+    from potions.live.models import OPEN_ORDER_STATUSES, BrokerOrder, StrategyInstance
+    from potions.live.strategies.base import StrategyContext
+
+    assert "working" in OPEN_ORDER_STATUSES
+    tmp, store = make_store()
+    try:
+        inst = StrategyInstance(
+            strategy_id="s1",
+            strategy_type="hourly_st_pmc_retest",
+            version="v1",
+            instrument="US30",
+            broker_instrument="US30_USD",
+            account_mode="paper",
+        )
+        orders = [
+            BrokerOrder(
+                broker_order_id="ord_w",
+                intent_id="i1",
+                strategy_id="s1",
+                trade_id="t1",
+                instrument="US30",
+                account_mode="paper",
+                side="buy",
+                order_type="limit",
+                quantity=1,
+                remaining_quantity=1,
+                status="working",
+                limit_price=100.0,
+            ),
+            BrokerOrder(
+                broker_order_id="ord_c",
+                intent_id="i2",
+                strategy_id="s1",
+                trade_id="t2",
+                instrument="US30",
+                account_mode="paper",
+                side="buy",
+                order_type="limit",
+                quantity=1,
+                remaining_quantity=1,
+                status="cancelled",
+                limit_price=100.0,
+            ),
+        ]
+        ctx = StrategyContext(store=store, instance=inst, positions=[], open_orders=orders)
+        assert [o.broker_order_id for o in ctx.strategy_open_orders] == ["ord_w"]
+    finally:
+        tmp.cleanup()

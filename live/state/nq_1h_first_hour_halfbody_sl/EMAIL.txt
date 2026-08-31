@@ -1,0 +1,15 @@
+NQ first-hour half-body SL + scaleout complete
+Hub: /home/tester/hsm/potions/live/state/nq_1h_first_hour_halfbody_sl
+Note: SL = 0.5 × body from close (interpreted from “0.5% of the body”).
+
+baseline SL=open TP=3×body 1-lot: n=3968 WR=38.2% net=$+243008 N/S=9.32
+half-body SL + 1R 1-lot: n=3919 WR=47.1% net=$+103706 N/S=4.81
+half-body SL + 2R 1-lot: n=3919 WR=35.9% net=$+177736 N/S=8.95
+half-body SL + 3R 1-lot: n=3919 WR=31.0% net=$+179506 N/S=10.01
+half-body SL + TP1@FH extreme + runner 1R 2-lot: n=3919 WR=40.7% net=$+147770 N/S=4.69
+half-body SL + TP1@FH extreme + runner 2R 2-lot: n=3919 WR=37.8% net=$+223538 N/S=9.96
+half-body SL + TP1@FH extreme + runner 3R 2-lot: n=3919 WR=34.3% net=$+226470 N/S=8.04
+0.75-body SL + TP=3×body 1-lot: n=3919 WR=33.6% net=$+220795 N/S=7.44
+0.75-body SL + 1R/2R/3R ladder 3-lot: n=3919 WR=40.0% net=$+536261 N/S=7.64
+
+Stance: diagnostic only.

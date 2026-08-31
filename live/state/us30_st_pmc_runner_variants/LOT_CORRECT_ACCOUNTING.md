@@ -20,11 +20,11 @@ Replaces cross-trade FIFO nets for multi-lot books.
 
 ## Results
 
-| market | variant | rankable | realized | continuous | forced-flat | friction | reachable stress | raw stress | N/S flat | open lots | max open |
-|---|---|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|
-| `us30` | `sl50_tp150_runners_2r_indef` | **no** | $58718 | $80271 | $80169 | $102 | $-32060 | $-89374 | 2.50 | 64 | 68 |
-| `us30` | `sl50_tp150_3r_1mfill` | yes | $19028 | $19028 | $19028 | $0 | $-647 | $-907 | 29.39 | 0 | 1 |
-| `us30` | `sl50_tp150_runners_2r_10r` | yes | $56111 | $56111 | $56111 | $0 | $-2333 | $-2867 | 24.05 | 0 | 3 |
+| market | variant | rankable | realized | continuous | forced-flat | friction | reachable stress | raw stress | N/S flat | open lots | max open | hold med h | hold p90 h |
+|---|---|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+| `us30` | `sl50_tp150_runners_2r_indef` | **no** | $-62115 | $9279 | $9164 | $115 | $-34332 | $-100177 | 0.27 | 72 | 77 | 1 | 27 |
+| `us30` | `sl50_tp150_3r_1mfill` | yes | $-982 | $-982 | $-982 | $0 | $-4599 | $-4819 | -0.21 | 0 | 1 | 1 | 18 |
+| `us30` | `sl50_tp150_runners_2r_10r` | yes | $13340 | $13340 | $13340 | $0 | $-9066 | $-9201 | 1.47 | 0 | 3 | 1 | 22 |
 
 ## Indefinite sleeve (research only)
 

@@ -1,0 +1,21 @@
+{
+  "allowed_sides": [
+    "lower",
+    "upper"
+  ],
+  "bars": 25531,
+  "closed_dd_usd": -116091.33970045659,
+  "intrabar_stress_dd_usd": -121991.33970045659,
+  "market": "NQ",
+  "max_open_units": 10,
+  "net_over_stress": 1.7635563840413395,
+  "net_usd": 215138.60592649595,
+  "path_id": "",
+  "profit_factor": 4.894220495057473,
+  "risk_atr_mult": 0.5,
+  "strategy_id": "nq_quarterly_atr4_fade_ladder",
+  "trade_mode": "second_only",
+  "trades": 17,
+  "units": 170,
+  "win_rate": 0.17647058823529413
+}

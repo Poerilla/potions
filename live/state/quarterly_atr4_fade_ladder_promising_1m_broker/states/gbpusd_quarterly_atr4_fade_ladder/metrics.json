@@ -1,0 +1,26 @@
+{
+  "allowed_sides": [
+    "lower"
+  ],
+  "audit_tf": "4h",
+  "bars_1m": 8554337,
+  "bars_4h": 36960,
+  "baseline_4h_net_usd": 404130.2966289948,
+  "baseline_4h_ns": 7.992282732601876,
+  "closed_dd_usd": -60098.120136410536,
+  "feed_tf": "1m",
+  "intrabar_stress_dd_usd": -62058.12013641058,
+  "market": "GBPUSD",
+  "max_open_units": 10,
+  "net_over_stress": 5.364614463837399,
+  "net_usd": 332917.88888234715,
+  "path_id": "first_lower",
+  "profit_factor": 2.5432545677807195,
+  "risk_atr_mult": 2.0,
+  "stance": "weak \u2014 1m degraded vs 4h",
+  "strategy_id": "gbpusd_quarterly_atr4_fade_ladder",
+  "trade_mode": "first_only",
+  "trades": 46,
+  "units": 460,
+  "win_rate": 0.4434782608695652
+}

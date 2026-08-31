@@ -1,0 +1,23 @@
+potions: yearly ORB HP size-up LIVE_PLAN complete
+
+Study: yearly_orb_hp_sizeup_v1
+Hub: /home/tester/hsm/potions/live/state/yearly_orb_hp_live_plan
+
+NQ WR recount: 59/68 = 86.8% (95% CI 76.7–92.9%).
+86% claim: HOLDS (CI covers 86%).
+
+1.25× decisions:
+  NOT VALIDATED  nq_yorb ma_stack=ma_mixed  ΔN/S=+5.47  p_master=1.000
+  NOT VALIDATED  nq_yorb ma_align=ma_mixed  ΔN/S=+5.47  p_master=1.000
+  NOT VALIDATED  es_yorb atr_pct_bucket=atr_pctl_q4  ΔN/S=+3.45  p_master=0.347
+  NOT VALIDATED  es_yorb side=short  ΔN/S=+1.89  p_master=0.898
+  NOT VALIDATED  ym_yorb side=short  ΔN/S=+2.03  p_master=1.000
+  NOT VALIDATED  ym_yorb atr_pct_bucket=atr_pctl_q4  ΔN/S=+1.19  p_master=1.000
+2× decisions:
+  NOT VALIDATED  nq_yorb ma_stack=ma_mixed  ΔN/S=+21.87  p_master=0.339
+  NOT VALIDATED  nq_yorb ma_align=ma_mixed  ΔN/S=+21.87  p_master=0.339
+  NOT VALIDATED  es_yorb atr_pct_bucket=atr_pctl_q4  ΔN/S=+10.08  p_master=0.493
+  NOT VALIDATED  es_yorb side=short  ΔN/S=+2.35  p_master=1.000
+  NOT VALIDATED  ym_yorb side=short  ΔN/S=+8.13  p_master=1.000
+  NOT VALIDATED  ym_yorb atr_pct_bucket=atr_pctl_q4  ΔN/S=+4.11  p_master=1.000
+Stance: no yearly-ORB HP size-up validated — baseline 1.0× only.

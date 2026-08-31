@@ -1,0 +1,21 @@
+{
+  "bars_1m": 3077535,
+  "bars_4h": 13767,
+  "closed_dd_usd": -9380.200000000164,
+  "dsr_trial": "TRL-2026-00165",
+  "feed_tf": "1m",
+  "intrabar_stress_dd_usd": -9421.900000000163,
+  "label": "half+3\u00d7OD runner bull\u00d7hivol; skip holiday/thin Monday",
+  "market": "NAS100",
+  "max_open_units": 3,
+  "net_over_stress": 1.0674810813105449,
+  "net_usd": 10057.699999999997,
+  "profit_factor": 1.2960702842012144,
+  "signal_tf": "4h",
+  "stance": "weak \u2014 needs tune",
+  "strategy_id": "nas100_wod_od_half_3r_bull_hivol_nohol",
+  "trades": 175,
+  "units": 525,
+  "variant": "od_half_3r_bull_hivol_nohol",
+  "win_rate": 0.5676190476190476
+}

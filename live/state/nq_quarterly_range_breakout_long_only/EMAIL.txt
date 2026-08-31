@@ -1,0 +1,11 @@
+NQ quarterly range honest breakout broker-like complete.
+
+Hub: live/state/nq_quarterly_range_breakout_long_only
+Sides: long
+Rules: SL=mid, no BE, 2 lots every 0.2x prior width.
+Trades: 54 | Units: 432
+Net: $1462736.00 | Stress DD: $-477472.00 | N/S: 3.06
+
+Stance: research (honest-breakout).
+
+SUMMARY: live/state/nq_quarterly_range_breakout_long_only/SUMMARY.md

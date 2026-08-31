@@ -1,0 +1,2 @@
+strategy_id,market,feed_tf,signal_tf,bars_4h,bars_1m,units,trades,net_usd,closed_dd_usd,intrabar_stress_dd_usd,win_rate,profit_factor,net_over_stress,max_open_units,stance,dsr_trial
+gbpusd_weekly_open_day_breakout,GBPUSD,1m,4h,5116,1119409,760,190,-37739.000000010594,-57335.00000000955,-58027.00000000955,0.4855263157894737,0.8337181328703577,-0.6503696555052714,4,reject / thin,TRL-2026-00161

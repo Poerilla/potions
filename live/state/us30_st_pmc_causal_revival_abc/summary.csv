@@ -1,0 +1,5 @@
+cell,path,net_usd,stress_dd_usd,ns,units,trades,wr_pct,max_open,feature_order_violations,fills_before_live_after,causal_ok,state_root,notes
+path_a_prepost_pmc_3r,A,-6441.0,-6743.5,-0.955,602,602,21.1,1,0,0,1,live/state/us30_st_pmc_causal_revival_abc/states/us30_st_pmc_revival_path_a_prepost_pmc_3r,Path A: pre-posted PMC limit; fair 3R
+path_b_post_hour_pmc_retest_3r,B,-4994.1,-5355.5,-0.933,578,578,21.8,1,0,0,1,live/state/us30_st_pmc_causal_revival_abc/states/us30_st_pmc_revival_path_b_post_hour_pmc_retest_3r,Path B: post-hour PMC one-shot retest; expiry 240m; fair 3R
+path_c_continuation_break_3r,C,7302.3,-4261.1,1.714,5310,5310,26.8,1,0,0,1,live/state/us30_st_pmc_causal_revival_abc/states/us30_st_pmc_revival_path_c_continuation_break_3r,Path C: post-hour H/L break → next 1m market; fair 3R
+path_c_continuation_break_2r_10r,C,25370.6,-13783.1,1.841,5207,1736,14.7,3,0,0,1,live/state/us30_st_pmc_causal_revival_abc/states/us30_st_pmc_revival_path_c_continuation_break_2r_10r,Path C + locked 2R→10R runner management cell

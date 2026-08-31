@@ -1,0 +1,45 @@
+potions: USDJPY FBO HA mill complete
+
+Hub: /home/tester/hsm/potions/live/state/usdjpy_monthly_orb_fbo_ha_conditions
+Book: USDJPY FBO 1/1/3 atr80 broker (~+$108k / N/S 4.25 / 156)
+Stance: diagnostic HA — promote size-up only if nulls VALIDATED.
+
+=== PROFILE ===
+potions: USDJPY FBO HA profile complete
+
+Hub: /home/tester/hsm/potions/live/state/usdjpy_monthly_orb_fbo_ha_conditions/profile
+Book: usdjpy_fbo_1_1_3_atr80
+campaigns: 156  notables: 8
+baseline net=$107890 N/S=5.48
+
+=== OVERLAY ===
+potions: USDJPY FBO HA overlay complete
+
+Hub: /home/tester/hsm/potions/live/state/usdjpy_monthly_orb_fbo_ha_conditions/overlay
+Candidates: 8
+
+Top full-tape by ΔN/S:
+  Hourly RSI vs trade=rsi_with_side | filter | hp=61% ΔN/S=+6.57 Δnet=$+32174
+  Hourly RSI bucket=rsi_55_70 | filter | hp=24% ΔN/S=+2.70 Δnet=$-16164
+  Hourly RSI vs trade=rsi_with_side | size_1.5 | hp=61% ΔN/S=+2.42 Δnet=$+70032
+  Hourly RSI vs trade=rsi_with_side | size_1.25 | hp=61% ΔN/S=+1.66 Δnet=$+35016
+  Day of week=Monday | size_1.5 | hp=19% ΔN/S=+1.50 Δnet=$+20294
+  Day of week=Thursday | size_1.5 | hp=19% ΔN/S=+1.34 Δnet=$+25701
+  Hourly RSI bucket=rsi_55_70 | size_1.5 | hp=24% ΔN/S=+1.12 Δnet=$+45863
+  Prior-month range half=month_aligned | size_1.5 | hp=39% ΔN/S=+1.10 Δnet=$+32113
+  Day of week=Thursday | size_1.25 | hp=19% ΔN/S=+0.97 Δnet=$+12850
+  Day of week=Monday | size_1.25 | hp=19% ΔN/S=+0.89 Δnet=$+10147
+  ATR14 quartile=atr_q3 | size_1.25 | hp=25% ΔN/S=+0.79 Δnet=$+20135
+  Prior-month range half=month_aligned | size_1.25 | hp=39% ΔN/S=+0.69 Δnet=$+16056
+
+=== NULLS ===
+potions: USDJPY FBO HA nulls complete
+
+Hub: /home/tester/hsm/potions/live/state/usdjpy_monthly_orb_fbo_ha_conditions/nulls
+Pairs: 4
+
+  Day of week=Monday | NOT VALIDATED | ΔN/S=+0.89 hp=19%
+  Day of week=Thursday | NOT VALIDATED | ΔN/S=+0.97 hp=19%
+  Hourly RSI bucket=rsi_55_70 | NOT VALIDATED | ΔN/S=+0.61 hp=24%
+  Prior-month range half=month_aligned | NOT VALIDATED | ΔN/S=+0.69 hp=39%
+

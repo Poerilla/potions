@@ -1,0 +1,28 @@
+{
+  "study_id": "nq_wick_reject_4h_ny_open_1m_protected_pivot_v1",
+  "finished_at": "2026-08-30T14:59:32.435350",
+  "config_hash": "ea16e8de589a75c2",
+  "smoke": false,
+  "metrics": {
+    "eligible_seed_count": 91,
+    "candidate_count": 62,
+    "candidate_rate": 0.6813186813186813,
+    "bear_count": 42,
+    "bull_count": 20,
+    "median_completion_clock": "10:26:30",
+    "bear_protection_hold_rate": 0.16666666666666666,
+    "bull_protection_hold_rate": 0.4,
+    "hold_rate_to_10_30": 0.45161290322580644,
+    "hold_rate_to_11_00": 0.3064516129032258,
+    "hold_rate_to_13_00": 0.24193548387096775,
+    "median_minutes_to_failure": 6.0,
+    "median_mfe_ticks": 94.5,
+    "median_mae_ticks": 5.5,
+    "causality_pass": true,
+    "sample_thresholds_met": true,
+    "stance": "DESCRIPTIVE ONLY / NOT WORTH FURTHER RESEARCH",
+    "non_promotion": true
+  },
+  "causality_pass": true,
+  "causality_fails": []
+}

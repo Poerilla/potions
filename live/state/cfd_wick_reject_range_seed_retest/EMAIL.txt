@@ -1,0 +1,11 @@
+potions: CFD WICK_REJECT limit-retest replication COMPLETE
+
+Hub: /home/tester/hsm/potions/live/state/cfd_wick_reject_range_seed_retest
+Stance: NAS100_MATCHES_NQ_PATTERN — positive development, fails holdout. Still research only; supports data-path/execution portability only.
+Demo: blocked (research only)
+
+  NAS100: elig=58 fills=46 fill=79% devR=+0.089 holdR=-0.229 holdNet=-884
+  SPX500: elig=52 fills=33 fill=63% devR=-0.127 holdR=+0.591 holdNet=+73
+  US30: elig=49 fills=35 fill=71% devR=-0.337 holdR=+0.032 holdNet=+383
+
+See CENSUS_BOARD.md + DECISION_MATRIX.md.

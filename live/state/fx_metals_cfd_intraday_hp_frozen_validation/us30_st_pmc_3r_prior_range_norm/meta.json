@@ -1,0 +1,14 @@
+{
+  "study": "fx_metals_cfd_intraday_hp_sizeup_nulls",
+  "profile_study": "fx_metals_cfd_intraday_condition_profile_v1",
+  "n_placebo": 5000,
+  "n_shift": 1000,
+  "n_master": 500,
+  "extra": 0.25,
+  "stated_multiplier": 1.25,
+  "n_pairs": 1,
+  "n_validated": 0,
+  "n_provisional": 0,
+  "seed": 20260812,
+  "hub": "/home/tester/hsm/potions/live/state/fx_metals_cfd_intraday_hp_frozen_validation/us30_st_pmc_3r_prior_range_norm"
+}

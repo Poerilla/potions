@@ -1,0 +1,10 @@
+potions: weekly OD half+EOW HA nulls complete
+
+Hub: /home/tester/hsm/potions/live/state/weekly_open_day_breakout_od_half_eow_ha_conditions/nulls
+Pairs: 5
+
+  Week of month=1 | RISK THROTTLE | ΔN/S=+0.21 hp=22%
+  Hourly RSI bucket=rsi_55_70 | NOT VALIDATED | ΔN/S=+0.14 hp=37%
+  Entry hour (NY)=12 | NOT VALIDATED | ΔN/S=+0.12 hp=14%
+  Day of week=Thursday | NOT VALIDATED | ΔN/S=+0.08 hp=15%
+  Day of week=Wednesday | NOT VALIDATED | ΔN/S=+0.05 hp=21%

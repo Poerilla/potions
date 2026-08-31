@@ -1038,10 +1038,20 @@ def run_stream_loop(
         return 2
 
     root = Path(output_root) if output_root is not None else default_output_root(spec)
+    # Foreground smoke against the same output_root must not steal/delete a live daemon's pidfile.
+    existing_pid = read_pid(root)
+    own_pidfile = not (existing_pid and existing_pid != os.getpid() and pid_is_alive(existing_pid))
     meta = write_run_meta(root, spec=spec, config=cfg)
     runner = AsiaRangeRunner(spec=spec, output_root=root, config=cfg)
     runner.bootstrap_reconcile()
-    pidfile_path(root).write_text(str(os.getpid()) + "\n", encoding="utf-8")
+    if own_pidfile:
+        pidfile_path(root).write_text(str(os.getpid()) + "\n", encoding="utf-8")
+    else:
+        append_progress(
+            root,
+            "pidfile owned by live pid=%s; this process (%s) will not claim or remove it"
+            % (existing_pid, os.getpid()),
+        )
     append_progress(
         root,
         "STARTED %s book=%s routing=%s account=%s state=%s pid=%s"
@@ -1179,5 +1189,8 @@ def run_stream_loop(
             "STOPPED ticks=%d bars_1m=%d reconnect_attempts=%d"
             % (price_ticks, runner.bars_1m, reconnect_attempt),
         )
-        _remove_pidfile(root)
+        if own_pidfile:
+            cur = read_pid(root)
+            if cur is None or cur == os.getpid():
+                _remove_pidfile(root)
     return exit_code

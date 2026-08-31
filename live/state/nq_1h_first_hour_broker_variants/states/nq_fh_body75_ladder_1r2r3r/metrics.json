@@ -1,0 +1,42 @@
+{
+  "bars": 310840,
+  "closed_dd_usd": -90667.0,
+  "config": {
+    "bar_minutes": 5,
+    "entry_mode": "market_close",
+    "entry_qty": 3,
+    "eod_cutoff": "15:59",
+    "fade": false,
+    "fh_end": "10:30",
+    "fh_start": "09:30",
+    "min_fh_bars": 10,
+    "r_mult": 3.0,
+    "require_fh_body": "",
+    "sl_body_frac": 0.75,
+    "sl_mode": "body_frac",
+    "suppress_alerts": true,
+    "tick_size": 0.25,
+    "tp_ladder_r": [
+      1.0,
+      2.0,
+      3.0
+    ],
+    "tp_mode": "r_mult"
+  },
+  "diag_n": 3919,
+  "diag_net": 536261.0,
+  "diag_ns": 7.64,
+  "fill_entry_n": 3976,
+  "fill_eod_n": 924,
+  "fill_stop_n": 2391,
+  "fill_tp_n": 3375,
+  "intrabar_stress_dd_usd": -91267.0,
+  "label": "0.75-body SL + 1R/2R/3R ladder 3-lot",
+  "net_over_stress": 3.9510091270667385,
+  "net_usd": 360596.75,
+  "slug": "body75_ladder_1r2r3r",
+  "strategy_id": "nq_fh_body75_ladder_1r2r3r",
+  "trades": 3958,
+  "units": 11818,
+  "win_rate": 0.40438314435606704
+}

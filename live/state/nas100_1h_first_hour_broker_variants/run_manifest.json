@@ -1,0 +1,206 @@
+{
+  "broker_realism_config": {
+    "fee": 1.5,
+    "point_value": 1.0,
+    "slippage_ticks": 1.0,
+    "tick": 0.1
+  },
+  "causality_mode": "audit",
+  "command": [
+    "/home/tester/hsm/potions/live/nas100_1h_first_hour_broker_variants.py",
+    "--force",
+    "--email"
+  ],
+  "created_at": "2026-08-19T16:48:53Z",
+  "cwd": "/home/tester/hsm/potions",
+  "data_inputs": [
+    {
+      "bytes": 192113637,
+      "exists": true,
+      "path": "/home/tester/hsm/potions/fx/nas100_1m.csv",
+      "sha256": "522b23ed6e3f530c5d201bdc5682c26862502824760a7f7f69bc8accf449e52e"
+    }
+  ],
+  "extra": {
+    "results": [
+      {
+        "bars": 174371,
+        "closed_dd_usd": -1886.5999999997994,
+        "config": {
+          "bar_minutes": 5,
+          "entry_mode": "market_close",
+          "entry_qty": 1,
+          "eod_cutoff": "15:59",
+          "fade": false,
+          "fh_end": "10:30",
+          "fh_start": "09:30",
+          "min_fh_bars": 10,
+          "r_mult": 3.0,
+          "require_fh_body": "",
+          "sl_mode": "open",
+          "suppress_alerts": true,
+          "tick_size": 0.1,
+          "tp_mode": "body_mult"
+        },
+        "diag_n": null,
+        "diag_net": null,
+        "diag_ns": null,
+        "fill_entry_n": 2267,
+        "fill_eod_n": 753,
+        "fill_stop_n": 1197,
+        "fill_tp_n": 272,
+        "instrument": "NAS100",
+        "intrabar_stress_dd_usd": -1888.6999999997997,
+        "label": "baseline SL=open TP=3\u00d7body 1-lot",
+        "net_over_stress": 4.091544448563946,
+        "net_usd": 7727.700000001904,
+        "slug": "baseline_open_3xbody",
+        "strategy_id": "nas100_fh_baseline_open_3xbody",
+        "trades": 2213,
+        "units": 2213,
+        "win_rate": 0.37596023497514686
+      },
+      {
+        "bars": 174371,
+        "closed_dd_usd": -1515.99999999986,
+        "config": {
+          "bar_minutes": 5,
+          "entry_mode": "market_close",
+          "entry_qty": 1,
+          "eod_cutoff": "15:59",
+          "fade": false,
+          "fh_end": "10:30",
+          "fh_start": "09:30",
+          "min_fh_bars": 10,
+          "r_mult": 3.0,
+          "require_fh_body": "",
+          "sl_body_frac": 0.5,
+          "sl_mode": "body_frac",
+          "suppress_alerts": true,
+          "tick_size": 0.1,
+          "tp_mode": "r_mult"
+        },
+        "diag_n": null,
+        "diag_net": null,
+        "diag_ns": null,
+        "fill_entry_n": 2262,
+        "fill_eod_n": 292,
+        "fill_stop_n": 1523,
+        "fill_tp_n": 435,
+        "instrument": "NAS100",
+        "intrabar_stress_dd_usd": -1524.3999999998596,
+        "label": "half-body SL + 3R 1-lot",
+        "net_over_stress": 2.9550642875899973,
+        "net_usd": 4504.700000001777,
+        "slug": "halfbody_sl_3r",
+        "strategy_id": "nas100_fh_halfbody_sl_3r",
+        "trades": 2247,
+        "units": 2247,
+        "win_rate": 0.2999554962171785
+      },
+      {
+        "bars": 174371,
+        "closed_dd_usd": -3836.5180000001137,
+        "config": {
+          "bar_minutes": 5,
+          "entry_mode": "retrace_limit",
+          "entry_qty": 1,
+          "eod_cutoff": "15:59",
+          "fade": false,
+          "fh_end": "10:30",
+          "fh_start": "09:30",
+          "min_fh_bars": 10,
+          "r_mult": 3.0,
+          "require_fh_body": "",
+          "retrace_frac": 0.72,
+          "sl_mode": "extreme",
+          "suppress_alerts": true,
+          "tick_size": 0.1,
+          "tp_mode": "r_mult"
+        },
+        "diag_n": null,
+        "diag_net": null,
+        "diag_ns": null,
+        "fill_entry_n": 1496,
+        "fill_eod_n": 414,
+        "fill_stop_n": 854,
+        "fill_tp_n": 206,
+        "instrument": "NAS100",
+        "intrabar_stress_dd_usd": -3854.328000000113,
+        "label": "retrace body 72% \u2192 SL extreme \u2192 3R",
+        "net_over_stress": 0.3281059629593175,
+        "net_usd": 1264.6280000010975,
+        "slug": "retrace72_extreme_3r",
+        "strategy_id": "nas100_fh_retrace72_extreme_3r",
+        "trades": 1465,
+        "units": 1465,
+        "win_rate": 0.34266211604095564
+      },
+      {
+        "bars": 174371,
+        "closed_dd_usd": -5554.824999999633,
+        "config": {
+          "bar_minutes": 5,
+          "entry_mode": "market_close",
+          "entry_qty": 3,
+          "eod_cutoff": "15:59",
+          "fade": false,
+          "fh_end": "10:30",
+          "fh_start": "09:30",
+          "min_fh_bars": 10,
+          "r_mult": 3.0,
+          "require_fh_body": "",
+          "sl_body_frac": 0.75,
+          "sl_mode": "body_frac",
+          "suppress_alerts": true,
+          "tick_size": 0.1,
+          "tp_ladder_r": [
+            1.0,
+            2.0,
+            3.0
+          ],
+          "tp_mode": "r_mult"
+        },
+        "diag_n": null,
+        "diag_net": null,
+        "diag_ns": null,
+        "fill_entry_n": 2266,
+        "fill_eod_n": 518,
+        "fill_stop_n": 1360,
+        "fill_tp_n": 1935,
+        "instrument": "NAS100",
+        "intrabar_stress_dd_usd": -5582.724999999631,
+        "label": "0.75-body SL + 1R/2R/3R ladder 3-lot",
+        "net_over_stress": 2.0435136962695397,
+        "net_usd": 11408.375000005612,
+        "slug": "body75_ladder_1r2r3r",
+        "strategy_id": "nas100_fh_body75_ladder_1r2r3r",
+        "trades": 2255,
+        "units": 6728,
+        "win_rate": 0.40413198573127235
+      }
+    ]
+  },
+  "git": {
+    "commit": "",
+    "dirty": false,
+    "repo_root": "/home/tester/hsm/potions/live/state/nas100_1h_first_hour_broker_variants",
+    "status_short": []
+  },
+  "outputs": [],
+  "python": {
+    "executable": "/home/tester/.pyenv/versions/3.8.0/bin/python",
+    "platform": "Linux-5.15.0-185-generic-x86_64-with-glibc2.34",
+    "version": "3.8.0 (default, Feb 11 2026, 11:18:58) \n[GCC 11.4.0]"
+  },
+  "run_id": "run_a22cc9d6e8cf",
+  "strategy_config": {
+    "books": [
+      "baseline_open_3xbody",
+      "halfbody_sl_3r",
+      "retrace72_extreme_3r",
+      "body75_ladder_1r2r3r"
+    ],
+    "instrument": "NAS100"
+  }
+}

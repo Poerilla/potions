@@ -1,0 +1,80 @@
+potions: w1+8h v1 stress/port COMPLETE
+
+Hub: /home/tester/hsm/potions/live/state/weekly_open_day_breakout_w1_add8h_v1_stress_port
+DSR: TRL-2026-00168 · max_adds=9
+
+NAS100 primary: net=$+25211 N/S=3.34 trades=53 adds=268
+NAS100 base:    net=$+8031 N/S=1.82
+Decision: broader index structural effect — locked OOS/forward next; still NO demo
+
+# Week-1 +8h v1 — stress + portability
+
+Contract: `RESEARCH_CONTRACT.yaml` · DSR `TRL-2026-00168` · max_adds**=9**
+
+## Primary vs base (NAS100)
+
+| Book | Campaigns | Units | Adds | Net | Stress | N/S |
+|---|---:|---:|---:|---:|---:|---:|
+| Base no-add | 53 | 159 | 0 | $+8031 | $-4401 | 1.82 |
+| **+8h v1** | 53 | 427 | 268 | $+25211 | $-7541 | **3.34** |
+
+Attribution pass=True · add share of net=68.3% · top5 conc=70.2% · rescued=1 hurt=2
+
+## Stage 3 — execution stress
+
+| Case | Net | Stress | N/S | Trades | Adds | Notes |
+|---|---:|---:|---:|---:|---:|---|
+| stress_slip_1tick | $+25211 | $-7541 | 3.34 | 53 | 268 | current / primary |
+| stress_slip_2tick | $+25148 | $-7545 | 3.33 | 53 | 268 | one extra adverse tick |
+| stress_slip_3tick | $+25085 | $-7550 | 3.32 | 53 | 268 | two extra adverse ticks |
+| stress_fee_2x | $+24571 | $-7589 | 3.24 | 53 | 268 | 2× all-in fee (re-audit via fee_mult) |
+| stress_fee_3x | $+23930 | $-7637 | 3.13 | 53 | 268 | 3× all-in fee |
+| stress_fri_12 | $+25253 | $-7898 | 3.20 | 53 | 262 | Friday 12:00 NY |
+| stress_fri_14 | $+25345 | $-7048 | 3.60 | 56 | 277 | Friday 14:00 NY |
+| stress_add_every_16h | $+15929 | $-5621 | 2.83 | 53 | 123 | every second 8h add only |
+| stress_max_adds_8 | $+24156 | $-7541 | 3.20 | 53 | 260 | drop final add capacity |
+| stress_max_adds_4 | $+17917 | $-6955 | 2.58 | 53 | 160 | first N-ish adds only |
+| stress_no_adds | $+8031 | $-4401 | 1.82 | 53 | 0 | add availability off |
+
+Survival: positive net (excl. no_adds)=True · cases with N/S≥base (1.82): 10/10
+
+## Stage 4 — neighborhood
+
+| Case | Net | N/S | Trades | Adds |
+|---|---:|---:|---:|---:|
+| neigh_w1_primary | $+25211 | 3.34 | 53 | 268 |
+| neigh_no_week_gate | $+30830 | 2.03 | 197 | 879 |
+| neigh_add_6h | $+27390 | 3.04 | 53 | 323 |
+| neigh_add_8h | $+25211 | 3.34 | 53 | 268 |
+| neigh_add_10h | $+21081 | 2.99 | 53 | 212 |
+| neigh_cap_8 | $+24156 | 3.20 | 53 | 260 |
+| neigh_cap_9 | $+25211 | 3.34 | 53 | 268 |
+| neigh_cap_10 | $+25211 | 3.34 | 53 | 268 |
+| neigh_fri_12 | $+25253 | 3.20 | 53 | 262 |
+| neigh_fri_13 | $+25211 | 3.34 | 53 | 268 |
+| neigh_fri_14 | $+25345 | 3.60 | 56 | 277 |
+| neigh_base_no_adds | $+8031 | 1.82 | 53 | 0 |
+
+## Stage 5 — stats
+
+- Campaign bootstrap N/S: mean=5.76 p05=0.74 p50=4.74 p95=13.55 · P(N/S<1)=0.07 · P(N/S<1.82)=0.15
+
+## Cross-market (frozen v1)
+
+| Market | Campaigns | Units | Adds | Net | Stress | N/S | Net/PV | Stance |
+|---|---:|---:|---:|---:|---:|---:|---:|---|
+| NAS100 | 53 | 427 | 268 | $+25211 | $-7541 | 3.34 | 25211.4 | research+ |
+| NQ | 63 | 486 | 297 | $+178337 | $-186668 | 0.96 | 8916.9 | weak+ |
+| MNQ | 25 | 221 | 146 | $+17177 | $-14440 | 1.19 | 8588.5 | weak+ |
+| YM | 57 | 409 | 238 | $+153150 | $-53131 | 2.88 | 30630.0 | research+ |
+| MYM | 32 | 234 | 138 | $+11909 | $-5416 | 2.20 | 23817.5 | research+ |
+
+## Decision (predeclared matrix)
+
+**broader index structural effect — locked OOS/forward next; still NO demo**
+
+Paper/demo gate: **NOT YET** (see RESEARCH_CONTRACT.yaml).
+
+Hub: `/home/tester/hsm/potions/live/state/weekly_open_day_breakout_w1_add8h_v1_stress_port`
+
+

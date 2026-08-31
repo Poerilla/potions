@@ -1,0 +1,38 @@
+{
+  "study": "yearly_orb_hp_sizeup_causal_close",
+  "pairs": [
+    {
+      "book": "nq_yorb",
+      "condition": "week_of_month",
+      "bucket": "2"
+    },
+    {
+      "book": "nq_yorb",
+      "condition": "or_width_bucket",
+      "bucket": "or_wide"
+    },
+    {
+      "book": "es_yorb",
+      "condition": "rsi_align",
+      "bucket": "rsi_against_side"
+    },
+    {
+      "book": "es_yorb",
+      "condition": "quarter",
+      "bucket": "Q4"
+    },
+    {
+      "book": "ym_yorb",
+      "condition": "atr_pct_bucket",
+      "bucket": "atr_pctl_q4"
+    },
+    {
+      "book": "ym_yorb",
+      "condition": "prior_year_ret_bucket",
+      "bucket": "prior_yr_mid"
+    }
+  ],
+  "tier_a_1_25": [],
+  "tier_b_1_25": [],
+  "provisional_2x": []
+}

@@ -1,0 +1,15 @@
+potions: prior-opposed HA overlay complete
+
+Hub: /home/tester/hsm/potions/live/state/prior_opposed_ha
+
+nq_prior_opposed_rl  n=432 WR=66% net=$1330920 N/S=24.06
+  fade HA n=327 WR=64% avg=$2670 | trend HA n=105 WR=71% avg=$4362
+  best cross: ha_with_prior_trend × Hourly RSI vs trade=rsi_against_side n=78 WR=76% z=1.7
+ym_prior_opposed_rl  n=436 WR=61% net=$289225 N/S=9.74
+  fade HA n=381 WR=62% avg=$751 | trend HA n=55 WR=55% avg=$53
+  best cross: ha_with_fade × Overnight range third=on_middle n=94 WR=73% z=2.2
+
+Post-exit 3R:
+  countertrend_again_po n=171 WR=18% net=$2894 N/S=0.32
+  follow_ha_at_entry n=171 WR=21% net=$-756 N/S=-0.09
+  trend_continuation_st n=183 WR=22% net=$-10990 N/S=-0.76

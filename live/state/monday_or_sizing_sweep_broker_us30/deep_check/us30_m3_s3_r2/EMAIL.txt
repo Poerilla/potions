@@ -1,0 +1,23 @@
+potions: deep-check US30 Monday OR M3_S3_R2
+
+Hub: /home/tester/hsm/potions/live/state/monday_or_sizing_sweep_broker_us30/deep_check/us30_m3_s3_r2
+State: /home/tester/hsm/potions/live/state/monday_or_sizing_sweep_broker_us30/states/us30_m3_s3_r2
+Net=$31329.53  trades=1121  full_SL=0 (0.0%)  hit_TP=0.0%  EOD=0.0%
+
+Year | net | stress | N/S | ret on start eq
+2016 | $2251.30 | $-656.00 | 3.43 | +2.25%
+2017 | $2499.40 | $-1175.50 | 2.13 | +2.44%
+2018 | $9668.60 | $-2699.50 | 3.58 | +9.23%
+2019 | $1803.80 | $-3998.50 | 0.45 | +1.58%
+2020 | $1677.60 | $-9450.50 | 0.18 | +1.44%
+2021 | $6360.20 | $-5711.00 | 1.11 | +5.39%
+2022 | $-5329.80 | $-12807.60 | -0.42 | -4.29%
+2023 | $-6549.10 | $-6933.40 | -0.94 | -5.51%
+2024 | $9026.60 | $-3358.75 | 2.69 | +8.03%
+2025 | $9920.93 | $-6598.91 | 1.50 | +8.17%
+
+Weakest N/S year: 2023 ($-6549.10 net, N/S=-0.94)
+
+End equity if $100k at year-1 start: $131329.53
+
+See YEARLY.md + ROBUSTNESS_AUDIT.md in hub.

@@ -1,0 +1,55 @@
+{
+  "broker_realism_config": {
+    "fee_per_unit": 1.5,
+    "slippage_ticks": 1.0
+  },
+  "causality_mode": "audit",
+  "command": [
+    "/home/tester/hsm/potions/live/monthly_open_atr_extension_band_ohlc_flip_broker.py",
+    "--email",
+    "--force"
+  ],
+  "created_at": "2026-08-25T00:33:39Z",
+  "cwd": "/home/tester/hsm/potions",
+  "data_inputs": [
+    {
+      "bytes": 1745876,
+      "exists": true,
+      "path": "/home/tester/hsm/potions/live/state/_cache/bars_4h/nq_4h.csv",
+      "sha256": "045d42ab301bb4cfd6d5f90b3459424a2c74498f18b5bd33e47b694f4fb53a80"
+    },
+    {
+      "bytes": 2833410,
+      "exists": true,
+      "path": "/home/tester/hsm/potions/live/state/_cache/bars/nq_1h.parquet",
+      "sha256": "56feb00cff3d35722e9c0cf1b22ce7513a2b2e63219b1f47bb4dac771bf7ab7a"
+    }
+  ],
+  "extra": {
+    "dsr_trial_id": "TRL-2026-00135"
+  },
+  "git": {
+    "commit": "",
+    "dirty": false,
+    "repo_root": "/home/tester/hsm/potions/live/state/monthly_open_atr_extension_band/broker_max_ohlc_flip_111",
+    "status_short": []
+  },
+  "outputs": [],
+  "python": {
+    "executable": "/home/tester/.pyenv/versions/3.8.0/bin/python3",
+    "platform": "Linux-5.15.0-185-generic-x86_64-with-glibc2.34",
+    "version": "3.8.0 (default, Feb 11 2026, 11:18:58) \n[GCC 11.4.0]"
+  },
+  "run_id": "run_a4d6805d79cc",
+  "strategy_config": {
+    "entry_mode": "max",
+    "entry_trigger": "first_week_ohlc_flip",
+    "ladder_qtys": [
+      1,
+      1,
+      1
+    ],
+    "sl": "swing_run",
+    "strategy_type": "monthly_open_atr_extension_band"
+  }
+}

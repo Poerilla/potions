@@ -1,0 +1,17 @@
+potions: yearly/daily HP condition profile complete
+
+Hub: live/state/yearly_orb_sizing_sweep_futures_causal_close/nq_l411_profile
+Books: 1 | min_n=12
+
+Top cross-book repeats:
+  week_of_month=2  books=1  WRΔ=+16.0pp  avgΔ=$+13,072
+  atr_pct_bucket=atr_pctl_q4  books=1  WRΔ=+12.3pp  avgΔ=$+7,780
+  entry_month=June  books=1  WRΔ=+12.3pp  avgΔ=$+12,781
+  or_width_bucket=or_wide  books=1  WRΔ=+10.6pp  avgΔ=$+24,249
+  prior_year_ret_bucket=prior_yr_strong  books=1  WRΔ=+9.5pp  avgΔ=$+5,522
+  rsi_align=rsi_neutral  books=1  WRΔ=+8.7pp  avgΔ=$+5,786
+  rsi_bucket=rsi_45_55  books=1  WRΔ=+8.7pp  avgΔ=$+5,786
+  ma_align=ma_mixed  books=1  WRΔ=+3.9pp  avgΔ=$+5,616
+  ma_stack=ma_mixed  books=1  WRΔ=+3.9pp  avgΔ=$+5,616
+
+Stance: hypotheses only — not a promotion gate.

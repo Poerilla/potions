@@ -1,0 +1,20 @@
+{
+  "allowed_sides": [
+    "lower"
+  ],
+  "bars": 13668,
+  "closed_dd_usd": -7126.999999999971,
+  "intrabar_stress_dd_usd": -7126.999999999971,
+  "market": "US30",
+  "max_open_units": 10,
+  "net_over_stress": 0.8440893652741431,
+  "net_usd": 6015.824906308793,
+  "path_id": "first_lower",
+  "profit_factor": 1.9233992493579666,
+  "risk_atr_mult": 0.5,
+  "strategy_id": "us30_quarterly_atr4_fade_ladder",
+  "trade_mode": "first_only",
+  "trades": 11,
+  "units": 110,
+  "win_rate": 0.18181818181818182
+}

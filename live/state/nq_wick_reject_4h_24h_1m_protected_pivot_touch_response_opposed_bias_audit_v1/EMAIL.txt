@@ -1,0 +1,14 @@
+potions: nq_wick_reject_4h_24h_1m_protected_pivot_touch_response_opposed_bias_audit_v1 COMPLETE
+
+Hub: /home/tester/hsm/potions/live/state/nq_wick_reject_4h_24h_1m_protected_pivot_touch_response_opposed_bias_audit_v1
+Parent: nq_wick_reject_4h_24h_1m_protected_pivot_touch_response_v1
+parent_config_hash: 402795e0a05e2fbc
+RECONCILIATION: PASS
+eligible/candidates bear/bull: 91 / 90 / 52 / 38
+structure bear orig/opp RR: 0.338 / 2.957 (recip PASS)
+structure bull orig/opp RR: 0.671 / 1.490 (recip PASS)
+contact bear orig/opp RR: 1.053 / 0.949 median 0.826 / 1.181
+contact bull orig/opp RR: 0.981 / 1.019 median 1.268 / 0.788
+
+DESCRIPTIVE ONLY / MATHEMATICAL MIRROR — not a reverse trade study.
+Preserve parent + audit; no reverse-bias variant on this sample.

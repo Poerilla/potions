@@ -1,0 +1,17 @@
+{
+  "bars_1m": 972974.0,
+  "equity_curve": "/home/tester/hsm/potions/live/state/monthly_open_atr_extension_band/liq_run_fade_bandmax_1r1_reentry_hp_1m_broker/audits/nq_liq_run_fade_bandmax_1r1_reentry_hp_1m/equity_curve.csv",
+  "fills_path": "/home/tester/hsm/potions/live/state/monthly_open_atr_extension_band/liq_run_fade_bandmax_1r1_reentry_hp_1m_broker/states/nq_liq_run_fade_bandmax_1r1_reentry_hp_1m/fills.csv",
+  "loss_units": 160.0,
+  "n_entries": 23.0,
+  "n_plans": 34.0,
+  "net_usd": -252228.62612157554,
+  "ns": -0.6041399879953322,
+  "state_root": "/home/tester/hsm/potions/live/state/monthly_open_atr_extension_band/liq_run_fade_bandmax_1r1_reentry_hp_1m_broker/states/nq_liq_run_fade_bandmax_1r1_reentry_hp_1m",
+  "strategy_id": "nq_liq_run_fade_bandmax_1r1_reentry_hp_1m",
+  "strategy_type": "monthly_open_liq_run_fade",
+  "stress_dd": -417500.2998204521,
+  "trades": 23.0,
+  "units": 230.0,
+  "win_units": 70.0
+}

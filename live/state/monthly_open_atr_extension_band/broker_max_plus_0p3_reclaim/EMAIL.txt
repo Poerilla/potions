@@ -1,0 +1,12 @@
+potions: NQ band-max +30% SL — traverse_reclaim entry
+
+Hub: live/state/monthly_open_atr_extension_band/broker_max_plus_0p3_reclaim
+DSR: TRL-2026-00129
+
+Entry: 1h close through band max, then reverse + 1h close back in favour → market.
+SL: max + 30% of band (same as resting-limit baseline).
+
+Reclaim:   trades=64 net=$517,402 stress=$335,279 N/S=1.54
+Baseline:  trades=57 net=$237,812 stress=$382,935 N/S=0.62  (resting limit)
+
+Stance: research — reclaim entry lifts N/S vs resting limit on same SL.

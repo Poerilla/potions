@@ -1,0 +1,14 @@
+potions: ES broker-like HP + HTF COMPLETE
+
+Profile: live/state/es_intraday_htf_hp_profile/
+Nulls:   live/state/es_intraday_htf_hp_nulls/ (LIVE_PLAN untouched)
+
+Baselines: prior-opposed N/S 12.48 (n=245); ST+PMC N/S 2.25 (n=223)
+
+STANCE: no ES 1.25× size-up. Only RISK THROTTLE = ST+PMC ST-age>180m.
+All HTF (yor_up, mor_up/down, weekly ATR, prior-Q break_up) NOT VALIDATED.
+
+HTF note: most tags are high-coverage regimes (yor_up 57%, q_break_up 77%).
+Best in-sample WR lift: ST+PMC mor_up (+7pp) — fails nulls.
+
+Detail: ES_HP_REPORT.md + nulls SUMMARY.md

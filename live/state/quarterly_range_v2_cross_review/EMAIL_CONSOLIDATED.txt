@@ -1,0 +1,39 @@
+potions: quarterly v2 cross YM/MNQ/ES short+accum + NQ long-only
+
+Used ES (full history available); MES not needed.
+
+Hub (cross): live/state/quarterly_range_v2_cross_review/
+Hubs (broker): live/state/{ym,mnq,es}_quarterly_range_breakout_broker/
+Hub (NQ long-only): live/state/nq_quarterly_range_breakout_long_only/
+
+=== Broker all-in (8 lots, mid SL, 0.2W ladder) ===
+YM   69 trades  net ~$303k–$337k   N/S 1.55 (audit)
+MNQ  31 trades  net ~$120k         N/S 2.38
+ES   60 trades  net ~$1.25M        N/S 5.59
+
+=== Do shorts adhere to NQ short issues? YES (all three) ===
+Pattern: weak WR ~43–46%, tiny vs longs, skip ≈ flat-to-small giveback.
+
+YM   shorts n=16  +$5.3k   WR 44%  | skip Δ −$5.3k
+MNQ  shorts n=7   +$1.7k   WR 43%  | skip Δ −$1.7k
+ES   shorts n=13  +$80k    WR 46%  | skip Δ −$80k  (largest absolute; still << longs)
+
+Stop-only shorts still the damage: YM −$67k · MNQ −$16k · ES −$175k
+Early-fail <0.2W by d3 hurts YM (kills slow winners); ES early-fail actually helps (+$124k) — path deeper on ES shorts.
+
+=== The two accumulate variants vs pandas all-in ===
+YM   all-in $379k | 2w_1perd $254k (Δ−$125k) | 1w@2/wk $156k (Δ−$224k)
+MNQ  all-in $119k | 2w_1perd $121k (Δ+$2k)   | 1w@2/wk $33k  (Δ−$86k)
+ES   all-in $1.25M| 2w_1perd $737k (Δ−$513k) | 1w@2/wk $238k (Δ−$1.01M)
+
+Stance: keep all-in. Only MNQ 2w is ~flat/slightly ahead; 1w@2/wk undersizes badly everywhere.
+
+=== NQ no shorts (broker) ===
+54 long entries only · net $1,462,736 · stress DD −$477k · N/S 3.06
+Matches prior skip-shorts counterfactual (~$1.462M). Forfeit ~$22k short noise.
+Promote-lean for long-only book vs both-sides.
+
+Stance overall:
+- Shorts: same NQ disease on YM/MNQ/ES — optional skip; ES gives up more $ but still not the engine.
+- Accumulate: reject 1w@2/wk; 2w_1perd only interesting on MNQ, still not a clear promote over all-in.
+- NQ long-only: clean confirm of the skip-shorts call.

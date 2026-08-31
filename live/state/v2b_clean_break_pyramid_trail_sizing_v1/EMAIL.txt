@@ -1,0 +1,64 @@
+potions: v2b_clean_break_pyramid_trail_sizing_v1
+
+# V2B Clean-Break Pyramid Trail@60% + Sizing Sweep
+
+STATUS: RESEARCH SWEEP (Engine + PaperBroker, 5m RTH)
+
+## Rules
+- Base: bullish v2b clean break (OR 09:30–09:45, stop @ OR high + 2 ticks, clean close).
+- Pyramid: +1 on eligible outside 5m candles (low > OR high), max qty per variant.
+- Cadence: every 1 / every 2 eligible bars; or **opposing** (bearish close < open) outside bars.
+- Trail: when bar high ≥ entry + 0.6×(2R−entry), park stop at **entry (BE)** + rest 2R target.
+- Soft exit: 5m close ≤ OR high still flattens; EOD 15:55.
+- Control variant: max8 every-1 outside, no trail (pyramid v1 twin).
+
+## Variant board (combined NQ+MNQ, ranked by N/S)
+
+| Rank | Variant | Net | Worst stress | N/S | Trades | Units | MaxU |
+|---:|---|---:|---:|---:|---:|---:|---:|
+| 1 | trail06_m4_e2_out_be | $335,810.50 | $-39,598.00 | 8.48 | 2735 | 4802 | 4 |
+| 2 | trail06_m4_e1_opp_be | $327,372.00 | $-43,724.00 | 7.49 | 2735 | 4815 | 4 |
+| 3 | trail06_m8_e2_out_be | $569,229.00 | $-80,606.00 | 7.06 | 2736 | 6595 | 8 |
+| 4 | trail06_m12_e2_out_be | $722,200.50 | $-115,542.50 | 6.25 | 2738 | 7982 | 12 |
+| 5 | trail06_m8_e1_opp_be | $512,071.00 | $-84,132.00 | 6.09 | 2739 | 6558 | 8 |
+| 6 | trail06_m12_e1_opp_be | $621,768.00 | $-119,836.50 | 5.19 | 2739 | 7783 | 12 |
+| 7 | ctrl_m8_e1_out_notrail | $682,692.00 | $-139,398.50 | 4.90 | 2721 | 7737 | 8 |
+| 8 | trail06_m4_e1_out_be | $263,643.50 | $-125,754.00 | 2.10 | 2735 | 5633 | 4 |
+| 9 | trail06_m8_e1_out_be | $-119,830.00 | $-519,285.00 | -0.23 | 2737 | 9653 | 8 |
+| 10 | trail06_m12_e1_out_be | $-822,897.00 | $-1,032,921.00 | -0.80 | 2737 | 13490 | 12 |
+
+## Per-market detail
+
+| Market | Variant | Sessions | Trades | Units | Net | Stress DD | MaxU | N/S | Win% | PF |
+|---|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+| NQ | ctrl_m8_e1_out_notrail | 4046 | 2042 | 5763 | $646,265.50 | $-139,398.50 | 8 | 4.64 | 30.7% | 1.43 |
+| NQ | trail06_m4_e1_out_be | 4046 | 2052 | 4235 | $243,132.50 | $-125,754.00 | 4 | 1.93 | 24.7% | 1.26 |
+| NQ | trail06_m8_e1_out_be | 4046 | 2053 | 7153 | $-117,214.50 | $-519,285.00 | 8 | -0.23 | 29.1% | 0.94 |
+| NQ | trail06_m12_e1_out_be | 4046 | 2053 | 9864 | $-759,281.00 | $-1,032,921.00 | 12 | -0.74 | 30.9% | 0.78 |
+| NQ | trail06_m8_e2_out_be | 4046 | 2053 | 4929 | $537,721.50 | $-80,606.00 | 8 | 6.67 | 34.6% | 1.52 |
+| NQ | trail06_m4_e2_out_be | 4046 | 2052 | 3588 | $316,078.00 | $-39,598.00 | 4 | 7.98 | 26.8% | 1.45 |
+| NQ | trail06_m12_e2_out_be | 4046 | 2055 | 5947 | $683,949.50 | $-115,542.50 | 12 | 5.92 | 38.8% | 1.53 |
+| NQ | trail06_m8_e1_opp_be | 4046 | 2056 | 4913 | $484,705.50 | $-84,132.00 | 8 | 5.76 | 31.9% | 1.48 |
+| NQ | trail06_m4_e1_opp_be | 4046 | 2052 | 3612 | $308,782.00 | $-43,724.00 | 4 | 7.06 | 25.0% | 1.46 |
+| NQ | trail06_m12_e1_opp_be | 4046 | 2056 | 5825 | $589,397.50 | $-119,836.50 | 12 | 4.92 | 35.1% | 1.47 |
+| MNQ | ctrl_m8_e1_out_notrail | 1325 | 679 | 1974 | $36,426.50 | $-14,395.50 | 8 | 2.53 | 33.4% | 1.34 |
+| MNQ | trail06_m4_e1_out_be | 1325 | 683 | 1398 | $20,511.00 | $-6,040.00 | 4 | 3.40 | 27.5% | 1.35 |
+| MNQ | trail06_m8_e1_out_be | 1325 | 684 | 2500 | $-2,615.50 | $-47,384.00 | 8 | -0.06 | 31.8% | 0.98 |
+| MNQ | trail06_m12_e1_out_be | 1325 | 684 | 3626 | $-63,616.00 | $-96,074.00 | 12 | -0.66 | 32.2% | 0.74 |
+| MNQ | trail06_m8_e2_out_be | 1325 | 683 | 1666 | $31,507.50 | $-8,222.50 | 8 | 3.83 | 36.8% | 1.44 |
+| MNQ | trail06_m4_e2_out_be | 1325 | 683 | 1214 | $19,732.50 | $-4,076.00 | 4 | 4.84 | 29.0% | 1.41 |
+| MNQ | trail06_m12_e2_out_be | 1325 | 683 | 2035 | $38,251.00 | $-11,800.00 | 12 | 3.24 | 41.0% | 1.43 |
+| MNQ | trail06_m8_e1_opp_be | 1325 | 683 | 1645 | $27,365.50 | $-8,501.00 | 8 | 3.22 | 33.1% | 1.39 |
+| MNQ | trail06_m4_e1_opp_be | 1325 | 683 | 1203 | $18,590.00 | $-4,434.50 | 4 | 4.19 | 26.4% | 1.40 |
+| MNQ | trail06_m12_e1_opp_be | 1325 | 683 | 1958 | $32,370.50 | $-12,133.50 | 12 | 2.67 | 36.2% | 1.38 |
+
+**Best:** `trail06_m4_e2_out_be` combined N/S=8.48 net=$+335810
+
+**Stance:** research — best=trail06_m4_e2_out_be combined N/S=8.48 net=$+335810; compare to pyramid v1 (~4.90 N/S / +$683k) and single-lot 2R/RL
+
+Hub: `/home/tester/hsm/potions/live/state/v2b_clean_break_pyramid_trail_sizing_v1`
+DSR: `TRL-2026-00194`
+smoke=False
+
+Refs: pyramid v1 hub `v2b_clean_break_pyramid_outside_v1` (~+$683k / 4.90 N/S); single-lot bullish 2R/RL NQ ~$93k / 3.79 N/S.
+

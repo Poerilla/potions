@@ -1,0 +1,2 @@
+strategy_id,market,variant,label,feed_tf,signal_tf,bars_4h,bars_1m,units,trades,net_usd,closed_dd_usd,intrabar_stress_dd_usd,win_rate,profit_factor,net_over_stress,max_open_units,stance,dsr_trial
+nas100_wod_od_sl_fri,NAS100,od_sl_fri,OD far SL + 2/1/1 Fri flatten (v3),1m,4h,9583,2104161,1528,382,13984.800000000963,-18122.000000000087,-18875.600000000086,0.574607329842932,1.108494920797971,0.7408930047257253,4,weak — needs tune,TRL-2026-00162

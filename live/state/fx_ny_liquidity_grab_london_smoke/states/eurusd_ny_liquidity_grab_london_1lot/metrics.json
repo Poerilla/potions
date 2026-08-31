@@ -1,0 +1,20 @@
+{
+  "strategy_id": "eurusd_ny_liquidity_grab_london_1lot",
+  "symbol": "EURUSD",
+  "family": "fx",
+  "quote": "USD",
+  "entry_qty": 1,
+  "tp_r_mult": 1.0,
+  "regime_days": 10,
+  "start": "2015-01-02",
+  "units": 7,
+  "trades": 1,
+  "net_usd": -1661.0000000000578,
+  "closed_dd_usd": -1661.0000000000578,
+  "stress_dd_usd": -1670.0000000000337,
+  "net_over_stress": -0.9946107784431283,
+  "win_rate": 42.857142857142854,
+  "profit_factor": 0.3382470119521758,
+  "max_open_units": 1,
+  "state_root": "live/state/fx_ny_liquidity_grab_london_smoke/states/eurusd_ny_liquidity_grab_london_1lot"
+}

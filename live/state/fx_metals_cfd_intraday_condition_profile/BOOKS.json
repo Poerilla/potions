@@ -1,0 +1,155 @@
+{
+  "study": "fx_metals_cfd_intraday_condition_profile_v1",
+  "books": [
+    {
+      "key": "eurusd_monday_or",
+      "symbol": "EURUSD",
+      "family": "monday_or",
+      "n_campaigns": 2868
+    },
+    {
+      "key": "usdjpy_monday_or",
+      "symbol": "USDJPY",
+      "family": "monday_or",
+      "n_campaigns": 1907
+    },
+    {
+      "key": "us30_monday_or",
+      "symbol": "US30",
+      "family": "monday_or",
+      "n_campaigns": 1121
+    },
+    {
+      "key": "gbpusd_monday_or",
+      "symbol": "GBPUSD",
+      "family": "monday_or",
+      "n_campaigns": 2822
+    },
+    {
+      "key": "audjpy_monday_or",
+      "symbol": "AUDJPY",
+      "family": "monday_or",
+      "n_campaigns": 2749
+    },
+    {
+      "key": "xauusd_monday_or",
+      "symbol": "XAUUSD",
+      "family": "monday_or",
+      "n_campaigns": 3968
+    },
+    {
+      "key": "usdjpy_asia_range",
+      "symbol": "USDJPY",
+      "family": "asia_range",
+      "n_campaigns": 861
+    },
+    {
+      "key": "eurusd_v2b_ungated",
+      "symbol": "EURUSD",
+      "family": "v2b",
+      "n_campaigns": 2383
+    },
+    {
+      "key": "nas100_v2b_london",
+      "symbol": "NAS100",
+      "family": "v2b",
+      "n_campaigns": 1618
+    },
+    {
+      "key": "us30_london_prior_opposed",
+      "symbol": "US30",
+      "family": "london_prior",
+      "n_campaigns": 300
+    },
+    {
+      "key": "eurusd_st_pmc_3r",
+      "symbol": "EURUSD",
+      "family": "st_pmc",
+      "n_campaigns": 865
+    },
+    {
+      "key": "gbpusd_st_pmc_3r",
+      "symbol": "GBPUSD",
+      "family": "st_pmc",
+      "n_campaigns": 1025
+    },
+    {
+      "key": "usdjpy_st_pmc_3r",
+      "symbol": "USDJPY",
+      "family": "st_pmc",
+      "n_campaigns": 869
+    },
+    {
+      "key": "audjpy_st_pmc_3r",
+      "symbol": "AUDJPY",
+      "family": "st_pmc",
+      "n_campaigns": 850
+    },
+    {
+      "key": "nas100_st_pmc_3r",
+      "symbol": "NAS100",
+      "family": "st_pmc",
+      "n_campaigns": 477
+    },
+    {
+      "key": "us30_st_pmc_3r",
+      "symbol": "US30",
+      "family": "st_pmc",
+      "n_campaigns": 578
+    },
+    {
+      "key": "xauusd_st_pmc_3r",
+      "symbol": "XAUUSD",
+      "family": "st_pmc",
+      "n_campaigns": 169
+    },
+    {
+      "key": "eurusd_quarterly_breakout",
+      "symbol": "EURUSD",
+      "family": "quarterly_breakout",
+      "n_campaigns": 110
+    },
+    {
+      "key": "gbpusd_quarterly_breakout",
+      "symbol": "GBPUSD",
+      "family": "quarterly_breakout",
+      "n_campaigns": 102
+    },
+    {
+      "key": "usdjpy_quarterly_breakout",
+      "symbol": "USDJPY",
+      "family": "quarterly_breakout",
+      "n_campaigns": 111
+    },
+    {
+      "key": "audjpy_quarterly_breakout",
+      "symbol": "AUDJPY",
+      "family": "quarterly_breakout",
+      "n_campaigns": 117
+    },
+    {
+      "key": "xauusd_quarterly_breakout",
+      "symbol": "XAUUSD",
+      "family": "quarterly_breakout",
+      "n_campaigns": 113
+    },
+    {
+      "key": "xagusd_quarterly_breakout",
+      "symbol": "XAGUSD",
+      "family": "quarterly_breakout",
+      "n_campaigns": 108
+    },
+    {
+      "key": "us30_quarterly_breakout",
+      "symbol": "US30",
+      "family": "quarterly_breakout",
+      "n_campaigns": 48
+    },
+    {
+      "key": "nas100_quarterly_breakout",
+      "symbol": "NAS100",
+      "family": "quarterly_breakout",
+      "n_campaigns": 49
+    }
+  ]
+}

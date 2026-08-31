@@ -1,0 +1,43 @@
+{
+  "bars": 174371,
+  "closed_dd_usd": -5554.824999999633,
+  "config": {
+    "bar_minutes": 5,
+    "entry_mode": "market_close",
+    "entry_qty": 3,
+    "eod_cutoff": "15:59",
+    "fade": false,
+    "fh_end": "10:30",
+    "fh_start": "09:30",
+    "min_fh_bars": 10,
+    "r_mult": 3.0,
+    "require_fh_body": "",
+    "sl_body_frac": 0.75,
+    "sl_mode": "body_frac",
+    "suppress_alerts": true,
+    "tick_size": 0.1,
+    "tp_ladder_r": [
+      1.0,
+      2.0,
+      3.0
+    ],
+    "tp_mode": "r_mult"
+  },
+  "diag_n": null,
+  "diag_net": null,
+  "diag_ns": null,
+  "fill_entry_n": 2266,
+  "fill_eod_n": 518,
+  "fill_stop_n": 1360,
+  "fill_tp_n": 1935,
+  "instrument": "NAS100",
+  "intrabar_stress_dd_usd": -5582.724999999631,
+  "label": "0.75-body SL + 1R/2R/3R ladder 3-lot",
+  "net_over_stress": 2.0435136962695397,
+  "net_usd": 11408.375000005612,
+  "slug": "body75_ladder_1r2r3r",
+  "strategy_id": "nas100_fh_body75_ladder_1r2r3r",
+  "trades": 2255,
+  "units": 6728,
+  "win_rate": 0.40413198573127235
+}

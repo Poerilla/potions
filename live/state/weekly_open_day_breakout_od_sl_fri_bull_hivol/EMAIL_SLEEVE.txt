@@ -1,0 +1,11 @@
+NAS100 od_sl_fri + causal bull×high-vol sleeve (full history)
+
+Hub: live/state/weekly_open_day_breakout_od_sl_fri_bull_hivol
+Charts: live/state/weekly_open_day_breakout_od_sl_fri_bull_hivol/weekly_levels/nas100/charts (463 pngs; 169 trade weeks overlaid)
+Gate: close≥200DMA AND 20d vol ≥ trailing 252d median (causal)
+
+Full hist: trades=198 net=$+15055 N/S=1.36 WR=56.4%
+Vs unfiltered full hist: N/S 0.53 / +$10.1k / 556 trades
+Vs diagnostic in-sample bull×hivol: +$25.1k WR64% (non-causal campaign median)
+
+Stance: improved vs unfiltered full-hist but below recent-3y unfiltered (N/S 4.03); keep as research sleeve.

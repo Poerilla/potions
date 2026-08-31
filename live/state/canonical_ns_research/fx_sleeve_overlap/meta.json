@@ -1,0 +1,10 @@
+{
+  "pairs": 6,
+  "margin_usd": {
+    "EURUSD": 2000.0,
+    "GBPUSD": 2000.0,
+    "USDJPY": 2000.0
+  },
+  "eurusd_thu_mult": 1.25,
+  "hub": "live/state/canonical_ns_research/fx_sleeve_overlap"
+}

@@ -1,0 +1,36 @@
+{
+  "candidate": "us30_london_prior_opposed",
+  "label": "US30 London prior-opposed S_1_1_3",
+  "symbol": "US30",
+  "family": "v2b_london",
+  "sizing_note": "London screen book S_1_1_3 (no dedicated sizing sweep)",
+  "unit_path": "/home/tester/hsm/potions/live/state/fx_v2b_london_prior_opposed/states/us30_v2b_london_prior_opposed_S_1_1_3/unit_trades.csv",
+  "skip_months": [
+    2
+  ],
+  "unfiltered_net": 24369.95,
+  "unfiltered_stress": -3912.5,
+  "unfiltered_ns": 6.23,
+  "n_campaigns": 300,
+  "n_taken": 242,
+  "n_skipped": 58,
+  "reasons": {
+    "month": 45,
+    "roll": 13,
+    "take": 242,
+    "warmup": 43
+  },
+  "filtered_net": 23780.550000000017,
+  "filtered_closed_dd": -2323.5999999999985,
+  "filtered_ns_proxy": 10.234356171458096,
+  "filtered_wr": 0.6157024793388429,
+  "filtered_pf": 2.068267833438526,
+  "unfiltered_wr": 0.6133333333333333,
+  "unfiltered_pf": 1.8345916160528217,
+  "unfiltered_closed_dd": -3083.949999999997,
+  "gate_min_wr": 0.4,
+  "gate_min_pf": 1.0,
+  "stance": "half_size",
+  "size_mult": 0.5,
+  "reason": "prior-opposed curiosity survives filters \u2014 1/2 size demo; skip months [2]; filters lift N/S 6.23\u219210.23"
+}

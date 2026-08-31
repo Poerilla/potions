@@ -1,0 +1,2 @@
+strategy_id,market,variant,label,feed_tf,signal_tf,bars_4h,bars_1m,units,trades,net_usd,closed_dd_usd,intrabar_stress_dd_usd,win_rate,profit_factor,net_over_stress,max_open_units,stance,dsr_trial
+nas100_wod_od_oco_1r_bull_hivol,NAS100,od_oco_1r_bull_hivol,OCO 1×OD-R target + OD far SL + bull×high-vol; unlimited/wk,1m,4h,13767,3077535,202,202,3294.5500000000065,-2863.800000000042,-2863.800000000042,0.5594059405940595,1.2354107567756827,1.150412039946909,1,weak — needs tune,TRL-2026-00164

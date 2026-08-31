@@ -1,0 +1,57 @@
+{
+  "broker_realism_config": {
+    "fee_per_unit": 1.5,
+    "slippage_ticks": 1.0
+  },
+  "causality_mode": "audit",
+  "command": [
+    "/home/tester/hsm/potions/live/quarterly_range_breakout_broker.py",
+    "--instrument",
+    "MNQ",
+    "--daily",
+    "mnq/mnq_daily.csv",
+    "--output-root",
+    "live/state/mnq_quarterly_range_breakout_broker",
+    "--email"
+  ],
+  "created_at": "2026-08-21T20:25:32Z",
+  "cwd": "/home/tester/hsm/potions",
+  "data_inputs": [
+    {
+      "bytes": 122541,
+      "exists": true,
+      "path": "mnq/mnq_daily.csv",
+      "sha256": "218023cc511326d43184bbe10657ae180bb7c422663eab753bf6e26be7c579e6"
+    }
+  ],
+  "extra": {
+    "notes": "MNQ daily honest quarterly range breakout (mid SL, 2@0.2W ladder, sides=long,short)"
+  },
+  "git": {
+    "commit": "",
+    "dirty": false,
+    "repo_root": "/home/tester/hsm/potions/live/state/mnq_quarterly_range_breakout_broker",
+    "status_short": []
+  },
+  "outputs": [],
+  "python": {
+    "executable": "/home/tester/.pyenv/versions/3.8.0/bin/python3",
+    "platform": "Linux-5.15.0-185-generic-x86_64-with-glibc2.34",
+    "version": "3.8.0 (default, Feb 11 2026, 11:18:58) \n[GCC 11.4.0]"
+  },
+  "run_id": "run_d4b31b6103f1",
+  "strategy_config": {
+    "allowed_sides": [
+      "long",
+      "short"
+    ],
+    "be": false,
+    "entry_qty": 8,
+    "instrument": "MNQ",
+    "scale_qty": 2,
+    "scale_step_width_mult": 0.2,
+    "stop": "prior_range_mid",
+    "strategy_type": "quarterly_range_breakout",
+    "version": "v2_honest"
+  }
+}

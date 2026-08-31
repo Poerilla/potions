@@ -1,0 +1,21 @@
+{
+  "bars_1m": 3077535,
+  "bars_4h": 13767,
+  "closed_dd_usd": -13623.700000000645,
+  "dsr_trial": "TRL-2026-00165",
+  "feed_tf": "1m",
+  "intrabar_stress_dd_usd": -13797.850000000542,
+  "label": "swing-close; structural BO; all weeks; NO bull\u00d7hivol; +1/8h",
+  "market": "NAS100",
+  "max_open_units": 10,
+  "net_over_stress": -0.14018488387682232,
+  "net_usd": -1934.249999999889,
+  "profit_factor": 0.9810984911040523,
+  "signal_tf": "4h",
+  "stance": "reject / thin",
+  "strategy_id": "nas100_wod_od_half_eow_ungated_allweeks_add8h_swing_struct",
+  "trades": 314,
+  "units": 1738,
+  "variant": "od_half_eow_ungated_allweeks_add8h_swing_struct",
+  "win_rate": 0.4942462600690449
+}

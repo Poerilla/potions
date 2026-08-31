@@ -78,6 +78,21 @@ def resample_hourly(df_1m: pd.DataFrame) -> pd.DataFrame:
     )
 
 
+def resample_hourly_through_minute(
+    df_1m: pd.DataFrame, *, through_minute: int = 58
+) -> pd.DataFrame:
+    """Left-labeled hourly OHLC using only minutes ``0..through_minute`` inclusive.
+
+    Used for early-close / anticipate-close experiments (e.g. treat :58 as the
+    hour close). Pair with ``signal_offset_minutes=through_minute + 1`` in the
+    1m-fill replay so the signal is consumed only after that minute bar completes.
+    """
+    if not 0 <= int(through_minute) <= 59:
+        raise ValueError("through_minute must be in [0, 59], got %r" % (through_minute,))
+    clipped = df_1m[df_1m.index.minute <= int(through_minute)]
+    return resample_hourly(clipped)
+
+
 def _fill_stop(side: str, stop: float, o: float, h: float, l: float) -> float:
     if side == "long":
         if l <= stop:

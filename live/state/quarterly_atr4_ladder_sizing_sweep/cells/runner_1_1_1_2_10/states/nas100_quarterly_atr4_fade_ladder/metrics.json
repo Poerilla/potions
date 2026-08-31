@@ -1,0 +1,20 @@
+{
+  "allowed_sides": [
+    "lower"
+  ],
+  "bars": 13767,
+  "closed_dd_usd": -18715.34355071094,
+  "intrabar_stress_dd_usd": -19836.143550710956,
+  "market": "NAS100",
+  "max_open_units": 15,
+  "net_over_stress": 5.347886245737447,
+  "net_usd": 106081.43926332069,
+  "path_id": "",
+  "profit_factor": 10.188376741421255,
+  "risk_atr_mult": 2.0,
+  "strategy_id": "nas100_quarterly_atr4_fade_ladder",
+  "trade_mode": "first_only",
+  "trades": 9,
+  "units": 135,
+  "win_rate": 0.35555555555555557
+}

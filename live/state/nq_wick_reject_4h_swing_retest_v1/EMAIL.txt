@@ -1,0 +1,12 @@
+potions: nq_wick_reject_4h_swing_retest_v1 COMPLETE
+
+Hub: /home/tester/hsm/potions/live/state/nq_wick_reject_4h_swing_retest_v1
+Eligible seeds: 91 / 122 | 4h breaks: 91
+Stance: RESEARCH — S1 positive locked avg R both slices (S2 gate OPEN; not promote)
+
+S1 primary (48h) vs 1h baseline (67 fills, devR+0.177, hoR-0.036):
+  s1_4h_close_48h_dev: fills=43 net=+9316 WR=56% PF=1.37 avgR=+0.120
+  s1_4h_close_48h_holdout: fills=13 net=+7925 WR=46% PF=1.44 avgR=+0.038
+  s1_4h_close_48h_ALL: fills=56 net=+17241 WR=54% PF=1.40 avgR=+0.101
+
+See SUMMARY.md + STAGE_B_TIMING.md. S2 deferred.

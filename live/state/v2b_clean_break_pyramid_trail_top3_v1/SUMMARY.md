@@ -1,0 +1,40 @@
+# V2B Clean-Break Pyramid Trail Top-3 Broker-Like Confirm
+
+STATUS: TOP-3 CONFIRM (Engine + PaperBroker, 5m RTH)
+
+## Rules
+- Base: bullish v2b clean break (OR 09:30–09:45, stop @ OR high + 2 ticks, clean close).
+- Pyramid: +1 on eligible outside 5m candles (low > OR high), max qty per variant.
+- Cadence: every 1 / every 2 eligible bars; or **opposing** (bearish close < open) outside bars.
+- Trail: when bar high ≥ entry + 0.6×(2R−entry), park stop at **entry (BE)** + rest 2R target.
+- Soft exit: 5m close ≤ OR high still flattens; EOD 15:55.
+- Control variant: max8 every-1 outside, no trail (pyramid v1 twin).
+
+## Variant board (combined NQ+MNQ, ranked by N/S)
+
+| Rank | Variant | Net | Worst stress | N/S | Trades | Units | MaxU |
+|---:|---|---:|---:|---:|---:|---:|---:|
+| 1 | trail06_m4_e2_out_be | $335,810.50 | $-39,598.00 | 8.48 | 2735 | 4802 | 4 |
+| 2 | trail06_m4_e1_opp_be | $327,372.00 | $-43,724.00 | 7.49 | 2735 | 4815 | 4 |
+| 3 | trail06_m8_e2_out_be | $569,229.00 | $-80,606.00 | 7.06 | 2736 | 6595 | 8 |
+
+## Per-market detail
+
+| Market | Variant | Sessions | Trades | Units | Net | Stress DD | MaxU | N/S | Win% | PF |
+|---|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+| NQ | trail06_m8_e2_out_be | 4046 | 2053 | 4929 | $537,721.50 | $-80,606.00 | 8 | 6.67 | 34.6% | 1.52 |
+| NQ | trail06_m4_e2_out_be | 4046 | 2052 | 3588 | $316,078.00 | $-39,598.00 | 4 | 7.98 | 26.8% | 1.45 |
+| NQ | trail06_m4_e1_opp_be | 4046 | 2052 | 3612 | $308,782.00 | $-43,724.00 | 4 | 7.06 | 25.0% | 1.46 |
+| MNQ | trail06_m8_e2_out_be | 1325 | 683 | 1666 | $31,507.50 | $-8,222.50 | 8 | 3.83 | 36.8% | 1.44 |
+| MNQ | trail06_m4_e2_out_be | 1325 | 683 | 1214 | $19,732.50 | $-4,076.00 | 4 | 4.84 | 29.0% | 1.41 |
+| MNQ | trail06_m4_e1_opp_be | 1325 | 683 | 1203 | $18,590.00 | $-4,434.50 | 4 | 4.19 | 26.4% | 1.40 |
+
+**Best:** `trail06_m4_e2_out_be` combined N/S=8.48 net=$+335810
+
+**Stance:** research — best=trail06_m4_e2_out_be combined N/S=8.48 net=$+335810; compare to pyramid v1 (~4.90 N/S / +$683k) and single-lot 2R/RL
+
+Hub: `/home/tester/hsm/potions/live/state/v2b_clean_break_pyramid_trail_top3_v1`
+DSR: `TRL-2026-00195`
+smoke=False
+
+Refs: pyramid v1 hub `v2b_clean_break_pyramid_outside_v1` (~+$683k / 4.90 N/S); single-lot bullish 2R/RL NQ ~$93k / 3.79 N/S.

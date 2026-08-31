@@ -1,0 +1,37 @@
+potions: monthly open ±4/6×ATR extension study complete
+
+Hub: /home/tester/hsm/potions/live/state/monthly_open_atr_extension
+Markets: EURUSD, GBPUSD, USDJPY, AUDJPY, XAUUSD, XAGUSD, US30, NAS100, NQ, YM
+Months: 2192
+Charts: 10 (top extension months)
+
+# Monthly open extension — summary
+
+Anchor: **first 1h open** of the month. ATR(14) at opening-week close.
+Extension measured **after opening week** through month end.
+
+| Market | Months | P(hit ±4×) | P(hit ±6×) | Med max ext | P95 max ext | Fade6 revert→4 | Fade6 revert→open | Med fade6 pnl (ATR) |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|
+| AUDJPY | 266 | 100.0% | 98.5% | 16.24× | 38.31× | 79.8% | 49.2% | -0.88× |
+| EURUSD | 272 | 100.0% | 98.5% | 17.12× | 37.03× | 81.3% | 57.5% | -1.32× |
+| GBPUSD | 272 | 100.0% | 100.0% | 17.07× | 39.17× | 82.4% | 62.9% | -2.06× |
+| NAS100 | 104 | 100.0% | 100.0% | 21.41× | 41.80× | 78.8% | 55.8% | -2.65× |
+| NQ | 188 | 100.0% | 100.0% | 21.05× | 43.28× | 78.2% | 58.5% | -1.92× |
+| US30 | 103 | 100.0% | 100.0% | 19.47× | 49.30× | 77.7% | 58.3% | -4.49× |
+| USDJPY | 273 | 100.0% | 99.3% | 17.08× | 42.41× | 81.2% | 58.3% | -0.31× |
+| XAGUSD | 262 | 90.5% | 79.0% | 13.01× | 34.49× | 75.8% | 44.4% | -1.50× |
+| XAUUSD | 265 | 99.6% | 98.1% | 17.44× | 41.82× | 79.6% | 51.5% | -1.89× |
+| YM | 187 | 100.0% | 100.0% | 19.21× | 42.45× | 78.1% | 58.8% | -3.37× |
+
+
+Charted months:
+  GBPUSD 2022-09  max=48.86×ATR  fade6=lower
+  YM 2014-01  max=37.48×ATR  fade6=lower
+  NAS100 2024-07  max=36.12×ATR  fade6=upper
+  US30 2023-11  max=50.00×ATR  fade6=upper
+  NQ 2024-07  max=38.36×ATR  fade6=upper
+  USDJPY 2024-07  max=50.00×ATR  fade6=lower
+  AUDJPY 2018-12  max=37.52×ATR  fade6=lower
+  XAUUSD 2026-03  max=45.93×ATR  fade6=lower
+  EURUSD 2015-03  max=35.69×ATR  fade6=lower
+  XAGUSD 2011-09  max=50.00×ATR  fade6=upper

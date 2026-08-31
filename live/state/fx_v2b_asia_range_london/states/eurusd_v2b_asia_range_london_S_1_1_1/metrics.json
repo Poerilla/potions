@@ -1,0 +1,23 @@
+{
+  "strategy_id": "eurusd_v2b_asia_range_london_S_1_1_1",
+  "symbol": "EURUSD",
+  "family": "fx",
+  "quote": "USD",
+  "book": "S_1_1_1",
+  "clock": "asia_range_london",
+  "or_window": "19:00-03:00",
+  "or_bars": "asia_precomputed",
+  "sizing": "S_1_1_1",
+  "regime_days": 1354,
+  "start": "2015-01-02",
+  "units": 5310,
+  "trades": 1770,
+  "net_usd": -199840.00000012736,
+  "closed_dd_usd": -205742.00000012617,
+  "stress_dd_usd": -205856.0000001262,
+  "net_over_stress": -0.9707756878594982,
+  "win_rate": 38.62523540489642,
+  "profit_factor": 0.6545345793873787,
+  "max_open_units": 3,
+  "state_root": "/home/tester/hsm/potions/live/state/fx_v2b_asia_range_london/states/eurusd_v2b_asia_range_london_S_1_1_1"
+}

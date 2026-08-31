@@ -1,0 +1,11 @@
+ES quarterly range honest breakout broker-like complete.
+
+Hub: live/state/es_quarterly_range_breakout_broker
+Sides: long,short
+Rules: SL=mid, no BE, 2 lots every 0.2x prior width.
+Trades: 60 | Units: 480
+Net: $1258367.50 | Stress DD: $-225184.00 | N/S: 5.59
+
+Stance: research (honest-breakout).
+
+SUMMARY: live/state/es_quarterly_range_breakout_broker/SUMMARY.md

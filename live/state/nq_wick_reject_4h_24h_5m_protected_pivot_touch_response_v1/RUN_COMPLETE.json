@@ -1,0 +1,87 @@
+{
+  "study_id": "nq_wick_reject_4h_24h_5m_protected_pivot_touch_response_v1",
+  "finished_at": "2026-08-30T17:21:02.640288",
+  "config_hash": "46c3e3de3527fef5",
+  "smoke": false,
+  "metrics": {
+    "eligible_seed_count": 91,
+    "excluded_seed_count": 0,
+    "candidate_count": 85,
+    "candidate_rate": 0.9340659340659341,
+    "bear_count": 42,
+    "bull_count": 43,
+    "median_minutes_since_seed_available": 174.0,
+    "median_sequence_duration_minutes": 40.0,
+    "candidate_count_by_session_segment": {
+      "NY_MIDDAY": 35,
+      "ASIA": 18,
+      "NY_PM": 17,
+      "EUROPE": 7,
+      "NY_OPEN": 5,
+      "PRE_NY": 2,
+      "POST_CASH": 1
+    },
+    "bear_protection_labels": {
+      "HELD_NO_TOUCH": 9,
+      "HELD_EQUAL_TOUCH": 0,
+      "FAILED_ONE_TICK_OR_MORE": 17,
+      "INSUFFICIENT_DATA_OR_SESSION_GAP": 16
+    },
+    "bull_protection_labels": {
+      "HELD_NO_TOUCH": 14,
+      "HELD_EQUAL_TOUCH": 0,
+      "FAILED_ONE_TICK_OR_MORE": 15,
+      "INSUFFICIENT_DATA_OR_SESSION_GAP": 14
+    },
+    "bear_protection_hold_rate_180m": 0.34615384615384615,
+    "bull_protection_hold_rate_180m": 0.4827586206896552,
+    "bear_hold_ci": [
+      0.19412014972852126,
+      0.5377977099036699
+    ],
+    "bull_hold_ci": [
+      0.3138581933079522,
+      0.6556926202943085
+    ],
+    "touch_rate": 0.09090909090909091,
+    "bear_touch": {
+      "no_eligible": 39,
+      "evaluable": 3,
+      "favors": 2,
+      "invalidates": 1,
+      "both": 0,
+      "neither": 0,
+      "insuff": 0,
+      "favors_rate": 0.6666666666666666,
+      "inval_rate": 0.3333333333333333
+    },
+    "bull_touch": {
+      "no_eligible": 41,
+      "evaluable": 2,
+      "favors": 0,
+      "invalidates": 1,
+      "both": 1,
+      "neither": 0,
+      "insuff": 0,
+      "favors_rate": 0.0,
+      "inval_rate": 1.0
+    },
+    "median_mfe_ticks": 84.0,
+    "median_mae_ticks": 2.0,
+    "median_minutes_to_failure_bear": 35.0,
+    "median_minutes_to_failure_bull": 30.0,
+    "causality_pass": true,
+    "sample_thresholds_met": true,
+    "touch_sample_bear_ok": false,
+    "touch_sample_bull_ok": false,
+    "protection_screen_pass": false,
+    "touch_screen_bear_pass": false,
+    "touch_screen_bull_pass": false,
+    "decision": "NEGATIVE_OR_WEAK",
+    "stance": "DESCRIPTIVE ONLY \u2014 does not meet predeclared preservation screens",
+    "data_session_policy": "POLICY_A_FULL_AVAILABLE_FUTURES_DATA",
+    "non_promotion": true
+  },
+  "causality_pass": true,
+  "causality_fails": []
+}

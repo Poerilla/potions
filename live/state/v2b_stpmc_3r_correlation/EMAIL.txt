@@ -1,0 +1,16 @@
+v2b ↔ ST+PMC 3R correlation
+
+Same-market PO vs ST+PMC: 5/5 separable
+
+  MNQ prior-opposed vs MNQ ST+PMC 3R | J=0.33 ρ=-0.142 sep=Y
+  NAS100 prior-opposed vs NAS100 ST+PMC 3R | J=0.25 ρ=-0.329 sep=Y
+  NQ prior-opposed vs NQ ST+PMC 3R | J=0.21 ρ=-0.14 sep=Y
+  US30 prior-opposed vs US30 ST+PMC 3R | J=0.08 ρ=0.052 sep=Y
+  YM prior-opposed vs YM ST+PMC 3R | J=0.16 ρ=-0.129 sep=Y
+
+Cross (highlights):
+  YM prior-opposed vs US30 ST+PMC 3R | J=0.19 ρ=-0.107 sep=Y
+  YM ST+PMC 3R vs US30 ST+PMC 3R | J=0.42 ρ=0.851 sep=n
+  NQ ST+PMC 3R vs NAS100 ST+PMC 3R | J=0.58 ρ=0.956 sep=n
+
+Hub: live/state/v2b_stpmc_3r_correlation/

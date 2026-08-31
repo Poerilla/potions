@@ -276,8 +276,10 @@ def load_research_st_seed(*, max_sessions: int = 120) -> Dict[str, List[Dict[str
                 sid,
                 orders_path=orders,
                 gate_mode="resting_limit",
+                # US30 runner hub is completed-hour causal (live_after already hour-complete).
+                st_signal_stamp="completed_hour",
             )
-            source = "research_resting_limit"
+            source = "research_resting_limit_completed_hour"
         else:
             events = load_st_events(fills, sid, gate_mode="fill")
             source = "research_fill"
@@ -560,7 +562,7 @@ def _oco_state(plugin: Any, context_orders: List[Any], position_qty: int) -> str
     working = [
         o
         for o in context_orders
-        if str(getattr(o, "status", "")) in {"submitted", "partially_filled"}
+        if str(getattr(o, "status", "")) in {"submitted", "partially_filled", "working", "pendingnew", "accepted"}
         and not bool(getattr(o, "reduce_only", False))
     ]
     if working:
@@ -625,7 +627,7 @@ def build_gate_audit_row(
     working = [
         o
         for o in open_orders
-        if str(getattr(o, "status", "")) in {"submitted", "partially_filled"}
+        if str(getattr(o, "status", "")) in {"submitted", "partially_filled", "working", "pendingnew", "accepted"}
         and str(getattr(o, "strategy_id", "")) == spec.strategy_id
     ]
     entry_orders = [o for o in working if not bool(getattr(o, "reduce_only", False))]

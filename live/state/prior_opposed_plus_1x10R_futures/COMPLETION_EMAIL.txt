@@ -1,0 +1,58 @@
+INTERIM SNAPSHOT
+status: PARTIAL
+generated_at_utc: 2026-08-09T22:43:42+00:00
+completed_required_jobs: 0 / 9
+accounting_mode: lot-correct-preferred
+
+CHANGE SINCE PRIOR SNAPSHOT
++ Initial snapshot (no prior)
+
+DECISION STATE
+INCOMPLETE (3): NQ , MNQ , YM 
+
+BLOCKS FINAL JUDGMENT
+- hub_status=PARTIAL
+- 12_incomplete_jobs
+
+PORTFOLIO ACTION REQUIRED: YES
+- MNQ/NQ are execution alternatives / one shared Nasdaq sleeve — not additive independent allocations
+- No final promotion until required jobs finish.
+
+Active jobs: 0
+
+Incomplete jobs: 12
+- MNQ  (incomplete_audit_or_units)
+- MNQ 3R (missing_from_summary)
+- MNQ 2R→10R (missing_from_summary)
+- MNQ indef (missing_from_summary)
+- NQ  (incomplete_audit_or_units)
+- NQ 3R (missing_from_summary)
+- NQ 2R→10R (missing_from_summary)
+- NQ indef (missing_from_summary)
+- YM  (incomplete_audit_or_units)
+- YM 3R (missing_from_summary)
+- YM 2R→10R (missing_from_summary)
+- YM indef (missing_from_summary)
+
+COMPARABLE CORE BOARD (rankable only if all gates pass)
+(empty — no row passed eligibility gates)
+
+PENDING / NON-COMPARABLE
+- NQ  [INCOMPLETE]: variant_incomplete_or_missing_audit; reachable_stress_missing; insufficient_sample_units<30
+- MNQ  [INCOMPLETE]: variant_incomplete_or_missing_audit; reachable_stress_missing; insufficient_sample_units<30
+- YM  [INCOMPLETE]: variant_incomplete_or_missing_audit; reachable_stress_missing; insufficient_sample_units<30
+
+DUPLICATE SLEEVE: MNQ/NQ are execution alternatives / one shared Nasdaq sleeve — not additive independent allocations
+
+DUPLICATE SLEEVE: MNQ/NQ are execution alternatives / one shared Nasdaq sleeve — not additive independent allocations
+
+EXIT ATTRIBUTION (10R / EOD-survivor)
+- MNQ [v2b S_1_1_3 + 1 BE-protected long-horizon / EOD-survivor runner]: true_10R_hits=1 (0.0%) share=1% → EOD-survivor / mixed
+- NQ [v2b S_1_1_3 + 1 BE-protected long-horizon / EOD-survivor runner]: true_10R_hits=1 (0.0%) share=1% → EOD-survivor / mixed
+- YM [v2b S_1_1_3 + 1 BE-protected long-horizon / EOD-survivor runner]: true_10R_hits=0 (0.0%) share=0% → EOD-survivor / mixed
+
+Hub: live/state/prior_opposed_plus_1x10R_futures
+Report: COMPLETION_REPORT.md
+Snapshot: LATEST_SNAPSHOT.json
+
+Note: PID/host/command live in hub status JSON only.

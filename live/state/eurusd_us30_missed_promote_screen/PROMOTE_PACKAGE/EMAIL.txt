@@ -1,0 +1,40 @@
+EURUSD/US30 ungated dropped + promote package
+
+DROPPED: eurusd_v2b_ungated_{paper,oanda}, us30_v2b_ungated_{paper,oanda}
+
+DEMOED:
+- EURUSD ST+PMC 3R full paper+oanda (N/S 3.01, filt proxy 7.23)
+- EURUSD ST+PMC 2R→10R HALF paper+oanda (concentration)
+- US30 Monday OR M3_S3_R2 HALF paper+oanda (Sep skip)
+- EURUSD Monday OR M1_S2_R2 HALF paper-only (Phase2 sub-period FAIL)
+
+DEFERRED/REJECT:
+- US30 London prior-opposed: high filt N/S but thin sample + 66% top-10 concentration; live ST event feed not wired → research only
+- US30 London 4h: reject (575 rolling PF<1 windows)
+- US30 Monday OR M3_S3_R3: reject (filt N/S 0.24)
+
+EURUSD/US30 missed promote screen
+
+Dropped ungated daemons:
+- eurusd_v2b_ungated_{paper,oanda}
+- us30_v2b_ungated_{paper,oanda}
+
+book                                           uN/S       uNet     fN/S       fNet     stance size
+eurusd_st_pmc_3r                               3.01      64449     7.23      61626    promote x1.0
+  strong unfiltered N/S + positive filtered book; skip months [6, 8]; filters lift N/S 3.01→7.23
+eurusd_st_pmc_2r10r                            1.80     121157     3.41     118135    promote x1.0
+  solid mid N/S; no month blackout; filters lift N/S 1.80→3.41
+us30_monday_or_m3_s3_r3                        1.88      29891     0.24        460  half_size x0.5
+  marginal / soft after filters — 1/2 size; skip months [1]; filters N/S proxy 0.24 vs unfilt 1.88
+us30_monday_or_m3_s3_r2                        1.85      31330     2.08       4264    promote x1.0
+  solid mid N/S; skip months [9]; filters lift N/S 1.85→2.08
+us30_london_prior_opposed                      6.23      24370    10.23      23781  half_size x0.5
+  prior-opposed curiosity survives filters — 1/2 size demo; skip months [2]; filters lift N/S 6.23→10.23
+us30_london_4h_s111                            1.57      22708     3.46      21654  half_size x0.5
+  marginal / soft after filters — 1/2 size; skip months [2, 6]; filters lift N/S 1.57→3.46
+eurusd_monday_or_m1_s2_r2                      1.74     123271     1.16      24497 paper_half x0.5
+  Phase 2 hardened but sub-period FAIL — paper-only @ 1/2 size; skip months [8]; filters N/S proxy 1.16 vs unfilt 1.74
+
+Hub: live/state/eurusd_us30_missed_promote_screen/
+
+Hub: live/state/eurusd_us30_missed_promote_screen/

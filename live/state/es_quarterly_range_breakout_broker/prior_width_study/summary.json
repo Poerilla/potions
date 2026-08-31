@@ -1,0 +1,412 @@
+{
+  "n_trades": 60,
+  "baseline_net": 1249967.5,
+  "n_losses": 17,
+  "spearman_width_vs_net": {
+    "rho": 0.339715446993878,
+    "pvalue_approx": 0.0059451738143835985
+  },
+  "pearson_width_vs_net": 0.3375893358668153,
+  "spearman_width_vs_win": {
+    "rho": -0.05767041134294936,
+    "pvalue_approx": 0.6599827623071359
+  },
+  "spearman_width_vs_stop": {
+    "rho": 0.07940551587458511,
+    "pvalue_approx": 0.5440832425193457
+  },
+  "width_dist_at_trades": {
+    "p25": 145.1875,
+    "p50": 248.75,
+    "p75": 447.0625,
+    "p90": 662.1750000000001,
+    "mean": 336.45,
+    "hist_all_prior_p75": 526.125,
+    "hist_all_prior_p90": 709.3000000000001
+  },
+  "q4_large_range_pts": [
+    469.0,
+    1433.5
+  ],
+  "winner_loser_widths": {
+    "median_width_winners": 244.5,
+    "median_width_losers": 275.75,
+    "mean_width_winners": 338.4186046511628,
+    "mean_width_losers": 331.47058823529414,
+    "median_width_stops": 378.25,
+    "median_width_nostop": 246.5
+  },
+  "by_quartile": [
+    {
+      "width_q": "Q1_small",
+      "n": 15.0,
+      "wins": 12.0,
+      "losses": 3.0,
+      "win_rate": 0.8,
+      "net": 184482.49999999997,
+      "avg_net": 12298.833333333332,
+      "median_net": 19916.000000000007,
+      "avg_win": 19046.0,
+      "avg_loss": -14689.833333333338,
+      "loss_dollars": -44069.500000000015,
+      "win_dollars": 228552.0,
+      "stop_rate": 0.2,
+      "mean_width": 120.51666666666667,
+      "min_width": 100.5,
+      "max_width": 138.25
+    },
+    {
+      "width_q": "Q2",
+      "n": 16.0,
+      "wins": 11.0,
+      "losses": 5.0,
+      "win_rate": 0.6875,
+      "net": 172471.00000000006,
+      "avg_net": 10779.437500000004,
+      "median_net": 10703.50000000001,
+      "avg_win": 24882.818181818187,
+      "avg_loss": -20248.0,
+      "loss_dollars": -101240.0,
+      "win_dollars": 273711.00000000006,
+      "stop_rate": 0.125,
+      "mean_width": 197.09375,
+      "min_width": 147.5,
+      "max_width": 248.75
+    },
+    {
+      "width_q": "Q3",
+      "n": 14.0,
+      "wins": 9.0,
+      "losses": 5.0,
+      "win_rate": 0.6428571428571429,
+      "net": 325521.5,
+      "avg_net": 23251.535714285714,
+      "median_net": 42926.0,
+      "avg_win": 54312.66666666667,
+      "avg_loss": -32658.50000000001,
+      "loss_dollars": -163292.50000000006,
+      "win_dollars": 488814.00000000006,
+      "stop_rate": 0.21428571428571427,
+      "mean_width": 356.39285714285717,
+      "min_width": 253.75,
+      "max_width": 439.75
+    },
+    {
+      "width_q": "Q4_large",
+      "n": 15.0,
+      "wins": 11.0,
+      "losses": 4.0,
+      "win_rate": 0.7333333333333333,
+      "net": 567492.5,
+      "avg_net": 37832.833333333336,
+      "median_net": 62526.0,
+      "avg_win": 89328.72727272728,
+      "avg_loss": -103780.875,
+      "loss_dollars": -415123.5,
+      "win_dollars": 982616.0,
+      "stop_rate": 0.26666666666666666,
+      "mean_width": 682.4166666666666,
+      "min_width": 469.0,
+      "max_width": 1433.5
+    }
+  ],
+  "by_abs_bin": [
+    {
+      "width_bin": "[100, 150)",
+      "n": 16.0,
+      "wins": 12.0,
+      "losses": 4.0,
+      "win_rate": 0.75,
+      "net": 164558.5,
+      "avg_net": 10284.90625,
+      "median_net": 18193.50000000002,
+      "avg_win": 19046.0,
+      "avg_loss": -15998.375000000004,
+      "loss_dollars": -63993.500000000015,
+      "win_dollars": 228552.0,
+      "stop_rate": 0.1875,
+      "mean_width": 122.203125,
+      "min_width": 100.5,
+      "max_width": 147.5
+    },
+    {
+      "width_bin": "[150, 200)",
+      "n": 7.0,
+      "wins": 6.0,
+      "losses": 1.0,
+      "win_rate": 0.8571428571428571,
+      "net": 99757.00000000003,
+      "avg_net": 14251.000000000004,
+      "median_net": 9431.000000000018,
+      "avg_win": 17432.66666666667,
+      "avg_loss": -4839.000000000009,
+      "loss_dollars": -4839.000000000009,
+      "win_dollars": 104596.00000000003,
+      "stop_rate": 0.0,
+      "mean_width": 159.5,
+      "min_width": 150.75,
+      "max_width": 181.25
+    },
+    {
+      "width_bin": "[200, 300)",
+      "n": 11.0,
+      "wins": 7.0,
+      "losses": 4.0,
+      "win_rate": 0.6363636363636364,
+      "net": 143431.00000000003,
+      "avg_net": 13039.181818181822,
+      "median_net": 15791.00000000001,
+      "avg_win": 33661.71428571429,
+      "avg_loss": -23050.25,
+      "loss_dollars": -92201.0,
+      "win_dollars": 235632.00000000003,
+      "stop_rate": 0.18181818181818182,
+      "mean_width": 243.72727272727272,
+      "min_width": 206.5,
+      "max_width": 275.75
+    },
+    {
+      "width_bin": "[300, 1000)",
+      "n": 25.0,
+      "wins": 17.0,
+      "losses": 8.0,
+      "win_rate": 0.68,
+      "net": 669049.9999999999,
+      "avg_net": 26761.999999999996,
+      "median_net": 56226.0,
+      "avg_win": 72455.41176470589,
+      "avg_loss": -70336.5,
+      "loss_dollars": -562692.0,
+      "win_dollars": 1231742.0,
+      "stop_rate": 0.28,
+      "mean_width": 520.03,
+      "min_width": 325.5,
+      "max_width": 806.5
+    }
+  ],
+  "loss_share_by_quartile": [
+    {
+      "width_q": "Q1_small",
+      "n": 3,
+      "loss_usd": -44069.500000000015,
+      "pct_of_loss_dollars": 6.089256216618042,
+      "pct_of_loss_trades": 17.647058823529413
+    },
+    {
+      "width_q": "Q2",
+      "n": 5,
+      "loss_usd": -101240.0,
+      "pct_of_loss_dollars": 13.988729152144009,
+      "pct_of_loss_trades": 29.41176470588235
+    },
+    {
+      "width_q": "Q3",
+      "n": 5,
+      "loss_usd": -163292.50000000003,
+      "pct_of_loss_dollars": 22.562767237025643,
+      "pct_of_loss_trades": 29.41176470588235
+    },
+    {
+      "width_q": "Q4_large",
+      "n": 4,
+      "loss_usd": -415123.5,
+      "pct_of_loss_dollars": 57.3592473942123,
+      "pct_of_loss_trades": 23.529411764705884
+    }
+  ],
+  "trade_share_by_quartile": {
+    "Q1_small": 25.0,
+    "Q2": 26.666666666666668,
+    "Q3": 23.333333333333332,
+    "Q4_large": 25.0
+  },
+  "causal_skip_cf": [
+    {
+      "thresh_causal_pct": 60,
+      "kept_n": 17,
+      "skipped_n": 43,
+      "kept_net": 192674.5,
+      "skipped_net": 1057293.0,
+      "skipped_wr": 0.6976744186046512,
+      "kept_wr": 0.7647058823529411,
+      "delta_vs_baseline": -1057293.0,
+      "skipped_loss_usd": -659732.0000000001,
+      "skipped_win_usd": 1717025.0000000002
+    },
+    {
+      "thresh_causal_pct": 70,
+      "kept_n": 20,
+      "skipped_n": 40,
+      "kept_net": 223597.5,
+      "skipped_net": 1026370.0,
+      "skipped_wr": 0.675,
+      "kept_wr": 0.8,
+      "delta_vs_baseline": -1026370.0,
+      "skipped_loss_usd": -659732.0000000001,
+      "skipped_win_usd": 1686102.0000000002
+    },
+    {
+      "thresh_causal_pct": 75,
+      "kept_n": 25,
+      "skipped_n": 35,
+      "kept_net": 203082.5,
+      "skipped_net": 1046885.0,
+      "skipped_wr": 0.6857142857142857,
+      "kept_wr": 0.76,
+      "delta_vs_baseline": -1046885.0,
+      "skipped_loss_usd": -543784.0000000001,
+      "skipped_win_usd": 1590669.0
+    },
+    {
+      "thresh_causal_pct": 80,
+      "kept_n": 30,
+      "skipped_n": 30,
+      "kept_net": 375277.50000000006,
+      "skipped_net": 874690.0,
+      "skipped_wr": 0.7,
+      "kept_wr": 0.7333333333333333,
+      "delta_vs_baseline": -874690.0,
+      "skipped_loss_usd": -523416.0,
+      "skipped_win_usd": 1398106.0
+    },
+    {
+      "thresh_causal_pct": 90,
+      "kept_n": 47,
+      "skipped_n": 13,
+      "kept_net": 763777.0000000001,
+      "skipped_net": 486190.5,
+      "skipped_wr": 0.6923076923076923,
+      "kept_wr": 0.723404255319149,
+      "delta_vs_baseline": -486190.4999999999,
+      "skipped_loss_usd": -303583.5,
+      "skipped_win_usd": 789774.0
+    }
+  ],
+  "abs_skip_cf": [
+    {
+      "min_width": 150,
+      "kept_n": 16,
+      "skipped_n": 44,
+      "kept_net": 164558.5,
+      "skipped_net": 1085409.0,
+      "delta": -1085409.0,
+      "skip_wr": 0.7045454545454546,
+      "keep_wr": 0.75,
+      "skip_stop_rate": 0.20454545454545456
+    },
+    {
+      "min_width": 175,
+      "kept_n": 22,
+      "skipped_n": 38,
+      "kept_net": 228189.50000000003,
+      "skipped_net": 1021778.0,
+      "delta": -1021778.0,
+      "skip_wr": 0.6842105263157895,
+      "keep_wr": 0.7727272727272727,
+      "skip_stop_rate": 0.23684210526315788
+    },
+    {
+      "min_width": 200,
+      "kept_n": 23,
+      "skipped_n": 37,
+      "kept_net": 264315.5,
+      "skipped_net": 985652.0,
+      "delta": -985652.0,
+      "skip_wr": 0.6756756756756757,
+      "keep_wr": 0.782608695652174,
+      "skip_stop_rate": 0.24324324324324326
+    },
+    {
+      "min_width": 225,
+      "kept_n": 25,
+      "skipped_n": 35,
+      "kept_net": 312742.5,
+      "skipped_net": 937225.0,
+      "delta": -937225.0,
+      "skip_wr": 0.6571428571428571,
+      "keep_wr": 0.8,
+      "skip_stop_rate": 0.2571428571428571
+    },
+    {
+      "min_width": 250,
+      "kept_n": 31,
+      "skipped_n": 29,
+      "kept_net": 356953.5,
+      "skipped_net": 893014.0,
+      "delta": -893014.0,
+      "skip_wr": 0.6896551724137931,
+      "keep_wr": 0.7419354838709677,
+      "skip_stop_rate": 0.2413793103448276
+    },
+    {
+      "min_width": 300,
+      "kept_n": 34,
+      "skipped_n": 26,
+      "kept_net": 407746.5000000001,
+      "skipped_net": 842220.9999999999,
+      "delta": -842220.9999999999,
+      "skip_wr": 0.6923076923076923,
+      "keep_wr": 0.7352941176470589,
+      "skip_stop_rate": 0.2692307692307692
+    }
+  ],
+  "by_quartile_R": [
+    {
+      "width_q": "Q1_small",
+      "n": 15.0,
+      "win_rate": 0.8,
+      "avg_net": 12298.833333333332,
+      "avg_R": 0.47564375036168727,
+      "median_R": 0.7610646387832694,
+      "avg_stop_risk": 24103.333333333332,
+      "net": 184482.49999999997,
+      "sum_R": 7.134656255425309,
+      "stop_rate": 0.2,
+      "avg_loss_R": -0.6851494928405574,
+      "avg_win_R": 0.7658420611622484
+    },
+    {
+      "width_q": "Q2",
+      "n": 16.0,
+      "win_rate": 0.6875,
+      "avg_net": 10779.437500000004,
+      "avg_R": 0.2724335368103501,
+      "median_R": 0.29097860553677346,
+      "avg_stop_risk": 39418.75,
+      "net": 172471.00000000006,
+      "sum_R": 4.3589365889656015,
+      "stop_rate": 0.125,
+      "avg_loss_R": -0.4847248910798315,
+      "avg_win_R": 0.6165964585786144
+    },
+    {
+      "width_q": "Q3",
+      "n": 14.0,
+      "win_rate": 0.6428571428571429,
+      "avg_net": 23251.535714285714,
+      "avg_R": 0.36101840612248515,
+      "median_R": 0.5591691816954975,
+      "avg_stop_risk": 71278.57142857143,
+      "net": 325521.5,
+      "sum_R": 5.054257685714792,
+      "stop_rate": 0.21428571428571427,
+      "avg_loss_R": -0.41519767914903805,
+      "avg_win_R": 0.7922495646066645
+    },
+    {
+      "width_q": "Q4_large",
+      "n": 15.0,
+      "win_rate": 0.7333333333333333,
+      "avg_net": 37832.833333333336,
+      "avg_R": 0.2238277747906789,
+      "median_R": 0.502489270386266,
+      "avg_stop_risk": 136483.33333333334,
+      "net": 567492.5,
+      "sum_R": 3.3574166218601835,
+      "stop_rate": 0.26666666666666666,
+      "avg_loss_R": -0.878420388826711,
+      "avg_win_R": 0.6246452888333661
+    }
+  ],
+  "note_mechanical": "Mid SL risk = 8 * (W/2) * $50 scales linearly with prior width. Q4 has 57% of loss dollars but similar win rate and better avg R than Q1. Skipping large widths destroys net because winners also scale with W."
+}

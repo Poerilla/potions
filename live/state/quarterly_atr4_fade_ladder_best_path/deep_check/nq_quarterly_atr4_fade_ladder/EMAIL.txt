@@ -1,0 +1,20 @@
+potions: deep-check NQ best-path second_after_upper (corrected)
+
+Hub: /home/tester/hsm/potions/live/state/quarterly_atr4_fade_ladder_best_path/deep_check/nq_quarterly_atr4_fade_ladder
+State: /home/tester/hsm/potions/live/state/quarterly_atr4_fade_ladder_best_path/states/nq_quarterly_atr4_fade_ladder
+Net=$306961.76  trades=8  full_SL=4 (50.0%)  hit_TP=50.0%  EOD=0.0%
+
+Year | net | stress | N/S | ret on start eq
+2013 | $15227.98 | $-8260.00 | 1.84 | +15.23%
+2014 | $-215.00 | $-1100.00 | -0.20 | -0.19%
+2016 | $-6969.10 | $-7300.00 | -0.95 | -6.06%
+2019 | $-496.40 | $-6250.00 | -0.08 | -0.46%
+2020 | $145574.52 | $-31430.00 | 4.63 | +135.36%
+2025 | $94307.82 | $-119067.65 | 0.79 | +37.26%
+2026 | $59531.94 | $-58760.00 | 1.01 | +17.13%
+
+Weakest N/S year: 2016 ($-6969.10 net, N/S=-0.95)
+
+End equity if $100k at year-1 start: $406961.76
+
+See YEARLY.md + ROBUSTNESS_AUDIT.md in hub.

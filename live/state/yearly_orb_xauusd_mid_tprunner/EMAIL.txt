@@ -1,0 +1,16 @@
+potions: FX metals yearly ORB exit-variant sizing sweep complete
+
+Hub: live/state/yearly_orb_xauusd_mid_tprunner
+Scenario set: xau_mid_tprunner (16 result rows across XAUUSD)
+Exit modes:
+- range_close: flatten when close back inside YOR (causal next-bar open)
+- mid_close: long flatten when close ≤ YOR mid; short when close ≥ mid
+- inside_swing_take: no range/mid flatten; SL trails to latest inside-range swing
+Rank by Net/Stress. AUDJPY ~USD @110.
+
+Best per market:
+
+XAUUSD: limit_retest 0/3/3 + mid-close (0/3/3 exit=mid_close) N/S=4.75 net=$954,865.20 stress=$-200,898.90
+  vs L_1_1_1_mid N/S=4.31 (Δ +0.44)
+
+Stance: research / not promotion-safe until PnL attribution + causal audits on leaders. Prefer N/S over max-net; check swing vs mid vs range close sources.

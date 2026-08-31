@@ -1,0 +1,22 @@
+{
+  "allowed_sides": [
+    "lower"
+  ],
+  "bars": 142657,
+  "closed_dd_usd": -5171734.955035923,
+  "intrabar_stress_dd_usd": -5227612.452326963,
+  "market": "USDJPY",
+  "max_open_units": 10,
+  "net_over_stress": -0.19423724447849783,
+  "net_usd": -1015397.0379414718,
+  "path_id": "",
+  "period": "month",
+  "profit_factor": 0.9710020862282321,
+  "risk_atr_mult": 2.0,
+  "strategy_id": "usdjpy_monthly_atr4_fade_ladder",
+  "timeframe": "1h",
+  "trade_mode": "first_only",
+  "trades": 131,
+  "units": 1310,
+  "win_rate": 0.250381679389313
+}

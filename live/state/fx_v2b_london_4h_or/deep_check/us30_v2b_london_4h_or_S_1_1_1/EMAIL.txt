@@ -1,0 +1,18 @@
+potions: deep-check US30 London 4h OR S_1_1_1
+
+Hub: /home/tester/hsm/potions/live/state/fx_v2b_london_4h_or/deep_check/us30_v2b_london_4h_or_S_1_1_1
+State: /home/tester/hsm/potions/live/state/fx_v2b_london_4h_or/states/us30_v2b_london_4h_or_S_1_1_1
+Net=$22708.25  trades=1355  full_SL=442 (32.6%)  hit_TP=42.4%  EOD=48.8%
+
+Year | net | stress | N/S | ret on start eq
+2021 | $16649.35 | $-3158.55 | 5.27 | +16.65%
+2022 | $8262.65 | $-3758.95 | 2.20 | +7.08%
+2023 | $-6374.55 | $-9838.75 | -0.65 | -5.10%
+2024 | $5403.00 | $-7097.40 | 0.76 | +4.56%
+2025 | $-1232.20 | $-7690.65 | -0.16 | -0.99%
+
+Weakest N/S year: 2023 ($-6374.55 net, N/S=-0.65)
+
+End equity if $100k at year-1 start: $122708.25
+
+See YEARLY.md + ROBUSTNESS_AUDIT.md in hub.

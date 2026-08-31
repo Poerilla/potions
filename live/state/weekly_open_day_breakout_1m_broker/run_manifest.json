@@ -1,0 +1,61 @@
+{
+  "broker_realism_config": {},
+  "causality_mode": "audit",
+  "command": [
+    "/home/tester/hsm/potions/live/weekly_open_day_breakout_1m_broker.py",
+    "--market",
+    "GBPUSD",
+    "--years",
+    "3",
+    "--force",
+    "--email"
+  ],
+  "created_at": "2026-08-27T15:56:16Z",
+  "cwd": "/home/tester/hsm/potions",
+  "data_inputs": [
+    {
+      "bytes": 2701088,
+      "exists": true,
+      "path": "/home/tester/hsm/potions/fx/gbpusd_4h.csv",
+      "sha256": "a8941548fe287f81e4c17c7fdffa4519f4a175e4df3a9b7caad67da3bd0cabc9"
+    }
+  ],
+  "extra": {
+    "dsr_trial_id": "TRL-2026-00161",
+    "markets": [
+      "GBPUSD"
+    ],
+    "years": 3.0
+  },
+  "git": {
+    "commit": "",
+    "dirty": false,
+    "repo_root": "/home/tester/hsm/potions/live/state/weekly_open_day_breakout_1m_broker",
+    "status_short": []
+  },
+  "outputs": [
+    {
+      "bytes": 395,
+      "exists": true,
+      "path": "summary.csv",
+      "sha256": "ef60ec94cc76d3a478f4e5209dcc83ca36fc60f8b4713ca5626424192f313ce1"
+    },
+    {
+      "bytes": 658,
+      "exists": true,
+      "path": "SUMMARY.md",
+      "sha256": "6d9895534674563fb250dc35209cc66af1a58936ac4ee8c43ff192108c6afd04"
+    }
+  ],
+  "python": {
+    "executable": "/home/tester/.pyenv/versions/3.8.0/bin/python",
+    "platform": "Linux-5.15.0-185-generic-x86_64-with-glibc2.34",
+    "version": "3.8.0 (default, Feb 11 2026, 11:18:58) \n[GCC 11.4.0]"
+  },
+  "run_id": "run_ad27ca8d346e",
+  "strategy_config": {
+    "entry_qty": 4,
+    "scale": "2/1/1",
+    "strategy_type": "weekly_open_day_breakout"
+  }
+}

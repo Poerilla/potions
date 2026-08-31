@@ -1,13 +1,26 @@
 {
   "accounting_mode": "lot-correct-preferred",
-  "active_jobs": [],
+  "active_jobs": [
+    {
+      "command": "/home/tester/.pyenv/versions/3.8.0/bin/python -m live.fx_index_metals_st_pmc_runner_variants --force --email --markets xauusd xagusd eurusd gbpusd usdjpy audjpy nas100",
+      "market": "xauusd",
+      "pid": 3607906,
+      "progress": "indef 135000/138745 (97%); done=2R\u219210R",
+      "status": "running",
+      "variant": "sl50_tp150_runners_2r_indef"
+    }
+  ],
   "blocks_final_judgment": [
+    "hub_status=IN_PROGRESS",
+    "1_active_jobs",
     "usd_normalization_pending:audjpy,usdjpy"
   ],
   "change_since_prior_snapshot": [
-    "= No new promoted strategy"
+    "= No new promoted strategy",
+    "! XAUUSD runner variants still active",
+    "~ status COMPLETE \u2192 IN_PROGRESS"
   ],
-  "complete": true,
+  "complete": false,
   "completed_required_jobs": 21,
   "currency_note": "JPY pairs need USD normalization before cross-market N/S boards",
   "decision_summary": {
@@ -48,8 +61,8 @@
     ]
   },
   "duplicate_sleeve_warnings": [],
-  "generated_at": "2026-08-10T01:56:59+00:00",
-  "generated_at_utc": "2026-08-10T01:56:59+00:00",
+  "generated_at": "2026-08-27T00:05:37+00:00",
+  "generated_at_utc": "2026-08-27T00:05:37+00:00",
   "has_fair_3r_usd_normalized": true,
   "hub": "live/state/fx_index_metals_st_pmc_runner_variants",
   "incomplete_jobs": [],
@@ -336,8 +349,8 @@
           "ns": 7.886,
           "rankable": false,
           "stress_dd_usd": -1162978.2,
-          "units": 851,
-          "wr_pct": 30.8
+          "units": 1334,
+          "wr_pct": 25.6
         },
         "sl50_tp150_runners_2r_10r": {
           "audit_ok": true,
@@ -353,8 +366,8 @@
           "ns": 2.047,
           "rankable": false,
           "stress_dd_usd": -4798863.8,
-          "units": 942,
-          "wr_pct": 16.8
+          "units": 1257,
+          "wr_pct": 14.6
         },
         "sl50_tp150_runners_2r_indef": {
           "audit_ok": true,
@@ -370,8 +383,8 @@
           "ns": 0.663,
           "rankable": false,
           "stress_dd_usd": -24697106.72,
-          "units": 2577,
-          "wr_pct": 19.4
+          "units": 4020,
+          "wr_pct": 16.1
         }
       }
     },
@@ -562,8 +575,8 @@
           "ns": 3.007,
           "rankable": false,
           "stress_dd_usd": -21432.16,
-          "units": 866,
-          "wr_pct": 29.0
+          "units": 1402,
+          "wr_pct": 24.2
         },
         "sl50_tp150_runners_2r_10r": {
           "audit_ok": true,
@@ -578,8 +591,8 @@
           "ns": 1.8,
           "rankable": false,
           "stress_dd_usd": -67307.73,
-          "units": 855,
-          "wr_pct": 17.1
+          "units": 1041,
+          "wr_pct": 14.7
         },
         "sl50_tp150_runners_2r_indef": {
           "audit_ok": true,
@@ -594,8 +607,8 @@
           "ns": 1.486,
           "rankable": false,
           "stress_dd_usd": -228428.6,
-          "units": 2589,
-          "wr_pct": 20.0
+          "units": 4212,
+          "wr_pct": 16.5
         }
       }
     },
@@ -786,8 +799,8 @@
           "ns": 8.119,
           "rankable": false,
           "stress_dd_usd": -13309.73,
-          "units": 1026,
-          "wr_pct": 30.6
+          "units": 1754,
+          "wr_pct": 24.5
         },
         "sl50_tp150_runners_2r_10r": {
           "audit_ok": true,
@@ -802,8 +815,8 @@
           "ns": 2.47,
           "rankable": false,
           "stress_dd_usd": -41065.88,
-          "units": 1110,
-          "wr_pct": 16.5
+          "units": 1722,
+          "wr_pct": 12.3
         },
         "sl50_tp150_runners_2r_indef": {
           "audit_ok": true,
@@ -818,8 +831,8 @@
           "ns": 0.824,
           "rankable": false,
           "stress_dd_usd": -267644.18,
-          "units": 3072,
-          "wr_pct": 18.7
+          "units": 5136,
+          "wr_pct": 15.5
         }
       }
     },
@@ -964,8 +977,8 @@
           "ns": 19.557,
           "rankable": true,
           "stress_dd_usd": -778.21,
-          "units": 477,
-          "wr_pct": 41.9
+          "units": 856,
+          "wr_pct": 27.5
         },
         "sl50_tp150_runners_2r_10r": {
           "audit_ok": true,
@@ -980,8 +993,8 @@
           "ns": 11.134,
           "rankable": false,
           "stress_dd_usd": -3059.45,
-          "units": 762,
-          "wr_pct": 26.2
+          "units": 1347,
+          "wr_pct": 15.9
         },
         "sl50_tp150_runners_2r_indef": {
           "audit_ok": true,
@@ -996,8 +1009,8 @@
           "ns": 2.404,
           "rankable": false,
           "stress_dd_usd": -22597.89,
-          "units": 1449,
-          "wr_pct": 24.9
+          "units": 2607,
+          "wr_pct": 16.5
         }
       }
     },
@@ -1204,8 +1217,8 @@
           "ns": 1.56,
           "rankable": true,
           "stress_dd_usd": -19540.0,
-          "units": 869,
-          "wr_pct": 27.5
+          "units": 1372,
+          "wr_pct": 22.4
         },
         "sl50_tp150_runners_2r_10r": {
           "audit_ok": true,
@@ -1221,8 +1234,8 @@
           "ns": 0.43,
           "rankable": false,
           "stress_dd_usd": -6519901.67,
-          "units": 870,
-          "wr_pct": 14.5
+          "units": 1086,
+          "wr_pct": 13.8
         },
         "sl50_tp150_runners_2r_indef": {
           "audit_ok": true,
@@ -1238,8 +1251,8 @@
           "ns": 0.34,
           "rankable": false,
           "stress_dd_usd": -42280000.0,
-          "units": 2544,
-          "wr_pct": 18.5
+          "units": 4062,
+          "wr_pct": 15.8
         }
       }
     },
@@ -1525,7 +1538,7 @@
           "rankable": false,
           "stress_dd_usd": -175800.0,
           "units": 69,
-          "wr_pct": 43.5
+          "wr_pct": 60.9
         }
       }
     },
@@ -1621,8 +1634,8 @@
           "ns": 0.832,
           "rankable": true,
           "stress_dd_usd": -92931.65,
-          "units": 169,
-          "wr_pct": 28.4
+          "units": 181,
+          "wr_pct": 26.5
         },
         "sl50_tp150_runners_2r_10r": {
           "audit_ok": true,
@@ -1635,8 +1648,8 @@
           "ns": 1.656,
           "rankable": true,
           "stress_dd_usd": -167943.59,
-          "units": 96,
-          "wr_pct": 17.7
+          "units": 129,
+          "wr_pct": 17.1
         },
         "sl50_tp150_runners_2r_indef": {
           "audit_ok": true,
@@ -1651,14 +1664,16 @@
           "ns": 0.496,
           "rankable": false,
           "stress_dd_usd": -2006322.0,
-          "units": 573,
-          "wr_pct": 29.7
+          "units": 624,
+          "wr_pct": 29.3
         }
       }
     }
   },
   "snapshot_schema": "potions.hub_snapshot.v1",
-  "status": "COMPLETE",
+  "status": "IN_PROGRESS",
   "total_required_jobs": 21,
-  "workers_still_running": []
+  "workers_still_running": [
+    "xauusd sl50_tp150_runners_2r_indef pid=3607906"
+  ]
 }

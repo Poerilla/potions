@@ -1,0 +1,23 @@
+{
+  "strategy_id": "xagusd_v2b_london_4h_or_S_1_1_1",
+  "symbol": "XAGUSD",
+  "family": "metal",
+  "quote": "USD",
+  "book": "S_1_1_1",
+  "clock": "london_4h_or",
+  "or_window": "03:00-07:00",
+  "or_bars": 240,
+  "sizing": "S_1_1_1",
+  "regime_days": 1573,
+  "start": "2015-01-02",
+  "units": 5457,
+  "trades": 1819,
+  "net_usd": -105401.0000000136,
+  "closed_dd_usd": -137327.00000000943,
+  "stress_dd_usd": -137354.00000000943,
+  "net_over_stress": -0.7673675320704629,
+  "win_rate": 35.110866776617186,
+  "profit_factor": 0.7408333579219379,
+  "max_open_units": 3,
+  "state_root": "live/state/fx_v2b_london_4h_or/states/xagusd_v2b_london_4h_or_S_1_1_1"
+}

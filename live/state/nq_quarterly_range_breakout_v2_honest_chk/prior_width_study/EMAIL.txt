@@ -1,0 +1,18 @@
+NQ quarterly width failure study + sidecar variants complete.
+
+Hub (honest fixed main): live/state/nq_quarterly_range_breakout_v2_honest_chk/
+Width study: .../prior_width_study/
+Canvas: nq-prior-width-sidecar.canvas.tsx
+
+WIDTH (n=80 fixed honest):
+- p50=646 p75=1734 p90=2931 pts
+- Loss $ peak in Q3 (43%), not Q4 (32%) — unlike ES
+- Q4 nets +$1.31M (75% WR); skip Q4 leaves ~$126k — do not hard-skip large W
+- Reversion Q4: touch mid 10%, far 5%, never mid 90%
+
+SIDECAR (main stays $1.439M / N/S 2.85):
+- BE carry 1-4R: sidecar +$309k → combined $1.748M / N/S 1.51  [research]
+- EOQ flatten 1-4R: sidecar -$251k → combined $1.188M           [reject]
+- BE carry 1-2R (scale 4): sidecar -$29k → combined $1.410M     [reject]
+
+Stance: do not skip large widths. Only BE-carry 4R adds dollars; stress-expensive — research not promote.

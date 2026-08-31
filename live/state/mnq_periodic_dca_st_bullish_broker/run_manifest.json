@@ -1,0 +1,98 @@
+{
+  "broker_realism_config": {
+    "fee_per_unit": 1.5,
+    "slippage_ticks": 1.0,
+    "tick": 0.25
+  },
+  "causality_mode": "audit",
+  "command": [
+    "/home/tester/hsm/potions/live/mnq_periodic_dca_broker.py",
+    "--require-st-bullish",
+    "--force",
+    "--email"
+  ],
+  "created_at": "2026-08-18T18:25:09Z",
+  "cwd": "/home/tester/hsm/potions",
+  "data_inputs": [
+    {
+      "bytes": 122541,
+      "exists": true,
+      "path": "/home/tester/hsm/potions/mnq/mnq_daily.csv",
+      "sha256": "218023cc511326d43184bbe10657ae180bb7c422663eab753bf6e26be7c579e6"
+    }
+  ],
+  "extra": {
+    "results": [
+      {
+        "atr_len": 14,
+        "atr_mult": 3.0,
+        "bars": 2132,
+        "cadence": "monthly",
+        "close_mtm_dd_usd": -475613.75,
+        "end_mark_price": 24214.5,
+        "end_ts": "2026-03-08",
+        "fee_per_unit": 1.5,
+        "final_qty": 52,
+        "gate": "st_bullish",
+        "instrument": "MNQ",
+        "intrabar_stress_dd_usd": -498683.25,
+        "n_buys": 52,
+        "n_skips": 31,
+        "net_over_stress": 1.7698559155536104,
+        "net_usd": 882597.5,
+        "point_value": 2.0,
+        "qty_per_buy": 1,
+        "require_st_bullish": true,
+        "slippage_ticks": 1.0,
+        "start_ts": "2019-05-05",
+        "strategy_id": "mnq_periodic_dca_monthly_st_bullish",
+        "units_marked": 52
+      },
+      {
+        "atr_len": 14,
+        "atr_mult": 3.0,
+        "bars": 2132,
+        "cadence": "quarterly",
+        "close_mtm_dd_usd": -155498.0,
+        "end_mark_price": 24214.5,
+        "end_ts": "2026-03-08",
+        "fee_per_unit": 1.5,
+        "final_qty": 17,
+        "gate": "st_bullish",
+        "instrument": "MNQ",
+        "intrabar_stress_dd_usd": -163009.0,
+        "n_buys": 17,
+        "n_skips": 11,
+        "net_over_stress": 1.7279736088191449,
+        "net_usd": 281675.25,
+        "point_value": 2.0,
+        "qty_per_buy": 1,
+        "require_st_bullish": true,
+        "slippage_ticks": 1.0,
+        "start_ts": "2019-05-05",
+        "strategy_id": "mnq_periodic_dca_quarterly_st_bullish",
+        "units_marked": 17
+      }
+    ]
+  },
+  "git": {
+    "commit": "",
+    "dirty": false,
+    "repo_root": "/home/tester/hsm/potions/live/state/mnq_periodic_dca_st_bullish_broker",
+    "status_short": []
+  },
+  "outputs": [],
+  "python": {
+    "executable": "/home/tester/.pyenv/versions/3.8.0/bin/python",
+    "platform": "Linux-5.15.0-185-generic-x86_64-with-glibc2.34",
+    "version": "3.8.0 (default, Feb 11 2026, 11:18:58) \n[GCC 11.4.0]"
+  },
+  "run_id": "run_988fb81d3ead",
+  "strategy_config": {
+    "atr_len": 14,
+    "atr_mult": 3.0,
+    "qty": 1,
+    "require_daily_supertrend_bullish": true,
+    "strategy_type": "periodic_dca"
+  }
+}

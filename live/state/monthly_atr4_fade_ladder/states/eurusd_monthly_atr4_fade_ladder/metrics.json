@@ -1,0 +1,22 @@
+{
+  "allowed_sides": [
+    "lower"
+  ],
+  "bars": 142988,
+  "closed_dd_usd": -182939.15732321207,
+  "intrabar_stress_dd_usd": -183879.157323212,
+  "market": "EURUSD",
+  "max_open_units": 10,
+  "net_over_stress": -0.6297274138551721,
+  "net_usd": -115793.74620301463,
+  "path_id": "",
+  "period": "month",
+  "profit_factor": 0.6715729459132801,
+  "risk_atr_mult": 2.0,
+  "strategy_id": "eurusd_monthly_atr4_fade_ladder",
+  "timeframe": "1h",
+  "trade_mode": "first_only",
+  "trades": 135,
+  "units": 1350,
+  "win_rate": 0.1851851851851852
+}

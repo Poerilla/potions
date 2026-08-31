@@ -1,0 +1,23 @@
+potions: fx_metals_cfd_intraday_condition_profile_v1 complete
+Hub: /home/tester/hsm/potions/live/state/fx_metals_cfd_intraday_condition_profile
+Books: 25
+Shortlist: 44 candidates
+Plan: /home/tester/hsm/potions/live/state/fx_metals_cfd_intraday_condition_profile/PLAN.md
+
+audjpy_monday_or | Hourly RSI bucket=rsi_45_55 | cov=13% incN/S=3.52
+audjpy_monday_or | 5m MA vs trade=ma_opposed | cov=10% incN/S=3.47
+audjpy_monday_or | Entry hour (NY)=7 | cov=5% incN/S=3.14
+audjpy_st_pmc_3r | Month=11 | cov=8% incN/S=8.87
+audjpy_st_pmc_3r | Hourly RSI vs trade=rsi_with_side | cov=20% incN/S=8.50
+audjpy_st_pmc_3r | Prior quarter type=q_break_down | cov=26% incN/S=7.22
+eurusd_monday_or | 5m MA vs trade=ma_opposed | cov=9% incN/S=11.99
+eurusd_monday_or | Month=5 | cov=9% incN/S=4.50
+eurusd_monday_or | Yearly ORB direction=yor_inside | cov=11% incN/S=3.37
+eurusd_st_pmc_3r | Day of week=Thursday | cov=20% incN/S=8.39
+eurusd_st_pmc_3r | Hourly RSI vs trade=rsi_against_side | cov=28% incN/S=5.36
+eurusd_st_pmc_3r | Yearly ORB direction=yor_inside | cov=11% incN/S=2.25
+gbpusd_monday_or | Hourly RSI bucket=rsi_45_55 | cov=14% incN/S=8.05
+gbpusd_monday_or | Entry hour (NY)=12 | cov=6% incN/S=4.53
+gbpusd_monday_or | Monthly OR direction=mor_up | cov=34% incN/S=2.04
+
+Phase 2: nulls on shortlist (see PLAN.md).

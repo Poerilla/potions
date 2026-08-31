@@ -1,0 +1,64 @@
+# CHOP20 boundary60 — Causal entry FX / metals / index CFD
+
+Generated: 2026-08-28T22:37:43
+Smoke: False
+DSR: TRL-2026-00182
+
+## Contract
+
+- Daily CHOP20 + close breakout = **signal only**.
+- `available_at` = last NY-calendar 1m (matches `fx/*_daily.csv`).
+- **close_to_globex**: first 1m with `ts > available_at`.
+- **close_to_next_rth**: NAS100/US30/SPX500 → next US cash 09:30; FX/metals → first bar next NY day.
+- Fill = entry-bar open ±1 tick adverse; stop-first; age≤60; 0.5R/1R/4R.
+- USDJPY net is **JPY** (PV=100k); use N/S for cross-market compare.
+
+## Board
+
+| market | family | mode | hp | trades | net | ccy | MTM DD | N/S | WR | causal |
+|---|---|---|---|---:|---:|---|---:|---:|---:|---:|
+| GBPUSD | fx | close_to_globex | baseline | 197 | -117526 | USD | -159947 | -0.73 | 20% | 197/197 |
+| GBPUSD | fx | close_to_next_rth | baseline | 197 | -117526 | USD | -159947 | -0.73 | 20% | 197/197 |
+| NAS100 | cfd | close_to_globex | hp_atr_q_atr_q4 | 25 | +10576 | USD | -4662 | 2.27 | 40% | 25/25 |
+| NAS100 | cfd | close_to_globex | hp_dow_Thursday | 44 | +15796 | USD | -4728 | 3.34 | 32% | 44/44 |
+| NAS100 | cfd | close_to_globex | hp_dow_Wednesday | 41 | +14074 | USD | -6660 | 2.11 | 39% | 41/41 |
+| NAS100 | cfd | close_to_globex | hp_ma5_align_ma_aligned | 64 | +12773 | USD | -6301 | 2.03 | 28% | 64/64 |
+| NAS100 | cfd | close_to_globex | hp_rsi_bucket_rsi_gt70 | 20 | +23478 | USD | -2453 | 9.57 | 60% | 20/20 |
+| NAS100 | cfd | close_to_globex | hp_week_of_month_3 | 33 | +10472 | USD | -6311 | 1.66 | 36% | 33/33 |
+| SPX500 | cfd | close_to_globex | baseline | 56 | +1812 | USD | -1544 | 1.17 | 32% | 56/56 |
+| SPX500 | cfd | close_to_next_rth | baseline | 53 | -392 | USD | -3236 | -0.12 | 42% | 53/53 |
+| US30 | cfd | close_to_globex | baseline | 70 | -18334 | USD | -22746 | -0.81 | 17% | 70/70 |
+| US30 | cfd | close_to_next_rth | baseline | 64 | -27885 | USD | -31261 | -0.89 | 23% | 64/64 |
+| USDJPY | fx | close_to_globex | hp_atr_q_atr_q4 | 48 | +4909934 | JPY | -4045833 | 1.21 | 40% | 48/48 |
+| USDJPY | fx | close_to_globex | hp_dow_Friday | 99 | +5070404 | JPY | -3386169 | 1.50 | 34% | 99/99 |
+| USDJPY | fx | close_to_globex | hp_hour_ny_22 | 45 | +2682997 | JPY | -2233942 | 1.20 | 31% | 45/45 |
+| USDJPY | fx | close_to_globex | hp_ma5_align_ma_opposed | 118 | +4084669 | JPY | -4276201 | 0.96 | 30% | 118/118 |
+| USDJPY | fx | close_to_globex | hp_obv_align_obv_opposed | 106 | +2557223 | JPY | -4110256 | 0.62 | 30% | 106/106 |
+| USDJPY | fx | close_to_globex | hp_rsi_align_rsi_neutral | 105 | +2597027 | JPY | -5193918 | 0.50 | 28% | 105/105 |
+| USDJPY | fx | close_to_globex | hp_rsi_bucket_rsi_45_55 | 105 | +2597027 | JPY | -5193918 | 0.50 | 28% | 105/105 |
+| USDJPY | fx | close_to_globex | hp_rsi_bucket_rsi_gt70 | 52 | +1949366 | JPY | -3740892 | 0.52 | 35% | 52/52 |
+| USDJPY | fx | close_to_globex | hp_week_half_align_week_aligned | 72 | +3566526 | JPY | -3004241 | 1.19 | 38% | 72/72 |
+| USDJPY | fx | close_to_globex | hp_week_of_month_2 | 71 | +5700430 | JPY | -4177734 | 1.36 | 41% | 71/71 |
+| XAGUSD | metal | close_to_globex | baseline | 208 | +7758 | USD | -50926 | 0.15 | 21% | 208/208 |
+| XAGUSD | metal | close_to_next_rth | baseline | 208 | +7758 | USD | -50926 | 0.15 | 21% | 208/208 |
+| XAUUSD | metal | close_to_globex | hp_atr_q_atr_q3 | 47 | +195035 | USD | -58945 | 3.31 | 36% | 47/47 |
+| XAUUSD | metal | close_to_globex | hp_day_half_align_day_aligned | 86 | +181939 | USD | -140344 | 1.30 | 36% | 86/86 |
+| XAUUSD | metal | close_to_globex | hp_ma5_align_ma_aligned | 91 | +380136 | USD | -104655 | 3.63 | 38% | 91/91 |
+| XAUUSD | metal | close_to_globex | hp_ma5_cross_align_cross_opposed | 33 | -34543 | USD | -123082 | -0.28 | 39% | 33/33 |
+| XAUUSD | metal | close_to_globex | hp_rsi_align_rsi_against_side | 75 | +225865 | USD | -117850 | 1.92 | 41% | 75/75 |
+| XAUUSD | metal | close_to_globex | hp_rsi_bucket_rsi_gt70 | 47 | +320477 | USD | -91160 | 3.52 | 45% | 47/47 |
+| XAUUSD | metal | close_to_globex | hp_week_of_month_1 | 64 | +343834 | USD | -83940 | 4.10 | 47% | 64/64 |
+| XAUUSD | metal | close_to_globex | hp_week_of_month_2 | 64 | +135372 | USD | -155902 | 0.87 | 39% | 64/64 |
+
+## Stance
+
+- **US30 baseline globex**: net=-18334 USD N/S=-0.81 n=70 — weak/reject; timing PASS
+- **GBPUSD baseline globex**: net=-117526 USD N/S=-0.73 n=197 — weak/reject; timing PASS
+- **XAGUSD baseline globex**: net=+7758 USD N/S=0.15 n=208 — weak/reject; timing PASS
+- **SPX500 baseline globex**: net=+1812 USD N/S=1.17 n=56 — weak/reject; timing PASS
+
+- Promising for HA mill / HP re-sim: (none)
+- Date-window post filter: see `DATE_WINDOW.md` before re-running trimmed starts.
+- StrategyPlugin port: only after one market clears causal baseline + window stance.
+
+Hub: `/home/tester/hsm/potions/live/state/chop20_dynamic_range_causal_entry_fx_metals`

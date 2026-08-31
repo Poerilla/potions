@@ -478,6 +478,51 @@ def test_oanda_cancel_resolves_remote_id_from_pending_snapshot():
         broker.cancel_order(order.broker_order_id, reason="regime_off")
         assert "555" in client.cancelled
         assert broker.reconcile_orders() == []
+        events = (Path(tmp.name) / "events" / "oanda_order_events.jsonl").read_text(encoding="utf-8")
+        assert "cancel_requested" in events
+        assert "remote_ack_before_local" in events
+        assert "local_committed_after_remote" in events
+    finally:
+        tmp.cleanup()
+
+
+def test_oanda_cancel_keeps_local_open_when_remote_fails():
+    """Local must not succeed if OANDA cancel throws — otherwise orphans form."""
+    tmp, store = make_store()
+    try:
+        config = OandaConfig(account_id="101-002-39860312-001", instrument_map={"US30": "US30_USD"})
+        client = _FakeOandaClient()
+        broker = OandaBroker(store, config=config, client=client, authority_strategy_ids=["us30_st"])
+        intent = OrderIntent.create(
+            strategy_id="us30_st",
+            trade_id="t1",
+            instrument="US30",
+            account_mode="paper",
+            side="buy",
+            order_type="limit",
+            quantity=1,
+            limit_price=53000.0,
+            reason="entry",
+            requires_verification=False,
+        )
+        order = broker.submit_order_intent(intent)
+        remote_id = broker._oanda_order_ids[order.broker_order_id]
+
+        def _boom(order_id, account_id=None):
+            raise RuntimeError("oanda cancel denied")
+
+        client.cancel_order = _boom  # type: ignore[method-assign]
+        try:
+            broker.cancel_order(order.broker_order_id, reason="regime_off")
+            assert False, "expected remote cancel failure to raise"
+        except RuntimeError as exc:
+            assert "denied" in str(exc)
+        assert order.broker_order_id in broker._active_order_ids
+        assert broker._orders_cache[order.broker_order_id].status != "cancelled"
+        events = (Path(tmp.name) / "events" / "oanda_order_events.jsonl").read_text(encoding="utf-8")
+        assert "remote_before_local" in events
+        assert "local_still_open" in events
+        assert remote_id
     finally:
         tmp.cleanup()
 

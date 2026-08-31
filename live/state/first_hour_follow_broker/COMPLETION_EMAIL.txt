@@ -1,0 +1,39 @@
+COMPLETION REPORT
+status: COMPLETE
+generated_at_utc: 2026-08-19T04:29:05+00:00
+completed_required_jobs: 0 / 0
+accounting_mode: lot-correct-preferred
+
+CHANGE SINCE PRIOR SNAPSHOT
++ Initial snapshot (no prior)
+
+DECISION STATE
+INCOMPLETE (12):  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  
+
+BLOCKS FINAL JUDGMENT
+- none
+
+PORTFOLIO ACTION REQUIRED: no
+
+Active jobs: 0
+
+COMPARABLE CORE BOARD (rankable only if all gates pass)
+(empty — no row passed eligibility gates)
+
+PENDING / NON-COMPARABLE
+-   [INCOMPLETE]: variant_incomplete_or_missing_audit; reachable_stress_missing
+-   [INCOMPLETE]: variant_incomplete_or_missing_audit; reachable_stress_missing
+-   [INCOMPLETE]: variant_incomplete_or_missing_audit; reachable_stress_missing
+-   [INCOMPLETE]: variant_incomplete_or_missing_audit; reachable_stress_missing
+-   [INCOMPLETE]: variant_incomplete_or_missing_audit; reachable_stress_missing
+-   [INCOMPLETE]: variant_incomplete_or_missing_audit; reachable_stress_missing
+-   [INCOMPLETE]: variant_incomplete_or_missing_audit; reachable_stress_missing
+-   [INCOMPLETE]: variant_incomplete_or_missing_audit; reachable_stress_missing
+-   [INCOMPLETE]: variant_incomplete_or_missing_audit; reachable_stress_missing
+-   [INCOMPLETE]: variant_incomplete_or_missing_audit; reachable_stress_missing
+
+Hub: live/state/first_hour_follow_broker
+Report: COMPLETION_REPORT.md
+Snapshot: LATEST_SNAPSHOT.json
+
+Note: PID/host/command live in hub status JSON only.

@@ -1,0 +1,360 @@
+{
+  "concentration": {
+    "n_trades": 68,
+    "n_winners": 44,
+    "n_losers": 24,
+    "net": 1484050.0,
+    "gross_wins": 2763636.0,
+    "gross_losses": -1279586.0,
+    "top1_pct_of_wins": 10.500080328957939,
+    "top5_pct_of_wins": 37.616893107485936,
+    "top10_pct_of_wins": 57.12221146344888,
+    "worst1_pct_of_losses": 20.775782167044653,
+    "worst5_pct_of_losses": 62.65151384901054,
+    "median_win": 36420.50000000001,
+    "median_loss": -25435.000000000004,
+    "mean_win": 62809.90909090909,
+    "mean_loss": -53316.083333333336
+  },
+  "counterfactual": {
+    "v2_broker_net": 1484050.0,
+    "pandas_allin_net": 1455738.0,
+    "pandas_allin_vs_broker": -28312.0,
+    "accum_2per_day_5d_net": 1146103.0,
+    "accum_2per_day_5d_avg_qty": 5.382352941176471,
+    "accum_2per_day_5d_median_qty": 6.0,
+    "accum_2per_day_5d_vs_allin": -309635.0,
+    "accum_2per_day_5d_vs_broker": -337947.0,
+    "accum_1per_day_5d_net": 643132.9999999999,
+    "accum_1per_day_5d_avg_qty": 2.6911764705882355,
+    "accum_1per_day_10d_net": 1345096.0,
+    "accum_1per_day_10d_avg_qty": 6.161764705882353,
+    "accum_1per_day_10d_vs_allin": -110642.0,
+    "no_fill_2x5": 6,
+    "full10_2x5": 6,
+    "accum2x5_median_entry_improvement_pts": 5.1666666666667425,
+    "accum2x5_mean_entry_improvement_pts": 12.781250000000062,
+    "trades_accum2_better": 30,
+    "trades_accum2_worse": 38
+  },
+  "by_exit": [
+    {
+      "exit_bucket": "scaled_then_eoq",
+      "trades": 28,
+      "net": 1914576.0,
+      "avg": 68377.71428571429
+    },
+    {
+      "exit_bucket": "scaled_full",
+      "trades": 10,
+      "net": 537720.0,
+      "avg": 53772.0
+    },
+    {
+      "exit_bucket": "scaled_then_stop",
+      "trades": 7,
+      "net": 74805.99999999994,
+      "avg": 10686.57142857142
+    },
+    {
+      "exit_bucket": "eoq_only",
+      "trades": 13,
+      "net": -173672.0,
+      "avg": -13359.384615384615
+    },
+    {
+      "exit_bucket": "stop_only",
+      "trades": 10,
+      "net": -869380.0,
+      "avg": -86938.0
+    }
+  ],
+  "by_side": [
+    {
+      "side": "long",
+      "trades": 54,
+      "net": 1462088.0,
+      "avg": 27075.703703703704
+    },
+    {
+      "side": "short",
+      "trades": 14,
+      "net": 21961.99999999997,
+      "avg": 1568.7142857142837
+    }
+  ],
+  "by_reason": [
+    {
+      "reason": "flatten",
+      "fills": 41,
+      "qty": 220,
+      "net": 696630.0
+    },
+    {
+      "reason": "tp2",
+      "fills": 34,
+      "qty": 68,
+      "net": 649678.0
+    },
+    {
+      "reason": "tp3",
+      "fills": 21,
+      "qty": 42,
+      "net": 518270.9999999999
+    },
+    {
+      "reason": "tp1",
+      "fills": 45,
+      "qty": 90,
+      "net": 480408.99999999994
+    },
+    {
+      "reason": "tp4",
+      "fills": 10,
+      "qty": 20,
+      "net": 215154.0
+    },
+    {
+      "reason": "stop",
+      "fills": 17,
+      "qty": 104,
+      "net": -1075276.0
+    }
+  ],
+  "top5": [
+    {
+      "entry_ts": "2025-07-04",
+      "side": "long",
+      "net_usd": 290184.0,
+      "exit_bucket": "scaled_then_eoq",
+      "quarter": "2025Q3"
+    },
+    {
+      "entry_ts": "2023-04-30",
+      "side": "long",
+      "net_usd": 204816.0,
+      "exit_bucket": "scaled_full",
+      "quarter": "2023Q2"
+    },
+    {
+      "entry_ts": "2022-05-01",
+      "side": "short",
+      "net_usd": 189752.0,
+      "exit_bucket": "scaled_then_eoq",
+      "quarter": "2022Q2"
+    },
+    {
+      "entry_ts": "2020-07-03",
+      "side": "long",
+      "net_usd": 188968.0,
+      "exit_bucket": "scaled_then_eoq",
+      "quarter": "2020Q3"
+    },
+    {
+      "entry_ts": "2024-05-16",
+      "side": "long",
+      "net_usd": 165874.00000000003,
+      "exit_bucket": "scaled_then_eoq",
+      "quarter": "2024Q2"
+    }
+  ],
+  "worst5": [
+    {
+      "entry_ts": "2024-07-04",
+      "side": "long",
+      "net_usd": -265844.0,
+      "exit_bucket": "stop_only",
+      "quarter": "2024Q3"
+    },
+    {
+      "entry_ts": "2023-10-26",
+      "side": "short",
+      "net_usd": -156004.0,
+      "exit_bucket": "stop_only",
+      "quarter": "2023Q4"
+    },
+    {
+      "entry_ts": "2021-04-14",
+      "side": "long",
+      "net_usd": -146204.0,
+      "exit_bucket": "stop_only",
+      "quarter": "2021Q2"
+    },
+    {
+      "entry_ts": "2023-07-14",
+      "side": "long",
+      "net_usd": -121544.0,
+      "exit_bucket": "eoq_only",
+      "quarter": "2023Q3"
+    },
+    {
+      "entry_ts": "2020-03-03",
+      "side": "long",
+      "net_usd": -112084.0,
+      "exit_bucket": "stop_only",
+      "quarter": "2020Q1"
+    }
+  ],
+  "by_year": [
+    {
+      "year": 2010,
+      "trades": 3,
+      "net": 10904.000000000004,
+      "wins": 2,
+      "losses": 1,
+      "best": 22572.000000000004,
+      "worst": -18444.0,
+      "pct_of_total": 0.7347461338903679
+    },
+    {
+      "year": 2011,
+      "trades": 4,
+      "net": -16512.000000000007,
+      "wins": 2,
+      "losses": 2,
+      "best": 13507.999999999987,
+      "worst": -18244.0,
+      "pct_of_total": -1.112630976045282
+    },
+    {
+      "year": 2012,
+      "trades": 2,
+      "net": 23512.0,
+      "wins": 1,
+      "losses": 1,
+      "best": 29816.0,
+      "worst": -6304.0,
+      "pct_of_total": 1.5843131969947104
+    },
+    {
+      "year": 2013,
+      "trades": 4,
+      "net": 45152.000000000015,
+      "wins": 3,
+      "losses": 1,
+      "best": 27756.0,
+      "worst": -15524.0,
+      "pct_of_total": 3.0424850914726607
+    },
+    {
+      "year": 2014,
+      "trades": 5,
+      "net": 58754.0,
+      "wins": 4,
+      "losses": 1,
+      "best": 19420.0,
+      "worst": -6200.000000000004,
+      "pct_of_total": 3.959031029951821
+    },
+    {
+      "year": 2015,
+      "trades": 5,
+      "net": -35702.00000000001,
+      "wins": 1,
+      "losses": 4,
+      "best": 23456.0,
+      "worst": -22606.000000000007,
+      "pct_of_total": -2.4057140931909307
+    },
+    {
+      "year": 2016,
+      "trades": 4,
+      "net": -55147.999999999985,
+      "wins": 1,
+      "losses": 3,
+      "best": 31510.00000000001,
+      "worst": -42850.0,
+      "pct_of_total": -3.7160473029884424
+    },
+    {
+      "year": 2017,
+      "trades": 4,
+      "net": 117682.0,
+      "wins": 4,
+      "losses": 0,
+      "best": 36736.0,
+      "worst": 11456.0,
+      "pct_of_total": 7.929786732252956
+    },
+    {
+      "year": 2018,
+      "trades": 5,
+      "net": 132387.0,
+      "wins": 4,
+      "losses": 1,
+      "best": 56736.0,
+      "worst": -28264.0,
+      "pct_of_total": 8.920656312118863
+    },
+    {
+      "year": 2019,
+      "trades": 4,
+      "net": -12600.000000000015,
+      "wins": 2,
+      "losses": 2,
+      "best": 66156.0,
+      "worst": -76844.0,
+      "pct_of_total": -0.849027997708973
+    },
+    {
+      "year": 2020,
+      "trades": 6,
+      "net": 214151.00000000003,
+      "wins": 4,
+      "losses": 2,
+      "best": 188968.0,
+      "worst": -112084.0,
+      "pct_of_total": 14.430174185505882
+    },
+    {
+      "year": 2021,
+      "trades": 5,
+      "net": 142324.0,
+      "wins": 4,
+      "losses": 1,
+      "best": 81291.99999999999,
+      "worst": -146204.0,
+      "pct_of_total": 9.590242916343788
+    },
+    {
+      "year": 2022,
+      "trades": 3,
+      "net": 177538.0,
+      "wins": 2,
+      "losses": 1,
+      "best": 189752.0,
+      "worst": -17424.0,
+      "pct_of_total": 11.963074020417102
+    },
+    {
+      "year": 2023,
+      "trades": 5,
+      "net": 135326.0,
+      "wins": 3,
+      "losses": 2,
+      "best": 204816.0,
+      "worst": -156004.0,
+      "pct_of_total": 9.118695461743203
+    },
+    {
+      "year": 2024,
+      "trades": 4,
+      "net": 86643.99999999997,
+      "wins": 3,
+      "losses": 1,
+      "best": 165874.00000000003,
+      "worst": -265844.0,
+      "pct_of_total": 5.838347764563186
+    },
+    {
+      "year": 2025,
+      "trades": 5,
+      "net": 459637.9999999999,
+      "wins": 4,
+      "losses": 1,
+      "best": 290184.0,
+      "worst": -54064.0,
+      "pct_of_total": 30.971867524679077
+    }
+  ]
+}

@@ -1,0 +1,72 @@
+{
+  "broker_realism_config": {},
+  "causality_mode": "audit",
+  "command": [
+    "/home/tester/hsm/potions/live/weekly_open_day_breakout_variants_broker.py",
+    "--output-root",
+    "/home/tester/hsm/potions/live/state/weekly_open_day_breakout_od_half_runner_bull_hivol",
+    "--market",
+    "NAS100",
+    "--variant",
+    "od_half_eow_bull_hivol",
+    "--variant",
+    "od_half_3r_bull_hivol",
+    "--variant",
+    "od_half_eow_bull_hivol_nohol",
+    "--variant",
+    "od_half_3r_bull_hivol_nohol",
+    "--years",
+    "10",
+    "--force",
+    "--email"
+  ],
+  "created_at": "2026-08-27T21:30:45Z",
+  "cwd": "/home/tester/hsm/potions",
+  "data_inputs": [
+    {
+      "bytes": 859049,
+      "exists": true,
+      "path": "/home/tester/hsm/potions/fx/nas100_4h.csv",
+      "sha256": "f49d40bf21265556773695c011381a50554a043808d2996d43e35fe82845232e"
+    }
+  ],
+  "extra": {
+    "dsr_trial_id": "TRL-2026-00165",
+    "skipped": []
+  },
+  "git": {
+    "commit": "",
+    "dirty": false,
+    "repo_root": "/home/tester/hsm/potions/live/state/weekly_open_day_breakout_od_half_runner_bull_hivol",
+    "status_short": []
+  },
+  "outputs": [
+    {
+      "bytes": 1398,
+      "exists": true,
+      "path": "summary.csv",
+      "sha256": "bb82c0c6966126584706b10e21b7f185683fea22970823519644eec996270e8f"
+    },
+    {
+      "bytes": 746,
+      "exists": true,
+      "path": "SUMMARY.md",
+      "sha256": "9c2e3ce2f6d4ffaee113fe004a5e035cc0d3310e581935370f6b6f223907e673"
+    }
+  ],
+  "python": {
+    "executable": "/home/tester/.pyenv/versions/3.8.0/bin/python",
+    "platform": "Linux-5.15.0-185-generic-x86_64-with-glibc2.34",
+    "version": "3.8.0 (default, Feb 11 2026, 11:18:58) \n[GCC 11.4.0]"
+  },
+  "run_id": "run_d2a387b92afb",
+  "strategy_config": {
+    "strategy_type": "weekly_open_day_breakout",
+    "variants": [
+      "od_half_eow_bull_hivol",
+      "od_half_3r_bull_hivol",
+      "od_half_eow_bull_hivol_nohol",
+      "od_half_3r_bull_hivol_nohol"
+    ]
+  }
+}

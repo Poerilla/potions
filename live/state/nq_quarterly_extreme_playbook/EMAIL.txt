@@ -1,0 +1,13 @@
+NQ quarterly extreme playbook backtest complete (with failure_fade reclaim).
+
+Hub: /home/tester/hsm/potions/live/state/nq_quarterly_extreme_playbook
+Filled legs: 67
+Net: $284890.50 | Win%: 25.4 | PF: 1.45 | MaxDD: $-178130.00 | N/S: 1.60
+
+failure_fade: n=22 net=$59461.50 win=27.3% PF=1.39
+failure_fade_reclaim: n=12 net=$183888.50 win=41.7% PF=3.02
+on_level_cont: n=7 net=$5048.50 win=28.6% PF=1.16
+close_through_cont: n=26 net=$36492.00 win=15.4% PF=1.10
+failure_fade sequence: n=22 net=$243350.00 win=40.9% PF=2.76 N/S=2.78
+
+SUMMARY: /home/tester/hsm/potions/live/state/nq_quarterly_extreme_playbook/SUMMARY.md

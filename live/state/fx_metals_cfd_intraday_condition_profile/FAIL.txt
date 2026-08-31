@@ -1,0 +1,12 @@
+Traceback (most recent call last):
+  File "/home/tester/hsm/potions/live/fx_metals_cfd_intraday_condition_profile_v1.py", line 392, in main
+    run(books, email=bool(args.email), min_n=int(args.min_n))
+  File "/home/tester/hsm/potions/live/fx_metals_cfd_intraday_condition_profile_v1.py", line 269, in run
+    camp = load_campaigns(book)
+  File "/home/tester/hsm/potions/live/intraday_condition_profile.py", line 172, in load_campaigns
+    out = pd.DataFrame(rows).sort_values("entry_ts").reset_index(drop=True)
+  File "/home/tester/.pyenv/versions/3.8.0/lib/python3.8/site-packages/pandas/core/frame.py", line 6758, in sort_values
+    k = self._get_label_or_level_values(by, axis=axis)
+  File "/home/tester/.pyenv/versions/3.8.0/lib/python3.8/site-packages/pandas/core/generic.py", line 1778, in _get_label_or_level_values
+    raise KeyError(key)
+KeyError: 'entry_ts'

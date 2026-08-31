@@ -1,0 +1,26 @@
+{
+  "allowed_sides": [
+    "lower"
+  ],
+  "audit_tf": "4h",
+  "bars_1m": 7768796,
+  "bars_4h": 36439,
+  "baseline_4h_net_usd": 251054.422314444,
+  "baseline_4h_ns": 4.078823152110728,
+  "closed_dd_usd": -100866.47275902935,
+  "feed_tf": "1m",
+  "intrabar_stress_dd_usd": -106446.47275902928,
+  "market": "XAUUSD",
+  "max_open_units": 10,
+  "net_over_stress": 3.1634027458403287,
+  "net_usd": 336733.06421093096,
+  "path_id": "nan",
+  "profit_factor": 3.4600546933210596,
+  "risk_atr_mult": 2.0,
+  "stance": "weak \u2014 1m degraded vs 4h",
+  "strategy_id": "xauusd_quarterly_atr4_fade_ladder",
+  "trade_mode": "first_only",
+  "trades": 26,
+  "units": 260,
+  "win_rate": 0.4461538461538462
+}

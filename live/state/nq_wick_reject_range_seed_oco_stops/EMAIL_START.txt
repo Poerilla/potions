@@ -1,0 +1,4 @@
+potions: NQ WICK_REJECT range-seed OCO stops STARTED
+
+Hub: /home/tester/hsm/potions/live/state/nq_wick_reject_range_seed_oco_stops
+OCO buy-stop@high / sell-stop@low; same exits as limit-retest.

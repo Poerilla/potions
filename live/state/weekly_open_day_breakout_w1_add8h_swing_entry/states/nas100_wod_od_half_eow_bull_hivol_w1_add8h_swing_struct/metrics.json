@@ -1,0 +1,21 @@
+{
+  "bars_1m": 3077535,
+  "bars_4h": 13767,
+  "closed_dd_usd": -4451.550000000007,
+  "dsr_trial": "TRL-2026-00165",
+  "feed_tf": "1m",
+  "intrabar_stress_dd_usd": -4492.150000000014,
+  "label": "swing-close entry; structural OD breakout; week-1; +1/8h",
+  "market": "NAS100",
+  "max_open_units": 9,
+  "net_over_stress": 0.9682112128936348,
+  "net_usd": 4349.350000000155,
+  "profit_factor": 1.3834120841340807,
+  "signal_tf": "4h",
+  "stance": "weak \u2014 needs tune",
+  "strategy_id": "nas100_wod_od_half_eow_bull_hivol_w1_add8h_swing_struct",
+  "trades": 34,
+  "units": 182,
+  "variant": "od_half_eow_bull_hivol_w1_add8h_swing_struct",
+  "win_rate": 0.521978021978022
+}

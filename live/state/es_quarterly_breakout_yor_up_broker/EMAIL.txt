@@ -1,0 +1,13 @@
+ES quarterly breakout — Yearly ORB up causal broker-like complete.
+
+HP coupon: Yearly ORB up n=33 +4.1pp +$1.4k NOT VALIDATED (ΔN/S +0.15, p_master 1.00)
+
+Hub: /home/tester/hsm/potions/live/state/es_quarterly_breakout_yor_up_broker
+Gate: require_yor_dirs=yor_up (plugin, causal)
+
+Baseline: trades=60 net=$1258367.50 stress=$-225184.00 N/S=5.59
+yor_up gated: trades=40 net=$939517.50 stress=$-225184.00 N/S=4.17
+
+Stance: research — plugin-gated yor_up book; HP size-up stays NOT VALIDATED
+
+COMPARE: /home/tester/hsm/potions/live/state/es_quarterly_breakout_yor_up_broker/COMPARE.md

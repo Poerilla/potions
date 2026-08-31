@@ -1,0 +1,44 @@
+# V2B Clean-Break Pyramid Trail Top-3 CFD Portability
+
+STATUS: CFD PORTABILITY (Engine + PaperBroker, 5m RTH index CFDs)
+
+## Rules
+- Base: bullish v2b clean break (OR 09:30–09:45, stop @ OR high + 2 ticks, clean close).
+- Pyramid: +1 on eligible outside 5m candles (low > OR high), max qty per variant.
+- Cadence: every 1 / every 2 eligible bars; or **opposing** (bearish close < open) outside bars.
+- Trail: when bar high ≥ entry + 0.6×(2R−entry), park stop at **entry (BE)** + rest 2R target.
+- Soft exit: 5m close ≤ OR high still flattens; EOD 15:55.
+- Control variant: max8 every-1 outside, no trail (pyramid v1 twin).
+- CFD economics: tick 0.1, $1/pt, fee $1.50/unit (NAS100/US30/SPX500).
+
+## Variant board (combined NAS100,US30,SPX500, ranked by N/S)
+
+| Rank | Variant | Net | Worst stress | N/S | Trades | Units | MaxU |
+|---:|---|---:|---:|---:|---:|---:|---:|
+| 1 | trail06_m8_e2_out_be | $29,950.80 | $-8,555.30 | 3.50 | 3778 | 8949 | 8 |
+| 2 | trail06_m4_e1_opp_be | $19,272.80 | $-6,314.20 | 3.05 | 3778 | 6686 | 4 |
+| 3 | trail06_m4_e2_out_be | $18,003.00 | $-6,400.20 | 2.81 | 3778 | 6655 | 4 |
+
+## Per-market detail
+
+| Market | Variant | Sessions | Trades | Units | Net | Stress DD | MaxU | N/S | Win% | PF |
+|---|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+| NAS100 | trail06_m8_e2_out_be | 2277 | 1166 | 2848 | $18,868.80 | $-3,975.10 | 8 | 4.75 | 34.4% | 1.44 |
+| NAS100 | trail06_m4_e2_out_be | 2277 | 1166 | 2077 | $11,331.50 | $-1,960.90 | 4 | 5.78 | 27.2% | 1.39 |
+| NAS100 | trail06_m4_e1_opp_be | 2277 | 1166 | 2081 | $10,844.00 | $-2,087.40 | 4 | 5.19 | 25.1% | 1.39 |
+| US30 | trail06_m8_e2_out_be | 2246 | 1095 | 2568 | $14,840.20 | $-8,555.30 | 8 | 1.73 | 31.0% | 1.21 |
+| US30 | trail06_m4_e2_out_be | 2246 | 1095 | 1909 | $9,604.40 | $-6,400.20 | 4 | 1.50 | 23.8% | 1.20 |
+| US30 | trail06_m4_e1_opp_be | 2246 | 1095 | 1916 | $11,177.50 | $-6,314.20 | 4 | 1.77 | 22.0% | 1.24 |
+| SPX500 | trail06_m8_e2_out_be | 3006 | 1517 | 3533 | $-3,758.20 | $-3,781.80 | 8 | -0.99 | 29.4% | 0.76 |
+| SPX500 | trail06_m4_e2_out_be | 3006 | 1517 | 2669 | $-2,932.90 | $-2,940.00 | 4 | -1.00 | 23.8% | 0.74 |
+| SPX500 | trail06_m4_e1_opp_be | 3006 | 1517 | 2689 | $-2,748.70 | $-2,899.30 | 4 | -0.95 | 22.5% | 0.75 |
+
+**Best:** `trail06_m8_e2_out_be` combined N/S=3.50 net=$+29951
+
+**Stance:** research — best=trail06_m8_e2_out_be combined N/S=3.50 net=$+29951 on NAS100,US30,SPX500; compare to NQ+MNQ trail top-3 (best 8.48 N/S) and pyramid v1 (~4.90)
+
+Hub: `/home/tester/hsm/potions/live/state/v2b_clean_break_pyramid_trail_cfd_top3_v1`
+DSR: `TRL-2026-00196`
+smoke=False
+
+Refs: NQ+MNQ trail top-3 hub `v2b_clean_break_pyramid_trail_top3_v1`; pyramid v1 `v2b_clean_break_pyramid_outside_v1`; parent sweep `v2b_clean_break_pyramid_trail_sizing_v1`.

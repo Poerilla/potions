@@ -1,0 +1,35 @@
+{
+  "hp_slug": "open1h_close_limit_3r",
+  "ok": true,
+  "results": [
+    {
+      "net_over_stress": 1.9183532780655084,
+      "net_usd": 81395.25,
+      "slug": "open30_close_limit_3r",
+      "trades": 3904,
+      "win_rate": 0.34298155737704916
+    },
+    {
+      "net_over_stress": 3.9064869190186213,
+      "net_usd": 144018.5,
+      "slug": "open1h_close_limit_3r",
+      "trades": 3906,
+      "win_rate": 0.3845366103430619
+    },
+    {
+      "net_over_stress": 5.263644262548012,
+      "net_usd": 162050.5,
+      "slug": "open30_market_close_3r",
+      "trades": 3958,
+      "win_rate": 0.32238504295098536
+    },
+    {
+      "net_over_stress": 5.5723248628539,
+      "net_usd": 176743.0,
+      "slug": "open1h_market_close_3r",
+      "trades": 3943,
+      "win_rate": 0.3720517372558965
+    }
+  ],
+  "stance": "WORKS \u2014 best limit book N/S 3.91; proceed to HP analysis"
+}

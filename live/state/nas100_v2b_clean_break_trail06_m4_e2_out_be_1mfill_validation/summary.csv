@@ -1,0 +1,2 @@
+instrument,strategy_id,variant,sessions,trades,units,net_usd,closed_dd_usd,intrabar_stress_dd_usd,max_open_units,win_rate,profit_factor,ns,feature_snapshots,causality_violations,non_moc_fills_at_or_before_activation,market_close_fills_before_activation,entry_fills_at_or_before_activation,replay_start,replay_end
+NAS100,nas100_v2b_clean_break_trail06_m4_e2_out_be_1mfill,trail06_m4_e2_out_be,2277,1166,2070,12252.95,-1893.85,-1965.85,4,27.1014,1.427779,6.232902,22558,0,0,0,0,2016-11-15T09:30:00-05:00,2025-09-30T15:59:00-04:00

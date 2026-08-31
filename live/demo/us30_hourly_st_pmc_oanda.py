@@ -1,7 +1,8 @@
 """US30 hourly ST+PMC sl50_tp150_3r — OANDA practice demo.
 
-Fair-control 1mfill lot-correct N/S ≈ 29.4. Artifacts: ``live/demo/us30_hourly_st_pmc_sl50_tp150_3r_oanda/``.
-Streams practice quotes → 1m → 1h; routes practice orders via ``OandaBroker``.
+Completed-hour causal replay N/S -0.21; keep as diagnostic/control only.
+Artifacts: ``live/demo/us30_hourly_st_pmc_sl50_tp150_3r_oanda/``.
+Streams practice quotes → 1m → completed 1h; routes practice orders via ``OandaBroker``.
 """
 
 from __future__ import annotations

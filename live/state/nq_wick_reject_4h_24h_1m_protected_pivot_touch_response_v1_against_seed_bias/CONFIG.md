@@ -1,0 +1,7 @@
+# CONFIG — nq_wick_reject_4h_24h_1m_protected_pivot_touch_response_v1_against_seed_bias
+
+parent=nq_wick_reject_4h_24h_1m_protected_pivot_touch_response_v1
+mode=AGAINST_SEED_BIAS
+favorable=opposite(seed_direction)
+events=frozen_parent_windows
+

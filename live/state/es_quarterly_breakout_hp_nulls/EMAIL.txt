@@ -1,0 +1,16 @@
+potions: ES quarterly breakout HP complete
+stance: NOT VALIDATED
+profile: live/state/es_quarterly_breakout_hp_profile/
+nulls: live/state/es_quarterly_breakout_hp_nulls/
+baseline: n=60 net=+1258368 N/S=8.16
+
+     decision                  condition           bucket
+NOT VALIDATED              Week of month                3
+NOT VALIDATED       Monthly OR direction           mor_up
+NOT VALIDATED Prior RTH range percentile prior_range_norm
+NOT VALIDATED             ATR14 quartile           atr_q4
+NOT VALIDATED       Yearly ORB direction           yor_up
+NOT VALIDATED  Weekly ATR trend vs trade    w_atr_aligned
+NOT VALIDATED       Monthly OR direction         mor_down
+NOT VALIDATED         Prior quarter type       q_break_up
+NOT VALIDATED  Weekly ATR trend vs trade    w_atr_opposed

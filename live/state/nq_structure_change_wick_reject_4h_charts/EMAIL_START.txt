@@ -1,0 +1,6 @@
+potions: NQ 4h WICK_REJECT charts STARTED
+
+Hub: /home/tester/hsm/potions/live/state/nq_structure_change_wick_reject_4h_charts
+Population: 4h invalidation WICK_REJECT pen≥0.05
+Window: confirm −7d / +7d 4h candles (extra post week for price path).
+Will attach as many unzipped PNGs as fit per email (no zip).

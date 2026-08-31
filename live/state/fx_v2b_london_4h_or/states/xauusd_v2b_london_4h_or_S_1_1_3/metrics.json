@@ -1,0 +1,23 @@
+{
+  "strategy_id": "xauusd_v2b_london_4h_or_S_1_1_3",
+  "symbol": "XAUUSD",
+  "family": "metal",
+  "quote": "USD",
+  "book": "S_1_1_3",
+  "clock": "london_4h_or",
+  "or_window": "03:00-07:00",
+  "or_bars": 240,
+  "sizing": "S_1_1_3",
+  "regime_days": 1929,
+  "start": "2015-01-02",
+  "units": 11620,
+  "trades": 2324,
+  "net_usd": -33130.00000009312,
+  "closed_dd_usd": -202968.50000000384,
+  "stress_dd_usd": -203327.0000000041,
+  "net_over_stress": -0.1629395013947604,
+  "win_rate": 44.285714285714285,
+  "profit_factor": 0.9875140382272087,
+  "max_open_units": 5,
+  "state_root": "live/state/fx_v2b_london_4h_or/states/xauusd_v2b_london_4h_or_S_1_1_3"
+}

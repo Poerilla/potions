@@ -1,0 +1,17 @@
+Study: fx_metals_cfd_intraday_hp_sizeup_nulls
+Profile: fx_metals_cfd_intraday_condition_profile_v1
+Hub: live/state/us30_st_pmc_3r_prior_range_norm/
+Multiplier: 1.25×
+Pairs: 1
+
+potions: matched-added-exposure suite complete
+hub: /home/tester/hsm/potions/live/state/fx_metals_cfd_intraday_hp_frozen_validation/us30_st_pmc_3r_prior_range_norm
+
+- NOT VALIDATED | us30_st_pmc_3r Prior-day range percentile=prior_range_norm @1.25× hp31% incN/S=32.10 p_plac=0.002
+
+Stance: no SIZE-UP VALIDATED / PROVISIONAL PAPER pairs this run — research / risk-budget only.
+
+/home/tester/hsm/potions/live/state/fx_metals_cfd_intraday_hp_frozen_validation/us30_st_pmc_3r_prior_range_norm/SUMMARY.md
+Stance: 0 SIZE-UP VALIDATED, 0 PROVISIONAL @1.25×.
+Portfolio: portfolio_overlap.csv.
+Phase 3 plan: live/state/fx_metals_cfd_intraday_hp_live_plan/

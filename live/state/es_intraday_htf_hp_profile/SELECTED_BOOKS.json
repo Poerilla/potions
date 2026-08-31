@@ -1,0 +1,24 @@
+{
+  "study": "futures_intraday_hp_sizeup_v1",
+  "books": [
+    {
+      "key": "es_prior_opposed_legacy",
+      "symbol": "ES",
+      "family": "prior_opposed",
+      "tracker_ns": 10.51,
+      "status": "strongest-candidate",
+      "n_campaigns": 245,
+      "sleeve": "spx"
+    },
+    {
+      "key": "es_st_pmc_ma_bull",
+      "symbol": "ES",
+      "family": "st_pmc",
+      "tracker_ns": 2.13,
+      "status": "strongest-candidate",
+      "n_campaigns": 223,
+      "sleeve": "spx"
+    }
+  ],
+  "symbol_filter": "ES"
+}

@@ -29,6 +29,16 @@ DEFAULT_ST_STRATEGY_IDS = {
     market: f"{market}_hourly_st_pmc_sl25_tp75_3r" for market in PRIOR_OPPOSED_MARKETS
 }
 
+# Book slug → (entry_qty, tp1_qty, tp2_qty, targeted_runner_qty|None, runner_target_r_mult|None).
+# Runner = entry - tp1 - tp2 (EOD). Naming matches live/v2b_sizing_sweep.py.
+BOOK_SPECS: Dict[str, tuple] = {
+    "S_1_1_3": (5, 1, 1, None, None),
+    "S_1_1_1": (3, 1, 1, None, None),
+    "S_0_1_1": (2, 0, 1, None, None),
+    "S_1_1_3_plus_1x10R": (6, 1, 1, 1, 10.0),
+}
+SUPPORTED_BOOKS = tuple(BOOK_SPECS.keys())
+
 
 def default_st_fills_path(market: str) -> Path:
     cross_market = REPO / f"live/state/hourly_st_pmc_strategyplugin_variants_cross_market/{market}/combined_state/fills.csv"
@@ -203,11 +213,14 @@ def load_st_resting_limit_events(
 ) -> Dict[str, List[Dict[str, str]]]:
     """Gate events when an ST entry limit is knowably resting.
 
-    ST+PMC decides only after a completed left-labeled hour. ``live_after_ts`` is
-    that hour's left label (same-bar fill guard), not the wall-clock post time.
-    When ``available_at_hour_complete`` is True (default), gate ``ts`` /
-    ``available_at_ts`` are ``live_after_ts + 1h`` so v2b cannot arm before ST
-    would actually have posted. Set False only for left-label diagnostics.
+    ST+PMC decides only after a completed left-labeled hour.
+
+    - Legacy ST tapes stamp ``live_after_ts`` at the **left label** (hour start).
+      Set ``available_at_hour_complete=True`` (default) so gate availability is
+      ``live_after_ts + 1h``.
+    - Completed-hour causal ST tapes already stamp ``live_after_ts`` at hour
+      complete. Set ``available_at_hour_complete=False`` so we do **not** add a
+      second hour (double-shift).
 
     Includes filled and optionally cancelled entry limits (posted, not filled).
     """
@@ -260,6 +273,7 @@ def load_st_events(
     bars_by_ny_date: Optional[Mapping[date, pd.DataFrame]] = None,
     entry_reasons: Sequence[str] = ("entry", "runner_entry"),
     gate_mode: str = "fill",
+    st_signal_stamp: str = "left_label",
 ) -> Dict[str, List[Dict[str, str]]]:
     """Load same-session ST+PMC entry events for the prior-opposed gate.
 
@@ -267,7 +281,11 @@ def load_st_events(
     - ``fill``: hourly left-label fill stamps (legacy)
     - ``fill_1m_touch``: first 1m limit touch after ``live_after_ts``
     - ``resting_limit``: ST entry limit knowable at hour-complete (requires ``orders_path``)
-    - ``resting_limit_left_label``: diagnostic; uses left-label ``live_after_ts`` as gate time
+    - ``resting_limit_left_label``: diagnostic; uses raw ``live_after_ts`` as gate time
+
+    ``st_signal_stamp`` (resting_limit only):
+    - ``left_label``: ST ``live_after_ts`` is hour start → add +1h for availability
+    - ``completed_hour``: ST tape already shifted to hour-complete → use as-is
 
     When ``orders_path`` and ``bars_by_ny_date`` are both provided and
     ``gate_mode`` is ``fill``, behavior upgrades to ``fill_1m_touch`` for
@@ -275,13 +293,19 @@ def load_st_events(
     """
 
     mode = str(gate_mode or "fill")
+    stamp = str(st_signal_stamp or "left_label").strip().lower()
+    if stamp not in {"left_label", "completed_hour"}:
+        raise ValueError("st_signal_stamp must be left_label or completed_hour, got %r" % st_signal_stamp)
     if mode in {"resting_limit", "resting_limit_left_label"}:
         if orders_path is None:
             raise ValueError("%s gate_mode requires orders_path" % mode)
+        # resting_limit_left_label always uses raw live_after (diagnostic).
+        # resting_limit + completed_hour also uses raw live_after (already complete).
+        add_hour = mode == "resting_limit" and stamp == "left_label"
         return load_st_resting_limit_events(
             orders_path,
             strategy_id,
-            available_at_hour_complete=(mode == "resting_limit"),
+            available_at_hour_complete=add_hour,
         )
 
     fills = pd.read_csv(fills_path)
@@ -466,8 +490,10 @@ def run(
     dbn_path: Optional[Path] = None,
     refine_st_touches: bool = True,
     gate_mode: str = "auto",
+    st_signal_stamp: str = "left_label",
     prior_opposite_only: bool = True,
     invalidate_without_opposite_minutes: Optional[int] = None,
+    entry_live_after_delay_minutes: float = 0.0,
     strategy_id_suffix: str = "",
     require_prior_validation: Optional[bool] = None,
     book: str = "S_1_1_3",
@@ -480,12 +506,14 @@ def run(
     - ``fill_1m_touch``: first 1m limit touch
     - ``resting_limit``: ST entry limit knowable at hour-complete
     - ``resting_limit_left_label``: diagnostic left-label availability
+
+    ``st_signal_stamp``: see ``load_st_events`` (resting_limit only).
     """
 
     market = market.lower()
     book = str(book or "S_1_1_3").strip()
-    if book not in {"S_1_1_3", "S_1_1_3_plus_1x10R"}:
-        raise ValueError("book must be S_1_1_3 or S_1_1_3_plus_1x10R, got %r" % book)
+    if book not in BOOK_SPECS:
+        raise ValueError("book must be one of %s, got %r" % (list(SUPPORTED_BOOKS), book))
     cfg = MARKETS[market]
     if dbn_path is not None:
         cfg = replace(cfg, dbn_path=dbn_path)
@@ -500,13 +528,8 @@ def run(
     state_root = output_root / "states" / strategy_id
     if force and state_root.exists():
         shutil.rmtree(state_root)
-    # S_1_1_3 = 5 lots (1/1/3 EOD). plus_1x10R adds one targeted runner @ 10R → 6 lots.
-    if book == "S_1_1_3_plus_1x10R":
-        entry_qty, max_contracts = 6, 6
-        targeted_runner_qty, runner_target_r_mult = 1, 10.0
-    else:
-        entry_qty, max_contracts = 5, 5
-        targeted_runner_qty, runner_target_r_mult = None, None
+    entry_qty, tp1_qty, tp2_qty, targeted_runner_qty, runner_target_r_mult = BOOK_SPECS[book]
+    max_contracts = int(entry_qty)
     st_strategy_id = st_strategy_id or DEFAULT_ST_STRATEGY_IDS[market]
     st_fills = st_fills_path or default_st_fills_path(market)
     if not st_fills.exists() and gate_mode not in {"resting_limit", "resting_limit_left_label"}:
@@ -522,12 +545,17 @@ def run(
     if mode in {"resting_limit", "resting_limit_left_label"}:
         if not st_orders.exists():
             raise FileNotFoundError(st_orders)
-        print("Loading ST resting-limit gate events from orders (%s)..." % mode, flush=True)
+        print(
+            "Loading ST resting-limit gate events from orders (%s, st_signal_stamp=%s)..."
+            % (mode, st_signal_stamp),
+            flush=True,
+        )
         st_events = load_st_events(
             st_fills if st_fills.exists() else st_orders,
             st_strategy_id,
             orders_path=st_orders,
             gate_mode=mode,
+            st_signal_stamp=st_signal_stamp,
         )
         n_events = sum(len(v) for v in st_events.values())
         print("  resting-limit events: %d across %d sessions" % (n_events, len(st_events)), flush=True)
@@ -563,9 +591,9 @@ def run(
     strategy_config: Dict[str, Any] = {
         "market": market,
         "mode": "oco_then_reverse",
-        "entry_qty": entry_qty,
-        "tp1_qty": 1,
-        "tp2_qty": 1,
+        "entry_qty": int(entry_qty),
+        "tp1_qty": int(tp1_qty),
+        "tp2_qty": int(tp2_qty),
         "tick_size": 0.25,
         "use_regime_filter": True,
         "start": start.isoformat(),
@@ -583,13 +611,16 @@ def run(
     if prior_opposite_only:
         strategy_config.update(
             {
-                "prior_opposite_entry_qty": entry_qty,
-                "prior_opposite_tp1_qty": 1,
-                "prior_opposite_tp2_qty": 1,
+                "prior_opposite_entry_qty": int(entry_qty),
+                "prior_opposite_tp1_qty": int(tp1_qty),
+                "prior_opposite_tp2_qty": int(tp2_qty),
             }
         )
     if invalidate_without_opposite_minutes is not None:
         strategy_config["invalidate_without_opposite_minutes"] = int(invalidate_without_opposite_minutes)
+    delay_min = float(entry_live_after_delay_minutes or 0.0)
+    if delay_min > 0.0:
+        strategy_config["entry_live_after_delay_minutes"] = delay_min
 
     store = FlatFileStore(state_root, defer_table_writes=True)
     store.ensure()
@@ -675,7 +706,13 @@ def run(
             causality_violations=0,
         ) if hasattr(result, "__dataclass_fields__") else result
 
-    write_report(output_root, result, gate_mode=mode, invalidate_minutes=invalidate_without_opposite_minutes)
+    write_report(
+        output_root,
+        result,
+        gate_mode=mode,
+        invalidate_minutes=invalidate_without_opposite_minutes,
+        entry_live_after_delay_minutes=delay_min,
+    )
     data_inputs = [cfg.dbn_path]
     if st_fills.exists():
         data_inputs.append(st_fills)
@@ -696,6 +733,7 @@ def run(
             "gate_mode": mode,
             "prior_opposite_only": prior_opposite_only,
             "invalidate_without_opposite_minutes": invalidate_without_opposite_minutes,
+            "entry_live_after_delay_minutes": delay_min if delay_min > 0.0 else None,
         },
         broker_realism_config={"slippage_ticks": 1.0, "fee_per_unit": 1.50, "directional_adverse_path": True, "spread_model": "default"},
         causality_mode="audit",
@@ -705,6 +743,7 @@ def run(
             "touch_resolved": None if touch_stats is None else touch_stats.resolved,
             "touch_unresolved": None if touch_stats is None else touch_stats.unresolved,
             "touch_outside_fill_hour": None if touch_stats is None else touch_stats.outside_fill_hour,
+            "entry_live_after_delay_minutes": delay_min if delay_min > 0.0 else None,
         },
     )
     return result
@@ -716,6 +755,7 @@ def write_report(
     *,
     gate_mode: str = "",
     invalidate_minutes: Optional[int] = None,
+    entry_live_after_delay_minutes: float = 0.0,
 ) -> None:
     rows = [
         {
@@ -737,6 +777,9 @@ def write_report(
             "invalidate_without_opposite_minutes": ""
             if invalidate_minutes is None
             else str(int(invalidate_minutes)),
+            "entry_live_after_delay_minutes": ""
+            if float(entry_live_after_delay_minutes or 0.0) <= 0.0
+            else "%.2f" % float(entry_live_after_delay_minutes),
             "state_root": str(result.state_root),
         }
     ]
@@ -786,6 +829,12 @@ def write_report(
     ]
     if invalidate_minutes is not None:
         lines.append("- Invalidate without opposite ST within **%d** minutes of entry" % int(invalidate_minutes))
+    if float(entry_live_after_delay_minutes or 0.0) > 0.0:
+        lines.append(
+            "- Entry stop live_after delay: **%.2f** minutes after arm decision "
+            "(stop cannot fill on the immediate next 1m bar)"
+            % float(entry_live_after_delay_minutes)
+        )
     if result.touch_stats is not None:
         median = result.touch_stats.median_delay_minutes
         lines.extend(
@@ -827,6 +876,13 @@ def main(argv: Optional[List[str]] = None) -> int:
         choices=["auto", "fill", "fill_1m_touch", "resting_limit", "resting_limit_left_label"],
         default="auto",
     )
+    parser.add_argument(
+        "--st-signal-stamp",
+        choices=["left_label", "completed_hour"],
+        default="left_label",
+        help="How ST orders stamp live_after_ts. Use completed_hour for "
+        "completed-hour causal ST tapes so resting_limit does not add a second +1h.",
+    )
     parser.add_argument("--no-prior-opposite-only", action="store_true", help="Trade all regime days (provisional).")
     parser.add_argument(
         "--invalidate-without-opposite-minutes",
@@ -834,38 +890,94 @@ def main(argv: Optional[List[str]] = None) -> int:
         default=None,
         help="Flatten if no opposite ST event within N minutes after entry.",
     )
+    parser.add_argument(
+        "--entry-live-after-delay-minutes",
+        type=float,
+        default=0.0,
+        help="Delay entry-stop live_after_ts by N minutes after the arm decision "
+        "(1.0 ⇒ no fill on the immediate next 1m bar).",
+    )
     parser.add_argument("--no-refine-st-touches", action="store_true", help="Use raw hourly ST fill stamps.")
     parser.add_argument(
         "--book",
-        choices=["S_1_1_3", "S_1_1_3_plus_1x10R"],
+        choices=list(SUPPORTED_BOOKS),
         default="S_1_1_3",
-        help="Unit book. plus_1x10R = freeze 1/1/3 EOD and add one runner targeting 10×R.",
+        help="Unit book (tp1/tp2/runner). S_0_1_1 skips TP1; plus_1x10R adds one 10×R runner on 1/1/3.",
     )
     parser.add_argument("--no-force", action="store_true")
+    parser.add_argument("--email", action="store_true", help="Email completion summary via Resend.")
     args = parser.parse_args(argv)
     try:
         start = date.fromisoformat(args.start)
     except ValueError as exc:
         raise SystemExit("--start must be YYYY-MM-DD") from exc
     output_root = args.output_root or _default_output_root(args.market)
-    if args.book == "S_1_1_3_plus_1x10R" and args.output_root is None:
-        output_root = REPO / f"live/state/{args.market}_v2b_prior_opposed_plus_1x10R"
-    result = run(
-        output_root,
-        force=not args.no_force,
-        market=args.market,
-        st_fills_path=args.st_fills,
-        st_orders_path=args.st_orders,
-        st_strategy_id=args.st_strategy_id,
-        start=start,
-        dbn_path=args.dbn_path,
-        refine_st_touches=not args.no_refine_st_touches,
-        gate_mode=args.gate_mode,
-        prior_opposite_only=not args.no_prior_opposite_only,
-        invalidate_without_opposite_minutes=args.invalidate_without_opposite_minutes,
-        book=args.book,
-    )
+    if args.output_root is None:
+        if args.book == "S_1_1_3_plus_1x10R":
+            output_root = REPO / f"live/state/{args.market}_v2b_prior_opposed_plus_1x10R"
+        elif args.book != "S_1_1_3":
+            gate_tag = "resting_limit" if args.gate_mode == "resting_limit" else "broker_like"
+            output_root = REPO / f"live/state/{args.market}_v2b_prior_opposed_stpmc_{gate_tag}_{args.book}"
+        elif args.gate_mode == "resting_limit":
+            output_root = REPO / f"live/state/{args.market}_v2b_prior_opposed_stpmc_resting_limit"
+    try:
+        result = run(
+            output_root,
+            force=not args.no_force,
+            market=args.market,
+            st_fills_path=args.st_fills,
+            st_orders_path=args.st_orders,
+            st_strategy_id=args.st_strategy_id,
+            start=start,
+            dbn_path=args.dbn_path,
+            refine_st_touches=not args.no_refine_st_touches,
+            gate_mode=args.gate_mode,
+            st_signal_stamp=args.st_signal_stamp,
+            prior_opposite_only=not args.no_prior_opposite_only,
+            invalidate_without_opposite_minutes=args.invalidate_without_opposite_minutes,
+            entry_live_after_delay_minutes=float(args.entry_live_after_delay_minutes or 0.0),
+            book=args.book,
+        )
+    except Exception as exc:
+        if args.email:
+            try:
+                from .notify_email import send_email
+
+                send_email(
+                    subject="potions: %s prior-opposed %s FAILED" % (args.market, args.book),
+                    body="Hub: %s\nError: %s\n" % (output_root, exc),
+                )
+            except Exception:
+                pass
+        raise
     print("Wrote %s (Net/Stress %.2f)" % (output_root / "INDEX.md", result.net_stress))
+    email_lines = [
+        "MNQ/NQ prior-opposed broker-like replay complete."
+        if args.market in {"mnq", "nq"}
+        else "%s prior-opposed broker-like replay complete." % args.market.upper(),
+        "",
+        "Hub: %s" % output_root,
+        "Market: %s" % args.market,
+        "Book: %s" % args.book,
+        "Gate: %s" % args.gate_mode,
+        "Trades: %d" % int(result.trades),
+        "Net: $%.2f" % float(result.net_usd),
+        "Stress: $%.2f" % float(result.stress_dd_usd),
+        "Net/Stress: %.2f" % float(result.net_stress),
+        "Win%%: %.2f" % float(result.win_rate_pct),
+        "PF: %.3f" % float(result.profit_factor),
+        "",
+        "INDEX: %s" % (output_root / "INDEX.md"),
+    ]
+    (output_root / "EMAIL.txt").write_text("\n".join(email_lines) + "\n", encoding="utf-8")
+    if args.email:
+        from .notify_email import send_email
+
+        send_email(
+            subject="potions: %s prior-opposed %s %s complete (N/S %.2f)"
+            % (args.market, args.book, args.gate_mode, result.net_stress),
+            body="\n".join(email_lines) + "\n",
+        )
     return 0
 
 

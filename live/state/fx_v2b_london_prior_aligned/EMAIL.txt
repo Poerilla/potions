@@ -1,0 +1,16 @@
+potions: fx_v2b_london_prior_aligned complete
+
+London OR 03:00–03:15 NY → flatten 11:59. Gate=prior_aligned book=S_1_1_3 ST=sl50_tp150_3r_1mfill.
+
+Top by N/S (USD-normalized):
+  XAGUSD  N/S=0.00  net≈$0  stress≈$0  trades=0
+  EURUSD  N/S=-0.99  net≈$-134339  stress≈$-136233  trades=269
+  NAS100  N/S=-1.00  net≈$-57009  stress≈$-57272  trades=316
+  USDJPY  N/S=-1.00  net≈$-174101  stress≈$-174668  trades=387
+  XAUUSD  N/S=-1.00  net≈$-376403  stress≈$-377131  trades=99
+  AUDJPY  N/S=-1.00  net≈$-132801  stress≈$-133031  trades=302
+  US30  N/S=-1.00  net≈$-95218  stress≈$-95303  trades=299
+  GBPUSD  N/S=-1.00  net≈$-251589  stress≈$-251589  trades=387
+
+Hub: live/state/fx_v2b_london_prior_aligned
+See INDEX.md / summary.csv.

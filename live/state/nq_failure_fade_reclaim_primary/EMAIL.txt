@@ -1,0 +1,29 @@
+NQ reclaim-as-PRIMARY MAE/MFE autopsy (charts attached, no zip).
+
+Hub: /home/tester/hsm/potions/live/state/nq_failure_fade_reclaim_primary
+N=12  net=$183,888  losers=7  winners=5
+
+Failure modes:
+  stop_too_tight_big_winner (loser→large winner path): 5
+  stop_too_tight_recover: 0
+  hard_loss: 2
+  runner_left_on_table (could run harder): 2
+
+Losers that could have been large winners (post-exit ≥2R or TP2): 5 / 7
+Reach TP2 with 3R stop: 3/12 · with 4R stop: 3/12
+
+Per trade:
+  #1 2012Q3 short stop net=$-9,765 MAE=1.18R MFE=0.20R post=3.72R left=3.52R [stop_too_tight_big_winner]
+  #2 2013Q2 short stop net=$-7,615 MAE=1.06R MFE=0.07R post=1.86R left=1.79R [stop_too_tight_big_winner]
+  #3 2014Q4 long stop net=$-2,865 MAE=9.79R MFE=0.12R post=37.12R left=37.00R [stop_too_tight_big_winner]
+  #4 2015Q4 short be_stop net=$10,849 MAE=0.31R MFE=2.17R post=7.50R left=5.33R [runner_left_on_table] 3R→TP2
+  #5 2016Q1 long be_stop net=$8,752 MAE=0.27R MFE=1.66R post=5.75R left=4.09R [runner_left_on_table] 3R→TP2
+  #6 2020Q4 short be_stop net=$-11,065 MAE=0.89R MFE=0.69R post=0.00R left=0.00R [hard_loss]
+  #7 2021Q1 short be_stop net=$-65 MAE=0.41R MFE=0.61R post=2.23R left=1.62R [stop_too_tight_big_winner]
+  #8 2021Q3 short stop net=$-17,815 MAE=2.16R MFE=0.84R post=2.52R left=1.68R [stop_too_tight_big_winner]
+  #9 2022Q1 long quarter_eod net=$127,456 MAE=0.99R MFE=1.24R post=1.18R left=0.00R [quarter_hold]
+  #10 2022Q2 long stop net=$-41,965 MAE=1.60R MFE=0.03R post=0.62R left=0.58R [hard_loss]
+  #11 2023Q4 long tp2 net=$91,518 MAE=0.03R MFE=1.55R post=5.08R left=3.52R [full_tp2] 3R→TP2
+  #12 2025Q1 long be_stop net=$36,468 MAE=0.93R MFE=1.44R post=2.36R left=0.92R [winner_ok]
+
+SUMMARY: /home/tester/hsm/potions/live/state/nq_failure_fade_reclaim_primary/SUMMARY.md

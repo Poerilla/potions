@@ -1,8 +1,8 @@
 """Shared config / seed helpers for US30 hourly ST+PMC demos.
 
-Books (lot-correct, 1m fill tape; hub ``live/state/us30_st_pmc_runner_variants``):
-  - sl50_tp150_3r              — fair control, max 1, N/S ≈ 29.4
-  - sl50_tp150_runners_2r_10r  — TP1 + 2R + 10R runners, max 3, N/S ≈ 24.1
+Books (completed-hour causal replay; hub ``live/state/us30_st_pmc_runner_variants``):
+  - sl50_tp150_3r              — fair control, max 1, N/S -0.21
+  - sl50_tp150_runners_2r_10r  — TP1 + 2R + 10R runners, max 3, N/S 1.47
 """
 
 from __future__ import annotations
@@ -27,8 +27,10 @@ SEED_HOURS = 300
 # Default book for legacy imports (fair control).
 VARIANT = "sl50_tp150_3r"
 TRACKER_NOTE = (
-    "US30 ST+PMC sl50_tp150_3r 1m-fill lot-correct N/S 29.39 net +$19.0k stress -$0.65k "
-    "(live/state/us30_st_pmc_runner_variants; 2026-08-08)"
+    "US30 ST+PMC fair 3R ALPHA INVALIDATED under completed-hour causality "
+    "(N/S -0.21; retired left-label N/S 29.39 is audit-only). "
+    "Demo purpose: OANDA lifecycle / broker reconciliation control only — "
+    "exclude from alpha P&L. See live/state/us30_st_pmc_signal_hour_attribution/DEMO_DECISION.md"
 )
 
 BOOKS: Dict[str, Dict[str, Any]] = {
@@ -43,8 +45,8 @@ BOOKS: Dict[str, Dict[str, Any]] = {
         "runner_stop_to_be_after_tp1": False,
         "runner_specs": [],
         "tracker": (
-            "US30 ST+PMC sl50_tp150_3r 1m-fill lot-correct N/S 29.39 net +$19.0k stress -$0.65k "
-            "(live/state/us30_st_pmc_runner_variants; 2026-08-08)"
+            "INVALIDATED alpha — US30 ST+PMC fair 3R completed-hour N/S -0.21 "
+            "(retired left-label 29.39 audit-only). Lifecycle/reconcile demo only."
         ),
     },
     "sl50_tp150_runners_2r_10r": {
@@ -61,8 +63,8 @@ BOOKS: Dict[str, Dict[str, Any]] = {
             {"qty": 1, "target_pts": 1500.0},
         ],
         "tracker": (
-            "US30 ST+PMC 2R→10R runners 1m-fill lot-correct N/S 24.05 net +$56.1k stress -$2.3k "
-            "(live/state/us30_st_pmc_runner_variants; 2026-08-08); bounded max 3"
+            "US30 ST+PMC 2R→10R completed-hour control N/S 1.47 — not demo-promote; "
+            "revival study reference only (live/state/us30_st_pmc_runner_variants)"
         ),
     },
 }

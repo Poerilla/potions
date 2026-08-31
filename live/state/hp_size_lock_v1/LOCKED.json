@@ -1,0 +1,73 @@
+{
+  "locked_at": "2026-08-17T19:18:03.281103+00:00",
+  "kind": "research_capital_lock",
+  "disclaimer": "Linear sensitivity sizes \u2014 not null-suite authorization for these multipliers.",
+  "sleeves": [
+    {
+      "label": "NQ OR-norm",
+      "book": "nq_prior_opposed_rl",
+      "condition": "Opening 15m range vs ATR",
+      "bucket": "or_norm",
+      "mult_locked": 4.0,
+      "hp_n": 129,
+      "n": 432,
+      "book_net": 3076777.5,
+      "book_stress": 89977.5,
+      "book_ns": 34.194965408018675,
+      "final_250k": 3326777.5,
+      "cagr_span_pct": 67.82147325951016,
+      "span_years": 4.999315537303217,
+      "qty": 20,
+      "approx_im": 400000.0,
+      "median_pct_bar": 0.7012622720897616,
+      "p90_pct_bar": 1.0651090976114548,
+      "note": "best futures HP; liq OK @4\u00d7; deploy auth still provisional \u22642\u00d7",
+      "deploy_auth": "provisional \u22642\u00d7"
+    },
+    {
+      "label": "ES ST-age>180m",
+      "book": "es_prior_opposed_legacy",
+      "condition": "ST-event age",
+      "bucket": "st_age_gt180m",
+      "mult_locked": 4.0,
+      "hp_n": 68,
+      "n": 245,
+      "book_net": 823220.0,
+      "book_stress": 40780.0,
+      "book_ns": 20.186856302108875,
+      "final_250k": 1073220.0,
+      "cagr_span_pct": 33.855563799847,
+      "span_years": 4.996577686516085,
+      "qty": 20,
+      "approx_im": 300000.0,
+      "median_pct_bar": 0.001220268943976874,
+      "p90_pct_bar": 0.001690925418390821,
+      "note": "next-best non-NQ futures; NOT VALIDATED under \u0394N/S \u2014 research capital only",
+      "deploy_auth": "NOT VALIDATED research"
+    },
+    {
+      "label": "EURUSD ST+PMC Thu",
+      "book": "eurusd_st_pmc_3r",
+      "condition": "Day of week",
+      "bucket": "Thursday",
+      "mult_locked": 40.0,
+      "hp_n": 175,
+      "n": 865,
+      "book_net": 1430373.8027434195,
+      "book_stress": 168355.49999999616,
+      "book_ns": 8.496151315183955,
+      "final_250k": 1680373.8,
+      "cagr_span_pct": 8.731790592141063,
+      "span_years": 22.759753593429156,
+      "qty": 40,
+      "approx_im": 100000.0,
+      "median_pct_bar": 9.265264523302141e-06,
+      "p90_pct_bar": 4.462989296271529e-05,
+      "note": "best non-CFD/non-futures; locked research size 40\u00d7; deploy auth still 1.25\u00d7",
+      "deploy_auth": "VALIDATED @1.25\u00d7 only"
+    }
+  ],
+  "excluded": {
+    "US30 Monday OR h11": "CFD; YM-proxy liquidity binds by ~80\u00d7 (med risk-eq ~8% of bar). Keep deploy auth 1.25\u00d7; not in this capital lock."
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "ok": true,
+  "study": "yearly_orb_nq_bucket_charts_causal_close",
+  "emails": 5,
+  "rows": [
+    {
+      "slug": "ma_mixed",
+      "label": "mixed MA stack",
+      "n": 18,
+      "wins": 6,
+      "wr": 0.3333333333333333,
+      "avg_net": 16859.055555555555,
+      "avg_lift": 5616.364379084967,
+      "charts": 18,
+      "hub": "/home/tester/hsm/potions/live/state/yearly_orb_hp_charts_causal_close/nq_buckets/ma_mixed"
+    },
+    {
+      "slug": "or_wide",
+      "label": "wide OR",
+      "n": 20,
+      "wins": 8,
+      "wr": 0.4,
+      "avg_net": 35491.5,
+      "avg_lift": 24248.808823529413,
+      "charts": 20,
+      "hub": "/home/tester/hsm/potions/live/state/yearly_orb_hp_charts_causal_close/nq_buckets/or_wide"
+    },
+    {
+      "slug": "atr_q4",
+      "label": "ATR q4",
+      "n": 24,
+      "wins": 10,
+      "wr": 0.4166666666666667,
+      "avg_net": 19022.666666666668,
+      "avg_lift": 7779.9754901960805,
+      "charts": 24,
+      "hub": "/home/tester/hsm/potions/live/state/yearly_orb_hp_charts_causal_close/nq_buckets/atr_q4"
+    }
+  ]
+}

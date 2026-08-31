@@ -1,0 +1,11 @@
+potions: NAS100 band-max +50% SL · open TP + runner 2R (all vs no-w4)
+
+Hub: /home/tester/hsm/potions/live/state/monthly_open_atr_extension_band/broker_max_plus_0p5_runner2r_nas100
+DSR: TRL-2026-00128
+Entry max; SL plus_0.5; ladder 0/5/5; runner = open±2R after BE
+
+all_weeks: net=$16,378 stress=$21,829 N/S=0.75 Sharpe=0.04 trades=30 skip_w4=no
+no_w4: net=$16,787 stress=$21,830 N/S=0.77 Sharpe=0.04 trades=28 skip_w4=yes
+
+Best N/S: no_w4 (0.77)
+Stance: research / lean reject vs pct75 wide_2.5x (N/S ~1.31).

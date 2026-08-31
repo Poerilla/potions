@@ -1,0 +1,14 @@
+potions: nq_wick_reject_4h_24h_1m_protected_pivot_touch_response_v1_against_seed_bias COMPLETE
+
+Hub: /home/tester/hsm/potions/live/state/nq_wick_reject_4h_24h_1m_protected_pivot_touch_response_v1_against_seed_bias
+Parent: nq_wick_reject_4h_24h_1m_protected_pivot_touch_response_v1
+mode: AGAINST_SEED_BIAS (favorable = opp 4h seed)
+candidates: 90
+against_seed contact mean MFE/MAE/RR (n=63): 118.89 / 129.76 / 0.916
+bear/bull against_seed RR (n=34/29): 0.824 / 1.081
+with_seed / structure_bias pooled RR: 1.091 / 1.025
+primary_q bear/bull: False / True
+decision: ONE_SIDED_ASYMMETRY_AGAINST_SEED
+stance: ONE-SIDED DESCRIPTIVE ASYMMETRY ONLY (against seed bias)
+
+DESCRIPTIVE ONLY — remapped from frozen V1 windows.

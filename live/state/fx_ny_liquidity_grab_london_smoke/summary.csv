@@ -1,0 +1,2 @@
+strategy_id,symbol,family,quote,entry_qty,tp_r_mult,regime_days,start,units,trades,net_usd,closed_dd_usd,stress_dd_usd,net_over_stress,win_rate,profit_factor,max_open_units,state_root
+eurusd_ny_liquidity_grab_london_1lot,EURUSD,fx,USD,1,1.0,10,2015-01-02,7,1,-1661.0000000000578,-1661.0000000000578,-1670.0000000000337,-0.9946107784431283,42.857142857142854,0.3382470119521758,1,live/state/fx_ny_liquidity_grab_london_smoke/states/eurusd_ny_liquidity_grab_london_1lot

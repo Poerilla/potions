@@ -1,0 +1,22 @@
+potions: futures yearly ORB causal-close STARTED
+
+Same lookahead pass as FX/metals yearly ORBs: range-close / year-change
+flatten at next daily open (live_after_ts=decision_bar.ts), not the
+completed bar's open.
+
+Hub: live/state/yearly_orb_sizing_sweep_futures_causal_close/
+Markets: NQ, ES, YM — default 19-cell sizing grid (like FX metals).
+
+Why: NQ mixed-MA / wide-OR / ATR-q4 charts show a lot of favorable scratches.
+Pre-causal NQ L_4_1_1 tape:
+  28/68 campaigns same-bar-open close (41%), WR 92.9% vs 82.5% on the rest
+  17/68 favorable scratches ($0–$5k same-ts close)
+  mixed MA 7/18 same-bar; wide OR 8/20; ATR q4 11/24
+
+Smoke NQ L_4_1_1 already causal:
+  PRE  net $1,417,383  stress -$128,766  N/S 11.01  WR 86.8%
+  POST net $764,503    stress -$159,309  N/S 4.80   (same 68 trades, 0 same-bar closes)
+  FX analog: AUDJPY 24.87 → negative; XAU 15.32 → 1.86. NQ still positive but N/S halved.
+
+Full grid + bucket re-profile next. Stance pending those numbers.
+

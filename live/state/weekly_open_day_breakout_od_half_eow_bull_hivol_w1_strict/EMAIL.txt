@@ -1,0 +1,25 @@
+potions: week-1 causal half+EOW strict replay COMPLETE
+
+Hub: live/state/weekly_open_day_breakout_od_half_eow_bull_hivol_w1_strict
+Variant: od_half_eow_bull_hivol_w1 (plugin allow_weeks_of_month=[1])
+Causality: STRICT · feature_snapshots=6023 · violations=0
+Manifest hashes: nas100_4h.csv + nas100_1m.csv
+
+Plugin changes (v6):
+1) Causal week-of-month entry gate (same HA formula on session date)
+2) Friday flatten fires at 13:00 NY 4h completion (not 17:00) so 1m can fill Fri PM
+3) Strict CausalityGuard + feature snapshots on OD / week / regime / arm
+
+Results (NAS100, ~10y):
+  trades=53  net=+$8,031  stress=−$4,401  N/S=1.82  WR=64.8%  PF=1.85
+  entry week-of-month: 52×wom1, 1×wom2 (arm Fri wom1 → fill after weekend)
+  exit DOW: Friday 43 / Sunday 5 (was ~93 Sunday on ungated HA tape)
+
+vs HA post-hoc week-1 FILTER on old tape:
+  n=45  net=+$9,669  N/S=5.51  (old Fri-flatten→Sunday exits)
+
+Stance: RESEARCH / risk-throttle candidate — causal week-1 gate holds a positive
+book after Friday-exit fix, but N/S is far below the HA overlay (stress much higher
+once exits are same-Friday). Not paper-promote yet; no OANDA harness.
+
+DSR parallel: TRL-2026-00167 (module still stamped TRL-2026-00165 on summary row).

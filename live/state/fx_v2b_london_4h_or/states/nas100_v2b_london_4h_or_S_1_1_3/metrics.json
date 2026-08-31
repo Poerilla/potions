@@ -1,0 +1,23 @@
+{
+  "strategy_id": "nas100_v2b_london_4h_or_S_1_1_3",
+  "symbol": "NAS100",
+  "family": "cfd",
+  "quote": "USD",
+  "book": "S_1_1_3",
+  "clock": "london_4h_or",
+  "or_window": "03:00-07:00",
+  "or_bars": 240,
+  "sizing": "S_1_1_3",
+  "regime_days": 895,
+  "start": "2021-01-04",
+  "units": 7615,
+  "trades": 1523,
+  "net_usd": -1676.149999980129,
+  "closed_dd_usd": -17138.249999991327,
+  "stress_dd_usd": -17181.749999991334,
+  "net_over_stress": -0.09755409082200442,
+  "win_rate": 38.21405121470781,
+  "profit_factor": 0.9928268682496633,
+  "max_open_units": 5,
+  "state_root": "live/state/fx_v2b_london_4h_or/states/nas100_v2b_london_4h_or_S_1_1_3"
+}

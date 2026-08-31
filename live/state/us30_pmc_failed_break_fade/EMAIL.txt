@@ -1,0 +1,12 @@
+US30 PMC failed-break fade Phase 1/2 complete.
+Hub: /home/tester/hsm/potions/live/state/us30_pmc_failed_break_fade
+DSR: TRL-2026-00187
+Taxonomy sweeps: 2530
+
+Controls:
+  naive  N=2102 net=$4549 stress=$-5863 N/S=0.78 WR=36.9% runner_share=827%
+  reclaim_only  N=318 net=$3968 stress=$-8204 N/S=0.48 WR=41.2% runner_share=176%
+  confirmed  N=129 net=$2612 stress=$-3239 N/S=0.81 WR=49.6% runner_share=72%
+
+Stance: RESEARCH_WEAK_POSITIVE
+Confirmed fade net positive but weak N/S — research only; no promote.

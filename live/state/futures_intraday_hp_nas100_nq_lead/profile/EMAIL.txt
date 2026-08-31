@@ -1,0 +1,10 @@
+potions: NAS100 NQ-lead HP profile complete
+Hub: live/state/futures_intraday_hp_nas100_nq_lead/profile/
+Book: nas100_nq_lead_prior_opposed (280 campaigns, baseline N/S=17.94)
+Shortlist: 3 candidates
+
+nas100_nq_lead_prior_opposed | Hourly RSI vs trade=rsi_against_side | cov=34% incN/S=21.24
+nas100_nq_lead_prior_opposed | ST-event direction vs trade=st_opposed_proxy | cov=34% incN/S=21.24
+nas100_nq_lead_prior_opposed | Overnight compression=on_comp | cov=30% incN/S=12.81
+
+Stance: profile/shortlist only — 1.25× null suite next.

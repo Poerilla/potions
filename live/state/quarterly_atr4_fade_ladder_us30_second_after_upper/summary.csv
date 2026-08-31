@@ -1,0 +1,2 @@
+strategy_id,market,trade_mode,risk_atr_mult,allowed_sides,path_id,bars,units,trades,net_usd,closed_dd_usd,intrabar_stress_dd_usd,win_rate,profit_factor,net_over_stress,max_open_units
+us30_quarterly_atr4_fade_ladder,US30,second_only,2.5,['lower'],second_after_upper,13668,50,5,7087.960320640566,-10633.613283633793,-11103.613283633793,0.52,2.0230371723146514,0.6383471883956809,10

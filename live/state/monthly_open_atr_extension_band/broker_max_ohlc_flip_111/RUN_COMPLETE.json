@@ -1,0 +1,76 @@
+{
+  "metrics": {
+    "bars": 95471.0,
+    "calmar": -0.2460910426020724,
+    "close_dd": -146941.37,
+    "entry_mode": "max",
+    "entry_trigger": "first_week_ohlc_flip",
+    "equity_curve": "/home/tester/hsm/potions/live/state/monthly_open_atr_extension_band/broker_max_ohlc_flip_111/plus_0p3/audits/nq_mo_ext_band_max_ohlc_flip_111_r6m/equity_curve.csv",
+    "ladder": [
+      1,
+      1,
+      1
+    ],
+    "net_usd": -36160.95,
+    "ns": -0.24191934677069904,
+    "profile": {
+      "avg_loss": -2533.4746341463415,
+      "avg_win": 4595.515333333334,
+      "by_exit_reason": [
+        {
+          "avg": 4576.5,
+          "exit_reason": "flatten",
+          "n": 20,
+          "net": 91530.0
+        },
+        {
+          "avg": -2569.237288135593,
+          "exit_reason": "stop",
+          "n": 118,
+          "net": -303170.0
+        },
+        {
+          "avg": 6103.80875,
+          "exit_reason": "target",
+          "n": 16,
+          "net": 97660.94
+        },
+        {
+          "avg": 2692.8482758620694,
+          "exit_reason": "tp_med",
+          "n": 29,
+          "net": 78092.6
+        }
+      ],
+      "fill_reasons": {
+        "entry": 61,
+        "flatten": 17,
+        "stop": 44,
+        "target": 16,
+        "tp_med": 29
+      },
+      "loss_units": 123,
+      "med_net": 78092.59999999999,
+      "med_units": 29,
+      "open_tp_net": 97660.93999999999,
+      "open_tp_units": 16,
+      "runner_net": 91530.0,
+      "runner_units": 20,
+      "stop_net": -303170.0,
+      "stop_units": 118,
+      "strategy_id": "nq_mo_ext_band_max_ohlc_flip_111_r6m",
+      "unit_n": 183,
+      "unit_net": -35886.46000000001,
+      "win_units": 60
+    },
+    "sharpe": -0.017425618465024016,
+    "sl_mode": "swing_run",
+    "sortino": -0.006077982459379762,
+    "state_root": "/home/tester/hsm/potions/live/state/monthly_open_atr_extension_band/broker_max_ohlc_flip_111/plus_0p3/states/nq_mo_ext_band_max_ohlc_flip_111_r6m",
+    "strategy_id": "nq_mo_ext_band_max_ohlc_flip_111_r6m",
+    "stress_dd": -149475.23,
+    "trades": 61.0,
+    "units": 183.0
+  },
+  "ok": true
+}

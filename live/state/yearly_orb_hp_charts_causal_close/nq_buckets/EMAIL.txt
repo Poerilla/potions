@@ -1,0 +1,11 @@
+potions: yearly_orb_nq_bucket_charts_causal_close complete
+
+Hub: /home/tester/hsm/potions/live/state/yearly_orb_hp_charts_causal_close/nq_buckets
+Emails sent: 5 (PNG attachments, not zip).
+
+    slug          label  n  wins       wr      avg_net     avg_lift  charts                                                                                       hub
+ma_mixed mixed MA stack 18     6 0.333333 16859.055556  5616.364379      18 /home/tester/hsm/potions/live/state/yearly_orb_hp_charts_causal_close/nq_buckets/ma_mixed
+ or_wide        wide OR 20     8 0.400000 35491.500000 24248.808824      20  /home/tester/hsm/potions/live/state/yearly_orb_hp_charts_causal_close/nq_buckets/or_wide
+  atr_q4         ATR q4 24    10 0.416667 19022.666667  7779.975490      24   /home/tester/hsm/potions/live/state/yearly_orb_hp_charts_causal_close/nq_buckets/atr_q4
+
+Diagnostic only — HP size-up on these buckets is NOT VALIDATED.

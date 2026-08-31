@@ -1,0 +1,21 @@
+potions: NQ liq-run fade HA profile complete
+
+Hub: /home/tester/hsm/potions/live/state/monthly_open_atr_extension_band/liq_run_fade_1r1_reentry_hp_1m_ha/profile
+Book: nq_liq_run_fade_1r1_reentry_hp_1m
+campaigns: 178  notables: 10
+baseline net=$381368
+
+Variant N/S reminder (same liq-run fade family):
+
+  Best N/S overall (path sim, HP lookback):
+    2c half+open $1k SL     HP N/S 3.46  (+$32k)   — small-risk sleeve
+  Best among full-size structural books (path sim, HP lookback):
+    1:1 unlimited reentry   HP N/S 2.24  (+$618k)  — this book's 1h cousin
+  This book (1m Engine+PaperBroker, HP):
+    1:1 unlimited reentry   N/S 1.03     (+$552k / 183 entries)
+  Other HP path-sim refs:
+    win3 reentry cap        HP N/S 1.58
+    2c BE+2R                HP N/S 1.02
+    base once/month 1:1     HP N/S 0.64
+    liq-days=4 1m broker    N/S -0.60
+

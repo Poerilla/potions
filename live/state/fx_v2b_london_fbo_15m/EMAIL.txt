@@ -1,0 +1,14 @@
+potions: fx_v2b_london_fbo_15m complete
+
+London 15m OR FBO 03:00–03:15 NY → ignore first break → arm opposite; flatten 11:59; max_campaigns=1.
+Broker-like Engine+PaperBroker. Compare vs OCO 15m London ungated + 4h FBO hubs.
+
+Top by N/S:
+  GBPUSD S_1_1_3  N/S=-0.99  net≈$-203798  trades=1278
+  USDJPY S_1_1_3  N/S=-0.99  net≈$-159371  trades=1366
+  GBPUSD S_1_1_1  N/S=-1.00  net≈$-125732  trades=1278
+  EURUSD S_1_1_1  N/S=-1.00  net≈$-137131  trades=1209
+  EURUSD S_1_1_3  N/S=-1.00  net≈$-227345  trades=1209
+  USDJPY S_1_1_1  N/S=-1.00  net≈$-103506  trades=1366
+
+Hub: /home/tester/hsm/potions/live/state/fx_v2b_london_fbo_15m

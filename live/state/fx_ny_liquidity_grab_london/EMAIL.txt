@@ -1,0 +1,13 @@
+potions: fx_ny_liquidity_grab_london complete
+
+London: wait for price into prior NY RTH range → OCO at H/L — 1 lot — risk=NY range — TP opposite (1R).
+
+Top by N/S:
+  AUDJPY  N/S=-0.72  net≈$-13823  trades=907
+  USDJPY  N/S=-0.92  net≈$-48398  trades=994
+  XAUUSD  N/S=-0.96  net≈$-115725  trades=1108
+  GBPUSD  N/S=-0.96  net≈$-37129  trades=1009
+  EURUSD  N/S=-0.97  net≈$-34560  trades=897
+  XAGUSD  N/S=-0.98  net≈$-55274  trades=885
+
+Hub: live/state/fx_ny_liquidity_grab_london

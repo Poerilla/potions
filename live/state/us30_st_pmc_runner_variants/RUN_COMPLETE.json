@@ -25,8 +25,8 @@
     ]
   },
   "duplicate_sleeve_warnings": [],
-  "generated_at": "2026-08-09T22:43:42+00:00",
-  "generated_at_utc": "2026-08-09T22:43:42+00:00",
+  "generated_at": "2026-08-23T05:03:54+00:00",
+  "generated_at_utc": "2026-08-23T05:03:54+00:00",
   "has_fair_3r_usd_normalized": false,
   "hub": "live/state/us30_st_pmc_runner_variants",
   "incomplete_jobs": [],
@@ -120,12 +120,12 @@
           "exclusion_reasons": [],
           "max_open": 1,
           "metric_source": "LOT_CORRECT_ACCOUNTING.csv",
-          "net_usd": 19027.57,
-          "ns": 29.389,
+          "net_usd": -981.54,
+          "ns": -0.213,
           "rankable": true,
-          "stress_dd_usd": -647.43,
-          "units": 578,
-          "wr_pct": 42.6
+          "stress_dd_usd": -4598.87,
+          "units": 1017,
+          "wr_pct": 25.7
         },
         "sl50_tp150_runners_2r_10r": {
           "audit_ok": true,
@@ -134,28 +134,28 @@
           "exclusion_reasons": [],
           "max_open": 3,
           "metric_source": "LOT_CORRECT_ACCOUNTING.csv",
-          "net_usd": 56110.59,
-          "ns": 24.049,
+          "net_usd": 13339.83,
+          "ns": 1.471,
           "rankable": true,
-          "stress_dd_usd": -2333.22,
-          "units": 1086,
-          "wr_pct": 25.0
+          "stress_dd_usd": -9065.59,
+          "units": 1908,
+          "wr_pct": 14.6
         },
         "sl50_tp150_runners_2r_indef": {
           "audit_ok": true,
           "class": "research",
-          "eoy_flatten_units": 64,
+          "eoy_flatten_units": 72,
           "exclusion_reasons": [
             "indefinite_inventory_not_rankable_vs_flat_books"
           ],
-          "max_open": 68,
+          "max_open": 77,
           "metric_source": "LOT_CORRECT_ACCOUNTING.csv",
-          "net_usd": 80169.07,
-          "ns": 2.501,
+          "net_usd": 9164.14,
+          "ns": 0.267,
           "rankable": false,
-          "stress_dd_usd": -32060.24,
-          "units": 1670,
-          "wr_pct": 60.9
+          "stress_dd_usd": -34332.18,
+          "units": 3051,
+          "wr_pct": 15.0
         }
       }
     }

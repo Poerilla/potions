@@ -1,0 +1,17 @@
+{
+  "ok": true,
+  "study_id": "nq_wick_reject_range_seed_oco_stop_v1",
+  "stance": "RESEARCH ONLY \u2014 OCO stop v1 does not clear promotion gates",
+  "n_seeds": 91,
+  "n_filled": 91,
+  "n_ambiguous": 0,
+  "checks": [
+    "PASS: Development and holdout both positive avg campaign R",
+    "FAIL: Holdout PF materially above 1 after costs (PF>1.15)",
+    "FAIL: OCO primary remains positive under 2-tick adverse entry stress",
+    "PASS: No hidden favorable resolution of same-minute two-sided breaks",
+    "FAIL: Results not dominated by few campaigns / 2W runners (top5 |net| share=22%, TP3 win share=79%)",
+    "PASS: Campaign count sufficient; long and short paths present"
+  ],
+  "finished_at": "2026-08-30T12:03:19"
+}

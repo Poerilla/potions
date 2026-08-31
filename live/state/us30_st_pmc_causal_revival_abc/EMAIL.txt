@@ -1,0 +1,11 @@
+US30 ST+PMC causal revival A/B/C complete.
+Hub: /home/tester/hsm/potions/live/state/us30_st_pmc_causal_revival_abc
+DSR: TRL-2026-00186
+Control ref: completed-hour 2R→10R N/S 1.47 (not re-run).
+
+Results:
+  path_a_prepost_pmc_3r path=A N/S=-0.95 net=$-6441 units=602 causal=1
+  path_b_post_hour_pmc_retest_3r path=B N/S=-0.93 net=$-4994 units=578 causal=1
+  path_c_continuation_break_3r path=C N/S=1.71 net=$7302 units=5310 causal=1
+  path_c_continuation_break_2r_10r path=C N/S=1.84 net=$25371 units=5207 causal=1
+Stance: research interest in path_c_continuation_break_3r, path_c_continuation_break_2r_10r — not demo-promote yet.

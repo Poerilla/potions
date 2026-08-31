@@ -1,0 +1,16 @@
+Quarterly range breakout — FX / metals / CFDs complete.
+
+Hub: /home/tester/hsm/potions/live/state/quarterly_range_breakout_fx_metals_cfd
+Baseline: mid SL honest breakout. Prior-width Q4_large quartile on tape.
+
+EURUSD (fx): net $135147 | N/S 0.63 | Q4_large n=27 net $-78715 | skip-Q4 Δ $78715
+GBPUSD (fx): net $312052 | N/S 1.56 | Q4_large n=26 net $133051 | skip-Q4 Δ $-133051
+USDJPY (fx): net $2378716 | N/S 0.11 | Q4_large n=27 net $-4315036 | skip-Q4 Δ $4315036
+AUDJPY (fx): net $-26352176 | N/S -0.68 | Q4_large n=30 net $-27323520 | skip-Q4 Δ $27323520
+XAUUSD (metal): net $1141869 | N/S 1.86 | Q4_large n=28 net $923617 | skip-Q4 Δ $-923617
+XAGUSD (metal): net $-182896 | N/S -0.40 | Q4_large n=27 net $-214650 | skip-Q4 Δ $214650
+US30 (cfd): net $72815 | N/S 1.20 | Q4_large n=12 net $79837 | skip-Q4 Δ $-79837
+NAS100 (cfd): net $99798 | N/S 4.11 | Q4_large n=12 net $65924 | skip-Q4 Δ $-65924
+
+Stance: research.
+SUMMARY: /home/tester/hsm/potions/live/state/quarterly_range_breakout_fx_metals_cfd/SUMMARY.md

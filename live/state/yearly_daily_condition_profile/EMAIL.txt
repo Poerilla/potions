@@ -1,0 +1,20 @@
+potions: yearly/daily HP condition profile complete
+
+Hub: live/state/yearly_daily_condition_profile
+Books: 9 | min_n=12
+
+Top cross-book repeats:
+  atr_pct_bucket=atr_pctl_q4  books=6  WRΔ=+8.7pp  avgΔ=$+9,174
+  or_width_bucket=or_wide  books=5  WRΔ=+5.3pp  avgΔ=$+13,317
+  prior_year_ret_bucket=prior_yr_strong  books=5  WRΔ=+3.1pp  avgΔ=$+4,625
+  ma_align=ma_mixed  books=3  WRΔ=+9.6pp  avgΔ=$+8,419
+  ma_stack=ma_mixed  books=3  WRΔ=+9.6pp  avgΔ=$+8,419
+  prior_year_loc=prior_yr_upper  books=3  WRΔ=+1.2pp  avgΔ=$+3,058
+  side=short  books=2  WRΔ=+14.0pp  avgΔ=$+4,605
+  prior_year_loc=prior_yr_lower  books=2  WRΔ=+9.9pp  avgΔ=$+17,570
+  week_of_month=4  books=2  WRΔ=+7.7pp  avgΔ=$+3,555
+  ytd_bucket=ytd_up15p  books=2  WRΔ=+6.1pp  avgΔ=$+2,890
+  ma_stack=ma_bull_stack  books=2  WRΔ=+3.4pp  avgΔ=$+3,144
+  dow=Monday  books=2  WRΔ=+3.2pp  avgΔ=$+5,070
+
+Stance: hypotheses only — not a promotion gate.

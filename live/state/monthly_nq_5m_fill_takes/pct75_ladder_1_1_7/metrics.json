@@ -1,0 +1,27 @@
+{
+  "close_dd": -490898.7873831135,
+  "entry_mode": "pct75",
+  "equity_curve": "/home/tester/hsm/potions/live/state/monthly_nq_5m_fill_takes/audits/nq_5mfill_pct75_ladder_1_1_7_now4/equity_curve.csv",
+  "fill_tf": "5m",
+  "label": "pct75 ladder 1/1/7 (no w4)",
+  "ladder": [
+    1,
+    1,
+    7
+  ],
+  "loss_units": 335.0,
+  "net_usd": 846553.6962957869,
+  "ns": 1.7160030347841082,
+  "signal_tf": "1h",
+  "skip_entry_weeks": [
+    4
+  ],
+  "sl_mode": "wide_2.5x",
+  "slug": "pct75_ladder_1_1_7",
+  "state_root": "/home/tester/hsm/potions/live/state/monthly_nq_5m_fill_takes/pct75_ladder_1_1_7/states/nq_5mfill_pct75_ladder_1_1_7_now4",
+  "strategy_id": "nq_5mfill_pct75_ladder_1_1_7_now4",
+  "stress_dd": -493328.7873831135,
+  "trades": 71.0,
+  "units": 639.0,
+  "win_units": 304.0
+}

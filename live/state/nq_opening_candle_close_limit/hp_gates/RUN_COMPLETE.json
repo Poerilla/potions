@@ -1,0 +1,63 @@
+{
+  "ok": true,
+  "rejects": [
+    "hp_rsi_gt70"
+  ],
+  "results": [
+    {
+      "net_over_stress": 3.9064869190186213,
+      "net_usd": 144018.5,
+      "slug": "baseline_open1h_close_limit_3r",
+      "trades": 3906,
+      "win_rate": 0.3845366103430619,
+      "works": true
+    },
+    {
+      "net_over_stress": 3.304944078900621,
+      "net_usd": 116279.5,
+      "slug": "hp_strong_body",
+      "trades": 1087,
+      "win_rate": 0.5124195032198712,
+      "works": true
+    },
+    {
+      "net_over_stress": 2.886748120300752,
+      "net_usd": 67573.0,
+      "slug": "hp_trade_with_po",
+      "trades": 238,
+      "win_rate": 0.4831932773109244,
+      "works": true
+    },
+    {
+      "net_over_stress": 2.2958269836962195,
+      "net_usd": 54988.5,
+      "slug": "hp_during_counter_with_po",
+      "trades": 221,
+      "win_rate": 0.4841628959276018,
+      "works": true
+    },
+    {
+      "net_over_stress": 3.5552711911442754,
+      "net_usd": 57650.5,
+      "slug": "hp_fh_p90",
+      "trades": 603,
+      "win_rate": 0.4361525704809287,
+      "works": true
+    },
+    {
+      "net_over_stress": 1.1314405888538381,
+      "net_usd": 15064.0,
+      "slug": "hp_rsi_gt70",
+      "trades": 394,
+      "win_rate": 0.4441624365482234,
+      "works": false
+    }
+  ],
+  "stance": "SURVIVE \u2014 4/5 HP gates clear N/S\u22652; best `hp_fh_p90` N/S 3.56",
+  "survivors": [
+    "hp_strong_body",
+    "hp_trade_with_po",
+    "hp_during_counter_with_po",
+    "hp_fh_p90"
+  ]
+}

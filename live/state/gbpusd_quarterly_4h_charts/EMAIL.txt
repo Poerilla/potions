@@ -1,0 +1,10 @@
+potions: GBPUSD quarterly 4h charts complete
+
+Hub: /home/tester/hsm/potions/live/state/gbpusd_quarterly_4h_charts
+Charts: 89 (all quarters (3-month windows))
+Start: 2004-01-01
+
+Each chart: 4h candles, alternating week shades, opening-week H/L range,
+±1..4×ATR(14) from open-week mid, and each month's closing price.
+
+See INDEX.md for per-year links.

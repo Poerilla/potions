@@ -1,0 +1,11 @@
+Follow live/state/us30_pmc_failed_break_fade/RESEARCH_PLAN.md exactly.
+
+Context: US30 ST+PMC causal revival A/B/C full matrix just finished at live/state/us30_st_pmc_causal_revival_abc/. Path B (PMC retest) and Path A are expected negative on full history; do not revive fair-3R. Attribution showed ~90% post-close retest — that motivates a *failed-break fade*, not fading the ST+PMC signal.
+
+Implement and run:
+1) Phase 1 event taxonomy (PMC sweeps, no P&L) → hub live/state/us30_pmc_failed_break_fade/
+2) Phase 2 frozen base replay: naive fade / reclaim-only / v1 confirmed fade controls with frozen params in RESEARCH_PLAN.md
+3) Email via --email / live.notify_email; log via live.run_ledger
+4) Write SUMMARY.md + EMAIL.txt with promote/reject stance per interpretation gates
+
+Constraints: PMC level only; scale-out only (no add); causal 5m failure+confirmation → next 1m fill; early-close exclude; OANDA-style costs. Do not mix other levels or indicators in v1.

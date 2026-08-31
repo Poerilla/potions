@@ -1,0 +1,31 @@
+potions: monthly open ±4/6×ATR extension study complete (monthly-ATR)
+
+Hub: /home/tester/hsm/potions/live/state/monthly_open_atr_extension_monthly_atr
+ATR: monthly ATR(14) @ prior month close
+Markets: US30, NQ, YM
+Months: 440
+Charts: 10 (top extension months)
+
+# Monthly open extension — summary
+
+Anchor: **first 1h open** of the month. monthly ATR(14) @ prior month close.
+Extension measured **after opening week** through month end.
+
+| Market | Months | P(hit ±4×) | P(hit ±6×) | Med max ext | P95 max ext | Fade6 revert→4 | Fade6 revert→open | Med fade6 pnl (ATR) |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|
+| NQ | 175 | 0.0% | 0.0% | 0.87× | 2.05× | 0.0% | 0.0% | n/a |
+| US30 | 91 | 2.2% | 0.0% | 0.78× | 2.37× | 0.0% | 0.0% | n/a |
+| YM | 174 | 0.6% | 0.0% | 0.72× | 1.80× | 0.0% | 0.0% | n/a |
+
+
+Charted months:
+  US30 2018-02  max=4.39×ATR  fade6=none
+  YM 2020-03  max=4.18×ATR  fade6=none
+  NQ 2015-08  max=2.82×ATR  fade6=none
+  US30 2020-03  max=4.03×ATR  fade6=none
+  US30 2018-12  max=3.42×ATR  fade6=none
+  YM 2018-02  max=3.25×ATR  fade6=none
+  US30 2018-01  max=3.13×ATR  fade6=none
+  YM 2018-12  max=3.08×ATR  fade6=none
+  YM 2015-08  max=2.93×ATR  fade6=none
+  NQ 2018-10  max=2.75×ATR  fade6=none

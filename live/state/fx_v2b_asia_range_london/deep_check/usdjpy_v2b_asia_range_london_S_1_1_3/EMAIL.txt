@@ -1,0 +1,25 @@
+potions: deep-check USDJPY Asia-range London v2b S_1_1_3
+
+Hub: /home/tester/hsm/potions/live/state/fx_v2b_asia_range_london/deep_check/usdjpy_v2b_asia_range_london_S_1_1_3
+State: /home/tester/hsm/potions/live/state/fx_v2b_asia_range_london/states/usdjpy_v2b_asia_range_london_S_1_1_3
+Net=$104653.14  trades=1673  full_SL=213 (12.7%)  hit_TP=17.8%  EOD=84.2%
+
+Year | net | stress | N/S | ret on start eq
+2015 | $34340.36 | $-6568.71 | 5.23 | +34.34%
+2016 | $4934.00 | $-10648.57 | 0.46 | +3.67%
+2017 | $-9779.00 | $-22991.18 | -0.43 | -7.02%
+2018 | $-21875.41 | $-32625.73 | -0.67 | -16.89%
+2019 | $-8559.05 | $-11460.48 | -0.75 | -7.95%
+2020 | $11589.59 | $-6145.77 | 1.89 | +11.70%
+2021 | $-9136.86 | $-16425.18 | -0.56 | -8.26%
+2022 | $56195.82 | $-17495.36 | 3.21 | +55.36%
+2023 | $9850.50 | $-19879.18 | 0.50 | +6.25%
+2024 | $32832.00 | $-15608.48 | 2.10 | +19.59%
+2025 | $14514.91 | $-20314.48 | 0.71 | +7.24%
+2026 | $-10253.73 | $-15797.05 | -0.65 | -4.77%
+
+Weakest N/S year: 2019 ($-8559.05 net, N/S=-0.75)
+
+End equity if $100k at year-1 start: $204653.14
+
+See YEARLY.md + ROBUSTNESS_AUDIT.md in hub.

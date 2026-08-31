@@ -1,0 +1,61 @@
+{
+  "ok": true,
+  "books": [
+    "nq_rl",
+    "mnq_rl",
+    "ym_rl",
+    "mym_rl",
+    "us30_london",
+    "nas100_london"
+  ],
+  "best_paths": [
+    {
+      "book": "nq_rl",
+      "symbol": "NQ",
+      "path_id": "first_upper",
+      "win_rate": 0.31216931216931215,
+      "exists": false,
+      "risk_atr_mult": 1.0
+    },
+    {
+      "book": "mnq_rl",
+      "symbol": "MNQ",
+      "path_id": "first_upper",
+      "win_rate": 0.31382978723404253,
+      "exists": false,
+      "risk_atr_mult": 2.5
+    },
+    {
+      "book": "ym_rl",
+      "symbol": "YM",
+      "path_id": "first_upper",
+      "win_rate": 0.33663366336633666,
+      "exists": false,
+      "risk_atr_mult": 2.0
+    },
+    {
+      "book": "mym_rl",
+      "symbol": "MYM",
+      "path_id": "first_upper",
+      "win_rate": 0.33678756476683935,
+      "exists": false,
+      "risk_atr_mult": 2.0
+    },
+    {
+      "book": "us30_london",
+      "symbol": "US30",
+      "path_id": "first_upper",
+      "win_rate": 0.36942675159235666,
+      "exists": false,
+      "risk_atr_mult": 1.0
+    },
+    {
+      "book": "nas100_london",
+      "symbol": "NAS100",
+      "path_id": "first_upper",
+      "win_rate": 0.4121212121212121,
+      "exists": false,
+      "risk_atr_mult": 2.5
+    }
+  ]
+}

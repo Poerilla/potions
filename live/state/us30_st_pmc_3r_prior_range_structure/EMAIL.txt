@@ -1,0 +1,11 @@
+US30 ST+PMC 3R prior-range structure study complete.
+Hub: /home/tester/hsm/potions/live/state/us30_st_pmc_3r_prior_range_structure
+
+Baseline: n=575 net=$+18582 N/S=15.36 WR=42%
+
+broad_central_filter [primary]: n=283 net=$+12366 N/S=20.95 (Δnet -6216 vs baseline)
+original_tercile_filter [primary]: n=181 net=$+8852 N/S=16.08 (Δnet -9730 vs baseline)
+narrow_central_diagnostic [diagnostic]: n=108 net=$+4815 N/S=7.54 (Δnet -13767 vs baseline)
+original_overlay [diagnostic]: n=575 net=$+20795 N/S=17.19 (Δnet +2213 vs baseline)
+
+See SUMMARY.md for opportunity-cost buckets and decision read.

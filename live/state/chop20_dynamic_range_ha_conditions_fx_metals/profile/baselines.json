@@ -1,0 +1,29 @@
+{
+  "nas100_chop20_causal_globex": {
+    "n": 74.0,
+    "wr": 0.2702702702702703,
+    "avg_net": 208.92162162162185,
+    "net": 15460.200000000017,
+    "ns": 3.900151362260324,
+    "stress": 3964.0000000000236,
+    "book": "nas100_chop20_causal_globex"
+  },
+  "usdjpy_chop20_causal_globex": {
+    "n": 168.0,
+    "wr": 0.26785714285714285,
+    "avg_net": 36198.77380952136,
+    "net": 6081393.999999587,
+    "ns": 1.6031808463801882,
+    "stress": 3793330.0000001425,
+    "book": "usdjpy_chop20_causal_globex"
+  },
+  "xauusd_chop20_causal_globex": {
+    "n": 128.0,
+    "wr": 0.3046875,
+    "avg_net": 2725.3824218749996,
+    "net": 348848.94999999995,
+    "ns": 4.592471404752825,
+    "stress": 75961.05000000009,
+    "book": "xauusd_chop20_causal_globex"
+  }
+}

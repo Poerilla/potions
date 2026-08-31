@@ -1,0 +1,25 @@
+{
+  "close_dd": -436275.10485197103,
+  "entry_mode": "max",
+  "equity_curve": "/home/tester/hsm/potions/live/state/monthly_nq_5m_fill_takes/audits/nq_5mfill_band_max_plus_0p5_runner2r_allw/equity_curve.csv",
+  "fill_tf": "5m",
+  "label": "Band-max +0.5 \u00b7 open TP + 2R runner",
+  "ladder": [
+    0,
+    5,
+    5
+  ],
+  "loss_units": 350.0,
+  "net_usd": 897107.2688296889,
+  "ns": 2.01382133155969,
+  "signal_tf": "1h",
+  "skip_entry_weeks": [],
+  "sl_mode": "plus_0.5",
+  "slug": "band_max_plus_0p5_runner2r",
+  "state_root": "/home/tester/hsm/potions/live/state/monthly_nq_5m_fill_takes/band_max_plus_0p5_runner2r/states/nq_5mfill_band_max_plus_0p5_runner2r_allw",
+  "strategy_id": "nq_5mfill_band_max_plus_0p5_runner2r_allw",
+  "stress_dd": -445475.10485197103,
+  "trades": 57.0,
+  "units": 570.0,
+  "win_units": 220.0
+}

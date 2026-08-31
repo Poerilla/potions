@@ -1,0 +1,16 @@
+potions: NQ WICK_REJECT range-seed retest COMPLETE
+
+Hub: /home/tester/hsm/potions/live/state/nq_wick_reject_range_seed_retest
+Eligible seeds: 91 / 122 atlas events
+Stance: RESEARCH — positive locked dev, failed holdout
+
+Key books:
+  primary_limit_retest_dev: fills=53 net=+23880 WR=57% PF=1.90 avgR=+0.177
+  primary_limit_retest_holdout: fills=14 net=+5467 WR=43% PF=1.27 avgR=-0.036
+  primary_limit_retest_ALL: fills=67 net=+29346 WR=54% PF=1.62 avgR=+0.132
+  ctrl_immediate_break_dev: fills=74 net=+7182 WR=54% PF=1.19 avgR=+0.015
+  ctrl_immediate_break_holdout: fills=17 net=-3107 WR=53% PF=0.89 avgR=-0.096
+  ctrl_marketable_boundary_dev: fills=74 net=+37767 WR=69% PF=2.37 avgR=+0.347
+  ctrl_marketable_boundary_holdout: fills=17 net=+16128 WR=53% PF=1.75 avgR=+0.146
+
+See SUMMARY.md.

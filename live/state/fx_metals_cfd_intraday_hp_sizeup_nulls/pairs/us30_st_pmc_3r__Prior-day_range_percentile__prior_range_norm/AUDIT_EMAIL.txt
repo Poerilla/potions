@@ -1,0 +1,8 @@
+potions: US30 ST+PMC prior_range_norm adversarial audit
+
+Hub: live/state/fx_metals_cfd_intraday_hp_sizeup_nulls/pairs/us30_st_pmc_3r__Prior-day_range_percentile__prior_range_norm
+Stance: INVESTIGATE — do NOT promote
+
+n=578 | HP norm=181 (31%) | inc N/S=32.10
+placebo p=0.0038 | master p ΔN/S=0.9661 FAIL
+causality violations=0 | top-5 day share=15%

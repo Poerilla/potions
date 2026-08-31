@@ -1,0 +1,18 @@
+potions: USDJPY FBO HA overlay complete
+
+Hub: /home/tester/hsm/potions/live/state/usdjpy_monthly_orb_fbo_ha_conditions/overlay
+Candidates: 8
+
+Top full-tape by ΔN/S:
+  Hourly RSI vs trade=rsi_with_side | filter | hp=61% ΔN/S=+6.57 Δnet=$+32174
+  Hourly RSI bucket=rsi_55_70 | filter | hp=24% ΔN/S=+2.70 Δnet=$-16164
+  Hourly RSI vs trade=rsi_with_side | size_1.5 | hp=61% ΔN/S=+2.42 Δnet=$+70032
+  Hourly RSI vs trade=rsi_with_side | size_1.25 | hp=61% ΔN/S=+1.66 Δnet=$+35016
+  Day of week=Monday | size_1.5 | hp=19% ΔN/S=+1.50 Δnet=$+20294
+  Day of week=Thursday | size_1.5 | hp=19% ΔN/S=+1.34 Δnet=$+25701
+  Hourly RSI bucket=rsi_55_70 | size_1.5 | hp=24% ΔN/S=+1.12 Δnet=$+45863
+  Prior-month range half=month_aligned | size_1.5 | hp=39% ΔN/S=+1.10 Δnet=$+32113
+  Day of week=Thursday | size_1.25 | hp=19% ΔN/S=+0.97 Δnet=$+12850
+  Day of week=Monday | size_1.25 | hp=19% ΔN/S=+0.89 Δnet=$+10147
+  ATR14 quartile=atr_q3 | size_1.25 | hp=25% ΔN/S=+0.79 Δnet=$+20135
+  Prior-month range half=month_aligned | size_1.25 | hp=39% ΔN/S=+0.69 Δnet=$+16056

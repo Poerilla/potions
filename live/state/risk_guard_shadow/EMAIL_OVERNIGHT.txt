@@ -1,0 +1,35 @@
+sent_at=2026-08-15T04:10:08Z pid=1908551 alive=True last=[2026-08-15T04:08:21Z] poll open=0 breach=0 books=15 oanda=False
+
+potions overnight: risk-guard SHADOW + winner MAE / p80 carry
+
+DAEMON
+  hub: live/state/risk_guard_shadow/
+  mode: shadow (log only — no freeze/close/stop)
+  until: 2026-08-28 (~2 weeks)
+  poll: every 120s; currently flat (no open OANDA-demo positions)
+  threshold: avg_loss_pts for 14/15 books; p80_winner_mae for EURUSD ST+PMC 3R only
+  artifacts: STATUS.json, thresholds.csv, poll_status.csv, actions.csv (on breach)
+
+MAE ANALYSIS
+  hub: live/state/oanda_winner_mae_carry/
+  books: 15 · favorable for p80 daemon thr: 1
+  counterfactual: flatten at p80 winner path-MAE instead of hard stop
+
+  us30_hourly_st_pmc_sl50_tp150_3r_oanda | winMAE mean=20.37 p80=35.68 | Δnet=$-4124 | thr=avg_loss
+  us30_hourly_st_pmc_sl50_tp150_runners_2r_10r_oanda | winMAE mean=20.49 p80=36.65 | Δnet=$-10184 | thr=avg_loss
+  nas100_hourly_st_pmc_sl50_tp150_3r_oanda | winMAE mean=19.58 p80=32.43 | Δnet=$-2215 | thr=avg_loss
+  nas100_hourly_st_pmc_sl50_tp150_runners_2r_10r_oanda | winMAE mean=19.51 p80=30.42 | Δnet=$-3786 | thr=avg_loss
+  eurusd_hourly_st_pmc_sl50_tp150_3r_oanda | winMAE mean=0.001896 p80=0.003277 | Δnet=$16062 | thr=p80_winner_mae FAVOR
+  eurusd_hourly_st_pmc_sl50_tp150_runners_2r_10r_oanda | winMAE mean=0.002163 p80=0.003654 | Δnet=$-49409 | thr=avg_loss
+  usdjpy_asia_range_london_oanda | winMAE mean=0.1332 p80=0.1928 | Δnet=$-14107623 | thr=avg_loss
+  us30_london_prior_opposed_oanda | winMAE mean=24.54 p80=39.3 | Δnet=$-11137 | thr=avg_loss
+  us30_monday_or_m3_s3_r2_half_oanda | winMAE mean=64.54 p80=104.1 | Δnet=$-24156 | thr=avg_loss
+  usdjpy_monday_or_ungated_oanda | winMAE mean=0.168 p80=0.256 | Δnet=$-14572820 | thr=avg_loss
+  audjpy_yearly_orb_oanda | winMAE mean=0.1618 p80=0.2608 | Δnet=$-8053140 | thr=avg_loss
+  xauusd_yearly_orb_oanda | winMAE mean=2.408 p80=4.258 | Δnet=$-301686 | thr=avg_loss
+  xagusd_yearly_orb_oanda | winMAE mean=0.1269 p80=0.226 | Δnet=$-45869 | thr=avg_loss
+  eurusd_yearly_orb_oanda | winMAE mean=0.002092 p80=0.003452 | Δnet=$-41151 | thr=avg_loss
+  us30_yearly_orb_oanda | winMAE mean=78.75 p80=148 | Δnet=$-14914 | thr=avg_loss
+
+Stance: keep shadow on avg loss portfolio-wide; only EURUSD 3R uses p80 MAE thr.
+JPY/metals absolute $ are research-lot scale — use Δnet / favor flag, not raw $ as live size.

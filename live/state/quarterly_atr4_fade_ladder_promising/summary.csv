@@ -1,0 +1,6 @@
+strategy_id,market,trade_mode,risk_atr_mult,allowed_sides,path_id,bars,units,trades,net_usd,closed_dd_usd,intrabar_stress_dd_usd,win_rate,profit_factor,net_over_stress,max_open_units
+gbpusd_quarterly_atr4_fade_ladder,GBPUSD,first_only,2.0,['lower'],first_lower,36960,510,51,404130.29662899475,-50305.06509466679,-50565.06509466673,0.48627450980392156,2.847550566052086,7.992282732601876,10
+xauusd_quarterly_atr4_fade_ladder,XAUUSD,first_only,2.0,['lower'],nan,36439,300,30,251054.422314444,-56926.70052118515,-61550.70052118518,0.4266666666666667,2.468947348719328,4.078823152110728,10
+nas100_quarterly_atr4_fade_ladder,NAS100,first_only,2.0,['lower'],first_lower,13767,90,9,33127.04243729204,-6958.200000000004,-7471.200000000004,0.4,5.543169394644734,4.433965418847309,10
+eurusd_quarterly_atr4_fade_ladder,EURUSD,second_only,2.0,['lower'],second_after_upper,36962,160,16,84626.67789626363,-32597.63874139759,-34661.63874139743,0.35,2.557434968215964,2.4415082774257715,10
+nq_quarterly_atr4_fade_ladder,NQ,second_only,1.5,['lower'],second_after_upper,25531,80,8,306961.7981411797,-115207.6580022265,-121107.6580022265,0.45,11.95287012554232,2.534619223959697,10

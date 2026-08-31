@@ -58,6 +58,10 @@ Artifacts → `live/state/<hub>/winloss_charts/<strategy_id>/` (`INDEX.md`, `cha
 
 3. Always email (skill `potions-job-email`). Prefer `--email` on both drivers.
    HTML multipart: `send_email(..., html=..., attachments=[...])`.
+4. **Run ledger:** `instrument_deep_check` auto-logs `run_class=deep_check` into
+   `data/validation/broker_run_ledger.csv` (skill `potions-run-ledger`). If you
+   only ran charts or an older hub, backfill with
+   `python -m live.run_ledger log-hub --hub <deep_check_dir> --run-class deep_check`.
 
 ## What “good” looks like in the yearly board
 
@@ -69,4 +73,5 @@ Artifacts → `live/state/<hub>/winloss_charts/<strategy_id>/` (`INDEX.md`, `cha
 
 - `live/nq_v2b_prior_opposed_robustness_audit.py` — futures prior-opposed reference
 - `potions-job-email` — notify on complete/crash
+- `potions-run-ledger` — catalog deep-check + parent broker metrics
 - `strategy-completion-report` — hub-wide promote boards (not per-instrument forensics)

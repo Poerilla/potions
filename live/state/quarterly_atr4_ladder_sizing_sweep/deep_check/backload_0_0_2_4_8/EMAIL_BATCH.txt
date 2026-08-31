@@ -1,0 +1,106 @@
+potions: deep-check batch complete — ATR4 ladder 0/0/2/4/8 (best non-10)
+
+Cell: backload_0_0_2_4_8 (0/0/2/4/8)
+Artifacts: live/state/quarterly_atr4_ladder_sizing_sweep/deep_check/backload_0_0_2_4_8
+Win/loss: live/state/quarterly_atr4_ladder_sizing_sweep/winloss_charts/backload_0_0_2_4_8/
+
+## gbpusd_quarterly_atr4_fade_ladder
+# GBPUSD quarterly ATR4 fade ladder 0/0/2/4/8 — year-by-year
+
+Starting equity compound path assumes **$100,000** at the first traded year.
+Stress is year-local peak-to-trough on intrabar stress equity when an equity curve exists;
+otherwise closed campaign DD is used as the stress proxy (same as London sweep hub).
+
+| year | trades | net | stress | N/S | win% | PF | start eq | year return | end eq |
+|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+| 2003 | 1 | $-154.00 | $-1806.00 | -0.09 | 0.0 | 0.00 | $100000.00 | -0.15% | $99846.00 |
+| 2004 | 2 | $115331.46 | $-62325.33 | 1.85 | 50.0 | 8.42 | $99846.00 | +115.51% | $215177.46 |
+| 2005 | 3 | $-22620.68 | $-47096.00 | -0.48 | 33.3 | 0.38 | $215177.46 | -10.51% | $192556.78 |
+| 2006 | 1 | $67545.00 | $-38144.00 | 1.77 | 100.0 | 0.00 | $192556.78 | +35.08% | $260101.78 |
+| 2007 | 1 | $11384.90 | $-49600.00 | 0.23 | 100.0 | 0.00 | $260101.78 | +4.38% | $271486.68 |
+| 2008 | 4 | $-44857.58 | $-76008.19 | -0.59 | 25.0 | 0.21 | $271486.68 | -16.52% | $226629.10 |
+| 2009 | 1 | $-16841.72 | $-38150.00 | -0.44 | 0.0 | 0.00 | $226629.10 | -7.43% | $209787.38 |
+| 2010 | 1 | $8173.86 | $-43680.00 | 0.19 | 100.0 | 0.00 | $209787.38 | +3.90% | $217961.24 |
+| 2011 | 2 | $61700.28 | $-67208.00 | 0.92 | 100.0 | 0.00 | $217961.24 | +28.31% | $279661.52 |
+| 2012 | 3 | $52799.16 | $-32774.28 | 1.61 | 33.3 | 3.61 | $279661.52 | +18.88% | $332460.68 |
+
+## xauusd_quarterly_atr4_fade_ladder
+# XAUUSD quarterly ATR4 fade ladder 0/0/2/4/8 — year-by-year
+
+Starting equity compound path assumes **$100,000** at the first traded year.
+Stress is year-local peak-to-trough on intrabar stress equity when an equity curve exists;
+otherwise closed campaign DD is used as the stress proxy (same as London sweep hub).
+
+| year | trades | net | stress | N/S | win% | PF | start eq | year return | end eq |
+|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+| 2003 | 1 | $38409.00 | $-14004.80 | 2.74 | 100.0 | 0.00 | $100000.00 | +38.41% | $138409.00 |
+| 2004 | 2 | $25918.22 | $-19002.40 | 1.36 | 50.0 | 8.75 | $138409.00 | +18.73% | $164327.22 |
+| 2005 | 3 | $102803.34 | $-36056.00 | 2.85 | 66.7 | 11.39 | $164327.22 | +62.56% | $267130.56 |
+| 2006 | 1 | $-13548.50 | $-30018.80 | -0.45 | 0.0 | 0.00 | $267130.56 | -5.07% | $253582.06 |
+| 2007 | 1 | $65457.86 | $-42568.80 | 1.54 | 100.0 | 0.00 | $253582.06 | +25.81% | $319039.92 |
+| 2008 | 1 | $5293.14 | $-64514.40 | 0.08 | 100.0 | 0.00 | $319039.92 | +1.66% | $324333.06 |
+| 2009 | 3 | $39575.94 | $-63581.60 | 0.62 | 33.3 | 1.96 | $324333.06 | +12.20% | $363909.00 |
+| 2010 | 1 | $-23882.88 | $-46725.00 | -0.51 | 0.0 | 0.00 | $363909.00 | -6.56% | $340026.12 |
+| 2011 | 1 | $-475.02 | $-18226.60 | -0.03 | 0.0 | 0.00 | $340026.12 | -0.14% | $339551.10 |
+| 2012 | 3 | $157192.32 | $-45673.20 | 3.44 | 33.3 | 5.01 | $339551.10 | +46.29% | $496743.42 |
+
+## nq_quarterly_atr4_fade_ladder
+# NQ quarterly ATR4 fade ladder 0/0/2/4/8 — year-by-year
+
+Starting equity compound path assumes **$100,000** at the first traded year.
+Stress is year-local peak-to-trough on intrabar stress equity when an equity curve exists;
+otherwise closed campaign DD is used as the stress proxy (same as London sweep hub).
+
+| year | trades | net | stress | N/S | win% | PF | start eq | year return | end eq |
+|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+| 2013 | 1 | $35456.46 | $-33040.00 | 1.07 | 100.0 | 0.00 | $100000.00 | +35.46% | $135456.46 |
+| 2014 | 1 | $-301.00 | $-1540.00 | -0.20 | 0.0 | 0.00 | $135456.46 | -0.22% | $135155.46 |
+| 2016 | 1 | $-9756.74 | $-10220.00 | -0.95 | 0.0 | 0.00 | $135155.46 | -7.22% | $125398.72 |
+| 2019 | 1 | $-694.96 | $-8750.00 | -0.08 | 0.0 | 0.00 | $125398.72 | -0.55% | $124703.76 |
+| 2020 | 1 | $374887.80 | $-125720.00 | 2.98 | 100.0 | 0.00 | $124703.76 | +300.62% | $499591.56 |
+| 2025 | 2 | $76490.56 | $-349130.63 | 0.22 | 50.0 | 255.12 | $499591.56 | +15.31% | $576082.12 |
+| 2026 | 1 | $41874.48 | $-235040.00 | 0.18 | 100.0 | 0.00 | $576082.12 | +7.27% | $617956.60 |
+
+## Timing snapshot
+
+
+## eurusd_quarterly_atr4_fade_ladder
+# EURUSD quarterly ATR4 fade ladder 0/0/2/4/8 — year-by-year
+
+Starting equity compound path assumes **$100,000** at the first traded year.
+Stress is year-local peak-to-trough on intrabar stress equity when an equity curve exists;
+otherwise closed campaign DD is used as the stress proxy (same as London sweep hub).
+
+| year | trades | net | stress | N/S | win% | PF | start eq | year return | end eq |
+|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+| 2003 | 1 | $113195.56 | $-15408.00 | 7.35 | 100.0 | 0.00 | $100000.00 | +113.20% | $213195.56 |
+| 2004 | 2 | $5009.86 | $-58474.21 | 0.09 | 50.0 | 1.49 | $213195.56 | +2.35% | $218205.42 |
+| 2008 | 3 | $24795.76 | $-57240.00 | 0.43 | 33.3 | 2.14 | $218205.42 | +11.36% | $243001.18 |
+| 2010 | 1 | $-9531.06 | $-9534.00 | -1.00 | 0.0 | 0.00 | $243001.18 | -3.92% | $233470.12 |
+| 2012 | 1 | $-7555.66 | $-13314.00 | -0.57 | 0.0 | 0.00 | $233470.12 | -3.24% | $225914.46 |
+| 2015 | 1 | $-4614.12 | $-22456.00 | -0.21 | 0.0 | 0.00 | $225914.46 | -2.04% | $221300.34 |
+| 2019 | 2 | $-12983.46 | $-28728.54 | -0.45 | 0.0 | 0.00 | $221300.34 | -5.87% | $208316.88 |
+| 2020 | 1 | $57270.16 | $-13580.00 | 4.22 | 100.0 | 0.00 | $208316.88 | +27.49% | $265587.04 |
+| 2021 | 1 | $-4934.44 | $-6314.00 | -0.78 | 0.0 | 0.00 | $265587.04 | -1.86% | $260652.60 |
+| 2022 | 1 | $-5151.58 | $-7504.00 | -0.69 | 0.0 | 0.00 | $260652.60 | -1.98% | $255501.02 |
+
+## nas100_quarterly_atr4_fade_ladder
+# NAS100 quarterly ATR4 fade ladder 0/0/2/4/8 — year-by-year
+
+Starting equity compound path assumes **$100,000** at the first traded year.
+Stress is year-local peak-to-trough on intrabar stress equity when an equity curve exists;
+otherwise closed campaign DD is used as the stress proxy (same as London sweep hub).
+
+| year | trades | net | stress | N/S | win% | PF | start eq | year return | end eq |
+|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+| 2017 | 1 | $-663.74 | $-663.77 | -1.00 | 0.0 | 0.00 | $100000.00 | -0.66% | $99336.26 |
+| 2018 | 1 | $-909.02 | $-2653.00 | -0.34 | 0.0 | 0.00 | $99336.26 | -0.92% | $98427.24 |
+| 2021 | 1 | $-1275.54 | $-1584.80 | -0.80 | 0.0 | 0.00 | $98427.24 | -1.30% | $97151.70 |
+| 2022 | 2 | $-4820.34 | $-5619.35 | -0.86 | 0.0 | 0.00 | $97151.70 | -4.96% | $92331.36 |
+| 2023 | 1 | $22233.90 | $-3958.40 | 5.62 | 100.0 | 0.00 | $92331.36 | +24.08% | $114565.26 |
+| 2024 | 2 | $15629.66 | $-5136.00 | 3.04 | 50.0 | 5.61 | $114565.26 | +13.64% | $130194.92 |
+| 2025 | 1 | $63301.76 | $-16957.20 | 3.73 | 100.0 | 0.00 | $130194.92 | +48.62% | $193496.68 |
+
+## Timing snapshot
+
+

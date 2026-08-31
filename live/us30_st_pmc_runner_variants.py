@@ -240,6 +240,12 @@ def main() -> int:
         "Fair control vs dual-runner scaleouts on the same US30 1m path as "
         "`sl50_tp150_3r_1mfill`.",
         "",
+        "> **2026-08 completed-hour causality fix.** The shared hourly resampler "
+        "is left-labeled, so a bar timestamped 11:00 contains 11:00-11:59 data. "
+        "This replay now shifts signal bars to the completed-hour timestamp before "
+        "the strategy can consume them, and fills only on the 1m tape. The old "
+        "positive 3R baseline is superseded by the table below.",
+        "",
         "## Rules",
         "",
         "- Stop 50 / regular TP 150 (TP1).",
@@ -276,6 +282,7 @@ def main() -> int:
             "## Artifacts",
             "",
             "- Summary CSV: `summary.csv`",
+            "- Causality/fill audit: `CAUSALITY_AUDIT.md` and `causality_fill_audit.csv`",
             "- States: `states/us30_hourly_st_pmc_<variant>/`",
             "- Audits: `audits/`",
             "- Runner: `live/us30_st_pmc_runner_variants.py`",

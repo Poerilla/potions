@@ -1,0 +1,13 @@
+bucket,pair,a_campaigns,b_campaigns,shared_days,day_jaccard,dir_agree_rate_on_shared,same_day_same_dir_events,daily_net_corr,corr_days,regime_separable
+same_market_v2b_vs_stpmc,MNQ prior-opposed vs MNQ ST+PMC 3R,428,342,179,0.328,0.056,10,-0.142,179,True
+same_market_v2b_vs_stpmc,NAS100 prior-opposed vs NAS100 ST+PMC 3R,310,477,151,0.25,0.02,3,-0.329,151,True
+same_market_v2b_vs_stpmc,NQ prior-opposed vs NQ ST+PMC 3R,432,679,182,0.209,0.055,10,-0.14,182,True
+same_market_v2b_vs_stpmc,US30 prior-opposed vs US30 ST+PMC 3R,309,578,52,0.078,0.808,42,0.052,52,True
+same_market_v2b_vs_stpmc,YM prior-opposed vs YM ST+PMC 3R,436,985,183,0.162,0.044,9,-0.129,183,True
+cross_v2b_vs_stpmc,YM prior-opposed vs US30 ST+PMC 3R,436,578,150,0.192,0.06,9,-0.107,150,True
+cross_v2b_vs_stpmc,US30 prior-opposed vs YM ST+PMC 3R,309,985,52,0.05,0.788,41,0.004,52,True
+cross_v2b_vs_stpmc,NQ prior-opposed vs NAS100 ST+PMC 3R,432,477,143,0.198,0.049,7,-0.218,143,True
+cross_v2b_vs_stpmc,NAS100 prior-opposed vs NQ ST+PMC 3R,310,679,152,0.192,0.026,4,-0.334,152,True
+cross_stpmc_vs_stpmc,YM ST+PMC 3R vs US30 ST+PMC 3R,985,578,417,0.423,0.998,416,0.851,417,False
+cross_stpmc_vs_stpmc,NQ ST+PMC 3R vs NAS100 ST+PMC 3R,679,477,395,0.577,1.0,396,0.956,395,False
+cross_stpmc_vs_stpmc,NQ ST+PMC 3R vs MNQ ST+PMC 3R,679,342,301,0.469,1.0,302,0.98,301,False

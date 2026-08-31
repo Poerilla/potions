@@ -1,0 +1,13 @@
+{
+  "env": "practice",
+  "account_id": "101-002-39860312-003",
+  "label": "NAS100 clean-break trail06_m4_e2_out_be",
+  "oanda_alias": "NAS100 Clean Break Trail06",
+  "demo": "nas100_v2b_clean_break_trail06_m4_e2_out_be_oanda",
+  "cli": "demo-nas100-clean-break-trail-oanda",
+  "replaces": "Fair US30 ST+PMC 3R (us30_fair_st_pmc_003)",
+  "parent_run_id": "brl_21741b260a28",
+  "frozen_candidate": "trail06_m4_e2_out_be",
+  "cutover_note": "2026-08-31: account -003 rotated from Fair US30 ST+PMC to NAS100 clean-break pyramid trail (best NAS100 N/S in CFD top-3 / 1m-fill validation).",
+  "alias_note": "2026-08-31: OANDA practice alias updated Fair US30 → NAS100 Clean Break Trail06 (configure tx 104)."
+}

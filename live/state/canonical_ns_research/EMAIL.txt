@@ -1,14 +1,7 @@
-canonical_ns_research Phase 1 complete
+Canonical N/S coupon table (HTML multipart)
+
 hub: /home/tester/hsm/potions/live/state/canonical_ns_research
-candidates: 118 (rankable=100)
+rows: 118 (ledger order, unsorted)
+Coupon = candidate/baseline; Δ = candidate − baseline.
 
-Top ΔN/S overlays:
-  NQ nq_prior_opposed_rl @2.00× ΔN/S=+12.20 (Δnet=+581952) [futures_intraday_hp_live_plan]
-  NQ nq_prior_opposed_rl @2.00× ΔN/S=+12.20 (Δnet=+581952) [futures_intraday_hp_sizeup_nulls_2x]
-  NQ nq_prior_opposed_rl @3.00× ΔN/S=+10.90 (Δnet=+1163905) [futures_intraday_hp_live_plan]
-  NQ nq_prior_opposed_rl @4.00× ΔN/S=+10.14 (Δnet=+1745858) [futures_intraday_hp_live_plan]
-  YM ym_st_pmc_3r @4.00× ΔN/S=+10.03 (Δnet=+111898) [futures_intraday_hp_live_plan]
-
-Policy: whole-book ΔN/S is the canonical higher-is-better score.
-Δnet is viability/reporting only.
-See POLICY.md + BOARDS.md.
+Compact HTML inline; full EMAIL.html + ALL_RESULTS_WITH_COUPONS.csv attached.

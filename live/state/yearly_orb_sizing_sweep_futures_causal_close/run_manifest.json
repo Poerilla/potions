@@ -1,0 +1,59 @@
+{
+  "broker_realism_config": {},
+  "causality_mode": "audit",
+  "command": [
+    "/home/tester/hsm/potions/live/yearly_orb_sizing_sweep.py",
+    "--markets",
+    "nq,es,ym",
+    "--output-root",
+    "live/state/yearly_orb_sizing_sweep_futures_causal_close",
+    "--email"
+  ],
+  "created_at": "2026-08-18T02:52:35Z",
+  "cwd": "/home/tester/hsm/potions",
+  "data_inputs": [
+    {
+      "bytes": 263866,
+      "exists": true,
+      "path": "/home/tester/hsm/potions/nq/nq_daily.csv",
+      "sha256": "af2175c6276a07f3931686f7a1c96afe1d93bc3e2297b32908a03487b25ebdda"
+    },
+    {
+      "bytes": 261180,
+      "exists": true,
+      "path": "/home/tester/hsm/potions/es/es_daily.csv",
+      "sha256": "0a720103b17dfba77bfa998a74c62a81d5b0dcc6c5f9f5daca6cb58a26637ce8"
+    },
+    {
+      "bytes": 269105,
+      "exists": true,
+      "path": "/home/tester/hsm/potions/ym/ym_daily.csv",
+      "sha256": "d2988ac6f3204214cbaaf932e6b2e67ec6fc3bf88e141b96a72de5c4946228ae"
+    }
+  ],
+  "extra": {
+    "job": "yearly_orb_sizing_sweep",
+    "markets": [
+      "nq",
+      "es",
+      "ym"
+    ],
+    "n_cells": 19,
+    "n_results": 57,
+    "scenario_set": "default"
+  },
+  "git": {
+    "commit": "",
+    "dirty": false,
+    "repo_root": "/home/tester/hsm/potions/live/state/yearly_orb_sizing_sweep_futures_causal_close",
+    "status_short": []
+  },
+  "outputs": [],
+  "python": {
+    "executable": "/home/tester/.pyenv/versions/3.8.0/bin/python",
+    "platform": "Linux-5.15.0-185-generic-x86_64-with-glibc2.34",
+    "version": "3.8.0 (default, Feb 11 2026, 11:18:58) \n[GCC 11.4.0]"
+  },
+  "run_id": "run_b7d02f05463b",
+  "strategy_config": {}
+}

@@ -1,0 +1,20 @@
+potions: fx_v2b_london_ungated complete
+
+London OR 03:00–03:15 NY → flatten 11:59. Books: S_1_1_1, S_1_1_3
+
+Top by N/S (USD-normalized):
+  US30 S_1_1_3  N/S=-0.24  net≈$-4682  stress≈$-19171  trades=1511
+  US30 S_1_1_1  N/S=-0.42  net≈$-4315  stress≈$-10245  trades=1511
+  NAS100 S_1_1_3  N/S=-0.82  net≈$-15399  stress≈$-18862  trades=1618
+  NAS100 S_1_1_1  N/S=-0.85  net≈$-9173  stress≈$-10757  trades=1618
+  XAGUSD S_1_1_3  N/S=-0.88  net≈$-411413  stress≈$-468511  trades=2771
+  XAGUSD S_1_1_1  N/S=-0.91  net≈$-258615  stress≈$-284750  trades=2771
+  XAUUSD S_1_1_3  N/S=-0.93  net≈$-704690  stress≈$-760979  trades=3481
+  XAUUSD S_1_1_1  N/S=-0.94  net≈$-449046  stress≈$-476231  trades=3481
+  GBPUSD S_1_1_3  N/S=-0.99  net≈$-421047  stress≈$-424089  trades=2706
+  AUDJPY S_1_1_1  N/S=-1.00  net≈$-181805  stress≈$-182652  trades=2555
+  GBPUSD S_1_1_1  N/S=-1.00  net≈$-260595  stress≈$-261799  trades=2706
+  AUDJPY S_1_1_3  N/S=-1.00  net≈$-301924  stress≈$-303072  trades=2555
+
+Hub: live/state/fx_v2b_london_ungated
+See INDEX.md / summary.csv.

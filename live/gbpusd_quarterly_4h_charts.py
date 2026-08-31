@@ -1,13 +1,13 @@
-"""GBPUSD quarterly 4h charts with week shades, opening-week range, ±4 ATR, month closes.
+"""FX / index quarterly 4h charts with week shades, opening-week range, ±4 ATR, month closes.
 
 Layout::
 
-    live/state/gbpusd_quarterly_4h_charts/
+    live/state/<symbol>_quarterly_4h_charts/
       INDEX.md
       EMAIL.txt
       charts/
         YYYY/
-          gbpusd_4h_YYYY_Qn.png
+          <symbol>_4h_YYYY_Qn.png
           INDEX.md
 
 Each chart covers one calendar quarter (3 months), starting from the first
@@ -19,6 +19,8 @@ January quarter in the 4h history:
 - Fixed horizontal levels at mid ±1..4× ATR(14) of the opening week
   (ATR = Wilder/EWM on 4h bars, taken at the last bar of the opening week)
 - Closing price of each month in the quarter (horizontal guide + label)
+
+Defaults remain GBPUSD; pass ``--symbol NAS100`` / ``US30`` (and ``--csv``) for indexes.
 """
 
 from __future__ import annotations
@@ -38,8 +40,28 @@ import pandas as pd
 
 REPO = Path(__file__).resolve().parents[1]
 NY = "America/New_York"
+DEFAULT_SYMBOL = "GBPUSD"
 DEFAULT_OUT = REPO / "live" / "state" / "gbpusd_quarterly_4h_charts"
 DEFAULT_CSV = REPO / "fx" / "gbpusd_4h.csv"
+
+# Index CFDs use fewer decimals than FX pairs in labels.
+INDEX_SYMBOLS = {"NAS100", "US30", "US500", "DE40", "UK100", "JP225"}
+
+
+def price_fmt(symbol: str) -> str:
+    return "%.2f" if symbol.upper() in INDEX_SYMBOLS else "%.5f"
+
+
+def slug(symbol: str) -> str:
+    return symbol.strip().lower()
+
+
+def default_csv_for(symbol: str) -> Path:
+    return REPO / "fx" / ("%s_4h.csv" % slug(symbol))
+
+
+def default_out_for(symbol: str) -> Path:
+    return REPO / "live" / "state" / ("%s_quarterly_4h_charts" % slug(symbol))
 
 WEEK_SHADE_A = "#e8eef5"
 WEEK_SHADE_B = "#f5efe6"
@@ -55,17 +77,76 @@ MONTH_CLOSE_COLOR = "#e65100"
 ATR_LEN = 14
 
 
-def load_4h(path: Path, symbol: str = "GBPUSD") -> pd.DataFrame:
+def load_4h(path: Path, symbol: str = DEFAULT_SYMBOL) -> pd.DataFrame:
     print("Loading %s ..." % path, flush=True)
     df = pd.read_csv(path)
     if "symbol" in df.columns:
-        df = df[df["symbol"].astype(str).str.upper() == symbol.upper()].copy()
-    df["ts_event"] = pd.to_datetime(df["ts_event"], utc=True).dt.tz_convert(NY)
+        syms = df["symbol"].astype(str).str.upper()
+        root = symbol.upper()
+        exact = syms == root
+        if bool(exact.any()):
+            df = df.loc[exact].copy()
+        else:
+            # Front-month rows use contract codes (YMM0, NQH1, …).
+            df = df.loc[syms.str.startswith(root) & ~syms.str.contains("-", na=False)].copy()
+    ts_col = "ts_event" if "ts_event" in df.columns else ("time" if "time" in df.columns else "ts")
+    if ts_col not in df.columns:
+        raise KeyError("4h csv needs ts_event/time/ts: %s" % path)
+    # Tolerate already-localized strings (e.g. nas100_1h style) and UTC Z.
+    ts = pd.to_datetime(df[ts_col], utc=True, errors="coerce")
+    if ts.isna().any():
+        ts = pd.to_datetime(df[ts_col], errors="coerce")
+        if getattr(ts.dt, "tz", None) is None:
+            ts = ts.dt.tz_localize(NY, ambiguous="infer", nonexistent="shift_forward")
+        else:
+            ts = ts.dt.tz_convert(NY)
+    else:
+        ts = ts.dt.tz_convert(NY)
+    df = df.assign(ts_event=ts).dropna(subset=["ts_event"])
     df = df.set_index("ts_event").sort_index()
     keep = [c for c in ("open", "high", "low", "close", "volume") if c in df.columns]
     out = df[keep]
     print("  4h bars: %s" % f"{len(out):,}", flush=True)
     return out
+
+
+def resample_1h_to_4h(path_1h: Path, symbol: str, out_csv: Path) -> Path:
+    """Build a 4h CSV from an hourly file (NAS100 has 1h but no checked-in 4h)."""
+    print("Resampling 1h → 4h: %s → %s" % (path_1h, out_csv), flush=True)
+    df = pd.read_csv(path_1h)
+    if "symbol" in df.columns:
+        df = df[df["symbol"].astype(str).str.upper() == symbol.upper()].copy()
+    ts = pd.to_datetime(df["ts_event"], utc=True, errors="coerce")
+    if ts.isna().any():
+        ts = pd.to_datetime(df["ts_event"], errors="coerce")
+        if getattr(ts.dt, "tz", None) is None:
+            ts = ts.dt.tz_localize(NY, ambiguous="infer", nonexistent="shift_forward")
+        else:
+            ts = ts.dt.tz_convert(NY)
+    else:
+        ts = ts.dt.tz_convert(NY)
+    df = df.assign(ts_event=ts).dropna(subset=["ts_event"]).set_index("ts_event").sort_index()
+    ohlc = (
+        df.resample("4h", label="left", closed="left", origin="start_day")
+        .agg(
+            open=("open", "first"),
+            high=("high", "max"),
+            low=("low", "min"),
+            close=("close", "last"),
+            volume=("volume", "sum") if "volume" in df.columns else ("open", "count"),
+        )
+        .dropna(subset=["open"])
+    )
+    if "volume" not in df.columns:
+        ohlc = ohlc.drop(columns=["volume"], errors="ignore")
+        ohlc["volume"] = 0.0
+    out = ohlc.reset_index()
+    out["ts_event"] = out["ts_event"].dt.tz_convert("UTC").dt.strftime("%Y-%m-%dT%H:%M:%SZ")
+    out["symbol"] = symbol.upper()
+    out_csv.parent.mkdir(parents=True, exist_ok=True)
+    out.to_csv(out_csv, index=False)
+    print("  wrote %s bars" % f"{len(out):,}", flush=True)
+    return out_csv
 
 
 def wilder_atr(df: pd.DataFrame, atr_len: int = ATR_LEN) -> pd.Series:
@@ -183,6 +264,7 @@ def draw_opening_week_range(
     ow: pd.DataFrame,
     window_start: pd.Timestamp,
     window_end: pd.Timestamp,
+    fmt: str = "%.5f",
 ) -> Tuple[Optional[float], Optional[float], Optional[float]]:
     if ow.empty:
         return None, None, None
@@ -202,7 +284,7 @@ def draw_opening_week_range(
     ax.text(
         window_start,
         hi,
-        "  Q open-week high %.5f" % hi,
+        ("  Q open-week high " + fmt) % hi,
         color=OPEN_WEEK_EDGE,
         fontsize=8,
         va="bottom",
@@ -213,7 +295,7 @@ def draw_opening_week_range(
     ax.text(
         window_start,
         lo,
-        "  Q open-week low %.5f" % lo,
+        ("  Q open-week low " + fmt) % lo,
         color=OPEN_WEEK_EDGE,
         fontsize=8,
         va="top",
@@ -230,6 +312,7 @@ def draw_atr_bands(
     atr: float,
     window_start: pd.Timestamp,
     window_end: pd.Timestamp,
+    fmt: str = "%.5f",
 ) -> List[float]:
     levels: List[float] = []
     for k in range(1, 5):
@@ -260,7 +343,7 @@ def draw_atr_bands(
         ax.text(
             window_end,
             up,
-            " +%d× %.5f " % (k, up),
+            (" +%d× " % k) + (fmt % up) + " ",
             color=color,
             fontsize=7.5,
             va="center",
@@ -270,7 +353,7 @@ def draw_atr_bands(
         ax.text(
             window_end,
             dn,
-            " -%d× %.5f " % (k, dn),
+            (" -%d× " % k) + (fmt % dn) + " ",
             color=color,
             fontsize=7.5,
             va="top",
@@ -299,6 +382,7 @@ def draw_month_closes(
     bars: pd.DataFrame,
     window_start: pd.Timestamp,
     window_end: pd.Timestamp,
+    fmt: str = "%.5f",
 ) -> List[float]:
     """Last 4h close of each calendar month that intersects the quarter window."""
     if bars.empty:
@@ -339,7 +423,7 @@ def draw_month_closes(
         ax.text(
             close_ts,
             close,
-            "  %s close %.5f" % (close_ts.strftime("%b"), close),
+            ("  %s close " % close_ts.strftime("%b")) + (fmt % close),
             color=MONTH_CLOSE_COLOR,
             fontsize=8,
             va="bottom",
@@ -361,7 +445,9 @@ def plot_quarter(
     t0: pd.Timestamp,
     t1: pd.Timestamp,
     out_path: Path,
+    symbol: str,
 ) -> Dict[str, object]:
+    fmt = price_fmt(symbol)
     window = bars[(bars.index >= t0) & (bars.index < t1)].copy()
     ow = opening_week_slice(bars, t0)
     atr_val = None
@@ -378,11 +464,11 @@ def plot_quarter(
     fig, ax = plt.subplots(figsize=(18, 8.5))
     shade_weeks(ax, t0, t1)
     plot_candles(ax, window)
-    hi, lo, mid = draw_opening_week_range(ax, ow, t0, t1)
+    hi, lo, mid = draw_opening_week_range(ax, ow, t0, t1, fmt=fmt)
     extras: List[float] = []
     if mid is not None and atr_val is not None and atr_val > 0:
-        extras.extend(draw_atr_bands(ax, mid, atr_val, t0, t1))
-    extras.extend(draw_month_closes(ax, window, t0, t1))
+        extras.extend(draw_atr_bands(ax, mid, atr_val, t0, t1, fmt=fmt))
+    extras.extend(draw_month_closes(ax, window, t0, t1, fmt=fmt))
     if hi is not None:
         extras.extend([hi, lo])
 
@@ -398,10 +484,11 @@ def plot_quarter(
         ax.set_ylim(y_lo - pad, y_hi + pad)
 
     ax.set_xlim(t0, t1)
-    atr_txt = ("ATR(14)=%.5f" % atr_val) if atr_val is not None else "ATR n/a"
+    atr_txt = (("ATR(14)=" + fmt) % atr_val) if atr_val is not None else "ATR n/a"
     ax.set_title(
-        "GBPUSD 4h · %d Q%d (%s → %s) · week shades · open-week range · ±1..4×ATR · month closes · %s"
+        "%s 4h · %d Q%d (%s → %s) · week shades · open-week range · ±1..4×ATR · month closes · %s"
         % (
+            symbol.upper(),
             year,
             quarter,
             t0.date().isoformat(),
@@ -409,7 +496,7 @@ def plot_quarter(
             atr_txt,
         )
     )
-    ax.set_ylabel("GBPUSD")
+    ax.set_ylabel(symbol.upper())
     ax.grid(True, color="#dedede", linewidth=0.55, alpha=0.75)
     ax.legend(loc="upper left", fontsize=8, ncol=2)
     ax.xaxis.set_major_locator(mdates.WeekdayLocator(byweekday=mdates.MO, tz=NY))
@@ -442,8 +529,12 @@ def build(
     end: Optional[date],
     jan_quarters_only: bool,
     force: bool,
+    symbol: str = DEFAULT_SYMBOL,
 ) -> List[Dict[str, object]]:
-    bars = load_4h(csv_path)
+    symbol = symbol.upper()
+    sym_slug = slug(symbol)
+    fmt = price_fmt(symbol)
+    bars = load_4h(csv_path, symbol=symbol)
     atr_series = wilder_atr(bars, ATR_LEN)
     # Default start: first January 1 on or after first bar year if user said "Starting Jan".
     if start is None:
@@ -473,7 +564,7 @@ def build(
 
     rows: List[Dict[str, object]] = []
     for year, quarter, t0, t1 in windows:
-        rel = Path("charts") / str(year) / ("gbpusd_4h_%d_Q%d.png" % (year, quarter))
+        rel = Path("charts") / str(year) / ("%s_4h_%d_Q%d.png" % (sym_slug, year, quarter))
         out_path = output_root / rel
         if out_path.exists() and not force:
             rows.append(
@@ -496,11 +587,21 @@ def build(
             t0=t0,
             t1=t1,
             out_path=out_path,
+            symbol=symbol,
         )
         meta["chart"] = str(rel)
         rows.append(meta)
 
-    _write_indexes(output_root, rows, start=start, end=end, jan_only=jan_quarters_only)
+    _write_indexes(
+        output_root,
+        rows,
+        start=start,
+        end=end,
+        jan_only=jan_quarters_only,
+        symbol=symbol,
+        csv_path=csv_path,
+        fmt=fmt,
+    )
     return rows
 
 
@@ -511,9 +612,13 @@ def _write_indexes(
     start: Optional[date],
     end: Optional[date],
     jan_only: bool,
+    symbol: str,
+    csv_path: Path,
+    fmt: str,
 ) -> None:
     output_root.mkdir(parents=True, exist_ok=True)
     pd.DataFrame(rows).to_csv(output_root / "chart_manifest.csv", index=False)
+    symbol = symbol.upper()
 
     by_year: Dict[int, List[Dict[str, object]]] = {}
     for r in rows:
@@ -521,7 +626,7 @@ def _write_indexes(
 
     for year, items in sorted(by_year.items()):
         lines = [
-            "# GBPUSD 4h — %d" % year,
+            "# %s 4h — %d" % (symbol, year),
             "",
             "| Q | Start | End | Bars | Open-week H/L | ATR(14) | Chart |",
             "|---:|---|---|---:|---|---:|---|",
@@ -529,8 +634,8 @@ def _write_indexes(
         for r in sorted(items, key=lambda x: int(x["quarter"])):
             ow = ""
             if r.get("open_week_high") is not None:
-                ow = "%.5f / %.5f" % (float(r["open_week_high"]), float(r["open_week_low"]))
-            atr = "" if r.get("atr14") is None else ("%.5f" % float(r["atr14"]))
+                ow = (fmt + " / " + fmt) % (float(r["open_week_high"]), float(r["open_week_low"]))
+            atr = "" if r.get("atr14") is None else (fmt % float(r["atr14"]))
             lines.append(
                 "| Q%d | %s | %s | %s | %s | %s | [%s](%s) |"
                 % (
@@ -549,10 +654,14 @@ def _write_indexes(
         (year_dir / "INDEX.md").write_text("\n".join(lines) + "\n", encoding="utf-8")
 
     scope = "Q1 only (Jan–Mar)" if jan_only else "all quarters (3-month windows)"
+    try:
+        csv_rel = csv_path.resolve().relative_to(REPO)
+    except Exception:
+        csv_rel = csv_path
     lines = [
-        "# GBPUSD quarterly 4h charts",
+        "# %s quarterly 4h charts" % symbol,
         "",
-        "Generated from `fx/gbpusd_4h.csv` (America/New_York).",
+        "Generated from `%s` (America/New_York)." % csv_rel,
         "",
         "- Window: **3 months** per chart (%s)" % scope,
         "- Start: **%s**" % (start.isoformat() if start else "history"),
@@ -576,7 +685,7 @@ def _write_indexes(
     (output_root / "INDEX.md").write_text("\n".join(lines) + "\n", encoding="utf-8")
 
     email = [
-        "potions: GBPUSD quarterly 4h charts complete",
+        "potions: %s quarterly 4h charts complete" % symbol,
         "",
         "Hub: %s" % output_root,
         "Charts: %d (%s)" % (len(rows), scope),
@@ -592,8 +701,9 @@ def _write_indexes(
 
 def main(argv: Optional[List[str]] = None) -> int:
     ap = argparse.ArgumentParser(description=__doc__)
-    ap.add_argument("--csv", type=Path, default=DEFAULT_CSV)
-    ap.add_argument("--output-root", type=Path, default=DEFAULT_OUT)
+    ap.add_argument("--symbol", default=DEFAULT_SYMBOL, help="e.g. GBPUSD, NAS100, US30")
+    ap.add_argument("--csv", type=Path, default=None, help="4h CSV (default: fx/<symbol>_4h.csv)")
+    ap.add_argument("--output-root", type=Path, default=None)
     ap.add_argument("--start", default=None, help="YYYY-MM-DD (default: first January in history)")
     ap.add_argument("--end", default=None, help="YYYY-MM-DD inclusive cutoff")
     ap.add_argument(
@@ -601,27 +711,41 @@ def main(argv: Optional[List[str]] = None) -> int:
         action="store_true",
         help="Only chart Q1 (Jan–Mar) each year",
     )
+    ap.add_argument(
+        "--build-4h-from-1h",
+        type=Path,
+        default=None,
+        help="If set, resample this 1h CSV to fx/<symbol>_4h.csv before charting",
+    )
     ap.add_argument("--force", action="store_true")
     ap.add_argument("--email", action="store_true")
     args = ap.parse_args(argv)
+
+    symbol = str(args.symbol).upper()
+    csv_path = args.csv or default_csv_for(symbol)
+    output_root = args.output_root or default_out_for(symbol)
+
+    if args.build_4h_from_1h is not None:
+        csv_path = resample_1h_to_4h(Path(args.build_4h_from_1h), symbol, csv_path)
 
     start = date.fromisoformat(args.start) if args.start else None
     end = date.fromisoformat(args.end) if args.end else None
     # User asked "Starting Jan" — default to all quarters from first Jan, not Q1-only.
     rows = build(
-        csv_path=args.csv,
-        output_root=args.output_root,
+        csv_path=csv_path,
+        output_root=output_root,
         start=start,
         end=end,
         jan_quarters_only=args.jan_only,
         force=args.force,
+        symbol=symbol,
     )
-    print("Wrote %d charts -> %s" % (len(rows), args.output_root), flush=True)
+    print("Wrote %d charts -> %s" % (len(rows), output_root), flush=True)
     if args.email:
         from .notify_email import send_email
 
-        body = (args.output_root / "EMAIL.txt").read_text(encoding="utf-8")
-        send_email(subject="potions: GBPUSD quarterly 4h charts complete", body=body)
+        body = (output_root / "EMAIL.txt").read_text(encoding="utf-8")
+        send_email(subject="potions: %s quarterly 4h charts complete" % symbol, body=body)
         print("email sent", flush=True)
     return 0
 

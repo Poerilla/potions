@@ -5,8 +5,11 @@ Implements the strategy-local containment path:
   Broker truth → ownership → bracket coverage → entry permission
   → continuous reconcile → freeze / flatten-for-day.
 
-Default mode is ``shadow`` (detect + log + optional email; no broker mutate /
-supervisor freeze). Set ``POTIONS_OANDA_CONTAINMENT=live`` to enforce.
+Default mode is ``shadow`` (detect + log; no broker mutate / supervisor freeze).
+Set ``POTIONS_OANDA_CONTAINMENT=live`` to enforce.
+
+Emails: one **NY EOD digest** per demo per session (default). Immediate emails were
+too noisy under ~2m watchdog. Override with ``POTIONS_OANDA_CONTAINMENT_EMAIL=eod|off|immediate``.
 """
 
 from __future__ import annotations
@@ -39,6 +42,10 @@ STREAM_STALE_SECONDS = 180.0  # no account/price heartbeat while armed → DISAR
 
 DAEMON_STATE_FILE = "daemon_strategy_state.json"
 FLAT_FOR_DAY_FILE = "FLAT_FOR_DAY.json"
+CONTAINMENT_EMAIL_DIGEST_FILE = "containment_email_digest.json"
+# After this NY wall time, flush at most one digest email per session_date.
+CONTAINMENT_EMAIL_EOD_HHMM = (16, 0)
+CONTAINMENT_EMAIL_DIGEST_MAX_EVENTS = 40
 
 # Persisted daemon lifecycle (subset of the full containment machine).
 DISARMED = "DISARMED"
@@ -54,9 +61,14 @@ HALTED_MANUAL = "HALTED_MANUAL"
 
 WORKING_STATUSES = frozenset({"submitted", "partially_filled", "working", "pendingnew"})
 
-# Local bracket_role / order_type tokens that count as protective stop coverage.
-_STOP_ROLES = frozenset({"entry", "stop", "wide_stop", "runner_stop", "protective_stop", "sl"})
+# Protective coverage while open (entry arms are NOT stop coverage).
+_PROTECTIVE_STOP_ROLES = frozenset({"stop", "wide_stop", "runner_stop", "protective_stop", "sl"})
+# Intentional resting entries while flat (ST+PMC LIMIT / v2b OCO STOP) — not orphans.
+_ENTRY_ROLES = frozenset({"entry"})
+# Back-compat alias used by older call sites / tests.
+_STOP_ROLES = _PROTECTIVE_STOP_ROLES | _ENTRY_ROLES
 _TP_ROLES = frozenset({"tp1", "tp2", "target", "take_profit", "runner_target"})
+_PROTECTIVE_ORDER_TYPES = frozenset({"stop_loss", "take_profit", "trailing_stop_loss", "guaranteed_stop_loss"})
 
 
 @dataclass(frozen=True)
@@ -109,7 +121,7 @@ def expectation_for_strategy_type(strategy_type: str, *, entry_qty: float = 0.0)
 @dataclass
 class BracketInvariantResult:
     ok: bool
-    classification: str  # ok | stop_only | open_without_brackets | orphan_protective | foreign_bleed | qty_mismatch
+    classification: str  # ok | armed_entry | stop_only | open_without_brackets | orphan_protective | cross_book_entry | foreign_bleed | qty_mismatch
     ownership_certain: bool
     local_qty: float
     stop_qty: float
@@ -147,11 +159,34 @@ def containment_mode() -> str:
     return "shadow"
 
 
+def containment_email_mode() -> str:
+    """How often containment emails fire: ``eod`` (default), ``off``, or ``immediate``."""
+    raw = (os.environ.get("POTIONS_OANDA_CONTAINMENT_EMAIL") or "eod").strip().lower()
+    if raw in {"off", "none", "0", "false", "no"}:
+        return "off"
+    if raw in {"immediate", "now", "each", "every"}:
+        return "immediate"
+    return "eod"
+
+
 def ny_session_date(now: Optional[datetime] = None) -> str:
     dt = now or datetime.now(tz=NY_TZ)
     if dt.tzinfo is None:
         dt = NY_TZ.localize(dt)
     return dt.astimezone(NY_TZ).date().isoformat()
+
+
+def ny_now(now: Optional[datetime] = None) -> datetime:
+    dt = now or datetime.now(tz=NY_TZ)
+    if dt.tzinfo is None:
+        dt = NY_TZ.localize(dt)
+    return dt.astimezone(NY_TZ)
+
+
+def ny_past_containment_email_eod(now: Optional[datetime] = None) -> bool:
+    dt = ny_now(now)
+    hh, mm = CONTAINMENT_EMAIL_EOD_HHMM
+    return (dt.hour, dt.minute) >= (hh, mm)
 
 
 def _is_working(order: Any) -> bool:
@@ -220,6 +255,36 @@ def _qty_of(order: Any) -> float:
         return 0.0
 
 
+def _is_true_protective(order: Any) -> bool:
+    """True SL/TP / reduce-only — not intentional entry arms."""
+    role = _role_of(order)
+    otype = str(_order_field(order, "order_type") or "").lower()
+    reduce_only = str(_order_field(order, "reduce_only") or "").lower() in {"1", "true", "yes"}
+    if role in _ENTRY_ROLES:
+        return False
+    if role in (_PROTECTIVE_STOP_ROLES | _TP_ROLES):
+        return True
+    if otype in _PROTECTIVE_ORDER_TYPES:
+        return True
+    # Untagged working stop while flat is treated as leftover protective (not entry OCO).
+    if otype == "stop":
+        return True
+    if reduce_only:
+        return True
+    return False
+
+
+def _is_entry_arm(order: Any) -> bool:
+    role = _role_of(order)
+    if role in _ENTRY_ROLES:
+        return True
+    # Untagged working LIMIT while flat is treated as an entry arm (ST+PMC style).
+    otype = str(_order_field(order, "order_type") or "").lower()
+    if role in {"", "none"} and otype == "limit":
+        return True
+    return False
+
+
 def evaluate_bracket_invariant(
     *,
     instrument: str,
@@ -228,27 +293,29 @@ def evaluate_bracket_invariant(
     orders: Sequence[Any],
     expectation: Optional[BracketExpectation] = None,
     broker_qty: Optional[float] = None,
+    account_instrument_qty: Optional[float] = None,
 ) -> BracketInvariantResult:
     """Classify local (and optional broker) exposure vs protective coverage.
 
     Used both by the live daemon watchdog and by curated fault fixtures.
+
+    Flat books with intentional ``bracket_role=entry`` rests are ``armed_entry`` /
+    ``ok``, not ``orphan_protective``. True SL/TP leftovers remain orphans.
+    When this strategy is flat but the shared account already holds the focus
+    instrument, resting entries are ``cross_book_entry``.
     """
     expectation = expectation or BracketExpectation()
     local_qty = _position_qty(positions, instrument=instrument, strategy_ids={strategy_id, "oanda"})
     working = _working_orders(orders, instrument=instrument, strategy_id=strategy_id)
     roles = [_role_of(o) for o in working]
-    stop_qty = sum(_qty_of(o) for o in working if _role_of(o) in _STOP_ROLES or str(_order_field(o, "order_type") or "").lower() == "stop")
     tp_qty = sum(_qty_of(o) for o in working if _role_of(o) in _TP_ROLES)
-    # Avoid double-counting a stop that matched both role and type filters above.
-    stop_ids = {
-        str(_order_field(o, "broker_order_id") or id(o))
-        for o in working
-        if _role_of(o) in _STOP_ROLES or str(_order_field(o, "order_type") or "").lower() == "stop"
-    }
+    # While open, working STOP orders count as coverage even if bracket_role=entry
+    # (Aug 13 stop_only books tagged the live protective as entry). LIMIT entry arms do not.
     stop_qty = sum(
         _qty_of(o)
         for o in working
-        if str(_order_field(o, "broker_order_id") or id(o)) in stop_ids
+        if _role_of(o) in _PROTECTIVE_STOP_ROLES
+        or str(_order_field(o, "order_type") or "").lower() in ({"stop"} | _PROTECTIVE_ORDER_TYPES)
     )
 
     reasons: List[str] = []
@@ -275,22 +342,8 @@ def evaluate_bracket_invariant(
 
     abs_qty = abs(float(local_qty))
     if abs_qty < 1e-9:
-        # Flat: any resting protective / entry-stop is an orphan.
-        protectiveish = [
-            o
-            for o in working
-            if _role_of(o) in (_STOP_ROLES | _TP_ROLES)
-            or str(_order_field(o, "order_type") or "").lower() in {"stop", "stop_loss", "take_profit"}
-            or str(_order_field(o, "reduce_only") or "").lower() in {"1", "true", "yes"}
-        ]
-        # Also treat a lone working stop with bracket_role=entry as orphan when flat
-        # (Aug 14 NAS/SPX v2b incident: protective STOP left after flat).
-        if not protectiveish:
-            protectiveish = [
-                o
-                for o in working
-                if str(_order_field(o, "order_type") or "").lower() == "stop"
-            ]
+        protectiveish = [o for o in working if _is_true_protective(o)]
+        entry_arms = [o for o in working if _is_entry_arm(o) and not _is_true_protective(o)]
         if protectiveish:
             reasons.append("flat_with_working_protectives=%d" % len(protectiveish))
             return BracketInvariantResult(
@@ -303,6 +356,34 @@ def evaluate_bracket_invariant(
                 working_roles=roles,
                 reasons=reasons,
                 recommended_action="cancel_orphans",
+            )
+        if entry_arms and account_instrument_qty is not None and abs(float(account_instrument_qty)) > 1e-9:
+            reasons.append(
+                "flat_with_entry_arms=%d account_instrument_qty=%s" % (len(entry_arms), account_instrument_qty)
+            )
+            return BracketInvariantResult(
+                ok=False,
+                classification="cross_book_entry",
+                ownership_certain=True,
+                local_qty=local_qty,
+                stop_qty=stop_qty,
+                tp_qty=tp_qty,
+                working_roles=roles,
+                reasons=reasons,
+                recommended_action="cancel_orphans",
+            )
+        if entry_arms:
+            reasons.append("armed_entry_orders=%d" % len(entry_arms))
+            return BracketInvariantResult(
+                ok=True,
+                classification="armed_entry",
+                ownership_certain=True,
+                local_qty=local_qty,
+                stop_qty=stop_qty,
+                tp_qty=tp_qty,
+                working_roles=roles,
+                reasons=reasons,
+                recommended_action="none",
             )
         return BracketInvariantResult(
             ok=True,
@@ -561,6 +642,7 @@ class DaemonContainmentController:
         self.hard_reconcile_s = float(hard_reconcile_s)
         self.stream_stale_s = float(stream_stale_s)
         self.email_on_action = bool(email_on_action)
+        self.email_mode = containment_email_mode() if email_on_action else "off"
         self._clock = clock or _time.time
         self._last_watchdog_at = 0.0
         self._last_hard_at = 0.0
@@ -645,6 +727,7 @@ class DaemonContainmentController:
         due_watch = force or (now - self._last_watchdog_at >= self.bracket_watchdog_s)
         due_stream = self._stream_stale_invariant() is not None
         if not due_hard and not due_watch and not due_stream:
+            self._maybe_flush_eod_email()
             return None
         if due_hard:
             phase = "hard_reconcile"
@@ -656,6 +739,7 @@ class DaemonContainmentController:
         self._last_watchdog_at = now
         if due_hard:
             self._last_hard_at = now
+        self._maybe_flush_eod_email()
         return result
 
     def run_cycle(self, *, phase: str, force: bool = False) -> ContainmentCycleResult:
@@ -669,6 +753,7 @@ class DaemonContainmentController:
             positions, instrument=self.instrument, strategy_ids={self.strategy_id, "oanda"}
         )
         broker_qty: Optional[float] = None
+        account_instrument_qty: Optional[float] = None
         hard_qty_mismatch = False
         # Prefer freshly fetched account when client present (hard phases).
         if phase in {"startup", "hard_reconcile", "recovery"} and self.broker.client is not None:
@@ -677,8 +762,12 @@ class DaemonContainmentController:
                 account = body.get("account") or body
                 if hasattr(account, "dict"):
                     account = account.dict()
+                account = dict(account) if isinstance(account, dict) else {}
+                account_instrument_qty = self.broker.instrument_net_qty_from_account(
+                    account, instrument=self.instrument
+                )
                 owned = self.broker._owned_scoped_positions_from_account(  # noqa: SLF001 — intentional
-                    dict(account) if isinstance(account, dict) else {},
+                    account,
                     authority={self.strategy_id},
                 )
                 broker_qty = sum(
@@ -702,6 +791,10 @@ class DaemonContainmentController:
                     orders = list(self.broker.reconcile_orders())
                     store_positions = list(self.store.read_table("positions"))
                     broker_qty = None  # after adopt, bracket check uses local only
+                    # Keep account-wide focus qty for cross-book entry detection.
+                    account_instrument_qty = self.broker.instrument_net_qty_from_account(
+                        account, instrument=self.instrument
+                    )
                 else:
                     positions = list(self.broker.reconcile_positions())
                     orders = list(self.broker.reconcile_orders())
@@ -722,6 +815,7 @@ class DaemonContainmentController:
                 orders=orders,
                 expectation=self.expectation,
                 broker_qty=broker_qty,
+                account_instrument_qty=account_instrument_qty,
             )
         else:
             invariant = evaluate_bracket_invariant(
@@ -731,6 +825,7 @@ class DaemonContainmentController:
                 orders=orders,
                 expectation=self.expectation,
                 broker_qty=None,
+                account_instrument_qty=account_instrument_qty,
             )
         if not bleed.ok:
             invariant = bleed
@@ -799,8 +894,11 @@ class DaemonContainmentController:
             details=details,
         )
         self._emit(result)
-        if (not invariant.ok) and self.email_on_action:
-            self._maybe_email(result)
+        if (not invariant.ok) and self.email_on_action and self.email_mode != "off":
+            if self.email_mode == "immediate":
+                self._send_containment_email(result)
+            else:
+                self._record_email_digest(result)
         return result
 
     def _maybe_sweep_orphans(self, invariant: BracketInvariantResult) -> List[str]:
@@ -811,7 +909,10 @@ class DaemonContainmentController:
                 actions.append("orphan_entry_cancel:%s" % sweep.get("orphans_cancelled"))
         except Exception as exc:
             actions.append("orphan_entry_sweep_error:%s" % exc)
-        if abs(float(invariant.local_qty)) < 1e-9:
+        # Healthy flat books may still carry remote STOP_LOSS ghosts — sweep in live
+        # only. Shadow would-cancel is reserved for explicit orphan/cross_book faults
+        # so intentional ST+PMC entry arms are not spammed as orphan_protective.
+        if abs(float(invariant.local_qty)) < 1e-9 and not self.shadow:
             actions.extend(self._cancel_orphan_protectives(invariant))
         return actions
 
@@ -920,7 +1021,148 @@ class DaemonContainmentController:
             {"event": "containment_cycle", **result.as_dict()},
         )
 
-    def _maybe_email(self, result: ContainmentCycleResult) -> None:
+    def _digest_path(self) -> Path:
+        return self.store.root / CONTAINMENT_EMAIL_DIGEST_FILE
+
+    def _load_email_digest(self) -> Dict[str, Any]:
+        path = self._digest_path()
+        today = ny_session_date()
+        empty = {
+            "session_date": today,
+            "by_class": {},
+            "events": [],
+            "email_sent_at": "",
+            "email_sent_for_session": "",
+        }
+        if not path.exists():
+            return empty
+        try:
+            raw = json.loads(path.read_text(encoding="utf-8"))
+        except Exception:
+            return empty
+        if not isinstance(raw, dict):
+            return empty
+        if str(raw.get("session_date") or "") != today:
+            return empty
+        raw.setdefault("by_class", {})
+        raw.setdefault("events", [])
+        raw.setdefault("email_sent_at", "")
+        raw.setdefault("email_sent_for_session", "")
+        return raw
+
+    def _save_email_digest(self, digest: Dict[str, Any]) -> None:
+        path = self._digest_path()
+        path.parent.mkdir(parents=True, exist_ok=True)
+        tmp = path.with_suffix(path.suffix + ".tmp")
+        tmp.write_text(json.dumps(digest, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+        tmp.replace(path)
+
+    def _record_email_digest(self, result: ContainmentCycleResult) -> None:
+        digest = self._load_email_digest()
+        inv = result.invariant
+        classification = inv.classification if inv is not None else "?"
+        by_class = dict(digest.get("by_class") or {})
+        by_class[classification] = int(by_class.get(classification) or 0) + 1
+        events = list(digest.get("events") or [])
+        events.append(
+            {
+                "ts": utc_now_iso(),
+                "phase": result.phase,
+                "state": result.state,
+                "classification": classification,
+                "actions": list(result.actions),
+                "reasons": list(inv.reasons) if inv is not None else [],
+            }
+        )
+        if len(events) > CONTAINMENT_EMAIL_DIGEST_MAX_EVENTS:
+            events = events[-CONTAINMENT_EMAIL_DIGEST_MAX_EVENTS:]
+        digest.update(
+            {
+                "session_date": ny_session_date(),
+                "by_class": by_class,
+                "events": events,
+            }
+        )
+        self._save_email_digest(digest)
+        self.store.append_event(
+            "reconciliation_events",
+            {
+                "event": "containment_email_digest_recorded",
+                "classification": classification,
+                "n_events": len(events),
+                "by_class": by_class,
+            },
+        )
+
+    def _maybe_flush_eod_email(self) -> None:
+        if not self.email_on_action or self.email_mode != "eod":
+            return
+        if not ny_past_containment_email_eod():
+            return
+        digest = self._load_email_digest()
+        today = ny_session_date()
+        if str(digest.get("email_sent_for_session") or "") == today:
+            return
+        by_class = dict(digest.get("by_class") or {})
+        events = list(digest.get("events") or [])
+        if not by_class and not events:
+            # Still mark sent so we don't re-check forever with empty digests.
+            digest["email_sent_for_session"] = today
+            digest["email_sent_at"] = utc_now_iso()
+            digest["session_date"] = today
+            self._save_email_digest(digest)
+            return
+        subject = "potions: OANDA containment EOD digest %s [%s] %s" % (
+            "SHADOW" if self.shadow else "LIVE",
+            ",".join("%s=%s" % (k, by_class[k]) for k in sorted(by_class)) or "ok",
+            self.strategy_id,
+        )
+        lines = [
+            "EOD containment digest (one email per demo per NY session)",
+            "demo=%s" % self.output_root,
+            "strategy_id=%s instrument=%s" % (self.strategy_id, self.instrument),
+            "mode=%s shadow=%s session=%s" % (self.mode, self.shadow, today),
+            "counts=%s" % json.dumps(by_class, sort_keys=True),
+            "n_events_kept=%d (cap %d)" % (len(events), CONTAINMENT_EMAIL_DIGEST_MAX_EVENTS),
+            "",
+            "Recent events:",
+        ]
+        for ev in events[-20:]:
+            lines.append(
+                "- %s %s class=%s actions=%s reasons=%s"
+                % (
+                    ev.get("ts"),
+                    ev.get("phase"),
+                    ev.get("classification"),
+                    ",".join(ev.get("actions") or []) or "-",
+                    ";".join(ev.get("reasons") or []) or "-",
+                )
+            )
+        lines.append("hub=%s" % self.store.root)
+        try:
+            from ..notify_email import send_email
+
+            send_email(subject=subject, body="\n".join(lines))
+            digest["email_sent_for_session"] = today
+            digest["email_sent_at"] = utc_now_iso()
+            digest["session_date"] = today
+            self._save_email_digest(digest)
+            self.store.append_event(
+                "reconciliation_events",
+                {
+                    "event": "containment_email_eod_sent",
+                    "session_date": today,
+                    "by_class": by_class,
+                    "n_events": len(events),
+                },
+            )
+        except Exception as exc:
+            self.store.append_event(
+                "reconciliation_events",
+                {"event": "containment_email_error", "error": str(exc), "phase": "eod"},
+            )
+
+    def _send_containment_email(self, result: ContainmentCycleResult) -> None:
         try:
             from ..notify_email import send_email
 
@@ -957,6 +1199,7 @@ def evaluate_fixture_book(
     strategy_type: str = "v2b_scaleout",
     entry_qty: float = 3.0,
     broker_qty: Optional[float] = None,
+    account_instrument_qty: Optional[float] = None,
 ) -> BracketInvariantResult:
     """Pure detector over curated CSV fixtures (no broker)."""
     import csv
@@ -974,6 +1217,7 @@ def evaluate_fixture_book(
         orders=_rows(orders_csv),
         expectation=expectation_for_strategy_type(strategy_type, entry_qty=entry_qty),
         broker_qty=broker_qty,
+        account_instrument_qty=account_instrument_qty,
     )
 
 

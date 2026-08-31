@@ -1,0 +1,59 @@
+{
+  "unit_exit_classes": [
+    {
+      "class": "target_10r_runner",
+      "units": 289,
+      "usd": 129756.3,
+      "pts": 129756.3
+    },
+    {
+      "class": "target_2r_or_tp1",
+      "units": 327,
+      "usd": 47826.5,
+      "pts": 47826.5
+    },
+    {
+      "class": "target_mid_runner",
+      "units": 151,
+      "usd": 44818.299999999996,
+      "pts": 44818.299999999996
+    },
+    {
+      "class": "target_other",
+      "units": 3,
+      "usd": -439.3,
+      "pts": -439.3
+    },
+    {
+      "class": "stop",
+      "units": 1263,
+      "usd": -62456.700000000004,
+      "pts": -62456.700000000004
+    },
+    {
+      "class": "runner_stop",
+      "units": 3174,
+      "usd": -126324.0,
+      "pts": -126324.0
+    }
+  ],
+  "long_campaigns": 789,
+  "short_campaigns": 947,
+  "long_net_gross": 33137.4,
+  "short_net_gross": 43.7,
+  "campaigns_with_any_target": 473,
+  "campaigns_with_10r_like": 56,
+  "gross_usd": 33181.1,
+  "board_net_usd": 25370.6,
+  "board_ns": 1.841,
+  "stress_usd": -13783.1,
+  "ns_if_campaign_cap_2R": -4.66,
+  "ns_if_campaign_cap_3R": -2.831,
+  "net_if_campaign_cap_2R": -64236.03,
+  "net_if_campaign_cap_3R": -39020.8,
+  "ns_if_unit_cap_2R": -6.272,
+  "ns_if_unit_cap_3R": -4.339,
+  "net_if_unit_cap_2R": -86448.26,
+  "net_if_unit_cap_3R": -59799.3,
+  "share_net_from_10r_campaigns": 3.2746
+}

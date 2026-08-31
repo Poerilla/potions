@@ -1,0 +1,17 @@
+{
+  "metrics": {
+    "bars_1m": 55565.0,
+    "equity_curve": "live/state/monthly_open_atr_extension_band/liq_run_fade_1r1_reentry_hp_1m_broker_smoke/audits/nq_liq_run_fade_1r1_reentry_hp_1m/equity_curve.csv",
+    "loss_units": 0.0,
+    "n_plans": 2.0,
+    "net_usd": 5060.0,
+    "ns": 1.4666666666666666,
+    "state_root": "live/state/monthly_open_atr_extension_band/liq_run_fade_1r1_reentry_hp_1m_broker_smoke/states/nq_liq_run_fade_1r1_reentry_hp_1m",
+    "strategy_id": "nq_liq_run_fade_1r1_reentry_hp_1m",
+    "stress_dd": -3450.0,
+    "trades": 1.0,
+    "units": 10.0,
+    "win_units": 10.0
+  },
+  "ok": true
+}

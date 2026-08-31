@@ -1,0 +1,11 @@
+potions: nq_wick_reject_4h_swing_retest_v1 Stage C S2 COMPLETE
+
+Hub: /home/tester/hsm/potions/live/state/nq_wick_reject_4h_swing_retest_v1
+S2 stance: DESCRIPTIVE ONLY — S2 fills <40
+fills=28 net=+16597
+
+  s2_new_swing_48h_dev: fills=24 net=+6386 WR=67% PF=1.51 avgR=-0.024
+  s2_new_swing_48h_holdout: fills=4 net=+10212 WR=100% PF=99.00 avgR=+0.254
+  s2_new_swing_48h_ALL: fills=28 net=+16597 WR=71% PF=2.34 avgR=+0.015
+
+Separate from S1 — not a combined chooser.

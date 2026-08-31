@@ -1,0 +1,27 @@
+# US30 ST+PMC :58 early-close variants (1m fill tape)
+
+Causal anticipate-close experiment: left-labeled hours use OHLC through minute **58** only; signal consumed at ``hour_start + 59m`` (after the :58 bar completes). Fills stay on the full 1m path.
+
+Compare to completed-hour baseline `live/state/us30_st_pmc_runner_variants` (fair 3R N/S −0.21).
+
+## Rules
+
+- Stop 50 / regular TP 150 (TP1).
+- Dual-runner campaigns enter **3 units**: TP1 + 2R runner + far runner.
+- Both runners: stop → breakeven when TP1 fills.
+- Signal timing: through_minute=58, signal_offset_minutes=59.
+
+## Results
+
+| variant | net | stress | N/S | units | WR% | max_open | vs completed-hour N/S |
+|---|---:|---:|---:|---:|---:|---:|---:|
+| `sl50_tp150_3r_1mfill` | $-2420 | $-5350 | -0.45 | 1018 | 25.0 | 1 | -0.24 (base -0.21) |
+| `sl50_tp150_runners_2r_10r` | $16923 | $-7603 | 2.23 | 1944 | 14.5 | 3 | +0.76 (base 1.47) |
+| `sl50_tp150_runners_2r_indef` | $10304 | $-37356 | 0.28 | 3054 | 14.7 | 84 | +0.01 (base 0.27) |
+
+## Artifacts
+
+- Summary CSV: `summary.csv`
+- States: `states/us30_hourly_st_pmc_<variant>/`
+- Audits: `audits/`
+- Runner: `live/us30_st_pmc_m58_close_variants.py`

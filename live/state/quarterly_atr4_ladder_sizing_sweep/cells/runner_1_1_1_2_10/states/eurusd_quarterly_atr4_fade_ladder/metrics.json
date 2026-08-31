@@ -1,0 +1,20 @@
+{
+  "allowed_sides": [
+    "lower"
+  ],
+  "bars": 36962,
+  "closed_dd_usd": -95738.00293041748,
+  "intrabar_stress_dd_usd": -99350.00293041722,
+  "market": "EURUSD",
+  "max_open_units": 15,
+  "net_over_stress": 2.3470476266304483,
+  "net_usd": 233179.18858356384,
+  "path_id": "",
+  "profit_factor": 3.540103857763953,
+  "risk_atr_mult": 2.0,
+  "strategy_id": "eurusd_quarterly_atr4_fade_ladder",
+  "trade_mode": "second_only",
+  "trades": 16,
+  "units": 240,
+  "win_rate": 0.2875
+}

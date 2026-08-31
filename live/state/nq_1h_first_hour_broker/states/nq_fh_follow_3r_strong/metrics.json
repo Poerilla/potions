@@ -1,0 +1,28 @@
+{
+  "bars": 310840,
+  "closed_dd_usd": -31635.0,
+  "config": {
+    "bar_minutes": 5,
+    "entry_qty": 1,
+    "eod_cutoff": "15:59",
+    "fade": false,
+    "fh_end": "10:30",
+    "fh_start": "09:30",
+    "min_fh_bars": 10,
+    "r_mult": 3.0,
+    "require_fh_body": "strong",
+    "strong_body_min": 0.66,
+    "suppress_alerts": true,
+    "tick_size": 0.25
+  },
+  "intrabar_stress_dd_usd": -31945.0,
+  "label": "follow 3R first-hour body=strong",
+  "max_open_units": 1,
+  "net_over_stress": 3.982219439661919,
+  "net_usd": 127212.0,
+  "slug": "follow_3r_strong",
+  "strategy_id": "nq_fh_follow_3r_strong",
+  "trades": 1102,
+  "units": 1102,
+  "win_rate": 0.5136116152450091
+}

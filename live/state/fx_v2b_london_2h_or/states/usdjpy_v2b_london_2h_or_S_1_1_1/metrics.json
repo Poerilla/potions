@@ -1,0 +1,23 @@
+{
+  "strategy_id": "usdjpy_v2b_london_2h_or_S_1_1_1",
+  "symbol": "USDJPY",
+  "family": "fx",
+  "quote": "JPY",
+  "book": "S_1_1_1",
+  "clock": "london_2h_or",
+  "or_window": "03:00-05:00",
+  "or_bars": 120,
+  "sizing": "S_1_1_1",
+  "regime_days": 1681,
+  "start": "2015-01-02",
+  "units": 7272,
+  "trades": 2424,
+  "net_usd": -75145.49090914898,
+  "closed_dd_usd": -85801.02727276564,
+  "stress_dd_usd": -85948.30000003839,
+  "net_over_stress": -0.8743103808814766,
+  "win_rate": 38.366336633663366,
+  "profit_factor": 0.8693852389968364,
+  "max_open_units": 3,
+  "state_root": "live/state/fx_v2b_london_2h_or/states/usdjpy_v2b_london_2h_or_S_1_1_1"
+}

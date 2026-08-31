@@ -80,6 +80,11 @@ FUTURES_CONDITION_COLS: List[Tuple[str, str]] = [
     ("st_dir_align", "ST-event direction vs trade"),
     ("post_holiday", "Post-holiday session"),
     ("roll_week", "Contract-roll week"),
+    # HTF structure / trend (daily causal asof)
+    ("yor_dir", "Yearly ORB direction"),
+    ("mor_dir", "Monthly OR direction"),
+    ("prior_q_type", "Prior quarter type"),
+    ("w_atr_align", "Weekly ATR trend vs trade"),
 ]
 
 CONDITION_COLS = CARRY_CONDITION_COLS + FUTURES_CONDITION_COLS
@@ -112,6 +117,10 @@ CAUSAL_LIVE_READY = {
     "ST-event direction vs trade",
     "Post-holiday session",
     "Contract-roll week",
+    "Yearly ORB direction",
+    "Monthly OR direction",
+    "Prior quarter type",
+    "Weekly ATR trend vs trade",
 }
 NEEDS_LIVE_PROXY = {
     "ATR14 quartile",  # static within-book cut in research; live needs rolling
@@ -746,6 +755,205 @@ def build_cross_index_daily() -> pd.DataFrame:
     return out[["ts", "idx_agree", "nq_es_disp"]].dropna(subset=["ts"])
 
 
+def _weekly_atr_supertrend(daily: pd.DataFrame, atr_len: int = 14, mult: float = 3.0) -> pd.DataFrame:
+    """Completed-week ATR SuperTrend; ts = next session start after week close (causal)."""
+    if daily is None or daily.empty:
+        return pd.DataFrame(columns=["ts", "w_atr_trend"])
+    d = daily.copy().sort_values("ts")
+    w = (
+        d.set_index("ts")
+        .resample("W-FRI", label="right", closed="right")
+        .agg(
+            open=("open", "first"),
+            high=("high", "max"),
+            low=("low", "min"),
+            close=("close", "last"),
+        )
+        .dropna(subset=["close"])
+        .reset_index()
+    )
+    if len(w) < atr_len + 2:
+        return pd.DataFrame(columns=["ts", "w_atr_trend"])
+    from .build_ym_1m_atr_supertrend_sample import compute_supertrend
+
+    st = compute_supertrend(w, atr_len=atr_len, multiplier=mult)
+    out = st[["ts", "supertrend_trend"]].copy()
+    out["w_atr_trend"] = np.where(out["supertrend_trend"] == 1, "w_atr_bull", "w_atr_bear")
+    # Week close known at next calendar day open (conservative)
+    out["ts"] = out["ts"] + pd.Timedelta(days=1)
+    return out[["ts", "w_atr_trend"]].dropna(subset=["ts"])
+
+
+def _build_htf_structure_frame(d1: pd.DataFrame) -> pd.DataFrame:
+    """Daily causal HTF labels: yearly ORB dir, monthly OR dir, prior-quarter type.
+
+    Availability is shifted to next session open (ts + 1D) so asof merges stay causal.
+    """
+    d = d1.copy().sort_values("ts").reset_index(drop=True)
+    d["cal_year"] = d["ts"].dt.year
+    d["cal_month"] = d["ts"].dt.month
+    d["cal_quarter"] = d["ts"].dt.quarter
+    d["session_i"] = np.arange(len(d))
+
+    # --- Yearly ORB (Jan–Mar high/low); ready Apr 1 ---
+    yor_rows = []
+    for year, g in d.groupby("cal_year", sort=True):
+        jm = g[g["cal_month"].isin([1, 2, 3])]
+        if jm.empty:
+            continue
+        yor_rows.append(
+            {
+                "cal_year": int(year),
+                "yor_high": float(jm["high"].max()),
+                "yor_low": float(jm["low"].min()),
+                "yor_ready": pd.Timestamp(year=int(year), month=4, day=1, tz=NY),
+            }
+        )
+    yor = pd.DataFrame(yor_rows)
+    if not yor.empty:
+        d = d.merge(yor, on="cal_year", how="left")
+    else:
+        d["yor_high"] = np.nan
+        d["yor_low"] = np.nan
+        d["yor_ready"] = pd.NaT
+
+    # Running YTD extremes for breakout state (known after each bar close)
+    d["ytd_high"] = d.groupby("cal_year")["high"].cummax()
+    d["ytd_low"] = d.groupby("cal_year")["low"].cummin()
+    yor_ready_ok = d["yor_ready"].notna() & (d["ts"] >= d["yor_ready"])
+    broke_up = yor_ready_ok & (d["ytd_high"] > d["yor_high"])
+    broke_dn = yor_ready_ok & (d["ytd_low"] < d["yor_low"])
+    above = yor_ready_ok & (d["close"] > d["yor_high"])
+    below = yor_ready_ok & (d["close"] < d["yor_low"])
+    d["yor_dir"] = np.where(
+        ~yor_ready_ok,
+        "yor_na",
+        np.where(
+            above,
+            "yor_up",
+            np.where(
+                below,
+                "yor_down",
+                np.where(
+                    broke_up & ~broke_dn,
+                    "yor_up",
+                    np.where(
+                        broke_dn & ~broke_up,
+                        "yor_down",
+                        np.where(broke_up & broke_dn, "yor_both", "yor_inside"),
+                    ),
+                ),
+            ),
+        ),
+    )
+
+    # --- Monthly OR (first 3 sessions); ready after 3rd bar closes ---
+    d["month_sess"] = d.groupby(["cal_year", "cal_month"]).cumcount() + 1
+    mor_parts = []
+    for (y, m), g in d.groupby(["cal_year", "cal_month"], sort=True):
+        first3 = g[g["month_sess"] <= 3]
+        if len(first3) < 3:
+            continue
+        ready_ts = pd.Timestamp(first3.iloc[2]["ts"])
+        mor_parts.append(
+            {
+                "cal_year": int(y),
+                "cal_month": int(m),
+                "mor_high": float(first3["high"].max()),
+                "mor_low": float(first3["low"].min()),
+                "mor_ready": ready_ts,
+            }
+        )
+    mor = pd.DataFrame(mor_parts)
+    if not mor.empty:
+        d = d.merge(mor, on=["cal_year", "cal_month"], how="left")
+    else:
+        d["mor_high"] = np.nan
+        d["mor_low"] = np.nan
+        d["mor_ready"] = pd.NaT
+
+    d["mtd_high"] = d.groupby(["cal_year", "cal_month"])["high"].cummax()
+    d["mtd_low"] = d.groupby(["cal_year", "cal_month"])["low"].cummin()
+    mor_ready_ok = d["mor_ready"].notna() & (d["ts"] >= d["mor_ready"])
+    m_up = mor_ready_ok & (d["mtd_high"] > d["mor_high"])
+    m_dn = mor_ready_ok & (d["mtd_low"] < d["mor_low"])
+    m_above = mor_ready_ok & (d["close"] > d["mor_high"])
+    m_below = mor_ready_ok & (d["close"] < d["mor_low"])
+    d["mor_dir"] = np.where(
+        ~mor_ready_ok,
+        "mor_na",
+        np.where(
+            m_above,
+            "mor_up",
+            np.where(
+                m_below,
+                "mor_down",
+                np.where(
+                    m_up & ~m_dn,
+                    "mor_up",
+                    np.where(
+                        m_dn & ~m_up,
+                        "mor_down",
+                        np.where(m_up & m_dn, "mor_both", "mor_inside"),
+                    ),
+                ),
+            ),
+        ),
+    )
+
+    # --- Prior completed quarter vs its prior: inside / up / down / both ---
+    q = (
+        d.groupby(["cal_year", "cal_quarter"], sort=True)
+        .agg(q_high=("high", "max"), q_low=("low", "min"), q_close=("close", "last"), q_end=("ts", "max"))
+        .reset_index()
+        .sort_values(["cal_year", "cal_quarter"])
+        .reset_index(drop=True)
+    )
+    q["prev_q_high"] = q["q_high"].shift(1)
+    q["prev_q_low"] = q["q_low"].shift(1)
+    # Classify *this* quarter's behavior vs previous quarter range (known when quarter ends)
+    broke_hi = q["q_high"] > q["prev_q_high"]
+    broke_lo = q["q_low"] < q["prev_q_low"]
+    q["q_type"] = np.where(
+        q["prev_q_high"].isna(),
+        "q_na",
+        np.where(
+            ~broke_hi & ~broke_lo,
+            "q_inside",
+            np.where(
+                broke_hi & ~broke_lo,
+                "q_break_up",
+                np.where(broke_lo & ~broke_hi, "q_break_down", "q_break_both"),
+            ),
+        ),
+    )
+    # Map completed quarter type onto the *next* quarter's daily bars.
+    q_lookup = q[["cal_year", "cal_quarter", "q_type", "q_end"]].copy()
+    next_year = q_lookup["cal_year"].to_numpy(copy=True)
+    next_quarter = q_lookup["cal_quarter"].to_numpy(copy=True) + 1
+    overflow = next_quarter > 4
+    next_year = np.where(overflow, next_year + 1, next_year)
+    next_quarter = np.where(overflow, 1, next_quarter)
+    prior_map = pd.DataFrame(
+        {
+            "cal_year": next_year,
+            "cal_quarter": next_quarter,
+            "prior_q_type": q_lookup["q_type"].to_numpy(),
+            "prior_q_ready": q_lookup["q_end"].to_numpy(),
+        }
+    )
+    d = d.merge(prior_map, on=["cal_year", "cal_quarter"], how="left")
+    d["prior_q_type"] = np.where(
+        d["prior_q_ready"].notna() & (d["ts"] >= d["prior_q_ready"]),
+        d["prior_q_type"].fillna("q_na"),
+        "q_na",
+    )
+
+    feat = d[["ts", "yor_dir", "mor_dir", "prior_q_type"]].copy()
+    feat["ts"] = feat["ts"] + pd.Timedelta(days=1)  # known next session
+    return feat
+
+
 def annotate_campaigns(campaigns: pd.DataFrame, symbol: str) -> pd.DataFrame:
     """Attach causal entry-asof features + availability timestamps."""
     df = campaigns.copy()
@@ -852,6 +1060,20 @@ def annotate_campaigns(campaigns: pd.DataFrame, symbol: str) -> pd.DataFrame:
             ],
         )
         df["feat_avail_daily"] = df["entry_ts"].dt.normalize()  # known by session open
+        # HTF structure from same daily tape (yor / mor / prior quarter)
+        htf = _build_htf_structure_frame(d1)
+        if not htf.empty:
+            df = _asof_merge(df, htf, ["yor_dir", "mor_dir", "prior_q_type"])
+        else:
+            df["yor_dir"] = "yor_na"
+            df["mor_dir"] = "mor_na"
+            df["prior_q_type"] = "q_na"
+        w_atr = _weekly_atr_supertrend(d1)
+        if not w_atr.empty:
+            df = _asof_merge(df, w_atr, ["w_atr_trend"])
+        else:
+            df["w_atr_trend"] = "w_atr_na"
+        df["feat_avail_htf"] = df["entry_ts"].dt.normalize()
     else:
         for c in (
             "prev_day_high",
@@ -866,6 +1088,30 @@ def annotate_campaigns(campaigns: pd.DataFrame, symbol: str) -> pd.DataFrame:
         ):
             df[c] = np.nan if c not in ("prior_rth_loc", "prior_rth_range_pct") else "na"
         df["feat_avail_daily"] = pd.NaT
+        df["yor_dir"] = "yor_na"
+        df["mor_dir"] = "mor_na"
+        df["prior_q_type"] = "q_na"
+        df["w_atr_trend"] = "w_atr_na"
+        df["feat_avail_htf"] = pd.NaT
+
+    # Weekly ATR SuperTrend vs trade (after side known)
+    if "w_atr_trend" not in df.columns:
+        df["w_atr_trend"] = "w_atr_na"
+    df["w_atr_align"] = np.where(
+        df["w_atr_trend"].isna() | (df["w_atr_trend"] == "w_atr_na"),
+        "w_atr_na",
+        np.where(
+            ((df["side"] == "long") & (df["w_atr_trend"] == "w_atr_bull"))
+            | ((df["side"] == "short") & (df["w_atr_trend"] == "w_atr_bear")),
+            "w_atr_aligned",
+            np.where(
+                ((df["side"] == "long") & (df["w_atr_trend"] == "w_atr_bear"))
+                | ((df["side"] == "short") & (df["w_atr_trend"] == "w_atr_bull")),
+                "w_atr_opposed",
+                "w_atr_na",
+            ),
+        ),
+    )
 
     # --- 5m MA (opposition; no cross stacking) ---
     if m5 is not None and len(m5) >= 50:
@@ -1244,6 +1490,10 @@ def feature_family(condition: str) -> str:
         "NQ-ES dispersion": "cross_index",
         "ST-event age": "st_state",
         "ST-event direction vs trade": "st_state",
+        "Yearly ORB direction": "htf_orb",
+        "Monthly OR direction": "htf_orb",
+        "Prior quarter type": "htf_quarter",
+        "Weekly ATR trend vs trade": "htf_weekly_trend",
     }
     return mapping.get(condition, "other")
 

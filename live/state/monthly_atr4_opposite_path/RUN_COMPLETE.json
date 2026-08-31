@@ -1,0 +1,89 @@
+{
+  "ok": true,
+  "period": "month",
+  "timeframe": "1h",
+  "markets": [
+    "EURUSD",
+    "GBPUSD",
+    "USDJPY",
+    "AUDJPY",
+    "XAUUSD",
+    "XAGUSD",
+    "US30",
+    "NAS100",
+    "NQ",
+    "YM"
+  ],
+  "best_paths": [
+    {
+      "market": "EURUSD",
+      "path_id": "second_after_upper",
+      "trade_mode": "second_only",
+      "risk_atr_mult": 0.5,
+      "win_rate": 0.34146341463414637
+    },
+    {
+      "market": "GBPUSD",
+      "path_id": "second_after_lower",
+      "trade_mode": "second_only",
+      "risk_atr_mult": 1.5,
+      "win_rate": 0.36585365853658536
+    },
+    {
+      "market": "USDJPY",
+      "path_id": "first_upper",
+      "trade_mode": "first_only",
+      "risk_atr_mult": 0.5,
+      "win_rate": 0.33093525179856115
+    },
+    {
+      "market": "AUDJPY",
+      "path_id": "second_after_upper",
+      "trade_mode": "second_only",
+      "risk_atr_mult": 1.0,
+      "win_rate": 0.375
+    },
+    {
+      "market": "XAUUSD",
+      "path_id": "first_lower",
+      "trade_mode": "first_only",
+      "risk_atr_mult": 2.0,
+      "win_rate": 0.3508771929824561
+    },
+    {
+      "market": "XAGUSD",
+      "path_id": "second_after_lower",
+      "trade_mode": "second_only",
+      "risk_atr_mult": 1.0,
+      "win_rate": 0.34782608695652173
+    },
+    {
+      "market": "US30",
+      "path_id": "second_after_upper",
+      "trade_mode": "second_only",
+      "risk_atr_mult": 2.0,
+      "win_rate": 0.42105263157894735
+    },
+    {
+      "market": "NAS100",
+      "path_id": "first_lower",
+      "trade_mode": "first_only",
+      "risk_atr_mult": 1.0,
+      "win_rate": 0.4318181818181818
+    },
+    {
+      "market": "NQ",
+      "path_id": "first_lower",
+      "trade_mode": "first_only",
+      "risk_atr_mult": 2.5,
+      "win_rate": 0.379746835443038
+    },
+    {
+      "market": "YM",
+      "path_id": "second_after_upper",
+      "trade_mode": "second_only",
+      "risk_atr_mult": 3.0,
+      "win_rate": 0.3611111111111111
+    }
+  ]
+}

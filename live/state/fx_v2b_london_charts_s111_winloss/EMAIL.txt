@@ -1,0 +1,13 @@
+potions: FX London 5m bias charts complete
+
+Hub: live/state/fx_v2b_london_charts_s111_winloss
+Book: S_1_1_1
+Markets: EURUSD,GBPUSD,USDJPY,AUDJPY,XAUUSD,XAGUSD
+Gates/hubs: ungated
+Total charts: 2400
+Sample: max_wins=200 max_losses=200
+
+Each chart: London-only 5m candles, prior NY H/L, 4h ST ATR trail,
+4h structure bias label, v2b markers.
+
+See INDEX.md for per-market links.

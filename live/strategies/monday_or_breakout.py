@@ -34,6 +34,7 @@ import pytz
 
 from ..models import CancelIntent, OrderIntent, StrategyActions, new_id
 from .base import StrategyContext, StrategyPlugin
+from .features import feature_snapshot
 
 NY = pytz.timezone("America/New_York")
 UTC = pytz.UTC
@@ -240,6 +241,8 @@ class MondayOrBreakoutStrategy(StrategyPlugin):
             state["mon_high"] = max(hi, bar.high)
             state["mon_low"] = min(lo, bar.low)
             state["R"] = float(state["mon_high"]) - float(state["mon_low"])
+            state["mon_last_ts"] = bar.ts
+            state["mon_available_at_ts"] = bar.ts
             self._commit_state(state)
             return StrategyActions.empty()
 
@@ -299,13 +302,28 @@ class MondayOrBreakoutStrategy(StrategyPlugin):
             hit = (close < float(mon_low)) if pending == "Short" else (close > float(mon_high))
             if hit:
                 side = "short" if pending == "Short" else "long"
-                if self._htf_blocks(state, side):
+                htf_block = self._htf_blocks(state, side)
+                features = self._decision_features(
+                    bar,
+                    state,
+                    pending,
+                    side=side,
+                    stage="shifted",
+                    htf_blocked=htf_block,
+                    allowed=not htf_block,
+                )
+                if htf_block:
                     self._commit_state(state)
-                    return StrategyActions.empty()
+                    return StrategyActions([], [], [], [], [], features)
                 if self._consume_skip_signal(state):
                     state["pending_shift_side"] = ""
                     self._commit_state(state)
-                    return StrategyActions.empty()
+                    features.extend(
+                        self._operational_gate_features(
+                            bar, state, pending, stage="shifted", reason="skip_after_win"
+                        )
+                    )
+                    return StrategyActions([], [], [], [], [], features)
                 trade_id = new_id("trade")
                 se, s30, s50 = self._shifted_sizing()
                 self._trade(trade_id, state).update(
@@ -321,7 +339,7 @@ class MondayOrBreakoutStrategy(StrategyPlugin):
                 state["pending_shift_side"] = ""
                 orders.append(self._entry_order(trade_id, pending, bar.ts, se))
                 self._commit_state(state)
-                return StrategyActions(orders, cancels, [], [], [])
+                return StrategyActions(orders, cancels, [], [], [], features)
             # Opposite extreme reserved while armed
             if (pending == "Short" and close < float(mon_low)) or (
                 pending == "Long" and close > float(mon_high)
@@ -351,12 +369,27 @@ class MondayOrBreakoutStrategy(StrategyPlugin):
             return StrategyActions.empty()
 
         side = "long" if direction == "Long" else "short"
-        if self._htf_blocks(state, side):
+        htf_block = self._htf_blocks(state, side)
+        features = self._decision_features(
+            bar,
+            state,
+            direction,
+            side=side,
+            stage="primary",
+            htf_blocked=htf_block,
+            allowed=not htf_block,
+        )
+        if htf_block:
             self._commit_state(state)
-            return StrategyActions.empty()
+            return StrategyActions([], [], [], [], [], features)
         if self._consume_skip_signal(state):
             self._commit_state(state)
-            return StrategyActions.empty()
+            features.extend(
+                self._operational_gate_features(
+                    bar, state, direction, stage="primary", reason="skip_after_win"
+                )
+            )
+            return StrategyActions([], [], [], [], [], features)
 
         trade_id = new_id("trade")
         me, m30, m50 = self._main_sizing()
@@ -373,7 +406,7 @@ class MondayOrBreakoutStrategy(StrategyPlugin):
         state["primary_count"] = primary_count + 1
         orders.append(self._entry_order(trade_id, direction, bar.ts, me))
         self._commit_state(state)
-        return StrategyActions(orders, cancels, [], [], [])
+        return StrategyActions(orders, cancels, [], [], [], features)
 
     # --- HTF -----------------------------------------------------------------
     def _update_htf(self, state: Dict[str, Any], bar, dt: datetime) -> None:
@@ -381,7 +414,7 @@ class MondayOrBreakoutStrategy(StrategyPlugin):
         cur = state.get("htf_hour_key")
         if cur != hour_key:
             if cur and state.get("htf_o") is not None:
-                self._finalize_htf_hour(state)
+                self._finalize_htf_hour(state, available_at_ts=dt.isoformat())
             state["htf_hour_key"] = hour_key
             state["htf_o"] = float(bar.open)
             state["htf_h"] = float(bar.high)
@@ -394,7 +427,7 @@ class MondayOrBreakoutStrategy(StrategyPlugin):
             state["htf_c"] = float(bar.close)
             state["htf_v"] = float(state.get("htf_v") or 0.0) + float(bar.volume or 0.0)
 
-    def _finalize_htf_hour(self, state: Dict[str, Any]) -> None:
+    def _finalize_htf_hour(self, state: Dict[str, Any], *, available_at_ts: str) -> None:
         closes: List[float] = list(state.get("htf_closes") or [])
         obvs: List[float] = list(state.get("htf_obvs") or [])
         c = float(state["htf_c"])
@@ -425,6 +458,8 @@ class MondayOrBreakoutStrategy(StrategyPlugin):
             state["htf_ma_bull"] = bool(ma50 > ma150)
         if obv_ma is not None:
             state["htf_obv_bull"] = bool(obv > obv_ma)
+        state["htf_last_event_ts"] = str(state.get("htf_hour_key") or available_at_ts)
+        state["htf_last_available_at_ts"] = available_at_ts
 
     def _htf_blocks(self, state: Dict[str, Any], side: str) -> bool:
         if not bool(self.config.get("skip_both_opposed")):
@@ -436,6 +471,116 @@ class MondayOrBreakoutStrategy(StrategyPlugin):
         if side == "long":
             return (not ma_bull) and (not obv_bull)
         return ma_bull and obv_bull
+
+    def _decision_features(
+        self,
+        bar,
+        state: Dict[str, Any],
+        direction: str,
+        *,
+        side: str,
+        stage: str,
+        htf_blocked: bool,
+        allowed: bool,
+    ) -> List[Any]:
+        """Feature snapshots for a Monday-OR entry decision.
+
+        The plugin runs on 15m bars. The driver uses left-labeled bars, so a
+        signal created on bar ``ts`` can only fill on a later 15m bar because
+        PaperBroker requires ``fill_bar.ts > live_after_ts``.
+        """
+
+        mon_high = state.get("mon_high")
+        mon_low = state.get("mon_low")
+        R = float(state.get("R") or 0.0)
+        out = [
+            feature_snapshot(
+                self.instance,
+                "monday_or_range",
+                bar.ts,
+                event_ts=str(state.get("mon_last_ts") or bar.ts),
+                available_at_ts=str(state.get("mon_available_at_ts") or state.get("mon_last_ts") or bar.ts),
+                source="completed_15m_monday_range",
+                value_ref="%s/%s" % (mon_high, mon_low),
+                metadata={
+                    "week_monday": state.get("week_monday"),
+                    "R": R,
+                    "stage": stage,
+                    "direction": direction,
+                    "primary_count": state.get("primary_count"),
+                    "max_trades_per_week": self.config.get("max_trades_per_week"),
+                },
+            ),
+            feature_snapshot(
+                self.instance,
+                "monday_or_breakout_gate",
+                bar.ts,
+                source="completed_15m_close",
+                value_ref="%s:%s" % (direction, "allowed" if allowed else "blocked"),
+                metadata={
+                    "stage": stage,
+                    "direction": direction,
+                    "side": side,
+                    "close": float(bar.close),
+                    "mon_high": mon_high,
+                    "mon_low": mon_low,
+                    "R": R,
+                    "htf_blocked": bool(htf_blocked),
+                    "skip_both_opposed": bool(self.config.get("skip_both_opposed")),
+                },
+            ),
+        ]
+        if "htf_ma_bull" in state or "htf_obv_bull" in state:
+            out.append(
+                feature_snapshot(
+                    self.instance,
+                    "monday_or_htf_filter",
+                    bar.ts,
+                    event_ts=str(state.get("htf_last_event_ts") or state.get("htf_hour_key") or bar.ts),
+                    available_at_ts=str(state.get("htf_last_available_at_ts") or bar.ts),
+                    source="completed_1h_from_15m",
+                    value_ref="%s:%s" % (side, "blocked" if htf_blocked else "allowed"),
+                    metadata={
+                        "side": side,
+                        "ma_bull": state.get("htf_ma_bull"),
+                        "obv_bull": state.get("htf_obv_bull"),
+                        "ma50": state.get("htf_ma50"),
+                        "ma150": state.get("htf_ma150"),
+                        "obv": state.get("htf_obv"),
+                        "obv_ma": state.get("htf_obv_ma"),
+                        "obv_ma_len": self.config.get("obv_ma"),
+                    },
+                )
+            )
+        return out
+
+    def _operational_gate_features(
+        self,
+        bar,
+        state: Dict[str, Any],
+        direction: str,
+        *,
+        stage: str,
+        reason: str,
+    ) -> List[Any]:
+        return [
+            feature_snapshot(
+                self.instance,
+                "monday_or_operational_gate",
+                bar.ts,
+                source="strategy_state",
+                value_ref="%s:%s" % (direction, reason),
+                metadata={
+                    "stage": stage,
+                    "reason": reason,
+                    "skip_rem": state.get("skip_rem"),
+                    "consec_wins": state.get("consec_wins"),
+                    "week_sitout": state.get("week_sitout"),
+                    "skip_entry_months": self.config.get("skip_entry_months"),
+                    "week_sitout_after_pts": self.config.get("week_sitout_after_pts"),
+                },
+            )
+        ]
 
     # --- orders --------------------------------------------------------------
     def _entry_order(self, trade_id: str, direction: str, ts: str, qty: int) -> OrderIntent:
@@ -577,6 +722,8 @@ class MondayOrBreakoutStrategy(StrategyPlugin):
                 "htf_ma_bull",
                 "htf_obv_bull",
                 "htf_hour_key",
+                "htf_last_event_ts",
+                "htf_last_available_at_ts",
                 "htf_o",
                 "htf_h",
                 "htf_l",
@@ -595,6 +742,8 @@ class MondayOrBreakoutStrategy(StrategyPlugin):
             "week_monday": week_key,
             "mon_high": None,
             "mon_low": None,
+            "mon_last_ts": "",
+            "mon_available_at_ts": "",
             "R": 0.0,
             "primary_count": 0,
             "pending_shift_side": "",

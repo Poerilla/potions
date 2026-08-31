@@ -1,0 +1,30 @@
+{
+  "2012-04": {
+    "arm_after_ts": "2012-04-02T18:00:00Z",
+    "conditions": "swept_swing_high_6m",
+    "entry": 2783.75,
+    "ext_pts": 25.75,
+    "liq_side": "up",
+    "month": 4,
+    "month_end_ts": "2012-05-01T04:00:00Z",
+    "month_open": 2758.0,
+    "month_start_ts": "2012-04-01T04:00:00Z",
+    "side": "short",
+    "stop": 2809.5,
+    "year": 2012
+  },
+  "2012-05": {
+    "arm_after_ts": "2012-05-01T15:00:00Z",
+    "conditions": "swept_swing_high_6m+prior_bear",
+    "entry": 2753.0,
+    "ext_pts": 33.0,
+    "liq_side": "up",
+    "month": 5,
+    "month_end_ts": "2012-06-01T04:00:00Z",
+    "month_open": 2720.0,
+    "month_start_ts": "2012-05-01T04:00:00Z",
+    "side": "short",
+    "stop": 2786.0,
+    "year": 2012
+  }
+}

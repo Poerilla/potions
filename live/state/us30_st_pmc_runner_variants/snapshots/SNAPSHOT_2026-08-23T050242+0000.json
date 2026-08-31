@@ -1,0 +1,620 @@
+{
+  "accounting_mode": "lot-correct-preferred",
+  "active_jobs": [],
+  "blocks_final_judgment": [],
+  "boards": {
+    "comparable_core_board": {
+      "rankable": true,
+      "rows": [
+        {
+          "accounting_warnings": [
+            "raw_intrabar_stress_superseded_by_reachable"
+          ],
+          "audit_ok": true,
+          "book_label": "3R",
+          "comparable_core_eligible": true,
+          "decision_label": "RETAIN",
+          "exclusion_reasons": [],
+          "gates": {
+            "eoy_units_flat": true,
+            "lot_correct": true,
+            "no_unresolved_accounting_warning": true,
+            "not_indefinite": true,
+            "reachable_stress": true,
+            "sufficient_sample": true,
+            "usd_normalized": true,
+            "variant_complete": true
+          },
+          "market": "us30",
+          "metrics": {
+            "eoy_open_lots": 0,
+            "forced_flat_net_pnl": 19027.57,
+            "hold_hours_median": null,
+            "hold_hours_p90": null,
+            "lot_correct_available": true,
+            "mark_to_market_net_pnl": 19027.57,
+            "max_gross_notional": 44952.23,
+            "max_open": 1,
+            "metric_source": "LOT_CORRECT_ACCOUNTING.csv",
+            "net_usd": 19027.57,
+            "ns": 29.389,
+            "raw_net_usd": -981.54,
+            "raw_ns": -0.213,
+            "raw_stress_dd_usd": -4598.87,
+            "reachable_full_stack_stress": -647.43,
+            "stress_dd_usd": -647.43,
+            "units": 1017,
+            "wr_pct": 25.7
+          },
+          "variant": "sl50_tp150_3r_1mfill"
+        },
+        {
+          "accounting_warnings": [
+            "raw_intrabar_stress_superseded_by_reachable"
+          ],
+          "audit_ok": true,
+          "book_label": "2R\u219210R",
+          "comparable_core_eligible": true,
+          "decision_label": "RETAIN",
+          "exclusion_reasons": [],
+          "gates": {
+            "eoy_units_flat": true,
+            "lot_correct": true,
+            "no_unresolved_accounting_warning": true,
+            "not_indefinite": true,
+            "reachable_stress": true,
+            "sufficient_sample": true,
+            "usd_normalized": true,
+            "variant_complete": true
+          },
+          "market": "us30",
+          "metrics": {
+            "eoy_open_lots": 0,
+            "forced_flat_net_pnl": 56110.59,
+            "hold_hours_median": null,
+            "hold_hours_p90": null,
+            "lot_correct_available": true,
+            "mark_to_market_net_pnl": 56110.59,
+            "max_gross_notional": 134856.7,
+            "max_open": 3,
+            "metric_source": "LOT_CORRECT_ACCOUNTING.csv",
+            "net_usd": 56110.59,
+            "ns": 24.049,
+            "raw_net_usd": 13339.83,
+            "raw_ns": 1.471,
+            "raw_stress_dd_usd": -9065.59,
+            "reachable_full_stack_stress": -2333.22,
+            "stress_dd_usd": -2333.22,
+            "units": 1908,
+            "wr_pct": 14.6
+          },
+          "variant": "sl50_tp150_runners_2r_10r"
+        }
+      ],
+      "title": "Comparable Core Board"
+    },
+    "indefinite_inventory_research": {
+      "rankable": false,
+      "rows": [
+        {
+          "accounting_warnings": [
+            "raw_intrabar_stress_superseded_by_reachable"
+          ],
+          "audit_ok": true,
+          "book_label": "indef",
+          "comparable_core_eligible": false,
+          "decision_label": "RESEARCH",
+          "exclusion_reasons": [
+            "indefinite_inventory_not_rankable_vs_flat_books"
+          ],
+          "gates": {
+            "eoy_units_flat": false,
+            "lot_correct": true,
+            "no_unresolved_accounting_warning": true,
+            "not_indefinite": false,
+            "reachable_stress": true,
+            "sufficient_sample": true,
+            "usd_normalized": true,
+            "variant_complete": true
+          },
+          "market": "us30",
+          "metrics": {
+            "eoy_open_lots": 64,
+            "forced_flat_net_pnl": 80169.07,
+            "hold_hours_median": null,
+            "hold_hours_p90": null,
+            "lot_correct_available": true,
+            "mark_to_market_net_pnl": 80271.47,
+            "max_gross_notional": 2359877.55,
+            "max_open": 68,
+            "metric_source": "LOT_CORRECT_ACCOUNTING.csv",
+            "net_usd": 80169.07,
+            "ns": 2.501,
+            "raw_net_usd": 9171.34,
+            "raw_ns": 0.267,
+            "raw_stress_dd_usd": -34332.18,
+            "reachable_full_stack_stress": -32060.24,
+            "stress_dd_usd": -32060.24,
+            "units": 3051,
+            "wr_pct": 15.0
+          },
+          "variant": "sl50_tp150_runners_2r_indef"
+        }
+      ],
+      "title": "INDEFINITE INVENTORY RESEARCH \u2014 NOT RANKABLE"
+    },
+    "pending_non_comparable": {
+      "rankable": false,
+      "rows": [],
+      "title": "Pending / Non-Comparable"
+    },
+    "tested_not_promoted": {
+      "rankable": false,
+      "rows": [
+        {
+          "accounting_warnings": [
+            "raw_intrabar_stress_superseded_by_reachable"
+          ],
+          "audit_ok": true,
+          "book_label": "3R",
+          "comparable_core_eligible": true,
+          "decision_label": "RETAIN",
+          "exclusion_reasons": [],
+          "gates": {
+            "eoy_units_flat": true,
+            "lot_correct": true,
+            "no_unresolved_accounting_warning": true,
+            "not_indefinite": true,
+            "reachable_stress": true,
+            "sufficient_sample": true,
+            "usd_normalized": true,
+            "variant_complete": true
+          },
+          "market": "us30",
+          "metrics": {
+            "eoy_open_lots": 0,
+            "forced_flat_net_pnl": 19027.57,
+            "hold_hours_median": null,
+            "hold_hours_p90": null,
+            "lot_correct_available": true,
+            "mark_to_market_net_pnl": 19027.57,
+            "max_gross_notional": 44952.23,
+            "max_open": 1,
+            "metric_source": "LOT_CORRECT_ACCOUNTING.csv",
+            "net_usd": 19027.57,
+            "ns": 29.389,
+            "raw_net_usd": -981.54,
+            "raw_ns": -0.213,
+            "raw_stress_dd_usd": -4598.87,
+            "reachable_full_stack_stress": -647.43,
+            "stress_dd_usd": -647.43,
+            "units": 1017,
+            "wr_pct": 25.7
+          },
+          "variant": "sl50_tp150_3r_1mfill"
+        },
+        {
+          "accounting_warnings": [
+            "raw_intrabar_stress_superseded_by_reachable"
+          ],
+          "audit_ok": true,
+          "book_label": "2R\u219210R",
+          "comparable_core_eligible": true,
+          "decision_label": "RETAIN",
+          "exclusion_reasons": [],
+          "gates": {
+            "eoy_units_flat": true,
+            "lot_correct": true,
+            "no_unresolved_accounting_warning": true,
+            "not_indefinite": true,
+            "reachable_stress": true,
+            "sufficient_sample": true,
+            "usd_normalized": true,
+            "variant_complete": true
+          },
+          "market": "us30",
+          "metrics": {
+            "eoy_open_lots": 0,
+            "forced_flat_net_pnl": 56110.59,
+            "hold_hours_median": null,
+            "hold_hours_p90": null,
+            "lot_correct_available": true,
+            "mark_to_market_net_pnl": 56110.59,
+            "max_gross_notional": 134856.7,
+            "max_open": 3,
+            "metric_source": "LOT_CORRECT_ACCOUNTING.csv",
+            "net_usd": 56110.59,
+            "ns": 24.049,
+            "raw_net_usd": 13339.83,
+            "raw_ns": 1.471,
+            "raw_stress_dd_usd": -9065.59,
+            "reachable_full_stack_stress": -2333.22,
+            "stress_dd_usd": -2333.22,
+            "units": 1908,
+            "wr_pct": 14.6
+          },
+          "variant": "sl50_tp150_runners_2r_10r"
+        }
+      ],
+      "title": "Tested / Not Promoted"
+    }
+  },
+  "change_since_prior_snapshot": [
+    "= No new promoted strategy",
+    "~ status IN_PROGRESS \u2192 COMPLETE"
+  ],
+  "complete": true,
+  "completed_required_jobs": 3,
+  "currency_note": "JPY pairs need USD normalization before cross-market N/S boards",
+  "decision_summary": {
+    "INCOMPLETE": [],
+    "INSUFFICIENT_SAMPLE": [],
+    "NOT_RANKABLE": [],
+    "PENDING_ACCOUNTING": [],
+    "PENDING_NORMALIZATION": [],
+    "PROMOTE": [],
+    "REJECT": [],
+    "RESEARCH": [
+      "US30 indef"
+    ],
+    "RETAIN": [
+      "US30 3R",
+      "US30 2R\u219210R"
+    ]
+  },
+  "duplicate_sleeve_warnings": [],
+  "evaluations": [
+    {
+      "accounting_warnings": [
+        "raw_intrabar_stress_superseded_by_reachable"
+      ],
+      "audit_ok": true,
+      "book_label": "3R",
+      "comparable_core_eligible": true,
+      "decision_label": "RETAIN",
+      "exclusion_reasons": [],
+      "gates": {
+        "eoy_units_flat": true,
+        "lot_correct": true,
+        "no_unresolved_accounting_warning": true,
+        "not_indefinite": true,
+        "reachable_stress": true,
+        "sufficient_sample": true,
+        "usd_normalized": true,
+        "variant_complete": true
+      },
+      "market": "us30",
+      "metrics": {
+        "eoy_open_lots": 0,
+        "forced_flat_net_pnl": 19027.57,
+        "hold_hours_median": null,
+        "hold_hours_p90": null,
+        "lot_correct_available": true,
+        "mark_to_market_net_pnl": 19027.57,
+        "max_gross_notional": 44952.23,
+        "max_open": 1,
+        "metric_source": "LOT_CORRECT_ACCOUNTING.csv",
+        "net_usd": 19027.57,
+        "ns": 29.389,
+        "raw_net_usd": -981.54,
+        "raw_ns": -0.213,
+        "raw_stress_dd_usd": -4598.87,
+        "reachable_full_stack_stress": -647.43,
+        "stress_dd_usd": -647.43,
+        "units": 1017,
+        "wr_pct": 25.7
+      },
+      "variant": "sl50_tp150_3r_1mfill"
+    },
+    {
+      "accounting_warnings": [
+        "raw_intrabar_stress_superseded_by_reachable"
+      ],
+      "audit_ok": true,
+      "book_label": "2R\u219210R",
+      "comparable_core_eligible": true,
+      "decision_label": "RETAIN",
+      "exclusion_reasons": [],
+      "gates": {
+        "eoy_units_flat": true,
+        "lot_correct": true,
+        "no_unresolved_accounting_warning": true,
+        "not_indefinite": true,
+        "reachable_stress": true,
+        "sufficient_sample": true,
+        "usd_normalized": true,
+        "variant_complete": true
+      },
+      "market": "us30",
+      "metrics": {
+        "eoy_open_lots": 0,
+        "forced_flat_net_pnl": 56110.59,
+        "hold_hours_median": null,
+        "hold_hours_p90": null,
+        "lot_correct_available": true,
+        "mark_to_market_net_pnl": 56110.59,
+        "max_gross_notional": 134856.7,
+        "max_open": 3,
+        "metric_source": "LOT_CORRECT_ACCOUNTING.csv",
+        "net_usd": 56110.59,
+        "ns": 24.049,
+        "raw_net_usd": 13339.83,
+        "raw_ns": 1.471,
+        "raw_stress_dd_usd": -9065.59,
+        "reachable_full_stack_stress": -2333.22,
+        "stress_dd_usd": -2333.22,
+        "units": 1908,
+        "wr_pct": 14.6
+      },
+      "variant": "sl50_tp150_runners_2r_10r"
+    },
+    {
+      "accounting_warnings": [
+        "raw_intrabar_stress_superseded_by_reachable"
+      ],
+      "audit_ok": true,
+      "book_label": "indef",
+      "comparable_core_eligible": false,
+      "decision_label": "RESEARCH",
+      "exclusion_reasons": [
+        "indefinite_inventory_not_rankable_vs_flat_books"
+      ],
+      "gates": {
+        "eoy_units_flat": false,
+        "lot_correct": true,
+        "no_unresolved_accounting_warning": true,
+        "not_indefinite": false,
+        "reachable_stress": true,
+        "sufficient_sample": true,
+        "usd_normalized": true,
+        "variant_complete": true
+      },
+      "market": "us30",
+      "metrics": {
+        "eoy_open_lots": 64,
+        "forced_flat_net_pnl": 80169.07,
+        "hold_hours_median": null,
+        "hold_hours_p90": null,
+        "lot_correct_available": true,
+        "mark_to_market_net_pnl": 80271.47,
+        "max_gross_notional": 2359877.55,
+        "max_open": 68,
+        "metric_source": "LOT_CORRECT_ACCOUNTING.csv",
+        "net_usd": 80169.07,
+        "ns": 2.501,
+        "raw_net_usd": 9171.34,
+        "raw_ns": 0.267,
+        "raw_stress_dd_usd": -34332.18,
+        "reachable_full_stack_stress": -32060.24,
+        "stress_dd_usd": -32060.24,
+        "units": 3051,
+        "wr_pct": 15.0
+      },
+      "variant": "sl50_tp150_runners_2r_indef"
+    }
+  ],
+  "generated_at_utc": "2026-08-23T05:02:42+00:00",
+  "has_fair_3r_usd_normalized": false,
+  "hub": "live/state/us30_st_pmc_runner_variants",
+  "incomplete_jobs": [],
+  "markets": {
+    "us30": {
+      "exceptions": [
+        "s",
+        "l",
+        "5",
+        "0",
+        "_",
+        "t",
+        "p",
+        "1",
+        "5",
+        "0",
+        "_",
+        "r",
+        "u",
+        "n",
+        "n",
+        "e",
+        "r",
+        "s",
+        "_",
+        "2",
+        "r",
+        "_",
+        "i",
+        "n",
+        "d",
+        "e",
+        "f",
+        ":",
+        " ",
+        "i",
+        "n",
+        "d",
+        "e",
+        "f",
+        "i",
+        "n",
+        "i",
+        "t",
+        "e",
+        "_",
+        "i",
+        "n",
+        "v",
+        "e",
+        "n",
+        "t",
+        "o",
+        "r",
+        "y",
+        "_",
+        "n",
+        "o",
+        "t",
+        "_",
+        "r",
+        "a",
+        "n",
+        "k",
+        "a",
+        "b",
+        "l",
+        "e",
+        "_",
+        "v",
+        "s",
+        "_",
+        "f",
+        "l",
+        "a",
+        "t",
+        "_",
+        "b",
+        "o",
+        "o",
+        "k",
+        "s"
+      ],
+      "market": "us30",
+      "variants": {
+        "sl50_tp150_3r_1mfill": {
+          "accounting_warnings": [
+            "raw_intrabar_stress_superseded_by_reachable"
+          ],
+          "audit_ok": true,
+          "book_label": "3R",
+          "comparable_core_eligible": true,
+          "decision_label": "RETAIN",
+          "exclusion_reasons": [],
+          "gates": {
+            "eoy_units_flat": true,
+            "lot_correct": true,
+            "no_unresolved_accounting_warning": true,
+            "not_indefinite": true,
+            "reachable_stress": true,
+            "sufficient_sample": true,
+            "usd_normalized": true,
+            "variant_complete": true
+          },
+          "market": "us30",
+          "metrics": {
+            "eoy_open_lots": 0,
+            "forced_flat_net_pnl": 19027.57,
+            "hold_hours_median": null,
+            "hold_hours_p90": null,
+            "lot_correct_available": true,
+            "mark_to_market_net_pnl": 19027.57,
+            "max_gross_notional": 44952.23,
+            "max_open": 1,
+            "metric_source": "LOT_CORRECT_ACCOUNTING.csv",
+            "net_usd": 19027.57,
+            "ns": 29.389,
+            "raw_net_usd": -981.54,
+            "raw_ns": -0.213,
+            "raw_stress_dd_usd": -4598.87,
+            "reachable_full_stack_stress": -647.43,
+            "stress_dd_usd": -647.43,
+            "units": 1017,
+            "wr_pct": 25.7
+          },
+          "variant": "sl50_tp150_3r_1mfill"
+        },
+        "sl50_tp150_runners_2r_10r": {
+          "accounting_warnings": [
+            "raw_intrabar_stress_superseded_by_reachable"
+          ],
+          "audit_ok": true,
+          "book_label": "2R\u219210R",
+          "comparable_core_eligible": true,
+          "decision_label": "RETAIN",
+          "exclusion_reasons": [],
+          "gates": {
+            "eoy_units_flat": true,
+            "lot_correct": true,
+            "no_unresolved_accounting_warning": true,
+            "not_indefinite": true,
+            "reachable_stress": true,
+            "sufficient_sample": true,
+            "usd_normalized": true,
+            "variant_complete": true
+          },
+          "market": "us30",
+          "metrics": {
+            "eoy_open_lots": 0,
+            "forced_flat_net_pnl": 56110.59,
+            "hold_hours_median": null,
+            "hold_hours_p90": null,
+            "lot_correct_available": true,
+            "mark_to_market_net_pnl": 56110.59,
+            "max_gross_notional": 134856.7,
+            "max_open": 3,
+            "metric_source": "LOT_CORRECT_ACCOUNTING.csv",
+            "net_usd": 56110.59,
+            "ns": 24.049,
+            "raw_net_usd": 13339.83,
+            "raw_ns": 1.471,
+            "raw_stress_dd_usd": -9065.59,
+            "reachable_full_stack_stress": -2333.22,
+            "stress_dd_usd": -2333.22,
+            "units": 1908,
+            "wr_pct": 14.6
+          },
+          "variant": "sl50_tp150_runners_2r_10r"
+        },
+        "sl50_tp150_runners_2r_indef": {
+          "accounting_warnings": [
+            "raw_intrabar_stress_superseded_by_reachable"
+          ],
+          "audit_ok": true,
+          "book_label": "indef",
+          "comparable_core_eligible": false,
+          "decision_label": "RESEARCH",
+          "exclusion_reasons": [
+            "indefinite_inventory_not_rankable_vs_flat_books"
+          ],
+          "gates": {
+            "eoy_units_flat": false,
+            "lot_correct": true,
+            "no_unresolved_accounting_warning": true,
+            "not_indefinite": false,
+            "reachable_stress": true,
+            "sufficient_sample": true,
+            "usd_normalized": true,
+            "variant_complete": true
+          },
+          "market": "us30",
+          "metrics": {
+            "eoy_open_lots": 64,
+            "forced_flat_net_pnl": 80169.07,
+            "hold_hours_median": null,
+            "hold_hours_p90": null,
+            "lot_correct_available": true,
+            "mark_to_market_net_pnl": 80271.47,
+            "max_gross_notional": 2359877.55,
+            "max_open": 68,
+            "metric_source": "LOT_CORRECT_ACCOUNTING.csv",
+            "net_usd": 80169.07,
+            "ns": 2.501,
+            "raw_net_usd": 9171.34,
+            "raw_ns": 0.267,
+            "raw_stress_dd_usd": -34332.18,
+            "reachable_full_stack_stress": -32060.24,
+            "stress_dd_usd": -32060.24,
+            "units": 3051,
+            "wr_pct": 15.0
+          },
+          "variant": "sl50_tp150_runners_2r_indef"
+        }
+      }
+    }
+  },
+  "portfolio_action_required": {
+    "actions": [],
+    "required": false
+  },
+  "schema": "potions.hub_snapshot.v1",
+  "status": "COMPLETE",
+  "total_required_jobs": 3
+}

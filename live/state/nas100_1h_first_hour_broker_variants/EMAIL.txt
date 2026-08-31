@@ -1,0 +1,9 @@
+NAS100 first-hour broker-like variants complete
+Hub: /home/tester/hsm/potions/live/state/nas100_1h_first_hour_broker_variants
+
+baseline_open_3xbody: trades=2213 WR=37.6% net=$+7728 N/S=4.09 | fills entry=2267 stop=1197 tp=272 eod=753
+halfbody_sl_3r: trades=2247 WR=30.0% net=$+4505 N/S=2.96 | fills entry=2262 stop=1523 tp=435 eod=292
+retrace72_extreme_3r: trades=1465 WR=34.3% net=$+1265 N/S=0.33 | fills entry=1496 stop=854 tp=206 eod=414
+body75_ladder_1r2r3r: trades=2255 WR=40.4% net=$+11408 N/S=2.04 | fills entry=2266 stop=1360 tp=1935 eod=518
+
+Stance: compare to NQ broker ranks; promote only if N/S holds.

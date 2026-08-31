@@ -1,0 +1,77 @@
+CORRECTED quarterly ATR4 ladder sizing sweep — N/Sₙ fixed
+
+Hub: live/state/quarterly_atr4_ladder_sizing_sweep
+Markets: GBPUSD, NAS100, NQ, EURUSD, XAUUSD
+
+Bug: completion email used stress_dd=$0 (metrics store
+intrabar_stress_dd_usd), so N/Sₙ printed as 0.00. Below uses
+real intrabar stress. N/Sₙ = Σ(net/10) / Σ(stress/10).
+
+Board by Σnet/10 (same order as prior email, with real N/Sₙ):
+
+sizing                Σnet/10       Σst/10   N/Sₙ  note
+0/0/2/4/8      $    1,494,079 $    542,558   2.75  only +6/+8 + runner
+0/1/2/3/8      $    1,451,680 $    540,541   2.69  drop weakest contrib (tp1)
+0/1/3/4/8      $    1,428,484 $    483,769   2.95  rounded board contrib shares @ total=16 (runner≥8)
+1/1/2/2/12     $    1,428,335 $    614,105   2.33  runner=12
+1/1/1/2/10     $    1,427,125 $    614,016   2.32  runner=10
+1/1/1/1/8      $    1,392,748 $    612,871   2.27  flat early; fat runner
+1/2/2/3/10     $    1,378,168 $    525,513   2.62  contrib-shaped; runner=10
+1/1/2/2/8      $    1,374,656 $    537,656   2.56  mild back-load; runner=8
+0/3/4/5/8      $    1,356,190 $    404,290   3.35  rounded board contrib shares @ total=20 (runner≥8)
+1/2/2/3/8      $    1,348,412 $    480,993   2.80  contrib-shaped among scales; runner=8 (~share-weighted)
+1/2/3/4/8      $    1,339,268 $    437,146   3.06  steeper back-weight + runner=8
+2/2/2/2/8      $    1,281,016 $    478,469   2.68  same early as baseline; fat runner
+2/3/4/5/8      $    1,267,732 $    373,906   3.39  contrib ratios scaled up; runner=8
+2/4/5/7/8      $    1,259,682 $    345,025   3.65  rounded board contrib shares @ total=26 (runner≥8)
+2/2/2/2/2      $    1,079,900 $    275,356   3.92  control equal ladder
+
+Board by risk-normalized N/Sₙ (correct ranking):
+
+sizing                Σnet/10       Σst/10   N/Sₙ  note
+2/2/2/2/2      $    1,079,900 $    275,356   3.92  control equal ladder
+2/4/5/7/8      $    1,259,682 $    345,025   3.65  rounded board contrib shares @ total=26 (runner≥8)
+2/3/4/5/8      $    1,267,732 $    373,906   3.39  contrib ratios scaled up; runner=8
+0/3/4/5/8      $    1,356,190 $    404,290   3.35  rounded board contrib shares @ total=20 (runner≥8)
+1/2/3/4/8      $    1,339,268 $    437,146   3.06  steeper back-weight + runner=8
+0/1/3/4/8      $    1,428,484 $    483,769   2.95  rounded board contrib shares @ total=16 (runner≥8)
+1/2/2/3/8      $    1,348,412 $    480,993   2.80  contrib-shaped among scales; runner=8 (~share-weighted)
+0/0/2/4/8      $    1,494,079 $    542,558   2.75  only +6/+8 + runner
+0/1/2/3/8      $    1,451,680 $    540,541   2.69  drop weakest contrib (tp1)
+2/2/2/2/8      $    1,281,016 $    478,469   2.68  same early as baseline; fat runner
+1/2/2/3/10     $    1,378,168 $    525,513   2.62  contrib-shaped; runner=10
+1/1/2/2/8      $    1,374,656 $    537,656   2.56  mild back-load; runner=8
+1/1/2/2/12     $    1,428,335 $    614,105   2.33  runner=12
+1/1/1/2/10     $    1,427,125 $    614,016   2.32  runner=10
+1/1/1/1/8      $    1,392,748 $    612,871   2.27  flat early; fat runner
+
+Per-market leaders (by N/S) vs email net leader 0/0/2/4/8:
+
+GBPUSD  trades=51
+  best N/S   2/2/2/2/2    net=$404,130  stress=$50,565  N/S=7.99
+  baseline   2/2/2/2/2    net=$404,130  stress=$50,565  N/S=7.99
+  email top  0/0/2/4/8    net=$676,997  stress=$127,445  N/S=5.31
+
+NAS100  trades=9
+  best N/S   1/1/1/1/8    net=$83,755  stress=$14,978  N/S=5.59
+  baseline   2/2/2/2/2    net=$33,127  stress=$7,471  N/S=4.43
+  email top  0/0/2/4/8    net=$93,497  stress=$20,241  N/S=4.62
+
+NQ  trades=8
+  best N/S   2/2/2/2/2    net=$306,962  stress=$121,108  N/S=2.53
+  baseline   2/2/2/2/2    net=$306,962  stress=$121,108  N/S=2.53
+  email top  0/0/2/4/8    net=$517,957  stress=$357,291  N/S=1.45
+
+EURUSD  trades=16
+  best N/S   2/2/2/2/2    net=$84,627  stress=$34,662  N/S=2.44
+  baseline   2/2/2/2/2    net=$84,627  stress=$34,662  N/S=2.44
+  email top  0/0/2/4/8    net=$210,300  stress=$86,885  N/S=2.42
+
+XAUUSD  trades=30
+  best N/S   2/4/5/7/8    net=$816,167  stress=$184,566  N/S=4.42
+  baseline   2/2/2/2/2    net=$251,054  stress=$61,551  N/S=4.08
+  email top  0/0/2/4/8    net=$592,960  stress=$167,720  N/S=3.54
+
+Stance: runner-heavy maximizes scaled net but loses N/Sₙ vs
+equal-ladder baseline 2/2/2/2/2 (N/Sₙ=3.92). Prefer baseline /
+risk-normalized leaders over 0/0/2/4/8 for promotion.

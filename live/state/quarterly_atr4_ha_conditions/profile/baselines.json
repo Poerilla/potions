@@ -1,0 +1,37 @@
+{
+  "gbpusd_first_lower": {
+    "n": 51.0,
+    "wr": 0.5098039215686274,
+    "avg_net": 7924.123463313674,
+    "net": 404130.29662899737,
+    "book": "gbpusd_first_lower"
+  },
+  "nas100_first_lower": {
+    "n": 9.0,
+    "wr": 0.3333333333333333,
+    "avg_net": 3680.782493032452,
+    "net": 33127.04243729207,
+    "book": "nas100_first_lower"
+  },
+  "xauusd_first_only": {
+    "n": 30.0,
+    "wr": 0.4666666666666667,
+    "avg_net": 8368.4807438148,
+    "net": 251054.42231444397,
+    "book": "xauusd_first_only"
+  },
+  "nq_second_after_upper": {
+    "n": 8.0,
+    "wr": 0.5,
+    "avg_net": 38370.2247676475,
+    "net": 306961.79814118,
+    "book": "nq_second_after_upper"
+  },
+  "eurusd_second_after_upper": {
+    "n": 16.0,
+    "wr": 0.375,
+    "avg_net": 5289.167368516557,
+    "net": 84626.67789626491,
+    "book": "eurusd_second_after_upper"
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "ok": true,
+  "dsr": "TRL-2026-00125",
+  "metrics": {
+    "strategy_id": "nq_v2b_mo_ext_band_fade_gate_S_1_1_3",
+    "book": "S_1_1_3",
+    "trades": 264,
+    "units": 1320,
+    "net_usd": 258105.0,
+    "stress_dd": -99688.5,
+    "close_dd": -99038.5,
+    "ns": 2.589115093516303,
+    "win_rate_pct": 57.196969696969695,
+    "band_touches": 100,
+    "gate_sessions": 388,
+    "aligned_entries": 264,
+    "causality_violations": 0,
+    "regime_sessions": 1164
+  }
+}

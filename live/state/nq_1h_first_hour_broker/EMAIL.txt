@@ -1,0 +1,7 @@
+NQ first-hour follow 3R broker-like complete
+Hub: /home/tester/hsm/potions/live/state/nq_1h_first_hour_broker
+
+follow_3r_all: trades=3943 WR=37.2% net=$+176743 stress=$-31718 N/S=5.57
+follow_3r_strong: trades=1102 WR=51.4% net=$+127212 stress=$-31945 N/S=3.98
+
+Diagnostic refs: all n=3968 net=$243k N/S=9.32; strong n=1125 N/S=6.11

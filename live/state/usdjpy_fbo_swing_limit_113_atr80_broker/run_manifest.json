@@ -1,0 +1,60 @@
+{
+  "broker_realism_config": {
+    "fee_per_unit": 7.0,
+    "slippage_ticks": 1.0,
+    "tick_size": 0.001
+  },
+  "causality_mode": "audit",
+  "command": [
+    "/home/tester/hsm/potions/live/usdjpy_fbo_swing_limit_113_atr80_broker.py",
+    "--force",
+    "--email"
+  ],
+  "created_at": "2026-08-26T16:51:15Z",
+  "cwd": "/home/tester/hsm/potions",
+  "data_inputs": [
+    {
+      "bytes": 450499,
+      "exists": true,
+      "path": "/home/tester/hsm/potions/fx/usdjpy_daily.csv",
+      "sha256": "846554264177f55ff8f4144b3f3b467a94af09c43637d3f1f3cecfdf48120302"
+    },
+    {
+      "bytes": 153389,
+      "exists": true,
+      "path": "filters/usdjpy_atr80.csv",
+      "sha256": "bb9e1b6b5dcb314194ab67bed69759ae83570928c1e7172154966ba2229c9029"
+    }
+  ],
+  "extra": {
+    "driver": "usdjpy_fbo_swing_limit_113_atr80_broker",
+    "dsr": "TRL-2026-00151"
+  },
+  "git": {
+    "commit": "",
+    "dirty": false,
+    "repo_root": "/home/tester/hsm/potions/live/state/usdjpy_fbo_swing_limit_113_atr80_broker",
+    "status_short": []
+  },
+  "outputs": [
+    {
+      "bytes": 241,
+      "exists": true,
+      "path": "summary.csv",
+      "sha256": "33c12a3d7b992843e2a420742cb2fd18e0dc1266e1965e5f8b6d0cbe024d4691"
+    },
+    {
+      "bytes": 690,
+      "exists": true,
+      "path": "SUMMARY.md",
+      "sha256": "647c3b2dfe9e44254d9403383d657c6623e832f519174671247cd5d1c5ed6c2f"
+    }
+  ],
+  "python": {
+    "executable": "/home/tester/.pyenv/versions/3.8.0/bin/python3",
+    "platform": "Linux-5.15.0-185-generic-x86_64-with-glibc2.34",
+    "version": "3.8.0 (default, Feb 11 2026, 11:18:58) \n[GCC 11.4.0]"
+  },
+  "run_id": "run_6ff674ad1de5",
+  "strategy_config": {}
+}

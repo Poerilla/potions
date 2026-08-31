@@ -1,0 +1,60 @@
+potions: wide_2.5x SL / week / ladder
+
+Hub: /home/tester/hsm/potions/live/state/monthly_open_atr_extension_band/broker_pct75_compare/wide_2.5x/path_studies
+
+# wide_2.5x: SL beyond max · week 3/4 · 5/5/5 ladder
+
+Study trades: **63** (fill-paired). Ladder size **15** (5/5/5); baseline scaled ×1.5 from 10-lot.
+
+## 1) SL beyond band max — keep winners
+
+Stop model: `SL = band_max + k·(band_max − entry)` · wide_2.5x uses **k = 2.5**.
+
+Among **35 winners**, MAE past band_max as k: p50=0.22, p90=1.49, **max=2.13**.
+
+Path-walk: how many current winners would hit a tighter stop before their actual exit?
+
+| k | Winners kept | Kept % |
+|---|---:|---:|
+| 0.00 | 17/35 | 48.6% |
+| 0.25 | 18/35 | 51.4% |
+| 0.50 | 23/35 | 65.7% |
+| 0.75 | 25/35 | 71.4% |
+| 1.00 | 27/35 | 77.1% |
+| 1.25 | 30/35 | 85.7% |
+| 1.50 | 31/35 | 88.6% |
+| 1.75 | 32/35 | 91.4% |
+| 2.00 | 34/35 | 97.1% |
+| 2.25 | 35/35 | 100.0% |
+| 2.50 | 35/35 | 100.0% |
+| 3.00 | 35/35 | 100.0% |
+
+To keep **100%** of current winners you need **k ≥ 2.13** (already inside wide_2.5). Tightening below that converts winners into stops — e.g. k=1.0 keeps 77%, k=2.0 keeps 97%.
+
+## 2) Week 3 & 4 entries
+
+| Week | N | Win% | Net $ | Avg $ | Stop% | Target% |
+|---:|---:|---:|---:|---:|---:|---:|
+| 1 | 17 | 59% | 171,835 | 10,108 | 35% | 59% |
+| 2 | 27 | 59% | 233,423 | 8,645 | 30% | 52% |
+| 3 | 9 | 56% | 215,679 | 23,964 | 11% | 44% |
+| 4 | 10 | 40% | -145,460 | -14,546 | 30% | 20% |
+
+- Weeks **1–2**: n=44, win **59%**, net **$405,258**
+- Weeks **3–4**: n=19, win **47%**, net **$70,218**
+
+## 3) Ladder: 5 @ band med · 5 @ month open · 5 runner (BE only after target)
+
+- Until month-open target fills: remaining size keeps **wide_2.5x** SL.
+- When the 5-lot target fills: runner SL → **BE (entry)**.
+- Leftovers flatten EOM.
+
+- Ladder net: **$1,094,279**
+- Baseline ×1.5: **$713,214**
+- Delta: **$381,065**
+- Hit med 71% · target 48% · stopped 49% · BE armed 48%
+- Win% ladder 59% vs scaled base 56%
+
+Diagnostic pandas (1h); not broker-promotable yet.
+Hub: `/home/tester/hsm/potions/live/state/monthly_open_atr_extension_band/broker_pct75_compare/wide_2.5x/path_studies`
+

@@ -1,0 +1,27 @@
+NQ v2 short path + accumulate refresh
+
+Hub: /home/tester/hsm/potions/live/state/nq_quarterly_range_v2_review/
+Canvas: nq-v2-ladder-review.canvas.tsx
+
+SHORTS (14): net $21,962 WR 43%
+- Median MFE 0.39W / 0.61R
+- MFE before mid: 0.39W (0.61R)
+- Reach 0.2/0.4/0.6/0.8W: 64/50/29/14%
+- Losers median MFE before mid: 0.18W
+- vs longs median MFE 0.41W, reach 0.4W 52%
+
+Policy:
+- Longs only: $1,462,088 (Δ $-21,962)
+- Short early-fail <0.2W by d3: $1,305,306 (Δ $-178,744)
+- Short early-fail <0.2W by d5: $1,336,744 (Δ $-147,306)
+
+Accumulate (BB mid):
+- All-in 8: $1,455,738
+- 2w_1perd_cap10: $1,345,096 avg qty 6.2 vs all-in $-110,642
+- 1w_2contracts_per_week: $368,299 avg qty 1.8 vs all-in $-1,087,439
+- 2w_2contracts_per_week: $671,906 avg qty 3.7 vs all-in $-783,832
+- 1w_1perd_cap10: $643,133 avg qty 2.7 vs all-in $-812,605
+
+Stance: shorts ~flat (+$21,962); skip-shorts Δ $-21,962. Prefer different short policy (skip/size-down). New accumulate still lags all-in; 2w daily best among accum.
+
+Files: review/SHORT_POLICY_ACCUM.md, short_path_profile.csv, counterfactual_trades_v2.csv

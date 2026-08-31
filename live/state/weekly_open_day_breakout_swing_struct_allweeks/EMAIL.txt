@@ -1,0 +1,20 @@
+potions: swing_struct ALL WEEKS ungated (no bull×hivol) DONE
+
+DSR TRL-2026-00174
+Variant: od_half_eow_ungated_allweeks_add8h_swing_struct
+(best swing cell = structural + pullback + add8h; WoM/bull×hivol removed)
+
+# Weekly open-day breakout — variant sweep
+
+Window: 2015-09-28 → 2025-09-30 · DSR TRL-2026-00165
+
+| Market | Variant | Trades | Net | Stress DD | N/S | WR | PF | Stance |
+|---|---|---:|---:|---:|---:|---:|---:|---|
+| NAS100 | od_half_eow_ungated_allweeks_add8h_swing_struct | 314 | $-1934 | $-13798 | -0.14 | 49.4% | 0.98 | reject / thin |
+
+Hub: `/home/tester/hsm/potions/live/state/weekly_open_day_breakout_swing_struct_allweeks`
+
+
+Charts: 309 weeks → live/state/weekly_open_day_breakout_w1_trade_charts/nas100_swing_struct_allweeks/nas100/charts
+
+Stance: reject vs week-1×bull×hivol swing books — all-weeks ungated loses edge.

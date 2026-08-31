@@ -1,0 +1,39 @@
+{
+  "method": "proxy_incremental_slippage_on_existing_tape_not_engine_rerun",
+  "rows": [
+    {
+      "extra_adverse_ticks_each_side": 0,
+      "incremental_usd_cost": 0.0,
+      "gross_after": 33181.1,
+      "ns_vs_board_stress": 2.407
+    },
+    {
+      "extra_adverse_ticks_each_side": 1,
+      "incremental_usd_cost": 1041.4,
+      "gross_after": 32139.7,
+      "ns_vs_board_stress": 2.332
+    },
+    {
+      "extra_adverse_ticks_each_side": 2,
+      "incremental_usd_cost": 2082.8,
+      "gross_after": 31098.3,
+      "ns_vs_board_stress": 2.256
+    },
+    {
+      "extra_adverse_ticks_each_side": 4,
+      "incremental_usd_cost": 4165.6,
+      "gross_after": 29015.5,
+      "ns_vs_board_stress": 2.105
+    },
+    {
+      "extra_adverse_ticks_each_side": 8,
+      "incremental_usd_cost": 8331.2,
+      "gross_after": 24849.9,
+      "ns_vs_board_stress": 1.803
+    }
+  ],
+  "stop_units": 4437,
+  "gap_like_stops_gt_1_25R": 406,
+  "gap_like_usd": -32210.9,
+  "note": "Continuation uses marketable entries; Engine stress re-run with slippage_ticks\u2208{2,4,8} and gap-through preserved is still required before demo."
+}

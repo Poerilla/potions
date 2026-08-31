@@ -1,0 +1,18 @@
+potions: quarterly ATR4 HA overlay complete
+
+Hub: /home/tester/hsm/potions/live/state/quarterly_atr4_ha_conditions/overlay
+Candidates: 12
+
+Top full-tape by ΔN/S:
+  nq_second_after_upper | Prior-month range half=month_aligned | filter | hp=62% ΔN/S=+593.32 Δnet=$+7399
+  nq_second_after_upper | Prior-month range half=month_aligned | size_1.5 | hp=62% ΔN/S=+18.57 Δnet=$+157180
+  nq_second_after_upper | Prior-month range half=month_aligned | size_1.25 | hp=62% ΔN/S=+9.43 Δnet=$+78590
+  xauusd_first_only | ATR14 quartile=atr_q1 | filter | hp=27% ΔN/S=+7.69 Δnet=$-157858
+  xauusd_first_only | Week of month=2 | filter | hp=43% ΔN/S=+7.21 Δnet=$-51150
+  eurusd_second_after_upper | Day of week=Monday | filter | hp=38% ΔN/S=+5.68 Δnet=$-6582
+  eurusd_second_after_upper | 5m MA vs trade=ma_aligned | filter | hp=44% ΔN/S=+5.47 Δnet=$+14276
+  gbpusd_first_lower | Entry hour (NY)=12 | filter | hp=18% ΔN/S=+2.98 Δnet=$-285522
+  gbpusd_first_lower | Day of week=Monday | filter | hp=29% ΔN/S=+2.86 Δnet=$-194957
+  gbpusd_first_lower | Entry hour (NY)=12 | size_1.5 | hp=18% ΔN/S=+1.94 Δnet=$+59304
+  eurusd_second_after_upper | 5m MA vs trade=ma_aligned | size_1.5 | hp=44% ΔN/S=+1.83 Δnet=$+49451
+  gbpusd_first_lower | Day of week=Monday | size_1.5 | hp=29% ΔN/S=+1.77 Δnet=$+104587

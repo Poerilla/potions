@@ -1,0 +1,58 @@
+potions: v2b_clean_break_pyramid_trail_cfd_validation_v1
+
+V2B CLEAN-BREAK PYRAMID + BREAK-EVEN TRAIL
+CFD PORTABILITY VALIDATION V1
+
+STATUS:
+RESEARCH ONLY
+
+PARENT:
+v2b_clean_break_pyramid_trail_cfd_top3_v1
+
+PARENT DSR:
+TRL-2026-00196
+
+VALIDATION CONFIG HASH:
+b0447e344dddd465
+
+ENGINE/PAPERBROKER RECONCILIATION:
+PASS
+
+DATA QUALITY:
+INDEX PROXY (fx/*_1m.csv OHLC → 5m RTH) — PROXY DATA — PORTABILITY EVIDENCE LIMITED
+
+PRIMARY FINDING:
+Validation Scenario-0 nets diverge from parent beyond tolerance — see market_validation_summary.csv repro_net_delta.
+
+MARKET-BY-MARKET TABLE (Scenario 0 + stress nets):
+
+| Market | Variant | Sessions | Trades | Units | Gross | Fees | Net | Stress | N/S | PF | Win% | Dev | Holdout | S1 | S2 | S3 | S4 | S5 | S6 | S7 | S8 | Top3 conc | Disposition |
+|---|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---|
+| NAS100 | trail06_m8_e2_out_be | 2277 | 1166 | 2848 | $23,140.80 | $8,544.00 | $18,868.80 | $-3,975.10 | 4.75 | 1.44 | 34.4% | $10,360.00 | $4,236.80 | $nan | $nan | $nan | $nan | $nan | $nan | $nan | $nan | 29% | positive research-only |
+| NAS100 | trail06_m4_e1_opp_be | 2277 | 1166 | 2081 | $13,965.50 | $6,243.00 | $10,844.00 | $-2,087.40 | 5.19 | 1.39 | 25.1% | $4,823.10 | $2,899.40 | $nan | $nan | $nan | $nan | $nan | $nan | $nan | $nan | 34% | positive research-only |
+| NAS100 | trail06_m4_e2_out_be | 2277 | 1166 | 2077 | $14,447.00 | $6,231.00 | $11,331.50 | $-1,960.90 | 5.78 | 1.39 | 27.2% | $5,198.80 | $3,017.20 | $nan | $nan | $nan | $nan | $nan | $nan | $nan | $nan | 31% | positive research-only |
+| US30 | trail06_m8_e2_out_be | 2246 | 1104 | 2633 | $21,310.00 | $7,899.00 | $17,360.50 | $-8,555.30 | 2.03 | 1.23 | 31.8% | $13,944.00 | $-533.00 | $nan | $nan | $nan | $nan | $nan | $nan | $nan | $nan | 65% | positive research-only |
+| US30 | trail06_m4_e1_opp_be | 2246 | 1104 | 1949 | $16,026.30 | $5,847.00 | $13,102.80 | $-5,762.00 | 2.27 | 1.28 | 22.8% | $8,001.30 | $2,178.00 | $nan | $nan | $nan | $nan | $nan | $nan | $nan | $nan | 60% | positive research-only |
+| US30 | trail06_m4_e2_out_be | 2246 | 1104 | 1942 | $14,336.70 | $5,826.00 | $11,423.70 | $-6,166.70 | 1.85 | 1.23 | 24.5% | $6,893.80 | $1,616.90 | $nan | $nan | $nan | $nan | $nan | $nan | $nan | $nan | 56% | positive research-only |
+| SPX500 | trail06_m8_e2_out_be | 3006 | 1518 | 3541 | $795.40 | $10,623.00 | $-4,516.10 | $-4,539.70 | -0.99 | 0.73 | 29.4% | $-6,458.50 | $-3,369.10 | $nan | $nan | $nan | $nan | $nan | $nan | $nan | $nan | -10% | negative reproduction confirmed |
+| SPX500 | trail06_m4_e1_opp_be | 3006 | 1518 | 2693 | $913.20 | $8,079.00 | $-3,126.30 | $-3,131.90 | -1.00 | 0.73 | 22.5% | $-5,189.40 | $-1,976.40 | $nan | $nan | $nan | $nan | $nan | $nan | $nan | $nan | -11% | negative reproduction confirmed |
+| SPX500 | trail06_m4_e2_out_be | 3006 | 1518 | 2673 | $702.30 | $8,019.00 | $-3,307.20 | $-3,312.80 | -1.00 | 0.71 | 23.8% | $-5,222.90 | $-2,093.80 | $nan | $nan | $nan | $nan | $nan | $nan | $nan | $nan | -8% | negative reproduction confirmed |
+
+PORTABILITY CONCLUSION:
+
+NAS100: Research-positive under Scenario 0 on frozen variants; not authorized for live/demo.
+US30: Research-positive but weaker N/S / larger stress; not authorized for live/demo.
+SPX500: Negative reproduction confirmed across all three frozen variants.
+Combined CFD basket: Not portable — SPX500 fails market-integrity gate; no subset promotion.
+
+NON-PROMOTION LANGUAGE:
+"No CFD market, variant, or basket is authorized for plugin, paper, demo, funded, or live use from this study. The study validates or fails to validate historical reproducibility under frozen rules and modeled broker-like execution only."
+
+FINAL DISPOSITION:
+NON-REPRODUCIBLE
+
+Hub: `/home/tester/hsm/potions/live/state/v2b_clean_break_pyramid_trail_cfd_validation_v1`
+DSR: `TRL-2026-00197`
+smoke=False
+chart samples: `/home/tester/hsm/potions/live/state/v2b_clean_break_pyramid_trail_cfd_validation_v1/charts` (AUDIT ONLY — chronological samples, not ranked by P&L)
+

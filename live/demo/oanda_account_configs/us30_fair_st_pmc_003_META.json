@@ -1,0 +1,10 @@
+{
+  "env": "practice",
+  "account_id": "101-002-39860312-003",
+  "label": "Fair US30 ST+PMC 3R (SUPERSEDED 2026-08-31)",
+  "demo": "us30_hourly_st_pmc_sl50_tp150_3r_oanda",
+  "cli": "demo-us30-hourly-st-pmc-oanda",
+  "status": "superseded",
+  "replaced_by": "nas100_clean_break_trail_003",
+  "cutover_note": "2026-08-31: account -003 rotated to NAS100 clean-break trail06_m4_e2_out_be."
+}

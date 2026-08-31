@@ -1,0 +1,48 @@
+potions: Band-max +0.5 ORB overlay cross-market batch
+
+Markets: MNQ NAS100 US30 USDJPY
+SPX500: SKIPPED — no historical 1h archive (demo bars only).
+Engine: PaperBroker 1h, entry=max, SL=plus_0.5, ladder 0/5/5, runner open±2R
+
+## MNQ
+Hub: /home/tester/hsm/potions/live/state/monthly_open_atr_extension_band/broker_max_plus_0p5_runner2r_mnq
+Charts: /home/tester/hsm/potions/live/state/monthly_open_atr_extension_band/broker_max_plus_0p5_runner2r_mnq/orb_overlay_charts
+| Variant | Skip w4 | Trades | Net $ | Stress DD | N/S | Sharpe | Sortino | Calmar |
+|---|---|---:|---:|---:|---:|---:|---:|---:|
+| all_weeks | no | 11 | 34,157 | -44,342 | 0.77 | 0.07 | 0.02 | 0.85 |
+| no_w4 | yes | 11 | 37,987 | -45,177 | 0.84 | 0.07 | 0.02 | 0.92 |
+Charts: 8
+- **Conditional hitrate** (1R before opposite | either touched): **68.9%** (n=119 resolved)
+
+## NAS100
+Hub: /home/tester/hsm/potions/live/state/monthly_open_atr_extension_band/broker_max_plus_0p5_runner2r_nas100
+Charts: /home/tester/hsm/potions/live/state/monthly_open_atr_extension_band/broker_max_plus_0p5_runner2r_nas100/orb_overlay_charts
+| Variant | Skip w4 | Trades | Net $ | Stress DD | N/S | Sharpe | Sortino | Calmar |
+|---|---|---:|---:|---:|---:|---:|---:|---:|
+| all_weeks | no | 30 | 16,378 | -21,829 | 0.75 | 0.04 | 0.01 | 0.77 |
+| no_w4 | yes | 28 | 16,787 | -21,830 | 0.77 | 0.04 | 0.01 | 0.79 |
+Charts: 28
+- **Conditional hitrate** (1R before opposite | either touched): **70.4%** (n=277 resolved)
+
+## US30
+Hub: /home/tester/hsm/potions/live/state/monthly_open_atr_extension_band/broker_max_plus_0p5_runner2r_us30
+Charts: /home/tester/hsm/potions/live/state/monthly_open_atr_extension_band/broker_max_plus_0p5_runner2r_us30/orb_overlay_charts
+| Variant | Skip w4 | Trades | Net $ | Stress DD | N/S | Sharpe | Sortino | Calmar |
+|---|---|---:|---:|---:|---:|---:|---:|---:|
+| all_weeks | no | 26 | 1,527 | -45,417 | 0.03 | 0.00 | 0.00 | 0.03 |
+| no_w4 | yes | 24 | 11,518 | -38,323 | 0.30 | 0.02 | 0.01 | 0.31 |
+Charts: 24
+- **Conditional hitrate** (1R before opposite | either touched): **70.4%** (n=277 resolved)
+
+## USDJPY
+Hub: /home/tester/hsm/potions/live/state/monthly_open_atr_extension_band/broker_max_plus_0p5_runner2r_usdjpy
+Charts: /home/tester/hsm/potions/live/state/monthly_open_atr_extension_band/broker_max_plus_0p5_runner2r_usdjpy/orb_overlay_charts
+| Variant | Skip w4 | Trades | Net $ | Stress DD | N/S | Sharpe | Sortino | Calmar |
+|---|---|---:|---:|---:|---:|---:|---:|---:|
+| all_weeks | no | 79 | 6,017,774 | -12,954,551 | 0.46 | 0.02 | 0.01 | 0.47 |
+| no_w4 | yes | 77 | 3,458,122 | -14,167,594 | 0.24 | 0.01 | 0.00 | 0.25 |
+Charts: 75
+- **Conditional hitrate** (1R before opposite | either touched): **70.4%** (n=277 resolved)
+
+
+Stance: research overlay — multi-market band-max + OR management levels.

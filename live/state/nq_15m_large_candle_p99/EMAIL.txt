@@ -1,0 +1,13 @@
+potions: NQ 15m large-candle 3R study complete (p99/p95)
+
+Hub: /home/tester/hsm/potions/live/state/nq_15m_large_candle_p99
+Sleeve: is_p99 (hi)
+Days with p99: 1432 / 3986 (36%)  bars=5051
+
+p99 large 3R  n=2290 WR=34% net=$89540 N/S=1.52 PF=1.07
+p95 large 3R  n=6738 WR=31% net=$200863 N/S=4.46 PF=1.08
+p99 ATR-norm range 3R  n=992 WR=39% net=$88232 N/S=3.61 PF=1.21
+matched non-large control  n=1981 WR=26% net=$33028 N/S=3.32 PF=1.13
+ALL directional 15m 3R (baseline)  n=20699 WR=25% net=$123882 N/S=1.99 PF=1.03
+
+Stance: curious lift vs fair 3R — still diagnostic; do not promote

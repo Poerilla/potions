@@ -1,0 +1,24 @@
+US30 London prior-opposed delayed-arming — PROCESSED and UP at 0.25 size.
+
+Demos (alive)
+- paper: live/demo/us30_london_prior_opposed_paper/  pid alive, routing=False, size_mult=0.25 (1 unit)
+- oanda: live/demo/us30_london_prior_opposed_oanda/  pid alive, practice routing=True, size_mult=0.25
+
+Live ST+PMC gate feed (sibling demos)
+- paper ← us30_hourly_st_pmc_sl50_tp150_3r_paper  (121 sessions / 179 events; 1 live_st_fill today long @ 13:27 ET)
+- oanda ← us30_hourly_st_pmc_sl50_tp150_3r_oanda  (121 sessions / 181 events; 3 live_st_fill today long)
+- Research resting-limit seed retained; live fills merge every ~15s
+
+Gate audit (gate_audit.csv + PROGRESS)
+- session_date, prior-opposed long/short ok, prior ST ts/side, gate arm/disarm,
+  entry eligible ts, OCO state, open entry orders, position qty, fill/no-fill, skip reason, size_mult
+- Now (after 11:59 ET): decision=session_closed short_ok=1 skip=after_eod — first London OR arm window is tomorrow 03:00 ET
+
+CLI
+  PYTHONPATH=... python3 -m potions.live.cli demo-us30-london-prior-opposed-paper-status
+  PYTHONPATH=... python3 -m potions.live.cli demo-us30-london-prior-opposed-oanda-status
+
+Stance
+- Stay at 0.25 until live ST parity across London sessions + concentration/robustness clarity
+- Promote to half/full only after that — research hub N/S US30 ~6.23 is curiosity, not size-up
+- Hub: live/state/fx_v2b_london_prior_opposed

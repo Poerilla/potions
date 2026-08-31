@@ -1,0 +1,29 @@
+v2b S_1_1_1 ↔ ST+PMC 3R — correlation analysis
+
+IMPORTANT: v2b side is BASE ungated S_1_1_1 (1/1/1),
+from v2b_sizing_sweep — NOT prior-opposed, NOT S_1_1_3.
+
+VERDICT: same-market separable 4/4 — OR breakout vs hourly ST retest
+are different liquidity regimes on NQ/MNQ/YM/MYM.
+
+Same-market (v2b S_1_1_1 vs ST+PMC 3R):
+  [SEP] MNQ v2b S_1_1_1 vs MNQ ST+PMC 3R | J=0.21 ρ=-0.02 dir-agree=0.708 same-dir=150
+  [SEP] MYM v2b S_1_1_1 vs MYM ST+PMC 3R | J=0.19 ρ=-0.065 dir-agree=0.7 same-dir=153
+  [SEP] NQ v2b S_1_1_1 vs NQ ST+PMC 3R | J=0.16 ρ=-0.026 dir-agree=0.7 same-dir=149
+  [SEP] YM v2b S_1_1_1 vs YM ST+PMC 3R | J=0.14 ρ=-0.037 dir-agree=0.717 same-dir=161
+
+Cross highlights:
+  YM v2b S_1_1_1 vs US30 ST+PMC 3R | J=0.16 ρ=-0.048 sep=Y
+  NQ v2b S_1_1_1 vs NAS100 ST+PMC 3R | J=0.16 ρ=-0.061 sep=Y
+  NQ v2b S_1_1_1 vs MNQ ST+PMC 3R | J=0.21 ρ=-0.025 sep=Y
+  YM v2b S_1_1_1 vs MYM ST+PMC 3R | J=0.19 ρ=-0.058 sep=Y
+  YM ST+PMC 3R vs US30 ST+PMC 3R | J=0.42 ρ=0.851 sep=n
+  NQ ST+PMC 3R vs NAS100 ST+PMC 3R | J=0.58 ρ=0.956 sep=n
+  NQ ST+PMC 3R vs MNQ ST+PMC 3R | J=0.47 ρ=0.98 sep=n
+
+Read:
+- Stack base v2b S_1_1_1 with ST+PMC 3R on the same future = OK (low ρ).
+- Do NOT treat YM ST + US30 ST (or NQ ST + NAS100 ST) as independent.
+- Prior email used prior-opposed by mistake; this corrects the book.
+
+Hub: live/state/v2b_s111_stpmc_3r_correlation/

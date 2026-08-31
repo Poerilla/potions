@@ -1,0 +1,24 @@
+potions: yearly ORB L_4_1_1 WoM2 broker-like replay (NQ + NAS100)
+
+Hub: live/state/yearly_orb_l411_wom2_nq_nas100
+Path: Engine + PaperBroker + yearly_orb_scaleout3 (causal next-open exits)
+Gate: allow_weeks_of_month=[2] arms only in week 2; cancels resting entries outside week 2
+Sizing: L_4_1_1 (4/1/1 limit_retest)
+
+Results (broker-like):
+
+NQ baseline L_4_1_1:     n=68  net=$764,503  stress=$-159,309  N/S=4.80
+NQ WoM2 L_4_1_1:         n=15  net=$324,525  stress=$-63,420   N/S=5.12
+
+NAS100 baseline L_4_1_1: n=35  net=$34,335   stress=$-5,548    N/S=6.19
+NAS100 WoM2 L_4_1_1:     n=7   net=$10,248   stress=$-3,465    N/S=2.96
+
+Notes:
+- NQ baseline matches prior causal tape (68 / $764k / N/S 4.80).
+- Plugin WoM2 ≠ post-filter on entry_ts: arming-day gate + cancel outside week 2
+  → 15 campaigns vs diagnostic 22; N/S only 5.12 (not the post-filter 34).
+- NAS100 WoM2 hurts N/S vs unfiltered (2.96 vs 6.19); shorter tape from 2016.
+
+Stance: research / reject as promotion gate. WoM2 is diagnostic only; do not promote
+as a live sleeve filter on this evidence. Prefer full-book L_4_1_1 on NQ; NAS100
+baseline needs more work before any size-up claim.

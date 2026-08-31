@@ -1,0 +1,54 @@
+{
+  "broker_realism_config": {},
+  "causality_mode": "audit",
+  "command": [
+    "/home/tester/hsm/potions/live/yearly_orb_sizing_sweep.py",
+    "--markets",
+    "nq,nas100",
+    "--scenario-set",
+    "l411_wom2",
+    "--output-root",
+    "live/state/yearly_orb_l411_wom2_nq_nas100",
+    "--email"
+  ],
+  "created_at": "2026-08-18T13:04:37Z",
+  "cwd": "/home/tester/hsm/potions",
+  "data_inputs": [
+    {
+      "bytes": 263866,
+      "exists": true,
+      "path": "/home/tester/hsm/potions/nq/nq_daily.csv",
+      "sha256": "af2175c6276a07f3931686f7a1c96afe1d93bc3e2297b32908a03487b25ebdda"
+    },
+    {
+      "bytes": 144864,
+      "exists": true,
+      "path": "/home/tester/hsm/potions/fx/nas100_daily.csv",
+      "sha256": "dd5ac0a76667a4fa1beab3b99cedfb71062a3befc9b58ae1c44e2ae6a00a115a"
+    }
+  ],
+  "extra": {
+    "job": "yearly_orb_sizing_sweep",
+    "markets": [
+      "nq",
+      "nas100"
+    ],
+    "n_cells": 2,
+    "n_results": 4,
+    "scenario_set": "l411_wom2"
+  },
+  "git": {
+    "commit": "",
+    "dirty": false,
+    "repo_root": "/home/tester/hsm/potions/live/state/yearly_orb_l411_wom2_nq_nas100",
+    "status_short": []
+  },
+  "outputs": [],
+  "python": {
+    "executable": "/home/tester/.pyenv/versions/3.8.0/bin/python3",
+    "platform": "Linux-5.15.0-185-generic-x86_64-with-glibc2.34",
+    "version": "3.8.0 (default, Feb 11 2026, 11:18:58) \n[GCC 11.4.0]"
+  },
+  "run_id": "run_cc7af3fd1009",
+  "strategy_config": {}
+}

@@ -1,0 +1,23 @@
+{
+  "strategy_id": "usdjpy_v2b_asia_range_london_S_1_1_1",
+  "symbol": "USDJPY",
+  "family": "fx",
+  "quote": "JPY",
+  "book": "S_1_1_1",
+  "clock": "asia_range_london",
+  "or_window": "19:00-03:00",
+  "or_bars": "asia_precomputed",
+  "sizing": "S_1_1_1",
+  "regime_days": 1678,
+  "start": "2015-01-02",
+  "units": 5019,
+  "trades": 1673,
+  "net_usd": 59661.518181783,
+  "closed_dd_usd": -30688.254545478925,
+  "stress_dd_usd": -30704.61818184256,
+  "net_over_stress": 1.9430796314889318,
+  "win_rate": 47.49950189280733,
+  "profit_factor": 1.128502696586605,
+  "max_open_units": 3,
+  "state_root": "live/state/fx_v2b_asia_range_london_usdjpy_sizing/states/usdjpy_v2b_asia_range_london_S_1_1_1"
+}

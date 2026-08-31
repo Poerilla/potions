@@ -1,0 +1,11 @@
+Weekly open-day breakout — variant sweep
+
+Hub: /home/tester/hsm/potions/live/state/weekly_open_day_breakout_od_half_runner_bull_hivol
+DSR: TRL-2026-00165
+Window: 2015-09-28 → 2025-09-30 (~10.0y)
+Variants: od_half_eow_bull_hivol, od_half_3r_bull_hivol, od_half_eow_bull_hivol_nohol, od_half_3r_bull_hivol_nohol
+
+NAS100 / od_half_eow_bull_hivol: trades=202 net=$+12831 N/S=1.43 WR=56.8% — weak — needs tune
+NAS100 / od_half_3r_bull_hivol: trades=202 net=$+12278 N/S=1.38 WR=56.8% — weak — needs tune
+NAS100 / od_half_eow_bull_hivol_nohol: trades=175 net=$+10189 N/S=1.07 WR=56.8% — weak — needs tune
+NAS100 / od_half_3r_bull_hivol_nohol: trades=175 net=$+10058 N/S=1.07 WR=56.8% — weak — needs tune

@@ -102,6 +102,18 @@ Starting capital: **$1,000,000**. For each futures row, the futures book is scal
 | NQ ATR daily 3-initial 10-max | 2010-06-06 to 2026-03-08 | 60.7% | 0.66 | $1,641,019 | $-331,341 | 4.95 | $4,150,505 | $-1,102,927 | $-2,509,486 |
 | YM Yearly ORB scaleout3 | 2010-06-06 to 2026-05-06 | 60.8% | 5.10 | $1,811,579 | $-327,634 | 5.53 | $4,931,894 | $-1,091,438 | $-3,120,315 |
 
+## FX / metals yearly ORB — sized sleeves (2026-08-16)
+
+Not yet folded into the futures max-stress / $1M executable CSVs above (those remain futures-only). Broker-like FX/metals sizing hub: [`../../../live/state/yearly_orb_sizing_sweep_fx_metals/SUMMARY.md`](../../../live/state/yearly_orb_sizing_sweep_fx_metals/SUMMARY.md). AUDJPY ~USD at ÷110.
+
+| Market | Sized ladder | Net | Stress | **N/S** | Baseline `1/1/1` N/S | Δ |
+|---|---|---:|---:|---:|---:|---:|
+| AUDJPY | limit_retest **4/1/1** | ¥46.2M (~$420k) | ¥−1.86M (~$−17k) | **24.87** | 15.26 | +9.61 |
+| XAUUSD | limit_retest **4/2/1** | $1,037,711 | $−67,742 | **15.32** | 11.30 | +4.02 |
+| XAGUSD | limit_retest **5/2/1** | $301,376 | $−35,143 | **8.58** | 6.21 | +2.36 |
+
+One-pagers: `ONE_PAGE_AUDJPY_L_4_1_1.md`, `ONE_PAGE_XAUUSD_L_4_2_1.md`, `ONE_PAGE_XAGUSD_L_5_2_1.md`. Deep-checks under `deep_check/`. Same front-heavy read as futures yearly ORB; RC20 still hurts.
+
 ## Read
 
 - The NQ prior-opposed v2b gate remains the cleanest row on capital efficiency: $1,184,585 net on $161,541 of 3x-stress capital (733.3%, 22.00 Net/Stress).

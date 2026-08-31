@@ -1,0 +1,53 @@
+{
+  "broker_realism_config": {
+    "fee_per_unit": 1.5,
+    "slippage_ticks": 1.0
+  },
+  "causality_mode": "audit",
+  "command": [
+    "/home/tester/hsm/potions/live/nq_v2b_mo_ext_band_gate_replay.py",
+    "--email"
+  ],
+  "created_at": "2026-08-24T03:20:53Z",
+  "cwd": "/home/tester/hsm/potions",
+  "data_inputs": [
+    {
+      "bytes": 107854460,
+      "exists": true,
+      "path": "/home/tester/hsm/potions/nq/raw/glbx-mdp3-20100606-20260616.ohlcv-1m.dbn.zst",
+      "sha256": "7c72c95dfe2e8e69c25ac3e71e509bf1f1e3e30b4fbfe6729dd9f3a66f350fd0"
+    },
+    {
+      "bytes": 1745876,
+      "exists": true,
+      "path": "/home/tester/hsm/potions/live/state/_cache/bars_4h/nq_4h.csv",
+      "sha256": "045d42ab301bb4cfd6d5f90b3459424a2c74498f18b5bd33e47b694f4fb53a80"
+    }
+  ],
+  "extra": {
+    "notes": "band touch gates v2b in fade direction"
+  },
+  "git": {
+    "commit": "",
+    "dirty": false,
+    "repo_root": "/home/tester/hsm/potions/live/state/nq_v2b_mo_ext_band_fade_gate",
+    "status_short": []
+  },
+  "outputs": [],
+  "python": {
+    "executable": "/home/tester/.pyenv/versions/3.8.0/bin/python",
+    "platform": "Linux-5.15.0-185-generic-x86_64-with-glibc2.34",
+    "version": "3.8.0 (default, Feb 11 2026, 11:18:58) \n[GCC 11.4.0]"
+  },
+  "run_id": "run_340a40252f54",
+  "strategy_config": {
+    "book": "S_1_1_3",
+    "dsr_trial_id": "TRL-2026-00125",
+    "entry_mode": "pct75",
+    "gate": "mo_ext_band_touch_fade_aligned",
+    "require_trade_through": true,
+    "rolling_window": 6,
+    "start": "2021-03-04",
+    "strategy_type": "v2b_scaleout"
+  }
+}

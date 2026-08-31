@@ -1,0 +1,16 @@
+Follow live/state/us30_pmc_failed_break_fade_structure_bias/RESEARCH_PLAN.md exactly.
+
+Context:
+- Parent Phase 1/2 complete at live/state/us30_pmc_failed_break_fade/ (DSR TRL-2026-00187).
+- Confirmed fade: N=129 net+$2612 stress=$-3239 N/S=0.81 WR=49.6% runner_share=72%. Stance RESEARCH_WEAK_POSITIVE.
+- Continuation slippage stress job just finished (or exited); this overlay is next.
+
+Implement and run:
+1) Causal 4h StructureProgramEngine bias at each confirmed-fade confirm_ts (existing engine unchanged; buy→BULLISH, sell→BEARISH, ready+None→NEUTRAL, not ready→UNAVAILABLE).
+2) Phase 1 descriptive split: ALIGNED / OPPOSED / NEUTRAL / UNAVAILABLE (+ aligned long/short branches). Do not exclude groups.
+3) Phase 2 variants only: baseline | aligned_only | aligned_plus_neut. Same fills/costs as parent confirmed.
+4) Scale-out diagnostics: full 1R/2R/4R, no-runner (cap 2R), reduced runner (50/50 at 1R/2R) — report only, do not optimize.
+5) Persist causality timestamp chain; email via --email / live.notify_email; log via live.run_ledger; DSR TRL-2026-00189 before peek.
+6) Write SUMMARY.md + EMAIL.txt with promote/reject stance per RESEARCH_PLAN.md gates.
+
+Constraints: no size-up, no scale-in, no extra filters, no second structure engine, no daily/hourly swap in this trial. Reuse parent confirmed tape when possible.

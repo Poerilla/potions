@@ -56,6 +56,7 @@ DEMO_FOCUS = {
     "eurusd_hourly_st_pmc_sl50_tp150_runners_2r_10r_oanda": "EURUSD",
     "us30_london_prior_opposed_oanda": "US30",
     "us30_monday_or_m3_s3_r2_half_oanda": "US30",
+    "nas100_v2b_clean_break_trail06_m4_e2_out_be_oanda": "NAS100",
     "us30_yearly_orb_oanda": "US30",
     "eurusd_yearly_orb_oanda": "EURUSD",
     "audjpy_yearly_orb_oanda": "AUDJPY",

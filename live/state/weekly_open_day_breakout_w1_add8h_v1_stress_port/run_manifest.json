@@ -1,0 +1,63 @@
+{
+  "broker_realism_config": {},
+  "causality_mode": "strict",
+  "command": [
+    "/home/tester/hsm/potions/live/weekly_open_day_breakout_w1_add8h_stress_portability.py",
+    "--output-root",
+    "live/state/weekly_open_day_breakout_w1_add8h_v1_stress_port",
+    "--years",
+    "10",
+    "--stages",
+    "xmarket",
+    "--email"
+  ],
+  "created_at": "2026-08-28T11:45:55Z",
+  "cwd": "/home/tester/hsm/potions",
+  "data_inputs": [
+    {
+      "bytes": 859049,
+      "exists": true,
+      "path": "/home/tester/hsm/potions/fx/nas100_4h.csv",
+      "sha256": "f49d40bf21265556773695c011381a50554a043808d2996d43e35fe82845232e"
+    },
+    {
+      "bytes": 192113637,
+      "exists": true,
+      "path": "/home/tester/hsm/potions/fx/nas100_1m.csv",
+      "sha256": "522b23ed6e3f530c5d201bdc5682c26862502824760a7f7f69bc8accf449e52e"
+    }
+  ],
+  "extra": {
+    "dsr_trial_id": "TRL-2026-00168"
+  },
+  "git": {
+    "commit": "",
+    "dirty": false,
+    "repo_root": "/home/tester/hsm/potions/live/state/weekly_open_day_breakout_w1_add8h_v1_stress_port",
+    "status_short": []
+  },
+  "outputs": [
+    {
+      "bytes": 10052,
+      "exists": true,
+      "path": "summary.csv",
+      "sha256": "742b526787784a99c2090efc886ff59dbb57d3d7ffaad4ac836523be18aae6b2"
+    },
+    {
+      "bytes": 3102,
+      "exists": true,
+      "path": "SUMMARY.md",
+      "sha256": "44566421a0ec4e2f237781e5796253063a8d942f0907bc5ba14996a46ce34d3a"
+    }
+  ],
+  "python": {
+    "executable": "/home/tester/.pyenv/versions/3.8.0/bin/python3",
+    "platform": "Linux-5.15.0-185-generic-x86_64-with-glibc2.34",
+    "version": "3.8.0 (default, Feb 11 2026, 11:18:58) \n[GCC 11.4.0]"
+  },
+  "run_id": "run_8383c999c651",
+  "strategy_config": {
+    "max_adds": 9,
+    "strategy_id": "od_half_eow_bull_hivol_w1_add8h_v1"
+  }
+}

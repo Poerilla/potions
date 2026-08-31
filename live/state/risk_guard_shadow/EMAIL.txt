@@ -1,0 +1,13 @@
+potions risk-guard SHADOW armed
+hub: live/state/risk_guard_shadow/
+mode: shadow (log only — no freeze/close/stop)
+threshold: average loss pts (MAE/p80 pending)
+shadow_until: 2026-08-28 (~2 weeks)
+open_books: 1
+breaches_this_poll: 0
+
+No breaches. Flat or within avg-loss band.
+
+Artifacts:
+- STATUS.json / thresholds.csv / actions.csv / poll_status.csv
+- Winner MAE + p80 carry study: live/state/oanda_winner_mae_carry/

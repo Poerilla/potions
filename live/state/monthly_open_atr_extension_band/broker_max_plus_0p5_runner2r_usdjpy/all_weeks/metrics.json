@@ -1,0 +1,23 @@
+{
+  "bars": 142657.0,
+  "close_dd": -12679550.901542965,
+  "entry_qty": 10.0,
+  "equity_curve": "/home/tester/hsm/potions/live/state/monthly_open_atr_extension_band/broker_max_plus_0p5_runner2r_usdjpy/all_weeks/audits/usdjpy_mo_ext_max_plus_0p5_r2r_allw_L0_5_5_r6m/equity_curve.csv",
+  "ladder_qtys": [
+    0,
+    5,
+    5
+  ],
+  "loss_units": 465.0,
+  "net_usd": 6017774.081899261,
+  "ns": 0.4645297338082562,
+  "runner_target_r_mult": 2.0,
+  "skip_entry_weeks": [],
+  "state_root": "/home/tester/hsm/potions/live/state/monthly_open_atr_extension_band/broker_max_plus_0p5_runner2r_usdjpy/all_weeks/states/usdjpy_mo_ext_max_plus_0p5_r2r_allw_L0_5_5_r6m",
+  "strategy_id": "usdjpy_mo_ext_max_plus_0p5_r2r_allw_L0_5_5_r6m",
+  "stress_dd": -12954550.90154297,
+  "trades": 79.0,
+  "units": 790.0,
+  "variant": "all_weeks",
+  "win_units": 325.0
+}

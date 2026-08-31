@@ -1,0 +1,41 @@
+potions: quarterly range — findings + rankings
+
+======= NQ RANKINGS (fixed honest ladder) =======
+Rank by combined net:
+  1. Main + sidecar BE carry 1–4R   $1,747,735   N/S 1.51   (main $1.439M + sc +$309k)
+  2. Main only                      $1,438,818   N/S 2.85
+  3. Main + sidecar BE 1–2R         $1,410,210   N/S 1.22   (sc −$29k)
+  4. Main + sidecar EOQ flatten 4R  $1,187,520   N/S 1.03   (sc −$251k)
+
+Rank by N/S (stress-aware):
+  1. Main only                      2.85
+  2. Main + BE 1–4R                 1.51
+  3. Main + BE 1–2R                 1.22
+  4. Main + flatten 4R              1.03
+
+======= ES RANKINGS (fixed cancel path) =======
+  1. Main only                      $827,692    N/S 2.10
+  2. Main + sidecar BE 1–4R         $780,046    N/S 1.06   (sc −$48k)  REJECT
+
+======= NQ WIDTH FAILURE FINDINGS =======
+- Prior W: p50=646, p75=1734, p90=2931 pts (fixed book, n=80)
+- Loss $ peak in Q3 (43%), not Q4 (32%) — opposite of ES
+- Q4 large (W≳1854): 75% WR, +$1.31M net — almost all the edge
+- Skip Q4 / skip ≥p75 → ~$126k left — do NOT hard-skip large widths
+- Reversion Q4: touch mid 10%, far 5%, never mid 90%
+  → mid-stop sidecar fires less often than on ES; full unwind rare
+
+======= STANCE =======
+NQ: keep main. BE-carry 4R is only additive on dollars (+$309k) but
+    N/S drops 2.85→1.51 (stress ~2×) → research, not promote.
+NQ flatten / 2R: reject.
+ES sidecar BE 4R: reject (hurts dollars and N/S).
+Neither book: hard-skip large prior ranges.
+
+Hubs:
+  NQ main  live/state/nq_quarterly_range_breakout_v2_honest_chk/
+  NQ study live/state/nq_quarterly_range_breakout_v2_honest_chk/prior_width_study/
+  NQ sc    live/state/nq_quarterly_sidecar_{be4,flat4,be2}/
+  ES main  live/state/es_quarterly_range_breakout_broker_chk/
+  ES sc    live/state/es_quarterly_range_breakout_mid_sidecar/
+Canvas: nq-prior-width-sidecar.canvas.tsx

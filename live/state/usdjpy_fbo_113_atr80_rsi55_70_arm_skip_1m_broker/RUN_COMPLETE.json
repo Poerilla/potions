@@ -1,0 +1,23 @@
+{
+  "ok": true,
+  "row": {
+    "variant": "1_1_3_atr80_rsi55_70",
+    "arm_policy": "skip_candidate",
+    "feed_tf": "1m",
+    "audit_tf": "4H",
+    "instrument": "USDJPY",
+    "campaigns": 57,
+    "wr": 47.4,
+    "trades": 57,
+    "units": 285,
+    "net_jpy": -147495.0,
+    "stress_jpy": -5105591.0,
+    "ns": -0.03,
+    "net_usd_approx": -1340.86,
+    "stress_usd_approx": -46414.46,
+    "baseline_atr80_net_usd": 107890.0,
+    "baseline_atr80_ns": 4.25,
+    "ha_paper_n": 38,
+    "stance": "reject"
+  }
+}

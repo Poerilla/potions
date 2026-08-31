@@ -1,0 +1,23 @@
+{
+  "allowed_sides": [
+    "lower",
+    "upper"
+  ],
+  "bars": 49325,
+  "closed_dd_usd": -12737.708617264347,
+  "intrabar_stress_dd_usd": -13237.708617264347,
+  "market": "US30",
+  "max_open_units": 10,
+  "net_over_stress": -0.35517327742432697,
+  "net_usd": -4701.680355182034,
+  "path_id": "",
+  "period": "month",
+  "profit_factor": 0.5924771547730828,
+  "risk_atr_mult": 0.5,
+  "strategy_id": "us30_monthly_atr4_fade_ladder",
+  "timeframe": "1h",
+  "trade_mode": "second_only",
+  "trades": 33,
+  "units": 330,
+  "win_rate": 0.10909090909090909
+}

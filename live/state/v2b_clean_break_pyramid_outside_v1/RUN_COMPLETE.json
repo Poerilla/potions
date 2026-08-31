@@ -1,0 +1,42 @@
+{
+  "study_id": "v2b_clean_break_pyramid_outside_v1",
+  "total_net": 682692.0,
+  "worst_stress": -139398.5,
+  "ns": 4.897412812906882,
+  "stance": "research \u2014 interesting vs baseline single-lot clean break; needs OOS / causality note",
+  "smoke": false,
+  "markets": [
+    {
+      "market": "nq",
+      "instrument": "NQ",
+      "variant": "bullish_pyramid_outside_max8",
+      "label": "Bullish clean break, +1/5m outside OR (max 8), exit close-into-range",
+      "sessions": 4046,
+      "trades": 2042,
+      "units": 5763,
+      "net_usd": 646265.5,
+      "closed_dd_usd": -134558.5,
+      "intrabar_stress_dd_usd": -139398.5,
+      "max_open_units": 8,
+      "win_rate": 30.695818150268956,
+      "profit_factor": 1.4280510615411721,
+      "ns": 4.6361008188753825
+    },
+    {
+      "market": "mnq",
+      "instrument": "MNQ",
+      "variant": "bullish_pyramid_outside_max8",
+      "label": "Bullish clean break, +1/5m outside OR (max 8), exit close-into-range",
+      "sessions": 1325,
+      "trades": 679,
+      "units": 1974,
+      "net_usd": 36426.5,
+      "closed_dd_usd": -13855.5,
+      "intrabar_stress_dd_usd": -14395.5,
+      "max_open_units": 8,
+      "win_rate": 33.43465045592705,
+      "profit_factor": 1.3427553857662395,
+      "ns": 2.530408808308152
+    }
+  ]
+}

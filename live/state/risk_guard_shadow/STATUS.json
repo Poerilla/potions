@@ -1,0 +1,194 @@
+{
+  "updated_at": "2026-08-29T03:58:10Z",
+  "mode": "shadow",
+  "shadow_until": "2026-08-28",
+  "threshold_basis": "mixed: pXX_winner_mae where favorable else average_loss_pts",
+  "n_books": 15,
+  "open_rows": [
+    {
+      "ts": "2026-08-29T03:58:10Z",
+      "demo": "us30_hourly_st_pmc_sl50_tp150_3r_oanda",
+      "strategy_id": "us30_hourly_st_pmc_sl50_tp150_3r_oanda",
+      "instrument": "US30",
+      "mode": "shadow",
+      "open_qty": 1.0,
+      "avg_price": 53476.9,
+      "mark": 53543.1,
+      "adverse_pts": 0.0,
+      "adverse_usd_est": 0.0,
+      "threshold_pts": 51.06619,
+      "threshold_usd_est": 51.0662,
+      "threshold_source": "avg_loss_pts",
+      "breach": false,
+      "would_action": "hold_monitor",
+      "detail": "open qty=1.0 adverse_pts=0.0000 thr_pts=51.06619009788361 (local)"
+    }
+  ],
+  "thresholds": {
+    "us30_hourly_st_pmc_sl50_tp150_3r_oanda": {
+      "demo": "us30_hourly_st_pmc_sl50_tp150_3r_oanda",
+      "strategy_id": "us30_hourly_st_pmc_sl50_tp150_3r_oanda",
+      "instrument": "US30",
+      "live_scale_hint": 1.0,
+      "avg_loss_unit_usd": 51.22114457831327,
+      "avg_loss_pts": 51.06619009788361,
+      "planned_risk_pts": 50.0,
+      "threshold_source": "avg_loss_pts",
+      "tape": "us30_st_pmc_runner_variants/audits_lot_correct/us30_hourly_st_pmc_sl50_tp150_3r_1mfill/us30_hourly_st_pmc_sl50_tp150_3r_1mfill_lot_correct/unit_fills.csv"
+    },
+    "us30_hourly_st_pmc_sl50_tp150_runners_2r_10r_oanda": {
+      "demo": "us30_hourly_st_pmc_sl50_tp150_runners_2r_10r_oanda",
+      "strategy_id": "us30_hourly_st_pmc_sl50_tp150_runners_2r_10r_oanda",
+      "instrument": "US30",
+      "live_scale_hint": 1.0,
+      "avg_loss_unit_usd": 39.07909090909092,
+      "avg_loss_pts": 44.84233818477595,
+      "planned_risk_pts": 50.0,
+      "threshold_source": "avg_loss_pts",
+      "tape": "us30_st_pmc_runner_variants/audits_lot_correct/us30_hourly_st_pmc_sl50_tp150_runners_2r_10r/us30_hourly_st_pmc_sl50_tp150_runners_2r_10r_lot_correct/unit_fills.csv"
+    },
+    "nas100_hourly_st_pmc_sl50_tp150_3r_oanda": {
+      "demo": "nas100_hourly_st_pmc_sl50_tp150_3r_oanda",
+      "strategy_id": "nas100_hourly_st_pmc_sl50_tp150_3r_oanda",
+      "instrument": "NAS100",
+      "live_scale_hint": 1.0,
+      "avg_loss_unit_usd": 50.777256317689535,
+      "avg_loss_pts": 50.77726964259928,
+      "planned_risk_pts": 50.0,
+      "threshold_source": "avg_loss_pts",
+      "tape": "fx_index_metals_st_pmc_runner_variants/audits_lot_correct/nas100_hourly_st_pmc_sl50_tp150_3r_1mfill/nas100_hourly_st_pmc_sl50_tp150_3r_1mfill_lot_correct/unit_fills.csv"
+    },
+    "nas100_hourly_st_pmc_sl50_tp150_runners_2r_10r_oanda": {
+      "demo": "nas100_hourly_st_pmc_sl50_tp150_runners_2r_10r_oanda",
+      "strategy_id": "nas100_hourly_st_pmc_sl50_tp150_runners_2r_10r_oanda",
+      "instrument": "NAS100",
+      "live_scale_hint": 1.0,
+      "avg_loss_unit_usd": 41.36818505338078,
+      "avg_loss_pts": 40.83773004999984,
+      "planned_risk_pts": 50.0,
+      "threshold_source": "p95_winner_mae",
+      "tape": "fx_index_metals_st_pmc_runner_variants/audits_lot_correct/nas100_hourly_st_pmc_sl50_tp150_runners_2r_10r/nas100_hourly_st_pmc_sl50_tp150_runners_2r_10r_lot_correct/unit_fills.csv"
+    },
+    "eurusd_hourly_st_pmc_sl50_tp150_3r_oanda": {
+      "demo": "eurusd_hourly_st_pmc_sl50_tp150_3r_oanda",
+      "strategy_id": "eurusd_hourly_st_pmc_sl50_tp150_3r_oanda",
+      "instrument": "EURUSD",
+      "live_scale_hint": 1.0,
+      "avg_loss_unit_usd": 505.2881951219512,
+      "avg_loss_pts": 0.0032769999999999,
+      "planned_risk_pts": 0.0050000000000001155,
+      "threshold_source": "p80_winner_mae",
+      "tape": "fx_index_metals_st_pmc_runner_variants/audits_lot_correct/eurusd_hourly_st_pmc_sl50_tp150_3r_1mfill/eurusd_hourly_st_pmc_sl50_tp150_3r_1mfill_lot_correct/unit_fills.csv"
+    },
+    "eurusd_hourly_st_pmc_sl50_tp150_runners_2r_10r_oanda": {
+      "demo": "eurusd_hourly_st_pmc_sl50_tp150_runners_2r_10r_oanda",
+      "strategy_id": "eurusd_hourly_st_pmc_sl50_tp150_runners_2r_10r_oanda",
+      "instrument": "EURUSD",
+      "live_scale_hint": 1.0,
+      "avg_loss_unit_usd": 411.8288434414669,
+      "avg_loss_pts": 0.0041182891396332865,
+      "planned_risk_pts": 0.0050000000000001155,
+      "threshold_source": "avg_loss_pts",
+      "tape": "fx_index_metals_st_pmc_runner_variants/audits_lot_correct/eurusd_hourly_st_pmc_sl50_tp150_runners_2r_10r/eurusd_hourly_st_pmc_sl50_tp150_runners_2r_10r_lot_correct/unit_fills.csv"
+    },
+    "usdjpy_asia_range_london_oanda": {
+      "demo": "usdjpy_asia_range_london_oanda",
+      "strategy_id": "usdjpy_asia_range_london_S_3_1_3_flt_oanda",
+      "instrument": "USDJPY",
+      "live_scale_hint": 7.0,
+      "avg_loss_unit_usd": 21518.129032258064,
+      "avg_loss_pts": 0.21545161290322482,
+      "planned_risk_pts": null,
+      "threshold_source": "avg_loss_pts",
+      "tape": "fx_v2b_asia_range_london_usdjpy_filters/states/usdjpy_v2b_asia_range_london_S_3_1_3_flt/unit_trades.csv"
+    },
+    "us30_london_prior_opposed_oanda": {
+      "demo": "us30_london_prior_opposed_oanda",
+      "strategy_id": "us30_london_prior_opposed_S_1_0_0_qtr_oanda",
+      "instrument": "US30",
+      "live_scale_hint": 0.25,
+      "avg_loss_unit_usd": 31.13471794871795,
+      "avg_loss_pts": 29.634717948718478,
+      "planned_risk_pts": null,
+      "threshold_source": "avg_loss_pts",
+      "tape": "fx_v2b_london_prior_opposed/states/us30_v2b_london_prior_opposed_S_1_1_3/unit_trades.csv"
+    },
+    "us30_monday_or_m3_s3_r2_half_oanda": {
+      "demo": "us30_monday_or_m3_s3_r2_half_oanda",
+      "strategy_id": "us30_monday_or_m3_s3_r2_half_oanda",
+      "instrument": "US30",
+      "live_scale_hint": 1.0,
+      "avg_loss_unit_usd": 119.75933991683992,
+      "avg_loss_pts": 119.75933991683992,
+      "planned_risk_pts": null,
+      "threshold_source": "avg_loss_pts",
+      "tape": "monday_or_sizing_sweep_broker_us30/audits/us30_m3_s3_r2/us30_m3_s3_r2/unit_fills.csv"
+    },
+    "usdjpy_monday_or_ungated_oanda": {
+      "demo": "usdjpy_monday_or_ungated_oanda",
+      "strategy_id": "usdjpy_monday_or_ungated_oanda",
+      "instrument": "USDJPY",
+      "live_scale_hint": 3.0,
+      "avg_loss_unit_usd": 29287.916956622597,
+      "avg_loss_pts": 0.29287916956622595,
+      "planned_risk_pts": null,
+      "threshold_source": "avg_loss_pts",
+      "tape": "monday_or_phase2/tuneup_broker/audits/usdjpy_m2_s3_r1_skip_augsep/usdjpy_m2_s3_r1_skip_augsep/unit_fills.csv"
+    },
+    "audjpy_yearly_orb_oanda": {
+      "demo": "audjpy_yearly_orb_oanda",
+      "strategy_id": "audjpy_yearly_orb_oanda",
+      "instrument": "AUDJPY",
+      "live_scale_hint": 1.0,
+      "avg_loss_unit_usd": 54612.24489795919,
+      "avg_loss_pts": 0.5461224489795918,
+      "planned_risk_pts": null,
+      "threshold_source": "avg_loss_pts",
+      "tape": "audjpy_futures_strats_sweep/audits/audjpy_yearly_orb_scaleout3/unit_fills.csv"
+    },
+    "xauusd_yearly_orb_oanda": {
+      "demo": "xauusd_yearly_orb_oanda",
+      "strategy_id": "xauusd_yearly_orb_oanda",
+      "instrument": "XAUUSD",
+      "live_scale_hint": 1.0,
+      "avg_loss_unit_usd": 2259.429411764706,
+      "avg_loss_pts": 22.594294117647063,
+      "planned_risk_pts": null,
+      "threshold_source": "avg_loss_pts",
+      "tape": "metals_futures_strats_sweep/audits/xauusd_yearly_orb_scaleout3/unit_fills.csv"
+    },
+    "xagusd_yearly_orb_oanda": {
+      "demo": "xagusd_yearly_orb_oanda",
+      "strategy_id": "xagusd_yearly_orb_oanda",
+      "instrument": "XAGUSD",
+      "live_scale_hint": 1.0,
+      "avg_loss_unit_usd": 165.74074074074073,
+      "avg_loss_pts": 0.16574074074074077,
+      "planned_risk_pts": null,
+      "threshold_source": "avg_loss_pts",
+      "tape": "metals_futures_strats_sweep/audits/xagusd_yearly_orb_scaleout3/unit_fills.csv"
+    },
+    "eurusd_yearly_orb_oanda": {
+      "demo": "eurusd_yearly_orb_oanda",
+      "strategy_id": "eurusd_yearly_orb_oanda",
+      "instrument": "EURUSD",
+      "live_scale_hint": 1.0,
+      "avg_loss_unit_usd": 469.2,
+      "avg_loss_pts": 0.004692,
+      "planned_risk_pts": null,
+      "threshold_source": "avg_loss_pts",
+      "tape": "eurusd_overnight_sweep/audits/eurusd_yearly_orb_scaleout3/unit_fills.csv"
+    },
+    "us30_yearly_orb_oanda": {
+      "demo": "us30_yearly_orb_oanda",
+      "strategy_id": "us30_yearly_orb_oanda",
+      "instrument": "US30",
+      "live_scale_hint": 1.0,
+      "avg_loss_unit_usd": 284.2555555555556,
+      "avg_loss_pts": 284.2555555555556,
+      "planned_risk_pts": null,
+      "threshold_source": "avg_loss_pts",
+      "tape": "us30_futures_strats_sweep/audits/us30_yearly_orb_scaleout3/unit_fills.csv"
+    }
+  }
+}

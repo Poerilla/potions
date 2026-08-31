@@ -1,0 +1,21 @@
+potions: NQ structure-change event study CPU CLEAR for Phase 1
+
+Hub: /home/tester/hsm/potions/live/state/nq_structure_change_event_study
+Phase 0 freeze already on disk:
+  - STRUCTURE_CHANGE_RESEARCH_CONTRACT.yaml
+  - EVENT_TAXONOMY.md
+
+Upstream finished:
+  - us30 continuation slippage stress
+  - us30_pmc_failed_break_fade_structure_bias (queued overlay)
+
+Next: start Phase 1 pure event study on NQ only (4h primary, 1h secondary),
+matched controls, no strategy prototypes yet.
+
+Cross-market roster (NAS100/US30/EURUSD/USDJPY/XAUUSD + MNQ/MYM; MES
+data-blocked) stays PENDING until you approve the NQ atlas:
+  live/state/structure_change_event_study_cross_market/APPROVAL_GATE.md
+Do NOT auto-start CFDs/micros on this email.
+
+Engine freeze: StructureProgramEngine left/right=2, list=20, takeouts=2.
+Penetration diagnostic: 0.05 ATR (+ zero-buffer control).

@@ -1,0 +1,52 @@
+potions: quarterly ATR4 HA mill — results (corrected nulls table)
+
+Hub: /home/tester/hsm/potions/live/state/quarterly_atr4_ha_conditions
+
+Selected best be8 ladder books → condition profile → filter/size overlay → 1.25× nulls.
+
+BOOKS
+  GBPUSD first_lower     n=51  net=$404k  N/S~8.0
+  NAS100 first_lower     n=9   net=$33k   (no notables @ min_n=5)
+  XAUUSD first_only      n=30  net=$251k
+  NQ second_after_upper  n=8   net=$307k
+  EURUSD second_after_upper n=16 net=$85k
+
+WHAT LOOKS INTERESTING (overlay, full tape)
+  Size-up (keep trading, boost HP):
+  - nq_second_after_upper | Prior-month range half=month_aligned | size_1.5 | hp=62% ΔN/S=+18.57 Δnet=$+157180
+  - nq_second_after_upper | Prior-month range half=month_aligned | size_1.25 | hp=62% ΔN/S=+9.43 Δnet=$+78590
+  - gbpusd_first_lower | Entry hour (NY)=12 | size_1.5 | hp=18% ΔN/S=+1.94 Δnet=$+59304
+  - eurusd_second_after_upper | 5m MA vs trade=ma_aligned | size_1.5 | hp=44% ΔN/S=+1.83 Δnet=$+49451
+  - gbpusd_first_lower | Day of week=Monday | size_1.5 | hp=29% ΔN/S=+1.77 Δnet=$+104587
+  - eurusd_second_after_upper | Day of week=Monday | size_1.5 | hp=38% ΔN/S=+1.48 Δnet=$+39022
+  - xauusd_first_only | Week of month=2 | size_1.5 | hp=43% ΔN/S=+1.35 Δnet=$+99952
+  - gbpusd_first_lower | Week of month=3 | size_1.5 | hp=12% ΔN/S=+1.09 Δnet=$+33337
+  - gbpusd_first_lower | Entry hour (NY)=12 | size_1.25 | hp=18% ΔN/S=+0.97 Δnet=$+29652
+  - eurusd_second_after_upper | 5m MA vs trade=ma_aligned | size_1.25 | hp=44% ΔN/S=+0.95 Δnet=$+24726
+
+  Filter (sit out non-HP — often raises N/S but cuts absolute net):
+  - nq_second_after_upper | Prior-month range half=month_aligned | hp=62% ΔN/S=+593.32 Δnet=$+7399
+  - xauusd_first_only | Week of month=2 | hp=43% ΔN/S=+7.21 Δnet=$-51150
+  - eurusd_second_after_upper | Day of week=Monday | hp=38% ΔN/S=+5.68 Δnet=$-6582
+  - eurusd_second_after_upper | 5m MA vs trade=ma_aligned | hp=44% ΔN/S=+5.47 Δnet=$+14276
+  - gbpusd_first_lower | Entry hour (NY)=12 | hp=18% ΔN/S=+2.98 Δnet=$-285522
+  - gbpusd_first_lower | Day of week=Monday | hp=29% ΔN/S=+2.86 Δnet=$-194957
+  - eurusd_second_after_upper | Hourly RSI bucket=rsi_30_45 | hp=31% ΔN/S=+0.10 Δnet=$-46056
+
+NULLS @ 1.25× (matched-added-exposure)
+  All tested GBPUSD/EURUSD size candidates: NOT VALIDATED
+  (thin quarterly N; placebo does not beat random added exposure).
+  - gbpusd_first_lower | Entry hour (NY)=12 | ΔN/S=+0.97 Δnet=$+29652 | p_master=0.57 | NOT VALIDATED
+  - gbpusd_first_lower | Day of week=Monday | ΔN/S=+0.93 Δnet=$+52293 | p_master=0.54 | NOT VALIDATED
+  - gbpusd_first_lower | Week of month=3 | ΔN/S=+0.55 Δnet=$+16669 | p_master=0.66 | NOT VALIDATED
+  - eurusd_second_after_upper | Hourly RSI bucket=rsi_30_45 | ΔN/S=+0.16 Δnet=$+9643 | p_master=nan | NOT VALIDATED
+
+STANCE
+  Research only. Overlay shows calendar / MA / hour lifts on paper, but
+  formal HA size-up nulls do not validate incremental edge on these
+  quarterly books. Prefer keep baseline GBPUSD/XAUUSD/NQ ladder as-is;
+  treat Monday / hour-12 / week-2 / ma_aligned as shadow hypotheses only.
+  NQ month_aligned filter looks strong on ΔN/S but n=8 and 62% coverage —
+  too thin / too broad for promotion.
+
+Artifacts: profile/ overlay/ nulls/ under the hub above.

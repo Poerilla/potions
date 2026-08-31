@@ -1,0 +1,36 @@
+COMPLETION REPORT
+status: COMPLETE
+generated_at_utc: 2026-08-23T05:03:54+00:00
+completed_required_jobs: 3 / 3
+accounting_mode: lot-correct-preferred
+
+CHANGE SINCE PRIOR SNAPSHOT
+= No new promoted strategy
+
+DECISION STATE
+RETAIN (2): US30 3R, US30 2R→10R
+RESEARCH (1): US30 indef
+
+BLOCKS FINAL JUDGMENT
+- none
+
+PORTFOLIO ACTION REQUIRED: no
+
+Active jobs: 0
+
+COMPARABLE CORE BOARD (rankable only if all gates pass)
+1. US30 2R→10R  N/S=1.47 net=$13.3k stress=-$9.1k  [RETAIN] src=LOT_CORRECT_ACCOUNTING.csv
+2. US30 3R  N/S=-0.21 net=-$982 stress=-$4.6k  [RETAIN] src=LOT_CORRECT_ACCOUNTING.csv
+
+TESTED / NOT PROMOTED (awaiting human promote)
+- US30 2R→10R N/S=1.47 [RETAIN]
+- US30 3R N/S=-0.21 [RETAIN]
+
+INDEFINITE INVENTORY RESEARCH — NOT RANKABLE
+US30  forced-flat=$9.2k | reachable stress=-$34.3k | max inv=77 | EOY open=72 | margin=$2569.7k  [RESEARCH] (lot-correct)
+
+Hub: live/state/us30_st_pmc_runner_variants
+Report: COMPLETION_REPORT.md
+Snapshot: LATEST_SNAPSHOT.json
+
+Note: PID/host/command live in hub status JSON only.

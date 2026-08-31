@@ -1,0 +1,17 @@
+potions: condition overlay — curated plan
+
+hub: /home/tester/hsm/potions/live/state/intraday_condition_overlay
+
+Verdict: SIZE-UP yes on good books; FILTER secondary; ignore v2b lose-less.
+
+Top size (OOS, +baseline book):
+- USDJPY Mon OR week_opposed 1.25× Δnet+27k (1.5×+53k but ~70% HP)
+- USDJPY Mon OR wom=2 1.5× Δnet+22k
+- USDJPY Asia hour=4 / ma_opposed 1.25–1.5× Δnet+10–23k
+- EURUSD ST+PMC Thu / rsi_against 1.25×
+- Cross Fri/Thu/week_opposed/rsi_against → start 1.25×
+
+Filter worth a look: EURUSD ST+PMC Thursday sit-out (N/S 0.33→3.9).
+Defer ATR. Pre-fill flags only. Plan: LIVE_PLAN.md (shadow→1.25 paper→cap).
+
+/home/tester/hsm/potions/live/state/intraday_condition_overlay/LIVE_PLAN.md

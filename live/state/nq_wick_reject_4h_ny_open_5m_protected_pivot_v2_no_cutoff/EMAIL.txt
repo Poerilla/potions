@@ -1,0 +1,20 @@
+potions: nq_wick_reject_4h_ny_open_5m_protected_pivot_v2_no_cutoff COMPLETE
+
+Hub: /home/tester/hsm/potions/live/state/nq_wick_reject_4h_ny_open_5m_protected_pivot_v2_no_cutoff
+config_hash: ced206b74208ff0e
+smoke: False
+no_cutoff: True
+formation_cutoff: none (obs_end 13:00)
+parent: nq_wick_reject_4h_ny_open_1m_protected_pivot_v1 (archived_negative)
+v2_cutoff_ref: nq_wick_reject_4h_ny_open_5m_protected_pivot_v2 (hash d3b30d168b0bb59b, insufficient_sample n=7)
+eligible_opens: 91
+candidates: 49 (bear=24 bull=25)
+bear_hold: 50.0%
+bull_hold: 80.0%
+causality: PASS
+decision: ONE_SIDED_ONLY
+stance: ONE-SIDED DESCRIPTIVE OBSERVATION ONLY — no entry study, no rule selection, no hybrid
+
+DESCRIPTIVE ONLY — no trade / plugin / S1-S2 promotion.
+Independent of V1; not a timeframe chooser.
+NOTE: window-widening diagnostic vs frozen V2; not a rescue of the family archive.

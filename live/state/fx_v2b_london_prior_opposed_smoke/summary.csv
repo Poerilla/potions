@@ -1,0 +1,2 @@
+strategy_id,symbol,family,quote,gate,book,sizing,entry_qty,regime_days,start,clock,gate_mode,st_variant,units,trades,net_native,closed_dd_native,stress_dd_native,net_over_stress_native,net_usd,closed_dd_usd,stress_dd_usd,net_over_stress,win_rate,profit_factor,max_open_units,state_root
+eurusd_v2b_london_prior_opposed_S_1_1_3,EURUSD,fx,USD,prior_opposed,S_1_1_3,S_1_1_3,5,3,2015-01-02,london_open,resting_limit,sl50_tp150_3r_1mfill,0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0,live/state/fx_v2b_london_prior_opposed_smoke/states/eurusd_v2b_london_prior_opposed_S_1_1_3

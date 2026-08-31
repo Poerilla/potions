@@ -1,0 +1,13 @@
+potions: NQ WICK_REJECT range-seed OCO stops COMPLETE
+
+Hub: /home/tester/hsm/potions/live/state/nq_wick_reject_range_seed_oco_stops
+Eligible seeds: 91
+Stance: REJECT OCO stops on locked dev (net/R ≤ 0)
+
+Key books:
+  oco_boundary_stops_dev: fills=74 net=-5144 WR=49% PF=0.90 avgR=+0.058
+  oco_boundary_stops_holdout: fills=17 net=+2654 WR=47% PF=1.09 avgR=+0.015
+  oco_boundary_stops_ALL: fills=91 net=-2490 WR=48% PF=0.97 avgR=+0.050
+
+Contrast hub: /home/tester/hsm/potions/live/state/nq_wick_reject_range_seed_retest
+See SUMMARY.md.

@@ -1,0 +1,72 @@
+{
+  "ok": true,
+  "scores": {
+    "all_primary": {
+      "n": 161.0,
+      "net_usd": 14399.0,
+      "stress": 27715.0,
+      "ns": 0.5195381562330867,
+      "wr": 0.4472049689440994,
+      "n_rev_target": 0.0,
+      "n_rev_stop": 0.0,
+      "n_stop_full": 79.0,
+      "avg_usd": 89.43478260869566
+    },
+    "all_reverse": {
+      "n": 79.0,
+      "net_usd": 126596.0,
+      "stress": 8064.0,
+      "ns": 15.69890873015873,
+      "wr": 0.4430379746835443,
+      "n_rev_target": 34.0,
+      "n_rev_stop": 43.0,
+      "n_stop_full": 0.0,
+      "avg_usd": 1602.4810126582279
+    },
+    "all_combined": {
+      "n": 240.0,
+      "net_usd": 140995.0,
+      "stress": 16934.0,
+      "ns": 8.326148576827684,
+      "wr": 0.44583333333333336,
+      "n_rev_target": 34.0,
+      "n_rev_stop": 43.0,
+      "n_stop_full": 79.0,
+      "avg_usd": 587.4791666666666
+    },
+    "hp_primary": {
+      "n": 101.0,
+      "net_usd": 18711.5,
+      "stress": 18144.0,
+      "ns": 1.0312775573192239,
+      "wr": 0.45544554455445546,
+      "n_rev_target": 0.0,
+      "n_rev_stop": 0.0,
+      "n_stop_full": 50.0,
+      "avg_usd": 185.26237623762376
+    },
+    "hp_reverse": {
+      "n": 50.0,
+      "net_usd": 107220.0,
+      "stress": 11028.0,
+      "ns": 9.72252448313384,
+      "wr": 0.46,
+      "n_rev_target": 22.0,
+      "n_rev_stop": 27.0,
+      "n_stop_full": 0.0,
+      "avg_usd": 2144.4
+    },
+    "hp_combined": {
+      "n": 151.0,
+      "net_usd": 125931.5,
+      "stress": 12096.0,
+      "ns": 10.411003637566138,
+      "wr": 0.45695364238410596,
+      "n_rev_target": 22.0,
+      "n_rev_stop": 27.0,
+      "n_stop_full": 50.0,
+      "avg_usd": 833.9834437086092
+    }
+  },
+  "stance": "reverse **helps** on path HP \u2014 proceed to 1m broker with reverse on."
+}

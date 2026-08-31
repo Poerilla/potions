@@ -1,0 +1,126 @@
+HA (high-probability conditions) ranking — all systems
+Generated: 2026-08-16T07:22:41-04:00
+Diagnostic size-up / filter research. Not a blanket promotion of baselines.
+
+Rank order = validation tier, then incremental sleeve N/S (inc N/S) where available.
+Hubs:
+  FX intraday nulls:     live/state/intraday_hp_sizeup_nulls/
+  Futures nulls+plan:    live/state/futures_intraday_hp_sizeup_nulls/ + futures_intraday_hp_live_plan/
+  NAS100 NQ-lead nulls:  live/state/futures_intraday_hp_nas100_nq_lead/nulls/
+  Quarterly ATR4 HA:     live/state/quarterly_atr4_ha_conditions/
+  Profiles:              live/state/intraday_condition_profile/ + futures_intraday_condition_profile/
+
+========================================================================
+TIER BOARD (null-validated / actionable)
+========================================================================
+
+1) SIZE-UP VALIDATED @1.25×  (authorized shadow → controlled paper)
+   #1  EURUSD ST+PMC 3R | Day of week=Thursday | hp20% | incN/S=8.39 | ΔbookN/S=+0.34 | p_master=0.024
+   #2  US30 Monday OR   | Entry hour (NY)=11   | hp9%  | incN/S=6.69 | ΔbookN/S=+0.20 | p_master=0.036
+
+2) BORDERLINE / PROVISIONAL PAPER @1.25–1.5×  (shadow / controlled paper only)
+   #3  NQ prior-opposed RL | Opening 15m vs ATR=or_norm @1.25× | hp30% | incN/S=29.31 | ΔN/S=+4.70 | p_master=0.074  [Futures Tier B]
+   #4  EURUSD ST+PMC Thu @1.50× | same HP | incN/S=8.39 | p_master=0.060
+   #5  US30 Monday OR h11 @1.50× | same HP | incN/S=6.69 | p_master=0.054
+
+3) RISK-BUDGET / RISK THROTTLE  (monitor only — not HP deployment)
+   EURUSD ST+PMC Thu @2.00×; US30 Mon OR h11 @2.00×
+   USDJPY Asia RSI>70; USDJPY Mon OR week_opposed / week2 / hour4 (coverage or WF fail)
+   EURUSD Mon OR RSI-against @2.00×
+   NAS100 NQ-lead prior-opposed: RSI-against + ST-opposed-proxy @1.25× (incN/S~21, p_master>~0.7)
+
+4) NOT VALIDATED (nulls failed) — notable paper lift only
+   Futures: ES prior-opposed ST-age>180m; YM prior-opposed overnight mid
+   FX: most USDJPY Mon OR / Asia MA-opposed / US30 Friday DOW candidates
+   Quarterly ATR4 (all tested 1.25×): GBPUSD hour12 / Monday / week3; EURUSD RSI 30-45
+
+5) Futures Tier A: EMPTY after portfolio sleeve gate
+
+========================================================================
+COVERAGE BY SYSTEM FAMILY
+========================================================================
+
+A) FX / index CFDs — intraday demos (profile + nulls)
+   EURUSD Monday OR                  best=RISK-BUDGET PROFILE     Hourly RSI vs trade=rsi_against_side @2.00×  incN/S=9.02
+   USDJPY Monday OR                  best=RISK-BUDGET PROFILE     Prior-week range half=week_opposed @1.25×  incN/S=17.20
+   US30 Monday OR                    best=SIZE-UP VALIDATED       Entry hour (NY)=11 @1.25×  incN/S=6.69
+   USDJPY Asia-range London          best=RISK-BUDGET PROFILE     Hourly RSI bucket=rsi_gt70 @1.25×  incN/S=6.74
+   EURUSD v2b ungated                profile only / no null pair shortlisted
+   NAS100 v2b London                 profile only / no null pair shortlisted
+   US30 London prior-opposed         profile only / no null pair shortlisted
+   NAS100 ST+PMC 3R                  profile only / no null pair shortlisted
+   US30 ST+PMC 3R                    profile only / no null pair shortlisted
+   EURUSD ST+PMC 3R                  best=SIZE-UP VALIDATED       Day of week=Thursday @1.25×  incN/S=8.39
+
+B) Futures ES/YM/NQ — condition profile + 1.25× nulls + LIVE_PLAN
+   nq_or_complement_skipflat         profiled / shortlisted — no surviving null row (or not run)
+   nq_st_pmc_3r                      profiled / shortlisted — no surviving null row (or not run)
+   nq_prior_opposed_rl               PROVISIONAL PAPER       Opening 15m range vs ATR=or_norm @1.25×  incN/S=29.31  ΔN/S=+4.70
+   nq_v2b_s113                       profiled / shortlisted — no surviving null row (or not run)
+   ym_st_pmc_3r                      profiled / shortlisted — no surviving null row (or not run)
+   es_prior_opposed_legacy           NOT VALIDATED           ST-event age=st_age_gt180m @1.25×  incN/S=22.98  ΔN/S=+1.23
+   ym_prior_opposed_rl               NOT VALIDATED           Overnight range third=on_middle @1.25×  incN/S=14.17  ΔN/S=+0.51
+   es_st_pmc_ma_bull                 profiled / shortlisted — no surviving null row (or not run)
+
+C) NAS100 NQ-lead prior-opposed add-on
+   nas100_nq_lead_prior_opposed      RISK THROTTLE           Hourly RSI vs trade=rsi_against_side @1.25×  ΔN/S=+1.60
+   nas100_nq_lead_prior_opposed      RISK THROTTLE           ST-event direction vs trade=st_opposed_proxy @1.25×  ΔN/S=+1.60
+   nas100_nq_lead_prior_opposed      NOT VALIDATED           Overnight compression=on_comp @1.25×  ΔN/S=+0.23
+
+D) Quarterly ATR4 fade-ladder (HA mill 2026-08-16)
+   gbpusd_first_lower                overlay-best size_1.25   Entry hour (NY)=12  ΔN/S=+0.97  (nulls: NOT VALIDATED)
+   nas100_first_lower                no overlay notables
+   xauusd_first_only                 overlay-best size_1.25   Week of month=2  ΔN/S=+0.71  (nulls: not tested / thin N)
+   nq_second_after_upper             overlay-best size_1.25   Prior-month range half=month_aligned  ΔN/S=+9.43  (nulls: not tested / thin N)
+   eurusd_second_after_upper         overlay-best size_1.25   5m MA vs trade=ma_aligned  ΔN/S=+0.95  (nulls: NOT VALIDATED)
+
+========================================================================
+TOP PAPER-LIFT NOTABLES (profile only — not validated)
+========================================================================
+
+FX profile top avg-lift buckets:
+   usdjpy_asia_range | Hourly RSI bucket=rsi_gt70 | n=47 WR=0.574468085106383 avgΔ=$1019
+   usdjpy_monday_or | Entry hour (NY)=5 | n=66 WR=0.4090909090909091 avgΔ=$566
+   usdjpy_asia_range | Entry hour (NY)=4 | n=120 WR=0.5916666666666667 avgΔ=$527
+   usdjpy_asia_range | 5m MA vs trade=ma_opposed | n=103 WR=0.5533980582524272 avgΔ=$471
+   usdjpy_monday_or | Entry hour (NY)=4 | n=64 WR=0.390625 avgΔ=$446
+   eurusd_monday_or | Hourly RSI vs trade=rsi_against_side | n=106 WR=0.4339622641509434 avgΔ=$390
+   eurusd_monday_or | Entry hour (NY)=4 | n=53 WR=0.3018867924528302 avgΔ=$371
+   eurusd_monday_or | Entry hour (NY)=18 | n=85 WR=0.3176470588235294 avgΔ=$294
+   eurusd_monday_or | 5m MA vs trade=ma_opposed | n=269 WR=0.3531598513011152 avgΔ=$249
+   usdjpy_asia_range | ATR14 quartile=atr_q2 | n=215 WR=0.5767441860465117 avgΔ=$237
+   usdjpy_monday_or | Hourly RSI bucket=rsi_gt70 | n=149 WR=0.4161073825503356 avgΔ=$217
+   usdjpy_monday_or | Entry hour (NY)=1 | n=172 WR=0.3488372093023256 avgΔ=$200
+
+Futures profile top avg-lift buckets:
+   nq_v2b_s113 | Month=2 | n=100 avgΔ=$1962
+   nq_or_complement_skipflat | ST-event age=st_age_90_180m | n=57 avgΔ=$1895
+   nq_prior_opposed_rl | Month=10 | n=46 avgΔ=$1789
+   nq_prior_opposed_rl | Day of week=Friday | n=85 avgΔ=$1623
+   nq_or_complement_skipflat | Month=11 | n=60 avgΔ=$1451
+   nq_prior_opposed_rl | Opening 15m range vs ATR=or_norm | n=129 avgΔ=$1430
+   nq_prior_opposed_rl | Week of month=2 | n=93 avgΔ=$1247
+   nq_or_complement_skipflat | Month=4 | n=51 avgΔ=$1227
+   nq_or_complement_skipflat | Opening 15m range vs ATR=or_norm | n=214 avgΔ=$1182
+   nq_prior_opposed_rl | ST-event age=st_age_30_90m | n=118 avgΔ=$1179
+
+Quarterly ATR4 profile notables (avg lift):
+   nq_second_after_upper | Prior-month range half=month_aligned | n=5 avgΔ=$24502
+   eurusd_second_after_upper | 5m MA vs trade=ma_aligned | n=7 avgΔ=$8840
+   eurusd_second_after_upper | Day of week=Monday | n=6 avgΔ=$7718
+   xauusd_first_only | Week of month=2 | n=13 avgΔ=$7009
+   gbpusd_first_lower | ATR14 quartile=atr_q4 | n=13 avgΔ=$6690
+   gbpusd_first_lower | Day of week=Monday | n=15 avgΔ=$6021
+   xauusd_first_only | ATR14 quartile=atr_q4 | n=8 avgΔ=$5710
+   gbpusd_first_lower | Entry hour (NY)=12 | n=9 avgΔ=$5255
+   xauusd_first_only | Hourly OBV vs trade=obv_aligned | n=6 avgΔ=$4205
+   xauusd_first_only | ATR14 quartile=atr_q1 | n=8 avgΔ=$3281
+
+========================================================================
+STANCE
+========================================================================
+- Only two HA size-ups are SIZE-UP VALIDATED across the whole book: EURUSD ST+PMC Thursday @1.25× and US30 Monday OR hour-11 @1.25×.
+- Futures: one PROVISIONAL PAPER (NQ prior-opposed OR15=or_norm @1.25×); Tier A empty after sleeve gate.
+- Quarterly ATR4 HA: paper overlays exist; matched nulls all NOT VALIDATED (thin N). Keep baseline ladders.
+- Do not stack HP multipliers; one HP rule per book / one prior-opposed HP across ES/YM/NQ per session.
+

@@ -1,0 +1,17 @@
+potions: nq_wick_reject_4h_24h_1m_protected_pivot_touch_response_v1 COMPLETE
+
+Hub: /home/tester/hsm/potions/live/state/nq_wick_reject_4h_24h_1m_protected_pivot_touch_response_v1
+config_hash: 402795e0a05e2fbc
+smoke: False
+policy: POLICY_A_FULL_AVAILABLE_FUTURES_DATA
+eligible_seeds: 91
+candidates: 90 (bear=52 bull=38)
+bear_contact mean MFE/MAE/RR (n=34): 144.35 / 137.03 / 1.053
+bull_contact mean MFE/MAE/RR (n=29): 104.14 / 106.14 / 0.981
+primary_q bear/bull: True / False
+causality: PASS
+decision: ONE_SIDED_ASYMMETRY
+stance: ONE-SIDED DESCRIPTIVE ASYMMETRY ONLY
+
+DESCRIPTIVE ONLY — no trade / plugin / session selector.
+Excursion RR = asymmetry only (not tradable R).

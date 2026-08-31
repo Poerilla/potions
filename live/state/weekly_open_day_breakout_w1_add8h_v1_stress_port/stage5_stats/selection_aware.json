@@ -1,0 +1,20 @@
+{
+  "variants_inspected_approx": [
+    "week_gate",
+    "bull_condition",
+    "high_vol_condition",
+    "od_half_geometry",
+    "eow_exit",
+    "add_cadence_8h",
+    "holiday_filter",
+    "3r_runner",
+    "oco_1r",
+    "candle_sl",
+    "od_sl_20r"
+  ],
+  "n_variants_approx": 11,
+  "note": "Deflated / selection-aware analysis: with ~11 related variants inspected before this frozen v1, treat headline N/S as optimistic until DSR is computed on the full trial ledger (TRL-2026-00161..00168).",
+  "primary_path_ns_ref": 3.343436486728512,
+  "loco_ns_min": 3.274366954917542,
+  "loco_ns_max": 8.678136975845621
+}

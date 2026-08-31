@@ -1,0 +1,26 @@
+CHOP20 post-entry SMT COMPLETE
+Hub: /home/tester/hsm/potions/live/state/chop20_post_entry_smt_nas100_spx500
+DSR: TRL-2026-00185
+Windows: fast 0-5m late 6-30m max 60m; t0=entry fill; peer=prior-day CHOP20 range
+
+VERDICT: Do NOT promote no-confirm / opposite as invalidation or add-suppression on CHOP20 NAS100↔SPX500.
+NO_CONFIRM beats ALREADY_CONFIRMED on mean R, stop, hit4, and causal fwd tables; suppress-adds after 30m no-confirm destroys edge (~+24.7R → ~+1.7R).
+
+NAS100 → SPX500
+  NO_CONFIRM n=45 stop=84% meanR=+0.57 hit4=16%
+  ALREADY_CONFIRMED n=28 stop=93% meanR=-0.07 hit4=7%
+  OPPOSITE_BREAK n=1 (ignore)
+  CONFIRMS_FAST/LATE: empty on this daily-range+globex design
+  actions:
+    baseline netR=+24.7
+    suppress_adds_after_30m_no_confirm netR=+1.7
+    flatten_after_opposite netR=+23.8
+    tighten_stop_after_opposite netR=+23.6
+
+SPX500 → NAS100 (reverse)
+  ALREADY_CONFIRMED n=24 meanR=+0.06
+  NO_CONFIRM n=19 meanR=+0.58
+  PEER_LEVEL_UNAVAILABLE n=13 (pre-NAS100 tape)
+  suppress_adds also hurts (netR +11.5 → +2.5)
+
+Stance: descriptive reject for invalidation use. US30 deferred. Optional next = RTH OR peer study on intraday books, not this tape.

@@ -331,3 +331,99 @@ def test_atr_supertrend_dca_emits_signal_and_guard_snapshots():
         assert {"atr_supertrend_signal", "atr_entry_guard"}.issubset(names)
     finally:
         tmp.cleanup()
+
+
+def test_v2b_clean_break_emits_opening_range_snapshot():
+    tmp, store = make_store()
+    try:
+        inst = StrategyInstance(
+            strategy_id="clean_break_snapshot",
+            strategy_type="v2b_clean_break",
+            version="v1",
+            instrument="NAS100",
+            broker_instrument="NAS100",
+            account_mode="paper",
+            enabled=True,
+            timeframes="5m",
+            max_contracts=4,
+            max_open_orders=12,
+            config_json=json.dumps(
+                {
+                    "tick_size": 0.1,
+                    "entry_qty": 1,
+                    "size_model": "pyramid_outside",
+                    "max_pyramid_qty": 4,
+                    "pyramid_add_every_n": 2,
+                    "trail_at_frac": 0.6,
+                    "fill_to_signal_minutes": 5,
+                }
+            ),
+        )
+        store.upsert_row("strategy_instances", "strategy_id", as_row(inst))
+        engine = Engine(store=store, persist_health=False)
+        for minute in (30, 35, 40):
+            engine.process_bar(
+                Bar(
+                    "NAS100",
+                    "5m",
+                    "2026-01-02T09:%02d:00-05:00" % minute,
+                    100.0,
+                    101.0 + (minute - 30) / 10.0,
+                    99.0,
+                    100.5,
+                )
+            )
+        names = {row["feature_name"] for row in store.read_table("feature_snapshots")}
+        assert "v2b_clean_break_or_finalized" in names
+    finally:
+        tmp.cleanup()
+
+
+def test_v2b_clean_break_arms_or_on_utc_oanda_bars():
+    """Live OANDA bars are UTC; session gates must convert to America/New_York."""
+    tmp, store = make_store()
+    try:
+        inst = StrategyInstance(
+            strategy_id="clean_break_utc",
+            strategy_type="v2b_clean_break",
+            version="v1",
+            instrument="NAS100",
+            broker_instrument="NAS100",
+            account_mode="paper",
+            enabled=True,
+            timeframes="5m",
+            max_contracts=4,
+            max_open_orders=12,
+            config_json=json.dumps(
+                {
+                    "tick_size": 0.1,
+                    "entry_qty": 1,
+                    "size_model": "pyramid_outside",
+                    "max_pyramid_qty": 4,
+                    "pyramid_add_every_n": 2,
+                    "trail_at_frac": 0.6,
+                }
+            ),
+        )
+        store.upsert_row("strategy_instances", "strategy_id", as_row(inst))
+        engine = Engine(store=store, persist_health=False)
+        # 09:30/35/40 ET = 13:30/35/40 UTC (EDT).
+        for minute in (30, 35, 40):
+            engine.process_bar(
+                Bar(
+                    "NAS100",
+                    "5m",
+                    "2026-07-24T13:%02d:00+00:00" % minute,
+                    100.0,
+                    101.0 + (minute - 30) / 10.0,
+                    99.0,
+                    100.5,
+                )
+            )
+        names = {row["feature_name"] for row in store.read_table("feature_snapshots")}
+        assert "v2b_clean_break_or_finalized" in names
+        state = json.loads(store.read_table("strategy_state")[0]["state_json"])
+        assert state.get("or_finalized") is True
+        assert int(state.get("or_count") or 0) == 3
+    finally:
+        tmp.cleanup()

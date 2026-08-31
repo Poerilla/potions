@@ -1,0 +1,97 @@
+{
+  "instrument": "YM",
+  "fills": "/home/tester/hsm/potions/live/state/ym_quarterly_range_breakout_broker/states/ym_quarterly_range_breakout/fills.csv",
+  "n_trades": 69,
+  "baseline_net": 303058.0000000001,
+  "by_side": [
+    {
+      "side": "long",
+      "trades": 53,
+      "net": 297731.0000000002,
+      "wr": 0.6037735849056604,
+      "avg": 5617.566037735853
+    },
+    {
+      "side": "short",
+      "trades": 16,
+      "net": 5327.000000000007,
+      "wr": 0.4375,
+      "avg": 332.93750000000045
+    }
+  ],
+  "short": {
+    "n": 16,
+    "net": 5327.0,
+    "wr": 0.4375,
+    "med_mfe_W": 0.2666059756840566,
+    "med_mfe_before_mid_W": 0.2666059756840566,
+    "losers_med_mfe_before_mid": 0.21568627450980393,
+    "winners_med_mfe": 0.8517179023508138,
+    "reach_0p2": 0.6875,
+    "reach_0p4": 0.375,
+    "reach_0p6": 0.3125,
+    "reach_0p8": 0.3125,
+    "stop_only_n": 3,
+    "stop_only_net": -66592.0,
+    "skip_shorts_net": 297731.0000000001,
+    "skip_shorts_delta": -5327.0,
+    "early_fail_d3_net": 153245.00000000012,
+    "early_fail_d3_delta": -149813.0,
+    "early_fail_d5_net": 129685.00000000023,
+    "early_fail_d5_delta": -173372.99999999988,
+    "longs_net": 297731.0000000001,
+    "shorts_net": 5327.0,
+    "baseline_net": 303058.0000000001,
+    "adheres_to_nq_short_issue": true
+  },
+  "accum": {
+    "allin": 379372.00000000023,
+    "broker_v2": 303058.0000000001,
+    "variants": [
+      {
+        "label": "2w_1perd_cap10",
+        "net": 253929.00000000023,
+        "avg_qty": 6.333333333333333,
+        "vs_allin": -125443.0,
+        "no_fill": 0,
+        "better": 34,
+        "worse": 35
+      },
+      {
+        "label": "1w_2contracts_per_week",
+        "net": 155613.0000000003,
+        "avg_qty": 1.8840579710144927,
+        "vs_allin": -223758.99999999994,
+        "no_fill": 4,
+        "better": 29,
+        "worse": 40
+      }
+    ]
+  },
+  "accum_by_side": {
+    "2w_1perd": {
+      "long": {
+        "net": 268228.0000000003,
+        "avg_qty": 6.30188679245283,
+        "n": 53
+      },
+      "short": {
+        "net": -14298.999999999964,
+        "avg_qty": 6.4375,
+        "n": 16
+      }
+    },
+    "1w_2perweek": {
+      "long": {
+        "net": 116171.00000000022,
+        "avg_qty": 1.849056603773585,
+        "n": 53
+      },
+      "short": {
+        "net": 39442.000000000044,
+        "avg_qty": 2.0,
+        "n": 16
+      }
+    }
+  }
+}

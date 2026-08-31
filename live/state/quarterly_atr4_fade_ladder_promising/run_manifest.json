@@ -1,0 +1,194 @@
+{
+  "broker_realism_config": {
+    "slippage_ticks": 1.0
+  },
+  "causality_mode": "audit",
+  "command": [
+    "/home/tester/hsm/potions/live/quarterly_atr4_fade_ladder_broker.py",
+    "--best-path",
+    "live/state/quarterly_atr4_fade_ladder_promising/promising_books.csv",
+    "--output-root",
+    "live/state/quarterly_atr4_fade_ladder_promising",
+    "--symbol",
+    "GBPUSD",
+    "--symbol",
+    "XAUUSD",
+    "--symbol",
+    "NAS100",
+    "--symbol",
+    "EURUSD",
+    "--symbol",
+    "NQ",
+    "--force",
+    "--email"
+  ],
+  "created_at": "2026-08-26T21:47:01Z",
+  "cwd": "/home/tester/hsm/potions",
+  "data_inputs": [
+    {
+      "bytes": 2701088,
+      "exists": true,
+      "path": "/home/tester/hsm/potions/fx/gbpusd_4h.csv",
+      "sha256": "a8941548fe287f81e4c17c7fdffa4519f4a175e4df3a9b7caad67da3bd0cabc9"
+    },
+    {
+      "bytes": 2647770,
+      "exists": true,
+      "path": "/home/tester/hsm/potions/fx/xauusd_4h.csv",
+      "sha256": "1ecc4e2886dcd3ba5265e9ff8c9787ae083bd101db6a17ec0055f6f92dd128c5"
+    },
+    {
+      "bytes": 859049,
+      "exists": true,
+      "path": "/home/tester/hsm/potions/fx/nas100_4h.csv",
+      "sha256": "f49d40bf21265556773695c011381a50554a043808d2996d43e35fe82845232e"
+    },
+    {
+      "bytes": 2905739,
+      "exists": true,
+      "path": "/home/tester/hsm/potions/live/state/_cache/bars_4h/eurusd_4h.csv",
+      "sha256": "c3b3b563caa3a1443967ae8ef49958ecd4392b96d96270cf90e4c5f827da8f5d"
+    },
+    {
+      "bytes": 1745876,
+      "exists": true,
+      "path": "/home/tester/hsm/potions/live/state/_cache/bars_4h/nq_4h.csv",
+      "sha256": "045d42ab301bb4cfd6d5f90b3459424a2c74498f18b5bd33e47b694f4fb53a80"
+    }
+  ],
+  "extra": {
+    "markets": [
+      "GBPUSD",
+      "XAUUSD",
+      "NAS100",
+      "EURUSD",
+      "NQ"
+    ]
+  },
+  "git": {
+    "commit": "",
+    "dirty": false,
+    "repo_root": "/home/tester/hsm/potions/live/state/quarterly_atr4_fade_ladder_promising",
+    "status_short": []
+  },
+  "outputs": [
+    {
+      "bytes": 1163,
+      "exists": true,
+      "path": "summary.csv",
+      "sha256": "5e5a80def32becb0c87093d08d956182047e05b9ab8052393e8e6511987a7043"
+    },
+    {
+      "bytes": 1177,
+      "exists": true,
+      "path": "SUMMARY.md",
+      "sha256": "961c8e92dc56146eefbf57590de76f4eb587b33135b078243d691229995571df"
+    }
+  ],
+  "python": {
+    "executable": "/home/tester/.pyenv/versions/3.8.0/bin/python",
+    "platform": "Linux-5.15.0-185-generic-x86_64-with-glibc2.34",
+    "version": "3.8.0 (default, Feb 11 2026, 11:18:58) \n[GCC 11.4.0]"
+  },
+  "run_id": "run_c9efacfbc3b6",
+  "strategy_config": {
+    "books": {
+      "EURUSD": {
+        "allowed_sides": [
+          "lower"
+        ],
+        "atr_len": 14,
+        "atr_mult": 4.0,
+        "be_after_atr": 8.0,
+        "entry_qty": 10,
+        "max_trades_per_quarter": 1,
+        "path_id": "second_after_upper",
+        "path_win_rate": 0.4117647058823529,
+        "record_levels": false,
+        "risk_atr_mult": 2.0,
+        "scale_atr_step": 2.0,
+        "scale_qty": 2,
+        "suppress_alerts": true,
+        "timeframe": "4h",
+        "trade_mode": "second_only"
+      },
+      "GBPUSD": {
+        "allowed_sides": [
+          "lower"
+        ],
+        "atr_len": 14,
+        "atr_mult": 4.0,
+        "be_after_atr": 8.0,
+        "entry_qty": 10,
+        "max_trades_per_quarter": 1,
+        "path_id": "first_lower",
+        "path_win_rate": 0.5849056603773585,
+        "record_levels": false,
+        "risk_atr_mult": 2.0,
+        "scale_atr_step": 2.0,
+        "scale_qty": 2,
+        "suppress_alerts": true,
+        "timeframe": "4h",
+        "trade_mode": "first_only"
+      },
+      "NAS100": {
+        "allowed_sides": [
+          "lower"
+        ],
+        "atr_len": 14,
+        "atr_mult": 4.0,
+        "be_after_atr": 8.0,
+        "entry_qty": 10,
+        "max_trades_per_quarter": 1,
+        "path_id": "first_lower",
+        "path_win_rate": 0.5555555555555556,
+        "record_levels": false,
+        "risk_atr_mult": 2.0,
+        "scale_atr_step": 2.0,
+        "scale_qty": 2,
+        "suppress_alerts": true,
+        "timeframe": "4h",
+        "trade_mode": "first_only"
+      },
+      "NQ": {
+        "allowed_sides": [
+          "lower"
+        ],
+        "atr_len": 14,
+        "atr_mult": 4.0,
+        "be_after_atr": 8.0,
+        "entry_qty": 10,
+        "max_trades_per_quarter": 1,
+        "path_id": "second_after_upper",
+        "path_win_rate": 0.5,
+        "record_levels": false,
+        "risk_atr_mult": 1.5,
+        "scale_atr_step": 2.0,
+        "scale_qty": 2,
+        "suppress_alerts": true,
+        "timeframe": "4h",
+        "trade_mode": "second_only"
+      },
+      "XAUUSD": {
+        "allowed_sides": [
+          "lower"
+        ],
+        "atr_len": 14,
+        "atr_mult": 4.0,
+        "be_after_atr": 8.0,
+        "entry_qty": 10,
+        "max_trades_per_quarter": 1,
+        "path_id": "nan",
+        "path_win_rate": 0.0,
+        "record_levels": false,
+        "risk_atr_mult": 2.0,
+        "scale_atr_step": 2.0,
+        "scale_qty": 2,
+        "suppress_alerts": true,
+        "timeframe": "4h",
+        "trade_mode": "first_only"
+      }
+    },
+    "plugin": "quarterly_atr4_fade_ladder"
+  }
+}

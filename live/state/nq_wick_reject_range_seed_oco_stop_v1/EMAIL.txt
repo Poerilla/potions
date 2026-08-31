@@ -1,0 +1,16 @@
+potions: nq_wick_reject_range_seed_oco_stop_v1 COMPLETE
+
+Hub: /home/tester/hsm/potions/live/state/nq_wick_reject_range_seed_oco_stop_v1
+Eligible seeds: 91 | Ambiguous excluded: 0
+Stance: RESEARCH ONLY — OCO stop v1 does not clear promotion gates
+
+Key books:
+  oco_stop_v1_primary_dev: fills=74 net=-5414 WR=49% PF=0.89 avgR=+0.052
+  oco_stop_v1_primary_holdout: fills=17 net=+2579 WR=47% PF=1.09 avgR=+0.013
+  oco_stop_v1_primary_ALL: fills=91 net=-2836 WR=48% PF=0.96 avgR=+0.045
+  oco_stop_v1_stress_2tick_dev: fills=74 net=-6154 WR=49% PF=0.88 avgR=+0.037
+  oco_stop_v1_stress_2tick_holdout: fills=17 net=+2409 WR=47% PF=1.08 avgR=+0.011
+  oco_stop_v1_stress_2tick_ALL: fills=91 net=-3746 WR=48% PF=0.95 avgR=+0.032
+
+Contrast hub: /home/tester/hsm/potions/live/state/nq_wick_reject_range_seed_retest
+See AMBIGUITY_AUDIT.md + COMPARISON_BOARD.md + SUMMARY.md.

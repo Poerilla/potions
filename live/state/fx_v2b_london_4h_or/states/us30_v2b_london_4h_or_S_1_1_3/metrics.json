@@ -1,0 +1,23 @@
+{
+  "strategy_id": "us30_v2b_london_4h_or_S_1_1_3",
+  "symbol": "US30",
+  "family": "cfd",
+  "quote": "USD",
+  "book": "S_1_1_3",
+  "clock": "london_4h_or",
+  "or_window": "03:00-07:00",
+  "or_bars": 240,
+  "sizing": "S_1_1_3",
+  "regime_days": 836,
+  "start": "2021-01-04",
+  "units": 6770,
+  "trades": 1354,
+  "net_usd": 34853.600000013466,
+  "closed_dd_usd": -25929.349999994294,
+  "stress_dd_usd": -26029.849999994287,
+  "net_over_stress": 1.33898581820568,
+  "win_rate": 40.02954209748892,
+  "profit_factor": 1.115850327530107,
+  "max_open_units": 5,
+  "state_root": "live/state/fx_v2b_london_4h_or/states/us30_v2b_london_4h_or_S_1_1_3"
+}

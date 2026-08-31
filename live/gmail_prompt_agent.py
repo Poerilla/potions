@@ -119,7 +119,8 @@ def _auth_manual_paste():
     auth_url, _state = flow.authorization_url(
         access_type="offline",
         prompt="consent",
-        include_granted_scopes="true",
+        # Avoid merging older grants (e.g. drive.appdata) into this agent token.
+        include_granted_scopes="false",
     )
     print("", flush=True)
     print("1) Open this URL in your browser (phone/laptop is fine):", flush=True)
@@ -136,15 +137,24 @@ def _auth_manual_paste():
         code = parse_qs(urlparse(raw).query).get("code", [None])[0]
         if not code:
             raise SystemExit("No ?code= in pasted URL. Copy the entire address bar.")
-        # Exchange code only — authorization_response can fail on redirect_uri/port mismatch.
-        flow.fetch_token(code=code)
     else:
-        flow.fetch_token(code=raw)
+        code = raw
+    # Google may still return previously granted scopes; oauthlib warns unless relaxed.
+    prev = os.environ.get("OAUTHLIB_RELAX_TOKEN_SCOPE")
+    os.environ["OAUTHLIB_RELAX_TOKEN_SCOPE"] = "1"
+    try:
+        flow.fetch_token(code=code)
+    finally:
+        if prev is None:
+            os.environ.pop("OAUTHLIB_RELAX_TOKEN_SCOPE", None)
+        else:
+            os.environ["OAUTHLIB_RELAX_TOKEN_SCOPE"] = prev
     return flow.credentials
 
 
 def get_credentials(*, interactive: bool = False, local_server: bool = False):
     _require_google_libs()
+    from google.auth.exceptions import RefreshError
     from google.auth.transport.requests import Request
     from google.oauth2.credentials import Credentials
 
@@ -153,9 +163,18 @@ def get_credentials(*, interactive: bool = False, local_server: bool = False):
     if token_path.exists():
         creds = Credentials.from_authorized_user_file(str(token_path), SCOPES)
     if creds and creds.expired and creds.refresh_token:
-        creds.refresh(Request())
-        token_path.write_text(creds.to_json(), encoding="utf-8")
-        return creds
+        try:
+            creds.refresh(Request())
+            token_path.write_text(creds.to_json(), encoding="utf-8")
+            return creds
+        except RefreshError as exc:
+            # Revoked / expired refresh token — drop it and re-auth if allowed.
+            print("stored Gmail token unusable (%s); clearing %s" % (exc, token_path), flush=True)
+            try:
+                token_path.unlink()
+            except OSError:
+                pass
+            creds = None
     if creds and creds.valid:
         return creds
     if not interactive:
@@ -268,7 +287,7 @@ def fetch_message(service, msg_id: str) -> Dict[str, Any]:
 
 def run_agent(prompt: str) -> str:
     agent_bin = os.environ.get("AGENT_BIN", "agent").strip() or "agent"
-    timeout = int(os.environ.get("AGENT_TIMEOUT_SEC", "900"))
+    timeout = int(os.environ.get("AGENT_TIMEOUT_SEC", "3600"))
     # Workspace = potions repo; prompt is the email body.
     cmd = [
         agent_bin,
@@ -570,6 +589,14 @@ def cmd_poll(args: argparse.Namespace) -> int:
             process_once(service)
         except Exception as exc:
             print("poll error: %s" % exc, flush=True)
+            # Stale httplib2 TLS after long idle / long agent runs → Broken pipe /
+            # SSL unexpected eof. Rebuild the client so the next poll is healthy.
+            if _is_transient_gmail_error(exc):
+                try:
+                    service = gmail_service()
+                    print("gmail client rebuilt after transient error", flush=True)
+                except Exception as rebuild_exc:
+                    print("gmail rebuild failed: %s" % rebuild_exc, flush=True)
         time.sleep(max(15, interval))
 
 

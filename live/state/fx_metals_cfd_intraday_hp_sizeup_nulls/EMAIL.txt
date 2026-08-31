@@ -1,0 +1,42 @@
+Study: fx_metals_cfd_intraday_hp_sizeup_nulls
+Profile: fx_metals_cfd_intraday_condition_profile_v1
+Hub: live/state/fx_metals_cfd_intraday_hp_sizeup_nulls/
+Multiplier: 1.25×
+Pairs: 26
+
+potions: matched-added-exposure suite complete
+hub: /home/tester/hsm/potions/live/state/fx_metals_cfd_intraday_hp_sizeup_nulls
+
+- NOT VALIDATED | usdjpy_monday_or Monday session range vs ATR=mon_wide @1.25× hp28% incN/S=4.28 p_plac=0.601
+- NOT VALIDATED | us30_monday_or Monday session range vs ATR=mon_wide @1.25× hp29% incN/S=2.88 p_plac=0.332
+- NOT VALIDATED | eurusd_monday_or Monday session range vs ATR=mon_wide @1.25× hp23% incN/S=2.12 p_plac=0.682
+- NOT VALIDATED | gbpusd_monday_or Monday session range vs ATR=mon_wide @1.25× hp24% incN/S=2.96 p_plac=0.662
+- NOT VALIDATED | xauusd_monday_or Monday session range vs ATR=mon_wide @1.25× hp22% incN/S=0.40 p_plac=0.982
+- NOT VALIDATED | usdjpy_monday_or Monday session range vs ATR=mon_norm @1.25× hp32% incN/S=8.01 p_plac=0.222
+- NOT VALIDATED | us30_monday_or Prior-day range percentile=prior_range_exp @1.25× hp20% incN/S=4.49 p_plac=0.115
+- NOT VALIDATED | usdjpy_monday_or Prior-day range percentile=prior_range_norm @1.25× hp20% incN/S=7.20 p_plac=0.057
+- NOT VALIDATED | eurusd_st_pmc_3r Prior-day range percentile=prior_range_exp @1.25× hp32% incN/S=5.90 p_plac=0.230
+- NOT VALIDATED | usdjpy_st_pmc_3r Prior-day range percentile=prior_range_exp @1.25× hp37% incN/S=5.93 p_plac=0.119
+- NOT VALIDATED | gbpusd_st_pmc_3r Prior-day range percentile=prior_range_norm @1.25× hp30% incN/S=4.35 p_plac=0.569
+- NOT VALIDATED | us30_st_pmc_3r Prior-day range percentile=prior_range_norm @1.25× hp31% incN/S=32.10 p_plac=0.004
+- NOT VALIDATED | eurusd_st_pmc_3r Day of week=Thursday @1.25× hp20% incN/S=8.39 p_plac=0.019
+- NOT VALIDATED | nas100_st_pmc_3r Prior quarter type=q_break_down @1.25× hp14% incN/S=15.49 p_plac=1.000
+- RISK THROTTLE | us30_london_prior_opposed London OR width vs ATR=lor_norm @1.25× hp31% incN/S=11.17 p_plac=0.042
+- NOT VALIDATED | usdjpy_asia_range Prior-day range percentile=prior_range_norm @1.25× hp28% incN/S=3.97 p_plac=0.106
+- NOT VALIDATED | us30_monday_or Entry hour (NY)=11 @1.25× hp9% incN/S=6.69 p_plac=0.013
+- NOT VALIDATED | xauusd_quarterly_breakout Prior-quarter range width=pqw_q2 @1.25× hp23% incN/S=2.86 p_plac=1.000
+- NOT VALIDATED | audjpy_quarterly_breakout Prior-quarter range width=pqw_q1 @1.25× hp34% incN/S=1.14 p_plac=1.000
+- NOT VALIDATED | eurusd_quarterly_breakout Prior-day range percentile=prior_range_comp @1.25× hp35% incN/S=2.89 p_plac=0.499
+- NOT VALIDATED | eurusd_quarterly_breakout ATR causal rolling percentile=atr_pctl_q2 @1.25× hp20% incN/S=1.89 p_plac=0.122
+- NOT VALIDATED | gbpusd_quarterly_breakout ATR causal rolling percentile=atr_pctl_q1 @1.25× hp41% incN/S=2.22 p_plac=0.124
+- NOT VALIDATED | usdjpy_quarterly_breakout ATR causal rolling percentile=atr_pctl_q4 @1.25× hp33% incN/S=2.22 p_plac=0.257
+- NOT VALIDATED | audjpy_quarterly_breakout Prior-day range percentile=prior_range_exp @1.25× hp41% incN/S=1.72 p_plac=0.466
+- NOT VALIDATED | xauusd_quarterly_breakout ATR causal rolling percentile=atr_pctl_q2 @1.25× hp23% incN/S=3.83 p_plac=1.000
+- NOT VALIDATED | eurusd_quarterly_breakout Prior-quarter range width=pqw_q2 @1.25× hp23% incN/S=0.99 p_plac=1.000
+
+Stance: no SIZE-UP VALIDATED / PROVISIONAL PAPER pairs this run — research / risk-budget only.
+
+/home/tester/hsm/potions/live/state/fx_metals_cfd_intraday_hp_sizeup_nulls/SUMMARY.md
+Stance: 0 SIZE-UP VALIDATED, 0 PROVISIONAL @1.25×.
+Portfolio: portfolio_overlap.csv.
+Phase 3 plan: live/state/fx_metals_cfd_intraday_hp_live_plan/

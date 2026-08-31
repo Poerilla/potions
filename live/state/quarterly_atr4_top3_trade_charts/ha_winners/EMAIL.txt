@@ -1,0 +1,23 @@
+potions: quarterly ATR4 HA winners charts complete
+
+Hub: /home/tester/hsm/potions/live/state/quarterly_atr4_top3_trade_charts/ha_winners
+Winners: 5  Charts: 50
+
+# HA winners — competitive vs top3 trade charts
+
+HP condition subsets from `quarterly_atr4_ha_conditions` that clear or approach
+the top3 WR bar (GBPUSD first_lower ~58.5%, US30 paths 60–73%) with n≥6,
+live_ready features, and material size/filter lift on the be8 ladder tape.
+
+Nulls did **not** validate 1.25× size-up — charts are for inspection only.
+
+| Slug | Market | Path | Condition | n | WR | HP net | Charts | Why |
+|---|---|---|---|---:|---:|---:|---:|---|
+| [gbpusd_monday](gbpusd_monday/) | GBPUSD | first_lower | Day of week=Monday | 15 | 60% | $209,173 | 15 | HP WR 60% n=15; size 1.25× ΔN/S +0.93 — matches/beats top3 GBPUSD WR |
+| [gbpusd_hour12](gbpusd_hour12/) | GBPUSD | first_lower | Entry hour (NY)=12 | 9 | 56% | $118,608 | 9 | HP WR 56% n=9; size 1.25× ΔN/S +0.97 — strongest GBPUSD hour sleeve |
+| [eurusd_monday](eurusd_monday/) | EURUSD | second_after_upper | Day of week=Monday | 6 | 67% | $78,045 | 6 | HP WR 67% n=6 — clears top3 GBPUSD WR bar; filter ΔN/S +5.7 |
+| [eurusd_ma_aligned](eurusd_ma_aligned/) | EURUSD | second_after_upper | 5m MA vs trade=ma_aligned | 7 | 57% | $98,902 | 7 | HP WR 57% n=7; filter lifts net AND N/S (rare dual lift) |
+| [xauusd_week2](xauusd_week2/) | XAUUSD | first_only_lower | Week of month=2 | 13 | 62% | $199,904 | 13 | HP WR 62% n=13 — competitive with top3 WR; size 1.25× ΔN/S +0.71 |
+
+Parent: `/home/tester/hsm/potions/live/state/quarterly_atr4_top3_trade_charts`
+HA hub: `/home/tester/hsm/potions/live/state/quarterly_atr4_ha_conditions`

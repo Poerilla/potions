@@ -1,0 +1,35 @@
+{
+  "study": "es_quarterly_breakout_w_atr_aligned_broker",
+  "gated": {
+    "slug": "es_quarterly_range_breakout_w_atr_aligned",
+    "instrument": "ES",
+    "allowed_sides": "long,short",
+    "require_mor_dirs": "",
+    "require_yor_dirs": "",
+    "require_w_atr_aligns": "w_atr_aligned",
+    "bars": "4887",
+    "units": "464",
+    "trades": "58",
+    "net_usd": "1169911.5",
+    "closed_dd": "-233599.50000000052",
+    "stress_dd": "-235924.50000000052",
+    "win_units": "338",
+    "loss_units": "126",
+    "ns": "4.958838526732058"
+  },
+  "baseline": {
+    "slug": "es_quarterly_range_breakout",
+    "instrument": "ES",
+    "allowed_sides": "long,short",
+    "bars": "4887",
+    "units": "480",
+    "trades": "60",
+    "net_usd": "1258367.5000000007",
+    "closed_dd": "-221283.99999999965",
+    "stress_dd": "-225183.99999999965",
+    "win_units": "364",
+    "loss_units": "116",
+    "ns": "5.588174559471377"
+  },
+  "stance": "research \u2014 plugin-gated w_atr_aligned book; HP size-up stays NOT VALIDATED"
+}

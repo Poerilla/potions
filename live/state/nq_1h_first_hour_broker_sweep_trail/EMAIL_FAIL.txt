@@ -1,0 +1,18 @@
+NQ FH strong+sweep broker FAILED
+Hub: /home/tester/hsm/potions/live/state/nq_1h_first_hour_broker_sweep_trail
+
+Traceback (most recent call last):
+  File "/home/tester/hsm/potions/live/nq_1h_first_hour_broker_sweep_trail.py", line 970, in main
+    maybe_hp_mill(hub, trail["slug"], df5)
+  File "/home/tester/hsm/potions/live/nq_1h_first_hour_broker_sweep_trail.py", line 607, in maybe_hp_mill
+    camp = attach_trade_po_labels(camp, fh)
+  File "/home/tester/hsm/potions/live/nq_large_candle_ha_lib.py", line 196, in attach_trade_po_labels
+    feat = bars[
+  File "/home/tester/.pyenv/versions/3.8.0/lib/python3.8/site-packages/pandas/core/frame.py", line 3767, in __getitem__
+    indexer = self.columns._get_indexer_strict(key, "columns")[1]
+  File "/home/tester/.pyenv/versions/3.8.0/lib/python3.8/site-packages/pandas/core/indexes/base.py", line 5877, in _get_indexer_strict
+    self._raise_if_missing(keyarr, indexer, axis_name)
+  File "/home/tester/.pyenv/versions/3.8.0/lib/python3.8/site-packages/pandas/core/indexes/base.py", line 5941, in _raise_if_missing
+    raise KeyError(f"{not_found} not in index")
+KeyError: "['po_state', 'po_side', 'po_outcome', 'candle_vs_po'] not in index"
+

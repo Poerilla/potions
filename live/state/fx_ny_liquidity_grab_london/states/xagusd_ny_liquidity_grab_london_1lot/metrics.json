@@ -1,0 +1,20 @@
+{
+  "strategy_id": "xagusd_ny_liquidity_grab_london_1lot",
+  "symbol": "XAGUSD",
+  "family": "metal",
+  "quote": "USD",
+  "entry_qty": 1,
+  "tp_r_mult": 1.0,
+  "regime_days": 1573,
+  "start": "2015-01-02",
+  "units": 885,
+  "trades": 885,
+  "net_usd": -55274.000000001084,
+  "closed_dd_usd": -56478.00000000109,
+  "stress_dd_usd": -56497.0000000011,
+  "net_over_stress": -0.9783528328937822,
+  "win_rate": 40.451977401129945,
+  "profit_factor": 0.5452533546141821,
+  "max_open_units": 1,
+  "state_root": "live/state/fx_ny_liquidity_grab_london/states/xagusd_ny_liquidity_grab_london_1lot"
+}

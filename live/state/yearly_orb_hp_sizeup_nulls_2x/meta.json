@@ -1,0 +1,13 @@
+{
+  "n_pairs": 6,
+  "n_placebo": 5000,
+  "n_shift": 1000,
+  "n_master": 500,
+  "extra_default": 1.0,
+  "seed": 20260817,
+  "hp_coverage_max": 0.35,
+  "p_alpha": 0.05,
+  "p_master_borderline_hi": 0.1,
+  "stress_x_max": 1.35,
+  "note": "yearly-orb 2.00x"
+}

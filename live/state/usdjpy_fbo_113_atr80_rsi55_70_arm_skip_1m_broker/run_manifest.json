@@ -1,0 +1,66 @@
+{
+  "broker_realism_config": {
+    "fee_per_unit": 7.0,
+    "feed_tf": "1m",
+    "slippage_ticks": 1.0,
+    "tick_size": 0.001
+  },
+  "causality_mode": "audit",
+  "command": [
+    "/home/tester/hsm/potions/live/usdjpy_fbo_113_atr80_rsi55_70_broker.py",
+    "--tf",
+    "1m",
+    "--arm-policy",
+    "skip_candidate",
+    "--force",
+    "--email"
+  ],
+  "created_at": "2026-08-26T21:22:08Z",
+  "cwd": "/home/tester/hsm/potions",
+  "data_inputs": [
+    {
+      "bytes": 153389,
+      "exists": true,
+      "path": "filters/usdjpy_atr80.csv",
+      "sha256": "bb9e1b6b5dcb314194ab67bed69759ae83570928c1e7172154966ba2229c9029"
+    },
+    {
+      "bytes": 595624667,
+      "exists": true,
+      "path": "/home/tester/hsm/potions/fx/usdjpy_1m.csv",
+      "sha256": "16919c1539516f8dc636a2aa0e3050d2e2da831a1a154cb4d48f4de33879bdbd"
+    }
+  ],
+  "extra": {
+    "driver": "usdjpy_fbo_113_atr80_rsi55_70_broker",
+    "dsr": "TRL-2026-00155",
+    "feed_tf": "1m"
+  },
+  "git": {
+    "commit": "",
+    "dirty": false,
+    "repo_root": "/home/tester/hsm/potions/live/state/usdjpy_fbo_113_atr80_rsi55_70_arm_skip_1m_broker",
+    "status_short": []
+  },
+  "outputs": [
+    {
+      "bytes": 323,
+      "exists": true,
+      "path": "summary.csv",
+      "sha256": "bbf552e083b7a1de415942e766237577183483d2a49b3c463146c584c739e58b"
+    },
+    {
+      "bytes": 1094,
+      "exists": true,
+      "path": "SUMMARY.md",
+      "sha256": "26dd85e07f92e1c5632f05d70ffb68095ce98bc13585007be37b65f7f3404629"
+    }
+  ],
+  "python": {
+    "executable": "/home/tester/.pyenv/versions/3.8.0/bin/python",
+    "platform": "Linux-5.15.0-185-generic-x86_64-with-glibc2.34",
+    "version": "3.8.0 (default, Feb 11 2026, 11:18:58) \n[GCC 11.4.0]"
+  },
+  "run_id": "run_ee55bee9533f",
+  "strategy_config": {}
+}

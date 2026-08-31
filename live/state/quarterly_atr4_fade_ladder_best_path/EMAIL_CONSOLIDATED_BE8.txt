@@ -1,0 +1,44 @@
+potions: quarterly ATR4 fade ladder FIXED to +8 ATR scale-out (tp1–tp4)
+
+Change: be_after_atr 4 → 8
+  entry 10; take 2 off every +2 ATR through +8 ATR (tp1–tp4);
+  then BE; 2 runners to EOQ.
+
+Verified GBPUSD fills now include tp3/tp4 (was only tp1/tp2).
+
+=== Best-path books (decision-gated paths) ===
+Hub: live/state/quarterly_atr4_fade_ladder_best_path
+
+  EURUSD  second_after_upper  net=$84,627   N/S=2.44  WR=35%  PF=2.56
+  GBPUSD  first_lower         net=$404,130  N/S=7.99  WR=49%  PF=2.85
+  USDJPY  second_after_lower  net=$2,184,107 N/S=0.95 WR=28%  PF=2.00
+  AUDJPY  second_after_lower  net=$1,586,851 N/S=0.29 WR=36%  PF=1.23
+  XAUUSD  second_after_upper  net=$-36,023  N/S=-0.47 WR=9%   PF=0.35
+  XAGUSD  second_after_lower  net=$-2,386   N/S=-0.16 WR=24%  PF=0.89
+  US30    first_lower         net=$6,016    N/S=0.84  WR=18%  PF=1.92
+  NAS100  first_lower         net=$33,127   N/S=4.43  WR=40%  PF=5.54
+  NQ      second_after_upper  net=$306,962  N/S=2.53  WR=45%  PF=11.95
+  YM      second_after_upper  net=$29,245   N/S=0.78  WR=35%  PF=2.10
+
+=== Family default books ===
+Hub: live/state/quarterly_atr4_fade_ladder
+
+  EURUSD first_only risk=2.0  net=$97,584    N/S=1.15
+  GBPUSD first_only risk=2.0  net=$404,130   N/S=7.99
+  USDJPY first_only risk=2.0  net=$-13.4M   N/S=-0.78
+  AUDJPY first_only risk=2.0  net=$-1.03M   N/S=-0.10
+  XAUUSD first_only risk=2.0  net=$251,054   N/S=4.08
+  XAGUSD first_only risk=2.0  net=$7,446     N/S=0.18
+  US30   second_only risk=0.5 net=$-3,335    N/S=-0.26
+  NAS100 second_only risk=0.5 net=$8,680     N/S=1.40
+  NQ     second_only risk=0.5 net=$215,139   N/S=1.76
+  YM     second_only risk=0.5 net=$24,477    N/S=0.50
+
+=== US30 second_after_upper special (risk 2.5×) ===
+Hub: live/state/quarterly_atr4_fade_ladder_us30_second_after_upper
+  US30 net=$7,088  N/S=0.64  WR=52%  PF=2.02  trades=5
+
+=== Charts regenerated ===
+Hub: live/state/quarterly_atr4_top3_trade_charts (67 charts; tp1–tp4 overlays)
+
+Stance: research — keep promoting GBPUSD/NAS100/NQ best-path; reject family USDJPY/AUDJPY.

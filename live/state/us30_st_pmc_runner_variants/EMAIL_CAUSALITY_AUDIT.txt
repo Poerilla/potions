@@ -1,0 +1,41 @@
+US30 ST+PMC causality validation complete
+
+Hub:
+live/state/us30_st_pmc_runner_variants
+
+Result:
+The original sentence should be amended. The prior positive US30 ST+PMC 3R baseline does not survive the stricter completed-hour causality replay.
+
+What changed:
+- The shared hourly resampler is left-labeled. A candle timestamped 11:00 contains 11:00-11:59 data.
+- The replay helper now shifts hourly signal bars to the completed-hour timestamp before the strategy can consume them.
+- PaperBroker fills remain disabled on the hourly signal bar.
+- Resting orders fill only on the 1m source tape.
+- Lot-correct accounting was regenerated so stale pre-fix metrics are no longer used.
+
+Fresh causal performance:
+- US30 3R fair control: -$982 net / -$4,599 stress / -0.21 N/S / 1,017 units / max open 1.
+- US30 2R->10R runner: $13,340 net / -$9,066 stress / 1.47 N/S / 1,908 units / max open 3.
+- US30 indefinite runner: $9,164 forced-flat / -$34,332 reachable stress / 0.27 N/S / 3,051 units / max open 77. Not rankable vs flat books.
+
+Causality/fill audit:
+PASS across all three variants.
+- 0 causality violation rows.
+- 0 feature timestamp ordering failures.
+- 0 fills missing from the 1m tape.
+- 0 live_after violations.
+- 0 fill touch violations.
+- Minimum entry delay after activation: 60 seconds.
+
+Current stance:
+- Withdraw the old "US30 ST+PMC 3R is historically positive" baseline language.
+- Keep 3R only as a diagnostic/control row.
+- Keep 2R->10R as a causal positive research row, not a promotion-quality funded-strategy headline.
+- Keep indefinite as a non-rankable inventory sleeve.
+
+Artifacts:
+- SUMMARY.md
+- CAUSALITY_AUDIT.md
+- causality_fill_audit.csv
+- LOT_CORRECT_ACCOUNTING.csv
+- COMPLETION_REPORT.md

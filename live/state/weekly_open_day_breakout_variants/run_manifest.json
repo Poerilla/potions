@@ -1,0 +1,66 @@
+{
+  "broker_realism_config": {},
+  "causality_mode": "audit",
+  "command": [
+    "/home/tester/hsm/potions/live/weekly_open_day_breakout_variants_broker.py",
+    "--market",
+    "NAS100",
+    "--market",
+    "SPX500",
+    "--years",
+    "3",
+    "--force",
+    "--email"
+  ],
+  "created_at": "2026-08-27T16:21:22Z",
+  "cwd": "/home/tester/hsm/potions",
+  "data_inputs": [
+    {
+      "bytes": 859049,
+      "exists": true,
+      "path": "/home/tester/hsm/potions/fx/nas100_4h.csv",
+      "sha256": "f49d40bf21265556773695c011381a50554a043808d2996d43e35fe82845232e"
+    }
+  ],
+  "extra": {
+    "dsr_trial_id": "TRL-2026-00162",
+    "skipped": [
+      "SPX500 (no fx/spx500_1m.csv)"
+    ]
+  },
+  "git": {
+    "commit": "",
+    "dirty": false,
+    "repo_root": "/home/tester/hsm/potions/live/state/weekly_open_day_breakout_variants",
+    "status_short": []
+  },
+  "outputs": [
+    {
+      "bytes": 1239,
+      "exists": true,
+      "path": "summary.csv",
+      "sha256": "adb4d674c720e0f8d397271dfc8b1e9bb2f0d094e849107db157e0c442b6fbc3"
+    },
+    {
+      "bytes": 724,
+      "exists": true,
+      "path": "SUMMARY.md",
+      "sha256": "755d25ec41ae5e3f7a3c7acbe72d997b51c7aa8a1625dce9c38512a6db1e82d4"
+    }
+  ],
+  "python": {
+    "executable": "/home/tester/.pyenv/versions/3.8.0/bin/python",
+    "platform": "Linux-5.15.0-185-generic-x86_64-with-glibc2.34",
+    "version": "3.8.0 (default, Feb 11 2026, 11:18:58) \n[GCC 11.4.0]"
+  },
+  "run_id": "run_1ba3f6ca19bd",
+  "strategy_config": {
+    "strategy_type": "weekly_open_day_breakout",
+    "variants": [
+      "filters_candle_sl",
+      "candle_sl_fri",
+      "od_sl_fri",
+      "od_sl_20r"
+    ]
+  }
+}

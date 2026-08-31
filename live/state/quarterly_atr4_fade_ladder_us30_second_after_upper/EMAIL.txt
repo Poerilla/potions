@@ -1,0 +1,8 @@
+potions: quarterly ±4×ATR fade ladder broker-like complete
+
+Hub: /home/tester/hsm/potions/live/state/quarterly_atr4_fade_ladder_us30_second_after_upper
+Per-market path/mode/risk; 10ct ladder: 2 off @ +2/+4/+6/+8 ATR, BE + 2 runners to EOQ.
+
+  US30  second_after_upper  second_only  risk=2.50×ATR  net=$7,088  N/S=0.64  trades=5  WR=52%  PF=2.02
+
+See SUMMARY.md for table.

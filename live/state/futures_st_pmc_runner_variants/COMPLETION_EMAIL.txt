@@ -1,0 +1,62 @@
+IN PROGRESS SNAPSHOT
+status: IN_PROGRESS
+generated_at_utc: 2026-08-23T18:23:22+00:00
+completed_required_jobs: 12 / 12
+accounting_mode: lot-correct-preferred
+
+CHANGE SINCE PRIOR SNAPSHOT
+= No new promoted strategy
+! YM runner variants still active
+~ status COMPLETE → IN_PROGRESS
+
+DECISION STATE
+RETAIN (8): MNQ 3R, MNQ 2R→10R, MYM 3R, MYM 2R→10R, NQ 3R, NQ 2R→10R, YM 3R, YM 2R→10R
+RESEARCH (4): MNQ indef, MYM indef, NQ indef, YM indef
+
+BLOCKS FINAL JUDGMENT
+- hub_status=IN_PROGRESS
+- 1_active_jobs
+
+PORTFOLIO ACTION REQUIRED: YES
+- MNQ/NQ are execution alternatives / one shared Nasdaq sleeve — not additive independent allocations
+- MYM/YM are execution alternatives / one shared Dow sleeve — not additive independent allocations
+- No final promotion until required jobs finish.
+
+Active jobs: 1
+- YM: ?, running
+
+COMPARABLE CORE BOARD (rankable only if all gates pass)
+1. NQ 3R  N/S=20.51 net=$349.5k stress=-$17.0k  [RETAIN] src=LOT_CORRECT_ACCOUNTING.csv
+2. MNQ 3R  N/S=19.38 net=$23.2k stress=-$1.2k  [RETAIN] src=LOT_CORRECT_ACCOUNTING.csv
+3. YM 3R  N/S=17.66 net=$106.4k stress=-$6.0k  [RETAIN] src=LOT_CORRECT_ACCOUNTING.csv
+4. YM 2R→10R  N/S=15.22 net=$313.3k stress=-$20.6k  [RETAIN] src=LOT_CORRECT_ACCOUNTING.csv
+5. NQ 2R→10R  N/S=14.04 net=$775.8k stress=-$55.3k  [RETAIN] src=LOT_CORRECT_ACCOUNTING.csv
+6. MNQ 2R→10R  N/S=11.09 net=$49.9k stress=-$4.5k  [RETAIN] src=LOT_CORRECT_ACCOUNTING.csv
+7. MYM 3R  N/S=10.28 net=$6.5k stress=-$634  [RETAIN] src=LOT_CORRECT_ACCOUNTING.csv
+8. MYM 2R→10R  N/S=9.76 net=$20.6k stress=-$2.1k  [RETAIN] src=LOT_CORRECT_ACCOUNTING.csv
+
+TESTED / NOT PROMOTED (awaiting human promote)
+- NQ 3R N/S=20.51 [RETAIN]
+- MNQ 3R N/S=19.38 [RETAIN]
+- YM 3R N/S=17.66 [RETAIN]
+- YM 2R→10R N/S=15.22 [RETAIN]
+- NQ 2R→10R N/S=14.04 [RETAIN]
+- MNQ 2R→10R N/S=11.09 [RETAIN]
+- MYM 3R N/S=10.28 [RETAIN]
+- MYM 2R→10R N/S=9.76 [RETAIN]
+
+INDEFINITE INVENTORY RESEARCH — NOT RANKABLE
+MNQ  forced-flat=$78.3k | reachable stress=-$31.0k | max inv=45 | EOY open=42 | margin=$1571.0k  [RESEARCH] (lot-correct)
+MYM  forced-flat=$26.0k | reachable stress=-$11.5k | max inv=46 | EOY open=40 | margin=$827.9k  [RESEARCH] (lot-correct)
+NQ  forced-flat=$1197.8k | reachable stress=-$963.2k | max inv=148 | EOY open=144 | margin=$29915.9k  [RESEARCH] (lot-correct)
+YM  forced-flat=$393.5k | reachable stress=-$260.7k | max inv=108 | EOY open=104 | margin=$14141.8k  [RESEARCH] (lot-correct)
+
+DUPLICATE SLEEVE: MNQ/NQ are execution alternatives / one shared Nasdaq sleeve — not additive independent allocations
+
+DUPLICATE SLEEVE: MYM/YM are execution alternatives / one shared Dow sleeve — not additive independent allocations
+
+Hub: live/state/futures_st_pmc_runner_variants
+Report: COMPLETION_REPORT.md
+Snapshot: LATEST_SNAPSHOT.json
+
+Note: PID/host/command live in hub status JSON only.

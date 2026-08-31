@@ -1,0 +1,5 @@
+market,instrument,campaigns,baseline_net,addon_net,combined_net,baseline_ns,combined_ns,delta_ns,beats_baseline_ns,addon_10r_hits,hit_rate_pct,combined_stress
+us30,US30,309,6322.9,1109.15,7432.05,0.59,0.688,0.098,True,1,0.3,-10807.3
+nas100,NAS100,310,923.0,813.2,1736.2,0.12,0.218,0.098,True,5,1.6,-7957.1
+nq,NQ,432,1330920.0,246048.8,1576968.8,19.4,22.539,3.139,True,1,0.2,-69965.2
+mnq,MNQ,428,128360.5,24227.02,152587.52,18.44,21.508,3.068,True,1,0.2,-7094.48

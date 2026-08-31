@@ -140,7 +140,7 @@ def units_from_live_fills(
     tp1_ts_by_trade: dict[str, str] = {}
     # "add" is a scale-in fill (DCA / pyramids) — must open a lot, not close one.
     # Multi-runner roles use runner_entry / runner_entry_2 / …
-    entry_reasons = {"entry", "runner_entry", "add", "retest_add", "bb_add"}
+    entry_reasons = {"entry", "runner_entry", "add", "retest_add", "bb_add", "sidecar_entry"}
 
     def _hard_stop(direction: str, entry_price: float) -> Optional[float]:
         if stop_pts is None:

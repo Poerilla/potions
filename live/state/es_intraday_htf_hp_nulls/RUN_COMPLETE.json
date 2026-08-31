@@ -1,0 +1,14 @@
+{
+  "ok": true,
+  "study": "futures_intraday_hp_sizeup_v1",
+  "n_placebo": 5000,
+  "n_shift": 1000,
+  "n_master": 500,
+  "extra": 0.25,
+  "stated_multiplier": 1.25,
+  "predeclared_2x": false,
+  "n_pairs": 11,
+  "n_validated": 0,
+  "seed": 20260812,
+  "hub": "/home/tester/hsm/potions/live/state/es_intraday_htf_hp_nulls"
+}

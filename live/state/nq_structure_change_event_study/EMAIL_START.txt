@@ -1,0 +1,12 @@
+potions: NQ structure-change atlas AUDIT RERUN STARTED
+
+Hub: /home/tester/hsm/potions/live/state/nq_structure_change_event_study
+Fixing:
+  - outcome directions (wick/reclaim opposite)
+  - dual R units (ATR + structural stop)
+  - session vs two-session window collapse
+  - nesting / control observability / example exports
+  - OUTCOME_DIRECTION_AND_R_UNIT_AUDIT.md
+
+Phase 5 + cross-market remain GATED until audit PASS + human review.
+Smoke check: PASS.

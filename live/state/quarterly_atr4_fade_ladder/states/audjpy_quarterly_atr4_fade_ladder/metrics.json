@@ -1,0 +1,20 @@
+{
+  "allowed_sides": [
+    "lower"
+  ],
+  "bars": 36022,
+  "closed_dd_usd": -9981188.764595915,
+  "intrabar_stress_dd_usd": -10817188.764595913,
+  "market": "AUDJPY",
+  "max_open_units": 10,
+  "net_over_stress": -0.09527804504885312,
+  "net_usd": -1030640.5984151172,
+  "path_id": "",
+  "profit_factor": 0.950690813462975,
+  "risk_atr_mult": 2.0,
+  "strategy_id": "audjpy_quarterly_atr4_fade_ladder",
+  "trade_mode": "first_only",
+  "trades": 36,
+  "units": 360,
+  "win_rate": 0.2833333333333333
+}

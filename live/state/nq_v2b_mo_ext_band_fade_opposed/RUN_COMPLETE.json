@@ -1,0 +1,21 @@
+{
+  "ok": true,
+  "dsr": "TRL-2026-00126",
+  "gate_mode": "opposed",
+  "metrics": {
+    "strategy_id": "nq_v2b_mo_ext_band_fade_opposed_S_1_1_3",
+    "book": "S_1_1_3",
+    "trades": 269,
+    "units": 1345,
+    "net_usd": 96677.5,
+    "stress_dd": -165508.5,
+    "close_dd": -164958.5,
+    "ns": 0.5841240782195476,
+    "win_rate_pct": 55.01858736059479,
+    "band_touches": 100,
+    "gate_sessions": 388,
+    "aligned_entries": 269,
+    "causality_violations": 0,
+    "regime_sessions": 1164
+  }
+}

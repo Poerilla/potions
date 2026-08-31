@@ -1,0 +1,4 @@
+market,path_id,trade_mode,allowed_sides,first_side_filter,n,wins,win_rate,risk_atr_mult,note,charts
+US30,first_lower,first_only,lower,lower,11,8,0.7272727272727273,0.5,global WR #1; MAE tattoo 0.32×ATR,11
+US30,second_after_upper,second_only,lower,upper,5,3,0.6,2.5,global WR #2; MAE tattoo 2.28×ATR,5
+GBPUSD,first_lower,first_only,lower,lower,53,31,0.5849056603773585,2.0,global WR #3; MAE tattoo 1.96×ATR,51

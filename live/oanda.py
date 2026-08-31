@@ -4,6 +4,7 @@ import csv
 import json
 import os
 import sys
+import time
 from dataclasses import dataclass, field, replace
 from datetime import datetime, timezone
 from pathlib import Path
@@ -969,6 +970,9 @@ class OandaBroker(BaseBroker):
         self._last_authority_sweep_at: float = 0.0
         self._pending_remote_snapshot: List[Dict[str, Any]] = []
         self._pending_gate_off_sweep_strategy_ids: Set[str] = set()
+        self._account_trades_cache: List[Dict[str, Any]] = []
+        self._account_trades_cache_at: float = 0.0
+        self._cross_book_cache_ttl_s: float = 30.0
 
     def display_precision_for(self, instrument: str) -> int:
         key = str(instrument or "").upper()
@@ -987,6 +991,7 @@ class OandaBroker(BaseBroker):
 
     def submit_order_intent(self, intent: OrderIntent) -> BrokerOrder:
         self._assert_routing_allowed(intent)
+        self._assert_cross_book_entry_allowed(intent)
         intent = replace(intent, status="submitted", updated_at=utc_now_iso())
         order = BrokerOrder.from_intent(intent)
         self._intents_cache[intent.intent_id] = intent
@@ -1109,32 +1114,132 @@ class OandaBroker(BaseBroker):
         return updated
 
     def cancel_order(self, broker_order_id: str, reason: str = "") -> BrokerOrder:
+        """Cancel remote first; only then commit local cancelled + schedule reconcile.
+
+        Local must not leave ``_active_order_ids`` until OANDA acks (or we prove
+        there is no remote rest). Otherwise gate-off creates orphan LIMITs that
+        keep filling on the shared practice account.
+        """
         order = self._get_order(broker_order_id)
         if order.status in {"filled", "cancelled"}:
             return order
+
+        remote_id = self._resolve_remote_order_id(broker_order_id)
+        self._emit_order_event(
+            {
+                "event": "cancel_requested",
+                "broker_order_id": broker_order_id,
+                "oanda_order_id": remote_id or "",
+                "reason": reason,
+                "strategy_id": order.strategy_id,
+                "instrument": order.instrument,
+                "order_type": order.order_type,
+                "bracket_role": order.bracket_role,
+            }
+        )
+
+        if self.client is not None:
+            if not remote_id:
+                remote_id = self._force_resolve_remote_order_id(broker_order_id)
+            if remote_id:
+                try:
+                    raw = self.client.cancel_order(remote_id)
+                    self._emit_order_event(
+                        {
+                            "event": "network_order_response",
+                            "action": "cancel",
+                            "phase": "remote_ack_before_local",
+                            "oanda_order_id": remote_id,
+                            "broker_order_id": broker_order_id,
+                            "reason": reason,
+                            "response": _jsonable(raw),
+                        }
+                    )
+                    self._oanda_order_ids.pop(broker_order_id, None)
+                except Exception as exc:
+                    self._emit_order_event(
+                        {
+                            "event": "network_order_error",
+                            "action": "cancel",
+                            "phase": "remote_before_local",
+                            "oanda_order_id": remote_id,
+                            "broker_order_id": broker_order_id,
+                            "reason": reason,
+                            "error": str(exc),
+                            "local_still_open": True,
+                        }
+                    )
+                    raise
+            else:
+                # Live client but no remote row after force resolve → never placed
+                # (or already gone). Safe to commit local-only cancel.
+                self._emit_order_event(
+                    {
+                        "event": "cancel_local_only_no_remote",
+                        "broker_order_id": broker_order_id,
+                        "reason": reason,
+                        "strategy_id": order.strategy_id,
+                    }
+                )
+
         updated = replace(order, status="cancelled", updated_at=utc_now_iso())
         self._orders_cache[updated.broker_order_id] = updated
         self._active_order_ids.pop(updated.broker_order_id, None)
         self.store.upsert_row("orders", "broker_order_id", as_row(updated))
-        remote_id = self._resolve_remote_order_id(broker_order_id)
-        self._emit_order_event({"event": "cancel", "oanda_order_id": remote_id, "reason": reason, **as_row(updated)})
-        if self.client is not None and remote_id:
-            try:
-                raw = self.client.cancel_order(remote_id)
-                self._emit_order_event({"event": "network_order_response", "action": "cancel", "response": raw})
-                self._oanda_order_ids.pop(broker_order_id, None)
-            except Exception as exc:
-                self._emit_order_event({"event": "network_order_error", "action": "cancel", "error": str(exc)})
-                raise
-        elif self.client is not None and not remote_id:
-            # Local cancel without a mapped remote id — still try clientExtensions.id on snapshot.
-            self._cancel_remote_by_client_id(broker_order_id, reason=reason or "cancel")
+        self._emit_order_event(
+            {
+                "event": "cancel",
+                "phase": "local_committed_after_remote",
+                "oanda_order_id": remote_id or "",
+                "reason": reason,
+                **as_row(updated),
+            }
+        )
+
         reason_l = str(reason or "").lower()
-        if any(token in reason_l for token in ("regime_off", "thesis_off", "year_end", "refresh_entry", "go_flat")):
+        if any(token in reason_l for token in ("regime_off", "thesis_off", "year_end", "refresh_entry", "go_flat", "in_position", "v2b_eod")):
             # Defer orphan sweep to the next authority timer / poll so a gate-off batch
             # of N local cancels does not issue N account_details fetches.
             self._pending_gate_off_sweep_strategy_ids.add(order.strategy_id)
         return updated
+
+    def _force_resolve_remote_order_id(self, broker_order_id: str) -> str:
+        """Refresh account pending orders once, then resolve clientExtensions.id map."""
+        rid = self._resolve_remote_order_id(broker_order_id)
+        if rid or self.client is None:
+            return rid
+        try:
+            body = self.client.account_details()
+            account = body.get("account") or body
+            if hasattr(account, "dict"):
+                account = account.dict()
+            raw_orders = []
+            for raw_order in account.get("orders") or []:
+                if hasattr(raw_order, "dict"):
+                    raw_order = raw_order.dict()
+                raw_orders.append(dict(raw_order))
+            self._ingest_remote_pending_orders(raw_orders)
+            self.last_transaction_id = str(
+                body.get("lastTransactionID") or account.get("lastTransactionID") or self.last_transaction_id
+            )
+            self._emit_order_event(
+                {
+                    "event": "cancel_force_resolve_remote",
+                    "broker_order_id": broker_order_id,
+                    "pending_n": len(raw_orders),
+                }
+            )
+        except Exception as exc:
+            self._emit_order_event(
+                {
+                    "event": "network_order_error",
+                    "action": "cancel_force_resolve",
+                    "broker_order_id": broker_order_id,
+                    "error": str(exc),
+                }
+            )
+            raise
+        return self._resolve_remote_order_id(broker_order_id)
 
     def reconcile_orders(self) -> List[BrokerOrder]:
         return [self._orders_cache[order_id] for order_id in self._active_order_ids if order_id in self._orders_cache]
@@ -1164,6 +1269,13 @@ class OandaBroker(BaseBroker):
             raw_orders.append(dict(raw_order))
             self.on_order_status(dict(raw_order, type="order_status"))
         self._ingest_remote_pending_orders(raw_orders)
+        trades_cache = []
+        for raw_trade in account.get("trades") or []:
+            if hasattr(raw_trade, "dict"):
+                raw_trade = raw_trade.dict()
+            trades_cache.append(dict(raw_trade))
+        self._account_trades_cache = trades_cache
+        self._account_trades_cache_at = time.time()
         self._rewrite_positions_from_account(account, reason="startup_reconcile")
         sweep = self.sweep_remote_order_authority(
             pending_orders=raw_orders,
@@ -1462,7 +1574,7 @@ class OandaBroker(BaseBroker):
                         }
                     )
 
-        # Mirror: cancel local working protective/entry-stop rows when flat.
+        # Mirror: cancel local working protective rows when flat — never intentional entry arms.
         for order_id, order in list(self._orders_cache.items()):
             if order_id not in self._active_order_ids:
                 continue
@@ -1472,7 +1584,12 @@ class OandaBroker(BaseBroker):
                 continue
             role = str(order.bracket_role or "").lower()
             otype = str(order.order_type or "").lower()
-            if role in {"entry", "stop", "wide_stop", "runner_stop", "tp1", "tp2", "target"} or otype == "stop":
+            if role in {"entry"}:
+                continue
+            if role in {"stop", "wide_stop", "runner_stop", "tp1", "tp2", "target", "sl", "protective_stop"} or otype in {
+                "stop_loss",
+                "take_profit",
+            }:
                 try:
                     self.cancel_order(order_id, reason=reason)
                     cancelled += 1
@@ -2114,6 +2231,101 @@ class OandaBroker(BaseBroker):
     def _emit_order_event(self, event: Dict[str, Any]) -> None:
         self.store.append_event("oanda_order_events", _jsonable(event))
 
+
+    def instrument_net_qty_from_account(self, account: Dict[str, Any], *, instrument: str) -> float:
+        """Net open units for ``instrument`` across all strategy tags (shared account)."""
+        inst = str(instrument or "").upper()
+        if not inst:
+            return 0.0
+        total = 0.0
+        for raw_trade in account.get("trades") or []:
+            if hasattr(raw_trade, "dict"):
+                raw_trade = raw_trade.dict()
+            raw_trade = dict(raw_trade)
+            trade_inst = self.config.internal_for(str(raw_trade.get("instrument") or "")).upper()
+            if trade_inst != inst:
+                continue
+            try:
+                total += float(raw_trade.get("currentUnits") or raw_trade.get("initialUnits") or 0)
+            except (TypeError, ValueError):
+                continue
+        return float(total)
+
+    def _refresh_account_trades_cache(self, *, force: bool = False) -> List[Dict[str, Any]]:
+        now = time.time()
+        if (
+            not force
+            and self._account_trades_cache_at
+            and (now - self._account_trades_cache_at) < self._cross_book_cache_ttl_s
+        ):
+            return list(self._account_trades_cache)
+        if self.client is None:
+            return list(self._account_trades_cache)
+        try:
+            body = self.client.account_details()
+            account = body.get("account") or body
+            if hasattr(account, "dict"):
+                account = account.dict()
+            trades = []
+            for raw in (account.get("trades") or []) if isinstance(account, dict) else []:
+                if hasattr(raw, "dict"):
+                    raw = raw.dict()
+                trades.append(dict(raw))
+            self._account_trades_cache = trades
+            self._account_trades_cache_at = now
+            if isinstance(account, dict):
+                # Keep pending snapshot warm for orphan sweeps.
+                pending = []
+                for raw_order in account.get("orders") or []:
+                    if hasattr(raw_order, "dict"):
+                        raw_order = raw_order.dict()
+                    pending.append(dict(raw_order))
+                self._pending_remote_snapshot = pending
+        except Exception as exc:
+            self._emit_order_event({"event": "cross_book_account_refresh_error", "error": str(exc)})
+        return list(self._account_trades_cache)
+
+    def _local_strategy_qty(self, *, strategy_id: str, instrument: str) -> float:
+        inst = str(instrument or "").upper()
+        sid = str(strategy_id or "").strip()
+        return sum(
+            float(p.quantity or 0.0)
+            for p in self._positions_cache.values()
+            if str(p.instrument or "").upper() == inst and str(p.strategy_id or "") in {sid, "oanda", ""}
+        )
+
+    def _assert_cross_book_entry_allowed(self, intent: OrderIntent) -> None:
+        """Block new non-reduce entries when another book already holds the instrument.
+
+        Shared practice account: ST+PMC 3r must not re-arm LIMITs while runners (or
+        any sibling) own NAS100/US30/etc. Always-on — independent of containment shadow.
+        """
+        if intent.reduce_only:
+            return
+        inst = str(intent.instrument or "").upper()
+        if not inst:
+            return
+        local_qty = self._local_strategy_qty(strategy_id=str(intent.strategy_id or ""), instrument=inst)
+        if abs(local_qty) > 1e-9:
+            return
+        trades = self._refresh_account_trades_cache()
+        account_qty = self.instrument_net_qty_from_account({"trades": trades}, instrument=inst)
+        if abs(account_qty) < 1e-9:
+            return
+        self._emit_order_event(
+            {
+                "event": "cross_book_entry_blocked",
+                "strategy_id": intent.strategy_id,
+                "instrument": inst,
+                "account_qty": account_qty,
+                "local_qty": local_qty,
+                "reason": intent.reason,
+                "bracket_role": intent.bracket_role,
+            }
+        )
+        raise OandaRoutingBlocked(
+            "cross_book_instrument_open: %s account_qty=%s local_qty=%s" % (inst, account_qty, local_qty)
+        )
 
     def _assert_routing_allowed(self, intent: OrderIntent) -> None:
         if self.supervisor is not None and not self.supervisor.entries_allowed(intent):

@@ -1,0 +1,112 @@
+{
+  "strategy_id": "nas100_primary_v1",
+  "campaigns": 53,
+  "units": 427,
+  "adds_filled": 268,
+  "unit_ledger_net": 24570.85000000024,
+  "init_units": 159,
+  "init_net": 7792.250000000019,
+  "add_units": 268,
+  "add_net": 16778.60000000022,
+  "add_share_of_net": 0.6828660791140745,
+  "concentration": {
+    "top_1_pct_of_net": 22.716552337424154,
+    "top_3_pct_of_net": 48.072614500515726,
+    "top_5_pct_of_net": 70.20839734889113,
+    "top_10_pct_of_net": 114.79558094245769
+  },
+  "rescued_by_adds": 1,
+  "hurt_by_adds": 2,
+  "max_adds_observed": 9,
+  "max_concurrent_units": 12,
+  "direction": {
+    "Long": {
+      "n": 30,
+      "net": 20440.900000000045
+    },
+    "Short": {
+      "n": 23,
+      "net": 4129.950000000193
+    }
+  },
+  "friday_closes": {
+    "n_close": 43,
+    "dow": {
+      "Friday": 38,
+      "Sunday": 5
+    },
+    "hour_hist": {
+      "13": 24,
+      "16": 14,
+      "18": 4,
+      "19": 1
+    }
+  },
+  "causality_violations": 0,
+  "feature_snapshots": 6023,
+  "issues": [],
+  "pass": true,
+  "baseline_ref": {
+    "strategy_id": "nas100_base_no_adds",
+    "market": "NAS100",
+    "run_id": "base_no_adds",
+    "label": "frozen base: week-1 half+EOW bull\u00d7hivol; no adds",
+    "feed_tf": "1m",
+    "signal_tf": "4h",
+    "bars_4h": 13767,
+    "bars_1m": 3077535,
+    "units": 159,
+    "trades": 53,
+    "adds_filled": 0,
+    "net_usd": 8030.750000000019,
+    "closed_dd_usd": -4088.399999999965,
+    "intrabar_stress_dd_usd": -4400.999999999967,
+    "win_rate": 0.6477987421383647,
+    "profit_factor": 1.8503547225751842,
+    "net_over_stress": 1.8247557373324423,
+    "max_open_units": 3,
+    "slippage_ticks": 1.0,
+    "fee_mult": 1.0,
+    "fee_per_unit": 1.5,
+    "point_value": 1.0,
+    "tick": 0.1,
+    "causality_mode": "strict",
+    "dsr_trial": "TRL-2026-00168",
+    "cfg": {
+      "atr_len": 14,
+      "atr_mult": 4.0,
+      "timeframe": "4h",
+      "max_trades_per_week": 0,
+      "record_levels": false,
+      "suppress_alerts": true,
+      "exit_mode": "scale_od_frac",
+      "entry_qty": 3,
+      "tp1_qty": 1,
+      "tp2_qty": 1,
+      "tp3_qty": 0,
+      "runner_qty": 1,
+      "tp1_od_mult": 0.5,
+      "tp2_od_mult": 1.0,
+      "tp3_od_mult": null,
+      "tp3_r_mult": null,
+      "runner_r_mult": null,
+      "stop_mode": "od_far",
+      "be_after": "tp2",
+      "hold_across_weeks": false,
+      "skip_candle_gt_od": false,
+      "skip_candle_gt_atr_room": false,
+      "require_bull_200dma": true,
+      "require_high_vol": true,
+      "ma_len": 200,
+      "vol_ret_days": 20,
+      "vol_median_lookback": 252,
+      "runner_od_mult": null,
+      "friday_flatten": true,
+      "allow_weeks_of_month": [
+        1
+      ]
+    },
+    "causality_violations": 0,
+    "feature_snapshots": 6023
+  }
+}

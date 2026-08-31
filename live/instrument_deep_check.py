@@ -39,10 +39,25 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 
+from .broker import DEFAULT_TICK_SIZE
 from .fx_v2b_london_ungated import JPY_USD, MARKETS, REPO, _usd_norm
+from .replay_audit import POINT_VALUES
 
 NY = "America/New_York"
 START_EQUITY = 100_000.0
+
+# Futures / CFD fees when symbol is not in the FX MARKETS table used for London books.
+_DEFAULT_FEE_PER_UNIT = {
+    "NQ": 1.50,
+    "MNQ": 1.50,
+    "ES": 1.50,
+    "MES": 1.50,
+    "YM": 1.50,
+    "MYM": 1.50,
+    "NAS100": 1.50,
+    "US30": 1.50,
+    "SPX500": 1.50,
+}
 
 
 @dataclass(frozen=True)
@@ -106,6 +121,38 @@ def _to_usd(series: pd.Series, quote: str) -> pd.Series:
     return series.astype(float)
 
 
+def _resolve_symbol(metrics: dict, state_root: Path) -> str:
+    raw = metrics.get("symbol") or metrics.get("market") or state_root.name.split("_")[0]
+    symbol = str(raw).upper()
+    if symbol not in MARKETS and symbol.lower() in {"eurusd", "gbpusd", "usdjpy", "audjpy"}:
+        symbol = symbol.upper()
+    return symbol
+
+
+def _resolve_market_economics(symbol: str, metrics: dict) -> Tuple[float, float, float, str]:
+    """Return (point_value, tick, fee_per_unit, quote).
+
+    Prefer FX MARKETS (London books), then replay_audit POINT_VALUES / broker ticks.
+    Never silently default futures to the FX $100k lot — that 5000×-inflates NQ.
+    """
+    market = MARKETS.get(symbol)
+    if market is not None:
+        return (
+            float(market.point_value),
+            float(market.tick),
+            float(market.fee_per_unit),
+            str(metrics.get("quote") or market.quote),
+        )
+    if symbol not in POINT_VALUES:
+        raise KeyError(
+            "No point_value for %s (not in FX MARKETS or replay_audit.POINT_VALUES)" % symbol
+        )
+    tick = float(DEFAULT_TICK_SIZE.get(symbol, metrics.get("tick") or 0.00001))
+    fee = float(metrics.get("fee_per_unit") or _DEFAULT_FEE_PER_UNIT.get(symbol, 7.0))
+    quote = str(metrics.get("quote") or "USD")
+    return float(POINT_VALUES[symbol]), tick, fee, quote
+
+
 def _resolve_paths(
     state_root: Path,
     output_root: Optional[Path],
@@ -114,11 +161,8 @@ def _resolve_paths(
     state_root = state_root.resolve()
     metrics_path = state_root / "metrics.json"
     metrics = json.loads(metrics_path.read_text(encoding="utf-8")) if metrics_path.exists() else {}
-    symbol = str(metrics.get("symbol") or state_root.name.split("_")[0]).upper()
-    if symbol not in MARKETS and symbol.lower() in {"eurusd", "gbpusd", "usdjpy", "audjpy"}:
-        symbol = symbol.upper()
-    market = MARKETS.get(symbol)
-    quote = str(metrics.get("quote") or (market.quote if market else "USD"))
+    symbol = _resolve_symbol(metrics, state_root)
+    point_value, tick, fee_per_unit, quote = _resolve_market_economics(symbol, metrics)
     strategy_id = str(metrics.get("strategy_id") or state_root.name)
     hub = state_root.parent.parent if state_root.parent.name == "states" else state_root.parent
     out = output_root or (hub / "deep_check" / strategy_id)
@@ -137,9 +181,9 @@ def _resolve_paths(
         trades_csv=state_root / "trades.csv" if (state_root / "trades.csv").exists() else None,
         metrics=metrics_path if metrics_path.exists() else None,
         daily=daily if daily.exists() else None,
-        point_value=float(market.point_value) if market else 100_000.0,
-        tick=float(market.tick) if market else 0.00001,
-        fee_per_unit=float(market.fee_per_unit) if market else 7.0,
+        point_value=point_value,
+        tick=tick,
+        fee_per_unit=fee_per_unit,
     )
 
 
@@ -149,27 +193,44 @@ def load_campaigns_from_fills(paths: BookPaths) -> pd.DataFrame:
     fills["ts"] = pd.to_datetime(fills["ts"], utc=True).dt.tz_convert(NY)
     fills["price"] = pd.to_numeric(fills["price"], errors="coerce")
     fills["quantity"] = pd.to_numeric(fills["quantity"], errors="coerce").fillna(1).astype(int)
+    entry_reasons = {"entry", "runner_entry", "add"}
     rows = []
     for trade_id, group in fills.sort_values("ts").groupby("trade_id"):
-        entries = group[group["reason"].astype(str) == "entry"]
-        exits = group[group["reason"].astype(str) != "entry"]
+        # Prefer side for pyramid books (adds are buys, not exits).
+        buys = group[group["side"].astype(str).str.lower() == "buy"]
+        sells = group[group["side"].astype(str).str.lower() == "sell"]
+        if buys.empty and sells.empty:
+            # Legacy fallback: reason tags
+            entries = group[group["reason"].astype(str).isin(entry_reasons)]
+            exits = group[~group["reason"].astype(str).isin(entry_reasons)]
+        else:
+            entries = buys
+            exits = sells
         if entries.empty or exits.empty:
             continue
         entry = entries.iloc[0]
         side = "long" if str(entry["side"]).lower() == "buy" else "short"
         entry_px = float(entry["price"])
+        # Cost-basis PnL across all entry units vs their share of exits is approximate
+        # when sizes pyramid; prefer unit_trades overlay when available.
         net_native = 0.0
         exit_reasons: List[str] = []
+        remaining_entry_qty = int(entries["quantity"].sum())
+        # Match sell qty against average entry for fill-only path
+        avg_entry = float((entries["price"] * entries["quantity"]).sum() / max(1, entries["quantity"].sum()))
         for _idx, exit_row in exits.iterrows():
             qty = int(exit_row["quantity"])
             px = float(exit_row["price"])
-            pts = px - entry_px if side == "long" else entry_px - px
+            pts = px - avg_entry if side == "long" else avg_entry - px
             net_native += pts * paths.point_value * qty - paths.fee_per_unit * qty
+            # Fee on entry side too (open + close)
             exit_reasons.append(str(exit_row["reason"]))
+        # Entry fees
+        net_native -= paths.fee_per_unit * float(entries["quantity"].sum())
         reason_set = sorted(set(exit_reasons))
-        stop_tags = {"wide_stop", "stop", "runner_stop", "be_stop"}
+        stop_tags = {"wide_stop", "stop", "runner_stop", "be_stop", "trail_stop", "boundary_stop"}
         full_sl = bool(reason_set) and all(r in stop_tags or r.endswith("_stop") for r in reason_set) and (
-            "wide_stop" in reason_set or "stop" in reason_set
+            "wide_stop" in reason_set or "stop" in reason_set or "trail_stop" in reason_set
         )
         # Full initial SL: every exit is wide_stop / stop (no TP, no EOD, no runner/BE salvage).
         full_initial_sl = bool(reason_set) and set(reason_set).issubset({"wide_stop", "stop"})
@@ -182,10 +243,10 @@ def load_campaigns_from_fills(paths: BookPaths) -> pd.DataFrame:
                 "entry_ts": pd.Timestamp(entry["ts"]),
                 "exit_ts": pd.Timestamp(exits["ts"].max()),
                 "entry_price": entry_px,
-                "entry_qty": int(entry["quantity"]),
+                "entry_qty": int(entries["quantity"].sum()),
                 "net_usd": float(_usd_norm(net_native, paths.quote)),
                 "exit_reasons": ",".join(reason_set),
-                "hit_tp": any(r.startswith("tp") for r in reason_set),
+                "hit_tp": any(r.startswith("tp") or r == "target" for r in reason_set),
                 "eod_close": any(r in {"eod_close", "eod"} for r in reason_set),
                 "full_initial_sl": full_initial_sl,
                 "any_stop_exit": any(r in stop_tags or "stop" in r for r in reason_set),
@@ -230,9 +291,32 @@ def load_campaigns_from_trades_csv(paths: BookPaths) -> pd.DataFrame:
     return pd.DataFrame(rows).sort_values("entry_ts").reset_index(drop=True)
 
 
+def _overlay_unit_trade_pnl(campaigns: pd.DataFrame, paths: BookPaths) -> pd.DataFrame:
+    """Replace fill-recomputed $ with broker unit_trades nets (authoritative)."""
+    assert paths.unit_trades is not None
+    ut = pd.read_csv(paths.unit_trades)
+    if "net_usd" not in ut.columns or "trade_id" not in ut.columns:
+        return campaigns
+    ut["net_usd"] = _to_usd(pd.to_numeric(ut["net_usd"], errors="coerce").fillna(0.0), paths.quote)
+    by_trade = ut.groupby(ut["trade_id"].astype(str))["net_usd"].sum()
+    out = campaigns.copy()
+    mapped = out["trade_id"].astype(str).map(by_trade)
+    if mapped.isna().any():
+        missing = out.loc[mapped.isna(), "trade_id"].astype(str).unique().tolist()
+        raise ValueError(
+            "unit_trades missing net for trade_id(s): %s (refusing fill-recomputed $)"
+            % ", ".join(missing[:8])
+        )
+    out["net_usd"] = mapped.astype(float)
+    return out
+
+
 def load_campaigns(paths: BookPaths) -> pd.DataFrame:
     if paths.fills is not None:
-        return load_campaigns_from_fills(paths)
+        campaigns = load_campaigns_from_fills(paths)
+        if paths.unit_trades is not None:
+            return _overlay_unit_trade_pnl(campaigns, paths)
+        return campaigns
     if paths.trades_csv is not None:
         return load_campaigns_from_trades_csv(paths)
     raise FileNotFoundError("Need fills.csv or trades.csv under %s" % paths.state_root)
@@ -350,9 +434,12 @@ def add_range_width(campaigns: pd.DataFrame, paths: BookPaths) -> pd.DataFrame:
 
 def add_quartiles(df: pd.DataFrame, col: str, out_col: str) -> None:
     valid = pd.to_numeric(df[col], errors="coerce")
+    if valid.notna().sum() < 4:
+        df[out_col] = ""
+        return
     try:
         df[out_col] = pd.qcut(valid, 4, labels=["Q1 low", "Q2", "Q3", "Q4 high"], duplicates="drop")
-    except ValueError:
+    except (ValueError, IndexError):
         df[out_col] = ""
 
 
@@ -965,6 +1052,62 @@ def run_deep_check(
         paths, campaigns, yearly, rolling, unit_contrib, stop_audit, recovery, quartiles, timing, prior_opposed
     )
     text, html_body = write_email_bodies(paths, yearly, timing, campaigns)
+
+    try:
+        from .run_ledger import log_run, metrics_from_yearly_csv
+
+        total_net = float(campaigns["net_usd"].sum()) if "net_usd" in campaigns.columns else 0.0
+        yearly_path = paths.output_root / "yearly_breakdown.csv"
+        ymetrics = metrics_from_yearly_csv(yearly_path)
+        # Whole-book stress proxy: sum of |year stress| or campaign closed DD.
+        stress = 0.0
+        if "stress_dd_usd" in yearly.columns and not yearly.empty:
+            stress = -float(yearly["stress_dd_usd"].abs().sum())
+        close_dd = None
+        if "closed_dd_usd" in campaigns.columns and not campaigns.empty:
+            close_dd = -float(campaigns["closed_dd_usd"].abs().max())
+        ns = (total_net / abs(stress)) if abs(stress) > 1e-12 else 0.0
+        instrument = ""
+        parent_slug = ""
+        metrics_json = paths.state_root / "metrics.json"
+        if metrics_json.exists():
+            try:
+                mj = json.loads(metrics_json.read_text())
+                instrument = str(mj.get("instrument") or "")
+                parent_slug = str(mj.get("variant_slug") or mj.get("strategy_id") or "")
+            except Exception:
+                instrument = ""
+        if not instrument:
+            # Heuristic from state root name / parent hub.
+            instrument = str(paths.label or "").split()[0].upper() if paths.label else ""
+        log_run(
+            run_class="deep_check",
+            variant_slug=str(paths.output_root.name),
+            instrument=instrument,
+            hub_path=paths.output_root,
+            engine="deep_check",
+            parent_run_id="",
+            net_usd=total_net,
+            stress_dd_usd=stress,
+            close_mtm_dd_usd=close_dd,
+            ns=ns,
+            trades=int(len(campaigns)),
+            yearly_csv_path=yearly_path,
+            equity_curve_path=paths.equity_curve,
+            meta={
+                "state_root": str(paths.state_root),
+                "parent_variant_slug": parent_slug or paths.state_root.name,
+                "label": paths.label,
+                "prior_opposed": bool(prior_opposed),
+                "full_initial_sl_pct": timing.get("pct_full_initial_sl"),
+                "n_years": ymetrics.get("n_years"),
+                "avg_yearly_ns": ymetrics.get("avg_yearly_ns"),
+            },
+            notes="instrument_deep_check",
+            **{k: v for k, v in ymetrics.items() if k.startswith("avg_yearly") or k == "n_years"},
+        )
+    except Exception as exc:
+        print("run_ledger skip: %s" % exc, flush=True)
 
     if email:
         from .notify_email import send_email

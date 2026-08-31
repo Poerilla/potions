@@ -239,7 +239,7 @@ def units_from_v2b_fills(path: Path, candidate: str) -> List[Unit]:
         price = float(row.get("price") or 0.0)
         reason = row.get("reason", "")
         trade_id = row.get("trade_id") or candidate
-        if reason == "entry":
+        if reason in {"entry", "add", "time_add"}:
             direction = "Long" if side == "buy" else "Short"
             lots = open_lots.setdefault(trade_id, [])
             for _ in range(qty):

@@ -1,0 +1,21 @@
+{
+  "bars_1m": 3077535,
+  "bars_4h": 13767,
+  "closed_dd_usd": -8742.300000000123,
+  "dsr_trial": "TRL-2026-00165",
+  "feed_tf": "1m",
+  "intrabar_stress_dd_usd": -8889.500000000127,
+  "label": "1@0.5\u00d7OD + 1@1\u00d7OD (BE) + 1@3\u00d7OD runner; bull\u00d7hivol",
+  "market": "NAS100",
+  "max_open_units": 3,
+  "net_over_stress": 1.3811519208054286,
+  "net_usd": 12277.750000000033,
+  "profit_factor": 1.3240375403471645,
+  "signal_tf": "4h",
+  "stance": "weak \u2014 needs tune",
+  "strategy_id": "nas100_wod_od_half_3r_bull_hivol",
+  "trades": 202,
+  "units": 606,
+  "variant": "od_half_3r_bull_hivol",
+  "win_rate": 0.5676567656765676
+}

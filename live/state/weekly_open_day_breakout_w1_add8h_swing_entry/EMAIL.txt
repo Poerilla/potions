@@ -1,0 +1,23 @@
+potions: swing 2×2 off-diagonal DONE (TRL-2026-00173)
+
+Config axis swing_before_regime added.
+- gated_pre: week gate at BO; swing may form before bull×hivol; arm when regime on
+- struct_post: structural BO; swing hunt starts only after bull×hivol on
+
+# Weekly OD swing 2×2 (NAS100)
+
+| Cell | Net | N/S | Trades | WR | Notes |
+|---|---:|---:|---:|---:|---|
+| swing_gated | $+2301 | 0.75 | 26 | 56.1% | gated BO; swing after regime |
+| swing_struct | $+4349 | 0.97 | 34 | 52.2% | struct BO; swing before regime |
+| swing_gated_pre | $+1391 | 0.25 | 29 | 53.0% | week@BO; swing before bull×hivol |
+| swing_struct_post | $+3379 | 1.13 | 26 | 56.5% | struct BO; swing only after regime |
+
+New charts: gated_pre=29  struct_post=26
+
+Paths:
+- `live/state/weekly_open_day_breakout_w1_trade_charts/nas100_swing_gated_pre/`
+- `live/state/weekly_open_day_breakout_w1_trade_charts/nas100_swing_struct_post/`
+
+Hub: `live/state/weekly_open_day_breakout_w1_add8h_swing_entry`
+DSR: TRL-2026-00173

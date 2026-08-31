@@ -2,6 +2,8 @@
 
 Markets: YM / MYM / NQ / MNQ. Same dual-runner rules as US30 runner hub.
 
+> **2026-08 completed-hour causality fix.** The shared hourly resampler is left-labeled, so a bar timestamped 11:00 contains 11:00-11:59 data. This replay shifts signal bars to the completed-hour timestamp before the strategy can consume them, and fills only on the 1m tape.
+
 ## Fill timing
 
 1h bars are **signal-only** (`broker_fills=False`); resting limits fill on the **1m** tape.
@@ -10,29 +12,18 @@ Markets: YM / MYM / NQ / MNQ. Same dual-runner rules as US30 runner hub.
 
 | market | variant | net | stress | N/S | units | WR% | max_open | EOY units | EOY by year |
 |---|---|---:|---:|---:|---:|---:|---:|---:|---|
-| `mnq` | `sl50_tp150_3r_1mfill` | $23171 | $-1195 | 19.38 | 342 | 42.7 | 1 | 0 | {} |
-| `mnq` | `sl50_tp150_runners_2r_10r` | $49899 | $-4953 | 10.07 | 627 | 24.2 | 3 | 0 | {} |
-| `mnq` | `sl50_tp150_runners_2r_indef` | $96683 | $-52542 | 1.84 | 987 | 56.4 | 45 | 6 | {"2023": 1, "2024": 4, "2025": 1} |
-| `mym` | `sl50_tp150_3r_1mfill` | $6516 | $-1366 | 4.77 | 496 | 40.3 | 1 | 0 | {} |
-| `mym` | `sl50_tp150_runners_2r_10r` | $20600 | $-4468 | 4.61 | 1020 | 24.2 | 3 | 0 | {} |
-| `mym` | `sl50_tp150_runners_2r_indef` | $53167 | $-31777 | 1.67 | 1448 | 59.0 | 46 | 13 | {"2020": 2, "2021": 2, "2024": 5, "2025": 3, "2026": 1} |
-| `nq` | `sl50_tp150_3r_1mfill` | $349517 | $-17038 | 20.51 | 679 | 38.3 | 1 | 0 | {} |
-| `nq` | `sl50_tp150_runners_2r_10r` | $775763 | $-58524 | 13.26 | 876 | 24.2 | 3 | 0 | {} |
-| `nq` | `sl50_tp150_runners_2r_indef` | $4573429 | $-1948591 | 2.35 | 1929 | 61.3 | 137 | 41 | {"2011": 7, "2014": 6, "2015": 3, "2018": 3, "2019": 2, "2020": 6, "2021": 8, "2023": 1, "2024": 4, "2025": 1} |
-| `ym` | `sl50_tp150_3r_1mfill` | $106425 | $-6026 | 17.66 | 985 | 36.8 | 1 | 0 | {} |
-| `ym` | `sl50_tp150_runners_2r_10r` | $313302 | $-21424 | 14.62 | 1734 | 22.2 | 3 | 0 | {} |
-| `ym` | `sl50_tp150_runners_2r_indef` | $970818 | $-715046 | 1.36 | 2857 | 59.0 | 108 | 28 | {"2011": 2, "2012": 2, "2014": 5, "2016": 2, "2017": 2, "2020": 2, "2021": 3, "2024": 8, "2025": 2} |
-
-
-## Rankability (2026-08-08)
-
-| Variant | Status |
-|---|---|
-| Fair 3R / max 1 | **Rankable** |
-| 2R→10R / max 3 | **Rankable** |
-| Indefinite (45–137 open) | **Not rankable** until lot-correct forced-flat — [`LOT_CORRECT_ACCOUNTING.md`](LOT_CORRECT_ACCOUNTING.md) |
-
-NQ indefinite legacy +$4.57M / N/S 2.35 is **invalid** (cross-trade FIFO). 3R and 2R→10R remain the real candidates.
+| `mnq` | `sl50_tp150_3r_1mfill` | $1995 | $-4809 | 0.41 | 606 | 26.6 | 1 | 0 | {} |
+| `mnq` | `sl50_tp150_runners_2r_10r` | $10938 | $-12752 | 0.86 | 1104 | 14.9 | 3 | 0 | {} |
+| `mnq` | `sl50_tp150_runners_2r_indef` | $3170 | $-43787 | 0.07 | 1818 | 14.7 | 56 | 8 | {"2023": 2, "2024": 4, "2025": 2} |
+| `mym` | `sl50_tp150_3r_1mfill` | $-1617 | $-2414 | -0.67 | 884 | 25.2 | 1 | 0 | {} |
+| `mym` | `sl50_tp150_runners_2r_10r` | $1961 | $-4871 | 0.40 | 1812 | 14.8 | 3 | 0 | {} |
+| `mym` | `sl50_tp150_runners_2r_indef` | $-445 | $-14955 | -0.03 | 2652 | 14.1 | 51 | 11 | {"2020": 1, "2023": 1, "2024": 5, "2025": 3, "2026": 1} |
+| `nq` | `sl50_tp150_3r_1mfill` | $27572 | $-59228 | 0.47 | 1128 | 26.0 | 1 | 0 | {} |
+| `nq` | `sl50_tp150_runners_2r_10r` | $259027 | $-154948 | 1.67 | 1509 | 14.9 | 3 | 0 | {} |
+| `nq` | `sl50_tp150_runners_2r_indef` | $149663 | $-1313831 | 0.11 | 3468 | 16.2 | 190 | 51 | {"2011": 12, "2012": 3, "2014": 5, "2015": 3, "2017": 3, "2018": 3, "2019": 2, "2020": 4, "2021": 8, "2023": 2, "2024": 4, "2025": 2} |
+| `ym` | `sl50_tp150_3r_1mfill` | $-33986 | $-44938 | -0.76 | 1762 | 24.0 | 1 | 0 | {} |
+| `ym` | `sl50_tp150_runners_2r_10r` | $17436 | $-62550 | 0.28 | 3063 | 13.8 | 3 | 0 | {} |
+| `ym` | `sl50_tp150_runners_2r_indef` | $-64974 | $-436359 | -0.15 | 5301 | 13.9 | 143 | 25 | {"2011": 4, "2012": 2, "2014": 3, "2016": 2, "2017": 2, "2020": 1, "2021": 1, "2023": 1, "2024": 7, "2025": 2} |
 
 ## Risk accounting
 

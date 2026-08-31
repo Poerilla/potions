@@ -1,0 +1,9 @@
+NQ first-hour broker-like variants complete
+Hub: /home/tester/hsm/potions/live/state/nq_1h_first_hour_broker_variants
+
+baseline_open_3xbody: trades=3943 WR=37.2% net=$+176743 N/S=5.57 | fills entry=4028 stop=2143 tp=518 eod=1296
+halfbody_sl_3r: trades=3952 WR=30.4% net=$+118693 N/S=4.74 | fills entry=3976 stop=2663 tp=769 eod=526
+retrace72_extreme_3r: trades=2625 WR=33.3% net=$+29919 N/S=0.33 | fills entry=2670 stop=1564 tp=357 eod=720
+body75_ladder_1r2r3r: trades=3958 WR=40.4% net=$+360597 N/S=3.95 | fills entry=3976 stop=2391 tp=3375 eod=924
+
+Stance: compare to diagnostic; promote only if N/S holds.

@@ -1,0 +1,20 @@
+{
+  "strategy_id": "xauusd_ny_liquidity_grab_london_1lot",
+  "symbol": "XAUUSD",
+  "family": "metal",
+  "quote": "USD",
+  "entry_qty": 1,
+  "tp_r_mult": 1.0,
+  "regime_days": 1929,
+  "start": "2015-01-02",
+  "units": 1108,
+  "trades": 1108,
+  "net_usd": -115725.10000000148,
+  "closed_dd_usd": -120700.80000000155,
+  "stress_dd_usd": -120832.80000000152,
+  "net_over_stress": -0.9577291927357474,
+  "win_rate": 49.277978339350184,
+  "profit_factor": 0.7228300648585441,
+  "max_open_units": 1,
+  "state_root": "live/state/fx_ny_liquidity_grab_london/states/xauusd_ny_liquidity_grab_london_1lot"
+}

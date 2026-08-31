@@ -1,0 +1,23 @@
+potions: deep-check NAS100 trail06_m4_e2_out_be 1mfill (brl_21741b260a28)
+
+Hub: /home/tester/hsm/potions/live/state/nas100_v2b_clean_break_trail06_m4_e2_out_be_1mfill_validation/deep_check/nas100_v2b_clean_break_trail06_m4_e2_out_be_1mfill
+State: /home/tester/hsm/potions/live/state/nas100_v2b_clean_break_trail06_m4_e2_out_be_1mfill_validation/states/nas100_v2b_clean_break_trail06_m4_e2_out_be_1mfill
+Net=$12252.95  trades=1166  full_SL=0 (0.0%)  hit_TP=8.8%  EOD=4.4%
+
+Year | net | stress | N/S | ret on start eq
+2016 | $-140.55 | $-166.55 | -0.84 | -0.14%
+2017 | $-90.70 | $-444.45 | -0.20 | -0.09%
+2018 | $-234.10 | $-755.50 | -0.31 | -0.23%
+2019 | $1060.25 | $-360.45 | 2.94 | +1.07%
+2020 | $1393.30 | $-1116.30 | 1.25 | +1.39%
+2021 | $2539.90 | $-983.80 | 2.58 | +2.49%
+2022 | $2496.80 | $-1322.45 | 1.89 | +2.39%
+2023 | $1274.70 | $-1503.60 | 0.85 | +1.19%
+2024 | $1642.05 | $-1462.55 | 1.12 | +1.52%
+2025 | $2311.30 | $-1890.75 | 1.22 | +2.10%
+
+Weakest N/S year: 2016 ($-140.55 net, N/S=-0.84)
+
+End equity if $100k at year-1 start: $112252.95
+
+See YEARLY.md + ROBUSTNESS_AUDIT.md in hub.

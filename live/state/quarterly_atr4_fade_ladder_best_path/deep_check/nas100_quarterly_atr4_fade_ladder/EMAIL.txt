@@ -1,0 +1,20 @@
+potions: deep-check NAS100 best-path first_lower
+
+Hub: /home/tester/hsm/potions/live/state/quarterly_atr4_fade_ladder_best_path/deep_check/nas100_quarterly_atr4_fade_ladder
+State: /home/tester/hsm/potions/live/state/quarterly_atr4_fade_ladder_best_path/states/nas100_quarterly_atr4_fade_ladder
+Net=$33127.04  trades=9  full_SL=3 (33.3%)  hit_TP=66.7%  EOD=0.0%
+
+Year | net | stress | N/S | ret on start eq
+2017 | $-357.37 | $-357.37 | -1.00 | -0.36%
+2018 | $-236.83 | $-1516.00 | -0.16 | -0.24%
+2021 | $-911.08 | $-1132.00 | -0.80 | -0.92%
+2022 | $-2657.96 | $-3738.00 | -0.71 | -2.70%
+2023 | $7714.85 | $-1164.40 | 6.63 | +8.05%
+2024 | $3790.00 | $-3488.00 | 1.09 | +3.66%
+2025 | $25785.43 | $-5728.20 | 4.50 | +24.02%
+
+Weakest N/S year: 2017 ($-357.37 net, N/S=-1.00)
+
+End equity if $100k at year-1 start: $133127.04
+
+See YEARLY.md + ROBUSTNESS_AUDIT.md in hub.

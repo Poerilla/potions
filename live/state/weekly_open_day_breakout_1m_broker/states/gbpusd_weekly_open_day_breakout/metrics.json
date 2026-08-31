@@ -1,0 +1,19 @@
+{
+  "bars_1m": 1119409,
+  "bars_4h": 5116,
+  "closed_dd_usd": -57335.00000000955,
+  "dsr_trial": "TRL-2026-00161",
+  "feed_tf": "1m",
+  "intrabar_stress_dd_usd": -58027.00000000955,
+  "market": "GBPUSD",
+  "max_open_units": 4,
+  "net_over_stress": -0.6503696555052714,
+  "net_usd": -37739.000000010594,
+  "profit_factor": 0.8337181328703577,
+  "signal_tf": "4h",
+  "stance": "reject / thin",
+  "strategy_id": "gbpusd_weekly_open_day_breakout",
+  "trades": 190,
+  "units": 760,
+  "win_rate": 0.4855263157894737
+}

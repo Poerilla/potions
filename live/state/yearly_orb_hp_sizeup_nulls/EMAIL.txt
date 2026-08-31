@@ -1,0 +1,13 @@
+potions: matched-added-exposure suite complete
+hub: /home/tester/hsm/potions/live/state/yearly_orb_hp_sizeup_nulls
+
+- NOT VALIDATED | nq_yorb ma_stack=ma_mixed @1.25× hp26% incN/S=99.00 p_plac=0.673
+- NOT VALIDATED | nq_yorb ma_align=ma_mixed @1.25× hp26% incN/S=99.00 p_plac=0.673
+- NOT VALIDATED | es_yorb atr_pct_bucket=atr_pctl_q4 @1.25× hp30% incN/S=67.11 p_plac=0.662
+- NOT VALIDATED | es_yorb side=short @1.25× hp26% incN/S=11.98 p_plac=1.000
+- NOT VALIDATED | ym_yorb side=short @1.25× hp21% incN/S=99.00 p_plac=1.000
+- NOT VALIDATED | ym_yorb atr_pct_bucket=atr_pctl_q4 @1.25× hp23% incN/S=41.30 p_plac=0.328
+
+Stance: no SIZE-UP VALIDATED / PROVISIONAL PAPER pairs this run — research / risk-budget only.
+
+/home/tester/hsm/potions/live/state/yearly_orb_hp_sizeup_nulls/SUMMARY.md

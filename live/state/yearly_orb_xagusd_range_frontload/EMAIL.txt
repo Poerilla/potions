@@ -1,0 +1,16 @@
+potions: FX metals yearly ORB exit-variant sizing sweep complete
+
+Hub: live/state/yearly_orb_xagusd_range_frontload
+Scenario set: xag_range_frontload (17 result rows across XAGUSD)
+Exit modes:
+- range_close: flatten when close back inside YOR (causal next-bar open)
+- mid_close: long flatten when close ≤ YOR mid; short when close ≥ mid
+- inside_swing_take: no range/mid flatten; SL trails to latest inside-range swing
+Rank by Net/Stress. AUDJPY ~USD @110.
+
+Best per market:
+
+XAGUSD: limit_retest 6/2/1 (6/2/1 exit=range_close) N/S=1.37 net=$85,744.00 stress=$-62,650.50
+  vs L_1_1_1 N/S=0.66 (Δ +0.70)
+
+Stance: research / not promotion-safe until PnL attribution + causal audits on leaders. Prefer N/S over max-net; check swing vs mid vs range close sources.

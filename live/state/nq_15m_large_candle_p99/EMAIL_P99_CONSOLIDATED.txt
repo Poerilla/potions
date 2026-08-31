@@ -1,0 +1,29 @@
+potions: NQ 15m + first-hour p99 (fallback p95) complete
+
+Same 3R follow contract as p90. Primary sleeve p99; fallback p95 if p99 days <8% or events <80.
+
+=== 15m (kept p99) ===
+Hub: live/state/nq_15m_large_candle_p99
+  p99 days 1432/3986 (36%), bars=5051
+  follow 3R p99  n=2290 WR=34.5% net=$89.5k N/S=1.52   (p90 was WR 29.2% N/S 2.96)
+  follow 3R p95  n=6738 WR=31.1% net=$201k  N/S=4.46   << best 15m N/S
+  ATR-norm p99   n=992  WR=39.0% net=$88k   N/S=3.61
+  hour 15 p99 WR=51.2% n=86
+  217 charts
+
+=== 15m HA mill ===
+Hub: live/state/nq_15m_large_candle_ha_p99
+  fade/1R still lose
+  during-PO fade-ST 3R n=71 WR=52.1% N/S=4.67  (p90 analogue n=574 WR 34.1% N/S 7.41)
+
+=== First hour (p99 too rare → p95) ===
+Hub: live/state/nq_1h_first_hour_ha_p99
+  p99 5.9% of days n=238 follow-3R WR=43.7% N/S=0.20  (insufficient)
+  p95 n=879 follow-3R WR=43.8% N/S=2.56  (p90 was WR 43.6% N/S 6.64)
+  fade still dies; all first-hour follow-3R still N/S 9.32
+  154 charts
+
+Stance: research only — do not promote. 15m p99 lifts WR vs p90 but N/S is worse;
+15m p95 is the better economic tail. First-hour p99 is too thin; p95 keeps WR
+but loses N/S vs p90. Unconditional follow of every first hour remains the
+strongest 1h book.

@@ -1,0 +1,20 @@
+potions: fx_v2b_london_4h_or complete
+
+London 4h OR 03:00–07:00 NY → arm after 07:00 → flatten 11:59; max_campaigns=2 (re-entry).
+Compare vs 15m / 2h London hubs.
+
+Top by N/S:
+  US30 S_1_1_1  N/S=1.57  net≈$22708  trades=1355
+  US30 S_1_1_3  N/S=1.34  net≈$34854  trades=1354
+  NAS100 S_1_1_3  N/S=-0.10  net≈$-1676  trades=1523
+  XAUUSD S_1_1_1  N/S=-0.11  net≈$-13404  trades=2326
+  NAS100 S_1_1_1  N/S=-0.16  net≈$-1598  trades=1524
+  XAUUSD S_1_1_3  N/S=-0.16  net≈$-33130  trades=2324
+  USDJPY S_1_1_3  N/S=-0.65  net≈$-55964  trades=1960
+  USDJPY S_1_1_1  N/S=-0.70  net≈$-40097  trades=1963
+  XAGUSD S_1_1_1  N/S=-0.77  net≈$-105401  trades=1819
+  XAGUSD S_1_1_3  N/S=-0.79  net≈$-181389  trades=1819
+  GBPUSD S_1_1_3  N/S=-0.82  net≈$-124371  trades=2263
+  GBPUSD S_1_1_1  N/S=-0.87  net≈$-88279  trades=2268
+
+Hub: live/state/fx_v2b_london_4h_or

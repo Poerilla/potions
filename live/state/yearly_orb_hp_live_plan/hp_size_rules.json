@@ -1,0 +1,38 @@
+{
+  "study": "yearly_orb_hp_sizeup_v1",
+  "pairs": [
+    {
+      "book": "nq_yorb",
+      "condition": "ma_stack",
+      "bucket": "ma_mixed"
+    },
+    {
+      "book": "nq_yorb",
+      "condition": "ma_align",
+      "bucket": "ma_mixed"
+    },
+    {
+      "book": "es_yorb",
+      "condition": "atr_pct_bucket",
+      "bucket": "atr_pctl_q4"
+    },
+    {
+      "book": "es_yorb",
+      "condition": "side",
+      "bucket": "short"
+    },
+    {
+      "book": "ym_yorb",
+      "condition": "side",
+      "bucket": "short"
+    },
+    {
+      "book": "ym_yorb",
+      "condition": "atr_pct_bucket",
+      "bucket": "atr_pctl_q4"
+    }
+  ],
+  "tier_a_1_25": [],
+  "tier_b_1_25": [],
+  "provisional_2x": []
+}

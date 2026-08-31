@@ -1,0 +1,32 @@
+potions: NQ 15m large-candle HA complete (p99/p95)
+
+Hub: /home/tester/hsm/potions/live/state/nq_15m_large_candle_ha_p99
+PO book: nq_prior_opposed_rl (432 campaigns)
+
+Core books:
+  follow 3R p99  n=2290 WR=34% net=$89540 N/S=1.52
+  fade 3R p99  n=2338 WR=31% net=$-78997 N/S=-0.64
+  follow 1R p99  n=2798 WR=47% net=$-37167 N/S=-0.34
+  fade 1R p99  n=2798 WR=44% net=$-140587 N/S=-0.98
+  follow 3R p95  n=6738 WR=31% net=$200863 N/S=4.46
+  fade 3R p95  n=6913 WR=30% net=$-101904 N/S=-0.72
+
+HP regime sleeves:
+  during fade-ST 3R  n=71 WR=52% net=$60564 N/S=4.67
+  during fade-ST 1R  n=73 WR=58% net=$20130 N/S=1.70
+  during any fade 1R  n=152 WR=51% net=$28507 N/S=2.05
+  after follow-ST 3R  n=34 WR=38% net=$2269 N/S=0.29
+  after follow-ST 1R  n=36 WR=44% net=$-3039 N/S=-0.44
+  after-loss follow-ST 1R  n=27 WR=44% net=$-3240 N/S=-0.47
+  after-win fade-ST 1R  n=9 WR=33% net=$-1128 N/S=-0.20
+
+Top notables:
+  follow_3r  Entry hour (NY)=15 n=86 WRlift=+16.7pp avglift=$+335
+  fade_3r  Large-candle vs PO side=candle_against_po n=53 WRlift=+20.1pp avglift=$+613
+  follow_1r  Entry hour (NY)=13 n=198 WRlift=+8.5pp avglift=$+297
+  fade_1r  PO regime=during_counter_with_po n=43 WRlift=+21.4pp avglift=$+652
+  follow_3r_lo  Entry hour (NY)=15 n=289 WRlift=+9.4pp avglift=$+48
+  fade_3r_lo  Overnight compression=on_comp n=1403 WRlift=+4.9pp avglift=$+40
+
+Stance: Curious diagnostic only. 1R fade WR 44% vs follow 47% (fair ~50%); 3R fade N/S -0.64 vs follow 1.52 (fair WR ~25%); during-PO fade-ST 1R n=73 WR=58% N/S=1.70; after-PO-loss continuation 1R n=27 WR=44% N/S=-0.47 Do not promote from this mill alone.
+

@@ -1,0 +1,13 @@
+potions: matched-added-exposure suite complete
+hub: /home/tester/hsm/potions/live/state/yearly_orb_hp_sizeup_nulls_2x_causal_close
+
+- NOT VALIDATED | nq_yorb week_of_month=2 @2.00× hp32% incN/S=34.32 p_plac=0.176
+- NOT VALIDATED | nq_yorb or_width_bucket=or_wide @2.00× hp29% incN/S=11.73 p_plac=1.000
+- NOT VALIDATED | es_yorb rsi_align=rsi_against_side @2.00× hp18% incN/S=2.33 p_plac=0.829
+- NOT VALIDATED | es_yorb quarter=Q4 @2.00× hp26% incN/S=1.86 p_plac=1.000
+- NOT VALIDATED | ym_yorb atr_pct_bucket=atr_pctl_q4 @2.00× hp23% incN/S=2.49 p_plac=0.262
+- NOT VALIDATED | ym_yorb prior_year_ret_bucket=prior_yr_mid @2.00× hp25% incN/S=18.06 p_plac=1.000
+
+Stance: no SIZE-UP VALIDATED / PROVISIONAL PAPER pairs this run — research / risk-budget only.
+
+/home/tester/hsm/potions/live/state/yearly_orb_hp_sizeup_nulls_2x_causal_close/SUMMARY.md

@@ -1,0 +1,34 @@
+potions: FX metals yearly ORB sizing sweep (causal next-bar close) complete
+
+Hub: live/state/yearly_orb_sizing_sweep_fx_metals_causal_close
+Cells: 19 × markets AUDJPY, XAGUSD, XAUUSD
+Causal fix: range-close / year-change market exits fill next daily open (live_after_ts=decision bar), not same-bar open lookahead.
+Rank by Net/Stress (currency-invariant). AUDJPY ~USD @110.
+
+Best per market:
+
+AUDJPY: limit_retest 4/2/1 + 20% range-close (4/2/1) N/S=-0.28 net=¥-6,295,787 stress=¥-22,659,354
+  baseline 1/1/1 N/S=-0.76 (Δ +0.48)
+XAGUSD: limit_retest 1/1/1 + 20% range-close (1/1/1) N/S=1.52 net=$62,674.75 stress=$-41,246.50
+  baseline 1/1/1 N/S=0.66 (Δ +0.85)
+XAUUSD: limit_retest 4/2/1 + 20% range-close (4/2/1) N/S=3.14 net=$521,978.40 stress=$-166,134.00
+  baseline 1/1/1 N/S=1.99 (Δ +1.15)
+
+Stance: compare front-heavy vs runner-heavy vs baseline; prefer N/S leaders over max-net alone. Treat as promotion-gated until causal-close N/S holds.
+
+vs prior same-bar-open-close hub (selected books):
+  XAUUSD L_4_2_1: N/S 15.32→1.86 net $1,037,711→$310,855
+  XAUUSD L_1_1_1: N/S 11.30→1.99 net $541,254→$216,047
+  XAUUSD L_4_2_1_rc20: N/S 5.74→3.14 net $662,746→$521,978
+  AUDJPY L_4_1_1: N/S 24.87→-0.51 net $420,156→$-105,630
+  XAGUSD L_5_2_1: N/S 8.58→1.33 net $301,376→$75,642
+
+
+
+## Causality note
+
+Range-close / year-change market exits now set `live_after_ts=decision_bar.ts`, so PaperBroker fills on the **next daily open** (not the completed bar's open).
+
+XAUUSD daily `2004-04-30` had corrupt `open=0/low=0`; repaired from clean 1m aggregate to `O 386.934 / H 390.345 / L 385.409 / C 386.136` (backup: `fx/xauusd_daily.csv.bak_pre_2004_04_30_repair`). Example L_4_2_1 campaign: short 7 @ 386.999 on 2004-04-29 → close 7 @ 386.944 on 2004-04-30 (next open + 1 tick) — scratch, not the old same-bar-open +$2k win.
+
+Stance: **not promotion-safe**. Prior FX/metals yearly ORB sweep N/S was inflated by same-bar-open close lookahead; AUDJPY flips negative under causal fills.

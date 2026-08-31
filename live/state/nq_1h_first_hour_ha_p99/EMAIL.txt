@@ -1,0 +1,40 @@
+potions: NQ first-hour 1h follow/fade HA complete (p99/p95)
+
+Hub: /home/tester/hsm/potions/live/state/nq_1h_first_hour_ha_p99
+PO book: nq_prior_opposed_rl (432 campaigns)
+
+Core books:
+  follow 3R all first-hour  n=3968 WR=38% net=$243008 N/S=9.32
+  fade 3R all first-hour  n=3968 WR=33% net=$-191912 N/S=-0.92
+  follow 1R all first-hour  n=3968 WR=50% net=$176438 N/S=7.62
+  fade 1R all first-hour  n=3968 WR=44% net=$-222012 N/S=-0.92
+  follow 3R p99 first-hour  n=238 WR=44% net=$7438 N/S=0.20
+  fade 3R p99 first-hour  n=238 WR=37% net=$-47222 N/S=-0.62
+  follow 1R p99 first-hour  n=238 WR=48% net=$3933 N/S=0.11
+  fade 1R p99 first-hour  n=238 WR=50% net=$-5647 N/S=-0.12
+  follow 3R p95 first-hour  n=879 WR=44% net=$86796 N/S=2.56
+  fade 3R p95 first-hour  n=879 WR=36% net=$-49368 N/S=-0.71
+  follow 1R p95 first-hour  n=879 WR=52% net=$60342 N/S=2.18
+  fade 1R p95 first-hour  n=879 WR=45% net=$-70758 N/S=-0.73
+
+HP regime sleeves:
+  during fade-ST 3R (p95)  n=4 WR=25% net=$-2021 N/S=-0.43
+  during fade-ST 1R (p95)  n=4 WR=75% net=$3594 N/S=3.00
+  during fade-ST 3R (all)  n=26 WR=23% net=$6126 N/S=1.66
+  during fade-ST 1R (all)  n=26 WR=42% net=$6491 N/S=3.14
+  after follow-ST 3R (p95)  n=3 WR=33% net=$-2914 N/S=-0.57
+  after follow-ST 1R (p95)  n=3 WR=33% net=$-4070 N/S=-0.79
+  after-loss follow-ST 1R (all)  n=20 WR=50% net=$-395 N/S=-0.07
+
+Top notables:
+  follow_3r_all  First-hour body conviction=strong n=1125 WRlift=+14.4pp avglift=$+72
+  fade_3r_all  First-hour close location=lower n=1246 WRlift=+3.8pp avglift=$+12
+  follow_1r_all  First-hour body conviction=strong n=1125 WRlift=+6.1pp avglift=$+85
+  fade_1r_all  First-hour body conviction=mid n=1486 WRlift=+4.5pp avglift=$+45
+  follow_3r_hi  Prior RTH range percentile=prior_range_norm n=40 WRlift=+21.3pp avglift=$+552
+  fade_3r_hi  Cross-index direction agreement=mixed n=43 WRlift=+13.8pp avglift=$+743
+  follow_3r_lo  First-hour body conviction=strong n=364 WRlift=+12.0pp avglift=$+120
+  fade_3r_lo  Month=9 n=69 WRlift=+10.0pp avglift=$+368
+
+Stance: Curious diagnostic only. 1R fade WR 44% vs follow 50% (fair ~50%); 3R fade N/S -0.92 vs follow 9.32 (fair WR ~25%); after-PO-loss continuation 1R n=20 WR=50% N/S=-0.07 Do not promote from this mill alone.
+

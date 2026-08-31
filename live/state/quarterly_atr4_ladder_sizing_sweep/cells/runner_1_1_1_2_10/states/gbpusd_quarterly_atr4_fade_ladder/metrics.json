@@ -1,0 +1,20 @@
+{
+  "allowed_sides": [
+    "lower"
+  ],
+  "bars": 36960,
+  "closed_dd_usd": -143550.00000000006,
+  "intrabar_stress_dd_usd": -157799.99999999994,
+  "market": "GBPUSD",
+  "max_open_units": 15,
+  "net_over_stress": 4.35531365743944,
+  "net_usd": 687268.4951439435,
+  "path_id": "",
+  "profit_factor": 2.601244483256267,
+  "risk_atr_mult": 2.0,
+  "strategy_id": "gbpusd_quarterly_atr4_fade_ladder",
+  "trade_mode": "first_only",
+  "trades": 51,
+  "units": 765,
+  "win_rate": 0.3437908496732026
+}

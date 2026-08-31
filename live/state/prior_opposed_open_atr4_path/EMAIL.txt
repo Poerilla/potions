@@ -1,0 +1,14 @@
+potions: prior-opposed open±4ATR 5m path study complete
+
+Hub: /home/tester/hsm/potions/live/state/prior_opposed_open_atr4_path
+5m non-HA; open ±4/±8 ATR on prior-opposed campaign days.
+
+Best path (exists=WR≥50% & n≥5):
+  NQ/resting_limit_S_1_1_3  first_upper  WR=31% (n=189)  exists=False  risk=1.00×ATR
+  MNQ/resting_limit_S_1_1_3  first_upper  WR=31% (n=188)  exists=False  risk=2.50×ATR
+  YM/resting_limit_S_1_1_3  first_upper  WR=34% (n=202)  exists=False  risk=2.00×ATR
+  MYM/resting_limit_S_1_1_3  first_upper  WR=34% (n=193)  exists=False  risk=2.00×ATR
+  US30/london_prior_opposed_S_1_1_3  first_upper  WR=37% (n=157)  exists=False  risk=1.00×ATR
+  NAS100/london_prior_opposed_S_1_1_3  first_upper  WR=41% (n=165)  exists=False  risk=2.50×ATR
+
+See SUMMARY.md / best_path.csv.

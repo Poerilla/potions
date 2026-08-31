@@ -1,0 +1,64 @@
+{
+  "broker_realism_config": {
+    "fee": 1.5,
+    "point_value": 20.0,
+    "slippage_ticks": 1.0,
+    "tick": 0.25
+  },
+  "causality_mode": "audit",
+  "command": [
+    "/home/tester/hsm/potions/live/nq_opening_candle_close_limit_hp_gates.py",
+    "--force",
+    "--email"
+  ],
+  "created_at": "2026-08-20T11:38:11Z",
+  "cwd": "/home/tester/hsm/potions",
+  "data_inputs": [
+    {
+      "bytes": 20945326,
+      "exists": true,
+      "path": "/home/tester/hsm/potions/nq/nq_5min_rth.csv",
+      "sha256": "0a3f1756e9b7752af2350ce52673e75ecd707a0a7187645f6cb9d1bdfac2a747"
+    },
+    {
+      "bytes": 4380835,
+      "exists": true,
+      "path": "/home/tester/hsm/potions/live/state/nq_opening_candle_close_limit/hp/campaigns.csv",
+      "sha256": "6722b9d1d30957d2f87905e28716971119d376d1e4b731ed3c183d87ad198def"
+    }
+  ],
+  "extra": {},
+  "git": {
+    "commit": "",
+    "dirty": false,
+    "repo_root": "/home/tester/hsm/potions/live/state/nq_opening_candle_close_limit/hp_gates",
+    "status_short": []
+  },
+  "outputs": [],
+  "python": {
+    "executable": "/home/tester/.pyenv/versions/3.8.0/bin/python",
+    "platform": "Linux-5.15.0-185-generic-x86_64-with-glibc2.34",
+    "version": "3.8.0 (default, Feb 11 2026, 11:18:58) \n[GCC 11.4.0]"
+  },
+  "run_id": "run_fec498fe00de",
+  "strategy_config": {
+    "books": [
+      "baseline_open1h_close_limit_3r",
+      "hp_strong_body",
+      "hp_trade_with_po",
+      "hp_during_counter_with_po",
+      "hp_fh_p90",
+      "hp_rsi_gt70"
+    ],
+    "rejects": [
+      "hp_rsi_gt70"
+    ],
+    "stance": "SURVIVE \u2014 4/5 HP gates clear N/S\u22652; best `hp_fh_p90` N/S 3.56",
+    "survivors": [
+      "hp_strong_body",
+      "hp_trade_with_po",
+      "hp_during_counter_with_po",
+      "hp_fh_p90"
+    ]
+  }
+}

@@ -1,0 +1,10 @@
+potions: NQ limit-retest 1h charts COMPLETE (fills-only pack)
+
+Hub: /home/tester/hsm/potions/live/state/nq_wick_reject_range_seed_1h_charts
+Source: /home/tester/hsm/potions/live/state/nq_wick_reject_range_seed_retest FILLED primary_limit_retest
+ALL fills: 67 (ok=67) causal_fail=0
+Holdout: 14 | Balanced-review: 12
+PNG total: 93 (12.7 MB)
+Window: entry −7d / +7d 1h candles.
+
+See CHART_SPEC.md + INDEX*.md + chart_manifest.csv.

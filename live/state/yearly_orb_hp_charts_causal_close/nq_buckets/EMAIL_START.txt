@@ -1,0 +1,8 @@
+potions: yearly_orb_nq_bucket_charts_causal_close STARTED
+
+Chart every NQ L_4_1_1 campaign in mixed MA stack / wide OR / ATR q4.
+Tape: causal next-open range-close (broker-like PaperBroker).
+PNG attachments, not zip; split emails if needed.
+Hub: /home/tester/hsm/potions/live/state/yearly_orb_hp_charts_causal_close/nq_buckets
+Fills: /home/tester/hsm/potions/live/state/yearly_orb_sizing_sweep_futures_causal_close/states/nq_yorb_sizing_L_4_1_1/fills.csv
+Campaigns: /home/tester/hsm/potions/live/state/yearly_daily_condition_profile_futures_causal_close/nq_yorb_campaigns.csv

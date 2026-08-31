@@ -1,0 +1,24 @@
+potions: ST+PMC live↔sim ROOT CAUSE
+
+VERDICT: Live OANDA demo order lifecycle — NOT the plugin gates.
+
+Plugin on same bars (PaperBroker): 0 post-start NAS100 3R entries; every Aug 11 hour = blocked (ST bear).
+Paper demo on same stream: also 0 post-start entries. Sim live_cfg: same.
+OANDA demo: 4 post-start "entries" that are zombie fills of Aug 9–10 resting limits.
+
+SMOKING GUN (NAS100 3R) — fill px ≈ old gate limit, order created day(s) earlier, gate blocked at fill time:
+- 16:25 fill 29533.2 ← ord created Aug10 04:00 lim 29534.75 (Δ−1.55)  trade t4
+- 17:12 fill 29500.0 ← ord created Aug10 00:00 lim 29500.38 (Δ−0.38)  trade t3
+- 18:29 fill 29459.5 ← ord created Aug09 22:01 lim 29459.66 (Δ−0.16)  trade t2
+Gate last allowed Aug10 12:00; blocked from Aug11 01:00 onward. Plugin correctly cancelled locally; OANDA left orphans (145 fill_unmatched vs 8 matched).
+
+WHY LIVE DEMO:
+1) OANDA routing keeps resting limits alive across ST refresh/block; replace/modify leaves siblings.
+2) Same practice account (-001) runs 3R + runners on same instrument → shared positions / cross timestamps (e.g. both books "entry" @ 02:46).
+3) Paper path OK: 1m PaperBroker fills + broker_fills=False on 1h (no zombies).
+
+US30 same disease: 5 filled entry orders (max_contracts=1), created Aug9–11, all filled while stacking to qty=5.
+
+STANCE: OANDA ST+PMC practice tape untrusted until resting-entry cancel/replace is fixed and 3R/runners are isolated per account (or one book per instrument). Paper demos are the fair control.
+
+Artifacts: live/state/_oanda_live_sim_reconcile/ + demo orders.csv / feature_snapshots.csv

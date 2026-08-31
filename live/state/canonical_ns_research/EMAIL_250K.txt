@@ -1,0 +1,33 @@
+INDIVIDUAL_250K_STANDALONE_RANKING + RESEARCH_EFFICIENCY
+
+hub: /home/tester/hsm/potions/live/state/canonical_ns_research
+policy: capital=$250,000 stress_budget=$25,000 max_MTM_DD=$37,500 max_margin=$125,000
+score=annualized_net_on_250k  tie_breaker=candidate_NS
+
+Verdict:
+  Best N/S research candidate: NQ nq_prior_opposed_rl Opening 15m range vs ATR=or_norm @2.00×  N/S=36.26  status=BORDERLINE PAPER
+  Best annualized $250k standalone (board #1): NQ nq_prior_opposed_rl Opening 15m range vs ATR=or_norm @2.00×  ann_net/yr=$181,219  ret=72.5%  years=5.00  inside_limits=True  status=BORDERLINE PAPER
+
+Top standalone (inside limits preferred):
+
+ 1. NQ      nq_prior_opposed_rl          @2.00×  ann/yr=$   181,219  N/S=36.26  yrs=5.0  DD%=10.0  marg%=4.2  [BORDERLINE PAPER]
+ 2. NQ      nq_prior_opposed_rl          @1.25×  ann/yr=$   143,704  N/S=28.75  yrs=5.0  DD%=10.0  marg%=4.3  [BORDERLINE PAPER]
+ 3. NQ      nq_prior_opposed_rl          @1.25×  ann/yr=$   137,671  N/S=27.55  yrs=5.0  DD%=10.0  marg%=4.2  [NOT VALIDATED]
+ 4. NQ      nq_prior_opposed_rl          @1.25×  ann/yr=$   123,362  N/S=24.68  yrs=5.0  DD%=10.0  marg%=3.7  [NOT VALIDATED]
+ 5. MNQ     MNQ/sl50_tp150_3r_1mfill     @1.00×  ann/yr=$    98,040  N/S=19.38  yrs=4.9  DD%=10.0  marg%=18.4  [BASELINE / FILTER RESEARCH]
+ 6. ES      es_prior_opposed_legacy      @2.00×  ann/yr=$    82,803  N/S=16.55  yrs=5.0  DD%=10.0  marg%=4.6  [NOT VALIDATED]
+ 7. ES      es_prior_opposed_legacy      @1.25×  ann/yr=$    68,552  N/S=13.70  yrs=5.0  DD%=10.0  marg%=4.9  [NOT VALIDATED]
+ 8. ES      es_prior_opposed_legacy      @1.25×  ann/yr=$    65,729  N/S=13.14  yrs=5.0  DD%=10.0  marg%=4.9  [NOT VALIDATED]
+
+Research efficiency top-5 (by candidate_NS):
+
+ 1. NQ      nq_prior_opposed_rl          @2.00×  N/S=36.26  ΔN/S=+12.20  [BORDERLINE PAPER]
+ 2. NQ      nq_prior_opposed_rl          @1.25×  N/S=28.75  ΔN/S=+4.70  [BORDERLINE PAPER]
+ 3. NQ      nq_st_pmc_3r                 @2.00×  N/S=28.57  ΔN/S=+7.10  [LADDER (prefer null-suite)]
+ 4. NQ      nq_prior_opposed_rl          @1.25×  N/S=27.55  ΔN/S=+3.49  [NOT VALIDATED]
+ 5. NQ      nq_st_pmc_3r                 @1.25×  N/S=24.75  ΔN/S=+3.27  [NOT VALIDATED]
+
+Artifacts:
+  /home/tester/hsm/potions/live/state/canonical_ns_research/INDIVIDUAL_250K_STANDALONE_RANKING.md
+  /home/tester/hsm/potions/live/state/canonical_ns_research/INDIVIDUAL_250K_RESEARCH_EFFICIENCY.md
+Leverage ladder emailed separately.

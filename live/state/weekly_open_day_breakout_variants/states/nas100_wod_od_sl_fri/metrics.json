@@ -1,0 +1,21 @@
+{
+  "bars_1m": 1064489,
+  "bars_4h": 4963,
+  "closed_dd_usd": -4970.45000000003,
+  "dsr_trial": "TRL-2026-00162",
+  "feed_tf": "1m",
+  "intrabar_stress_dd_usd": -5724.050000000028,
+  "label": "OD far SL + 2/1/1 Fri flatten (v3)",
+  "market": "NAS100",
+  "max_open_units": 4,
+  "net_over_stress": 4.032712851914478,
+  "net_usd": 23083.450000001183,
+  "profit_factor": 1.3825325737959846,
+  "signal_tf": "4h",
+  "stance": "research \u2014 interesting N/S",
+  "strategy_id": "nas100_wod_od_sl_fri",
+  "trades": 199,
+  "units": 796,
+  "variant": "od_sl_fri",
+  "win_rate": 0.5841708542713567
+}

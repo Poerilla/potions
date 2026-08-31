@@ -3,7 +3,7 @@
 | field | value |
 |---|---|
 | status | **COMPLETE** |
-| generated_at_utc | 2026-08-09T22:43:42+00:00 |
+| generated_at_utc | 2026-08-23T05:03:54+00:00 |
 | completed_required_jobs | 3 / 3 |
 | accounting_mode | lot-correct-preferred |
 | complete | True |
@@ -31,8 +31,8 @@ Rankable: **yes**
 
 | market | book | net | stress | N/S | units | max | EOY | label | source | reasons |
 |---|---|---:|---:|---:|---:|---:|---:|---|---|---|
-| us30 | 3R | $19.0k | -$647 | 29.39 | 578 | 1 | 0 | RETAIN | LOT_CORRECT_ACCOUNTING.csv | — |
-| us30 | 2R→10R | $56.1k | -$2.3k | 24.05 | 1086 | 3 | 0 | RETAIN | LOT_CORRECT_ACCOUNTING.csv | — |
+| us30 | 2R→10R | $13.3k | -$9.1k | 1.47 | 1908 | 3 | 0 | RETAIN | LOT_CORRECT_ACCOUNTING.csv | — |
+| us30 | 3R | -$982 | -$4.6k | -0.21 | 1017 | 1 | 0 | RETAIN | LOT_CORRECT_ACCOUNTING.csv | — |
 
 ## Tested / Not Promoted
 
@@ -40,8 +40,8 @@ Rankable: **no**
 
 | market | book | net | stress | N/S | units | max | EOY | label | source | reasons |
 |---|---|---:|---:|---:|---:|---:|---:|---|---|---|
-| us30 | 3R | $19.0k | -$647 | 29.39 | 578 | 1 | 0 | RETAIN | LOT_CORRECT_ACCOUNTING.csv | — |
-| us30 | 2R→10R | $56.1k | -$2.3k | 24.05 | 1086 | 3 | 0 | RETAIN | LOT_CORRECT_ACCOUNTING.csv | — |
+| us30 | 2R→10R | $13.3k | -$9.1k | 1.47 | 1908 | 3 | 0 | RETAIN | LOT_CORRECT_ACCOUNTING.csv | — |
+| us30 | 3R | -$982 | -$4.6k | -0.21 | 1017 | 1 | 0 | RETAIN | LOT_CORRECT_ACCOUNTING.csv | — |
 
 ## Pending / Non-Comparable
 
@@ -59,7 +59,7 @@ Forced-flat / reachable figures appear only from `LOT_CORRECT_ACCOUNTING.csv`. R
 
 | market | forced-flat | reachable stress | max inv | EOY | margin | MTM (sep) | hold med/p90 h | label | source |
 |---|---:|---:|---:|---:|---:|---:|---|---|---|
-| us30 | $80.2k | -$32.1k | 68 | 64 | $2359.9k | $80.3k | — | RESEARCH | LOT_CORRECT_ACCOUNTING.csv |
+| us30 | $9.2k | -$34.3k | 77 | 72 | $2569.7k | $9.3k | 1 / 27 | RESEARCH | LOT_CORRECT_ACCOUNTING.csv |
 
 ## Diagnostics
 

@@ -1,0 +1,17 @@
+{
+  "close_dd": -236680.0,
+  "equity_curve": "/home/tester/hsm/potions/live/state/monthly_nq_5m_fill_takes/audits/nq_monthly_overlap_daily_st_retest5_5mfill/equity_curve.csv",
+  "fill_tf": "5m",
+  "label": "Monthly ORB overlap daily-ST retest x5 (4h+5m)",
+  "loss_units": 27.0,
+  "net_usd": 361837.0,
+  "ns": 1.4737577386770935,
+  "signal_tf": "4H",
+  "slug": "monthly_orb_overlap_st_retest5",
+  "state_root": "/home/tester/hsm/potions/live/state/monthly_nq_5m_fill_takes/monthly_orb_overlap_st_retest5/states/nq_monthly_overlap_daily_st_retest5_5mfill",
+  "strategy_id": "nq_monthly_overlap_daily_st_retest5_5mfill",
+  "stress_dd": -245520.0,
+  "trades": 51.0,
+  "units": 87.0,
+  "win_units": 60.0
+}

@@ -1,0 +1,26 @@
+{
+  "allowed_sides": [
+    "lower"
+  ],
+  "audit_tf": "4h",
+  "bars_1m": 8557258,
+  "bars_4h": 36962,
+  "baseline_4h_net_usd": 84626.67789626363,
+  "baseline_4h_ns": 2.4415082774257715,
+  "closed_dd_usd": -63296.42676039501,
+  "feed_tf": "1m",
+  "intrabar_stress_dd_usd": -65576.42676039507,
+  "market": "EURUSD",
+  "max_open_units": 10,
+  "net_over_stress": 0.6296482644581533,
+  "net_usd": 41290.083299049955,
+  "path_id": "second_after_upper",
+  "profit_factor": 1.5529880781624883,
+  "risk_atr_mult": 2.0,
+  "stance": "weak \u2014 1m degraded vs 4h",
+  "strategy_id": "eurusd_quarterly_atr4_fade_ladder",
+  "trade_mode": "second_only",
+  "trades": 18,
+  "units": 180,
+  "win_rate": 0.26666666666666666
+}

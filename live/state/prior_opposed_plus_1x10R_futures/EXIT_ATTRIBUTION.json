@@ -1,0 +1,116 @@
+{
+  "exit_attribution": [
+    {
+      "ok": true,
+      "source": "live/state/prior_opposed_plus_1x10R_futures/mnq/states/mnq_v2b_prior_opposed_stpmc_only_S_1_1_3_plus_1x10R/unit_trades.csv",
+      "strategy_id": "mnq_v2b_prior_opposed_stpmc_only_S_1_1_3_plus_1x10R",
+      "trades": 429,
+      "units": 2574,
+      "total_net_usd": 156157.0,
+      "pnl_by_exit": {
+        "tp1": 36108.0,
+        "tp2": 28044.5,
+        "hard_stop": -106020.0,
+        "break_even_stop": -2728.5,
+        "eod_mark": 199096.0,
+        "true_10r_target": 1657.0,
+        "other": 0.0
+      },
+      "count_by_exit": {
+        "tp1": 235,
+        "tp2": 104,
+        "hard_stop": 660,
+        "break_even_stop": 419,
+        "eod_mark": 1155,
+        "true_10r_target": 1,
+        "other": 0
+      },
+      "true_10r_target_hits": 1,
+      "true_10r_target_hit_pct": 0.04,
+      "true_10r_pnl_share": 0.0106,
+      "is_10r_moonshot": false,
+      "eod_survivor_dominant": true,
+      "book_label": "v2b S_1_1_3 + 1 BE-protected long-horizon / EOD-survivor runner",
+      "market": "mnq"
+    },
+    {
+      "ok": true,
+      "source": "live/state/prior_opposed_plus_1x10R_futures/nq/states/nq_v2b_prior_opposed_stpmc_only_S_1_1_3_plus_1x10R/unit_trades.csv",
+      "strategy_id": "nq_v2b_prior_opposed_stpmc_only_S_1_1_3_plus_1x10R",
+      "trades": 433,
+      "units": 2598,
+      "total_net_usd": 1618268.0,
+      "pnl_by_exit": {
+        "tp1": 370380.0,
+        "tp2": 293374.5,
+        "hard_stop": -1045941.0,
+        "break_even_stop": -22087.5,
+        "eod_mark": 2005908.5,
+        "true_10r_target": 16633.5,
+        "other": 0.0
+      },
+      "count_by_exit": {
+        "tp1": 240,
+        "tp2": 107,
+        "hard_stop": 654,
+        "break_even_stop": 435,
+        "eod_mark": 1161,
+        "true_10r_target": 1,
+        "other": 0
+      },
+      "true_10r_target_hits": 1,
+      "true_10r_target_hit_pct": 0.04,
+      "true_10r_pnl_share": 0.0103,
+      "is_10r_moonshot": false,
+      "eod_survivor_dominant": true,
+      "book_label": "v2b S_1_1_3 + 1 BE-protected long-horizon / EOD-survivor runner",
+      "market": "nq"
+    },
+    {
+      "ok": true,
+      "source": "live/state/prior_opposed_plus_1x10R_futures/ym/states/ym_v2b_prior_opposed_stpmc_only_S_1_1_3_plus_1x10R/unit_trades.csv",
+      "strategy_id": "ym_v2b_prior_opposed_stpmc_only_S_1_1_3_plus_1x10R",
+      "trades": 437,
+      "units": 2622,
+      "total_net_usd": 344015.75,
+      "pnl_by_exit": {
+        "tp1": 134390.75,
+        "tp2": 87724.75,
+        "hard_stop": -486570.0,
+        "break_even_stop": -13054.25,
+        "eod_mark": 621524.5,
+        "true_10r_target": 0.0,
+        "other": 0.0
+      },
+      "count_by_exit": {
+        "tp1": 212,
+        "tp2": 76,
+        "hard_stop": 690,
+        "break_even_stop": 402,
+        "eod_mark": 1242,
+        "true_10r_target": 0,
+        "other": 0
+      },
+      "true_10r_target_hits": 0,
+      "true_10r_target_hit_pct": 0.0,
+      "true_10r_pnl_share": 0.0,
+      "is_10r_moonshot": false,
+      "eod_survivor_dominant": true,
+      "book_label": "v2b S_1_1_3 + 1 BE-protected long-horizon / EOD-survivor runner",
+      "market": "ym"
+    }
+  ],
+  "duplicate_sleeve_warnings": [
+    {
+      "warning": "DUPLICATE_EXECUTION_SLEEVE",
+      "markets": [
+        "mnq",
+        "nq"
+      ],
+      "sleeve": "Nasdaq",
+      "strategy": "v2b_prior_opposed",
+      "book": "S_1_1_3_plus_1x10R",
+      "message": "MNQ/NQ are execution alternatives / one shared Nasdaq sleeve \u2014 not additive independent allocations"
+    }
+  ]
+}

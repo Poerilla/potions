@@ -1,0 +1,35 @@
+potions: NQ first-hour 1h follow/fade HA complete
+
+Hub: /home/tester/hsm/potions/live/state/nq_1h_first_hour_ha
+PO book: nq_prior_opposed_rl (432 campaigns)
+
+Core books:
+  follow 3R all first-hour  n=3968 WR=38% net=$243008 N/S=9.32
+  fade 3R all first-hour  n=3968 WR=33% net=$-191912 N/S=-0.92
+  follow 1R all first-hour  n=3968 WR=50% net=$176438 N/S=7.62
+  fade 1R all first-hour  n=3968 WR=44% net=$-222012 N/S=-0.92
+  follow 3R p90 first-hour  n=1495 WR=44% net=$173118 N/S=6.64
+  fade 3R p90 first-hour  n=1495 WR=35% net=$-115762 N/S=-0.87
+  follow 1R p90 first-hour  n=1495 WR=52% net=$127858 N/S=6.12
+  fade 1R p90 first-hour  n=1495 WR=44% net=$-147392 N/S=-0.88
+
+HP regime sleeves:
+  during fade-ST 3R (p90)  n=8 WR=38% net=$2333 N/S=0.50
+  during fade-ST 1R (p90)  n=8 WR=75% net=$5458 N/S=4.56
+  during fade-ST 3R (all)  n=26 WR=23% net=$6126 N/S=1.66
+  during fade-ST 1R (all)  n=26 WR=42% net=$6491 N/S=3.14
+  after follow-ST 3R (p90)  n=9 WR=44% net=$1816 N/S=0.33
+  after follow-ST 1R (p90)  n=9 WR=44% net=$-2114 N/S=-0.38
+  after-loss follow-ST 1R (all)  n=20 WR=50% net=$-395 N/S=-0.07
+  after-win fade-ST 1R (p90)  n=1 WR=0% net=$-906 N/S=0.00
+
+Top notables:
+  follow_3r_all  First-hour body conviction=strong n=1125 WRlift=+14.4pp avglift=$+72
+  fade_3r_all  First-hour close location=lower n=1246 WRlift=+3.8pp avglift=$+12
+  follow_1r_all  First-hour body conviction=strong n=1125 WRlift=+6.1pp avglift=$+85
+  fade_1r_all  First-hour body conviction=mid n=1486 WRlift=+4.5pp avglift=$+45
+  follow_3r_p90  First-hour body conviction=strong n=580 WRlift=+12.4pp avglift=$+99
+  fade_3r_p90  First-hour close location=lower n=560 WRlift=+4.9pp avglift=$+55
+
+Stance: Curious diagnostic only. 1R fade WR 44% vs follow 50% (fair ~50%); 3R fade N/S -0.92 vs follow 9.32 (fair WR ~25%); after-PO-loss continuation 1R n=20 WR=50% N/S=-0.07 Do not promote from this mill alone.
+

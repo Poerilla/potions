@@ -1,0 +1,65 @@
+potions: monthly open extension band trade charts — NQ max plus_0.3 (4h)
+
+Hub: live/state/monthly_open_atr_extension_band/broker_max_plus_0p3/plus_0p3/trade_charts_4h
+Source: live/state/monthly_open_atr_extension_band/broker_max_plus_0p3/plus_0p3/states/nq_mo_ext_band_max_plus_0p3_r6m
+Mode: broker-like Engine+PaperBroker
+Candles: 4h (display only; fills unchanged)
+Charts: 54 (15 wins / 39 losses)
+
+Entry at mean(max); SL max + 30% of band width.
+Band: 6-month rolling mean(min/med/max) on monthly ATR.
+
+  2012-10 long stop $-5,049
+  2012-11 long stop $-5,610
+  2013-01 short eom $3,490
+  2013-03 short stop $-3,145
+  2013-04 short stop $-2,956
+  2013-05 short stop $-3,468
+  2013-07 short stop $-4,123
+  2013-10 short stop $-4,947
+  2014-02 short stop $-6,989
+  2014-08 short stop $-7,451
+  2014-11 short stop $-8,518
+  2015-01 long target_open $28,963
+  2015-03 long eom $4,765
+  2015-06 long eom $4,103
+  2016-02 long target_open $72,835
+  2016-06 long stop $-14,716
+  2016-12 short stop $-6,499
+  2017-02 short stop $-8,076
+  2017-04 short stop $-7,111
+  2017-05 short target_open $25,594
+  2017-07 short stop $-9,787
+  2018-03 short stop $-13,304
+  2018-05 short eom $-3,183
+  2018-07 short eom $42,734
+  2018-08 short stop $-18,490
+  2018-11 long stop $-14,058
+  2018-12 long stop $-20,569
+  2019-08 long stop $-17,990
+  2019-12 long stop $-10,429
+  2020-02 long target_open $43,226
+  2020-03 short target_open $103,584
+  2020-04 short stop $-39,379
+  2020-08 short eom $-37,466
+  2020-10 long stop $-14,966
+  2021-03 long stop $-25,381
+  2021-06 short stop $-32,977
+  2021-08 short eom $-6,748
+  2021-10 short stop $-30,468
+  2021-11 short stop $-37,590
+  2022-03 short stop $-34,953
+  2022-05 short target_open $118,798
+  2022-08 short target_open $141,237
+  2022-09 short target_open $161,270
+  2023-09 long stop $-20,444
+  2023-10 long stop $-27,150
+  2024-01 long target_open $119,156
+  2024-07 long stop $-25,628
+  2024-08 long stop $-242,757
+  2024-09 long target_open $203,094
+  2024-12 short stop $-80,703
+  2025-02 short target_open $174,097
+  2025-05 short stop $-60,132
+  2025-10 short stop $-71,446
+  2026-05 short stop $-70,377

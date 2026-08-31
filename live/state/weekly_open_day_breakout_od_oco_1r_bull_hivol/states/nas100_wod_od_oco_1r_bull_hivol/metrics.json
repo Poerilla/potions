@@ -1,0 +1,21 @@
+{
+  "bars_1m": 3077535,
+  "bars_4h": 13767,
+  "closed_dd_usd": -2863.800000000042,
+  "dsr_trial": "TRL-2026-00164",
+  "feed_tf": "1m",
+  "intrabar_stress_dd_usd": -2863.800000000042,
+  "label": "OCO 1\u00d7OD-R target + OD far SL + bull\u00d7high-vol; unlimited/wk",
+  "market": "NAS100",
+  "max_open_units": 1,
+  "net_over_stress": 1.150412039946909,
+  "net_usd": 3294.5500000000065,
+  "profit_factor": 1.2354107567756827,
+  "signal_tf": "4h",
+  "stance": "weak \u2014 needs tune",
+  "strategy_id": "nas100_wod_od_oco_1r_bull_hivol",
+  "trades": 202,
+  "units": 202,
+  "variant": "od_oco_1r_bull_hivol",
+  "win_rate": 0.5594059405940595
+}

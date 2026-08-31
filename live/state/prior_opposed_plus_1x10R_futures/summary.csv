@@ -1,0 +1,4 @@
+market,strategy_id,trades,net_usd,stress_usd,net_stress,win_rate_pct,prior_opposite_entries,causality_violations,hub
+nq,nq_v2b_prior_opposed_stpmc_only_S_1_1_3_plus_1x10R,433,1618268.0,-82788.0,19.55,65.82,433,0,live/state/prior_opposed_plus_1x10R_futures/nq
+mnq,mnq_v2b_prior_opposed_stpmc_only_S_1_1_3_plus_1x10R,429,156157.0,-8399.0,18.592,65.27,429,0,live/state/prior_opposed_plus_1x10R_futures/mnq
+ym,ym_v2b_prior_opposed_stpmc_only_S_1_1_3_plus_1x10R,437,344015.75,-40672.5,8.458,60.64,437,0,live/state/prior_opposed_plus_1x10R_futures/ym

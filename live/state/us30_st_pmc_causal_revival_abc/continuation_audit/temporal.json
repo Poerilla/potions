@@ -1,0 +1,189 @@
+{
+  "yearly": [
+    {
+      "year": 2016,
+      "campaigns": 7,
+      "net_gross": 2528.0,
+      "stress_proxy": -457.8,
+      "ns_proxy": 5.522
+    },
+    {
+      "year": 2017,
+      "campaigns": 29,
+      "net_gross": 4564.4,
+      "stress_proxy": -1811.1,
+      "ns_proxy": 2.52
+    },
+    {
+      "year": 2018,
+      "campaigns": 208,
+      "net_gross": -1159.4,
+      "stress_proxy": -4968.6,
+      "ns_proxy": -0.233
+    },
+    {
+      "year": 2019,
+      "campaigns": 107,
+      "net_gross": 3068.8,
+      "stress_proxy": -3585.6,
+      "ns_proxy": 0.856
+    },
+    {
+      "year": 2020,
+      "campaigns": 356,
+      "net_gross": -1624.8,
+      "stress_proxy": -6848.3,
+      "ns_proxy": -0.237
+    },
+    {
+      "year": 2021,
+      "campaigns": 215,
+      "net_gross": -456.9,
+      "stress_proxy": -3625.0,
+      "ns_proxy": -0.126
+    },
+    {
+      "year": 2022,
+      "campaigns": 353,
+      "net_gross": 4898.6,
+      "stress_proxy": -4130.4,
+      "ns_proxy": 1.186
+    },
+    {
+      "year": 2023,
+      "campaigns": 139,
+      "net_gross": 10258.0,
+      "stress_proxy": -2795.2,
+      "ns_proxy": 3.67
+    },
+    {
+      "year": 2024,
+      "campaigns": 147,
+      "net_gross": 6077.9,
+      "stress_proxy": -2940.1,
+      "ns_proxy": 2.067
+    },
+    {
+      "year": 2025,
+      "campaigns": 175,
+      "net_gross": 5026.5,
+      "stress_proxy": -2850.2,
+      "ns_proxy": 1.764
+    }
+  ],
+  "blocks": [
+    {
+      "block": "2016-2019",
+      "campaigns": 351,
+      "net_gross": 9001.8,
+      "stress_proxy": -4968.6,
+      "ns_proxy": 1.812
+    },
+    {
+      "block": "2020-2022",
+      "campaigns": 924,
+      "net_gross": 2816.9,
+      "stress_proxy": -9707.3,
+      "ns_proxy": 0.29
+    },
+    {
+      "block": "2023-2026",
+      "campaigns": 461,
+      "net_gross": 21362.4,
+      "stress_proxy": -4293.5,
+      "ns_proxy": 4.976
+    }
+  ],
+  "rolling_pf_25_median": 1.06,
+  "rolling_pf_25_p10": 0.407,
+  "rolling_pf_50_median": 1.068,
+  "rolling_pf_50_p10": 0.644,
+  "leave_one_year_out": [
+    {
+      "left_out_year": 2016,
+      "campaigns": 1729,
+      "net_gross": 30653.1,
+      "ns_proxy": 3.158
+    },
+    {
+      "left_out_year": 2017,
+      "campaigns": 1707,
+      "net_gross": 28616.7,
+      "ns_proxy": 2.948
+    },
+    {
+      "left_out_year": 2018,
+      "campaigns": 1528,
+      "net_gross": 34340.5,
+      "ns_proxy": 3.538
+    },
+    {
+      "left_out_year": 2019,
+      "campaigns": 1629,
+      "net_gross": 30112.3,
+      "ns_proxy": 3.102
+    },
+    {
+      "left_out_year": 2020,
+      "campaigns": 1380,
+      "net_gross": 34805.9,
+      "ns_proxy": 4.68
+    },
+    {
+      "left_out_year": 2021,
+      "campaigns": 1521,
+      "net_gross": 33638.0,
+      "ns_proxy": 3.636
+    },
+    {
+      "left_out_year": 2022,
+      "campaigns": 1383,
+      "net_gross": 28282.5,
+      "ns_proxy": 3.63
+    },
+    {
+      "left_out_year": 2023,
+      "campaigns": 1597,
+      "net_gross": 22923.1,
+      "ns_proxy": 2.361
+    },
+    {
+      "left_out_year": 2024,
+      "campaigns": 1589,
+      "net_gross": 27103.2,
+      "ns_proxy": 2.792
+    },
+    {
+      "left_out_year": 2025,
+      "campaigns": 1561,
+      "net_gross": 28154.6,
+      "ns_proxy": 2.9
+    }
+  ],
+  "top_campaign_share": {
+    "top_1_share": 0.0604,
+    "top_3_share": 0.1804,
+    "top_5_share": 0.3001
+  },
+  "bootstrap_by_week": {
+    "n_weeks": 276,
+    "mean": 33370.88,
+    "p05": 6569.05,
+    "p50": 32770.6,
+    "p95": 62554.13,
+    "frac_negative": 0.02
+  },
+  "bootstrap_by_signal": {
+    "mean": 32824.98,
+    "p05": 5949.35,
+    "p50": 32879.65,
+    "p95": 60087.12,
+    "frac_negative": 0.0245
+  },
+  "long_short": {
+    "long_n": 789,
+    "short_n": 947,
+    "long_net": 33137.4,
+    "short_net": 43.7
+  }
+}

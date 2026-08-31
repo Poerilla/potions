@@ -6,6 +6,7 @@ from .broker import BaseBroker
 from .causality import CausalityGuard
 from .models import Alert, Bar, Fill, OrderIntent, StrategyActions, StrategyInstance, as_row
 from .notifications import NotificationSink
+from .oanda import OandaRoutingBlocked
 from .registry import StrategyRegistry
 from .risk import RiskManager
 from .store import FlatFileStore
@@ -104,9 +105,23 @@ class StrategyManager:
             try:
                 self.broker.cancel_order(cancel.broker_order_id, cancel.reason)
                 if self.emit_order_alerts:
-                    self._emit_alert(Alert.create(cancel.strategy_id, "info", "Cancelled order %s" % cancel.broker_order_id))
+                    self._emit_alert(
+                        Alert.create(
+                            cancel.strategy_id,
+                            "info",
+                            "Cancelled order %s reason=%s (remote-acked then local)"
+                            % (cancel.broker_order_id, cancel.reason),
+                        )
+                    )
             except Exception as exc:
-                self._emit_alert(Alert.create(cancel.strategy_id, "engine_error", "Cancel failed: %s" % exc))
+                self._emit_alert(
+                    Alert.create(
+                        cancel.strategy_id,
+                        "engine_error",
+                        "Cancel failed (local left open): %s reason=%s err=%s"
+                        % (cancel.broker_order_id, cancel.reason, exc),
+                    )
+                )
         for modify in actions.modify_intents:
             try:
                 self.broker.modify_order(
@@ -150,7 +165,18 @@ class StrategyManager:
                 self.store.upsert_row("order_intents", "intent_id", dict(as_row(intent), status="pending_verification"))
                 self._emit_alert(Alert.create(intent.strategy_id, "order_pending_verification", "Order pending verification: %s" % req.verification_id))
                 return
-        order = self.broker.submit_order_intent(intent)
+        try:
+            order = self.broker.submit_order_intent(intent)
+        except OandaRoutingBlocked as exc:
+            self.store.upsert_row("order_intents", "intent_id", dict(as_row(intent), status="routing_blocked"))
+            self._emit_alert(
+                Alert.create(
+                    intent.strategy_id,
+                    "routing_block",
+                    "Order blocked by broker routing: %s" % exc,
+                )
+            )
+            return
         if self.emit_order_alerts:
             self._emit_alert(Alert.create(intent.strategy_id, "order_submitted", "Submitted %s %s %s" % (intent.side, intent.quantity, intent.instrument)))
 

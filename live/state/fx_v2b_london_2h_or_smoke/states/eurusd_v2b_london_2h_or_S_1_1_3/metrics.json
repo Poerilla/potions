@@ -1,0 +1,23 @@
+{
+  "strategy_id": "eurusd_v2b_london_2h_or_S_1_1_3",
+  "symbol": "EURUSD",
+  "family": "fx",
+  "quote": "USD",
+  "book": "S_1_1_3",
+  "clock": "london_2h_or",
+  "or_window": "03:00-05:00",
+  "or_bars": 120,
+  "sizing": "S_1_1_3",
+  "regime_days": 5,
+  "start": "2015-01-02",
+  "units": 40,
+  "trades": 8,
+  "net_usd": -5880.000000000671,
+  "closed_dd_usd": -6290.000000000477,
+  "stress_dd_usd": -6315.000000000529,
+  "net_over_stress": -0.9311163895487218,
+  "win_rate": 7.5,
+  "profit_factor": 0.058145122537229754,
+  "max_open_units": 5,
+  "state_root": "live/state/fx_v2b_london_2h_or_smoke/states/eurusd_v2b_london_2h_or_S_1_1_3"
+}

@@ -1,0 +1,4 @@
+ACCIDENTAL WIPE 2026-08-27 ~21:35Z
+Cause: csv.DictWriter rewrite after DictReader mis-parsed comment header; then pandas overwrite.
+Original file destroyed. Restore from gdrive:potions-local/data/validation/dsr_trial_ledger.csv when rclone token refreshed.
+Stub below only has recent weekly-OD trial ids; historical TRL-2026-00001..00160 MUST be restored from backup.

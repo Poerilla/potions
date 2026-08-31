@@ -1,0 +1,20 @@
+potions: OANDA winner MAE + percentile carry (p80/85/90/95)
+hub: live/state/oanda_winner_mae_carry/
+books: 15 · favorable (any pct): 2
+daemon stays on avg_loss unless recommended_threshold=pXX_winner_mae
+
+us30_hourly_st_pmc_sl50_tp150_3r_oanda | winMAE med/p80/p95=16.882/35.680/46.784 | base=$19895 | p80 Δ=$-4124(n) p85 Δ=$-2969(n) p90 Δ=$-2010(n) p95 Δ=$-1085(n) | thr=avg_loss
+us30_hourly_st_pmc_sl50_tp150_runners_2r_10r_oanda | winMAE med/p80/p95=16.872/36.654/46.807 | base=$57740 | p80 Δ=$-10184(n) p85 Δ=$-8060(n) p90 Δ=$-6037(n) p95 Δ=$-2266(n) | thr=avg_loss
+nas100_hourly_st_pmc_sl50_tp150_3r_oanda | winMAE med/p80/p95=17.530/32.431/45.955 | base=$15935 | p80 Δ=$-2215(n) p85 Δ=$-1664(n) p90 Δ=$-973(n) p95 Δ=$-624(n) | thr=avg_loss
+nas100_hourly_st_pmc_sl50_tp150_runners_2r_10r_oanda | winMAE med/p80/p95=17.531/30.421/40.838 | base=$35208 | p80 Δ=$-3786(n) p85 Δ=$-2066(n) p90 Δ=$-1132(n) p95 Δ=$3238(Y) | thr=p95_winner_mae
+eurusd_hourly_st_pmc_sl50_tp150_3r_oanda | winMAE med/p80/p95=0.002/0.003/0.005 | base=$65748 | p80 Δ=$16062(Y) p85 Δ=$13188(Y) p90 Δ=$8571(Y) p95 Δ=$5165(Y) | thr=p80_winner_mae
+eurusd_hourly_st_pmc_sl50_tp150_runners_2r_10r_oanda | winMAE med/p80/p95=0.002/0.004/0.005 | base=$122440 | p80 Δ=$-49409(n) p85 Δ=$-38421(n) p90 Δ=$-22422(n) p95 Δ=$-26142(n) | thr=avg_loss
+usdjpy_asia_range_london_oanda | winMAE med/p80/p95=0.102/0.193/0.339 | base=$19595611 | p80 Δ=$-14107623(n) p85 Δ=$-12308567(n) p90 Δ=$-6872796(n) p95 Δ=$-2257577(n) | thr=avg_loss
+us30_london_prior_opposed_oanda | winMAE med/p80/p95=15.300/39.300/70.300 | base=$24370 | p80 Δ=$-11137(n) p85 Δ=$-9465(n) p90 Δ=$-6771(n) p95 Δ=$-2947(n) | thr=avg_loss
+us30_monday_or_m3_s3_r2_half_oanda | winMAE med/p80/p95=45.100/104.100/181.100 | base=$35266 | p80 Δ=$-24156(n) p85 Δ=$-11326(n) p90 Δ=$-9853(n) p95 Δ=$-2475(n) | thr=avg_loss
+usdjpy_monday_or_ungated_oanda | winMAE med/p80/p95=0.127/0.256/0.499 | base=$32345490 | p80 Δ=$-14572820(n) p85 Δ=$-11205330(n) p90 Δ=$-9544160(n) p95 Δ=$-8077010(n) | thr=avg_loss
+audjpy_yearly_orb_oanda | winMAE med/p80/p95=0.067/0.261/0.721 | base=$21136775 | p80 Δ=$-8053140(n) p85 Δ=$-5389575(n) p90 Δ=$-4186525(n) p95 Δ=$-2081900(n) | thr=avg_loss
+xauusd_yearly_orb_oanda | winMAE med/p80/p95=0.668/4.258/11.640 | base=$541664 | p80 Δ=$-301686(n) p85 Δ=$-240754(n) p90 Δ=$-223952(n) p95 Δ=$-25491(n) | thr=avg_loss
+xagusd_yearly_orb_oanda | winMAE med/p80/p95=0.092/0.226/0.347 | base=$121586 | p80 Δ=$-45869(n) p85 Δ=$-27695(n) p90 Δ=$-17627(n) p95 Δ=$-9375(n) | thr=avg_loss
+eurusd_yearly_orb_oanda | winMAE med/p80/p95=0.001/0.003/0.009 | base=$167797 | p80 Δ=$-41151(n) p85 Δ=$-36185(n) p90 Δ=$-28922(n) p95 Δ=$-17270(n) | thr=avg_loss
+us30_yearly_orb_oanda | winMAE med/p80/p95=45.000/148.000/221.400 | base=$25750 | p80 Δ=$-14914(n) p85 Δ=$-7101(n) p90 Δ=$-3776(n) p95 Δ=$-3032(n) | thr=avg_loss

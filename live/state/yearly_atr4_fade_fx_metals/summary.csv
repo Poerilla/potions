@@ -1,0 +1,7 @@
+rank,market,instrument,slug,label,anchor,atr_source,atr_mult,risk_atr_mult,bars,units,trades,win_units,loss_units,win_rate,pnl_ccy,net_native,closed_dd_native,intrabar_stress_dd_native,net_usd_approx,stress_usd_approx,net_over_stress
+1,audjpy,AUDJPY,year_open_jan_mean_tr,year-open ±4×Jan mean TR,year_open,jan_mean_tr,4.00,2.00,6979,54,27,13,41,0.2407,JPY,1416220.31,-3183786.33,-3271186.33,12874.73,-29738.06,0.43
+2,xagusd,XAGUSD,fm_mid_jan_mean_tr,Jan mid ±4×Jan mean TR,fm_mid,jan_mean_tr,4.00,2.00,7042,50,25,7,43,0.1400,USD,8142.23,-28889.33,-34974.77,8142.23,-34974.77,0.23
+3,audjpy,AUDJPY,fm_mid_jan_mean_tr,Jan mid ±4×Jan mean TR,fm_mid,jan_mean_tr,4.00,2.00,6979,54,27,12,42,0.2222,JPY,49806.07,-4036562.48,-4053102.32,452.78,-36846.38,0.01
+4,xauusd,XAUUSD,fm_mid_jan_mean_tr,Jan mid ±4×Jan mean TR,fm_mid,jan_mean_tr,4.00,2.00,7128,48,24,7,41,0.1458,USD,-54632.36,-118348.91,-138168.91,-54632.36,-138168.91,-0.40
+5,xauusd,XAUUSD,year_open_jan_mean_tr,year-open ±4×Jan mean TR,year_open,jan_mean_tr,4.00,2.00,7128,56,28,14,42,0.2500,USD,-58236.84,-103765.42,-105073.42,-58236.84,-105073.42,-0.55
+6,xagusd,XAGUSD,year_open_jan_mean_tr,year-open ±4×Jan mean TR,year_open,jan_mean_tr,4.00,2.00,7042,50,25,6,44,0.1200,USD,-25464.85,-26588.22,-26890.22,-25464.85,-26890.22,-0.95

@@ -1,0 +1,23 @@
+{
+  "allowed_sides": [
+    "lower",
+    "upper"
+  ],
+  "bars": 51889,
+  "closed_dd_usd": -7643.479900416918,
+  "intrabar_stress_dd_usd": -7949.479900416904,
+  "market": "NAS100",
+  "max_open_units": 10,
+  "net_over_stress": -0.48496756158267357,
+  "net_usd": -3855.23988315566,
+  "path_id": "",
+  "period": "month",
+  "profit_factor": 0.5904306851765623,
+  "risk_atr_mult": 0.5,
+  "strategy_id": "nas100_monthly_atr4_fade_ladder",
+  "timeframe": "1h",
+  "trade_mode": "second_only",
+  "trades": 32,
+  "units": 320,
+  "win_rate": 0.0875
+}

@@ -1,0 +1,26 @@
+Monthly open ATR extension — pct75 lookback filter
+
+Hub: /home/tester/hsm/potions/live/state/monthly_open_atr_extension_band/lookback_filter
+
+Base rates (months reaching pct75 band after open week):
+  NQ: N=143  pct75_any=65%  max_any=80%
+  US30: N=82  pct75_any=61%  max_any=76%
+  YM: N=144  pct75_any=60%  max_any=76%
+
+Strongest true-bucket lifts (pct75 any, lift≥1.2, |z|≥1.2):
+  [NQ]
+    prior_vol_buildup  n=20  hit=95%  lift=1.46x  z=4.8
+    prior_atr_reverted  n=16  hit=94%  lift=1.44x  z=4.0
+    prior_atr_wide  n=14  hit=86%  lift=1.32x  z=2.0
+    swept_swing_low_6m  n=11  hit=82%  lift=1.26x  z=1.4
+    swept_swing_low_3m  n=24  hit=79%  lift=1.22x  z=1.5
+  [US30]
+    prior_bear  n=29  hit=79%  lift=1.30x  z=2.0
+  [YM]
+    prior_engulf_bear  n=8  hit=88%  lift=1.47x  z=2.2
+    prior_atr_wide  n=10  hit=80%  lift=1.34x  z=1.5
+    prior_vol_buildup  n=22  hit=77%  lift=1.29x  z=1.8
+    prior_ma_reverted  n=23  hit=74%  lift=1.24x  z=1.4
+
+Stance: diagnostic filter hunt — use SUMMARY.md before wiring skip/size rules.
+Artifacts: months_features.csv, lift_*.csv, SUMMARY.md

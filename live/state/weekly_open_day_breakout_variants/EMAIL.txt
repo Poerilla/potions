@@ -1,0 +1,13 @@
+Weekly open-day breakout — variant sweep
+
+Hub: /home/tester/hsm/potions/live/state/weekly_open_day_breakout_variants
+DSR: TRL-2026-00162
+Window: 2022-09-26 → 2025-09-30 (~3.0y)
+Variants: filters_candle_sl, candle_sl_fri, od_sl_fri, od_sl_20r
+
+Skipped: SPX500 (no fx/spx500_1m.csv)
+
+NAS100 / filters_candle_sl: trades=226 net=$+5259 N/S=0.64 WR=29.9% — weak — needs tune
+NAS100 / candle_sl_fri: trades=241 net=$+7534 N/S=0.98 WR=38.4% — weak — needs tune
+NAS100 / od_sl_fri: trades=199 net=$+23083 N/S=4.03 WR=58.4% — research — interesting N/S
+NAS100 / od_sl_20r: trades=27 net=$+9094 N/S=1.14 WR=35.6% — weak — needs tune

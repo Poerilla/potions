@@ -1,0 +1,18 @@
+{
+  "close_dd": -185714.2500000017,
+  "equity_curve": "/home/tester/hsm/potions/live/state/monthly_nq_5m_fill_takes/audits/nq_5mfill_monthly_orb_restricted_scaleout3/equity_curve.csv",
+  "fill_tf": "5m",
+  "label": "Monthly ORB restricted scaleout3",
+  "loss_units": 245.0,
+  "net_usd": 331722.25,
+  "ns": 1.7520456547085224,
+  "signal_tf": "D",
+  "slug": "monthly_orb_restricted_scaleout3",
+  "state_root": "/home/tester/hsm/potions/live/state/monthly_nq_5m_fill_takes/monthly_orb_restricted_scaleout3/states/nq_5mfill_monthly_orb_restricted_scaleout3",
+  "strategy_id": "nq_5mfill_monthly_orb_restricted_scaleout3",
+  "strategy_type": "monthly_orb_restricted_scaleout3",
+  "stress_dd": -189334.2500000017,
+  "trades": 222.0,
+  "units": 666.0,
+  "win_units": 421.0
+}

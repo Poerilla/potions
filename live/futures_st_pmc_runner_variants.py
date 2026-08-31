@@ -6,7 +6,9 @@ Same rules as US30 ``us30_st_pmc_runner_variants``:
   - Both runners SL→BE after TP1; indefinite EOY flatten, non-blocking
 
 Uses ``run_variant`` + ``_replay_hourly_with_1m`` with ``broker_fills=False`` on
-1h signal bars (HTF lookahead fill fix, 2026-08-07).
+1h signal bars. Completed-hour causality (2026-08): left-labeled hourly bars are
+shifted to the hour-complete timestamp before the strategy consumes them; fills
+only on the 1m tape.
 """
 
 from __future__ import annotations
@@ -255,6 +257,11 @@ def write_summary(all_rows: Sequence[Dict[str, object]]) -> None:
         "# Futures ST+PMC runner variants (1m fill tape)",
         "",
         "Markets: YM / MYM / NQ / MNQ. Same dual-runner rules as US30 runner hub.",
+        "",
+        "> **2026-08 completed-hour causality fix.** The shared hourly resampler "
+        "is left-labeled, so a bar timestamped 11:00 contains 11:00-11:59 data. "
+        "This replay shifts signal bars to the completed-hour timestamp before "
+        "the strategy can consume them, and fills only on the 1m tape.",
         "",
         "## Fill timing",
         "",

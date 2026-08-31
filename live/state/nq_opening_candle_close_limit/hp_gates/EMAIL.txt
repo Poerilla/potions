@@ -1,0 +1,12 @@
+NQ opening-candle close-limit HP broker gates complete
+Hub: /home/tester/hsm/potions/live/state/nq_opening_candle_close_limit/hp_gates
+
+Stance: SURVIVE — 4/5 HP gates clear N/S≥2; best `hp_fh_p90` N/S 3.56
+Survivors: hp_strong_body, hp_trade_with_po, hp_during_counter_with_po, hp_fh_p90
+
+baseline_open1h_close_limit_3r: trades=3906 WR=38.5% net=$+144018 N/S=3.91 works=True
+hp_strong_body: trades=1087 WR=51.2% net=$+116280 N/S=3.30 works=True
+hp_trade_with_po: trades=238 WR=48.3% net=$+67573 N/S=2.89 works=True
+hp_during_counter_with_po: trades=221 WR=48.4% net=$+54988 N/S=2.30 works=True
+hp_fh_p90: trades=603 WR=43.6% net=$+57650 N/S=3.56 works=True
+hp_rsi_gt70: trades=394 WR=44.4% net=$+15064 N/S=1.13 works=False

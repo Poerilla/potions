@@ -1,0 +1,68 @@
+{
+  "broker_realism_config": {
+    "fee_per_unit": 7.0,
+    "feed_tf": "1m",
+    "slippage_ticks": 1.0,
+    "tick_size": 0.001
+  },
+  "causality_mode": "audit",
+  "command": [
+    "/home/tester/hsm/potions/live/usdjpy_fbo_113_atr80_rsi55_70_broker.py",
+    "--tf",
+    "1m",
+    "--arm-policy",
+    "skip_candidate",
+    "--arm-rsi-buckets",
+    "rsi_with_side",
+    "--force",
+    "--email"
+  ],
+  "created_at": "2026-08-26T22:31:14Z",
+  "cwd": "/home/tester/hsm/potions",
+  "data_inputs": [
+    {
+      "bytes": 153389,
+      "exists": true,
+      "path": "filters/usdjpy_atr80.csv",
+      "sha256": "bb9e1b6b5dcb314194ab67bed69759ae83570928c1e7172154966ba2229c9029"
+    },
+    {
+      "bytes": 595624667,
+      "exists": true,
+      "path": "/home/tester/hsm/potions/fx/usdjpy_1m.csv",
+      "sha256": "16919c1539516f8dc636a2aa0e3050d2e2da831a1a154cb4d48f4de33879bdbd"
+    }
+  ],
+  "extra": {
+    "driver": "usdjpy_fbo_113_atr80_rsi55_70_broker",
+    "dsr": "TRL-2026-00157",
+    "feed_tf": "1m"
+  },
+  "git": {
+    "commit": "",
+    "dirty": false,
+    "repo_root": "/home/tester/hsm/potions/live/state/usdjpy_fbo_113_atr80_rsi_with_side_arm_skip_1m_broker",
+    "status_short": []
+  },
+  "outputs": [
+    {
+      "bytes": 358,
+      "exists": true,
+      "path": "summary.csv",
+      "sha256": "0b1f5a863ef5c6ee47ae51847f8d8cd58f4f0744d2492e4b65e6cdab25f005da"
+    },
+    {
+      "bytes": 1173,
+      "exists": true,
+      "path": "SUMMARY.md",
+      "sha256": "bd7753186203856e0f335fc1a9e9d02aa9121d28ea6d36ee24477db741a9b19b"
+    }
+  ],
+  "python": {
+    "executable": "/home/tester/.pyenv/versions/3.8.0/bin/python",
+    "platform": "Linux-5.15.0-185-generic-x86_64-with-glibc2.34",
+    "version": "3.8.0 (default, Feb 11 2026, 11:18:58) \n[GCC 11.4.0]"
+  },
+  "run_id": "run_11a0042c379d",
+  "strategy_config": {}
+}

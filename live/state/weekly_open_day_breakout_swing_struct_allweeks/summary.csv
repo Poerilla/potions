@@ -1,0 +1,2 @@
+strategy_id,market,variant,label,feed_tf,signal_tf,bars_4h,bars_1m,units,trades,net_usd,closed_dd_usd,intrabar_stress_dd_usd,win_rate,profit_factor,net_over_stress,max_open_units,stance,dsr_trial
+nas100_wod_od_half_eow_ungated_allweeks_add8h_swing_struct,NAS100,od_half_eow_ungated_allweeks_add8h_swing_struct,swing-close; structural BO; all weeks; NO bull×hivol; +1/8h,1m,4h,13767,3077535,1738,314,-1934.249999999889,-13623.700000000645,-13797.850000000542,0.4942462600690449,0.9810984911040523,-0.14018488387682232,10,reject / thin,TRL-2026-00165

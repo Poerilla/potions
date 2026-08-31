@@ -1,0 +1,45 @@
+{
+  "ok": true,
+  "results": [
+    {
+      "strategy_id": "mnq_periodic_dca_monthly",
+      "cadence": "monthly",
+      "instrument": "MNQ",
+      "qty_per_buy": 1,
+      "bars": 2132,
+      "start_ts": "2019-05-05",
+      "end_ts": "2026-03-08",
+      "n_buys": 83,
+      "final_qty": 83,
+      "units_marked": 83,
+      "net_usd": 1513695.75,
+      "close_mtm_dd_usd": -788001.5,
+      "intrabar_stress_dd_usd": -826629.5,
+      "net_over_stress": 1.8311658971764255,
+      "end_mark_price": 24214.5,
+      "fee_per_unit": 1.5,
+      "slippage_ticks": 1.0,
+      "point_value": 2.0
+    },
+    {
+      "strategy_id": "mnq_periodic_dca_quarterly",
+      "cadence": "quarterly",
+      "instrument": "MNQ",
+      "qty_per_buy": 1,
+      "bars": 2132,
+      "start_ts": "2019-05-05",
+      "end_ts": "2026-03-08",
+      "n_buys": 28,
+      "final_qty": 28,
+      "units_marked": 28,
+      "net_usd": 526323.0,
+      "close_mtm_dd_usd": -270705.25,
+      "intrabar_stress_dd_usd": -284117.75,
+      "net_over_stress": 1.8524819375065444,
+      "end_mark_price": 24214.5,
+      "fee_per_unit": 1.5,
+      "slippage_ticks": 1.0,
+      "point_value": 2.0
+    }
+  ]
+}

@@ -318,3 +318,62 @@ The breakout-close tests already use strict subsequent-candle fills, but they pe
 - Inside-range swing comparison: `mnq/case_studies/yearly_orb_inside_range_swing_comparison.csv`
 - Main script: `scripts/yearly_orb_swing_stop_scaleout3.py`
 - Swing-stop 1-unit script: `scripts/yearly_orb_swing_stop_unlimited.py`
+
+## How we got here — FX/metals sizing (2026-08-16)
+
+Path in one breath:
+
+1. **Early research** (this note above) established Jan–Mar ORB → Apr–Dec retest, then swung from opposing-boundary stop → inside-range swing stop → scaleout3 (TP25 / TP / runner).
+2. **Broker-like futures** locked `yearly_orb_scaleout3` through Engine + PaperBroker; the production baseline stayed **`1/1/1` limit_retest**.
+3. **Futures 19-cell sizing sweep** (`live/state/yearly_orb_sizing_sweep_all/`, 2026-05-21) showed **front-heavy TP25 ladders** beat runner-heavy / symmetric shapes. Best N/S was usually **`4/1/1`**; user **`4/2/1`** was #1 on ES and top-3 elsewhere (~2× net vs baseline).
+4. **FX/metals top-4** (`live/state/fx_metals_top4_report/`) ranked AUDJPY / XAU / XAG yearly ORB on the **`1/1/1`** baseline (N/S 15.26 / 11.30 / 6.21) but had **not** run the same ladder grid.
+5. **FX/metals 19-cell sweep** (`live/state/yearly_orb_sizing_sweep_fx_metals/`, 2026-08-16) closed that gap. Same realism baseline; AUDJPY ÷110 for ~USD. Front-heavy again wins; range-close 20% / OCO still lose on N/S.
+
+**Best per market (promote candidates pending human):**
+
+| Market | Best ladder | N/S | Net | Stress | vs `1/1/1` |
+|---|---|---:|---:|---:|---:|
+| AUDJPY | limit_retest **4/1/1** | **24.87** | ¥46.2M (~$420k) | ¥−1.86M (~$−17k) | +9.61 |
+| XAUUSD | limit_retest **4/2/1** | **15.32** | $1,037,711 | $−67,742 | +4.02 |
+| XAGUSD | limit_retest **5/2/1** | **8.58** | $301,376 | $−35,143 | +2.36 |
+
+Deep-checks + 50W/50L charts: `live/state/yearly_orb_sizing_sweep_fx_metals/deep_check/` and `…/winloss_charts/`. One-pagers: `ONE_PAGE_AUDJPY_L_4_1_1.md`, `ONE_PAGE_XAUUSD_L_4_2_1.md`, `ONE_PAGE_XAGUSD_L_5_2_1.md`.
+
+## Futures yearly ORB HP size-up (2026-08-17)
+
+YM was missing from the daily HP condition profile; NQ/ES were profile-only (no nulls). Closed that:
+
+- Driver: `python -m live.yearly_orb_hp_sizeup --email`
+- Profile now includes **YM L_4_1_1** (81 campaigns, **90.1% WR**).
+- **NQ L_4_1_1 86% WR recount:** 59/68 = **86.8%** (Wilson 95% 76.7–92.9%) — HOLDS as a tape statistic.
+- Matched-added-exposure 1.25× and 2× on coverage<35% notables (NQ mixed-MA, ES ATR-q4/shorts, YM shorts/ATR-q4): **all NOT VALIDATED**. Master null fails (small n, many researched buckets). NQ mixed-MA placebo p_ΔNS=0.053 — close but not a pass.
+- Stance: **no yearly-ORB HP size-up**. Keep sizing-best 1.0× ladders. Plan: `live/state/yearly_orb_hp_live_plan/DEPLOYMENT_PLAN.md`.
+- Best-outcome daily charts (PNG, not zip): `live/state/yearly_orb_hp_charts/`.
+- NQ bucket charts (every campaign, not a sample): mixed MA 18 @ 100% WR, wide OR 20 @ 95%, ATR q4 24 @ 95.8%. Hub `live/state/yearly_orb_hp_charts/nq_buckets/`. Emailed as PNG batches (not zip). **Those WRs are pre-causal** — see causal-close section below.
+
+## Futures yearly ORB causal close (2026-08-17)
+
+Same lookahead pass as FX/metals: range-close flatten at **next daily open**, not the decision bar's open. Hub `live/state/yearly_orb_sizing_sweep_futures_causal_close/` (`COMPARISON.md`).
+
+The 86.8% / 76.7% / 90.1% WRs and NQ mixed-MA 100% / wide-OR 95% / ATR-q4 96% were same-bar-open scratches (NQ: 28/68 campaigns, 17 favorable `$0–$5k` closes).
+
+| Book | Pre N/S (WR) | Causal N/S (WR) |
+|---|---|---|
+| NQ `L_4_1_1` | 11.01 (86.8%) | **4.80 (29.4%)** |
+| ES `L_4_2_1` | 9.90 (76.7%) | **0.40 (20.5%)** — died |
+| YM `L_4_1_1` | 7.64 (90.1%) | **1.78 (22.2%)** |
+| NQ mixed MA / wide OR / ATR q4 | 100 / 95 / 96% | **33 / 40 / 42%** |
+| NQ `O_4_2_1_rc20` | 6.74 (54.3%) | **5.82 (47.8%)** — most stable |
+
+Stance: **do not promote** from pre-causal futures yearly-ORB numbers. Causal NQ `L_4_1_1` is still a 29% WR trend book; ES limit-retest ladders are not. Analog: AUDJPY died, XAU/XAG survived weak.
+
+## Futures yearly ORB HP + charts on causal fills (2026-08-17)
+
+Rebuilt the HP profile / 1.25×+2× nulls / LIVE_PLAN / best-outcome charts / NQ mixed-MA·wide-OR·ATR-q4 bucket charts on the **same causal broker-like tape**, not the scratch-inflated one.
+
+- Profile: `live/state/yearly_daily_condition_profile_futures_causal_close/`
+- LIVE_PLAN: `live/state/yearly_orb_hp_live_plan_causal_close/`
+- Charts: `live/state/yearly_orb_hp_charts_causal_close/` (NQ/ES/YM best wins + `nq_buckets/`)
+- Drivers: `python -m live.yearly_orb_hp_sizeup --causal-close --email` then `python -m live.yearly_orb_bucket_charts --causal-close --email`
+
+Book WR recount: NQ **20/68 = 29.4%** (CI 19.9–41.1%), ES **15/73 = 20.5%**, YM **18/81 = 22.2%**. All six HP pairs **NOT VALIDATED**. NQ bucket PNGs (every campaign): mixed MA 18 @ 33.3% (6/12), wide OR 20 @ 40% (8/12), ATR q4 24 @ 41.7% (10/14). Union 41 / 26 losses.

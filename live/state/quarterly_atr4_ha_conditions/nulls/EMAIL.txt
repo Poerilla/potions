@@ -1,0 +1,9 @@
+potions: quarterly ATR4 HA nulls complete
+
+Hub: /home/tester/hsm/potions/live/state/quarterly_atr4_ha_conditions/nulls
+Pairs: 4
+
+  gbpusd_first_lower | Entry hour (NY)=12 | NOT VALIDATED | ΔN/S=+0.00
+  gbpusd_first_lower | Day of week=Monday | NOT VALIDATED | ΔN/S=+0.00
+  gbpusd_first_lower | Week of month=3 | NOT VALIDATED | ΔN/S=+0.00
+  eurusd_second_after_upper | Hourly RSI bucket=rsi_30_45 | NOT VALIDATED | ΔN/S=+0.00

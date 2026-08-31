@@ -1,0 +1,170 @@
+{
+  "n_A": 173,
+  "n_B": 122,
+  "n_C": 173,
+  "smoke": false,
+  "summaries": [
+    {
+      "label": "A_close_break_cont_dev",
+      "n": 126,
+      "net_usd": -9969.0,
+      "avg_net": -79.11904761904762,
+      "win_rate": 0.5476190476190477,
+      "profit_factor": 0.740258725133857,
+      "avg_R": -1.4528754404435125,
+      "gap_through_n": 12,
+      "causality_ok_n": 126,
+      "expectancy_R": -1.4528754404435125,
+      "exit_reasons": {
+        "target_1R": 54,
+        "stop": 45,
+        "horizon_end": 27
+      },
+      "stress_mae_usd_min": -5090.0
+    },
+    {
+      "label": "A_close_break_cont_holdout",
+      "n": 47,
+      "net_usd": 26074.5,
+      "avg_net": 554.7765957446809,
+      "win_rate": 0.5106382978723404,
+      "profit_factor": 1.5629270609570483,
+      "avg_R": -4.312556594748201,
+      "gap_through_n": 4,
+      "causality_ok_n": 47,
+      "expectancy_R": -4.312556594748201,
+      "exit_reasons": {
+        "target_1R": 21,
+        "stop": 17,
+        "horizon_end": 9
+      },
+      "stress_mae_usd_min": -14550.0
+    },
+    {
+      "label": "A_close_break_cont_ALL",
+      "n": 173,
+      "net_usd": 16105.5,
+      "avg_net": 93.09537572254335,
+      "win_rate": 0.5375722543352601,
+      "profit_factor": 1.1901475796930343,
+      "avg_R": -2.229783037277734,
+      "gap_through_n": 16,
+      "causality_ok_n": 173,
+      "expectancy_R": -2.229783037277734,
+      "exit_reasons": {
+        "target_1R": 75,
+        "stop": 62,
+        "horizon_end": 36
+      },
+      "stress_mae_usd_min": -14550.0
+    },
+    {
+      "label": "B_wick_reject_fade_dev",
+      "n": 95,
+      "net_usd": 2177.5,
+      "avg_net": 22.92105263157895,
+      "win_rate": 0.4,
+      "profit_factor": 1.0485393609077027,
+      "avg_R": -0.21289960354913479,
+      "gap_through_n": 1,
+      "causality_ok_n": 95,
+      "expectancy_R": -0.21289960354913479,
+      "exit_reasons": {
+        "stop": 38,
+        "horizon_end": 31,
+        "target_1R": 26
+      },
+      "stress_mae_usd_min": -4510.0
+    },
+    {
+      "label": "B_wick_reject_fade_holdout",
+      "n": 27,
+      "net_usd": 15089.5,
+      "avg_net": 558.8703703703703,
+      "win_rate": 0.5185185185185185,
+      "profit_factor": 1.4654451795986982,
+      "avg_R": 0.07614112868855277,
+      "gap_through_n": 0,
+      "causality_ok_n": 27,
+      "expectancy_R": 0.07614112868855277,
+      "exit_reasons": {
+        "target_1R": 12,
+        "stop": 10,
+        "horizon_end": 5
+      },
+      "stress_mae_usd_min": -7205.0
+    },
+    {
+      "label": "B_wick_reject_fade_ALL",
+      "n": 122,
+      "net_usd": 17267.0,
+      "avg_net": 141.5327868852459,
+      "win_rate": 0.4262295081967213,
+      "profit_factor": 1.223434265010352,
+      "avg_R": -0.14893157264407278,
+      "gap_through_n": 1,
+      "causality_ok_n": 122,
+      "expectancy_R": -0.14893157264407278,
+      "exit_reasons": {
+        "stop": 48,
+        "target_1R": 38,
+        "horizon_end": 36
+      },
+      "stress_mae_usd_min": -7205.0
+    },
+    {
+      "label": "C_reclaim_invalidate_A_dev",
+      "n": 126,
+      "net_usd": -9969.0,
+      "avg_net": -79.11904761904762,
+      "win_rate": 0.5476190476190477,
+      "profit_factor": 0.740258725133857,
+      "avg_R": -1.4528754404435125,
+      "gap_through_n": 12,
+      "causality_ok_n": 126,
+      "expectancy_R": -1.4528754404435125,
+      "exit_reasons": {
+        "target_1R": 54,
+        "stop": 45,
+        "horizon_end": 27
+      },
+      "stress_mae_usd_min": -5090.0
+    },
+    {
+      "label": "C_reclaim_invalidate_A_holdout",
+      "n": 47,
+      "net_usd": 26074.5,
+      "avg_net": 554.7765957446809,
+      "win_rate": 0.5106382978723404,
+      "profit_factor": 1.5629270609570483,
+      "avg_R": -4.312556594748201,
+      "gap_through_n": 4,
+      "causality_ok_n": 47,
+      "expectancy_R": -4.312556594748201,
+      "exit_reasons": {
+        "target_1R": 21,
+        "stop": 17,
+        "horizon_end": 9
+      },
+      "stress_mae_usd_min": -14550.0
+    },
+    {
+      "label": "C_reclaim_invalidate_A_ALL",
+      "n": 173,
+      "net_usd": 16105.5,
+      "avg_net": 93.09537572254335,
+      "win_rate": 0.5375722543352601,
+      "profit_factor": 1.1901475796930343,
+      "avg_R": -2.229783037277734,
+      "gap_through_n": 16,
+      "causality_ok_n": 173,
+      "expectancy_R": -2.229783037277734,
+      "exit_reasons": {
+        "target_1R": 75,
+        "stop": 62,
+        "horizon_end": 36
+      },
+      "stress_mae_usd_min": -14550.0
+    }
+  ]
+}

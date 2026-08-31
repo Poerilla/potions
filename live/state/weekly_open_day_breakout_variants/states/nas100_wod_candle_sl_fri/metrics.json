@@ -1,0 +1,21 @@
+{
+  "bars_1m": 1064489,
+  "bars_4h": 4963,
+  "closed_dd_usd": -7630.199999999704,
+  "dsr_trial": "TRL-2026-00162",
+  "feed_tf": "1m",
+  "intrabar_stress_dd_usd": -7674.199999999704,
+  "label": "candle SL + 2/1/1 Fri flatten (v2)",
+  "market": "NAS100",
+  "max_open_units": 4,
+  "net_over_stress": 0.9817766021216364,
+  "net_usd": 7534.350000001572,
+  "profit_factor": 1.119493942712528,
+  "signal_tf": "4h",
+  "stance": "weak \u2014 needs tune",
+  "strategy_id": "nas100_wod_candle_sl_fri",
+  "trades": 241,
+  "units": 964,
+  "variant": "candle_sl_fri",
+  "win_rate": 0.3838174273858922
+}

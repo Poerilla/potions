@@ -9,19 +9,31 @@ strategies re-run (pre-fix silver yearly N/S 316 was a spike artifact).
 
 ## Top 4 by Net/Stress
 
+**Sized yearly ORB (2026-08-16)** — current N/S leaders from [`../yearly_orb_sizing_sweep_fx_metals/SUMMARY.md`](../yearly_orb_sizing_sweep_fx_metals/SUMMARY.md):
+
+| Rank | Pair | Strategy | Net (USD≈) | MTM stress | **N/S** | Ladder | vs `1/1/1` |
+|---:|---|---|---:|---:|---:|---|---:|
+| 1 | **AUDJPY** | Yearly ORB sized | ~$420k | ~$−17k | **24.87** | **4/1/1** | +9.61 |
+| 2 | **XAUUSD** | Yearly ORB sized | $1,037,711 | $−67,742 | **15.32** | **4/2/1** | +4.02 |
+| 3 | **XAGUSD** | Yearly ORB sized | $301,376 | $−35,143 | **8.58** | **5/2/1** | +2.36 |
+| 4 | **USDJPY** | Monthly ORB FBO 1/1/3 atr80 | $93,082 | $−26,548 | **4.25** | — | — |
+
+**Baseline `1/1/1` (charted / $250k institutional metrics below — unchanged):**
+
 | Rank | Pair | Strategy | Net (USD) | MTM stress | **N/S** | CAGR | Sharpe | Max DD | Worst mo | Worst yr | n | WR |
 |---:|---|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
-| 1 | **AUDJPY** | Yearly ORB scaleout3 | $193,803 | $-9,036 | **15.26** | 2.60% | **1.03** | **-2.69%** | -1.33% | -0.40% | 146 | 88.8% |
-| 2 | **XAUUSD** | Yearly ORB scaleout3 | $541,254 | $-47,903 | **11.30** | 5.16% | 0.76 | -10.36% | -5.60% | -0.36% | 91 | 93.8% |
-| 3 | **XAGUSD** | Yearly ORB scaleout3 | $121,185 | $-19,508 | **6.21** | 1.74% | 0.65 | -5.54% | -2.34% | -0.01% | 89 | 88.8% |
+| 1 | **AUDJPY** | Yearly ORB scaleout3 `1/1/1` | $193,803 | $-9,036 | **15.26** | 2.60% | **1.03** | **-2.69%** | -1.33% | -0.40% | 146 | 88.8% |
+| 2 | **XAUUSD** | Yearly ORB scaleout3 `1/1/1` | $541,254 | $-47,903 | **11.30** | 5.16% | 0.76 | -10.36% | -5.60% | -0.36% | 91 | 93.8% |
+| 3 | **XAGUSD** | Yearly ORB scaleout3 `1/1/1` | $121,185 | $-19,508 | **6.21** | 1.74% | 0.65 | -5.54% | -2.34% | -0.01% | 89 | 88.8% |
 | 4 | **USDJPY** | Monthly ORB FBO 1/1/3 atr80 | $93,082 | $-26,548 | **4.25** | 1.39% | 0.29 | -9.00% | -4.94% | -4.23% | 156 | 50.6% |
 
 ### Notes
-- **AUDJPY #1:** still the cross-universe N/S leader; use banked $250k report Sharpe **1.03** / max DD **−2.69%** (`audjpy_futures_strats_sweep/best_report_yearly_orb/`) — rebuild here matches net/CAGR/worst-month.
-- **XAUUSD #2:** yearly ORB transfers cleanly to gold (+$541k / N/S 11.3, Sharpe 0.76).
-- **XAGUSD #3:** post-fix yearly ORB +$121k / N/S 6.21 (no single-trade domination).
+- **AUDJPY #1 (sized):** N/S **24.87** on `4/1/1`; banked $250k Sharpe **1.03** / max DD **−2.69%** still refer to the `1/1/1` report (`audjpy_futures_strats_sweep/best_report_yearly_orb/`).
+- **XAUUSD #2 (sized):** `4/2/1` lifts N/S 11.30 → **15.32** (+$1.04M net).
+- **XAGUSD #3 (sized):** `5/2/1` lifts N/S 6.21 → **8.58** (post silver-fix tape).
 - **USDJPY #4:** best monthly FBO sleeve; metals FBO still fails.
 - Rank 5: XAUUSD ST+PMC MA-bull N/S **3.31**.
+- Deep-checks / one-pagers: `live/state/yearly_orb_sizing_sweep_fx_metals/`.
 
 ## Metals gambit full table (post silver fix)
 

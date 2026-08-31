@@ -1,0 +1,154 @@
+{
+  "broker_realism_config": {
+    "fee": 1.5,
+    "slippage_ticks": 1.0
+  },
+  "causality_mode": "audit",
+  "command": [
+    "/home/tester/hsm/potions/live/nq_1h_first_hour_broker_variants.py",
+    "--force",
+    "--email",
+    "--only",
+    "body75_ladder_1r2r3r"
+  ],
+  "created_at": "2026-08-19T16:29:06Z",
+  "cwd": "/home/tester/hsm/potions",
+  "data_inputs": [
+    {
+      "bytes": 20945326,
+      "exists": true,
+      "path": "/home/tester/hsm/potions/nq/nq_5min_rth.csv",
+      "sha256": "0a3f1756e9b7752af2350ce52673e75ecd707a0a7187645f6cb9d1bdfac2a747"
+    }
+  ],
+  "extra": {
+    "results": [
+      {
+        "bars": 310840,
+        "closed_dd_usd": -31658.0,
+        "config": "{'tick_size': 0.25, 'entry_qty': 1, 'fade': False, 'fh_start': '09:30', 'fh_end': '10:30', 'bar_minutes': 5, 'eod_cutoff': '15:59', 'min_fh_bars': 10, 'require_fh_body': '', 'suppress_alerts': True, 'entry_mode': 'market_close', 'sl_mode': 'open', 'tp_mode': 'body_mult', 'r_mult': 3.0}",
+        "diag_n": 3968,
+        "diag_net": 243008.0,
+        "diag_ns": 9.32,
+        "fill_entry_n": 4028,
+        "fill_eod_n": 1296,
+        "fill_stop_n": 2143,
+        "fill_tp_n": 518,
+        "intrabar_stress_dd_usd": -31718.0,
+        "label": "baseline SL=open TP=3\u00d7body 1-lot",
+        "net_over_stress": 5.5723248628539,
+        "net_usd": 176743.0,
+        "slug": "baseline_open_3xbody",
+        "strategy_id": "nq_fh_baseline_open_3xbody",
+        "trades": 3943,
+        "units": 3943,
+        "win_rate": 0.3720517372558965
+      },
+      {
+        "bars": 310840,
+        "closed_dd_usd": -24856.5,
+        "config": "{'tick_size': 0.25, 'entry_qty': 1, 'fade': False, 'fh_start': '09:30', 'fh_end': '10:30', 'bar_minutes': 5, 'eod_cutoff': '15:59', 'min_fh_bars': 10, 'require_fh_body': '', 'suppress_alerts': True, 'entry_mode': 'market_close', 'sl_mode': 'body_frac', 'sl_body_frac': 0.5, 'tp_mode': 'r_mult', 'r_mult': 3.0}",
+        "diag_n": 3919,
+        "diag_net": 179506.0,
+        "diag_ns": 10.01,
+        "fill_entry_n": 3976,
+        "fill_eod_n": 526,
+        "fill_stop_n": 2663,
+        "fill_tp_n": 769,
+        "intrabar_stress_dd_usd": -25021.5,
+        "label": "half-body SL + 3R 1-lot",
+        "net_over_stress": 4.743650460603881,
+        "net_usd": 118693.25,
+        "slug": "halfbody_sl_3r",
+        "strategy_id": "nq_fh_halfbody_sl_3r",
+        "trades": 3952,
+        "units": 3952,
+        "win_rate": 0.3044028340080971
+      },
+      {
+        "bars": 310840,
+        "closed_dd_usd": -89293.25000000057,
+        "config": "{'tick_size': 0.25, 'entry_qty': 1, 'fade': False, 'fh_start': '09:30', 'fh_end': '10:30', 'bar_minutes': 5, 'eod_cutoff': '15:59', 'min_fh_bars': 10, 'require_fh_body': '', 'suppress_alerts': True, 'entry_mode': 'retrace_limit', 'retrace_frac': 0.72, 'sl_mode': 'extreme', 'tp_mode': 'r_mult', 'r_mult': 3.0}",
+        "diag_n": 2522,
+        "diag_net": 110780.0,
+        "diag_ns": 2.22,
+        "fill_entry_n": 2670,
+        "fill_eod_n": 720,
+        "fill_stop_n": 1564,
+        "fill_tp_n": 357,
+        "intrabar_stress_dd_usd": -89666.55000000058,
+        "label": "retrace body 72% \u2192 SL extreme \u2192 3R",
+        "net_over_stress": 0.3336679062593595,
+        "net_usd": 29918.85000000037,
+        "slug": "retrace72_extreme_3r",
+        "strategy_id": "nq_fh_retrace72_extreme_3r",
+        "trades": 2625,
+        "units": 2625,
+        "win_rate": 0.3333333333333332
+      },
+      {
+        "bars": 310840,
+        "closed_dd_usd": -90667.0,
+        "config": {
+          "bar_minutes": 5,
+          "entry_mode": "market_close",
+          "entry_qty": 3,
+          "eod_cutoff": "15:59",
+          "fade": false,
+          "fh_end": "10:30",
+          "fh_start": "09:30",
+          "min_fh_bars": 10,
+          "r_mult": 3.0,
+          "require_fh_body": "",
+          "sl_body_frac": 0.75,
+          "sl_mode": "body_frac",
+          "suppress_alerts": true,
+          "tick_size": 0.25,
+          "tp_ladder_r": [
+            1.0,
+            2.0,
+            3.0
+          ],
+          "tp_mode": "r_mult"
+        },
+        "diag_n": 3919,
+        "diag_net": 536261.0,
+        "diag_ns": 7.64,
+        "fill_entry_n": 3976,
+        "fill_eod_n": 924,
+        "fill_stop_n": 2391,
+        "fill_tp_n": 3375,
+        "intrabar_stress_dd_usd": -91267.0,
+        "label": "0.75-body SL + 1R/2R/3R ladder 3-lot",
+        "net_over_stress": 3.9510091270667385,
+        "net_usd": 360596.75,
+        "slug": "body75_ladder_1r2r3r",
+        "strategy_id": "nq_fh_body75_ladder_1r2r3r",
+        "trades": 3958,
+        "units": 11818,
+        "win_rate": 0.40438314435606704
+      }
+    ]
+  },
+  "git": {
+    "commit": "",
+    "dirty": false,
+    "repo_root": "/home/tester/hsm/potions/live/state/nq_1h_first_hour_broker_variants",
+    "status_short": []
+  },
+  "outputs": [],
+  "python": {
+    "executable": "/home/tester/.pyenv/versions/3.8.0/bin/python",
+    "platform": "Linux-5.15.0-185-generic-x86_64-with-glibc2.34",
+    "version": "3.8.0 (default, Feb 11 2026, 11:18:58) \n[GCC 11.4.0]"
+  },
+  "run_id": "run_05f3941b6de4",
+  "strategy_config": {
+    "books": [
+      "baseline_open_3xbody",
+      "halfbody_sl_3r",
+      "retrace72_extreme_3r",
+      "body75_ladder_1r2r3r"
+    ]
+  }
+}

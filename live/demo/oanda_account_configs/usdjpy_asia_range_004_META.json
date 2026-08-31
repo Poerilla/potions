@@ -1,0 +1,17 @@
+{
+  "env": "practice",
+  "account_id": "101-002-39860312-004",
+  "label": "USDJPY Asia Range S_3_1_3",
+  "demo": "usdjpy_asia_range_london_oanda",
+  "cli": "demo-usdjpy-asia-range-oanda",
+  "strategy_type": "v2b_scaleout",
+  "strategy_id": "usdjpy_asia_range_london_S_3_1_3_flt_oanda",
+  "instrument": "USDJPY",
+  "oanda_instrument": "USD_JPY",
+  "validation_status": "PASS at 1m bar resolution",
+  "validation_summary": "$178,142 / -$24,627 / 7.23 N/S; 3,772 feature snapshots; 0 causality violations; 0 entry fills at/before activation; earliest entry fill 1m after 03:00 London arm",
+  "validation_doc": "live/state/usdjpy_causality_review_2026_08/CAUSALITY_REVIEW.md",
+  "tracker_hub": "live/state/fx_v2b_asia_range_london_usdjpy_filters/VALIDATION_GATES.md",
+  "replaces": "nas100_2r10r_st_pmc_004",
+  "cutover_date": "2026-08-24"
+}

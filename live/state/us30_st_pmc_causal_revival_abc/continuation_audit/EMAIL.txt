@@ -1,0 +1,14 @@
+US30 ST+PMC CONTINUATION_AUDIT complete.
+Hub: /home/tester/hsm/potions/live/state/us30_st_pmc_causal_revival_abc
+Contract: us30_st_pmc_completed_hour_continuation_v1
+Preferred: path_c_continuation_break_2r_10r board N/S 1.84
+
+Campaigns: 1736 (units 5207) multi-entry signals: 0
+Reconcile units_match=True pnl_match=True
+Capped N/S vs board stress: campaign 2R→-4.66 3R→-2.83; unit 2R→-6.27 3R→-4.34
+Top5 campaign share: 0.3001
+Bootstrap-by-week P(net<0): 0.02
+
+Stance: research_candidate; demo=false. Paths A/B rejected.
+Next: Engine adverse slippage re-run + explicit one-entry guard + EOD flatten contract.
+Audit: /home/tester/hsm/potions/live/state/us30_st_pmc_causal_revival_abc/CONTINUATION_AUDIT.md

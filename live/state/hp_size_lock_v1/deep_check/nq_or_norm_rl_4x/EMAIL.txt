@@ -1,0 +1,19 @@
+potions: deep-check NQ OR-norm HP sleeve @4x (resting limit, or_norm only)
+
+Hub: live/state/hp_size_lock_v1/deep_check/nq_or_norm_rl_4x
+State: /home/tester/hsm/potions/live/state/hp_size_lock_v1/states/nq_or_norm_rl_or_norm_only
+Net=$581952.50  trades=129  full_SL=32 (24.8%)  hit_TP=64.3%  EOD=53.5%
+
+Year | net | stress | N/S | ret on start eq
+2021 | $54497.50 | $-19855.00 | 2.74 | +54.50%
+2022 | $19677.50 | $0.00 | 0.00 | +12.74%
+2023 | $81602.50 | $-18612.50 | 4.38 | +46.85%
+2024 | $109865.00 | $-19082.50 | 5.76 | +42.95%
+2025 | $283980.00 | $-9165.00 | 30.99 | +77.67%
+2026 | $32330.00 | $-12457.50 | 2.60 | +4.98%
+
+Weakest N/S year: 2022 ($19677.50 net, N/S=0.00)
+
+End equity if $100k at year-1 start: $681952.50
+
+See YEARLY.md + ROBUSTNESS_AUDIT.md in hub.

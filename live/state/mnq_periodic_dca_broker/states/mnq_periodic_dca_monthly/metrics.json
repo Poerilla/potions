@@ -1,0 +1,20 @@
+{
+  "bars": 2132,
+  "cadence": "monthly",
+  "close_mtm_dd_usd": -788001.5,
+  "end_mark_price": 24214.5,
+  "end_ts": "2026-03-08",
+  "fee_per_unit": 1.5,
+  "final_qty": 83,
+  "instrument": "MNQ",
+  "intrabar_stress_dd_usd": -826629.5,
+  "n_buys": 83,
+  "net_over_stress": 1.8311658971764255,
+  "net_usd": 1513695.75,
+  "point_value": 2.0,
+  "qty_per_buy": 1,
+  "slippage_ticks": 1.0,
+  "start_ts": "2019-05-05",
+  "strategy_id": "mnq_periodic_dca_monthly",
+  "units_marked": 83
+}

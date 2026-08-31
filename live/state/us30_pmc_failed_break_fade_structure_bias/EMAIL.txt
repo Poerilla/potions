@@ -1,0 +1,11 @@
+US30 PMC fade × 4h structure-bias overlay complete.
+Hub: /home/tester/hsm/potions/live/state/us30_pmc_failed_break_fade_structure_bias
+DSR: TRL-2026-00189 (parent TRL-2026-00187)
+
+Phase 2 variants:
+  baseline  N=129 net=$2612 stress=$-3239 N/S=0.81 WR=49.6% runner=72%
+  aligned_only  N=45 net=$1348 stress=$-3385 N/S=0.40 WR=53.3% runner=64%
+  aligned_plus_neut  N=45 net=$1348 stress=$-3385 N/S=0.40 WR=53.3% runner=64%
+
+Stance: ARCHIVE_OVERLAY
+ALIGNED N/S ≤ baseline or ALIGNED net negative — archive structure-bias overlay; close fade workstream if no other path.

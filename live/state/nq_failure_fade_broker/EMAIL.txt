@@ -1,0 +1,8 @@
+NQ failure_fade broker-like replay complete.
+
+Hub: /home/tester/hsm/potions/live/state/nq_failure_fade_broker
+
+primary only: trades=22 units=220 net=$-5564.75 stress=$-295821.25 N/S=-0.02
+fade+reclaim: trades=34 units=340 net=$43634.75 stress=$-360658.50 N/S=0.12
+
+SUMMARY: /home/tester/hsm/potions/live/state/nq_failure_fade_broker/SUMMARY.md

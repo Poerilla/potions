@@ -1,0 +1,11 @@
+potions: quarterly ±4×ATR fade broker-like complete
+
+Hub: /home/tester/hsm/potions/live/state/quarterly_atr4_fade_broker
+Book: open-week mid ±4×ATR first-touch fade; 2 lots; mid scaleout;
+runner @ opposite ±4×ATR → reverse; max 2 trades/quarter.
+
+  GBPUSD  net=$7,751  N/S=0.30  trades=107  units=214  WR=26%  PF=1.06
+  US30  net=$3,468  N/S=0.60  trades=41  units=82  WR=28%  PF=1.18
+  NAS100  net=$-2,714  N/S=-0.46  trades=36  units=72  WR=14%  PF=0.74
+
+See SUMMARY.md for table.

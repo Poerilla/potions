@@ -1,0 +1,2 @@
+broker_order_id,intent_id,strategy_id,trade_id,instrument,account_mode,side,order_type,quantity,remaining_quantity,status,limit_price,stop_price,reduce_only,bracket_role,parent_order_id,oco_group,live_after_ts,expires_after_ts,created_at,updated_at
+ord_entry1,intent_e,us30_hourly_st_pmc_sl50_tp150_3r_oanda,t_pending,US30,paper,buy,limit,1.0,1.0,working,42000.0,,False,entry,,,2026-08-19T15:00:00Z,,2026-08-19T15:00:00Z,2026-08-19T15:00:00Z

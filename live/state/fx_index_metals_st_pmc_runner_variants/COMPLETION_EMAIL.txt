@@ -1,0 +1,68 @@
+IN PROGRESS SNAPSHOT
+status: IN_PROGRESS
+generated_at_utc: 2026-08-27T00:05:37+00:00
+completed_required_jobs: 21 / 21
+accounting_mode: lot-correct-preferred
+
+CHANGE SINCE PRIOR SNAPSHOT
+= No new promoted strategy
+! XAUUSD runner variants still active
+~ status COMPLETE → IN_PROGRESS
+
+DECISION STATE
+RETAIN (4): NAS100 3R, USDJPY 3R, XAUUSD 3R, XAUUSD 2R→10R
+RESEARCH (5): EURUSD indef, GBPUSD indef, NAS100 indef, XAGUSD indef, XAUUSD indef
+PENDING_NORMALIZATION (5): AUDJPY 3R, AUDJPY 2R→10R, AUDJPY indef, USDJPY 2R→10R, USDJPY indef
+INSUFFICIENT_SAMPLE (2): XAGUSD 3R, XAGUSD 2R→10R
+NOT_RANKABLE (5): EURUSD 3R, EURUSD 2R→10R, GBPUSD 3R, GBPUSD 2R→10R, NAS100 2R→10R
+
+BLOCKS FINAL JUDGMENT
+- hub_status=IN_PROGRESS
+- 1_active_jobs
+- usd_normalization_pending:audjpy,usdjpy
+
+PORTFOLIO ACTION REQUIRED: YES
+- No final promotion until required jobs finish.
+- Normalize JPY results before cross-market ranking.
+
+Active jobs: 1
+- XAUUSD: indef, indef 135000/138745 (97%); done=2R→10R
+
+COMPARABLE CORE BOARD (rankable only if all gates pass)
+1. NAS100 3R  N/S=19.56 net=$15.2k stress=-$778  [RETAIN] src=LOT_CORRECT_ACCOUNTING.csv
+2. XAUUSD 2R→10R  N/S=1.66 net=$278.1k stress=-$167.9k  [RETAIN] src=LOT_CORRECT_ACCOUNTING.csv
+3. USDJPY 3R  N/S=1.56 net=$30.4k stress=-$19.5k  [RETAIN] src=FAIR_3R_USD_NORMALIZED.md
+4. XAUUSD 3R  N/S=0.83 net=$77.3k stress=-$92.9k  [RETAIN] src=LOT_CORRECT_ACCOUNTING.csv
+
+TESTED / NOT PROMOTED (awaiting human promote)
+- NAS100 3R N/S=19.56 [RETAIN]
+- XAUUSD 2R→10R N/S=1.66 [RETAIN]
+- USDJPY 3R N/S=1.56 [RETAIN]
+- XAUUSD 3R N/S=0.83 [RETAIN]
+
+INDEFINITE INVENTORY RESEARCH — NOT RANKABLE
+AUDJPY  forced-flat=$16382.5k | reachable stress=-$24697.1k | max inv=178 | EOY open=177 | margin=$1552647.3k  [PENDING_NORMALIZATION] (lot-correct)
+EURUSD  forced-flat=$339.5k | reachable stress=-$228.4k | max inv=239 | EOY open=238 | margin=$28685.7k  [RESEARCH] (lot-correct)
+GBPUSD  forced-flat=$220.6k | reachable stress=-$267.6k | max inv=212 | EOY open=212 | margin=$31399.6k  [RESEARCH] (lot-correct)
+NAS100  forced-flat=$54.3k | reachable stress=-$22.6k | max inv=74 | EOY open=70 | margin=$1019.1k  [RESEARCH] (lot-correct)
+USDJPY  forced-flat=$14355.2k | reachable stress=-$42280.0k | max inv=199 | EOY open=195 | margin=$2282912.9k  [PENDING_NORMALIZATION] (lot-correct)
+XAGUSD  forced-flat=$15.1k | reachable stress=-$175.8k | max inv=3 | EOY open=3 | margin=$215.5k  [RESEARCH] (lot-correct)
+XAUUSD  forced-flat=$995.9k | reachable stress=-$2006.3k | max inv=103 | EOY open=94 | margin=$21206.1k  [RESEARCH] (lot-correct)
+
+PENDING / NON-COMPARABLE
+- AUDJPY 3R [PENDING_NORMALIZATION]: native_jpy_not_usd_normalized; eoy_open_units_nonzero
+- AUDJPY 2R→10R [PENDING_NORMALIZATION]: native_jpy_not_usd_normalized; eoy_open_units_nonzero
+- EURUSD 3R [NOT_RANKABLE]: eoy_open_units_nonzero
+- EURUSD 2R→10R [NOT_RANKABLE]: eoy_open_units_nonzero
+- GBPUSD 3R [NOT_RANKABLE]: eoy_open_units_nonzero
+- GBPUSD 2R→10R [NOT_RANKABLE]: eoy_open_units_nonzero
+- NAS100 2R→10R [NOT_RANKABLE]: eoy_open_units_nonzero
+- USDJPY 2R→10R [PENDING_NORMALIZATION]: native_jpy_not_usd_normalized; eoy_open_units_nonzero
+- XAGUSD 3R [INSUFFICIENT_SAMPLE]: insufficient_sample_units<30; eoy_open_units_nonzero
+- XAGUSD 2R→10R [INSUFFICIENT_SAMPLE]: insufficient_sample_units<30; eoy_open_units_nonzero
+
+Hub: live/state/fx_index_metals_st_pmc_runner_variants
+Report: COMPLETION_REPORT.md
+Snapshot: LATEST_SNAPSHOT.json
+
+Note: PID/host/command live in hub status JSON only.

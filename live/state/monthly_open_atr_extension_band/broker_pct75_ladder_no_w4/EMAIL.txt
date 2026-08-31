@@ -1,0 +1,14 @@
+potions: NQ mo-ext ladder compare (no week 4, gap-retag)
+
+Hub: live/state/monthly_open_atr_extension_band/broker_pct75_ladder_no_w4
+DSR: TRL-2026-00124
+
+3_3_3 (qty 9): net=$650,945 norm10=$723,272 N/S=1.68 Sharpe=0.05 trades=71
+6_2_2 (qty 10): net=$644,538 norm10=$644,538 N/S=1.57 Sharpe=0.05 trades=71
+1_1_7 (qty 9): net=$822,294 norm10=$913,660 N/S=1.73 Sharpe=0.05 trades=71
+2_2_5 (qty 9): net=$736,619 norm10=$818,466 N/S=1.77 Sharpe=0.06 trades=71
+2_5_3 (qty 10): net=$725,206 norm10=$725,206 N/S=1.71 Sharpe=0.05 trades=71
+
+Best N/S@10: 2_2_5 (1.77)
+Best net@10: 1_1_7 ($913,660)
+Stance: research.

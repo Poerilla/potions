@@ -1,0 +1,20 @@
+{
+  "bars": 95471.0,
+  "close_dd": -391294.95472365234,
+  "entry_qty": 10.0,
+  "equity_curve": "live/state/monthly_open_atr_extension_band/broker_pct75_ladder_no_w4/ladder_6_2_2/audits/nq_mo_ext_pct75_wide_2p5x_now4_gap_L6_2_2_r6m/equity_curve.csv",
+  "ladder": "6_2_2",
+  "ladder_qtys": [
+    6,
+    2,
+    2
+  ],
+  "loss_units": 282.0,
+  "net_usd": 644538.1802780079,
+  "ns": 1.5712996233123413,
+  "strategy_id": "nq_mo_ext_pct75_wide_2p5x_now4_gap_L6_2_2_r6m",
+  "stress_dd": -410194.3198581721,
+  "trades": 71.0,
+  "units": 710.0,
+  "win_units": 428.0
+}

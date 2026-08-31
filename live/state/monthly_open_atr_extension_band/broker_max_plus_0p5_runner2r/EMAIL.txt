@@ -1,0 +1,11 @@
+potions: NQ band-max +50% SL · open TP + runner 2R (all vs no-w4)
+
+Hub: live/state/monthly_open_atr_extension_band/broker_max_plus_0p5_runner2r
+DSR: TRL-2026-00128
+Entry max; SL plus_0.5; ladder 0/5/5; runner = open±2R after BE
+
+all_weeks: net=$858,670 stress=$442,136 N/S=1.94 Sharpe=0.07 trades=57 skip_w4=no
+no_w4: net=$814,860 stress=$450,196 N/S=1.81 Sharpe=0.07 trades=53 skip_w4=yes
+
+Best N/S: all_weeks (1.94)
+Stance: research — strong lift vs max+30% flat; beats pct75 wide_2.5x N/S on this tape.

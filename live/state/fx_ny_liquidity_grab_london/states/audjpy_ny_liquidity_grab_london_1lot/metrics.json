@@ -1,0 +1,20 @@
+{
+  "strategy_id": "audjpy_ny_liquidity_grab_london_1lot",
+  "symbol": "AUDJPY",
+  "family": "fx",
+  "quote": "JPY",
+  "entry_qty": 1,
+  "tp_r_mult": 1.0,
+  "regime_days": 1430,
+  "start": "2015-01-02",
+  "units": 907,
+  "trades": 907,
+  "net_usd": -13823.172727277153,
+  "closed_dd_usd": -19137.36363636625,
+  "stress_dd_usd": -19183.727272729888,
+  "net_over_stress": -0.7205676212321426,
+  "win_rate": 46.08599779492833,
+  "profit_factor": 0.8453755980761053,
+  "max_open_units": 1,
+  "state_root": "live/state/fx_ny_liquidity_grab_london/states/audjpy_ny_liquidity_grab_london_1lot"
+}

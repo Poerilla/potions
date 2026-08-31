@@ -1,0 +1,54 @@
+potions: ST+PMC signal-hour attribution + CFD revival progress
+
+Time: 2026-08-29T08:58:26
+
+## 1) Signal-hour attribution (DONE) — US30 CFD
+
+Hub: live/state/us30_st_pmc_signal_hour_attribution/
+Source: retired fair-3R sl50_tp150_3r_1mfill (old N/S 29.39 under invalid left-label timing)
+
+Headline (578 campaigns):
+- Same-hour fills under old arming: 74 (12.8%)
+- Target before hour close: 418
+- Stop before hour close: 24
+- Post-close ST-limit retest ≤24h: 521 (90.1%)
+- Post-close continuation (break H/L) ≤24h: 315 (54.5%)
+
+Buckets:
+- post_close_fill_under_old_arming: 504
+- same_hour_lookahead_fill: 29
+- same_hour_stop_before_close: 24
+- same_hour_target_before_close: 21
+
+Demo decision:
+  demo_us30_hourly_st_pmc → alpha_status=invalidated; action_preferred=stop
+  (lifecycle-only if retained; exclude P&L from strategy conclusions)
+
+Scope: attribution/revival so far is US30 CFD (not yet NAS100 / other CFDs).
+
+## 2) Causal revival A/B/C (IN PROGRESS — full history)
+
+Hub: live/state/us30_st_pmc_causal_revival_abc/
+Job: python -m live.us30_st_pmc_causal_revival_abc --email --force (alive, Path C running)
+
+Full-history finished cells:
+- path_a_prepost_pmc_3r: net=$-6441 stress=$-6744 N/S=-0.95 units=602 causal_ok
+- path_b_post_hour_pmc_retest_3r: net=$-4994 stress=$-5356 N/S=-0.93 units=578 causal_ok
+
+Path C last progress: path_c_continuation_break_3r hourly 20000/49325 (1m=1145950 skipped_h=0)
+
+Control ref (not re-run): completed-hour ST-limit 2R→10R N/S 1.47.
+Full A/B already negative vs that control. Matrix will email again on completion.
+
+## 3) Gmail agent — OK
+
+- Daemon pid 3838672 alive (~4.5d): live.gmail_prompt_agent poll
+- Gmail API: OK (tshepok13@gmail.com)
+- Subject filter: 'potions-prompt' (matches Re:/Fwd: via normalize='potions-prompt')
+- Currently mid-child agent on the A–C CFD prompt (~40m+) — poller waits for reply (normal for long jobs)
+- Earlier today: Broken pipe → client rebuild → continued polling; replies sent
+- Recent potions-prompt (3d):
+- Sat, 29 Aug 2026 08:46:53 -0400 | read | Re: potions-prompt
+- Sat, 29 Aug 2026 08:16:09 -0400 | read | Re: potions-prompt
+- Sat, 29 Aug 2026 13:02:37 +0200 | read | Re: potions-prompt
+- Sat, 29 Aug 2026 06:59:22 -0400 | read | potions-prompt

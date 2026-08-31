@@ -1,0 +1,28 @@
+Prior-opposed +1×10R runner — refined analysis
+
+Question: freeze S_1_1_3 (1 TP1 + 1 TP2 + 3 EOD runners) and add ONE
+extra contract targeting 10×R (BE after TP1). Improve prior-opposed N/S?
+
+VERDICT:
+  NQ / MNQ  — OPTIONAL YES (inventory sleeve). ΔN/S ~+3.1. Keep if stress room.
+  US30 / NAS100 — NO PROMOTE. Tiny ΔN/S; books still ~0.7 / 0.2 N/S. Gate stays dead.
+
+Per market (base → +10R):
+  [OPT] NQ     N/S 19.40 → 22.54 (Δ+3.14)  net $1.33M +$246k  10R hits 1/432
+  [OPT] MNQ    N/S 18.44 → 21.51 (Δ+3.07)  net $128k +$24k   10R hits 1/428
+  [NO]  US30   N/S  0.59 →  0.69 (Δ+0.10)  net $6.3k +$1.1k  10R hits 1/309
+  [NO]  NAS100 N/S  0.12 →  0.22 (Δ+0.10)  net $0.9k +$0.8k  10R hits 5/310
+
+Where the PnL actually comes from (not the 10R lottery):
+  NQ:   eod_mark +$436k · hard stop −$206k · 10R target +$16k · BE stops ~0
+  MNQ:  eod_mark +$44k  · hard stop −$21k  · 10R target +$1.6k
+  US30: eod_mark +$15k  · hard stop −$15k  · 10R ~+$1k  (nearly flat)
+  NAS100: eod +$6.8k · stop −$6.2k · 10R +$0.5k
+
+Read:
+- True 10R hits are ~0–2%. Edge is +1 EOD survivor with BE after TP1,
+  not a moonshot sleeve. Functionally closer to S_1_1_4 than “10R runner”.
+- Stress model = published stress + one-unit −R (optimistic vs full stack).
+- Do not revive US30/NAS100 prior-opposed on this evidence.
+
+Hub: live/state/prior_opposed_10r_addon/

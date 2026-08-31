@@ -1,0 +1,23 @@
+{
+  "strategy_id": "gbpusd_v2b_london_2h_or_S_1_1_3",
+  "symbol": "GBPUSD",
+  "family": "fx",
+  "quote": "USD",
+  "book": "S_1_1_3",
+  "clock": "london_2h_or",
+  "or_window": "03:00-05:00",
+  "or_bars": 120,
+  "sizing": "S_1_1_3",
+  "regime_days": 1435,
+  "start": "2015-01-02",
+  "units": 12155,
+  "trades": 2431,
+  "net_usd": -309455.00000020926,
+  "closed_dd_usd": -316640.00000019197,
+  "stress_dd_usd": -316833.00000019197,
+  "net_over_stress": -0.9767132842854809,
+  "win_rate": 27.626491155902922,
+  "profit_factor": 0.7014069204544616,
+  "max_open_units": 5,
+  "state_root": "live/state/fx_v2b_london_2h_or/states/gbpusd_v2b_london_2h_or_S_1_1_3"
+}

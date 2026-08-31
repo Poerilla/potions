@@ -788,6 +788,44 @@ def cmd_demo_usdjpy_monday_or_oanda_stop(args) -> int:
     return stop_daemon(_demo_usdjpy_monday_or_oanda_output_root(args))
 
 
+def _demo_usdjpy_monthly_fbo_oanda_output_root(args) -> Path:
+    from .demo.usdjpy_monthly_orb_fbo_oanda import default_output_root
+
+    return Path(args.output_root) if getattr(args, "output_root", "") else default_output_root()
+
+
+def cmd_demo_usdjpy_monthly_fbo_oanda(args) -> int:
+    from .demo.usdjpy_monthly_orb_fbo_oanda import monthly_config, run_loop, spawn_daemon
+
+    output_root = _demo_usdjpy_monthly_fbo_oanda_output_root(args)
+    oanda_config = getattr(args, "oanda_config", "") or ""
+    if args.daemon:
+        return spawn_daemon(
+            output_root=output_root,
+            max_polls=int(args.max_polls or 0),
+            oanda_config_path=oanda_config,
+        )
+    config = monthly_config(oanda_config_path=oanda_config)
+    return run_loop(
+        output_root=output_root,
+        config=config,
+        oanda_config_path=oanda_config,
+        max_polls=int(args.max_polls or 0),
+    )
+
+
+def cmd_demo_usdjpy_monthly_fbo_oanda_status(args) -> int:
+    from .demo.usdjpy_monthly_orb_fbo_oanda import status_daemon
+
+    return status_daemon(_demo_usdjpy_monthly_fbo_oanda_output_root(args))
+
+
+def cmd_demo_usdjpy_monthly_fbo_oanda_stop(args) -> int:
+    from .demo.usdjpy_monthly_orb_fbo_oanda import stop_daemon
+
+    return stop_daemon(_demo_usdjpy_monthly_fbo_oanda_output_root(args))
+
+
 def _demo_usdjpy_monday_or_paper_output_root(args) -> Path:
     from .demo.usdjpy_monday_or_ungated_paper import default_output_root
 
@@ -1208,6 +1246,43 @@ def cmd_demo_us30_hourly_st_pmc_oanda_stop(args) -> int:
     return stop_daemon(_demo_us30_st_pmc_oanda_output_root(args))
 
 
+def _demo_nas100_clean_break_trail_oanda_output_root(args) -> Path:
+    from .demo.nas100_v2b_clean_break_trail_oanda import default_output_root
+
+    return Path(args.output_root) if getattr(args, "output_root", "") else default_output_root()
+
+
+def cmd_demo_nas100_clean_break_trail_oanda(args) -> int:
+    from .demo.nas100_v2b_clean_break_trail_oanda import run_stream_loop, spawn_daemon
+    from .oanda import OandaConfig
+
+    output_root = _demo_nas100_clean_break_trail_oanda_output_root(args)
+    if args.daemon:
+        return spawn_daemon(
+            output_root=output_root,
+            max_ticks=int(args.max_ticks or 0),
+            oanda_config_path=getattr(args, "oanda_config", "") or "",
+        )
+    config = (
+        OandaConfig.from_json_file(Path(args.oanda_config))
+        if getattr(args, "oanda_config", "")
+        else OandaConfig.from_env()
+    )
+    return run_stream_loop(output_root=output_root, config=config, max_ticks=int(args.max_ticks or 0))
+
+
+def cmd_demo_nas100_clean_break_trail_oanda_status(args) -> int:
+    from .demo.nas100_v2b_clean_break_trail_oanda import status_daemon
+
+    return status_daemon(_demo_nas100_clean_break_trail_oanda_output_root(args))
+
+
+def cmd_demo_nas100_clean_break_trail_oanda_stop(args) -> int:
+    from .demo.nas100_v2b_clean_break_trail_oanda import stop_daemon
+
+    return stop_daemon(_demo_nas100_clean_break_trail_oanda_output_root(args))
+
+
 def _demo_nas100_st_pmc_paper_output_root(args) -> Path:
     from .demo.nas100_hourly_st_pmc_paper import default_output_root
 
@@ -1537,6 +1612,16 @@ def cmd_oanda_practice_sync(args) -> int:
     if getattr(args, "repair_demo_positions", False):
         argv.append("--repair-demo-positions")
     return oanda_practice_sync_main(argv)
+
+
+def cmd_oanda_pl_attribution(args) -> int:
+    """Attribute practice balance / realized PL from OANDA transaction history."""
+    from .demo.oanda_pl_attribution import main as oanda_pl_attribution_main
+
+    argv = []
+    if getattr(args, "email", False):
+        argv.append("--email")
+    return oanda_pl_attribution_main(argv)
 
 
 def cmd_cqg_smoke(args) -> int:
@@ -2087,6 +2172,30 @@ def build_parser() -> argparse.ArgumentParser:
     demo_us30_st_pmc_oanda_stop.add_argument("--output-root", default="")
     demo_us30_st_pmc_oanda_stop.set_defaults(func=cmd_demo_us30_hourly_st_pmc_oanda_stop)
 
+    demo_nas100_cbt_oanda = sub.add_parser(
+        "demo-nas100-clean-break-trail-oanda",
+        help="NAS100 clean-break pyramid trail06_m4_e2_out_be OANDA practice (5m; account -003)",
+    )
+    demo_nas100_cbt_oanda.add_argument("--output-root", default="")
+    demo_nas100_cbt_oanda.add_argument("--oanda-config", default="")
+    demo_nas100_cbt_oanda.add_argument("--max-ticks", type=int, default=0)
+    demo_nas100_cbt_oanda.add_argument("--daemon", action="store_true")
+    demo_nas100_cbt_oanda.set_defaults(func=cmd_demo_nas100_clean_break_trail_oanda)
+
+    demo_nas100_cbt_oanda_status = sub.add_parser(
+        "demo-nas100-clean-break-trail-oanda-status",
+        help="Status of NAS100 clean-break trail OANDA practice demo",
+    )
+    demo_nas100_cbt_oanda_status.add_argument("--output-root", default="")
+    demo_nas100_cbt_oanda_status.set_defaults(func=cmd_demo_nas100_clean_break_trail_oanda_status)
+
+    demo_nas100_cbt_oanda_stop = sub.add_parser(
+        "demo-nas100-clean-break-trail-oanda-stop",
+        help="Stop NAS100 clean-break trail OANDA practice demo",
+    )
+    demo_nas100_cbt_oanda_stop.add_argument("--output-root", default="")
+    demo_nas100_cbt_oanda_stop.set_defaults(func=cmd_demo_nas100_clean_break_trail_oanda_stop)
+
     demo_nas100_st_pmc_paper = sub.add_parser(
         "demo-nas100-hourly-st-pmc-paper",
         help="NAS100 hourly ST+PMC sl50_tp150_3r 1mfill paper demo (OANDA prices, PaperBroker)",
@@ -2295,6 +2404,34 @@ def build_parser() -> argparse.ArgumentParser:
         cmd_demo_eurusd_monday_or_paper_stop,
     )
 
+    demo_usdjpy_mfbo = sub.add_parser(
+        "demo-usdjpy-monthly-fbo-oanda",
+        help="USDJPY Monthly ORB FBO 1/1/3 atr80 OANDA practice (account -006)",
+    )
+    demo_usdjpy_mfbo.add_argument("--daemon", action="store_true")
+    demo_usdjpy_mfbo.add_argument("--output-root", default="")
+    demo_usdjpy_mfbo.add_argument("--max-polls", type=int, default=0, help="0=forever; smoke uses small N")
+    demo_usdjpy_mfbo.add_argument(
+        "--oanda-config",
+        default="",
+        help="JSON with env/account_id (default: oanda_account_configs/usdjpy_monthly_fbo_006.json)",
+    )
+    demo_usdjpy_mfbo.set_defaults(func=cmd_demo_usdjpy_monthly_fbo_oanda)
+
+    demo_usdjpy_mfbo_status = sub.add_parser(
+        "demo-usdjpy-monthly-fbo-oanda-status",
+        help="Status of USDJPY monthly FBO OANDA demo",
+    )
+    demo_usdjpy_mfbo_status.add_argument("--output-root", default="")
+    demo_usdjpy_mfbo_status.set_defaults(func=cmd_demo_usdjpy_monthly_fbo_oanda_status)
+
+    demo_usdjpy_mfbo_stop = sub.add_parser(
+        "demo-usdjpy-monthly-fbo-oanda-stop",
+        help="Stop USDJPY monthly FBO OANDA demo",
+    )
+    demo_usdjpy_mfbo_stop.add_argument("--output-root", default="")
+    demo_usdjpy_mfbo_stop.set_defaults(func=cmd_demo_usdjpy_monthly_fbo_oanda_stop)
+
     demo_yor_paper = sub.add_parser(
         "demo-yearly-orb-paper",
         help="Yearly ORB scaleout3 paper demo (daily bars; account -002 prices)",
@@ -2351,6 +2488,17 @@ def build_parser() -> argparse.ArgumentParser:
         help="Rewrite each *_oanda demo positions.csv to live focus-instrument qty only",
     )
     oanda_sync.set_defaults(func=cmd_oanda_practice_sync)
+
+    oanda_pl = sub.add_parser(
+        "oanda-pl-attribution",
+        help="Attribute OANDA practice balance / resettablePL from transaction fills (read-only)",
+    )
+    oanda_pl.add_argument(
+        "--email",
+        action="store_true",
+        help="Email PL_ATTRIBUTION.md via Resend",
+    )
+    oanda_pl.set_defaults(func=cmd_oanda_pl_attribution)
 
     cqg_smoke = sub.add_parser("cqg-smoke", help="Validate CQG config/session scaffolding")
     cqg_smoke.add_argument("--cqg-config", default="")

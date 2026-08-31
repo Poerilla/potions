@@ -145,24 +145,46 @@ def bars_from_csv(path: Path, instrument: str, timeframe: str, source: str = "")
     import csv
 
     rows: List[Bar] = []
+    skipped = 0
     with Path(path).open("r", newline="", encoding="utf-8") as fh:
         reader = csv.DictReader(fh)
         for raw in reader:
-            ts = raw.get("ts") or raw.get("timestamp") or raw.get("date") or raw.get("datetime")
-            if not ts:
-                raise ValueError("CSV row missing ts/timestamp/date/datetime")
+            ts = (
+                raw.get("ts")
+                or raw.get("ts_event")
+                or raw.get("timestamp")
+                or raw.get("date")
+                or raw.get("datetime")
+            )
+            if not ts or not str(ts).strip():
+                skipped += 1
+                continue
+            try:
+                o = float(raw.get("open") or raw.get("Open"))
+                h = float(raw.get("high") or raw.get("High"))
+                l = float(raw.get("low") or raw.get("Low"))
+                c = float(raw.get("close") or raw.get("Close"))
+            except (TypeError, ValueError):
+                skipped += 1
+                continue
+            # Skip corrupt OHLC (e.g. open/low=0) that would poison market fills.
+            if min(o, h, l, c) <= 0 or h < max(o, c) or l > min(o, c):
+                skipped += 1
+                continue
             rows.append(
                 Bar(
                     instrument=instrument,
                     timeframe=timeframe,
-                    ts=str(ts),
-                    open=float(raw.get("open") or raw.get("Open")),
-                    high=float(raw.get("high") or raw.get("High")),
-                    low=float(raw.get("low") or raw.get("Low")),
-                    close=float(raw.get("close") or raw.get("Close")),
+                    ts=str(ts).strip(),
+                    open=o,
+                    high=h,
+                    low=l,
+                    close=c,
                     volume=float(raw.get("volume") or raw.get("Volume") or 0.0),
                     complete=True,
                     source=source or str(path),
                 )
             )
+    if skipped:
+        print("bars_from_csv: skipped %d invalid OHLC row(s) from %s" % (skipped, path), flush=True)
     return rows

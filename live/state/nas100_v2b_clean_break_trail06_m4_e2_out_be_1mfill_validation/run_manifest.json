@@ -1,0 +1,128 @@
+{
+  "broker_realism_config": {
+    "fee_per_unit": 1.5,
+    "fill_tape": "1m",
+    "point_value": 1.0,
+    "quote_source": "synthetic bid/ask from local NAS100 1m OHLC, not true historical quote ticks",
+    "signal_broker_fills": false,
+    "signal_timeframe": "5m",
+    "slippage_ticks": 1.0,
+    "synthetic_half_spread_ticks": 0.5,
+    "tick_size": 0.1
+  },
+  "causality_mode": "audit",
+  "command": [
+    "python",
+    "-m",
+    "live.nas100_clean_break_best_1mfill_quote_validation"
+  ],
+  "created_at": "2026-08-31T16:53:48Z",
+  "cwd": "/home/tester/hsm/potions",
+  "data_inputs": [
+    {
+      "bytes": 192113637,
+      "exists": true,
+      "path": "fx/nas100_1m.csv",
+      "sha256": "522b23ed6e3f530c5d201bdc5682c26862502824760a7f7f69bc8accf449e52e"
+    }
+  ],
+  "extra": {
+    "frozen_variant": "trail06_m4_e2_out_be",
+    "ledger_run_id": "brl_21741b260a28",
+    "strategy_id": "nas100_v2b_clean_break_trail06_m4_e2_out_be_1mfill",
+    "study_id": "nas100_v2b_clean_break_trail06_m4_e2_out_be_1mfill_validation",
+    "validation_type": "finer_1m_fill_proxy_quote_replay"
+  },
+  "git": {
+    "commit": "",
+    "dirty": false,
+    "repo_root": "/home/tester/hsm/potions",
+    "status_short": []
+  },
+  "outputs": [
+    {
+      "bytes": 2624,
+      "exists": true,
+      "path": "SUMMARY.md",
+      "sha256": "2592b552f0e41e83e6153faaf7a4bea421ce6e5c26ef798984ec0bd545a2493f"
+    },
+    {
+      "bytes": 530,
+      "exists": true,
+      "path": "summary.csv",
+      "sha256": "11a3a78bc8ccca99136462a4ce9b176e4092dd35869d69b5d53a942b08a1337d"
+    },
+    {
+      "bytes": 23434670,
+      "exists": true,
+      "path": "signal_delivery_audit.csv",
+      "sha256": "a4be86a470b287f4da44580ba187c2a60b6c94c8b3a5ba51796b18d84a06feea"
+    },
+    {
+      "bytes": 559892,
+      "exists": true,
+      "path": "order_timing_audit.csv",
+      "sha256": "a12ac64fe2471706744b2c21312b3cf68d5dd870abe6c1314de2b8a040d92bc5"
+    },
+    {
+      "bytes": 932806,
+      "exists": true,
+      "path": "states/nas100_v2b_clean_break_trail06_m4_e2_out_be_1mfill/fills.csv",
+      "sha256": "e7243c23060b8099a8967135d334d7aa7fb26b673feafa45a654a2613b265d25"
+    },
+    {
+      "bytes": 1436051,
+      "exists": true,
+      "path": "states/nas100_v2b_clean_break_trail06_m4_e2_out_be_1mfill/orders.csv",
+      "sha256": "4c5c6f843b287b1da875d002798ff41a6b09ea665c6cb8a4cafea7703eaa51ac"
+    },
+    {
+      "bytes": 17573973,
+      "exists": true,
+      "path": "states/nas100_v2b_clean_break_trail06_m4_e2_out_be_1mfill/feature_snapshots.csv",
+      "sha256": "af6b4cdd4dfd73ddeea8c5188b45643cebb22c014e597a482bb7196d1825ba4d"
+    },
+    {
+      "bytes": 173,
+      "exists": true,
+      "path": "states/nas100_v2b_clean_break_trail06_m4_e2_out_be_1mfill/causality_violations.csv",
+      "sha256": "3fcd9ee38e0e0c7c6151fbe7114ca219b7ac7c82f017a8debfa189b4c6e4b546"
+    },
+    {
+      "bytes": 60575800,
+      "exists": true,
+      "path": "states/nas100_v2b_clean_break_trail06_m4_e2_out_be_1mfill/equity_curve.csv",
+      "sha256": "fb1949d9d6e961b73769b3e24834946d1eb4b9119469e5a30c00b05a220b32a5"
+    },
+    {
+      "bytes": 448097,
+      "exists": true,
+      "path": "states/nas100_v2b_clean_break_trail06_m4_e2_out_be_1mfill/unit_trades.csv",
+      "sha256": "1cdcb94c7cdc4be6ce93031167009536212a486ce9fec5f9042444118903637f"
+    }
+  ],
+  "python": {
+    "executable": "/home/tester/.pyenv/versions/3.8.0/bin/python",
+    "platform": "Linux-5.15.0-185-generic-x86_64-with-glibc2.34",
+    "version": "3.8.0 (default, Feb 11 2026, 11:18:58) \n[GCC 11.4.0]"
+  },
+  "run_id": "run_14ffb6b20496",
+  "strategy_config": {
+    "broker_style_fill_source": "1m_proxy_synthetic_bid_ask",
+    "entry_offset_ticks": 2,
+    "entry_qty": 1,
+    "fill_signal_bucket_end": true,
+    "fill_to_signal_minutes": 5,
+    "market": "nas100",
+    "max_pyramid_qty": 4,
+    "pyramid_add_every_n": 2,
+    "pyramid_add_mode": "outside",
+    "pyramid_place_2r_target": true,
+    "size_model": "pyramid_outside",
+    "synthetic_half_spread_ticks": 0.5,
+    "tick_size": 0.1,
+    "trail_at_frac": 0.6,
+    "trail_to": "entry",
+    "variant": "trail06_m4_e2_out_be"
+  }
+}

@@ -55,12 +55,16 @@ Do **not** put research replays under `live/demo/` (demos are continuous runners
 
 ## After a material run
 
-1. Causality / realism if promotion-relevant → `potions-causality-audit`
-2. Update tracker + CHANGE_LOG + study SUMMARY → `potions-tracker-docs`
-3. Large regenerable dumps stay local/Drive → `potions-git-backup` (don’t git-add multi-GB)
+1. **Run ledger** → `potions-run-ledger` (`log_run` / `log_from_hub` / auto-wired drivers)
+2. Causality / realism if promotion-relevant → `potions-causality-audit`
+3. Update tracker + CHANGE_LOG + study SUMMARY → `potions-tracker-docs`
+4. Email completion → `potions-job-email`
+5. Large regenerable dumps stay local/Drive → `potions-git-backup` (don’t git-add multi-GB)
 
 ## Related skills
 
+- `potions-run-ledger` — catalog every Engine / pandas / deep-check run
 - `potions-strategy-plugin` — new plugin before first replay
 - `potions-causality-audit` — lookahead / known-answer checks
 - `potions-tracker-docs` — publish results in tracker hubs
+- `potions-job-email` — Resend on finish

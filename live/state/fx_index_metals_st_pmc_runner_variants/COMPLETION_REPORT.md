@@ -1,16 +1,18 @@
-# Completion report — live/state/fx_index_metals_st_pmc_runner_variants
+# Interim snapshot report — live/state/fx_index_metals_st_pmc_runner_variants
 
 | field | value |
 |---|---|
-| status | **COMPLETE** |
-| generated_at_utc | 2026-08-10T01:56:59+00:00 |
+| status | **IN_PROGRESS** |
+| generated_at_utc | 2026-08-27T00:05:37+00:00 |
 | completed_required_jobs | 21 / 21 |
 | accounting_mode | lot-correct-preferred |
-| complete | True |
+| complete | False |
 
 ## Change since prior snapshot
 
 - `= No new promoted strategy`
+- `! XAUUSD runner variants still active`
+- `~ status COMPLETE → IN_PROGRESS`
 
 ## Decision summary
 
@@ -22,10 +24,13 @@
 
 ### Blocks final judgment
 
+- hub_status=IN_PROGRESS
+- 1_active_jobs
 - usd_normalization_pending:audjpy,usdjpy
 
 ### Portfolio action
 
+- No final promotion until required jobs finish.
 - Normalize JPY results before cross-market ranking.
 
 ## Comparable Core Board
@@ -34,10 +39,10 @@ Rankable: **yes**
 
 | market | book | net | stress | N/S | units | max | EOY | label | source | reasons |
 |---|---|---:|---:|---:|---:|---:|---:|---|---|---|
-| nas100 | 3R | $15.2k | -$778 | 19.56 | 477 | 1 | 0 | RETAIN | LOT_CORRECT_ACCOUNTING.csv | — |
-| xauusd | 2R→10R | $278.1k | -$167.9k | 1.66 | 96 | 3 | 0 | RETAIN | LOT_CORRECT_ACCOUNTING.csv | — |
-| usdjpy | 3R | $30.4k | -$19.5k | 1.56 | 869 | 1 | 0 | RETAIN | FAIR_3R_USD_NORMALIZED.md | — |
-| xauusd | 3R | $77.3k | -$92.9k | 0.83 | 169 | 1 | 0 | RETAIN | LOT_CORRECT_ACCOUNTING.csv | — |
+| nas100 | 3R | $15.2k | -$778 | 19.56 | 856 | 1 | 0 | RETAIN | LOT_CORRECT_ACCOUNTING.csv | — |
+| xauusd | 2R→10R | $278.1k | -$167.9k | 1.66 | 129 | 3 | 0 | RETAIN | LOT_CORRECT_ACCOUNTING.csv | — |
+| usdjpy | 3R | $30.4k | -$19.5k | 1.56 | 1372 | 1 | 0 | RETAIN | FAIR_3R_USD_NORMALIZED.md | — |
+| xauusd | 3R | $77.3k | -$92.9k | 0.83 | 181 | 1 | 0 | RETAIN | LOT_CORRECT_ACCOUNTING.csv | — |
 
 ## Tested / Not Promoted
 
@@ -45,10 +50,10 @@ Rankable: **no**
 
 | market | book | net | stress | N/S | units | max | EOY | label | source | reasons |
 |---|---|---:|---:|---:|---:|---:|---:|---|---|---|
-| nas100 | 3R | $15.2k | -$778 | 19.56 | 477 | 1 | 0 | RETAIN | LOT_CORRECT_ACCOUNTING.csv | — |
-| xauusd | 2R→10R | $278.1k | -$167.9k | 1.66 | 96 | 3 | 0 | RETAIN | LOT_CORRECT_ACCOUNTING.csv | — |
-| usdjpy | 3R | $30.4k | -$19.5k | 1.56 | 869 | 1 | 0 | RETAIN | FAIR_3R_USD_NORMALIZED.md | — |
-| xauusd | 3R | $77.3k | -$92.9k | 0.83 | 169 | 1 | 0 | RETAIN | LOT_CORRECT_ACCOUNTING.csv | — |
+| nas100 | 3R | $15.2k | -$778 | 19.56 | 856 | 1 | 0 | RETAIN | LOT_CORRECT_ACCOUNTING.csv | — |
+| xauusd | 2R→10R | $278.1k | -$167.9k | 1.66 | 129 | 3 | 0 | RETAIN | LOT_CORRECT_ACCOUNTING.csv | — |
+| usdjpy | 3R | $30.4k | -$19.5k | 1.56 | 1372 | 1 | 0 | RETAIN | FAIR_3R_USD_NORMALIZED.md | — |
+| xauusd | 3R | $77.3k | -$92.9k | 0.83 | 181 | 1 | 0 | RETAIN | LOT_CORRECT_ACCOUNTING.csv | — |
 
 ## Pending / Non-Comparable
 
@@ -56,14 +61,14 @@ Rankable: **no**
 
 | market | book | net | stress | N/S | units | max | EOY | label | source | reasons |
 |---|---|---:|---:|---:|---:|---:|---:|---|---|---|
-| audjpy | 3R | $9171.1k | -$1163.0k | 7.89 | 851 | 1 | 1 | PENDING_NORMALIZATION | LOT_CORRECT_ACCOUNTING.csv | native_jpy_not_usd_normalized; eoy_open_units_nonzero |
-| audjpy | 2R→10R | $9825.6k | -$4798.9k | 2.05 | 942 | 3 | 3 | PENDING_NORMALIZATION | LOT_CORRECT_ACCOUNTING.csv | native_jpy_not_usd_normalized; eoy_open_units_nonzero |
-| eurusd | 3R | $64.4k | -$21.4k | 3.01 | 866 | 1 | 1 | NOT_RANKABLE | LOT_CORRECT_ACCOUNTING.csv | eoy_open_units_nonzero |
-| eurusd | 2R→10R | $121.2k | -$67.3k | 1.80 | 855 | 3 | 1 | NOT_RANKABLE | LOT_CORRECT_ACCOUNTING.csv | eoy_open_units_nonzero |
-| gbpusd | 3R | $108.1k | -$13.3k | 8.12 | 1026 | 1 | 1 | NOT_RANKABLE | LOT_CORRECT_ACCOUNTING.csv | eoy_open_units_nonzero |
-| gbpusd | 2R→10R | $101.4k | -$41.1k | 2.47 | 1110 | 3 | 2 | NOT_RANKABLE | LOT_CORRECT_ACCOUNTING.csv | eoy_open_units_nonzero |
-| nas100 | 2R→10R | $34.1k | -$3.1k | 11.13 | 762 | 3 | 1 | NOT_RANKABLE | LOT_CORRECT_ACCOUNTING.csv | eoy_open_units_nonzero |
-| usdjpy | 2R→10R | $2801.2k | -$6519.9k | 0.43 | 870 | 3 | 1 | PENDING_NORMALIZATION | LOT_CORRECT_ACCOUNTING.csv | native_jpy_not_usd_normalized; eoy_open_units_nonzero |
+| audjpy | 3R | $9171.1k | -$1163.0k | 7.89 | 1334 | 1 | 1 | PENDING_NORMALIZATION | LOT_CORRECT_ACCOUNTING.csv | native_jpy_not_usd_normalized; eoy_open_units_nonzero |
+| audjpy | 2R→10R | $9825.6k | -$4798.9k | 2.05 | 1257 | 3 | 3 | PENDING_NORMALIZATION | LOT_CORRECT_ACCOUNTING.csv | native_jpy_not_usd_normalized; eoy_open_units_nonzero |
+| eurusd | 3R | $64.4k | -$21.4k | 3.01 | 1402 | 1 | 1 | NOT_RANKABLE | LOT_CORRECT_ACCOUNTING.csv | eoy_open_units_nonzero |
+| eurusd | 2R→10R | $121.2k | -$67.3k | 1.80 | 1041 | 3 | 1 | NOT_RANKABLE | LOT_CORRECT_ACCOUNTING.csv | eoy_open_units_nonzero |
+| gbpusd | 3R | $108.1k | -$13.3k | 8.12 | 1754 | 1 | 1 | NOT_RANKABLE | LOT_CORRECT_ACCOUNTING.csv | eoy_open_units_nonzero |
+| gbpusd | 2R→10R | $101.4k | -$41.1k | 2.47 | 1722 | 3 | 2 | NOT_RANKABLE | LOT_CORRECT_ACCOUNTING.csv | eoy_open_units_nonzero |
+| nas100 | 2R→10R | $34.1k | -$3.1k | 11.13 | 1347 | 3 | 1 | NOT_RANKABLE | LOT_CORRECT_ACCOUNTING.csv | eoy_open_units_nonzero |
+| usdjpy | 2R→10R | $2801.2k | -$6519.9k | 0.43 | 1086 | 3 | 1 | PENDING_NORMALIZATION | LOT_CORRECT_ACCOUNTING.csv | native_jpy_not_usd_normalized; eoy_open_units_nonzero |
 | xagusd | 3R | $68.7k | -$58.6k | 1.17 | 1 | 1 | 1 | INSUFFICIENT_SAMPLE | LOT_CORRECT_ACCOUNTING.csv | insufficient_sample_units<30; eoy_open_units_nonzero |
 | xagusd | 2R→10R | $206.2k | -$175.8k | 1.17 | 3 | 3 | 3 | INSUFFICIENT_SAMPLE | LOT_CORRECT_ACCOUNTING.csv | insufficient_sample_units<30; eoy_open_units_nonzero |
 
@@ -85,7 +90,7 @@ Forced-flat / reachable figures appear only from `LOT_CORRECT_ACCOUNTING.csv`. R
 
 ## Diagnostics
 
-- Active jobs (detail in `LATEST_SNAPSHOT.json`): **0**
+- Active jobs (detail in `LATEST_SNAPSHOT.json`): **1**
 - Incomplete jobs: **0**
 - Raw metrics remain in `summary.csv` / MTM audits; eligible metrics note `metric_source`.
 

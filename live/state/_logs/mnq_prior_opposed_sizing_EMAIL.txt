@@ -1,0 +1,16 @@
+True Engine+PaperBroker resting-limit (hour-complete) MNQ prior-opposed sizing books.
+
+Gate: resting_limit | Market: MNQ | Start: 2021-03-04 | Causal violations: 0
+
+| Book | Trades | Units | Net | Stress | Win% | PF | N/S |
+|---|---:|---:|---:|---:|---:|---:|---:|
+| S_1_1_3 (banked) | 428 | 2140 | $128,360.50 | **$-6,960.00** | 65.42 | 2.257 | **18.44** |
+| S_1_1_1 (new) | 429 | 1287 | $72482.50 | $-4112.00 | 65.73 | 2.190 | 17.63 |
+| S_0_1_1 (new) | 428 | 856 | $59280.00 | $-2461.00 | 58.41 | 2.219 | 24.09 |
+
+Hubs:
+- live/state/mnq_v2b_prior_opposed_stpmc_resting_limit
+- live/state/mnq_v2b_prior_opposed_stpmc_resting_limit_S_1_1_1
+- live/state/mnq_v2b_prior_opposed_stpmc_resting_limit_S_0_1_1
+
+Stance: research/retain — S_0_1_1 has best N/S (24.09) on lower dollars; S_1_1_3 still max net at 18.44 N/S. Not a live size-up promotion by itself.

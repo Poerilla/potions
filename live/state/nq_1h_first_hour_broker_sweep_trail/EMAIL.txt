@@ -1,0 +1,8 @@
+NQ first-hour follow 3R strong + sweep_with_side broker-like complete
+Hub: /home/tester/hsm/potions/live/state/nq_1h_first_hour_broker_sweep_trail
+
+follow_3r_strong_sweep: trades=53 WR=54.7% net=$+3086 stress=$-19099 N/S=0.16
+follow_3r_strong_sweep_st_trail: trades=53 WR=54.7% net=$+3288 stress=$-18652 N/S=0.18
+Trail bounce: approach_trades=8 bounce_rate=62% agr_rate=9% median=34.8pts significant=False charts=0
+
+HP mill: /home/tester/hsm/potions/live/state/nq_1h_first_hour_broker_sweep_trail/hp_mill (ran because trail improved the gated book)

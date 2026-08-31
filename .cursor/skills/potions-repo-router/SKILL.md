@@ -29,10 +29,13 @@ Skills encode **workflow**. Hub docs encode **truth** (rankings, fill semantics,
 | Engine / broker / fills / plugin contract | [`live/Platform.md`](../../../live/Platform.md) | `live/specs/CAUSAL_*`, CHANGE_LOG | `potions-strategy-plugin`, `potions-causality-audit` |
 | Rankings / promotion status | [`mnq/case_studies/STRATEGY_TRACKER.md`](../../../mnq/case_studies/STRATEGY_TRACKER.md) | study `SUMMARY.md`, CHANGE_LOG | `potions-tracker-docs` |
 | Live / paper demo ops | [`live/demo/README.md`](../../../live/demo/README.md) | per-run `PROGRESS.log` / `run.log` | `potions-demo-status` |
+| OANDA practice balance / realized PL attribution | `live/demo/oanda_practice_snapshot/PL_ATTRIBUTION.md` | transaction fill PL by instrument | `potions-oanda-pl-attribution` |
+| OANDA practice sync / positions repair | `live/demo/oanda_practice_snapshot/REPORT.md` | demo `positions.csv` | `potions-oanda-reconcile` |
 | OANDA live vs sim trade tape | demo `fills.csv` + stored bars | fresh spawn `config_json` drift | `potions-oanda-live-sim-reconcile` |
 | Month / rolling WR-PF filters | hub `FILTERS.md` + `live/asia_range_shadow.py` | plugin `skip_entry_months` / `shadow_roll_*` | `potions-quick-backtest` |
 | Causality pass/fail | [`data/docs/AUDIT_TRACKER.md`](../../../data/docs/AUDIT_TRACKER.md) | Platform §7; master spec only if designing | `potions-causality-audit` |
 | Quick / broker-like backtest | [`README.md`](../../../README.md) ranking layers | family driver + `live/state/<slug>/` | `potions-quick-backtest` |
+| Run catalog / metrics ledger | [`data/validation/broker_run_ledger.csv`](../../../data/validation/broker_run_ledger.csv) | `live/run_ledger.py` | `potions-run-ledger` |
 | Batch finished / completion report | hub `RUN_COMPLETE.json` + `summary.csv` | `COMPLETION_REPORT.md` | `strategy-completion-report` |
 | Per-instrument yearly / robustness / 50W-50L | state root `fills.csv` or `trades.csv` | hub `deep_check/` + `winloss_charts/` | `potions-instrument-deep-check` |
 | Intraday condition / HTF / calendar lift profile | hub `SUMMARY.md` + `notables.csv` | research campaign tapes | `potions-intraday-condition-profile` |
@@ -58,6 +61,8 @@ Do **not** use Platform.md for strategy rule definitions or leaderboard rankings
 
 - `potions-git-backup` — commit, pack, rclone
 - `potions-demo-status` — morning live/demo check
+- `potions-oanda-pl-attribution` — practice balance vs resettablePL / fill PL by instrument
+- `potions-oanda-reconcile` — practice snapshot + local positions.csv repair
 - `potions-oanda-live-sim-reconcile` — live OANDA fills vs StrategyPlugin replay on demo bars
 - `potions-strategy-plugin` — new plugin checklist
 - `potions-quick-backtest` — replay entry points
@@ -68,3 +73,4 @@ Do **not** use Platform.md for strategy rule definitions or leaderboard rankings
 - `potions-intraday-condition-profile` — DOW / RSI / OBV / MA / ATR / range-half lift vs campaign tape
 - `potions-futures-intraday-hp-sizeup` — futures 1.25× HP nulls, Tier A/B/C plan, size sensitivity
 - `potions-job-email` — **always** email on replay/sweep/job complete or crash
+- `potions-run-ledger` — **always** log Engine / pandas / deep-check runs to `broker_run_ledger.csv`

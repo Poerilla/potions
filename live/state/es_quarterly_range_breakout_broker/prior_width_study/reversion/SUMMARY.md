@@ -1,0 +1,20 @@
+# Mid vs far reversion
+
+ES quarterly breakout: large-width reversion — mid vs 100% (far side).
+
+Hub: live/state/es_quarterly_range_breakout_broker/prior_width_study/reversion/
+Canvas: es-reversion-mid-vs-far.canvas.tsx
+
+Definition (from prior breakout edge, path through EOQ):
+- mid = adverse back 0.5W to prior mid (strategy SL)
+- far / 100% = adverse back 1.0W to opposite prior extreme
+
+Q4 large (n=15, W>~469):
+- touch mid 33% | touch far 7%
+- mid only 27% | mid then far 7%
+- P(far | mid) = 20% (vs 44% in Q1-Q3)
+- 67% never reach mid; median deepest adverse ~0.20W
+
+All trades: mid 23%, far 8%, P(far|mid) 36%.
+
+Stance: large-width failures tend to stop around mid, not unwind the full prior range. Mid SL is structural invalidation, not a halfway mark to 100% mean reversion.

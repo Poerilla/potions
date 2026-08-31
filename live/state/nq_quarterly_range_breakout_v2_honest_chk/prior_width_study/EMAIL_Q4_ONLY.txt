@@ -1,0 +1,25 @@
+NQ quarterly honest breakout — Q4 large-width only charts + strategy view
+
+Hub: /home/tester/hsm/potions/live/state/nq_quarterly_range_breakout_v2_honest_chk/prior_width_study/q4_only_yearly_charts/
+Filter: prior-width quartile Q4_large (1854–6475 pts). No zip.
+
+=== Q4-ONLY STRATEGY (same mid-SL 8-lot ladder, drop Q1–Q3) ===
+n=20  WR=75.0%  stop=10%
+net=$1,311,726  (baseline all=$1,437,858; Q1–Q3 only=$126,132)
+stress (sum |yearly closed DD|)=$406,316  N/S=3.23
+avg net=$65,586  avg R=0.28
+long n=15 $1,098,572 · short n=5 $213,154
+
+Yearly (Q4-only):
+  2020: n=3 WR=100% net=$326,240 stress=$-0 N/S=0.00
+  2021: n=1 WR=100% net=$79,860 stress=$-0 N/S=0.00
+  2022: n=3 WR=67% net=$177,538 stress=$-17,424 N/S=10.19
+  2023: n=4 WR=50% net=$181,806 stress=$-123,048 N/S=1.48
+  2024: n=4 WR=75% net=$86,644 stress=$-265,844 N/S=0.33
+  2025: n=5 WR=80% net=$459,638 stress=$-0 N/S=0.00
+
+Charts: one PNG/year 2010–2026, all prior H/L/mid drawn; markers only on Q4-wide trades.
+Attachments: 17 yearly PNGs (no zip).
+
+Stance: Q4-only keeps almost all edge ($1.31M of $1.44M). Sparse (20 trades / ~17y).
+Do not hard-skip large W — this IS the large-W book.

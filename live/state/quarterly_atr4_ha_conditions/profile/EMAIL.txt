@@ -1,0 +1,10 @@
+potions: quarterly ATR4 HA profile complete
+
+Hub: /home/tester/hsm/potions/live/state/quarterly_atr4_ha_conditions/profile
+Books: 5  campaigns: 114  notables: 12
+
+  gbpusd_first_lower n=51 net=$404130 notables=4
+  nas100_first_lower n=9 net=$33127 notables=0
+  xauusd_first_only n=30 net=$251054 notables=4
+  nq_second_after_upper n=8 net=$306962 notables=1
+  eurusd_second_after_upper n=16 net=$84627 notables=3

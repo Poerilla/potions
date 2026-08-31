@@ -1,0 +1,18 @@
+potions: weekly OD half+EOW HA profile complete
+
+Hub: /home/tester/hsm/potions/live/state/weekly_open_day_breakout_od_half_eow_ha_conditions/profile
+Book: nas100_wod_od_half_eow_bull_hivol
+campaigns: 202  notables: 7
+baseline net=$12831 N/S=1.46
+DSR: TRL-2026-00166 (parallel)
+
+Variant N/S reminder (weekly OD bull×hivol family, broker-like):
+
+  This book (1m Engine+PaperBroker):
+    1@0.5×OD + 1@1×OD (BE) + 1 EOW     N/S 1.43  (+$12.8k / 202)
+  Same pack refs:
+    half + 3×OD runner                 N/S 1.38  (+$12.3k / 202)
+    OCO 1R                             N/S 1.15  (+$3.3k / 202)
+    2/1/1 scale                        N/S 1.36  (+$15.1k / 198)
+  Holiday/thin Monday filter on half+EOW: N/S 1.07 — do not promote.
+

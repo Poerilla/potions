@@ -1,0 +1,20 @@
+{
+  "strategy_id": "gbpusd_ny_liquidity_grab_london_1lot",
+  "symbol": "GBPUSD",
+  "family": "fx",
+  "quote": "USD",
+  "entry_qty": 1,
+  "tp_r_mult": 1.0,
+  "regime_days": 1436,
+  "start": "2015-01-02",
+  "units": 1009,
+  "trades": 1009,
+  "net_usd": -37129.000000016094,
+  "closed_dd_usd": -38618.00000001607,
+  "stress_dd_usd": -38633.00000001608,
+  "net_over_stress": -0.9610695519374793,
+  "win_rate": 46.58077304261645,
+  "profit_factor": 0.7609392706293527,
+  "max_open_units": 1,
+  "state_root": "live/state/fx_ny_liquidity_grab_london/states/gbpusd_ny_liquidity_grab_london_1lot"
+}

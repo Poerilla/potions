@@ -1,0 +1,17 @@
+potions: intraday condition profile complete
+hub: /home/tester/hsm/potions/live/state/intraday_condition_profile
+
+Top hypotheses:
+- Hourly RSI bucket=rsi_gt70 · 5 books · WR+2.6pp · avg$+59.7
+- Week of month=4 · 5 books · WR+1.7pp · avg$+35.7
+- Day of week=Friday · 5 books · WR+7.5pp · avg$+29.3
+- Day of week=Thursday · 5 books · WR+5.5pp · avg$+21.0
+- ATR14 quartile=atr_q4 · 4 books · WR+3.1pp · avg$+73.3
+- Hourly RSI vs trade=rsi_against_side · 4 books · WR+7.3pp · avg$+66.2
+- Prior-week range half=week_opposed · 4 books · WR+1.6pp · avg$+24.0
+- Week of month=2 · 4 books · WR+2.5pp · avg$+21.0
+
+Books profiled: 10
+See SUMMARY.md for full tables.
+
+/home/tester/hsm/potions/live/state/intraday_condition_profile/SUMMARY.md

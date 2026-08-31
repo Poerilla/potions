@@ -1,0 +1,17 @@
+{
+  "study_id": "nq_wick_reject_4h_24h_1m_protected_pivot_touch_response_seed_bias_review_v1",
+  "finished_at": "2026-08-30T20:41:20.349084",
+  "config_hash": "d99906ee92d51923",
+  "parent_config_hash": "402795e0a05e2fbc",
+  "assertions": {
+    "parent_ledger_match": "PASS",
+    "seed_bias_remap_match": "PASS",
+    "mfe_mae_label_swap": "PASS",
+    "structure_bias_parent_match": "PASS",
+    "horizon_checks": "PASS",
+    "fail_sample": "",
+    "fail_count": "0"
+  },
+  "charts": 367,
+  "smoke": false
+}

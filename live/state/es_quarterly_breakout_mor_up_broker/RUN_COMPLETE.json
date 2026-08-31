@@ -1,0 +1,33 @@
+{
+  "study": "es_quarterly_breakout_mor_up_broker",
+  "gated": {
+    "slug": "es_quarterly_range_breakout_mor_up",
+    "instrument": "ES",
+    "allowed_sides": "long,short",
+    "require_mor_dirs": "mor_up",
+    "bars": "4887",
+    "units": "400",
+    "trades": "50",
+    "net_usd": "1172655.0000000002",
+    "closed_dd": "-265011.99999999953",
+    "stress_dd": "-268911.99999999953",
+    "win_units": "320",
+    "loss_units": "80",
+    "ns": "4.360738829059329"
+  },
+  "baseline": {
+    "slug": "es_quarterly_range_breakout",
+    "instrument": "ES",
+    "allowed_sides": "long,short",
+    "bars": "4887",
+    "units": "480",
+    "trades": "60",
+    "net_usd": "1258367.5000000007",
+    "closed_dd": "-221283.99999999965",
+    "stress_dd": "-225183.99999999965",
+    "win_units": "364",
+    "loss_units": "116",
+    "ns": "5.588174559471377"
+  },
+  "stance": "research \u2014 plugin-gated mor_up book; HP size-up stays NOT VALIDATED"
+}

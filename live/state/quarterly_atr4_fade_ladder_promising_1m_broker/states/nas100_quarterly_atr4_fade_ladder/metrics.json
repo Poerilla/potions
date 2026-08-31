@@ -1,0 +1,26 @@
+{
+  "allowed_sides": [
+    "lower"
+  ],
+  "audit_tf": "4h",
+  "bars_1m": 3077548,
+  "bars_4h": 13767,
+  "baseline_4h_net_usd": 33127.04243729204,
+  "baseline_4h_ns": 4.433965418847309,
+  "closed_dd_usd": -6958.200000000004,
+  "feed_tf": "1m",
+  "intrabar_stress_dd_usd": -7471.200000000004,
+  "market": "NAS100",
+  "max_open_units": 10,
+  "net_over_stress": 4.6974671799169005,
+  "net_usd": 35095.716794595166,
+  "path_id": "first_lower",
+  "profit_factor": 5.9726396244046525,
+  "risk_atr_mult": 2.0,
+  "stance": "retain \u2014 1m fills hold vs 4h baseline",
+  "strategy_id": "nas100_quarterly_atr4_fade_ladder",
+  "trade_mode": "first_only",
+  "trades": 9,
+  "units": 90,
+  "win_rate": 0.4888888888888889
+}

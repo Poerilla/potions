@@ -95,6 +95,11 @@ class V2BScaleoutStrategy(StrategyPlugin):
             # Optional per-session earliest arm timestamp (ISO). Arms only when
             # bar.ts >= this instant (e.g. after an hourly ST sweep). Missing → no delay.
             "session_arm_after_ts": {},
+            # After the strategy decides to arm, push entry-stop live_after_ts forward
+            # by this many minutes so the stop cannot fill on the immediate next 1m bar.
+            # 1.0 ⇒ earliest fill is >1m after the arm decision (broker uses strict
+            # bar.ts > live_after_ts). Used for latency / same-day sequencing studies.
+            "entry_live_after_delay_minutes": 0.0,
             # Optional precomputed OR levels (e.g. overnight Asia range). When the
             # session date is present, seed or_high/or_low and finalize on the first
             # in-session bar instead of accumulating [rth_start, or_end).
@@ -940,6 +945,13 @@ class V2BScaleoutStrategy(StrategyPlugin):
         else:
             side = "sell"
             stop_price = range_low - tick
+        live_after = ts
+        try:
+            delay_min = float(self.config.get("entry_live_after_delay_minutes") or 0.0)
+        except (TypeError, ValueError):
+            delay_min = 0.0
+        if delay_min > 0.0:
+            live_after = (_parse_dt(ts) + timedelta(minutes=delay_min)).isoformat()
         return OrderIntent.create(
             strategy_id=self.instance.strategy_id,
             trade_id=trade_id,
@@ -953,7 +965,7 @@ class V2BScaleoutStrategy(StrategyPlugin):
             requires_verification=True,
             bracket_role="entry",
             oco_group=oco,
-            live_after_ts=ts,
+            live_after_ts=live_after,
             expires_after_ts=self._entry_expiry(ts),
         )
 

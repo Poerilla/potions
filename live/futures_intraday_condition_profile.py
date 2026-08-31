@@ -28,6 +28,7 @@ from .futures_intraday_hp_sizeup_lib import (
     NEEDS_LIVE_PROXY,
     PROFILE_HUB,
     STUDY,
+    BOOK_UNIVERSE,
     annotate_campaigns,
     feature_family,
     load_campaigns,
@@ -343,6 +344,8 @@ def render_profile(
             "  week-of-month, entry hour, MA **opposition** (not generic 5m MA-cross).",
             "- Futures-native: overnight location/compression, prior RTH structure, OR15,",
             "  VWAP, opening volume, ES/NQ/YM agreement, ST-age proxy, roll/holiday flags.",
+            "- HTF: yearly ORB up/down/inside, monthly OR up/down/inside, prior-quarter",
+            "  inside/breakout type, weekly ATR SuperTrend align/oppose.",
             "",
             "Artifacts: `condition_matrix.csv`, `candidate_ledger.csv`, `causal_feature_audit.csv`,",
             "`*_campaigns.csv`, `SELECTED_BOOKS.json`.",
@@ -357,12 +360,51 @@ def main(argv: Sequence[str] | None = None) -> int:
     ap.add_argument("--email", action="store_true")
     ap.add_argument("--min-n", type=int, default=MIN_N)
     ap.add_argument("--books", type=int, default=8)
+    ap.add_argument(
+        "--symbol",
+        type=str,
+        default="",
+        help="Restrict to one symbol (e.g. ES) — skips top-N sleeve dedup",
+    )
+    ap.add_argument(
+        "--out-hub",
+        type=str,
+        default="",
+        help="Override output hub path (default: futures_intraday_condition_profile)",
+    )
     args = ap.parse_args(argv)
 
-    PROFILE_HUB.mkdir(parents=True, exist_ok=True)
+    hub = Path(args.out_hub) if args.out_hub else PROFILE_HUB
+    if args.out_hub and not Path(args.out_hub).is_absolute():
+        from .fx_v2b_london_ungated import REPO
+
+        hub = REPO / args.out_hub
+    hub.mkdir(parents=True, exist_ok=True)
     try:
-        books, univ = select_top_futures_books(n=args.books)
-        write_selection_artifacts(books, univ, PROFILE_HUB)
+        if args.symbol:
+            sym = args.symbol.upper()
+            books = [b for b in BOOK_UNIVERSE if b.symbol.upper() == sym and b.fills.exists()]
+            if not books:
+                raise RuntimeError("no books for symbol %s" % sym)
+            univ = pd.DataFrame(
+                [
+                    {
+                        "key": b.key,
+                        "symbol": b.symbol,
+                        "family": b.family,
+                        "tracker_ns": b.tracker_ns,
+                        "selected": True,
+                        "viable": True,
+                        "score": b.tracker_ns,
+                        "notes": "symbol_filter=%s" % sym,
+                    }
+                    for b in books
+                ]
+            )
+            write_selection_artifacts(books, univ, hub)
+        else:
+            books, univ = select_top_futures_books(n=args.books)
+            write_selection_artifacts(books, univ, hub)
         print("Selected %d books:" % len(books), flush=True)
         for b in books:
             print("  - %s (%s %s ns=%.2f)" % (b.key, b.symbol, b.family, b.tracker_ns), flush=True)
@@ -382,28 +424,13 @@ def main(argv: Sequence[str] | None = None) -> int:
                 continue
             print("  campaigns=%d — annotating features ..." % len(camp), flush=True)
             ann = annotate_campaigns(camp, book.symbol)
-            ann.to_csv(PROFILE_HUB / ("%s_campaigns.csv" % book.key), index=False)
+            ann.to_csv(hub / ("%s_campaigns.csv" % book.key), index=False)
             all_campaigns.append(ann)
 
             # Causal feature audit sample
             for col, title in CONDITION_COLS:
                 if col not in ann.columns:
                     continue
-                avail_col = None
-                for cand in (
-                    "feat_avail_rsi",
-                    "feat_avail_daily",
-                    "feat_avail_on",
-                    "feat_avail_or15",
-                    "feat_avail_rth_vwap",
-                    "feat_avail_xidx",
-                    "feat_avail_st",
-                    "feat_avail_cal",
-                    "feat_avail_m5",
-                ):
-                    if cand in ann.columns:
-                        avail_col = cand
-                        break
                 causal_audit_rows.append(
                     {
                         "book": book.key,
@@ -420,7 +447,7 @@ def main(argv: Sequence[str] | None = None) -> int:
             table, baseline, book_notables = profile_book(ann, min_n=args.min_n)
             baseline["book"] = book.key
             baselines[book.key] = baseline
-            table.to_csv(PROFILE_HUB / ("%s_buckets.csv" % book.key), index=False)
+            table.to_csv(hub / ("%s_buckets.csv" % book.key), index=False)
             matrices.append(table)
             notables.extend(book_notables)
             books_meta.append(
@@ -444,32 +471,32 @@ def main(argv: Sequence[str] | None = None) -> int:
             raise RuntimeError("no campaigns loaded")
 
         campaigns = pd.concat(all_campaigns, ignore_index=True)
-        campaigns.to_csv(PROFILE_HUB / "all_campaigns.csv", index=False)
+        campaigns.to_csv(hub / "all_campaigns.csv", index=False)
         matrix = pd.concat(matrices, ignore_index=True) if matrices else pd.DataFrame()
-        matrix.to_csv(PROFILE_HUB / "condition_matrix.csv", index=False)
-        pd.DataFrame(notables).to_csv(PROFILE_HUB / "notables.csv", index=False)
-        pd.DataFrame(causal_audit_rows).to_csv(PROFILE_HUB / "causal_feature_audit.csv", index=False)
+        matrix.to_csv(hub / "condition_matrix.csv", index=False)
+        pd.DataFrame(notables).to_csv(hub / "notables.csv", index=False)
+        pd.DataFrame(causal_audit_rows).to_csv(hub / "causal_feature_audit.csv", index=False)
 
         short, ledger = shortlist_candidates(matrix, baselines, max_per_book=3)
         if not ledger.empty:
-            ledger.to_csv(PROFILE_HUB / "candidate_ledger.csv", index=False)
+            ledger.to_csv(hub / "candidate_ledger.csv", index=False)
         if not short.empty:
-            short.to_csv(PROFILE_HUB / "shortlist.csv", index=False)
+            short.to_csv(hub / "shortlist.csv", index=False)
 
-        (PROFILE_HUB / "baselines.json").write_text(json.dumps(baselines, indent=2), encoding="utf-8")
-        (PROFILE_HUB / "SELECTED_BOOKS.json").write_text(
-            json.dumps({"study": STUDY, "books": books_meta}, indent=2), encoding="utf-8"
+        (hub / "baselines.json").write_text(json.dumps(baselines, indent=2), encoding="utf-8")
+        (hub / "SELECTED_BOOKS.json").write_text(
+            json.dumps({"study": STUDY, "books": books_meta, "symbol_filter": args.symbol or None}, indent=2),
+            encoding="utf-8",
         )
 
         summary = render_profile(books_meta, baselines, notables, short, matrix)
-        (PROFILE_HUB / "PROFILE.md").write_text(summary, encoding="utf-8")
-        # Alias for skill expectations
-        (PROFILE_HUB / "SUMMARY.md").write_text(summary, encoding="utf-8")
+        (hub / "PROFILE.md").write_text(summary, encoding="utf-8")
+        (hub / "SUMMARY.md").write_text(summary, encoding="utf-8")
 
         email_lines = [
             "potions: futures_intraday_condition_profile complete",
-            "Hub: live/state/futures_intraday_condition_profile/",
-            "Books: %d" % len(books_meta),
+            "Hub: %s" % hub,
+            "Books: %d%s" % (len(books_meta), (" symbol=" + args.symbol.upper()) if args.symbol else ""),
             "Shortlist: %d candidates" % (0 if short is None or short.empty else len(short)),
             "",
         ]
@@ -479,17 +506,41 @@ def main(argv: Sequence[str] | None = None) -> int:
                     "%s | %s=%s | cov=%.0f%% incN/S=%.2f"
                     % (r["book"], r["condition"], r["bucket"], 100 * r["coverage"], r["inc_ns"])
                 )
+        # Highlight new HTF buckets among notables
+        if notables:
+            htf_titles = {
+                "Yearly ORB direction",
+                "Monthly OR direction",
+                "Prior quarter type",
+                "Weekly ATR trend vs trade",
+            }
+            htf_n = [n for n in notables if n.get("condition") in htf_titles]
+            if htf_n:
+                email_lines.append("")
+                email_lines.append("HTF notables:")
+                for n in htf_n[:12]:
+                    email_lines.append(
+                        "  %s | %s=%s | n=%d wr_lift=%+.1fpp avg_lift=%+.0f"
+                        % (
+                            n["book"],
+                            n["condition"],
+                            n["bucket"],
+                            n["n"],
+                            n.get("wr_lift_pp", 0),
+                            n.get("avg_lift", 0),
+                        )
+                    )
         email_lines.append("")
         email_lines.append("Stance: profile/shortlist only — null suite next.")
         body = "\n".join(email_lines)
-        (PROFILE_HUB / "EMAIL.txt").write_text(body, encoding="utf-8")
+        (hub / "EMAIL.txt").write_text(body, encoding="utf-8")
         if args.email:
             send_email(subject="potions: futures condition profile complete", body=body)
         print(summary[:2000], flush=True)
         return 0
     except Exception:
         tb = traceback.format_exc()
-        (PROFILE_HUB / "FAIL.txt").write_text(tb, encoding="utf-8")
+        (hub / "FAIL.txt").write_text(tb, encoding="utf-8")
         if args.email:
             send_email(subject="potions: futures condition profile FAILED", body=tb[-4000:])
         raise

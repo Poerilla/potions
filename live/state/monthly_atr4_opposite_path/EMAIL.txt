@@ -1,0 +1,17 @@
+potions: monthly ±4→opp4 path + best-path MAE complete (1h)
+
+Hub: /home/tester/hsm/potions/live/state/monthly_atr4_opposite_path
+1h bars; calendar-month open week; min n=5 for WR path pick.
+
+  EURUSD  second_after_upper  WR=34% (n=41)  risk=0.50×ATR  tattoo_mae_atr=0.18
+  GBPUSD  second_after_lower  WR=37% (n=41)  risk=1.50×ATR  tattoo_mae_atr=1.28
+  USDJPY  first_upper  WR=33% (n=139)  risk=0.50×ATR  tattoo_mae_atr=0.29
+  AUDJPY  second_after_upper  WR=38% (n=48)  risk=1.00×ATR  tattoo_mae_atr=0.87
+  XAUUSD  first_lower  WR=35% (n=114)  risk=2.00×ATR  tattoo_mae_atr=1.78
+  XAGUSD  second_after_lower  WR=35% (n=23)  risk=1.00×ATR  tattoo_mae_atr=0.88
+  US30  second_after_upper  WR=42% (n=19)  risk=2.00×ATR  tattoo_mae_atr=1.81
+  NAS100  first_lower  WR=43% (n=44)  risk=1.00×ATR  tattoo_mae_atr=0.53
+  NQ  first_lower  WR=38% (n=79)  risk=2.50×ATR  tattoo_mae_atr=2.06
+  YM  second_after_upper  WR=36% (n=36)  risk=3.00×ATR  tattoo_mae_atr=2.94
+
+See SUMMARY.md / best_path.csv.

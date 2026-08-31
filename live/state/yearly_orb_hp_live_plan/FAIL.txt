@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "/home/tester/hsm/potions/live/yearly_orb_hp_sizeup.py", line 736, in main
+    wr_df, wr_rows = recount_winrate(campaigns)
+  File "/home/tester/hsm/potions/live/yearly_orb_hp_sizeup.py", line 195, in recount_winrate
+    return pd.DataFrame([{k: v for k, v in r.items() if k != "yearly"} | {"yearly_json": json.dumps(r["yearly"])} for r in rows]), rows
+  File "/home/tester/hsm/potions/live/yearly_orb_hp_sizeup.py", line 195, in <listcomp>
+    return pd.DataFrame([{k: v for k, v in r.items() if k != "yearly"} | {"yearly_json": json.dumps(r["yearly"])} for r in rows]), rows
+TypeError: unsupported operand type(s) for |: 'dict' and 'dict'

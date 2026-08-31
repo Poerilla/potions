@@ -1,0 +1,15 @@
+potions: fx_v2d_london complete
+
+Hub: live/state/fx_v2d_london
+Clock: London OR 03:00-03:15 / flatten 11:59
+Plugin: v2d_fade qty=1
+
+Ranked by N/S:
+  1. XAUUSD  net≈$-69526  stress≈$-103188  N/S=-0.67  trades=3426
+  2. NAS100  net≈$-3170  stress≈$-3484  N/S=-0.91  trades=1592
+  3. US30  net≈$-4768  stress≈$-5216  N/S=-0.91  trades=1485
+  4. XAGUSD  net≈$-102143  stress≈$-103487  N/S=-0.99  trades=2728
+  5. EURUSD  net≈$-77302  stress≈$-77662  N/S=-1.00  trades=2505
+  6. USDJPY  net≈$-72278  stress≈$-72576  N/S=-1.00  trades=2966
+  7. AUDJPY  net≈$-67098  stress≈$-67272  N/S=-1.00  trades=2504
+  8. GBPUSD  net≈$-89478  stress≈$-89593  N/S=-1.00  trades=2660

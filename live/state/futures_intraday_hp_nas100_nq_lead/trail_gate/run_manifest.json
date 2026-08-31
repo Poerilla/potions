@@ -1,0 +1,137 @@
+{
+  "broker_realism_config": {
+    "fee_per_unit": 1.5,
+    "slippage_ticks": 1.0,
+    "tick": 0.1
+  },
+  "causality_mode": "audit",
+  "command": [
+    "/home/tester/hsm/potions/live/nas100_1h_first_hour_broker_sweep_trail.py",
+    "--email",
+    "--smoke"
+  ],
+  "created_at": "2026-08-19T12:25:02Z",
+  "cwd": "/home/tester/hsm/potions",
+  "data_inputs": [
+    {
+      "bytes": 192113637,
+      "exists": true,
+      "path": "/home/tester/hsm/potions/fx/nas100_1m.csv",
+      "sha256": "522b23ed6e3f530c5d201bdc5682c26862502824760a7f7f69bc8accf449e52e"
+    }
+  ],
+  "extra": {
+    "charts": 0,
+    "hp_ran": true,
+    "results": [
+      {
+        "bars": 21574,
+        "bounce": {},
+        "closed_dd_usd": -1106.399999999896,
+        "config": {
+          "bar_minutes": 5,
+          "entry_qty": 1,
+          "eod_cutoff": "15:59",
+          "fade": false,
+          "fh_end": "10:30",
+          "fh_start": "09:30",
+          "min_fh_bars": 10,
+          "r_mult": 3.0,
+          "require_fh_body": "strong",
+          "require_sweep_side": "sweep_with_side",
+          "session_levels_path": "/home/tester/hsm/potions/live/state/futures_intraday_hp_nas100_nq_lead/trail_gate/session_levels.csv",
+          "st_atr_len": 14,
+          "st_atr_mult": 3.0,
+          "st_trail": false,
+          "strong_body_min": 0.66,
+          "suppress_alerts": true,
+          "tick_size": 0.1,
+          "trail_log_path": ""
+        },
+        "events": 21574,
+        "intrabar_stress_dd_usd": -1118.2999999998938,
+        "label": "follow 3R strong + sweep_with_side",
+        "max_open_units": 1,
+        "net_over_stress": -0.049092372350697265,
+        "net_usd": -54.89999999977954,
+        "slug": "follow_3r_strong_sweep",
+        "strategy_id": "nas100_fh_follow_3r_strong_sweep",
+        "trades": 56,
+        "units": 56,
+        "win_rate": 0.5
+      },
+      {
+        "bars": 21574,
+        "bounce": {
+          "aggressive_rate_of_trades": 0.07692307692307693,
+          "bounce_rate_given_approach": 0.75,
+          "median_bounce_pts": 33.19999999999891,
+          "n_aggressive_bars": 3,
+          "n_approach_bars": 4,
+          "n_bounce_bars": 4,
+          "n_hit_bars": 0,
+          "n_trades_logged": 39,
+          "n_trail_modify": 68,
+          "significant": false,
+          "trades_with_aggressive": 3,
+          "trades_with_approach": 8,
+          "trades_with_bounce": 6
+        },
+        "closed_dd_usd": -1088.1911195902612,
+        "config": {
+          "bar_minutes": 5,
+          "entry_qty": 1,
+          "eod_cutoff": "15:59",
+          "fade": false,
+          "fh_end": "10:30",
+          "fh_start": "09:30",
+          "min_fh_bars": 10,
+          "r_mult": 3.0,
+          "require_fh_body": "strong",
+          "require_sweep_side": "sweep_with_side",
+          "session_levels_path": "/home/tester/hsm/potions/live/state/futures_intraday_hp_nas100_nq_lead/trail_gate/session_levels.csv",
+          "st_atr_len": 14,
+          "st_atr_mult": 3.0,
+          "st_trail": true,
+          "strong_body_min": 0.66,
+          "suppress_alerts": true,
+          "tick_size": 0.1,
+          "trail_log_path": "/home/tester/hsm/potions/live/state/futures_intraday_hp_nas100_nq_lead/trail_gate/follow_3r_strong_sweep_st_trail_trail_events.jsonl"
+        },
+        "events": 28044,
+        "intrabar_stress_dd_usd": -1100.091119590259,
+        "label": "follow 3R strong + sweep_with_side + 1h ST trail",
+        "max_open_units": 1,
+        "net_over_stress": -0.037157961964462735,
+        "net_usd": -40.87714397917807,
+        "slug": "follow_3r_strong_sweep_st_trail",
+        "strategy_id": "nas100_fh_follow_3r_strong_sweep_st_trail",
+        "trades": 56,
+        "units": 56,
+        "win_rate": 0.5
+      }
+    ]
+  },
+  "git": {
+    "commit": "",
+    "dirty": false,
+    "repo_root": "/home/tester/hsm/potions/live/state/futures_intraday_hp_nas100_nq_lead/trail_gate",
+    "status_short": []
+  },
+  "outputs": [],
+  "python": {
+    "executable": "/home/tester/.pyenv/versions/3.8.0/bin/python",
+    "platform": "Linux-5.15.0-185-generic-x86_64-with-glibc2.34",
+    "version": "3.8.0 (default, Feb 11 2026, 11:18:58) \n[GCC 11.4.0]"
+  },
+  "run_id": "run_6451b1e40434",
+  "strategy_config": {
+    "books": [
+      "follow_3r_strong_sweep",
+      "follow_3r_strong_sweep_st_trail"
+    ],
+    "require_fh_body": "strong",
+    "require_sweep_side": "sweep_with_side",
+    "strategy_type": "first_hour_follow"
+  }
+}

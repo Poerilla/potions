@@ -1,0 +1,30 @@
+potions: ST+PMC live↔sim divergence quantified
+As of 2026-08-12 ~16:08 ET · NAS100/US30 OANDA books
+
+VERDICT: SEVERE — all four books MISMATCH on live-config replay (not spawn-config drift). Unique-entry match rate 0%.
+
+SCORECARD (post-started_at, ±2m fuzzy)
+Book                 Live fills  Sim fills  Unique live  Unique sim  Fuzzy match  Open(live)
+NAS100 3R                    4          0            4           0            0          2
+NAS100 runners               1          1            1           1            0          2
+US30 3R                      5          1            2           1            0          2
+  (US30 3R fills: 2×16:32 + 3×18:29)
+US30 runners                 3          1            3           1            0          2
+
+AGGREGATE
+- live 13 entry fills vs sim 3 (4.3×)
+- unique events 10 vs 3; 0 matched; 10 live-only / 3 sim-only
+- config drift=[] — same config_json on stored bars still diverges → stream/broker/fill-path risk, not stale spawn
+
+TIMING (not “a few minutes late”)
+- Live fills 0/13 on :00; sim fills 3/3 on hour bars
+- Closest pairs: NAS100 runners −914m (02:46 vs 18:00); US30 3R −28m / +89m; US30 runners −1084m / −94m
+- Plugin decides on 1h close; mid-hour live stamps can be resting-limit fills — but count + hour gaps mean this is not just timestamp semantics
+
+CONTROL
+- EURUSD ST+PMC 3R/runners: MATCH at 0/0 (vacuous until they trade)
+
+RISK READ
+Practice tape is NOT the research path: over-entry (NAS100 3R phantom buys + US30 multi-lot), wrong session, all four books still long with open_positions=2. Treat demo PnL/behavior as untrusted for promote until entry sequence reconciles.
+
+Artifacts: live/state/_oanda_live_sim_reconcile/summary.json + per-demo live_cfg/

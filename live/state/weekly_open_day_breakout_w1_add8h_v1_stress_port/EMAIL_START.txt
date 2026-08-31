@@ -1,0 +1,15 @@
+potions: w1+8h v1 stress/port STARTED (overnight)
+
+Hub: live/state/weekly_open_day_breakout_w1_add8h_v1_stress_port
+Contract: RESEARCH_CONTRACT.yaml (max_adds=9 locked)
+DSR: TRL-2026-00168
+
+Sequence:
+1. NAS100 primary v1 + base no-add (strict)
+2. Correctness + add-path attribution
+3. Execution stress matrix (~11 locked cases)
+4. Neighborhood (6h/8h/10h, cap±1, Fri 12/13/14, no week gate)
+5. Stats (blocks, LOO, bootstrap, selection note)
+6. Frozen ports: NQ → MNQ → YM → MYM
+
+No OANDA/demo harness. Check PROGRESS.log in the morning.

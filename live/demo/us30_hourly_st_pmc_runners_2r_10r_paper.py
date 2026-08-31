@@ -1,7 +1,7 @@
 """US30 hourly ST+PMC sl50_tp150_runners_2r_10r — paper demo (OANDA prices, PaperBroker fills).
 
-Fair-control 1mfill lot-correct N/S ≈ 24.1. Artifacts: ``live/demo/us30_hourly_st_pmc_sl50_tp150_runners_2r_10r_paper/``.
-Streams practice quotes → 1m → 1h (left/left); strategy on 1h; PaperBroker fills on 1m.
+Completed-hour causal replay N/S 1.47. Artifacts: ``live/demo/us30_hourly_st_pmc_sl50_tp150_runners_2r_10r_paper/``.
+Streams practice quotes → 1m → completed 1h; strategy on 1h; PaperBroker fills on 1m.
 """
 
 from __future__ import annotations

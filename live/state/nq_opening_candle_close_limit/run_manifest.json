@@ -1,0 +1,47 @@
+{
+  "broker_realism_config": {
+    "fee": 1.5,
+    "point_value": 20.0,
+    "slippage_ticks": 1.0,
+    "tick": 0.25
+  },
+  "causality_mode": "audit",
+  "command": [
+    "/home/tester/hsm/potions/live/nq_opening_candle_close_limit.py",
+    "--force",
+    "--email"
+  ],
+  "created_at": "2026-08-20T04:50:06Z",
+  "cwd": "/home/tester/hsm/potions",
+  "data_inputs": [
+    {
+      "bytes": 20945326,
+      "exists": true,
+      "path": "/home/tester/hsm/potions/nq/nq_5min_rth.csv",
+      "sha256": "0a3f1756e9b7752af2350ce52673e75ecd707a0a7187645f6cb9d1bdfac2a747"
+    }
+  ],
+  "extra": {},
+  "git": {
+    "commit": "",
+    "dirty": false,
+    "repo_root": "/home/tester/hsm/potions/live/state/nq_opening_candle_close_limit",
+    "status_short": []
+  },
+  "outputs": [],
+  "python": {
+    "executable": "/home/tester/.pyenv/versions/3.8.0/bin/python",
+    "platform": "Linux-5.15.0-185-generic-x86_64-with-glibc2.34",
+    "version": "3.8.0 (default, Feb 11 2026, 11:18:58) \n[GCC 11.4.0]"
+  },
+  "run_id": "run_29d833eef22d",
+  "strategy_config": {
+    "books": [
+      "open30_close_limit_3r",
+      "open1h_close_limit_3r",
+      "open30_market_close_3r",
+      "open1h_market_close_3r"
+    ],
+    "stance": "WORKS \u2014 best limit book N/S 3.91; proceed to HP analysis"
+  }
+}

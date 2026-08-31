@@ -1,0 +1,18 @@
+potions: NQ liq-run fade HA overlay complete
+
+Hub: /home/tester/hsm/potions/live/state/monthly_open_atr_extension_band/liq_run_fade_1r1_reentry_hp_1m_ha/overlay
+Candidates: 10
+
+Top full-tape by ΔN/S:
+  Hourly RSI bucket=rsi_gt70 | filter | hp=9% ΔN/S=+3.78 Δnet=$-127432
+  Day of week=Monday | filter | hp=15% ΔN/S=+1.33 Δnet=$-128722
+  Prior-week range half=week_aligned | filter | hp=83% ΔN/S=+1.13 Δnet=$+252965
+  ATR14 quartile=atr_q4 | filter | hp=25% ΔN/S=+1.12 Δnet=$+338008
+  Hourly RSI vs trade=rsi_against_side | filter | hp=81% ΔN/S=+1.00 Δnet=$+153920
+  Hourly RSI bucket=rsi_30_45 | filter | hp=27% ΔN/S=+0.52 Δnet=$-75662
+  ATR14 quartile=atr_q4 | size_1.5 | hp=25% ΔN/S=+0.46 Δnet=$+359688
+  5m MA vs trade=ma_opposed | filter | hp=88% ΔN/S=+0.46 Δnet=$+111265
+  Day of week=Monday | size_1.5 | hp=15% ΔN/S=+0.36 Δnet=$+126322
+  Hourly RSI bucket=rsi_gt70 | size_1.5 | hp=9% ΔN/S=+0.36 Δnet=$+126968
+  Hourly RSI vs trade=rsi_against_side | size_1.5 | hp=81% ΔN/S=+0.33 Δnet=$+267644
+  Prior-week range half=week_aligned | size_1.5 | hp=83% ΔN/S=+0.32 Δnet=$+317166

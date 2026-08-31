@@ -1,0 +1,24 @@
+INDIVIDUAL_250K_LEVERAGE_LADDER (separate)
+
+hub: /home/tester/hsm/potions/live/state/canonical_ns_research
+Sensitivity-only 3×/4× and full size ladder. NOT deployable $250k board.
+Still stress-normalized to $25,000 for comparison.
+
+3×/4× rows: 14
+
+ 1. NQ      nq_prior_opposed_rl          @3×  N/S=34.96  ann/yr=$   174,709  DD%=10.0  inside=True  [SENSITIVITY ONLY]
+ 2. NQ      nq_prior_opposed_rl          @4×  N/S=34.19  ann/yr=$   170,893  DD%=10.0  inside=True  [SENSITIVITY ONLY]
+ 3. NQ      nq_st_pmc_3r                 @4×  N/S=29.85  ann/yr=$    47,764  DD%=10.0  inside=True  [SENSITIVITY ONLY]
+ 4. NQ      nq_st_pmc_3r                 @3×  N/S=29.62  ann/yr=$    47,400  DD%=10.0  inside=True  [SENSITIVITY ONLY]
+ 5. YM      ym_st_pmc_3r                 @4×  N/S=28.08  ann/yr=$    44,321  DD%=10.0  inside=True  [SENSITIVITY ONLY]
+ 6. YM      ym_st_pmc_3r                 @3×  N/S=25.92  ann/yr=$    40,909  DD%=10.0  inside=True  [SENSITIVITY ONLY]
+ 7. ES      es_prior_opposed_legacy      @4×  N/S=20.19  ann/yr=$   100,995  DD%=10.0  inside=True  [SENSITIVITY ONLY]
+ 8. ES      es_prior_opposed_legacy      @3×  N/S=18.63  ann/yr=$    93,193  DD%=10.0  inside=True  [SENSITIVITY ONLY]
+ 9. YM      ym_prior_opposed_rl          @4×  N/S=13.88  ann/yr=$    68,327  DD%=10.0  inside=True  [SENSITIVITY ONLY]
+10. YM      ym_prior_opposed_rl          @3×  N/S=12.88  ann/yr=$    63,378  DD%=10.0  inside=True  [SENSITIVITY ONLY]
+11. YM      ym_prior_opposed_rl          @4×  N/S=12.16  ann/yr=$    59,851  DD%=10.0  inside=True  [SENSITIVITY ONLY]
+12. YM      ym_prior_opposed_rl          @3×  N/S=11.67  ann/yr=$    57,430  DD%=10.0  inside=True  [SENSITIVITY ONLY]
+13. NQ      nq_v2b_s113                  @3×  N/S=7.80  ann/yr=$    38,965  DD%=10.0  inside=True  [SENSITIVITY ONLY]
+14. NQ      nq_v2b_s113                  @4×  N/S=7.37  ann/yr=$    36,834  DD%=10.0  inside=True  [SENSITIVITY ONLY]
+
+Full: /home/tester/hsm/potions/live/state/canonical_ns_research/INDIVIDUAL_250K_LEVERAGE_LADDER.md

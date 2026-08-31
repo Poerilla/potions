@@ -80,3 +80,18 @@ escalation from borderline 1.5× backtest evidence alone.
 - `SUMMARY.md` / `pair_decisions.csv` / `pairs/*/RESULT.json`
 - `EMAIL.txt`
 - Overlay plan (broader Tier A): `../intraday_condition_overlay/LIVE_PLAN.md`
+
+
+## Research capital lock (2026-08-17) — not deploy auth
+
+Separate from the 1.25× validated rollout above, a **research capital** package
+locks linear sensitivity sizes for planning:
+
+| Sleeve | Locked mult | Role |
+|---|---:|---|
+| NQ OR-norm | 4× | futures research capital |
+| ES ST-age>180m | 4× | futures research (NOT VALIDATED) |
+| EURUSD ST+PMC Thursday | **40×** | FX research capital |
+
+Deploy authorization for EURUSD/US30 HP remains **1.25×** only.
+See [`../hp_size_lock_v1/LOCKED_PLAN.md`](../hp_size_lock_v1/LOCKED_PLAN.md).

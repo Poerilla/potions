@@ -1,0 +1,12 @@
+bucket,pair,a_campaigns,b_campaigns,shared_days,day_jaccard,dir_agree_rate_on_shared,same_day_same_dir_events,daily_net_corr,corr_days,regime_separable
+same_market_v2b_s111_vs_stpmc,MNQ v2b S_1_1_1 vs MNQ ST+PMC 3R,1384,342,212,0.208,0.708,150,-0.02,212,True
+same_market_v2b_s111_vs_stpmc,MYM v2b S_1_1_1 vs MYM ST+PMC 3R,1374,496,217,0.193,0.7,153,-0.065,217,True
+same_market_v2b_s111_vs_stpmc,NQ v2b S_1_1_1 vs NQ ST+PMC 3R,1385,679,213,0.158,0.7,149,-0.026,213,True
+same_market_v2b_s111_vs_stpmc,YM v2b S_1_1_1 vs YM ST+PMC 3R,1403,985,223,0.138,0.717,161,-0.037,223,True
+cross_v2b_s111_vs_stpmc,YM v2b S_1_1_1 vs US30 ST+PMC 3R,1403,578,197,0.156,0.746,148,-0.048,197,True
+cross_v2b_s111_vs_stpmc,NQ v2b S_1_1_1 vs NAS100 ST+PMC 3R,1385,477,184,0.156,0.707,130,-0.061,184,True
+cross_v2b_s111_vs_stpmc,NQ v2b S_1_1_1 vs MNQ ST+PMC 3R,1385,342,212,0.208,0.708,150,-0.025,212,True
+cross_v2b_s111_vs_stpmc,YM v2b S_1_1_1 vs MYM ST+PMC 3R,1403,496,216,0.189,0.704,153,-0.058,216,True
+cross_stpmc_vs_stpmc,YM ST+PMC 3R vs US30 ST+PMC 3R,985,578,417,0.423,0.998,416,0.851,417,False
+cross_stpmc_vs_stpmc,NQ ST+PMC 3R vs NAS100 ST+PMC 3R,679,477,395,0.577,1.0,396,0.956,395,False
+cross_stpmc_vs_stpmc,NQ ST+PMC 3R vs MNQ ST+PMC 3R,679,342,301,0.469,1.0,302,0.98,301,False

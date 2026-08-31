@@ -1,0 +1,8 @@
+potions: NAS100 v2b HP flags (RSI-against / ST-opposed / both / neither)
+hub: /home/tester/hsm/potions/live/state/futures_intraday_hp_nas100_nq_lead
+mode: shadow (no size change); st_opposed = rsi_proxy
+
+- nas100_v2b_ungated_paper entries=21 rsi_against=9 both=9 neither=12 new=0
+- nas100_v2b_ungated_oanda entries=16 rsi_against=8 both=8 neither=8 new=16
+
+competitors: /home/tester/hsm/potions/live/state/futures_intraday_hp_nas100_nq_lead/nulls/MASTER_NULL_COMPETITORS.md

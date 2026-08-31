@@ -1,0 +1,293 @@
+{
+  "YM": {
+    "instrument": "YM",
+    "fills": "/home/tester/hsm/potions/live/state/ym_quarterly_range_breakout_broker/states/ym_quarterly_range_breakout/fills.csv",
+    "n_trades": 69,
+    "baseline_net": 303058.0000000001,
+    "by_side": [
+      {
+        "side": "long",
+        "trades": 53,
+        "net": 297731.0000000002,
+        "wr": 0.6037735849056604,
+        "avg": 5617.566037735853
+      },
+      {
+        "side": "short",
+        "trades": 16,
+        "net": 5327.000000000007,
+        "wr": 0.4375,
+        "avg": 332.93750000000045
+      }
+    ],
+    "short": {
+      "n": 16,
+      "net": 5327.0,
+      "wr": 0.4375,
+      "med_mfe_W": 0.2666059756840566,
+      "med_mfe_before_mid_W": 0.2666059756840566,
+      "losers_med_mfe_before_mid": 0.21568627450980393,
+      "winners_med_mfe": 0.8517179023508138,
+      "reach_0p2": 0.6875,
+      "reach_0p4": 0.375,
+      "reach_0p6": 0.3125,
+      "reach_0p8": 0.3125,
+      "stop_only_n": 3,
+      "stop_only_net": -66592.0,
+      "skip_shorts_net": 297731.0000000001,
+      "skip_shorts_delta": -5327.0,
+      "early_fail_d3_net": 153245.00000000012,
+      "early_fail_d3_delta": -149813.0,
+      "early_fail_d5_net": 129685.00000000023,
+      "early_fail_d5_delta": -173372.99999999988,
+      "longs_net": 297731.0000000001,
+      "shorts_net": 5327.0,
+      "baseline_net": 303058.0000000001,
+      "adheres_to_nq_short_issue": true
+    },
+    "accum": {
+      "allin": 379372.00000000023,
+      "broker_v2": 303058.0000000001,
+      "variants": [
+        {
+          "label": "2w_1perd_cap10",
+          "net": 253929.00000000023,
+          "avg_qty": 6.333333333333333,
+          "vs_allin": -125443.0,
+          "no_fill": 0,
+          "better": 34,
+          "worse": 35
+        },
+        {
+          "label": "1w_2contracts_per_week",
+          "net": 155613.0000000003,
+          "avg_qty": 1.8840579710144927,
+          "vs_allin": -223758.99999999994,
+          "no_fill": 4,
+          "better": 29,
+          "worse": 40
+        }
+      ]
+    },
+    "accum_by_side": {
+      "2w_1perd": {
+        "long": {
+          "net": 268228.0000000003,
+          "avg_qty": 6.30188679245283,
+          "n": 53
+        },
+        "short": {
+          "net": -14298.999999999964,
+          "avg_qty": 6.4375,
+          "n": 16
+        }
+      },
+      "1w_2perweek": {
+        "long": {
+          "net": 116171.00000000022,
+          "avg_qty": 1.849056603773585,
+          "n": 53
+        },
+        "short": {
+          "net": 39442.000000000044,
+          "avg_qty": 2.0,
+          "n": 16
+        }
+      }
+    }
+  },
+  "MNQ": {
+    "instrument": "MNQ",
+    "fills": "/home/tester/hsm/potions/live/state/mnq_quarterly_range_breakout_broker/states/mnq_quarterly_range_breakout/fills.csv",
+    "n_trades": 31,
+    "baseline_net": 120170.0,
+    "by_side": [
+      {
+        "side": "long",
+        "trades": 24,
+        "net": 118497.29999999999,
+        "wr": 0.75,
+        "avg": 4937.3875
+      },
+      {
+        "side": "short",
+        "trades": 7,
+        "net": 1672.700000000008,
+        "wr": 0.42857142857142855,
+        "avg": 238.957142857144
+      }
+    ],
+    "short": {
+      "n": 7,
+      "net": 1672.700000000008,
+      "wr": 0.42857142857142855,
+      "med_mfe_W": 0.3449031786627695,
+      "med_mfe_before_mid_W": 0.3449031786627695,
+      "losers_med_mfe_before_mid": 0.17784603474310648,
+      "winners_med_mfe": 0.5210959474945307,
+      "reach_0p2": 0.5714285714285714,
+      "reach_0p4": 0.42857142857142855,
+      "reach_0p6": 0.14285714285714285,
+      "reach_0p8": 0.0,
+      "stop_only_n": 1,
+      "stop_only_net": -15630.0,
+      "skip_shorts_net": 118497.3,
+      "skip_shorts_delta": -1672.699999999997,
+      "early_fail_d3_net": 97417.40000000001,
+      "early_fail_d3_delta": -22752.59999999999,
+      "early_fail_d5_net": 95487.2,
+      "early_fail_d5_delta": -24682.800000000003,
+      "longs_net": 118497.3,
+      "shorts_net": 1672.700000000008,
+      "baseline_net": 120170.0,
+      "adheres_to_nq_short_issue": true
+    },
+    "accum": {
+      "allin": 118883.0,
+      "broker_v2": 120170.0,
+      "variants": [
+        {
+          "label": "2w_1perd_cap10",
+          "net": 121175.70000000003,
+          "avg_qty": 6.193548387096774,
+          "vs_allin": 2292.700000000026,
+          "no_fill": 1,
+          "better": 17,
+          "worse": 14
+        },
+        {
+          "label": "1w_2contracts_per_week",
+          "net": 33085.80000000002,
+          "avg_qty": 1.8064516129032258,
+          "vs_allin": -85797.19999999998,
+          "no_fill": 3,
+          "better": 11,
+          "worse": 20
+        }
+      ]
+    },
+    "accum_by_side": {
+      "2w_1perd": {
+        "long": {
+          "net": 109669.80000000002,
+          "avg_qty": 5.958333333333333,
+          "n": 24
+        },
+        "short": {
+          "net": 11505.900000000016,
+          "avg_qty": 7.0,
+          "n": 7
+        }
+      },
+      "1w_2perweek": {
+        "long": {
+          "net": 24101.7,
+          "avg_qty": 1.75,
+          "n": 24
+        },
+        "short": {
+          "net": 8984.100000000017,
+          "avg_qty": 2.0,
+          "n": 7
+        }
+      }
+    }
+  },
+  "ES": {
+    "instrument": "ES",
+    "fills": "/home/tester/hsm/potions/live/state/es_quarterly_range_breakout_broker/states/es_quarterly_range_breakout/fills.csv",
+    "n_trades": 60,
+    "baseline_net": 1249967.5,
+    "by_side": [
+      {
+        "side": "long",
+        "trades": 47,
+        "net": 1169964.5,
+        "wr": 0.7872340425531915,
+        "avg": 24892.86170212766
+      },
+      {
+        "side": "short",
+        "trades": 13,
+        "net": 80002.99999999999,
+        "wr": 0.46153846153846156,
+        "avg": 6154.076923076922
+      }
+    ],
+    "short": {
+      "n": 13,
+      "net": 80003.00000000001,
+      "wr": 0.46153846153846156,
+      "med_mfe_W": 0.5835010060362174,
+      "med_mfe_before_mid_W": 0.5835010060362174,
+      "losers_med_mfe_before_mid": 0.27515633882888,
+      "winners_med_mfe": 0.8962131480400088,
+      "reach_0p2": 0.8461538461538461,
+      "reach_0p4": 0.6153846153846154,
+      "reach_0p6": 0.46153846153846156,
+      "reach_0p8": 0.3076923076923077,
+      "stop_only_n": 2,
+      "stop_only_net": -175448.0,
+      "skip_shorts_net": 1169964.5,
+      "skip_shorts_delta": -80003.0,
+      "early_fail_d3_net": 1374235.0,
+      "early_fail_d3_delta": 124267.5,
+      "early_fail_d5_net": 1348667.5000000002,
+      "early_fail_d5_delta": 98700.00000000023,
+      "longs_net": 1169964.5,
+      "shorts_net": 80003.00000000001,
+      "baseline_net": 1249967.5,
+      "adheres_to_nq_short_issue": true
+    },
+    "accum": {
+      "allin": 1249752.5,
+      "broker_v2": 1249967.5,
+      "variants": [
+        {
+          "label": "2w_1perd_cap10",
+          "net": 736870.0,
+          "avg_qty": 6.166666666666667,
+          "vs_allin": -512882.5,
+          "no_fill": 0,
+          "better": 23,
+          "worse": 37
+        },
+        {
+          "label": "1w_2contracts_per_week",
+          "net": 237697.00000000003,
+          "avg_qty": 1.7666666666666666,
+          "vs_allin": -1012055.5,
+          "no_fill": 7,
+          "better": 19,
+          "worse": 41
+        }
+      ]
+    },
+    "accum_by_side": {
+      "2w_1perd": {
+        "long": {
+          "net": 758855.0000000002,
+          "avg_qty": 5.957446808510638,
+          "n": 47
+        },
+        "short": {
+          "net": -21985.000000000076,
+          "avg_qty": 6.923076923076923,
+          "n": 13
+        }
+      },
+      "1w_2perweek": {
+        "long": {
+          "net": 152781.5000000001,
+          "avg_qty": 1.7446808510638299,
+          "n": 47
+        },
+        "short": {
+          "net": 84915.49999999994,
+          "avg_qty": 1.8461538461538463,
+          "n": 13
+        }
+      }
+    }
+  }
+}

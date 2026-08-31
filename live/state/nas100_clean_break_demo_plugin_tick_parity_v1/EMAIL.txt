@@ -1,0 +1,11 @@
+potions: NAS100 clean-break OANDA-tick demo↔plugin parity — MATCH
+
+Hub: /home/tester/hsm/potions/live/state/nas100_clean_break_demo_plugin_tick_parity_v1
+Data: OANDA practice rth_ticks only (/home/tester/hsm/potions/live/demo/nas100_v2b_ungated_oanda/state/events/rth_ticks)
+Days: 17 (2026-07-24 … 2026-08-19)
+Demo: ticks=1477252 bars_5m=1303 fills=34
+Plugin same bars: fills=34
+MATCH: True
+
+Stance: practice wiring check only; not a promote gate.
+Research fx/nas100_1m NOT used.

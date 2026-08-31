@@ -1,5 +1,275 @@
 # Live Runtime CHANGE_LOG
 
+## 2026-08-30 — CFD limit-retest replication + V2B wick-range alignment
+
+- OCO stop-entry contrast failed earlier same day → limit-retest demoted from
+  demo path; kept as frozen research signal only.
+- CFD replication (frozen NQ decision box, no CHOP20): driver
+  `live/cfd_wick_reject_range_seed_retest.py` →
+  `live/state/cfd_wick_reject_range_seed_retest/`.
+  - NAS100 mirrors NQ (dev avgR +0.09 / holdout −0.23) — portability only.
+  - SPX500/US30 holdout+ is thin/inconsistent vs failed development — not
+    broader-index confirmation. **Demo blocked.**
+- V2B causal state label (not hybrid): driver
+  `live/nq_v2b_wick_range_alignment.py` →
+  `live/state/nq_v2b_wick_range_alignment/`.
+  - Prior-opposed resting-limit NQ: OPPOSED_BREAK not harmful (avg $/trade
+    above ALIGNED); skip-opposed CF not run. Sparse coverage (53/439 under
+    active resolved seed).
+
+## 2026-08-30 — NQ WICK_REJECT range-seed breakout–retest (Phases 0–3)
+
+- Reframe: 4h WICK_REJECT as **range seed**, not fade (Prototype B follow-on).
+- Driver: `live/nq_wick_reject_range_seed_retest.py`
+- Hub: `live/state/nq_wick_reject_range_seed_retest/` (MODEL_CONTRACT.yaml frozen).
+- Census: 91/122 eligible seeds; 67 primary limit-retest fills (74% of seeds).
+- Locked primary: **dev** +$23.9k PF 1.90 avgR +0.18 (53 fills); **holdout** avgR −0.04 (14 fills).
+- Controls: retest > immediate chase on dev; synthetic boundary fill stronger than retest — edge may be break+box, not pullback.
+- Stance: **RESEARCH** (not promote). Phase 4 / StrategyPlugin blocked.
+
+## 2026-08-29 — US30 continuation campaign audit (post A/B/C)
+
+- A/B/C matrix complete: A/B rejected; C 2R→10R N/S 1.84 (5207u / **1736 campaigns**).
+- Frozen contract `us30_st_pmc_completed_hour_continuation_v1` +
+  `CONTINUATION_AUDIT.md` before further path-C variation.
+- One-entry/signal PASS on preferred tape; profit-cap 2R/3R → N/S deeply
+  negative (runner/tail). Engine slippage stress running (DSR `TRL-2026-00188`).
+- PMC failed-break fade Phase 1/2 also complete (`us30_pmc_failed_break_fade/`,
+  `TRL-2026-00187`) — RESEARCH_WEAK_POSITIVE, no promote.
+
+## 2026-08-29 — US30 ST+PMC fair-3R invalidated; causal revival A/B/C
+
+- Signal-hour attribution on retired fair-3R (578 campaigns): 12.8% same-hour
+  fills; 90% post-close ST-limit retest opportunity; 54% post-close H/L
+  continuation. Hub: `live/state/us30_st_pmc_signal_hour_attribution/`.
+- Demo decision: `demo_us30_hourly_st_pmc` **alpha_status=invalidated**
+  (prefer stop; lifecycle/reconcile only if retained). Do not cite N/S 29.39.
+- New plugin `hourly_st_pmc_causal_revival` + driver
+  `live/us30_st_pmc_causal_revival_abc.py` (paths A pre-posted PMC, B one-shot
+  PMC retest 240m, C H/L continuation; locked 2R→10R cell; DSR `TRL-2026-00186`).
+- Completed-hour control remains N/S 1.47 (2R→10R) / −0.21 (fair 3R) under
+  `live/state/us30_st_pmc_runner_variants/`.
+
+## 2026-08-28 — W1+8h v1 cross-market portability (NQ/MNQ/YM/MYM)
+
+- Overnight stress/port left futures xmarket at 0 trades (`KeyError: ts_event` on
+  front-month 4h `time`/`date` CSVs). Added `_load_4h_any` in
+  `live/weekly_open_day_breakout_w1_add8h_stress_portability.py`.
+- Re-ran `--stages xmarket` broker-like Engine + 1m fill. All five books positive
+  net; decision → **broader index structural effect — locked OOS/forward next;
+  still NO demo** (paper gate unchanged). Hub:
+  `live/state/weekly_open_day_breakout_w1_add8h_v1_stress_port` · DSR `TRL-2026-00168`.
+
+## 2026-08-21 — OPEN_ORDER_STATUSES + US30 ST+PMC stale-arm cancel
+
+- **Bug:** `StrategyContext.strategy_open_orders` (and RiskManager open-order
+  counts) only treated `submitted` / `partially_filled` as open. OANDA rests
+  land as `working`, so ST+PMC hourly refresh saw zero priors and stacked a new
+  LIMIT each hour (`orders=1→5` on `us30_…_3r_oanda` / `-003`).
+- **Fix:** shared `OPEN_ORDER_STATUSES` in `live/models.py` includes
+  `working` / `pendingnew` / `accepted` / `pending`; wired into
+  `StrategyContext`, `RiskManager`, ST+PMC `_open_entry_limits`, and London
+  prior-opposed gate audit helpers. Unit test covers `working`.
+- **Ops:** stopped daemon; cancelled remote LIMITs **5/6/7/8**; kept **11**
+  (`ord_0fc075855acd` @ 52945.2). Local CSV aligned. Restarted
+  `demo-us30-hourly-st-pmc-oanda` → heartbeat `orders=1`. Artifacts:
+  `live/demo/oanda_practice_snapshot/STALE_ARM_DEDUPE_R3.{md,json}`.
+
+## 2026-08-19 — Gmail potions-prompt poll TLS rebuild
+
+- Poll loop rebuilt Gmail client after transient `Broken pipe` / SSL unexpected
+  EOF (stale httplib2 after long agent runs). These were the user-visible
+  "timeouts" — not Cursor `AGENT_TIMEOUT_SEC` (no agent TimeoutExpired in log).
+
+## 2026-08-19 — OANDA containment false-positive fix + cross-book entry gate
+
+- Classifier: flat + intentional `bracket_role=entry` → `armed_entry` (ok), not
+  `orphan_protective`. True SL/TP leftovers stay orphans. Flat + entry arms while
+  account already holds the focus instrument → `cross_book_entry` (shadow detect).
+- Sweep: do not cancel local entry arms when flat; shadow no longer would-cancel
+  on healthy armed books.
+- **Always-on** `OandaBroker` gate blocks entry submits when sibling/account qty
+  is open and local strategy is flat (`cross_book_instrument_open`); manager
+  records `routing_blocked`. Containment remains **shadow**.
+- Ops: cancelled NAS100 orphans 1719/1756/1758/1760 (+ restart re-arm 1767).
+  Restarted `nas100_…_3r_oanda` + `nas100_v2b_ungated_oanda`.
+- Tests/fixtures: armed_entry + orphan_SL cases; Aug 14 entry-STOP fixtures
+  reclassified to `armed_entry`.
+
+## 2026-08-19 — RTH first-hour follow broker variants (NQ + NAS100) RETAIN
+
+- Plugin `first_hour_follow` extended: `entry_mode` (market_close / retrace_limit),
+  `sl_mode` (open / body_frac / extreme), `tp_mode` (body_mult / r_mult),
+  `tp_ladder_r` (1R/2R/3R scale-out).
+- Drivers: `live/nq_1h_first_hour_broker_variants.py` (also `--instrument NAS100`),
+  wrapper `live/nas100_1h_first_hour_broker_variants.py`.
+- **NQ hub** `live/state/nq_1h_first_hour_broker_variants/`:
+  baseline SL=open TP=3×body **N/S 5.57** (+$177k); half-body 3R 4.74;
+  0.75-body ladder 3.95; retrace72 **0.33 reject**.
+- **NAS100 hub** `live/state/nas100_1h_first_hour_broker_variants/`:
+  same rank order — baseline **N/S 4.09**; ladder dollars; retrace 0.33 reject.
+- Mechanics / why (open continuation, 3×body efficiency):
+  `…/nq_1h_first_hour_broker_variants/MECHANICS.md`.
+- Tracker: **RETAIN** sleeve under STRATEGY_TRACKER “RTH first-hour follow”
+  (below prior-opposed / ST+PMC / Asia-range; good capital-efficient daily book).
+  Emails sent.
+
+## 2026-08-18 — NQ 15m + first-hour large-candle p99 (fallback p95)
+
+- Same 3R follow contract as the p90 books, causal expanding **p99** range
+  (fallback **p95** if p99 days <8% or events <80).
+- **15m kept p99** (35.9% of days, 5,051 bars). Hub
+  `live/state/nq_15m_large_candle_p99/`. Follow-3R n=2290 WR **34.5%** /
+  N/S **1.52** vs p90 WR 29.2% / N/S 2.96. **p95** 15m n=6738 WR 31.1% /
+  N/S **4.46** is the better N/S sleeve. ATR-norm p99 WR 39.0% / N/S 3.61.
+  217 charts. **Do not promote.**
+- 15m HA mill hub `live/state/nq_15m_large_candle_ha_p99/`. Fade/1R still
+  lose. During-PO fade-ST 3R n=71 WR **52.1%** / N/S 4.67 (p90 analogue
+  n=574 WR 34.1% / N/S 7.41). **Do not promote.**
+- First-hour: p99 **too rare** (5.9% of days, n=238, N/S 0.20) → **p95**
+  sleeve. Hub `live/state/nq_1h_first_hour_ha_p99/`. Follow-3R p95 n=879
+  WR **43.8%** / N/S **2.56** (p90 was WR 43.6% / N/S 6.64). Fade dies.
+  154 charts. Diagnostic — **do not promote.** Emails sent.
+
+## 2026-08-18 — NQ 15m large-candle + first-hour 1h follow/fade HA
+
+- 15m analogue of the 5m p90 large-candle 3R study (resampled from
+  `nq/nq_5min_rth.csv`). Hub: `live/state/nq_15m_large_candle/`. p90 follow-3R
+  n=9853 WR **29.2%** / N/S **2.96** / PF 1.05 vs non-large control WR 22.7%
+  N/S −0.76; ATR-norm p90 WR 32.7% / N/S 3.90. 214 charts. **Do not promote.**
+- 15m HA mill (fade, 1R, futures HP + prior-opposed overlay). Hub:
+  `live/state/nq_15m_large_candle_ha/`. Unconditional fade/1R still lose.
+  During-PO fade-ST 3R n=574 WR 34.1% / N/S **7.41**. PO HP buckets do not
+  transfer. **Do not promote.**
+- First-hour only (09:30–10:30) follow vs fade, 1R/3R, p90 first-hour range,
+  first-hour-native conditions, HP mill. Hub: `live/state/nq_1h_first_hour_ha/`.
+  **Follow** 3R all first hours n=3968 WR **38.2%** / N/S **9.32**; fade 3R
+  N/S −0.92. Strong-body first hour WR lift +14.4pp; p90 first-hour follow-3R
+  WR 43.6% / N/S 6.64. PO overlay at 10:30 is thin (n≤26). 151 charts.
+  Diagnostic — large stop (first-hour open); **do not promote.**
+  Emails sent.
+
+## 2026-08-18 — Prior-opposed Heikin Ashi overlay + NQ 5m large-candle 3R
+
+- Diagnostic HA (Heikin Ashi) overlay on NQ/YM prior-opposed RL vs current HP
+  buckets. Hub: `live/state/prior_opposed_ha/`. NQ: HA-with-prior-trend (n=105)
+  WR 71.4% / avg $4.4k vs HA-with-fade n=327 WR 64.2% / avg $2.7k — not stronger
+  than existing OR-norm HP. YM: HA-with-fade is the better bucket (tiny n on
+  trend-HA). Post-exit 3R (candle-direction match): continuation and re-fade
+  both WR ~18–22% (≤ fair 3R). **Do not promote.**
+- NQ RTH 5m large-candle study (causal expanding p90 range, follow close / SL
+  open / 3R). Hub: `live/state/nq_5m_large_candle/`. Raw p90 WR 25.6% (fair 3R
+  ~25%); ATR-norm p90 WR 29.2% / N/S 2.75 / PF 1.07 vs all-candle baseline WR
+  22.4% net-negative. Charts: 211-day stratified sample. **Do not promote.**
+  Emails sent.
+
+## 2026-08-18 — OANDA orphan LIMIT mass-cancel (logged)
+
+- **Ops:** Practice account flat; cancelled **53** pending broker orders (US30/NAS100
+  ST+PMC-style entry LIMITs + MonOR bare STOP/LIMIT 1610/1611). Pending left **0**.
+- Local working rests cleared on US30/NAS100 ST+PMC runners + US30 MonOR CSVs.
+- **Audit hub:** `live/demo/oanda_practice_snapshot/ORPHAN_LIMIT_CANCEL.md`
+  (+ `.json` / `_META.json` / `_LOCAL.json`, `INCIDENT_LOG.md`, demo `PROGRESS.log` +
+  `reconciliation_events.jsonl` markers). Email: `live/demo/EMAIL_ORPHAN_LIMIT_CANCEL_2026-08-18.txt`.
+- Same-day related: remote-ack-before-local `cancel_order`; containment email → NY EOD digest.
+  Containment still **shadow** (would-cancel only) — mass-cancel was manual ops.
+
+
+## 2026-08-17 — Yearly ORB HP + bucket charts on causal broker-like fills
+
+- Re-ran the NQ/ES/YM HP pipeline **throughout** on the next-open range-close
+  tape (same L_4_1_1 / L_4_2_1 / L_4_1_1 cells). Drivers:
+  `python -m live.yearly_orb_hp_sizeup --causal-close --email` and
+  `python -m live.yearly_orb_bucket_charts --causal-close --email`.
+- Hubs: `yearly_daily_condition_profile_futures_causal_close/`,
+  `yearly_orb_hp_live_plan_causal_close/`, `yearly_orb_hp_charts_causal_close/`.
+- Book WR: NQ **20/68 = 29.4%**, ES **15/73 = 20.5%**, YM **18/81 = 22.2%**.
+  All six HP pairs **NOT VALIDATED** at 1.25× and 2× — stay 1.0×.
+- NQ bucket charts (every campaign, PNG not zip): mixed MA 18 @ **33.3%**
+  (6/12), wide OR 20 @ **40%** (8/12), ATR q4 24 @ **41.7%** (10/14).
+  Union 41 campaigns / 26 losses. Pre-causal 86–100% WRs were scratches.
+
+## 2026-08-17 — Futures yearly ORB causal close (same pass as FX/metals)
+
+- Replayed NQ/ES/YM default 19-cell grid with next-open range-close
+  (`live_after_ts=decision_bar.ts`). Hub
+  `live/state/yearly_orb_sizing_sweep_futures_causal_close/` + `COMPARISON.md`.
+- Pre-causal NQ `L_4_1_1` 86.8% WR / N/S 11.01 was same-bar-open scratches
+  (28/68 campaigns). Causal: **29.4% WR**, net $765k, N/S **4.80**.
+- Mixed MA 100%→33%; wide OR 95%→40%; ATR q4 96%→42%. Still lift vs 29%
+  book WR; not 95–100% sleeves. ES `L_4_2_1` **9.90→0.40** (died). YM
+  `L_4_1_1` 7.64→1.78. NQ OCO `4/2/1` rc20 held **6.74→5.82**.
+- Stance: do not promote from pre-causal futures yearly-ORB N/S or WR.
+  Analog to FX metals (AUDJPY died; XAU/XAG survived weak).
+
+## 2026-08-17 — NQ yearly ORB bucket charts (mixed MA / wide OR / ATR q4)
+
+- Emailed **every** NQ L_4_1_1 campaign in the three HP notables as PNG
+  attachments (not zip): mixed MA stack n=18 100% WR; wide OR n=20 95%;
+  ATR q4 n=24 95.8%. Driver `python -m live.yearly_orb_bucket_charts --email`.
+- Hub `live/state/yearly_orb_hp_charts/nq_buckets/`. 5 chart emails
+  (18+18+2+18+6). Overlaps repeated on purpose. Diagnostic only.
+
+## 2026-08-17 — Yearly ORB HP size-up (NQ/ES/YM) — not validated
+
+- Added **YM L_4_1_1** to `yearly_daily_condition_profile` (was NQ+ES only).
+- Ran matched-added-exposure **1.25× and 2×** + LIVE_PLAN:
+  `live/state/yearly_orb_hp_live_plan/` (nulls hubs `yearly_orb_hp_sizeup_nulls/` + `_2x/`).
+- **NQ 86% WR recount HOLDS:** 59/68 = **86.8%** (Wilson 95% CI 76.7–92.9%).
+  ES 56/73 = 76.7%; YM 73/81 = **90.1%**. Baseline tape, not a size-up claim.
+- HP pairs (coverage <35%): NQ mixed-MA, ES ATR-q4 / shorts, YM shorts / ATR-q4.
+  All **NOT VALIDATED** (selection-aware master fails; NQ mixed-MA placebo p_ΔNS=0.053).
+- Stance: keep **1.0×** yearly ORB ladders; do not HP-size. Driver
+  `python -m live.yearly_orb_hp_sizeup --email`. Best-outcome PNG charts emailed
+  per instrument (not zipped) under `live/state/yearly_orb_hp_charts/`.
+
+## 2026-08-17 — HP research capital LOCK v1 (EURUSD @40×)
+
+- Locked research capital package: **NQ OR-norm @4×**, **ES ST-age @4×**,
+  **EURUSD ST+PMC Thursday @40×**. Hub `live/state/hp_size_lock_v1/`
+  (`LOCKED_PLAN.md`, `LOCKED_SLEEVES.csv`).
+- EURUSD @40×: net **$1.43M** / stress **$168k** / N/S **8.50**; $250k→**$1.68M**;
+  ≈IM ~$100k; tick participation negligible.
+- US30 high-size **not** locked (YM-proxy liquidity binds by ~80×).
+- Does **not** change deploy auth: NQ provisional ≤2×; FX VALIDATED @1.25× only.
+
+## 2026-08-17 — NQ OR-norm 5×/10× size sensitivity + liquidity
+
+- Best HP sleeve from `futures_intraday_hp_sizeup_v1`: **NQ prior-opposed OR-norm**
+  (provisional @1.25× / @2×). Extreme linear scale hub
+  `live/state/futures_intraday_hp_nq_or_norm_extreme_size/`.
+- N/S: 1× 24.06 → **2× 36.26 (peak)** → 5× 33.45 → 10× 31.48 (entry_qty 5→25→50).
+- Liquidity vs NQ 1m: med entry-bar share **0.9% / 1.8%** at 5×/10×; >25% bar days ≈0.
+  Capital/IM (~$0.5M / $1M) grows; tape thinness is **not** the veto.
+- Stance: **sit on 5×/10×**; keep controlled paper at ≤2× until dedicated nulls.
+
+## 2026-08-17 — Yearly ORB FX/metals causal close + exit variants (research sit)
+
+- **Causal close:** range-close / year-change market exits use
+  `live_after_ts=decision_bar.ts` (next daily open). Hub
+  `live/state/yearly_orb_sizing_sweep_fx_metals_causal_close/` — pre-causal
+  FX metals top-4 N/S (tracker 24.87 / 15.32 / 8.58) **not promotion-safe**.
+- **Exit variants** on `yearly_orb_scaleout3`: `exit_mode=mid_close` (YOR mid)
+  and `inside_swing_take` (trail SL to latest inside-range swing). Pack hub
+  `live/state/yearly_orb_exit_variants_fx_metals/` + `PNL_ATTRIBUTION.md`.
+- **Attribution-shaped sizing:** XAU mid TP/runner
+  `live/state/yearly_orb_xauusd_mid_tprunner/` best **`L_0_3_3_mid` N/S 4.75**
+  (vs mid 1/1/1 4.31); XAG range front-load
+  `live/state/yearly_orb_xagusd_range_frontload/` best **`L_6_2_1` N/S 1.37**
+  (vs `L_4_2_1` 1.29). AUDJPY still stop-dominated — sit out.
+- Stance: **mild / research**; do not promote causal metals ORB from these hubs.
+  Plugin also allows explicit `tp25_qty=0`.
+
+## 2026-08-16 — FX/metals yearly ORB sizing + deep-checks
+
+- Extended `live/yearly_orb_sizing_sweep.py` to AUDJPY/XAUUSD/XAGUSD; hub
+  `live/state/yearly_orb_sizing_sweep_fx_metals/` (19 cells × 3 markets).
+- Best N/S: AUDJPY **`4/1/1` 24.87**, XAU **`4/2/1` 15.32**, XAG **`5/2/1` 8.58**
+  (vs `1/1/1` baselines 15.26 / 11.30 / 6.21). Front-heavy again; RC20/OCO lose.
+- Instrument deep-checks + win/loss charts emailed for those three books.
+- Docs: STRATEGY_TRACKER metals top-4 + sizing section; TOP_STRATS FX note;
+  `YEARLY_ORB_RESEARCH_NOTES.md` path; hub one-pagers; fx_metals_top4 SUMMARY.
+
 ## 2026-08-15 — OANDA daemon containment + curated fault fixtures
 
 - **Containment:** `live/demo/oanda_daemon_reconcile.py` — bracket invariant watchdog

@@ -1,0 +1,29 @@
+potions: monthly open extension band trade charts — NQ max
+
+Hub: live/state/monthly_open_atr_extension_band/variants/max/trade_charts
+Source: live/state/monthly_open_atr_extension_band/variants/max/trades.csv
+Charts: 20 (10 wins / 10 losses)
+
+Entry at mean(max); SL max + 20% of band width.
+Band: 6-month rolling mean(min/med/max) on monthly ATR.
+
+  2012-03 short stop $-4,000
+  2012-06 short target_open $16,182
+  2013-04 short stop $-1,878
+  2013-11 short eom $651
+  2015-01 long target_open $29,078
+  2015-06 long eom $4,218
+  2016-03 short stop $-6,410
+  2017-05 short target_open $25,684
+  2017-07 short stop $-6,431
+  2019-01 short stop $-10,117
+  2019-08 long stop $9,436
+  2020-01 short stop $-10,840
+  2020-11 short stop $-31,579
+  2022-03 short stop $-23,208
+  2022-05 short target_open $118,888
+  2022-09 short target_open $161,360
+  2024-01 short eom $87,112
+  2024-06 short stop $-28,050
+  2024-11 short eom $40,783
+  2026-05 short stop $-46,841

@@ -1,0 +1,21 @@
+Fair 3R complete
+
+market  book     net      stress   N/S     units/WR/max/EOY
+------------------------------------------------------------------------
+audjpy  3R       net=$9171.2k stress=-$1163.0k N/S=7.89    units=851 WR=30.8% max=1 EOY=0
+xagusd  3R       net=$68.7k   stress=-$58.6k  N/S=1.17    units=1 WR=100.0% max=1 EOY=0
+xauusd  3R       net=$77.3k   stress=-$92.9k  N/S=0.83    units=169 WR=28.4% max=1 EOY=0
+
+Fair 3R leaderboard (rankable)
+----------------------------------------
+1. us30    N/S=20.97  net=$19.0k stress=-$907
+2. nas100  N/S=19.56  net=$15.2k stress=-$778
+3. gbpusd  N/S=8.12   net=$108.1k stress=-$13.3k
+4. audjpy  N/S=7.89   net=$9171.2k stress=-$1163.0k
+5. eurusd  N/S=3.01   net=$64.4k stress=-$21.4k
+6. usdjpy  N/S=1.77   net=$4040.0k stress=-$2282.4k
+7. xagusd  N/S=1.17   net=$68.7k stress=-$58.6k
+8. xauusd  N/S=0.83   net=$77.3k stress=-$92.9k
+
+Hub: /home/tester/hsm/potions/live/state/fx_index_metals_st_pmc_runner_variants
+

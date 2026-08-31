@@ -1,0 +1,23 @@
+{
+  "strategy_id": "audjpy_v2b_london_2h_or_S_1_1_3",
+  "symbol": "AUDJPY",
+  "family": "fx",
+  "quote": "JPY",
+  "book": "S_1_1_3",
+  "clock": "london_2h_or",
+  "or_window": "03:00-05:00",
+  "or_bars": 120,
+  "sizing": "S_1_1_3",
+  "regime_days": 1429,
+  "start": "2015-01-02",
+  "units": 10065,
+  "trades": 2013,
+  "net_usd": -98724.1363637952,
+  "closed_dd_usd": -100725.00000015818,
+  "stress_dd_usd": -100752.2727274309,
+  "net_over_stress": -0.9798700683495002,
+  "win_rate": 37.73472429210134,
+  "profit_factor": 0.8767282837854097,
+  "max_open_units": 5,
+  "state_root": "live/state/fx_v2b_london_2h_or/states/audjpy_v2b_london_2h_or_S_1_1_3"
+}

@@ -1,0 +1,18 @@
+{
+  "close_dd": -147239.75000000003,
+  "equity_curve": "/home/tester/hsm/potions/live/state/monthly_nq_5m_fill_takes/audits/nq_5mfill_monthly_orb_fbo_113/equity_curve.csv",
+  "fill_tf": "5m",
+  "label": "Monthly ORB FBO 1/1/3",
+  "loss_units": 269.0,
+  "net_usd": 223596.25,
+  "ns": 1.417377427442181,
+  "signal_tf": "D",
+  "slug": "monthly_orb_fbo_113",
+  "state_root": "/home/tester/hsm/potions/live/state/monthly_nq_5m_fill_takes/monthly_orb_fbo_113/states/nq_5mfill_monthly_orb_fbo_113",
+  "strategy_id": "nq_5mfill_monthly_orb_fbo_113",
+  "strategy_type": "monthly_orb_v2b_oco",
+  "stress_dd": -157753.4999999999,
+  "trades": 114.0,
+  "units": 570.0,
+  "win_units": 301.0
+}

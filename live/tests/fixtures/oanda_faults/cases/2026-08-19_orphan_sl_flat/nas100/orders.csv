@@ -1,0 +1,2 @@
+broker_order_id,intent_id,strategy_id,trade_id,instrument,account_mode,side,order_type,quantity,remaining_quantity,status,limit_price,stop_price,reduce_only,bracket_role,parent_order_id,oco_group,live_after_ts,expires_after_ts,created_at,updated_at
+ord_orphan_sl,intent_s,nas100_v2b_ungated_oanda,dead,NAS100,paper,sell,stop,3.0,3.0,working,,29000.0,True,stop,,,2026-08-19T14:00:00Z,,2026-08-19T14:00:00Z,2026-08-19T15:00:00Z

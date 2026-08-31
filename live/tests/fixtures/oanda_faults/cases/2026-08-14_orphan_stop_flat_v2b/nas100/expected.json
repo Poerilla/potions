@@ -1,10 +1,11 @@
 {
-  "classification": "orphan_protective",
-  "recommended_action": "cancel_orphans",
+  "classification": "armed_entry",
+  "recommended_action": "none",
   "instrument": "NAS100",
   "strategy_id": "nas100_v2b_ungated_oanda",
   "strategy_type": "v2b_scaleout",
   "entry_qty": 3,
+  "note": "Local stop with bracket_role=entry while flat is an intentional v2b OCO arm (not orphan_protective). Remote STOP_LOSS ghosts are still cancelled by sweep_orphan_protectives_when_flat.",
   "remote_pending": [
     {
       "id": "remote_nas100",

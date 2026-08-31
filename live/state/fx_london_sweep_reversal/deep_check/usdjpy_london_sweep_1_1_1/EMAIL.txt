@@ -1,0 +1,25 @@
+potions: deep-check USDJPY London KZ sweep 1/1/1
+
+Hub: /home/tester/hsm/potions/live/state/fx_london_sweep_reversal/deep_check/usdjpy_london_sweep_1_1_1
+State: /home/tester/hsm/potions/live/state/fx_london_sweep_reversal/states/usdjpy_london_sweep_1_1_1
+Net=$2285.68  trades=1575  full_SL=629 (39.9%)  hit_TP=41.2%  EOD=31.8%
+
+Year | net | stress | N/S | ret on start eq
+2015 | $5207.29 | $-4513.19 | 1.15 | +5.21%
+2016 | $9656.28 | $-5777.51 | 1.67 | +9.18%
+2017 | $13683.75 | $-3827.51 | 3.58 | +11.91%
+2018 | $282.51 | $-5321.88 | 0.05 | +0.22%
+2019 | $825.33 | $-2234.83 | 0.37 | +0.64%
+2020 | $-1234.91 | $-5180.69 | -0.24 | -0.95%
+2021 | $1502.61 | $-3268.96 | 0.46 | +1.17%
+2022 | $5331.55 | $-5699.42 | 0.94 | +4.10%
+2023 | $-7811.41 | $-20731.43 | -0.38 | -5.78%
+2024 | $-6089.84 | $-18586.17 | -0.33 | -4.78%
+2025 | $-19578.45 | $-22413.20 | -0.87 | -16.13%
+2026 | $510.97 | $-3862.48 | 0.13 | +0.50%
+
+Weakest N/S year: 2025 ($-19578.45 net, N/S=-0.87)
+
+End equity if $100k at year-1 start: $102285.68
+
+See YEARLY.md + ROBUSTNESS_AUDIT.md in hub.

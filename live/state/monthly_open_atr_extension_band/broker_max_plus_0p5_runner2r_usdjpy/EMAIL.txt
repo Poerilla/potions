@@ -1,0 +1,11 @@
+potions: USDJPY band-max +50% SL · open TP + runner 2R (all vs no-w4)
+
+Hub: /home/tester/hsm/potions/live/state/monthly_open_atr_extension_band/broker_max_plus_0p5_runner2r_usdjpy
+DSR: TRL-2026-00128
+Entry max; SL plus_0.5; ladder 0/5/5; runner = open±2R after BE
+
+all_weeks: net=$6,017,774 stress=$12,954,551 N/S=0.46 Sharpe=0.02 trades=79 skip_w4=no
+no_w4: net=$3,458,122 stress=$14,167,594 N/S=0.24 Sharpe=0.01 trades=77 skip_w4=yes
+
+Best N/S: all_weeks (0.46)
+Stance: research / lean reject vs pct75 wide_2.5x (N/S ~1.31).

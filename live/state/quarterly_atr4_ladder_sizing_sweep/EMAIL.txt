@@ -1,0 +1,13 @@
+potions: quarterly ATR4 ladder runner-heavy sizing sweep complete
+
+Hub: live/state/quarterly_atr4_ladder_sizing_sweep
+Markets: GBPUSD, NAS100, NQ, EURUSD, XAUUSD
+
+Board leaders (risk-normalized):
+  0/0/2/4/8  Σnet/10=$1,494,079  N/Sₙ=0.00  (only +6/+8 + runner)
+  0/1/2/3/8  Σnet/10=$1,451,680  N/Sₙ=0.00  (drop weakest contrib (tp1))
+  0/1/3/4/8  Σnet/10=$1,428,484  N/Sₙ=0.00  (rounded board contrib shares @ total=16 (runner≥8))
+  1/1/2/2/12  Σnet/10=$1,428,335  N/Sₙ=0.00  (runner=12)
+  1/1/1/2/10  Σnet/10=$1,427,125  N/Sₙ=0.00  (runner=10)
+
+See SUMMARY.md for per-market tables.

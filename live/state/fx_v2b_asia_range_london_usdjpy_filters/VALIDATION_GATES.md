@@ -114,22 +114,28 @@ Artifacts under `/home/tester/hsm/potions/live/state/fx_v2b_asia_range_london_us
 Fill reasons: `{'entry': 861, 'eod_close': 727, 'tp1': 163, 'wide_stop': 107, 'tp2': 39, 'runner_stop': 27}`.
 Cancelled by bracket role: `{'entry': 1143, 'tp2': 985, 'wide_stop': 754, 'tp1': 698, 'runner_stop': 137}`.
 
+**2026-08-24 causality review:** the filtered `S_3_1_3` state has **3,772**
+feature snapshots, **0** causality violations, and **0** entry fills at/before
+order activation. Earliest entry fill is **1m** after the 03:00 London arm
+decision. Review:
+[`../usdjpy_causality_review_2026_08/CAUSALITY_REVIEW.md`](../usdjpy_causality_review_2026_08/CAUSALITY_REVIEW.md).
+
 These counts are scraped from the filtered PaperBroker replay logs for weekly post-process;
 they are not retune knobs. Margin under OANDA practice stays a demo ops / account-snapshot item.
 
-### OANDA practice margin ops (shared account)
+### OANDA practice margin ops
 
 | Field | Value |
 |---|---|
-| Snapshot | `2026-08-11T18:14:57Z` |
-| NAV / balance | 102026.5105 / 101774.6919 |
-| marginUsed / Available | 16519.74 / 85511.4025 |
-| marginCloseoutPercent | 0.08095 |
-| USDJPY open qty | 0.0 |
-| pending orders (account) | 92 |
+| Dedicated account | `101-002-39860312-004` |
+| Active config | `live/demo/oanda_account_configs/usdjpy_asia_range_004.json` |
+| Target OANDA alias | `USDJPY Asia Range S313` |
+| Prior shared-account snapshot | `2026-08-11T18:14:57Z` |
+| Prior USDJPY open qty | 0.0 |
 
-Refresh via `python -m potions.live.cli oanda-practice-sync` (weekly). Shared practice book —
-other sleeves hold index CFD inventory; Asia-range USDJPY should stay flat until London inject.
+Refresh via `python -m potions.live.cli oanda-practice-sync` (weekly) after the
+dedicated account is running. As of the 2026-08-24 rotation, account `-004`
+replaces the retired NAS100 ST+PMC 2R->10R dedicated sleeve.
 
 ## 5. Live-parity audit (paper)
 
@@ -173,4 +179,3 @@ Does **not** unlock funded sleeve by itself; keeps the promote book as an operat
 | **Funded sleeve** | **NO — hold** |
 
 Driver: `python -m live.fx_v2b_asia_range_london_usdjpy_validation --email`
-

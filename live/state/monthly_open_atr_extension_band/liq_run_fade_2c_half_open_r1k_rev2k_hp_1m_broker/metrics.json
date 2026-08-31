@@ -1,0 +1,22 @@
+{
+  "bars_1m": 3347892.0,
+  "enable_reverse": true,
+  "equity_curve": "/home/tester/hsm/potions/live/state/monthly_open_atr_extension_band/liq_run_fade_2c_half_open_r1k_rev2k_hp_1m_broker/audits/nq_liq_2c_half_open_r1k_rev2k_hp_1m/equity_curve.csv",
+  "loss_units": 216.0,
+  "n_entries": 163.0,
+  "n_half": 42.0,
+  "n_open": 43.0,
+  "n_plans": 118.0,
+  "n_rev_entries": 64.0,
+  "n_stop": 110.0,
+  "net_usd": 78931.0,
+  "ns": 1.8163429675994116,
+  "primary_risk_usd": 1000.0,
+  "primary_stop_pts": 25.0,
+  "reverse_risk_usd": 2000.0,
+  "reverse_stop_pts": 50.0,
+  "strategy_id": "nq_liq_2c_half_open_r1k_rev2k_hp_1m",
+  "stress_dd": -43455.999999999985,
+  "units": 326.0,
+  "win_units": 110.0
+}

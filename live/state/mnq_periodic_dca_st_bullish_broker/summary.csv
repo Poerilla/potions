@@ -1,0 +1,3 @@
+strategy_id,cadence,gate,require_st_bullish,atr_len,atr_mult,instrument,qty_per_buy,bars,start_ts,end_ts,n_buys,n_skips,final_qty,units_marked,net_usd,close_mtm_dd_usd,intrabar_stress_dd_usd,net_over_stress,end_mark_price,fee_per_unit,slippage_ticks,point_value
+mnq_periodic_dca_monthly_st_bullish,monthly,st_bullish,True,14,3.0,MNQ,1,2132,2019-05-05,2026-03-08,52,31,52,52,882597.5,-475613.75,-498683.25,1.7698559155536104,24214.5,1.5,1.0,2.0
+mnq_periodic_dca_quarterly_st_bullish,quarterly,st_bullish,True,14,3.0,MNQ,1,2132,2019-05-05,2026-03-08,17,11,17,17,281675.25,-155498.0,-163009.0,1.7279736088191449,24214.5,1.5,1.0,2.0

@@ -6,7 +6,9 @@ Same dual-runner rules as US30 / futures hubs, with market-native stop/TP units:
   - USDJPY / AUDJPY: 50 / 150 pips (0.50 / 1.50)
 
 Lot-correct audit (trade_id match, reachable stop stress, forced-flat open mark)
-comes from ``run_variant`` (2026-08-08).
+comes from ``run_variant`` (2026-08-08). Completed-hour causality (2026-08):
+left-labeled hourly bars are shifted to the hour-complete timestamp before the
+strategy consumes them; fills only on the 1m tape.
 
 SPX500 is skipped when ``fx/spx500_1m.csv`` is absent.
 """
@@ -211,6 +213,11 @@ def write_summary(all_rows: Sequence[Dict[str, object]]) -> None:
         "# FX / index / metals ST+PMC runner variants (1m fill tape)",
         "",
         "Lot-correct audit: trade_id match, reachable stop stress, forced-flat open mark.",
+        "",
+        "> **2026-08 completed-hour causality fix.** The shared hourly resampler "
+        "is left-labeled, so a bar timestamped 11:00 contains 11:00-11:59 data. "
+        "This replay shifts signal bars to the completed-hour timestamp before "
+        "the strategy can consume them, and fills only on the 1m tape.",
         "",
         "## Rankability",
         "",

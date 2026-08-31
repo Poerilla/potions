@@ -1,0 +1,12 @@
+potions: FX London 5m bias charts complete
+
+Hub: live/state/fx_v2b_london_charts
+Book: S_1_1_3
+Markets: EURUSD,GBPUSD,USDJPY,AUDJPY
+Gates/hubs: ungated,prior_opposed,prior_aligned
+Total charts: 480
+
+Each chart: London-only 5m candles, prior NY H/L, 4h ST ATR trail,
+4h structure bias label, v2b markers.
+
+See INDEX.md for per-market links.

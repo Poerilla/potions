@@ -1,0 +1,41 @@
+potions: nq_protected_area_pyramid_add_1300_v1
+
+# NQ Protected-Area Pyramid-Add → 13:00 V1
+
+STATUS: RESEARCH TRIAL (pandas 1m path)
+Parent structure ledger hash: `402795e0a05e2fbc`
+
+## Rules
+- Arm 09:30–13:00 NY; hard flatten all at 13:00.
+- Above area → BUY limit @ area_high; below → SELL limit @ area_low.
+- +1 contract on first fill, then +1 at each subsequent 1m open while alive.
+- SL: 1m **close** beyond far side of area (wick alone does not stop).
+- On stop: one opposing re-entry at stop close, resume +1/min; second stop ends.
+
+## Results
+| Metric | Value |
+|---|---:|
+| Candidates | 90 |
+| Fills | 42 (47%) |
+| Net | $-32793 |
+| Closed DD | $-121175 |
+| N/S | -0.27 |
+| Win rate | 19% |
+| Long / short net (1st side) | $+27057 / $-59850 |
+| Avg peak qty | 38.7 |
+| Unit exits | 1846 |
+| With reverse / flat-1300 / stopped | 33 / 14 / 33 |
+
+## Exit mix (per unit)
+
+| reason | n | net |
+|---|---:|---:|
+| flat_1300 | 989 | $+155552 |
+| sl_close_beyond_area | 857 | $-185576 |
+
+**Stance:** reject / weak on this rule set
+
+Hub: `/home/tester/hsm/potions/live/state/nq_protected_area_pyramid_add_1300_v1`
+DSR: `TRL-2026-00192`
+smoke=False
+

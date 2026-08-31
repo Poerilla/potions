@@ -1017,7 +1017,8 @@ class HourlyStPmcRetestStrategy(StrategyPlugin):
         for order in context.strategy_open_orders:
             if order.reduce_only:
                 continue
-            if order.order_type == "limit" and order.status in {"submitted", "partially_filled"}:
+            # strategy_open_orders already filters OPEN_ORDER_STATUSES (incl. OANDA working)
+            if order.order_type == "limit":
                 orders.append(order)
         return orders
 
@@ -1026,11 +1027,7 @@ class HourlyStPmcRetestStrategy(StrategyPlugin):
         for order in context.strategy_open_orders:
             if order.reduce_only:
                 continue
-            if order.order_type not in {"limit", "market"} or order.status not in {
-                "submitted",
-                "partially_filled",
-                "pending",
-            }:
+            if order.order_type not in {"limit", "market"}:
                 continue
             if order.bracket_role == "add" or order.reason in {"add", "bb_add", "retest_add"}:
                 orders.append(order)

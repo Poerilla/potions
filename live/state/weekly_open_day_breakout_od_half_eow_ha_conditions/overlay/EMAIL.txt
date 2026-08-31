@@ -1,0 +1,18 @@
+potions: weekly OD half+EOW HA overlay complete
+
+Hub: /home/tester/hsm/potions/live/state/weekly_open_day_breakout_od_half_eow_ha_conditions/overlay
+Candidates: 7
+
+Top full-tape by ΔN/S:
+  Week of month=1 | filter | hp=22% ΔN/S=+4.06 Δnet=$-3162
+  ATR14 quartile=atr_q3 | filter | hp=25% ΔN/S=+2.62 Δnet=$-4437
+  Day of week=Thursday | filter | hp=15% ΔN/S=+2.61 Δnet=$-9024
+  Hourly RSI bucket=rsi_55_70 | filter | hp=37% ΔN/S=+1.09 Δnet=$-2263
+  Day of week=Wednesday | filter | hp=21% ΔN/S=+0.72 Δnet=$-7795
+  ATR14 quartile=atr_q4 | filter | hp=25% ΔN/S=+0.60 Δnet=$-4565
+  ATR14 quartile=atr_q3 | size_1.5 | hp=25% ΔN/S=+0.48 Δnet=$+4197
+  Week of month=1 | size_1.5 | hp=22% ΔN/S=+0.40 Δnet=$+4834
+  Hourly RSI bucket=rsi_55_70 | size_1.5 | hp=37% ΔN/S=+0.27 Δnet=$+5284
+  Entry hour (NY)=12 | size_1.5 | hp=14% ΔN/S=+0.25 Δnet=$+1849
+  ATR14 quartile=atr_q3 | size_1.25 | hp=25% ΔN/S=+0.24 Δnet=$+2098
+  Week of month=1 | size_1.25 | hp=22% ΔN/S=+0.21 Δnet=$+2417

@@ -1,0 +1,2 @@
+strategy_id,symbol,family,quote,book,clock,or_window,start,sessions,trades,units,net_usd,net_native,closed_dd_usd,stress_dd_usd,net_over_stress,win_rate,avg_r,longs,shorts,tp1,tp2,tp3,stops,be_stops,eod,state_root
+eurusd_london_sweep_1_1_1,EURUSD,fx,USD,S_1_1_1,london_kz_02_05,02:00-05:00,2015-01-02,30,20,60,-2498.000000000002,-2498.000000000002,-2698.999999999981,2698.999999999981,-0.9255279733234604,45.0,-0.7217673501398238,11,9,9,3,2,33,13,0,live/state/fx_london_sweep_reversal_smoke/states/eurusd_london_sweep_1_1_1

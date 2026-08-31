@@ -1,0 +1,16 @@
+potions: week-1 half+EOW +1 every 8h COMPLETE
+
+Hub: live/state/weekly_open_day_breakout_od_half_eow_bull_hivol_w1_add8h_strict
+Variant: od_half_eow_bull_hivol_w1_add8h (same OD-far SL / 0.5×+1× OD TPs; extras → EOW)
+
+Results NAS100 ~10y strict:
+  campaigns=53  units=427  add fills=268
+  net=$+25,211  stress=−$7,541  N/S=3.34  unit WR=63.2%  PF=2.14
+
+vs week-1 baseline (no adds):
+  net=$+8,031  N/S=1.82  units=159
+
+Δnet=$+17,181  ΔN/S=+1.52
+
+Stance: research — interesting N/S (still week-1 gated; not live-promote alone).
+Audit note: units_from_v2b_fills now counts add/time_add as entry lots.
