@@ -2,6 +2,17 @@
 
 Append-only research/platform progress notes.
 
+
+## 2026-08-30 — Wick-range: CFD replication + V2B alignment (post-OCO)
+
+- Limit-retest stays RESEARCH / not demo (NQ holdout avgR fail; OCO failure informative).
+- CFD frozen replication: `live/state/cfd_wick_reject_range_seed_retest/`
+  - Census: NAS100 58 elig / SPX500 52 / US30 49; all complete (not insufficient).
+  - Decision: NAS100 matches NQ pattern; SPX/US30 holdout not promote-grade.
+- V2B × seed label: `live/state/nq_v2b_wick_range_alignment/`
+  - ALIGNED 31 / OPPOSED 22 / NO_SEED 381; opposed not harmful → no skip CF.
+- Next (only if justified): Engine port still blocked; no V2B size-up; no hybrid P&L.
+
 ## 2026-07-16 — Prior-opposed resting-limit hour-complete (family baseline)
 
 ### Causality
@@ -176,3 +187,101 @@ Append-only research/platform progress notes.
 [2026-08-15T17:50Z] Stream-staleness DISARM (≥180s) + reconnect REST-rearm; fixture `2026-08-14_stream_hung_missed_entry` (real Aug 14 NAS100 bars). Fault harness + containment tests re-run.
 
 [2026-08-15T17:55Z] Wired asia-range + London prior-opposed OANDA commons to DaemonContainmentController; fault harness --hub/--email + live_fills compare; 9/9 PASS + 21 containment tests; emailed hub live/state/oanda_fault_replay_curated/.
+
+[2026-08-17T03:00Z] FX/metals yearly ORB sizing deep-checks: AUDJPY 4/1/1 N/S 24.87, XAU 4/2/1 15.32, XAG 5/2/1 8.58 (vs 1/1/1 +9.61/+4.02/+2.36). Hub live/state/yearly_orb_sizing_sweep_fx_metals/ deep_check+winloss+ONE_PAGE_*. Docs: STRATEGY_TRACKER, TOP_STRATS, YEARLY_ORB_RESEARCH_NOTES, fx_metals_top4 SUMMARY, CHANGE_LOG. Emails sent.
+
+[2026-08-17T17:12Z] Yearly first-month +/-4xATR fade base test (AUDJPY/XAU/XAG daily). Hub live/state/yearly_atr4_fade_fx_metals/. Best: AUDJPY year-open N/S=0.43; XAG Jan-mid 0.23; XAU fade rejected (N/S -0.40). Not a pack-wide base vs yearly ORB metals. Email sent.
+
+[2026-08-17T17:55Z] Yearly ORB FX/metals: causal next-bar close + exit variants (mid_close / inside_swing_take) + attribution-shaped sizing. Hubs: yearly_orb_sizing_sweep_fx_metals_causal_close, yearly_orb_exit_variants_fx_metals (+PNL_ATTRIBUTION), yearly_orb_xauusd_mid_tprunner (L_0_3_3_mid N/S 4.75), yearly_orb_xagusd_range_frontload (L_6_2_1 N/S 1.37). Pre-causal metals top-4 N/S not promotion-safe; AUDJPY sit out. Mild research — moving on.
+
+[2026-08-17T18:05Z] NQ OR-norm extreme size-up: hub live/state/futures_intraday_hp_nq_or_norm_extreme_size/. Linear 5×/10× sensitivity — N/S peaks at 2× (36.26); 5× 33.45 / 10× 31.48. Liquidity OK on CME NQ (med entry-bar share 0.9%/1.8% at 5×/10×). Stance: keep provisional 1.25× / controlled-paper 2×; do not promote 5×/10×. Email sent.
+
+[2026-08-17T19:20Z] HP research capital LOCK v1: NQ/ES @4× + EURUSD ST+PMC Thu @40×. Hub live/state/hp_size_lock_v1/. US30 high-size excluded (YM-proxy liq ~80×). Deploy auth unchanged (NQ ≤2× provisional; FX HP 1.25×). Email sent.
+
+[2026-08-18T01:15Z] Yearly ORB HP size-up NQ/ES/YM: YM added to yearly_daily_condition_profile; 1.25×+2× nulls + LIVE_PLAN. NQ WR 59/68=86.8% HOLDS (CI 76.7–92.9%). ES 76.7%, YM 90.1%. All HP pairs NOT VALIDATED — stay 1.0×. PNG win charts emailed per instrument (not zipped). Hubs yearly_orb_hp_live_plan / _nulls / _nulls_2x / _charts.
+
+[2026-08-18T01:30Z] NQ yearly ORB bucket charts emailed (PNG, not zip): mixed MA 18/18, wide OR 20 (1 loss), ATR q4 24 (1 loss). 5 emails. Hub live/state/yearly_orb_hp_charts/nq_buckets/. HP size-up still NOT VALIDATED.
+
+[2026-08-18T02:30Z] Futures yearly ORB causal next-open close (NQ/ES/YM, same pass as FX metals). Hub live/state/yearly_orb_sizing_sweep_futures_causal_close/. NQ L_4_1_1 86.8% WR / N/S 11.01 → 29.4% / 4.80. Mixed MA 100→33, wide OR 95→40, ATR q4 96→42. ES L_4_2_1 9.90→0.40 died. YM 7.64→1.78. Pre-causal futures yearly-ORB N/S not promotion-safe.
+
+[2026-08-18T21:30Z] Research curiosity: prior-opposed Heikin Ashi overlay (NQ/YM) + NQ RTH 5m p90-candle 3R follow. Hubs live/state/prior_opposed_ha/ and live/state/nq_5m_large_candle/ (211 charts). HA does not beat OR-norm HP; large-candle 3R ≈ fair 25% WR (ATR-norm 29% / PF 1.07). Do not promote. Emails sent.
+
+[2026-08-19T00:16Z] NQ 15m large-candle 3R + 15m HA mill + first-hour 1h follow/fade HA. Hubs nq_15m_large_candle (p90 WR 29.2% / N/S 2.96, 214 charts), nq_15m_large_candle_ha (during-PO fade-ST 3R N/S 7.41; fade/1R still lose), nq_1h_first_hour_ha (follow-3R all first hours WR 38.2% / N/S 9.32; fade dies; 151 charts). Do not promote. Emails sent.
+
+[2026-08-19T02:10Z] NQ 15m + first-hour large-candle p99 (fallback p95). 15m kept p99: follow-3R WR 34.5% / N/S 1.52 (p95 N/S 4.46 better economics). First-hour p99 too rare (5.9%) → p95 follow-3R WR 43.8% / N/S 2.56. Hubs nq_15m_large_candle_p99, nq_15m_large_candle_ha_p99, nq_1h_first_hour_ha_p99. Do not promote. Emails sent.
+
+[2026-08-18T03:15Z] Yearly ORB HP + NQ bucket charts rebuilt on causal broker-like fills throughout. Hubs yearly_orb_hp_live_plan_causal_close / yearly_orb_hp_charts_causal_close. NQ 20/68=29.4%, ES 20.5%, YM 22.2%. All HP pairs NOT VALIDATED. Bucket PNGs (not zip): mixed MA 6/18, wide OR 8/20, ATR q4 10/24.
+
+[2026-08-19T17:05Z] RTH first-hour follow broker variants banked (NQ+NAS100). Baseline SL=open TP=3×body: NQ N/S 5.57 (+$177k), NAS100 N/S 4.09. Ladder highest dollars / worse N/S; retrace72 reject (0.33). Mechanics + STRATEGY_TRACKER RETAIN sleeve. Hubs live/state/nq_1h_first_hour_broker_variants/ + nas100_1h_first_hour_broker_variants/. Emails sent.
+
+[2026-08-19T18:02Z] OANDA containment: armed_entry vs orphan_protective split; cross_book_entry class; always-on broker cross-book entry gate (shadow containment unchanged). Cancelled NAS100 orphans 1719/1756/1758/1760+1767. Restarted nas100 3r + v2b.
+
+[2026-08-19T21:27Z] OANDA shared-account orphans + containment FP (root cause + fix) — DETAIL
+- Where issues came from (practice account, many demos one account):
+  1) Classifier bug: evaluate_bracket_invariant treated bracket_role=entry as
+     orphan_protective whenever flat. Intentional ST+PMC US30/NAS100 resting
+     LIMITs and v2b OCO entry STOPs were false-positives (hundreds of shadow
+     would-cancels). True leftovers are SL/TP/reduce-only only.
+  2) Cross-book pile-on: runners owned NAS100 +2 @29335.4 (14:11Z messy fills).
+     Flat 3r kept hourly re-arming LIMITs at the open price (1756/1758/1760);
+     v2b left entry STOP 1719 armed while siblings held NAS100.
+  3) Containment stayed shadow → detect only, no cancel → orphans survived.
+- Ops: cancelled 1719/1756/1758/1760 + restart re-arm 1767; local CSV cleared.
+- Fix (shadow kept): armed_entry vs orphan_protective; cross_book_entry class;
+  always-on OandaBroker gate blocks entry submit when account holds instrument
+  and local book is flat; sweep no longer cancels intentional entry arms.
+  Restarted nas100 3r + v2b. Tests 47 pass. Platform §6 + CHANGE_LOG + ADHERENCE.
+
+[2026-08-19T21:27Z] Gmail potions-prompt agent: poll TLS timeouts (Broken pipe / SSL EOF)
+- Not Cursor agent TimeoutExpired (0 in log). Stale Gmail httplib2 client after
+  long idle / long agent runs. Poll loop now rebuilds client on transient SSL.
+  In-flight: processing Re: potions-prompt "Got a timeout" (1a01be2f308de23e).
+
+[2026-08-19T21:36:00Z] OANDA pending audit: cancelled 16 stale/duplicate US30 ST+PMC arms (kept 1×3r + 3×runners @ current price; NAS100 SL/TP kept). Pending 24→8. Email sent. See live/demo/oanda_practice_snapshot/PENDING_AUDIT_CLEANUP.md
+
+[2026-08-20T15:08:23Z] OANDA top-3 cutover: stopped all OANDA daemons; primary dormant; dedicated map 003/004/005 wired; restart blocked on token 403.
+
+[2026-08-20T15:23:07Z] OANDA top-3 UP: US30 fair→003, NAS100 2r10r→004, USDJPY MOR→005; primary dormant.
+[2026-08-21T16:08:13Z] OPEN_ORDER_STATUSES fix + US30 ST+PMC stale-arm cancel (-003). Root: strategy_open_orders ignored status=working → hourly LIMIT stack orders=1→5. Cancelled remote 5/6/7/8; kept 11 @52945.2; restarted daemon orders=1. Artifacts live/demo/oanda_practice_snapshot/STALE_ARM_DEDUPE_R3. Platform §6 + CHANGE_LOG.
+
+[2026-08-28T11:58Z] W1+8h v1 xmarket RERUN (broker-like Engine+1m fill) COMPLETE — DSR TRL-2026-00168
+- Fixed front-month 4h loader (time→ts_event; contract symbols NQM0…).
+- Hub: live/state/weekly_open_day_breakout_w1_add8h_v1_stress_port
+- NAS100 N/S 3.34 · NQ 0.96 weak+ · MNQ 1.19 weak+ · YM 2.88 · MYM 2.20 — all positive net
+- Decision flip: broader index structural effect — locked OOS/forward next; still NO demo
+- Email + ledger brl_581386485caf
+
+[2026-08-29T12:38:53Z] US30 ST+PMC: signal-hour attribution done (578); fair-3R alpha invalidated; revival A/B/C full matrix running (TRL-2026-00186).
+
+[2026-08-29T14:00Z] US30 ST+PMC full revival A/B/C RUNNING (pid 788082, ~1h22m). Interim full-hist: Path A N/S=-0.95 (602u); Path B N/S=-0.93 (578u); Path C 3R ~45k/49k hours. Smoke already rejected all cells. Queued next: PMC failed-break fade study → live/state/us30_pmc_failed_break_fade/ (QUEUE.sh armed).
+
+[2026-08-29T17:10Z] US30 PMC failed-break fade Phase 1/2 COMPLETE (live/state/us30_pmc_failed_break_fade/, DSR TRL-2026-00187). Taxonomy 2530 sweeps (18% reclaim≤60m). Controls: naive N=2102 net=$4.5k N/S=0.78; reclaim_only N=318 net=$4.0k N/S=0.48; confirmed N=129 net=$2.6k N/S=0.81 WR=50% runner_share=72%. Yearly confirmed unstable (strong 2020–21; red 2019/23–25). Stance: RESEARCH_WEAK_POSITIVE — no promote; Phase 3 causality/sensitivity not run. Do not revive fair-3R.
+
+[2026-08-29T17:33Z] US30 ST+PMC CONTINUATION_AUDIT complete (hub us30_st_pmc_causal_revival_abc/). Contract us30_st_pmc_completed_hour_continuation_v1 frozen. Path A/B rejected. Path C 2R→10R: 1736 campaigns / 5207 units; one-entry PASS; N/S 1.84 collapses under 2R/3R profit caps (runner/tail). Longs carry edge; shorts ~flat. Top-5 campaigns = 30% of gross net. Engine slippage stress started (pid 824591, DSR TRL-2026-00188). Fade study already complete in parallel.
+[2026-08-30T14:58Z] NQ WICK_REJECT range-seed retest Phases 0–3 COMPLETE (live/state/nq_wick_reject_range_seed_retest/). 91 eligible / 67 fills. Primary locked dev +$23.9k PF1.90 avgR+0.18; holdout avgR−0.04. Stance RESEARCH — not promote. Email sent.
+
+[2026-09-04T23:41Z] OANDA -003/-004 live↔sim reconcile ACCEPTED (close enough) — wait next week
+- Skill: potions-oanda-live-sim-reconcile. Artifacts: live/state/_oanda_live_sim_reconcile/acc_003_004_summary.json + EMAIL_003_004.txt
+- -004 USDJPY Asia Range (`usdjpy_asia_range_london_oanda`): MATCH — 1 buy 700k @ ~156.45 on 2026-09-04 09:33 exact vs Engine replay.
+- -003 NAS100 clean-break (`nas100_v2b_clean_break_trail06_m4_e2_out_be_oanda`): strict MISMATCH (±2m) but same 2 buys qty=1; sim 5m bar 13:45 vs live fills 13:49/13:48 (+3–4m practice latency). Prices aligned (~29324/29333, ~29606/29607).
+- Stance: accept as practice latency, not routing/stream bug. No code change. Recheck next week.
+
+[2026-09-08T20:25Z] ST+PMC fair-3R NAS100 + GBPUSD INVALIDATED (left-label / completed-hour). NAS100 ~~19.56~~ → 0.53; GBPUSD ~~8.12~~ → −0.97; EURUSD ~~3.01~~ → −0.63. Same class as US30 29.39 → −0.21. Tracker + BOARDS.md + INVALIDATED_LEFT_LABEL.md: hide from pickup lists until a causal filter recovers post-close alpha. Do not re-demo old 3R.
+
+## 2026-09-08 — NAS100 3R filter mill PLAN + public FX Momentum Pages
+- Wrote live/state/nas100_st_pmc_3r_completed_hour_filter_mill/PLAN.md (kitchen-sink causal filter protocol; mill NOT run).
+- Pointer from INVALIDATED_LEFT_LABEL.md; left-label profiles remain contaminated.
+- Private exporter live/public_track_record/ → sanitized JSON (~$100k additive path).
+- Public repo Poerilla/fx-momentum-track Pages: https://poerilla.github.io/fx-momentum-track/
+
+## 2026-09-08 — public track record tabs + skill/cron
+- Tabs: FX Momentum / FX Intraday Trend / Index Momentum on Pages.
+- Skill: .cursor/skills/potions-public-track-record/; scripts/update_public_track_record.sh
+- Cron: daily 06:15 America/New_York → live/state/public_fx_momentum_pages/cron.log
+
+## 2026-09-11 — NAS100 clean-break live soft-exit fix + 10× size-up
+- Bug: OANDA wall-clock entry fills left pending_clean_validation forever (entry_bar_ts ≠ left-label bar.ts) → held to eod_close instead of failed_clean_close / close_back_into_range.
+- Fix: floor fill clocks to 5m UTC left-label (fill_to_signal_minutes=5); unblock soft-exit if entry bar already passed; pyramid adds use entry_qty.
+- Corrected charts: tick→demo wiring under live/demo/.../charts/traded_days/corrected/ (all five live sessions failed_clean_close).
+- Size-up: -003 entry/add 1→10, max_pyramid 4→40 (size_mult=10; ~$20k stress DD target vs ~$2k unit book brl_21741b260a28). Daemon restarted flat.
+- Tick demo↔plugin parity MATCH (PaperBroker path). Emails sent.

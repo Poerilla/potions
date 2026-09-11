@@ -417,10 +417,29 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
         )
         (HUB / "EMAIL.txt").write_text(email_body + "\n", encoding="utf-8")
 
+        # PaperBroker realized on demo_tick path (point_value=1, no fees).
+        net = 0.0
+        pos_path = demo_root / "positions.csv"
+        if pos_path.exists() and pos_path.stat().st_size:
+            for _row in csv.DictReader(pos_path.open(encoding="utf-8")):
+                try:
+                    net += float(_row.get("realized_pnl") or 0.0)
+                except ValueError:
+                    pass
         complete_run(
             rid,
+            net_usd=net,
             trades=int(demo_meta.get("fills") or 0),
-            meta={"verdict": verdict, "match": bool(demo_vs_plugin.get("match"))},
+            replay_start=str(demo_meta.get("first_5m") or ""),
+            replay_end=str(demo_meta.get("last_5m") or ""),
+            notes="OANDA-tick demo↔plugin parity; research OHLC not used",
+            meta={
+                "verdict": verdict,
+                "match": bool(demo_vs_plugin.get("match")),
+                "ticks": demo_meta.get("ticks"),
+                "bars_5m": demo_meta.get("bars_5m"),
+                "skill": "potions-oanda-tick-demo-plugin-parity",
+            },
         )
 
         if args.email:

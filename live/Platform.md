@@ -340,6 +340,12 @@ Comparable Core Board rows must pass: variant complete, USD-normalized (JPY), re
 
 Any change to fill semantics, causality guards, or reported metrics **must update this file** in the same PR as code/tests.
 
+**2026-09-11:** `v2b_clean_break` maps OANDA wall-clock entry fills to the left-label
+5m signal bucket (`fill_to_signal_minutes`, timezone-preserving floor) before
+`pending_clean_validation`; missed entry-bar unblocks soft-exit
+(`close_back_into_range`). Pyramid adds size with `pyramid_add_qty` / `entry_qty`
+(§5 plugin contract). Practice `-003` runs `size_mult=10` vs research unit book.
+
 **2026-08-21:** `OPEN_ORDER_STATUSES` includes OANDA `working` so plugin refresh /
 RiskManager see resting arms (§6).
 

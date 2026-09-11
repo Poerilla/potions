@@ -1,7 +1,11 @@
 """NAS100 v2b clean-break pyramid trail (trail06_m4_e2_out_be) — OANDA practice demo.
 
 Frozen candidate from CFD validation / 1m-fill book (brl_21741b260a28):
-  max 4, add every 2 outside bars, trail@0.6→BE + 2R target, soft exit close≤OR high.
+  research unit: max 4, add every 2 outside bars, trail@0.6→BE + 2R target,
+  soft exit close≤OR high.
+
+Live practice size_mult=10 (entry 10 / add 10 / max 40) so stress DD targets
+~$20k vs ~$2k on the research unit book.
 
 Streams practice quotes → 1m → completed **left-label** 5m bars (research parity).
 Routes practice orders via ``OandaBroker`` on dedicated account ``-003``.
@@ -72,14 +76,19 @@ STRATEGY_ID = "nas100_v2b_clean_break_trail06_m4_e2_out_be_oanda"
 RUN_DIRNAME = "nas100_v2b_clean_break_trail06_m4_e2_out_be_oanda"
 CLI_COMMAND = "demo-nas100-clean-break-trail-oanda"
 VARIANT = "trail06_m4_e2_out_be"
-MAX_QTY = 4
+# Research freeze (brl_21741b260a28) is entry_qty=1 / max_pyramid=4 (~$2k stress DD).
+# Live practice ~10× so MTM/stress DD targets ~$20k on the same rules.
+SIZE_MULT = 10
+ENTRY_QTY = 1 * SIZE_MULT
+MAX_QTY = 4 * SIZE_MULT
 NY = pytz.timezone("America/New_York")
 
 
 def strategy_config_payload() -> Dict[str, Any]:
     return {
         "variant": VARIANT,
-        "entry_qty": 1,
+        "entry_qty": ENTRY_QTY,
+        "pyramid_add_qty": ENTRY_QTY,
         "required_break_num": 0,
         "stop_mode": "opposite",
         "size_model": "pyramid_outside",
@@ -90,6 +99,10 @@ def strategy_config_payload() -> Dict[str, Any]:
         "trail_to": "entry",
         "pyramid_place_2r_target": True,
         "entry_offset_ticks": 2,
+        # Floor OANDA wall-clock entry fills to left-label 5m bar.ts so
+        # clean-validation + close_back_into_range actually run.
+        "fill_to_signal_minutes": 5,
+        "fill_signal_bucket_end": False,
         "tick_size": TICK,
         "rth_start": "09:30",
         "or_end": "09:45",
@@ -99,6 +112,9 @@ def strategy_config_payload() -> Dict[str, Any]:
         "oanda_routing": True,
         "parent_run_id": "brl_21741b260a28",
         "frozen_candidate": VARIANT,
+        "size_mult": SIZE_MULT,
+        "research_entry_qty": 1,
+        "research_max_pyramid_qty": 4,
     }
 
 
@@ -175,6 +191,8 @@ def write_run_meta(output_root: Path, *, config: OandaConfig) -> Dict[str, Any]:
         "tick_size": TICK,
         "timeframe": "5m",
         "max_pyramid_qty": MAX_QTY,
+        "entry_qty": ENTRY_QTY,
+        "size_mult": SIZE_MULT,
         "account_mode": "paper",
         "oanda_routing": True,
         "allow_live_routing": False,
@@ -185,7 +203,10 @@ def write_run_meta(output_root: Path, *, config: OandaConfig) -> Dict[str, Any]:
         "output_root": str(output_root),
         "state_root": str(state_root_for(output_root)),
         "parent_run_id": "brl_21741b260a28",
-        "note": "NAS100 clean-break pyramid trail OANDA practice; left-label 5m; replaces Fair US30 on -003.",
+        "note": (
+            "NAS100 clean-break pyramid trail OANDA practice; left-label 5m; "
+            "size_mult=%dx vs research unit book (target ~$20k stress DD)." % SIZE_MULT
+        ),
         "config": payload,
     }
     output_root.mkdir(parents=True, exist_ok=True)

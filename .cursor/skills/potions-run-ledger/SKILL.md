@@ -93,6 +93,8 @@ Drivers that auto-log on success:
 - `live.usdjpy_monthly_orb_fbo_ha_conditions` (`run_class=ha`)
 - `live.monthly_open_liq_run_fade_ha_conditions` (`run_class=ha`)
 - `live.quarterly_atr4_ha_conditions` (`run_class=ha`)
+- `live.nas100_clean_break_demo_plugin_tick_parity` (`run_class=audit`)
+- `live.usdjpy_live_demo_plugin_tick_parity` (`run_class=audit`)
 
 For other family drivers / pandas scripts: call `log_run` / `log_from_hub` before exit
 (and `fail_run` on crash). Prefer `--email` via `potions-job-email` as well.

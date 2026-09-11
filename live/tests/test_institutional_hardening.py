@@ -427,3 +427,32 @@ def test_v2b_clean_break_arms_or_on_utc_oanda_bars():
         assert int(state.get("or_count") or 0) == 3
     finally:
         tmp.cleanup()
+
+
+def test_v2b_clean_break_floors_live_oanda_fill_to_utc_bar():
+    """OANDA wall-clock entry fills must map to left-label 5m bar.ts (UTC)."""
+    from live.strategies.v2b_clean_break import V2BCleanBreakStrategy
+
+    tmp, store = make_store()
+    try:
+        inst = StrategyInstance(
+            strategy_id="clean_break_bucket",
+            strategy_type="v2b_clean_break",
+            version="v1",
+            instrument="NAS100",
+            broker_instrument="NAS100",
+            account_mode="paper",
+            enabled=True,
+            timeframes="5m",
+            max_contracts=4,
+            max_open_orders=12,
+            config_json=json.dumps({"tick_size": 0.1, "fill_to_signal_minutes": 5}),
+        )
+        plugin = V2BCleanBreakStrategy(store, inst)
+        fill_ts = "2026-09-11T13:45:55.394754032Z"
+        bar_ts = "2026-09-11T13:45:00+00:00"
+        assert plugin._signal_bucket_ts(fill_ts) == bar_ts
+        assert plugin._is_entry_signal_bar(bar_ts, fill_ts) is True
+        assert plugin._is_entry_signal_bar(bar_ts, bar_ts) is True
+    finally:
+        tmp.cleanup()

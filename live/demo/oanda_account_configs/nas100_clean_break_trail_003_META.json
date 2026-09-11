@@ -8,6 +8,16 @@
   "replaces": "Fair US30 ST+PMC 3R (us30_fair_st_pmc_003)",
   "parent_run_id": "brl_21741b260a28",
   "frozen_candidate": "trail06_m4_e2_out_be",
+  "research_entry_qty": 1,
+  "research_max_pyramid_qty": 4,
+  "research_stress_dd_approx_usd": -1966,
+  "size_mult": 10,
+  "entry_qty": 10,
+  "max_pyramid_qty": 40,
+  "pyramid_add_qty": 10,
+  "target_stress_dd_approx_usd": -20000,
   "cutover_note": "2026-08-31: account -003 rotated from Fair US30 ST+PMC to NAS100 clean-break pyramid trail (best NAS100 N/S in CFD top-3 / 1m-fill validation).",
-  "alias_note": "2026-08-31: OANDA practice alias updated Fair US30 → NAS100 Clean Break Trail06 (configure tx 104)."
+  "alias_note": "2026-08-31: OANDA practice alias updated Fair US30 → NAS100 Clean Break Trail06 (configure tx 104).",
+  "lot_sizeup_date": "2026-09-11",
+  "lot_sizeup_note": "10× unit book after clean-validation/soft-exit fill-clock fix; entry 10 / add 10 / max 40 (was 1/1/4)."
 }

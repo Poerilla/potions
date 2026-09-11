@@ -1,5 +1,50 @@
 # Live Runtime CHANGE_LOG
 
+
+## 2026-09-11 — NAS100 clean-break OANDA practice 10× size-up
+
+- Account `-003` / `trail06_m4_e2_out_be`: `entry_qty`/`pyramid_add_qty` 1→10,
+  `max_pyramid_qty` 4→40 (`size_mult=10`) targeting ~$20k stress DD vs ~$2k
+  research unit book (`brl_21741b260a28`).
+- Plugin: pyramid adds now use `pyramid_add_qty` or `entry_qty` (was hardcoded 1).
+- Restarted daemon after flat `close_back_into_range` on 2026-09-11.
+
+## 2026-09-11 — NAS100 clean-break live soft-exit stuck
+
+- **Bug:** OANDA wall-clock entry fills left `pending_clean_validation` forever
+  (`entry_bar_ts` ≠ left-label `bar.ts`), so `close_back_into_range` never ran;
+  practice days exited only via `eod_close`. Plugin on same bars used
+  `failed_clean_close` / `close_back_into_range` as designed.
+- **Fix:** floor fill clocks to 5m UTC left-label; default `fill_to_signal_minutes=5`;
+  unblock soft-exit if entry bar already passed. Restarted `-003` daemon.
+
+## 2026-09-08
+
+- **NAS100 ST+PMC 3R revival (plan-only):** kitchen-sink completed-hour filter protocol at `live/state/nas100_st_pmc_3r_completed_hour_filter_mill/PLAN.md`; no mill run. Left-label condition profiles remain invalidated.
+- **Public FX Momentum track record:** private exporter `live/public_track_record/`; public GitHub Pages https://poerilla.github.io/fx-momentum-track/ (abstracted backtest vs SPY $100k; no instrument/OANDA).
+
+## 2026-09-08 — NAS100 / GBPUSD ST+PMC fair-3R invalidated (left-label)
+
+- Same completed-hour bug as US30 fair-3R (29.39 → −0.21).
+- NAS100 ~~19.56~~ → **0.53**; GBPUSD ~~8.12~~ → **−0.97**; EURUSD ~~3.01~~ → **−0.63**.
+- Hub note: `live/state/fx_index_metals_st_pmc_runner_variants/INVALIDATED_LEFT_LABEL.md`.
+- Tracker + canonical `BOARDS.md` marked **do not cite / do not pickup**.
+- Open later: causal filter to recover post-close alpha — not a re-demo of old 3R.
+
+## 2026-09-04 — OANDA -003/-004 live↔sim: accept parity, wait next week
+
+- Ran `potions-oanda-live-sim-reconcile` on practice `-003` (NAS100 clean-break
+  trail06) and `-004` (USDJPY Asia Range). Hub:
+  `live/state/_oanda_live_sim_reconcile/` (`acc_003_004_summary.json`,
+  `EMAIL_003_004.txt`, `ACCEPTANCE_003_004.md`).
+- **-004:** MATCH — same entry as Engine+PaperBroker replay (buy 700k @ ~156.45,
+  2026-09-04 09:33).
+- **-003:** same two buys qty=1 / session / prices; live fills 3–4m after sim
+  5m-bar stamp (13:45 vs 13:49/13:48) → strict ±2m MISMATCH only. Read as
+  practice latency, not wrong book or stream bug.
+- **Ops stance:** close enough — leave demos running; recheck next week. No
+  daemon/config change.
+
 ## 2026-08-30 — CFD limit-retest replication + V2B wick-range alignment
 
 - OCO stop-entry contrast failed earlier same day → limit-retest demoted from

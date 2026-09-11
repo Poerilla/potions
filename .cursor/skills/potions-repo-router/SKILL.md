@@ -32,6 +32,7 @@ Skills encode **workflow**. Hub docs encode **truth** (rankings, fill semantics,
 | OANDA practice balance / realized PL attribution | `live/demo/oanda_practice_snapshot/PL_ATTRIBUTION.md` | transaction fill PL by instrument | `potions-oanda-pl-attribution` |
 | OANDA practice sync / positions repair | `live/demo/oanda_practice_snapshot/REPORT.md` | demo `positions.csv` | `potions-oanda-reconcile` |
 | OANDA live vs sim trade tape | demo `fills.csv` + stored bars | fresh spawn `config_json` drift | `potions-oanda-live-sim-reconcile` |
+| OANDA tick → demo vs plugin parity | demo `fx_ticks`/`rth_ticks` | StrategyPlugin on same bars; ledger+email | `potions-oanda-tick-demo-plugin-parity` |
 | Month / rolling WR-PF filters | hub `FILTERS.md` + `live/asia_range_shadow.py` | plugin `skip_entry_months` / `shadow_roll_*` | `potions-quick-backtest` |
 | Causality pass/fail | [`data/docs/AUDIT_TRACKER.md`](../../../data/docs/AUDIT_TRACKER.md) | Platform §7; master spec only if designing | `potions-causality-audit` |
 | Quick / broker-like backtest | [`README.md`](../../../README.md) ranking layers | family driver + `live/state/<slug>/` | `potions-quick-backtest` |
@@ -41,6 +42,7 @@ Skills encode **workflow**. Hub docs encode **truth** (rankings, fill semantics,
 | Intraday condition / HTF / calendar lift profile | hub `SUMMARY.md` + `notables.csv` | research campaign tapes | `potions-intraday-condition-profile` |
 | Futures HP size-up / 1.25× nulls / deployment tiers | [`live/state/futures_intraday_hp_live_plan/DEPLOYMENT_PLAN.md`](../../../live/state/futures_intraday_hp_live_plan/DEPLOYMENT_PLAN.md) | nulls `SUMMARY.md` + `COMPARISON.md` + `canonical_ns_research/portfolio/` | `potions-futures-intraday-hp-sizeup` |
 | Large data / Drive backup | [`scripts/LARGE_FILES_MANIFEST.md`](../../../scripts/LARGE_FILES_MANIFEST.md) | pack/unpack scripts | `potions-git-backup` |
+| Public track-record Pages | [`live/public_track_record/README.md`](../../../live/public_track_record/README.md) | `scripts/update_public_track_record.sh` | `potions-public-track-record` |
 | Workspace map | [`README.md`](../../../README.md) | tracker | — |
 
 ## When to open Platform.md
@@ -64,6 +66,7 @@ Do **not** use Platform.md for strategy rule definitions or leaderboard rankings
 - `potions-oanda-pl-attribution` — practice balance vs resettablePL / fill PL by instrument
 - `potions-oanda-reconcile` — practice snapshot + local positions.csv repair
 - `potions-oanda-live-sim-reconcile` — live OANDA fills vs StrategyPlugin replay on demo bars
+- `potions-oanda-tick-demo-plugin-parity` — OANDA practice ticks through demo wiring vs plugin (+ ledger)
 - `potions-strategy-plugin` — new plugin checklist
 - `potions-quick-backtest` — replay entry points
 - `potions-causality-audit` — lookahead / audit

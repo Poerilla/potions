@@ -64,10 +64,11 @@ class V2BCleanBreakStrategy(StrategyPlugin):
             "add_alternate_skip": False,
             "soft_exit_delay_bars": 0,
             "record_levels": False,
-            # Validation helper for HTF-signal / finer-fill replays. When fills
-            # arrive from a 1m tape, map entry fill timestamps to their parent
-            # 5m signal bucket before running the clean-break validation.
-            "fill_to_signal_minutes": 0,
+            # Map entry fill timestamps to the parent 5m signal bucket before
+            # clean-break validation. Live OANDA fills are wall-clock (subsecond);
+            # left-label bars use bucket-start ts — must floor or validation never
+            # runs and soft-exit stays blocked behind pending_clean_validation.
+            "fill_to_signal_minutes": 5,
             "fill_signal_bucket_end": False,
         }
         try:
@@ -252,26 +253,47 @@ class V2BCleanBreakStrategy(StrategyPlugin):
             self._commit_state(state)
             return StrategyActions(orders, cancels, [], levels, alerts, features)
 
-        if state.get("pending_clean_validation") and state.get("entry_bar_ts") == bar.ts:
-            exits, exit_cancels = self._validate_breakout_bar(bar, state, context)
-            orders.extend(exits)
-            cancels.extend(exit_cancels)
-            features.append(
-                self._feature(
-                    "v2b_clean_break_clean_validation",
-                    bar,
-                    state,
-                    value_ref="breakout_bar_close/or_high/or_low",
-                    metadata={
-                        "entry_bar_ts": state.get("entry_bar_ts", ""),
-                        "active_trade_id": state.get("active_trade_id", ""),
-                        "outcome_roles": [o.bracket_role for o in exits],
-                        "exit_cancels": len(exit_cancels),
-                    },
+        if state.get("pending_clean_validation"):
+            entry_ref = str(state.get("entry_bar_ts") or "")
+            if self._is_entry_signal_bar(bar.ts, entry_ref):
+                exits, exit_cancels = self._validate_breakout_bar(bar, state, context)
+                orders.extend(exits)
+                cancels.extend(exit_cancels)
+                features.append(
+                    self._feature(
+                        "v2b_clean_break_clean_validation",
+                        bar,
+                        state,
+                        value_ref="breakout_bar_close/or_high/or_low",
+                        metadata={
+                            "entry_bar_ts": state.get("entry_bar_ts", ""),
+                            "active_trade_id": state.get("active_trade_id", ""),
+                            "outcome_roles": [o.bracket_role for o in exits],
+                            "exit_cancels": len(exit_cancels),
+                        },
+                    )
                 )
-            )
-            self._commit_state(state)
-            return StrategyActions(orders, cancels, [], levels, alerts, features)
+                self._commit_state(state)
+                return StrategyActions(orders, cancels, [], levels, alerts, features)
+            if entry_ref and self._signal_bar_after(bar.ts, entry_ref):
+                # Entry bar already passed (OANDA fill-clock mismatch / restart).
+                # Unblock soft-exit / pyramid management on this and later bars.
+                state["pending_clean_validation"] = False
+                state["phase"] = "clean_validation_missed"
+                trade = self._trade(str(state.get("active_trade_id") or ""), state)
+                trade["clean_validated"] = True
+                features.append(
+                    self._feature(
+                        "v2b_clean_break_clean_validation",
+                        bar,
+                        state,
+                        value_ref="missed_entry_bar_unblock",
+                        metadata={
+                            "entry_bar_ts": entry_ref,
+                            "decision": "missed_entry_bar_continue",
+                        },
+                    )
+                )
 
         # Pyramid-outside management: +1 on eligible outside candles (cadence /
         # opposing modes), optional trail@frac-to-2R; flatten if close into OR.
@@ -578,6 +600,10 @@ class V2BCleanBreakStrategy(StrategyPlugin):
 
         trade["add_pending"] = True
         state["add_pending"] = True
+        add_qty = max(
+            1,
+            int(self.config.get("pyramid_add_qty") or self.config.get("entry_qty") or 1),
+        )
         orders.append(
             OrderIntent.create(
                 strategy_id=self.instance.strategy_id,
@@ -586,7 +612,7 @@ class V2BCleanBreakStrategy(StrategyPlugin):
                 account_mode=self.instance.account_mode,
                 side="buy",
                 order_type="market",
-                quantity=1,
+                quantity=add_qty,
                 reason="pyramid_outside_add",
                 requires_verification=False,
                 reduce_only=False,
@@ -890,15 +916,89 @@ class V2BCleanBreakStrategy(StrategyPlugin):
         return max(0, int(((t.hour * 60 + t.minute) - (start.hour * 60 + start.minute)) / 5) + 1)
 
     def _signal_bucket_ts(self, ts: str) -> str:
-        minutes = int(self.config.get("fill_to_signal_minutes") or 0)
+        """Floor a fill/event ts to the signal bar label (default 5m left).
+
+        Must preserve the timestamp's own timezone. Using session ``_parse_dt``
+        (NY conversion) made live UTC bar labels never equal OANDA fill buckets,
+        so ``pending_clean_validation`` stuck and soft-exit never ran.
+        """
+        minutes = int(self.config.get("fill_to_signal_minutes") or 5)
         if minutes <= 1:
             return ts
-        dt = _parse_dt(ts)
-        bucket_minute = (dt.minute // minutes) * minutes
+        return self._floor_signal_ts(ts, minutes=minutes)
+
+    def _floor_signal_ts(self, ts: str, *, minutes: Optional[int] = None) -> str:
+        mins = int(minutes if minutes is not None else (self.config.get("fill_to_signal_minutes") or 5))
+        if mins <= 1:
+            return ts
+        dt = _parse_ts_keep_tz(ts)
+        bucket_minute = (dt.minute // mins) * mins
         bucket_dt = dt.replace(minute=bucket_minute, second=0, microsecond=0)
         if bool(self.config.get("fill_signal_bucket_end")):
-            bucket_dt = bucket_dt + timedelta(minutes=minutes - 1)
-        return bucket_dt.isoformat()
+            bucket_dt = bucket_dt + timedelta(minutes=mins - 1)
+        return _format_ts_like(bucket_dt, like=ts)
+
+    def _is_entry_signal_bar(self, bar_ts: str, entry_bar_ts: str) -> bool:
+        if not entry_bar_ts:
+            return False
+        if entry_bar_ts == bar_ts:
+            return True
+        # Live may have persisted a raw fill clock before bucketing was fixed.
+        return self._floor_signal_ts(entry_bar_ts) == self._floor_signal_ts(bar_ts)
+
+    def _signal_bar_after(self, bar_ts: str, entry_bar_ts: str) -> bool:
+        try:
+            return _parse_ts_keep_tz(self._floor_signal_ts(bar_ts)) > _parse_ts_keep_tz(
+                self._floor_signal_ts(entry_bar_ts)
+            )
+        except (TypeError, ValueError):
+            return False
+
+
+def _parse_ts_keep_tz(ts: str) -> datetime:
+    """Parse timestamps without converting to America/New_York.
+
+    OANDA fill clocks often carry 9-digit fractional seconds (``...394754032Z``).
+    Python 3.8 ``fromisoformat`` rejects those, so we truncate to microseconds and
+    keep an explicit ``+00:00`` when the source used ``Z``.
+    """
+    value = str(ts).strip()
+    tz_utc = False
+    if value.endswith("Z"):
+        value = value[:-1] + "+00:00"
+        tz_utc = True
+    # Split offset so we can truncate fractional seconds for py3.8.
+    offset = ""
+    body = value
+    if len(value) > 10 and (value[-6] in "+-" and value[-3] == ":"):
+        body, offset = value[:-6], value[-6:]
+    elif len(value) > 10 and value[-5] in "+-" and value[-3] != ":":
+        body, offset = value[:-5], value[-5:]
+    if "." in body:
+        head, frac = body.split(".", 1)
+        body = head + "." + (frac + "000000")[:6]
+    value = body + offset
+    try:
+        dt = datetime.fromisoformat(value)
+    except ValueError:
+        dt = datetime.strptime(body[:19], "%Y-%m-%dT%H:%M:%S")
+        if tz_utc or offset in ("+00:00", "-00:00", "+0000", "-0000"):
+            dt = dt.replace(tzinfo=pytz.UTC)
+        return dt
+    if dt.tzinfo is None and (tz_utc or offset in ("+00:00", "-00:00", "+0000", "-0000")):
+        dt = dt.replace(tzinfo=pytz.UTC)
+    return dt
+
+
+def _format_ts_like(dt: datetime, *, like: str = "") -> str:
+    """Format bucket ts; prefer +00:00 over Z so it matches live bar labels."""
+    if dt.tzinfo is None:
+        return dt.isoformat()
+    # Normalize UTC to +00:00 (bar.ts style), keep other offsets as isoformat.
+    offset = dt.utcoffset()
+    if offset is not None and offset.total_seconds() == 0:
+        return dt.replace(tzinfo=None).isoformat() + "+00:00"
+    return dt.isoformat()
 
 
 def _parse_dt(ts: str) -> datetime:

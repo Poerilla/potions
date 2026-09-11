@@ -9,12 +9,15 @@ Location: `.cursor/skills/<name>/SKILL.md` (auto-discovered; no `disable-model-i
 | [potions-repo-router](potions-repo-router/SKILL.md) | Task → doc routing; when to open Platform.md |
 | [potions-git-backup](potions-git-backup/SKILL.md) | Git check-in, large-file pack/unpack, rclone Drive |
 | [potions-demo-status](potions-demo-status/SKILL.md) | Live/demo paper & OANDA morning status |
+| [potions-oanda-live-sim-reconcile](potions-oanda-live-sim-reconcile/SKILL.md) | Live OANDA fills vs plugin on stored demo bars |
+| [potions-oanda-tick-demo-plugin-parity](potions-oanda-tick-demo-plugin-parity/SKILL.md) | OANDA practice ticks → demo vs StrategyPlugin parity (+ ledger/email) |
 | [potions-oanda-reconcile](potions-oanda-reconcile/SKILL.md) | Query OANDA practice; repair local demo positions |
 | [potions-strategy-plugin](potions-strategy-plugin/SKILL.md) | New StrategyPlugin + registry |
 | [potions-quick-backtest](potions-quick-backtest/SKILL.md) | Broker-like / quick replays |
 | [potions-causality-audit](potions-causality-audit/SKILL.md) | Causality / lookahead / AUDIT_TRACKER |
 | [potions-tracker-docs](potions-tracker-docs/SKILL.md) | STRATEGY_TRACKER, CHANGE_LOG, PROGRESS, Platform sync |
 | [strategy-completion-report](strategy-completion-report/SKILL.md) | Post-batch completion report + phone email; headless `agent -p` |
+| [potions-public-track-record](potions-public-track-record/SKILL.md) | Public GitHub Pages track record export + daily Pages cron |
 
 ## Hub docs (do not duplicate into skills)
 

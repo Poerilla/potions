@@ -3,6 +3,16 @@
 Central index of execution variants explored in this workspace / chat threads.
 **Canonical live model** for Production remains **`scripts/step2_preplaced_stops.py`** (OCO stops, bracket-then-reverse) — see `scripts/validation.md` and `potions/README.md`.
 
+> **2026-09-11 — NAS100 clean-break trail06 practice (`-003`) soft-exit fix + 10×.**
+> Frozen unit book `trail06_m4_e2_out_be` / `brl_21741b260a28`: ~$12.3k net /
+> ~−$2.0k stress / N/S ~6.2 (1m-fill validation). Live OANDA had been stuck in
+> `pending_clean_validation` (fill clock ≠ left-label 5m `bar.ts`) and held to
+> `eod_close`; corrected tick→demo path exits `failed_clean_close` /
+> `close_back_into_range` as designed. Plugin fix + `size_mult=10` (entry/add 10,
+> max 40) targeting ~$20k stress DD. Practice only — not a funded promote.
+> Demo: `demo-nas100-clean-break-trail-oanda`; META
+> [`../../live/demo/oanda_account_configs/nas100_clean_break_trail_003_META.json`](../../live/demo/oanda_account_configs/nas100_clean_break_trail_003_META.json).
+
 > **2026-05-20 broker realism re-baseline.** The `PaperBroker` now applies
 > 1-tick adverse slippage on market and stop fills, fills gapped-through stops
 > at `max/min(stop, bar.open)`, evaluates stops before limits in same-bar
@@ -121,16 +131,25 @@ Central index of execution variants explored in this workspace / chat threads.
 > [`CONTINUATION_AUDIT.md`](../../live/state/us30_st_pmc_causal_revival_abc/CONTINUATION_AUDIT.md) ·
 > hub [`../../live/state/us30_st_pmc_causal_revival_abc/`](../../live/state/us30_st_pmc_causal_revival_abc/).
 > Completed-hour control hub: [`../../live/state/us30_st_pmc_runner_variants/`](../../live/state/us30_st_pmc_runner_variants/).
+>
+> **2026-09-08 — NAS100 + GBPUSD fair-3R also INVALIDATED (same left-label bug).**
+> Completed-hour tape on [`fx_index_metals_st_pmc_runner_variants`](../../live/state/fx_index_metals_st_pmc_runner_variants/INVALIDATED_LEFT_LABEL.md):
+> NAS100 ~~19.56~~ → **0.53**; GBPUSD ~~8.12~~ → **−0.97**; EURUSD ~~3.01~~ → **−0.63**.
+> **Do not list these 3R books as stranded-good / live-ready.** Open later: a
+> causal filter to recover post-close alpha (not a re-demo of the old 3R).
 
 | Rank | Market / book | Net | Stress | **N/S** | Live demo |
 |---:|---|---:|---:|---:|---|
 | — | **US30** fair 3R (completed-hour) | −$0.98k | −$4.6k | **−0.21** | **invalidated** — stop / lifecycle-only |
 | 1 | **US30** 2R→10R (completed-hour) | +$13.3k | −$9.1k | **1.47** | retain as control only (not demo-promote) |
 | — | **US30** fair 3R (retired left-label) | +$19.0k | −$0.65k | ~~29.39~~ | audit lesson — do not cite as alpha |
-| 2 | **NAS100** fair 3R | +$15.2k | −$0.78k | **19.56** | `demo-nas100-hourly-st-pmc-{paper,oanda}` (re-audit pending) |
-| 3 | **NAS100** 2R→10R | +$34.1k | −$3.1k | **11.13** | `demo-nas100-hourly-st-pmc-2r10r-{paper,oanda}` |
-| 4 | **EURUSD** fair 3R 50/150 | +$64.4k | −$21.4k | **3.01** | `demo-eurusd-hourly-st-pmc-{paper,oanda}` (filt proxy 7.23) |
-| 5 | **EURUSD** 2R→10R 50/150 | +$121k | −$67.3k | **1.80** | `demo-eurusd-hourly-st-pmc-2r10r-{paper,oanda}` (**½ size**) |
+| — | **NAS100** fair 3R (completed-hour) | +$1.4k | −$2.7k | **0.53** | **invalidated** — hide until filter revival |
+| — | **NAS100** fair 3R (retired left-label) | +$15.2k | −$0.78k | ~~19.56~~ | do not cite; same-hour lookahead |
+| — | **GBPUSD** fair 3R (completed-hour) | −$131k | −$135k | **−0.97** | **invalidated** — same cause; never live |
+| — | **GBPUSD** fair 3R (retired left-label) | — | — | ~~8.12~~ | canonical-board leftover — do not cite |
+| — | **NAS100** 2R→10R (completed-hour) | +$11.6k | −$4.8k | **2.41** | haircut from ~~11.13~~; not demo-promote |
+| — | **EURUSD** fair 3R (completed-hour) | −$29k | −$46k | **−0.63** | invalidated on same tape (~~3.01~~) |
+| 5 | **EURUSD** 2R→10R 50/150 | +$96k | −$65k | **1.49** | completed-hour; not a 3R revive |
 | — | US30 / NAS100 indefinite | sleeve | reachable stress | not ranked | not demoed |
 
 US30 Monday OR CFD sizing: [`../../live/state/monday_or_sizing_sweep_broker_us30/`](../../live/state/monday_or_sizing_sweep_broker_us30/) — live **½** `M3_S3_R2` + Sep skip (`demo-us30-monday-or-{paper,oanda}`).
@@ -145,7 +164,7 @@ EURUSD sleeves ranked by broker-like **Net/Stress** (Engine + `PaperBroker`, His
 | Rank | Sleeve | Plugin / ID | Net | Stress DD | Net/Stress | WR | Role |
 |---|---|---|---:|---:|---:|---:|---|
 | — | **USDJPY Asia-range London `S_3_1_3` + Jan/roll50** | `v2b_scaleout` · `usdjpy_v2b_asia_range_london_S_3_1_3_flt` | **+$178k** | −$25k | **7.23** | 48.6% | **Research/practice promote · capital-efficient primary (C)** (funded sleeve gated — VALIDATION_GATES + FILTER_NULLS risk-throttle; three-book lock `C_PRIMARY_CAPITAL_EFFICIENT_B_ALPHA_CONTROL` — `THREE_BOOK_FORWARD.md`; vs Monday OR USDJPY baseline N/S 8.28 / Phase 2 core 10.60 — different clock) |
-| — | **Hourly ST+PMC 50/150 fair 3R** (1mfill) | `hourly_st_pmc_retest` · `eurusd_hourly_st_pmc_sl50_tp150_3r_1mfill` | **+$64.4k** | −$21.4k | **3.01** | ~29% | **Practice promote** paper+OANDA (offline Jun/Aug+roll → proxy 7.23) |
+| — | **Hourly ST+PMC 50/150 fair 3R** (1mfill, left-label) | `hourly_st_pmc_retest` · `eurusd_hourly_st_pmc_sl50_tp150_3r_1mfill` | ~~+$64.4k~~ | ~~−$21.4k~~ | ~~**3.01**~~ | — | **INVALIDATED** completed-hour N/S **−0.63** — do not cite / do not pickup (see left-label note) |
 | — | **Hourly ST+PMC 50/150 2R→10R** (1mfill) | same · runners_2r_10r | **+$121k** | −$67.3k | **1.80** | ~32% | **Practice promote @ ½ size** (concentration) |
 | 1 | **Monday OR `M1_S2_R2`** (15m, light shifted, max 3/wk) | `monday_or_breakout` · Phase 2 | **+$123.3k** | −$70.9k | **1.74** | — | **Phase 2 hardened · paper-only @ ½** (`demo-eurusd-monday-or-paper`; Aug skip) · [report](#monday-or-fx-strategy-tracker-report) |
 | — | Monthly ORB FBO 1/1/3 + ema100(1h)+atr80 | same + filter csv | +$69.0k | −$40.4k | 1.71 | 50.7% | Lowest-stress FBO variant; EMA leg costs net vs atr80-only |

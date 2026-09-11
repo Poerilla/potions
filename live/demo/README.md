@@ -16,7 +16,7 @@ Shared primary `101-002-39860312-001` is **dormant**. Only these three OANDA dae
 
 | Strategy | Account | CLI |
 |---|---|---|
-| NAS100 clean-break trail06_m4_e2_out_be | `-003` | `demo-nas100-clean-break-trail-oanda --daemon --oanda-config …/nas100_clean_break_trail_003.json` |
+| NAS100 clean-break trail06_m4_e2_out_be (**10×** entry 10 / max 40; ~$20k DD target) | `-003` | `demo-nas100-clean-break-trail-oanda --daemon --oanda-config …/nas100_clean_break_trail_003.json` |
 | USDJPY Asia Range `S_3_1_3` | `-004` | `demo-usdjpy-asia-range-oanda --daemon --oanda-config …/usdjpy_asia_range_004.json` |
 | USDJPY Monday OR `M2_S3_R1` | `-005` | `demo-usdjpy-monday-or-oanda --daemon --oanda-config …/usdjpy_monday_or_005.json` |
 | USDJPY Monthly FBO 1/1/3 atr80 | `-006` | `demo-usdjpy-monthly-fbo-oanda --daemon --oanda-config …/usdjpy_monthly_fbo_006.json` |
@@ -75,7 +75,7 @@ python3 -m potions.live.cli demo-eurusd-monday-or-paper-status
 
 Each prints: `pid=… alive=True|False started_at=… state=…` (OANDA / Monday OR also show `routing=` / `tag=`).
 
-**USDJPY Asia-range London (promoted 2026-08-11):** `S_3_1_3` + Jan skip + shadow roll50 — spawn with `demo-usdjpy-asia-range-{paper,oanda} --daemon`. Shadow book: `live/demo/usdjpy_asia_range_london_*/shadow_campaigns.json`.
+**USDJPY Asia-range London (promoted 2026-08-11):** `S_3_1_3` + Jan skip + shadow roll50 — spawn with `demo-usdjpy-asia-range-{paper,oanda} --daemon`. Live size = **7/3/1 lots** (×100k units); see `PERFORMANCE_SIZING.md`. Shadow book: `live/demo/usdjpy_asia_range_london_*/shadow_campaigns.json`.
 **One-liner inventory** (pidfile + last heartbeat):
 
 ```bash

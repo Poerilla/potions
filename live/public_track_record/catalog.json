@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "title": "Strategy Track Record",
+  "as_of": "2026-09-09",
+  "tabs": [
+    {
+      "id": "fx_momentum",
+      "name": "FX Momentum",
+      "data": "data/fx_momentum.json"
+    },
+    {
+      "id": "fx_breakout",
+      "name": "FX Breakout",
+      "data": "data/fx_breakout.json"
+    },
+    {
+      "id": "index_breakout",
+      "name": "Index Breakout",
+      "data": "data/index_breakout.json"
+    }
+  ],
+  "disclaimer": "Practice track (top) is unaudited. Backtest (bottom) is hypothetical \u2014 not an offer to invest."
+}
