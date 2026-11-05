@@ -40,6 +40,7 @@ HUB = REPO / "live" / "state" / "intraday_condition_overlay"
 COND_COL = {
     "Day of week": "dow",
     "Week of month": "week_of_month",
+    "Entry month": "month_name",
     "Entry hour (NY)": "hour_ny",
     "5m MA vs trade": "ma5_align",
     "5m MA cross vs trade": "ma5_cross_align",
@@ -56,6 +57,7 @@ COND_COL = {
 CAUSAL_LIVE_READY = {
     "Day of week",
     "Week of month",
+    "Entry month",
     "Entry hour (NY)",
     "5m MA vs trade",
     "5m MA cross vs trade",

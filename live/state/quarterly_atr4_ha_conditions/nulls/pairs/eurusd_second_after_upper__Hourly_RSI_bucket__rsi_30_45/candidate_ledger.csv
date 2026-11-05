@@ -1,0 +1,4 @@
+strategy_book,feature,feature_value,coverage,size_multiplier,filter_or_sizeup,causal_eligibility
+eurusd_second_after_upper,5m MA vs trade,ma_aligned,0.4375,1.25,sizeup,live_ready
+eurusd_second_after_upper,Day of week,Monday,0.375,1.25,sizeup,live_ready
+eurusd_second_after_upper,Hourly RSI bucket,rsi_30_45,0.3125,1.25,sizeup,live_ready

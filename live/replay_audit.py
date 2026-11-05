@@ -15,6 +15,7 @@ POINT_VALUES = {
     "ES": 50.0,
     "MYM": 0.5,
     "YM": 5.0,
+    "6J": 12_500_000.0,  # CME yen: 12,500,000 JPY, quote USD per JPY
     "EURUSD": 100000.0,  # 1 standard lot: $10/pip
     "GBPUSD": 100000.0,
     "USDJPY": 100000.0,  # P&L in JPY per 1.0 price move

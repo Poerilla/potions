@@ -1,0 +1,7 @@
+study_id: nq_v2b_wick_range_alignment
+v2b_book: nq_v2b_prior_opposed_stpmc_resting_limit S_1_1_3
+structure: frozen nq_wick_reject_range_seed_retest seeds
+require_retest_fill: false
+size_up_aligned: false
+hybrid_portfolio: false
+action_if_opposed_harmful: skip_opposed_only_matched_exposure

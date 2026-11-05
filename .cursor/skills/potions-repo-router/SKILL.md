@@ -28,7 +28,7 @@ Skills encode **workflow**. Hub docs encode **truth** (rankings, fill semantics,
 |------------|------------|------|--------------|
 | Engine / broker / fills / plugin contract | [`live/Platform.md`](../../../live/Platform.md) | `live/specs/CAUSAL_*`, CHANGE_LOG | `potions-strategy-plugin`, `potions-causality-audit` |
 | Rankings / promotion status | [`mnq/case_studies/STRATEGY_TRACKER.md`](../../../mnq/case_studies/STRATEGY_TRACKER.md) | study `SUMMARY.md`, CHANGE_LOG | `potions-tracker-docs` |
-| Live / paper demo ops | [`live/demo/README.md`](../../../live/demo/README.md) | per-run `PROGRESS.log` / `run.log` | `potions-demo-status` |
+| Live / paper demo ops | [`live/demo/README.md`](../../../live/demo/README.md) | per-run `PROGRESS.log` / `run.log` | `potions-demo-status`; start/stop/restart → `potions-demo-start-stop` |
 | OANDA practice balance / realized PL attribution | `live/demo/oanda_practice_snapshot/PL_ATTRIBUTION.md` | transaction fill PL by instrument | `potions-oanda-pl-attribution` |
 | OANDA practice sync / positions repair | `live/demo/oanda_practice_snapshot/REPORT.md` | demo `positions.csv` | `potions-oanda-reconcile` |
 | OANDA live vs sim trade tape | demo `fills.csv` + stored bars | fresh spawn `config_json` drift | `potions-oanda-live-sim-reconcile` |
@@ -63,6 +63,7 @@ Do **not** use Platform.md for strategy rule definitions or leaderboard rankings
 
 - `potions-git-backup` — commit, pack, rclone
 - `potions-demo-status` — morning live/demo check
+- `potions-demo-start-stop` — every daemon start / stop / restart (singleton locks, flat pre-flight)
 - `potions-oanda-pl-attribution` — practice balance vs resettablePL / fill PL by instrument
 - `potions-oanda-reconcile` — practice snapshot + local positions.csv repair
 - `potions-oanda-live-sim-reconcile` — live OANDA fills vs StrategyPlugin replay on demo bars

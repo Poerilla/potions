@@ -1,0 +1,17 @@
+Hub: live/state/nas100_v2b_nq_lead_coupled_resting_limit/
+Book: NQ resting-limit hour-complete (not the left-label fill-stamp book).
+Stream: campaign emitted after the NQ entry bar completes; exit times are not preloaded.
+
+Trades: 193
+Net: $7474.39 ($1/pt native)
+Stress DD: $-3113.08
+Net/Stress: 2.40
+Win%: 61.14
+PF: 1.483
+Entered: 193
+Skipped: 188 (185 structure_failed, 2 nq_already_scaled, 1 nq_already_stopped)
+Lookahead violations: 0
+
+Stance: research only — not a demo promote. The Oct 2 NAS100 NQ-lead add-on followed the left-label preload and should not be cited as a causal lead.
+DSR: TRL-2026-00203
+Ledger: brl_7e47ea9129e9

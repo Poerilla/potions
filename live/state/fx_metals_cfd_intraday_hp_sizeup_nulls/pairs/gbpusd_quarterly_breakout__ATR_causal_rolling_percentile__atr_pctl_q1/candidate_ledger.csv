@@ -1,0 +1,42 @@
+strategy_book,feature,feature_value,coverage,size_multiplier,filter_or_sizeup,causal_eligibility
+gbpusd_quarterly_breakout,5m MA vs trade,ma_opposed,0.38235294117647056,1.25,sizeup,live_ready
+gbpusd_quarterly_breakout,Prior-quarter range width,pqw_q1,0.43137254901960786,1.25,sizeup,live_ready
+gbpusd_quarterly_breakout,Yearly ORB direction,yor_down,0.35294117647058826,1.25,sizeup,live_ready
+gbpusd_quarterly_breakout,Hourly RSI bucket,rsi_30_45,0.24509803921568626,1.25,sizeup,live_ready
+gbpusd_quarterly_breakout,ATR causal rolling percentile,atr_pctl_q1,0.4117647058823529,1.25,sizeup,needs_rolling_proxy
+gbpusd_quarterly_breakout,Hourly RSI vs trade,rsi_with_side,0.8823529411764706,1.25,sizeup,live_ready
+gbpusd_quarterly_breakout,Week of month,1,0.30392156862745096,1.25,sizeup,live_ready
+gbpusd_quarterly_breakout,ATR14 quartile,atr_q2,0.24509803921568626,1.25,sizeup,needs_rolling_proxy
+gbpusd_quarterly_breakout,Prior-day range percentile,prior_range_comp,0.28431372549019607,1.25,sizeup,live_ready
+gbpusd_quarterly_breakout,London OR width vs ATR,lor_na,1.0,1.25,sizeup,live_ready
+gbpusd_quarterly_breakout,Monday session range vs ATR,mon_na,1.0,1.25,sizeup,live_ready
+gbpusd_quarterly_breakout,Prior-day range half,day_opposed,0.9803921568627451,1.25,sizeup,live_ready
+gbpusd_quarterly_breakout,Prior-week range half,week_opposed,0.9901960784313726,1.25,sizeup,live_ready
+gbpusd_quarterly_breakout,Prior-month range half,month_opposed,0.9901960784313726,1.25,sizeup,live_ready
+gbpusd_quarterly_breakout,Prior quarter type,q_break_down,0.3627450980392157,1.25,sizeup,live_ready
+gbpusd_quarterly_breakout,ATR14 quartile,atr_q1,0.2549019607843137,1.25,sizeup,needs_rolling_proxy
+gbpusd_quarterly_breakout,5m MA cross vs trade,cross_none,0.9411764705882353,1.25,sizeup,live_ready
+gbpusd_quarterly_breakout,Hourly OBV vs trade,obv_aligned,0.803921568627451,1.25,sizeup,live_ready
+gbpusd_quarterly_breakout,Prior-day range percentile,prior_range_norm,0.3333333333333333,1.25,sizeup,live_ready
+gbpusd_quarterly_breakout,Monthly OR direction,mor_down,0.43137254901960786,1.25,sizeup,live_ready
+gbpusd_quarterly_breakout,Day of week,Saturday,0.2549019607843137,1.25,sizeup,live_ready
+gbpusd_quarterly_breakout,Yearly ORB direction,yor_na,0.2549019607843137,1.25,sizeup,live_ready
+gbpusd_quarterly_breakout,Weekly ATR trend vs trade,w_atr_aligned,0.7450980392156863,1.25,sizeup,live_ready
+gbpusd_quarterly_breakout,Entry hour (NY),19,0.3235294117647059,1.25,sizeup,live_ready
+gbpusd_quarterly_breakout,Entry hour (NY),20,0.6764705882352942,1.25,sizeup,live_ready
+gbpusd_quarterly_breakout,Weekly ATR trend vs trade,w_atr_opposed,0.2549019607843137,1.25,sizeup,live_ready
+gbpusd_quarterly_breakout,Week of month,3,0.28431372549019607,1.25,sizeup,live_ready
+gbpusd_quarterly_breakout,ATR causal rolling percentile,atr_pctl_q4,0.2647058823529412,1.25,sizeup,needs_rolling_proxy
+gbpusd_quarterly_breakout,Hourly RSI bucket,rsi_55_70,0.27450980392156865,1.25,sizeup,live_ready
+gbpusd_quarterly_breakout,ATR14 quartile,atr_q4,0.2549019607843137,1.25,sizeup,needs_rolling_proxy
+gbpusd_quarterly_breakout,Hourly OBV vs trade,obv_opposed,0.19607843137254902,1.25,sizeup,live_ready
+gbpusd_quarterly_breakout,Day of week,Tuesday,0.21568627450980393,1.25,sizeup,live_ready
+gbpusd_quarterly_breakout,ATR causal rolling percentile,atr_pctl_q3,0.19607843137254902,1.25,sizeup,needs_rolling_proxy
+gbpusd_quarterly_breakout,Prior-day range percentile,prior_range_exp,0.38235294117647056,1.25,sizeup,live_ready
+gbpusd_quarterly_breakout,5m MA vs trade,ma_aligned,0.6176470588235294,1.25,sizeup,live_ready
+gbpusd_quarterly_breakout,Hourly RSI bucket,rsi_le30,0.23529411764705882,1.25,sizeup,live_ready
+gbpusd_quarterly_breakout,Prior quarter type,q_break_up,0.38235294117647056,1.25,sizeup,live_ready
+gbpusd_quarterly_breakout,ATR14 quartile,atr_q3,0.24509803921568626,1.25,sizeup,needs_rolling_proxy
+gbpusd_quarterly_breakout,Monthly OR direction,mor_up,0.3333333333333333,1.25,sizeup,live_ready
+gbpusd_quarterly_breakout,Yearly ORB direction,yor_up,0.27450980392156865,1.25,sizeup,live_ready
+gbpusd_quarterly_breakout,Week of month,2,0.19607843137254902,1.25,sizeup,live_ready

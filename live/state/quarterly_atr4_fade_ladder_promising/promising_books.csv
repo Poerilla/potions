@@ -1,0 +1,6 @@
+market,path_id,trade_mode,allowed_sides,first_side_filter,n,wins,win_rate,tattoo_win_rank,tattoo_year,tattoo_quarter,tattoo_side,tattoo_mae_px,tattoo_mae_atr,tattoo_touch_ts,tattoo_resolve_ts,risk_atr_mult,note
+GBPUSD,first_lower,first_only,lower,lower,53,31,0.5849056603773585,1,2004,4,lower,0.00942924928889366,1.9597571288195528,2004-10-04 12:00:00-04:00,2004-10-21 04:00:00-04:00,2.0,best-path standout
+XAUUSD,,first_only,lower,lower,0,0,0.0,0,0,0,lower,0.0,0.0,,,2.0,family book (not best-path)
+NAS100,first_lower,first_only,lower,lower,9,5,0.5555555555555556,1,2017,2,lower,28.06551688385298,1.8762102000195533,2017-04-11 09:00:00-04:00,2017-04-23 17:00:00-04:00,2.0,best-path standout
+EURUSD,second_after_upper,second_only,lower,upper,17,7,0.4117647058823529,1,2003,4,lower,0.009152412287062983,1.9336843807799113,2003-11-03 15:00:00-05:00,2003-11-16 23:00:00-05:00,2.0,best-path standout
+NQ,second_after_upper,second_only,lower,upper,8,4,0.5,1,2013,2,lower,12.400294736771684,1.1311633373436043,2013-04-18 12:00:00-04:00,2013-04-23 08:00:00-04:00,1.5,best-path standout

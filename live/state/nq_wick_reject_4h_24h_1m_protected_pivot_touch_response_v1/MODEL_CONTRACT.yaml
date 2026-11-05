@@ -1,0 +1,90 @@
+# Frozen research contract — round-the-clock 1m protected-AREA reaction (NOT a trade model)
+study_id: nq_wick_reject_4h_24h_1m_protected_pivot_touch_response_v1
+status: RESEARCH_DESCRIPTIVE_ONLY
+stance: descriptive_only
+instrument: NQ
+timezone: America/New_York
+tick: 0.25
+
+purpose: >
+  After an active 4h WICK_REJECT seed produces a causally confirmed 1-minute
+  four-pivot structure, measure whether price reacts out of a bounded protected
+  pivot AREA such that mean MFE > mean MAE and mean(MFE)/mean(MAE) > 1.00.
+  Touch or modest trade-through is allowed. Observational only.
+
+not_allowed:
+  - live signal / entry / stop / target / sizing / P&L / realized R
+  - order type / plugin / demo / funded / production promotion
+  - NY-open vs all-session rule chooser
+  - 1m vs 5m rule chooser
+  - strict-line vs area rule chooser
+  - bullish vs bearish live rule
+  - parameter tuning after inspecting results
+  - S1/S2 coupling
+
+data_session_policy: POLICY_A_FULL_AVAILABLE_FUTURES_DATA
+source_data_version: nq/raw/glbx-mdp3-20100606-20260616.ohlcv-1m.dbn.zst
+
+seed:
+  source: frozen 4h WICK_REJECT atlas via make_seeds_30
+  seed_definition_changed: false
+  seed_expiry_4h_bars: 30
+  one_candidate_per_seed: true
+
+pivots:
+  timeframe: 1m
+  left_bars: 1
+  right_bars: 1
+  strict_extrema: true
+  equal_level_policy: reject
+  min_pivot_separation_bars: 1
+
+structure:
+  bear: H1 -> L1 -> HH -> LL
+  bull: L1 -> H1 -> LL -> HH
+  selection: first consecutive four-pivot after seed_available_at
+  intervening_pivots: reject
+  protected_area_center: P3
+  break_level: P2
+  structure_reference: P4
+
+protected_area:
+  area_width_ticks: "min(12, max(4, ceil(0.25 * break_distance_ticks)))"
+  min_ticks: 4
+  max_ticks: 12
+  bear_area: "[HH, HH + width]"
+  bull_area: "[LL - width, LL]"
+  not_a_stop_or_entry: true
+
+horizons:
+  structure_horizon_minutes: 180
+  reaction_horizon_minutes: 60
+  no_cross_gap: true
+
+excursions:
+  structure_ref: P4
+  contact_ref: P3
+  primary_aggregate: ratio_of_averages
+  zero_mae: exclude_from_median_individual_rr_include_in_means
+
+contact_depth_classes:
+  - NO_AREA_CONTACT
+  - TOUCH_ONLY
+  - SHALLOW_TRADE_THROUGH
+  - DEEP_TRADE_THROUGH
+
+path_order_labels:
+  - FAVORABLE_RESPONSE_FIRST
+  - OUTER_AREA_BREACH_FIRST
+  - BOTH_SAME_1M_BAR_ADVERSE_FIRST
+  - NEITHER_BY_REACTION_HORIZON
+
+primary_question: >
+  After first area contact, mean(MFE_contact) > mean(MAE_contact) and
+  mean(MFE_contact)/mean(MAE_contact) > 1.00 (bear and bull separately).
+
+parent_studies_unchanged:
+  - nq_wick_reject_4h_ny_open_1m_protected_pivot_v1
+  - nq_wick_reject_4h_ny_open_5m_protected_pivot_v2
+  - nq_wick_reject_4h_ny_open_5m_protected_pivot_v2_no_cutoff
+  - nq_wick_reject_4h_24h_5m_protected_pivot_touch_response_v1

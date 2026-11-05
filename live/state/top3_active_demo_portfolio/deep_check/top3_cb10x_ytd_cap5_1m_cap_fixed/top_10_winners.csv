@@ -1,0 +1,11 @@
+trade_id,session,year,side,entry_ts,exit_ts,entry_price,entry_qty,net_usd,exit_reasons,hit_tp,eod_close,full_initial_sl,any_stop_exit,atr14,range_width,range_label,atr14_quartile,range_width_quartile
+clean_break::nas100_v2b_clean_break_trail06_m4_e2_out_be_1mfill_20250407_01,2025-04-07,2025,long,2025-04-07 09:50:00-04:00,2025-04-07 10:11:00-04:00,0.0,2,12245.500000000065,target,True,False,False,False,552.0785714285719,,n/a,Q4 high,
+monday_or::trade_beddf17de97e,2025-04-02,2025,long,2025-04-02 22:00:00-04:00,2025-04-03 13:15:00-04:00,0.0,4,11389.036363636382,target,True,False,False,False,381.70714285714297,,n/a,Q4 high,
+monday_or::trade_93871336cd56,2016-02-09,2016,long,2016-02-09 02:15:00-05:00,2016-02-11 08:40:00-05:00,0.0,3,11078.140909090904,ytd_cap_flatten,False,False,False,False,,,n/a,,
+clean_break::nas100_v2b_clean_break_trail06_m4_e2_out_be_1mfill_20220131_01,2022-01-31,2022,long,2022-01-31 09:52:00-05:00,2022-01-31 15:50:00-05:00,0.0,4,9035.499999999993,ytd_cap_flatten,False,False,False,False,449.0714285714287,,n/a,Q4 high,
+monday_or::trade_f92d7d100eee,2025-04-22,2025,long,2025-04-22 20:00:00-04:00,2025-04-25 13:30:00-04:00,0.0,4,8159.945454545349,target,True,False,False,False,956.1285714285707,,n/a,Q4 high,
+monday_or::trade_b0ecf0cd2a93,2023-01-12,2023,long,2023-01-12 09:30:00-05:00,2023-01-12 18:02:00-05:00,0.0,4,8036.309090909122,ytd_cap_flatten,False,False,False,False,235.8214285714283,,n/a,Q3,
+monday_or::trade_690ef97eb6b0,2025-02-05,2025,long,2025-02-05 00:45:00-05:00,2025-02-07 16:00:00-05:00,0.0,3,6968.140909090927,week_end,False,False,False,False,418.1714285714292,,n/a,Q4 high,
+clean_break::nas100_v2b_clean_break_trail06_m4_e2_out_be_1mfill_20250422_01,2025-04-22,2025,long,2025-04-22 09:45:00-04:00,2025-04-22 12:00:00-04:00,0.0,4,6915.500000000103,target,True,False,False,False,956.1285714285707,,n/a,Q4 high,
+monday_or::trade_59b517a825de,2008-04-16,2008,long,2008-04-16 18:15:00-04:00,2008-04-18 11:45:00-04:00,0.0,3,6545.413636363653,target,True,False,False,False,,,n/a,,
+monday_or::trade_2c5ae199b333,2025-02-19,2025,long,2025-02-19 23:45:00-05:00,2025-02-20 17:30:00-05:00,0.0,4,6421.7636363637075,target,True,False,False,False,293.1142857142864,,n/a,Q4 high,

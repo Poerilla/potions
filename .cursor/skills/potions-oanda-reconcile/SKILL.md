@@ -36,6 +36,8 @@ python3 -m potions.live.cli oanda-practice-sync --repair-demo-positions
 
 Rewrites each mapped `*_oanda` demo’s `state/positions.csv` to **strategy-owned** focus qty only (opening-order `clientExtensions.tag`), or header-only if that demo does not own the open trade. Clears foreign-instrument bleed and same-instrument sibling claims. Does **not** rewrite `orders.csv` (daemon race) — compare LIVE pending orders in the report to local `orders.csv` manually.
 
+If the cause is two daemons on one book, `demo-singleton-audit` shows `DUPLICATE_*`. Since 2026-11-05 the runtime locks prevent this. The account → instrument → strategy owner map is `live/demo/oanda_account_ownership.json`, and an OANDA runner that isn't the listed owner refuses to start.
+
 ## Focus map
 
 | Demo dir | Focus |

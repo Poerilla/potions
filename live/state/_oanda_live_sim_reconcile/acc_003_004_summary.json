@@ -1,0 +1,99 @@
+[
+  {
+    "bars": 1141,
+    "demo": "nas100_v2b_clean_break_trail06_m4_e2_out_be_oanda",
+    "drift": [],
+    "instrument": "NAS100",
+    "live_cfg_replay": {
+      "first_diff": [
+        [
+          "2026-09-03T13:49",
+          "buy",
+          "1"
+        ],
+        [
+          "2026-09-03T13:45",
+          "buy",
+          "1"
+        ]
+      ],
+      "fuzzy_match": false,
+      "fuzzy_unmatched_live": [
+        [
+          "2026-09-03T13:49",
+          "buy",
+          "1"
+        ],
+        [
+          "2026-09-04T13:48",
+          "buy",
+          "1"
+        ]
+      ],
+      "fuzzy_unmatched_sim": [
+        [
+          "2026-09-03T13:45",
+          "buy",
+          "1"
+        ],
+        [
+          "2026-09-04T13:45",
+          "buy",
+          "1"
+        ]
+      ],
+      "live_n": 2,
+      "live_only": [
+        [
+          "2026-09-03T13:49",
+          "buy",
+          "1"
+        ],
+        [
+          "2026-09-04T13:48",
+          "buy",
+          "1"
+        ]
+      ],
+      "match": false,
+      "sim_n": 2,
+      "sim_only": [
+        [
+          "2026-09-03T13:45",
+          "buy",
+          "1"
+        ],
+        [
+          "2026-09-04T13:45",
+          "buy",
+          "1"
+        ]
+      ]
+    },
+    "live_entries_all": 2,
+    "started_at": "2026-09-01T14:06:04Z",
+    "status": "MISMATCH",
+    "strategy_type": "v2b_clean_break"
+  },
+  {
+    "bars": 43724,
+    "demo": "usdjpy_asia_range_london_oanda",
+    "drift": [],
+    "instrument": "USDJPY",
+    "live_cfg_replay": {
+      "first_diff": null,
+      "fuzzy_match": true,
+      "fuzzy_unmatched_live": [],
+      "fuzzy_unmatched_sim": [],
+      "live_n": 1,
+      "live_only": [],
+      "match": true,
+      "sim_n": 1,
+      "sim_only": []
+    },
+    "live_entries_all": 2,
+    "started_at": "2026-09-03T16:54:58Z",
+    "status": "MATCH",
+    "strategy_type": "v2b_scaleout"
+  }
+]

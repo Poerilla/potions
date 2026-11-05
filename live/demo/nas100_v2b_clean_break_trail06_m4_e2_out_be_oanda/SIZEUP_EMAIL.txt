@@ -1,0 +1,11 @@
+NAS100 clean-break OANDA practice — 10× size-up
+
+Account: -003
+Was: entry 1 / add 1 / max 4  (~$2k research stress DD)
+Now: entry 10 / add 10 / max 40  (size_mult=10, ~$20k stress DD target)
+
+Parent freeze unchanged: brl_21741b260a28 trail06_m4_e2_out_be
+Also: pyramid adds now scale with entry_qty (were hardcoded 1).
+
+Daemon restarted flat after today's close_back_into_range.
+META: live/demo/oanda_account_configs/nas100_clean_break_trail_003_META.json

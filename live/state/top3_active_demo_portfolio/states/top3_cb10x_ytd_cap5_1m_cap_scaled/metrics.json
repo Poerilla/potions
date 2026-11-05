@@ -1,0 +1,13 @@
+{
+  "symbol": "NAS100",
+  "quote": "USD",
+  "strategy_id": "top3_cb10x_ytd_cap5_1m_cap_scaled",
+  "instrument": "PORTFOLIO",
+  "variant_slug": "top3_cb10x_ytd_cap5_1m_cap_scaled",
+  "label": "TOP3 x10 YTD cap 5% (cap_scaled, joint 1m)",
+  "net_usd": 208355.80790823017,
+  "closed_dd_usd": -73049.46168776434,
+  "stress_dd_usd": -73293.35490725245,
+  "net_over_stress": 2.8427653253407446,
+  "note": "Asia Range + Monday OR + NAS100 Clean Break x10 Engine fill units on a joint 1m clock; basket flattened and entries blocked for the rest of the calendar year once YTD mark >= cap."
+}

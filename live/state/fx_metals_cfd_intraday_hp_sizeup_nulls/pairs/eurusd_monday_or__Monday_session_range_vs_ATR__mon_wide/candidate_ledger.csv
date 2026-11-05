@@ -1,0 +1,98 @@
+strategy_book,feature,feature_value,coverage,size_multiplier,filter_or_sizeup,causal_eligibility
+eurusd_monday_or,5m MA vs trade,ma_opposed,0.09379358437935843,1.25,sizeup,live_ready
+eurusd_monday_or,Hourly RSI vs trade,rsi_against_side,0.03695955369595537,1.25,sizeup,live_ready
+eurusd_monday_or,Monday session range vs ATR,mon_narrow,0.448047419804742,1.25,sizeup,live_ready
+eurusd_monday_or,Month,5,0.08542538354253836,1.25,sizeup,live_ready
+eurusd_monday_or,ATR causal rolling percentile,atr_pctl_q3,0.16317991631799164,1.25,sizeup,needs_rolling_proxy
+eurusd_monday_or,Entry hour (NY),18,0.029637377963737797,1.25,sizeup,live_ready
+eurusd_monday_or,Prior-month range half,month_opposed,0.6049511854951185,1.25,sizeup,live_ready
+eurusd_monday_or,Yearly ORB direction,yor_inside,0.10564853556485355,1.25,sizeup,live_ready
+eurusd_monday_or,Entry hour (NY),14,0.07635983263598327,1.25,sizeup,live_ready
+eurusd_monday_or,Prior quarter type,q_break_down,0.39644351464435146,1.25,sizeup,live_ready
+eurusd_monday_or,Week of month,3,0.23361227336122734,1.25,sizeup,live_ready
+eurusd_monday_or,Day of week,Thursday,0.1990934449093445,1.25,sizeup,live_ready
+eurusd_monday_or,ATR14 quartile,atr_q4,0.25,1.25,sizeup,needs_rolling_proxy
+eurusd_monday_or,Weekly ATR trend vs trade,w_atr_aligned,0.5076708507670851,1.25,sizeup,live_ready
+eurusd_monday_or,Entry hour (NY),10,0.05090655509065551,1.25,sizeup,live_ready
+eurusd_monday_or,Month,4,0.07217573221757322,1.25,sizeup,live_ready
+eurusd_monday_or,Month,3,0.08368200836820083,1.25,sizeup,live_ready
+eurusd_monday_or,Prior-week range half,week_opposed,0.7364016736401674,1.25,sizeup,live_ready
+eurusd_monday_or,Monday session range vs ATR,mon_wide,0.23186889818688983,1.25,sizeup,live_ready
+eurusd_monday_or,Entry hour (NY),4,0.018479776847977684,1.25,sizeup,live_ready
+eurusd_monday_or,Yearly ORB direction,yor_na,0.2733612273361227,1.25,sizeup,live_ready
+eurusd_monday_or,Hourly RSI bucket,rsi_45_55,0.15271966527196654,1.25,sizeup,live_ready
+eurusd_monday_or,Hourly RSI vs trade,rsi_neutral,0.15271966527196654,1.25,sizeup,live_ready
+eurusd_monday_or,Week of month,1,0.23256624825662484,1.25,sizeup,live_ready
+eurusd_monday_or,Hourly OBV vs trade,obv_opposed,0.14679218967921898,1.25,sizeup,live_ready
+eurusd_monday_or,Prior-quarter range width,pqw_na,1.0,1.25,sizeup,live_ready
+eurusd_monday_or,London OR width vs ATR,lor_na,1.0,1.25,sizeup,live_ready
+eurusd_monday_or,Prior-day range half,day_opposed,0.9626917712691772,1.25,sizeup,live_ready
+eurusd_monday_or,5m MA cross vs trade,cross_none,0.9689679218967922,1.25,sizeup,live_ready
+eurusd_monday_or,Yearly ORB direction,yor_both,0.023361227336122732,1.25,sizeup,live_ready
+eurusd_monday_or,Prior-day range percentile,prior_range_comp,0.6028591352859135,1.25,sizeup,live_ready
+eurusd_monday_or,ATR14 quartile,atr_q1,0.25,1.25,sizeup,needs_rolling_proxy
+eurusd_monday_or,Monthly OR direction,mor_up,0.3633193863319386,1.25,sizeup,live_ready
+eurusd_monday_or,Entry hour (NY),19,0.021617852161785217,1.25,sizeup,live_ready
+eurusd_monday_or,Prior-day range percentile,prior_range_norm,0.22838214783821478,1.25,sizeup,live_ready
+eurusd_monday_or,Hourly RSI bucket,rsi_30_45,0.3288005578800558,1.25,sizeup,live_ready
+eurusd_monday_or,Entry hour (NY),8,0.07461645746164575,1.25,sizeup,live_ready
+eurusd_monday_or,Day of week,Friday,0.1199442119944212,1.25,sizeup,live_ready
+eurusd_monday_or,Entry hour (NY),12,0.07740585774058577,1.25,sizeup,live_ready
+eurusd_monday_or,ATR14 quartile,atr_q2,0.2496513249651325,1.25,sizeup,needs_rolling_proxy
+eurusd_monday_or,Entry hour (NY),16,0.04358437935843794,1.25,sizeup,live_ready
+eurusd_monday_or,Hourly RSI bucket,rsi_gt70,0.08437935843793584,1.25,sizeup,live_ready
+eurusd_monday_or,Entry hour (NY),13,0.08403068340306834,1.25,sizeup,live_ready
+eurusd_monday_or,ATR causal rolling percentile,atr_pctl_q1,0.4302649930264993,1.25,sizeup,needs_rolling_proxy
+eurusd_monday_or,Monthly OR direction,mor_inside,0.09205020920502092,1.25,sizeup,live_ready
+eurusd_monday_or,Monthly OR direction,mor_na,0.08647140864714087,1.25,sizeup,live_ready
+eurusd_monday_or,Hourly OBV vs trade,obv_aligned,0.8532078103207811,1.25,sizeup,live_ready
+eurusd_monday_or,Yearly ORB direction,yor_up,0.2988145048814505,1.25,sizeup,live_ready
+eurusd_monday_or,Month,12,0.07914923291492329,1.25,sizeup,live_ready
+eurusd_monday_or,Prior-day range half,day_aligned,0.03730822873082287,1.25,sizeup,live_ready
+eurusd_monday_or,Entry hour (NY),7,0.0700836820083682,1.25,sizeup,live_ready
+eurusd_monday_or,Entry hour (NY),3,0.02092050209205021,1.25,sizeup,live_ready
+eurusd_monday_or,Hourly RSI bucket,rsi_le30,0.08577405857740586,1.25,sizeup,live_ready
+eurusd_monday_or,Entry hour (NY),6,0.04497907949790795,1.25,sizeup,live_ready
+eurusd_monday_or,Entry hour (NY),9,0.06276150627615062,1.25,sizeup,live_ready
+eurusd_monday_or,5m MA vs trade,ma_aligned,0.9062064156206415,1.25,sizeup,live_ready
+eurusd_monday_or,Day of week,Wednesday,0.2402370990237099,1.25,sizeup,live_ready
+eurusd_monday_or,Month,1,0.0903068340306834,1.25,sizeup,live_ready
+eurusd_monday_or,Day of week,Tuesday,0.4407252440725244,1.25,sizeup,live_ready
+eurusd_monday_or,Hourly RSI vs trade,rsi_with_side,0.810320781032078,1.25,sizeup,live_ready
+eurusd_monday_or,Entry hour (NY),5,0.023361227336122732,1.25,sizeup,live_ready
+eurusd_monday_or,Prior quarter type,q_break_up,0.42608089260808923,1.25,sizeup,live_ready
+eurusd_monday_or,Weekly ATR trend vs trade,w_atr_opposed,0.49232914923291493,1.25,sizeup,live_ready
+eurusd_monday_or,Prior quarter type,q_inside,0.1307531380753138,1.25,sizeup,live_ready
+eurusd_monday_or,Prior-day range percentile,prior_range_exp,0.1614365411436541,1.25,sizeup,live_ready
+eurusd_monday_or,Monthly OR direction,mor_down,0.37587168758716877,1.25,sizeup,live_ready
+eurusd_monday_or,5m MA cross vs trade,cross_aligned,0.02615062761506276,1.25,sizeup,live_ready
+eurusd_monday_or,ATR causal rolling percentile,atr_pctl_q2,0.201534170153417,1.25,sizeup,needs_rolling_proxy
+eurusd_monday_or,Month,9,0.08682008368200837,1.25,sizeup,live_ready
+eurusd_monday_or,Monday session range vs ATR,mon_na,0.01499302649930265,1.25,sizeup,live_ready
+eurusd_monday_or,Week of month,4,0.22419804741980473,1.25,sizeup,live_ready
+eurusd_monday_or,Month,7,0.08716875871687588,1.25,sizeup,live_ready
+eurusd_monday_or,Prior-week range half,week_aligned,0.26359832635983266,1.25,sizeup,live_ready
+eurusd_monday_or,Week of month,5,0.0798465829846583,1.25,sizeup,live_ready
+eurusd_monday_or,Month,6,0.08786610878661087,1.25,sizeup,live_ready
+eurusd_monday_or,Prior quarter type,q_break_both,0.030683403068340307,1.25,sizeup,live_ready
+eurusd_monday_or,ATR causal rolling percentile,atr_pctl_q4,0.19665271966527198,1.25,sizeup,needs_rolling_proxy
+eurusd_monday_or,Hourly RSI bucket,rsi_55_70,0.348326359832636,1.25,sizeup,live_ready
+eurusd_monday_or,Entry hour (NY),2,0.027196652719665274,1.25,sizeup,live_ready
+eurusd_monday_or,Month,11,0.0801952580195258,1.25,sizeup,live_ready
+eurusd_monday_or,Monthly OR direction,mor_both,0.08228730822873083,1.25,sizeup,live_ready
+eurusd_monday_or,Month,2,0.07601115760111576,1.25,sizeup,live_ready
+eurusd_monday_or,Month,8,0.09100418410041841,1.25,sizeup,live_ready
+eurusd_monday_or,Prior quarter type,q_na,0.01603905160390516,1.25,sizeup,live_ready
+eurusd_monday_or,Week of month,2,0.2297768479776848,1.25,sizeup,live_ready
+eurusd_monday_or,Prior-month range half,month_aligned,0.3922594142259414,1.25,sizeup,live_ready
+eurusd_monday_or,Entry hour (NY),0,0.048465829846582986,1.25,sizeup,live_ready
+eurusd_monday_or,Entry hour (NY),1,0.04741980474198047,1.25,sizeup,live_ready
+eurusd_monday_or,Monday session range vs ATR,mon_norm,0.30509065550906556,1.25,sizeup,live_ready
+eurusd_monday_or,ATR14 quartile,atr_q3,0.2496513249651325,1.25,sizeup,needs_rolling_proxy
+eurusd_monday_or,Entry hour (NY),15,0.07112970711297072,1.25,sizeup,live_ready
+eurusd_monday_or,Entry hour (NY),17,0.03172942817294282,1.25,sizeup,live_ready
+eurusd_monday_or,Month,10,0.0801952580195258,1.25,sizeup,live_ready
+eurusd_monday_or,Yearly ORB direction,yor_down,0.2988145048814505,1.25,sizeup,live_ready
+eurusd_monday_or,Entry hour (NY),11,0.038354253835425386,1.25,sizeup,live_ready
+eurusd_monday_or,Entry hour (NY),20,0.014644351464435146,1.25,sizeup,live_ready
+eurusd_monday_or,Entry hour (NY),21,0.009762900976290097,1.25,sizeup,live_ready

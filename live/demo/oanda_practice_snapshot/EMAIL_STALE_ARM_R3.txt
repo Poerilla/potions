@@ -1,0 +1,21 @@
+potions: US30 ST+PMC stale-arm cancel + OPEN_ORDER_STATUSES patch (2026-08-21)
+
+Hub: live/demo/oanda_practice_snapshot/STALE_ARM_DEDUPE_R3.md
+Account: practice 101-002-39860312-003
+Book: us30_hourly_st_pmc_sl50_tp150_3r_oanda
+
+What happened
+- Fair US30 ST+PMC stacked hourly buy LIMITs (heartbeats orders=1→5).
+- Thesis/side/PMC OK; count wrong.
+- Root cause: StrategyContext.strategy_open_orders ignored OANDA status=working,
+  so refresh never cancelled priors.
+
+What we did
+- Patch: OPEN_ORDER_STATUSES (+ RiskManager / ST+PMC / London helpers); unit test.
+- Cancelled remote LIMITs 5/6/7/8; kept 11 (ord_0fc075855acd @ 52945.2).
+- Restarted daemon → heartbeat orders=1 open_positions=0.
+
+Stance: promote ops fix; do not change ST+PMC research ranking. Watch next hourly
+bars for orders staying at 1.
+
+Docs: live/CHANGE_LOG.md, live/PROGRESS.log, live/Platform.md §6.

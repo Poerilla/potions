@@ -1,0 +1,11 @@
+trade_id,session,year,side,entry_ts,exit_ts,entry_price,entry_qty,net_usd,exit_reasons,hit_tp,eod_close,full_initial_sl,any_stop_exit,atr14,range_width,range_label,atr14_quartile,range_width_quartile
+usdjpy_v2b_asia_range_london_S_1_1_3_20220922_01,2022-09-22,2022,long,2022-09-22 06:38:00-04:00,2022-09-22 08:18:00-04:00,145.393,5,-8909.409090909126,wide_stop,False,False,True,True,1.5937857142857135,,n/a,Q4 high,
+usdjpy_v2b_asia_range_london_S_1_1_3_20240731_02,2024-07-31,2024,long,2024-07-31 04:00:00-04:00,2024-07-31 07:01:00-04:00,153.597,5,-6832.1363636364285,wide_stop,False,False,True,True,1.6355714285714282,,n/a,Q4 high,
+usdjpy_v2b_asia_range_london_S_1_1_3_20240731_01,2024-07-31,2024,short,2024-07-31 03:56:00-04:00,2024-07-31 03:59:00-04:00,152.093,5,-5650.318181818159,wide_stop,False,False,True,True,1.6355714285714282,,n/a,Q4 high,
+usdjpy_v2b_asia_range_london_S_1_1_3_20250121_01,2025-01-21,2025,short,2025-01-21 03:14:00-05:00,2025-01-21 11:59:00-05:00,154.888,5,-4663.954545454464,eod_close,False,True,False,False,1.1062142857142854,,n/a,Q4 high,
+usdjpy_v2b_asia_range_london_S_1_1_3_20260212_01,2026-02-12,2026,short,2026-02-12 03:01:00-05:00,2026-02-12 06:32:00-05:00,152.469,5,-4500.318181818223,wide_stop,False,False,True,True,1.4002142857142925,,n/a,Q4 high,
+usdjpy_v2b_asia_range_london_S_1_1_3_20230728_01,2023-07-28,2023,long,2023-07-28 03:28:00-04:00,2023-07-28 03:28:00-04:00,139.605,5,-4163.9545454545305,wide_stop,False,False,True,True,1.360214285714284,,n/a,Q4 high,
+usdjpy_v2b_asia_range_london_S_1_1_3_20230728_02,2023-07-28,2023,short,2023-07-28 04:07:00-04:00,2023-07-28 06:33:00-04:00,138.688,5,-4163.9545454545305,wide_stop,False,False,True,True,1.360214285714284,,n/a,Q4 high,
+usdjpy_v2b_asia_range_london_S_1_1_3_20221206_01,2022-12-06,2022,long,2022-12-06 06:20:00-05:00,2022-12-06 11:56:00-05:00,137.181,5,-4100.318181818251,wide_stop,False,False,True,True,1.6382857142857148,,n/a,Q4 high,
+usdjpy_v2b_asia_range_london_S_1_1_3_20150115_01,2015-01-15,2015,long,2015-01-15 06:01:00-05:00,2015-01-15 09:46:00-05:00,117.848,5,-4063.954545454571,wide_stop,False,False,True,True,1.057071428571427,,n/a,Q3,
+usdjpy_v2b_asia_range_london_S_1_1_3_20221115_01,2022-11-15,2022,long,2022-11-15 04:24:00-05:00,2022-11-15 07:30:00-05:00,140.519,5,-4027.590909090889,wide_stop,False,False,True,True,1.9847857142857168,,n/a,Q4 high,

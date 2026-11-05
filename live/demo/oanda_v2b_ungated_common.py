@@ -611,6 +611,16 @@ def run_stream_loop(
     if str(config.env).lower() != "practice":
         append_progress(output_root, "REFUSING non-practice OANDA_ENV=%s (demo is practice-only)" % config.env)
         return 2
+    from .singleton import EXIT_REFUSED, claim_runtime
+
+    if not claim_runtime(
+        strategy_id=spec.strategy_id,
+        output_root=output_root,
+        account_id=str(config.account_id or ""),
+        instrument=spec.instrument,
+        routes_orders=True,
+    ):
+        return EXIT_REFUSED
 
     runner = DemoOandaRunner(spec, output_root=output_root, config=config)
     meta = write_run_meta(output_root, spec=spec, config=config)
@@ -788,8 +798,23 @@ def _interruptible_sleep(runner: DemoOandaRunner, seconds: float) -> None:
 
 def _remove_pidfile(output_root: Path) -> None:
     path = pidfile_path(output_root)
-    if path.exists():
+    if not path.exists():
+        return
+    try:
+        owner = int(path.read_text(encoding="utf-8").strip())
+    except (OSError, ValueError):
+        owner = None
+    # A second runner exiting must not delete the live daemon's pidfile; that is how
+    # spawn_daemon's alive-check was bypassed and two daemons traded one account.
+    if owner is None or owner == os.getpid():
         path.unlink()
+
+
+def acquire_instance_lock(output_root: Path) -> bool:
+    """Output-folder lock only; runners should call ``singleton.claim_runtime`` instead."""
+    from .singleton import acquire_output_lock
+
+    return acquire_output_lock(Path(output_root))
 
 
 def _price_levels(levels: Any) -> List[Dict[str, Any]]:
@@ -891,9 +916,20 @@ def spawn_daemon(
     if max_ticks:
         cmd.extend(["--max-ticks", str(int(max_ticks))])
     if oanda_config_path:
-        cmd.extend(["--oanda-config", oanda_config_path])
+        # Child cwd is the HSM parent, so relative config paths otherwise break.
+        cmd.extend(["--oanda-config", str(Path(oanda_config_path).resolve())])
 
     env = os.environ.copy()
+    # Match the Asia runner: daemon launches must not depend on the interactive
+    # shell having exported the practice token.
+    demo_env = Path(__file__).resolve().parent / ".env"
+    if demo_env.exists() and not env.get("OANDA_TOKEN"):
+        for line in demo_env.read_text(encoding="utf-8").splitlines():
+            line = line.strip()
+            if not line or line.startswith("#") or "=" not in line:
+                continue
+            key, value = line.split("=", 1)
+            env.setdefault(key.strip(), value.strip().strip('"').strip("'"))
     repo = Path(__file__).resolve().parents[2]  # .../potions
     hsm = repo.parent
     v20_src = repo / "v20-python" / "src"

@@ -1,0 +1,16 @@
+{
+  "ok": true,
+  "hub": "/home/tester/hsm/potions/live/state/nas100_clean_break_ha_conditions",
+  "dsr": "TRL-2026-00198",
+  "decisions": [
+    "RISK THROTTLE",
+    "RISK THROTTLE",
+    "NOT VALIDATED",
+    "NOT VALIDATED",
+    "NOT VALIDATED",
+    "NOT VALIDATED",
+    "NOT VALIDATED"
+  ],
+  "stance": "RISK THROTTLE / NOT VALIDATED \u2014 shadow only; no size-up promote",
+  "pipeline": "full_organic_ha"
+}

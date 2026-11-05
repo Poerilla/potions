@@ -1,0 +1,104 @@
+{
+  "state": "/home/tester/hsm/potions/live/state/top3_active_demo_portfolio/states/top3_asia_monday_cleanbreak_cb10x",
+  "targets": [
+    0.2,
+    0.15,
+    0.1
+  ],
+  "net_gap_vs_published_year": 1864.8181818182602,
+  "stress_gap_vs_published_year": 3.637978807091713e-12,
+  "stats": {
+    "baseline": {
+      "end_equity": 693941.7818181744,
+      "net": 593941.7818181744,
+      "cagr": 0.08406450943653132,
+      "years_stopped": 0,
+      "trades": 3934,
+      "skipped_trades": 0,
+      "tail_net": 0.0,
+      "worst_return": -0.039060727272729016,
+      "best_return": 0.2319714558873566,
+      "losing_years": 3,
+      "avg_return": 0.08652863821845143,
+      "worst_ns": -0.36180803523366045,
+      "avg_ns": 1.4548443416973413,
+      "worst_stress": -29238.463331048784,
+      "n_years": 24
+    },
+    "stop_20": {
+      "end_equity": 681556.690909084,
+      "net": 581556.690909084,
+      "cagr": 0.0832513760834166,
+      "years_stopped": 3,
+      "trades": 3795,
+      "skipped_trades": 139,
+      "tail_net": 12385.090909090279,
+      "worst_return": -0.039060727272729016,
+      "best_return": 0.2194085457968385,
+      "losing_years": 3,
+      "avg_return": 0.08558933840714712,
+      "worst_ns": -0.36180803523366045,
+      "avg_ns": 1.4363909411521805,
+      "worst_stress": -29238.463331048784,
+      "n_years": 24
+    },
+    "stop_15": {
+      "end_equity": 623311.1818181752,
+      "net": 523311.18181817525,
+      "cagr": 0.07922675889325737,
+      "years_stopped": 6,
+      "trades": 3650,
+      "skipped_trades": 284,
+      "tail_net": 70630.59999999918,
+      "worst_return": -0.039060727272729016,
+      "best_return": 0.1542361879140029,
+      "losing_years": 3,
+      "avg_return": 0.0808391620785233,
+      "worst_ns": -0.36180803523366045,
+      "avg_ns": 1.2820213692220024,
+      "worst_stress": -29238.463331048784,
+      "n_years": 24
+    },
+    "stop_10": {
+      "end_equity": 580749.6999999942,
+      "net": 480749.69999999425,
+      "cagr": 0.07605104787655859,
+      "years_stopped": 14,
+      "trades": 2882,
+      "skipped_trades": 1052,
+      "tail_net": 113192.08181818013,
+      "worst_return": -0.039060727272729016,
+      "best_return": 0.12982619656600933,
+      "losing_years": 2,
+      "avg_return": 0.076941812681648,
+      "worst_ns": -0.36180803523366045,
+      "avg_ns": 1.578388336341165,
+      "worst_stress": -28630.277491959743,
+      "n_years": 24
+    }
+  },
+  "touched": [
+    {
+      "target": 0.2,
+      "years_touched": 3,
+      "tail_net": 12385.090909090279,
+      "years_tail_negative": 1,
+      "years_tail_positive": 2
+    },
+    {
+      "target": 0.15,
+      "years_touched": 6,
+      "tail_net": 45059.199999999124,
+      "years_tail_negative": 2,
+      "years_tail_positive": 4
+    },
+    {
+      "target": 0.1,
+      "years_touched": 10,
+      "tail_net": 104207.89999999874,
+      "years_tail_negative": 4,
+      "years_tail_positive": 6
+    }
+  ],
+  "rule": "eod lock on daily realized equity after ytd return >= target"
+}

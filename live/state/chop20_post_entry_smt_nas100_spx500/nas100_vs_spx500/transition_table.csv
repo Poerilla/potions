@@ -1,0 +1,10 @@
+primary_entry_side,confirmation_class,outcome_bin,n
+long,ALREADY_CONFIRMED,loss_or_flat,15
+long,ALREADY_CONFIRMED,win,4
+long,NO_CONFIRM,loss_or_flat,22
+long,NO_CONFIRM,win,9
+short,ALREADY_CONFIRMED,loss_or_flat,7
+short,ALREADY_CONFIRMED,win,2
+short,NO_CONFIRM,loss_or_flat,10
+short,NO_CONFIRM,win,4
+short,OPPOSITE_BREAK,win,1

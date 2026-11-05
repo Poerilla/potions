@@ -1,6 +1,6 @@
 # Causal Validation Audit Tracker
 
-**Last updated:** 2026-06-26  
+**Last updated:** 2026-10-03  
 **Normative design:** [`live/specs/CAUSAL_VALIDATION_MASTER_SPEC.md`](../live/specs/CAUSAL_VALIDATION_MASTER_SPEC.md)  
 **Platform implementation truth:** [`live/Platform.md`](../live/Platform.md)  
 **Mechanism hypotheses:** [`live/specs/CAUSAL_GRAPH.md`](../live/specs/CAUSAL_GRAPH.md)
@@ -83,6 +83,9 @@ Use this as the single run-control checklist before major milestones. Link pass/
 | CO1 | Prior-opposed rule audit | **PARTIAL** | `causality_violations` = post-hoc campaign-level check in `validate_prior_opposite_entries()` — not bar-level |
 | CO2 | `assert_causal_ordering()` at signal→order | **FAIL** | Not implemented |
 | CO2b | `live_after_ts` bar fill guard | **PASS** | [`live/broker.py`](../live/broker.py) |
+| CO3 | NAS100 clean-break ma_aligned size_1.5 | **CONDITIONAL_PASS** | [`live/state/nas100_clean_break_ma_aligned_size15_broker/LOOKAHEAD_REVIEW.md`](../live/state/nas100_clean_break_ma_aligned_size15_broker/LOOKAHEAD_REVIEW.md) — Engine tape + fill-asof `ma5_align` clean; 135 arm↔fill MA flips; arm-asof size-up still lifts (DSR `TRL-2026-00200`) |
+| CO4 | NAS100 NQ-lead coupled stream | **PASS** (stream) / **REJECT** (as the Oct 2 add-on) | [`live/state/nas100_v2b_nq_lead_coupled_resting_limit/`](../live/state/nas100_v2b_nq_lead_coupled_resting_limit/) — hour-complete resting-limit; campaign after NQ bar complete; exits not preloaded; 0 entry-before-complete rows. Book N/S 2.40 (DSR `TRL-2026-00203`). Left-label preload remains diagnostic only. |
+| CO5 | NQ prior-opposed + or_norm on refreshed tape (→2026-10-11) | **PASS** | [`live/state/nq_prior_opposed_last5m_or_norm/CAUSAL_RECHECK.md`](../live/state/nq_prior_opposed_last5m_or_norm/CAUSAL_RECHECK.md) — 0 guard violations; 484/484 fills after confirming bar; ST gate `st_resting_limit_hour_complete` avail≤arm 1114/1114; OR finalized 297,647/297,647; or_norm earliest entry 09:45:00 (0 pre-09:45). Deployable-to-demo edge confirmed causal. |
 
 ---
 

@@ -1,0 +1,35 @@
+TOP3 equity curves — Clean Break scaled ×10
+Hub: /home/tester/hsm/potions/live/state/top3_active_demo_portfolio/equity_curves_cb10x
+
+═══════════════════════════════════════
+SEPARATE SLEEVES (CB×10)
+═══════════════════════════════════════
+asia_range    net     $178,142  stress     $-24,627  N/S  7.23
+monday_or     net     $293,270  stress     $-27,726  N/S 10.58
+clean_break   net     $122,530  stress     $-19,658  N/S  6.23
+
+═══════════════════════════════════════
+COMBINED
+═══════════════════════════════════════
+Net:              $593,942
+Joint stress:     $-37,866  → N/S 15.69
+Additive stress:  $-72,012  → N/S 8.25
+Div ratio:        1.90×  (|add|/|joint|)
+Mean pairwise corr (daily PnL): -0.01
+Clean Break share of net: 21% (vs ~2.5% at 1×)
+
+Common window from 2016-11-15:
+  net $382,092 | joint N/S 10.09 | additive N/S 5.31
+
+═══════════════════════════════════════
+DIVERSIFICATION EVOLUTION
+═══════════════════════════════════════
+SIGNIFICANT diversification at CB×10.
+Median 2y rolling div-ratio: 1.69×
+Median 2y rolling mean corr: 0.01
+See attached evolution + expanding-common charts.
+
+Note: ×10 is a comparison scale only — not the live demo sizing.
+Asia + Monday OR are both USDJPY (clock help ≠ independent FX risk).
+
+Artifacts: /home/tester/hsm/potions/live/state/top3_active_demo_portfolio/equity_curves_cb10x

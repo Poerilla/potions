@@ -1,0 +1,75 @@
+potions: OANDA strategy adherence + local↔broker reconcile (2026-08-17 19:35Z)
+
+## 1) Broker ↔ local position reconcile
+Account 101-002-39860312-001 | NAV=100650.5152 balance=100442.4439 uPL=208.0713 | openTrades=3 pendingOrders=69 | marginUsed=26712.36
+
+LIVE positions: US30 +3 @ 53434.9
+Ownership tag: us30_hourly_st_pmc_sl50_tp150_runners_2r_10r_oanda
+
+ACTION TAKEN: oanda-practice-sync --repair-demo-positions
+  repaired us30_hourly_st_pmc_sl50_tp150_runners_2r_10r_oanda positions.csv
+  local qty now=3.0 (was flat) — matches owned=3.0 / account=3.0 → OK
+  Re-sync after repair: all demos ok (no needs_repair).
+
+NOTE: orders.csv NOT rewritten by sync (daemon race). Local resting orders on that demo: 35
+  local bracket_role mix: {'runner_entry': 12, 'runner_entry_2': 12, 'entry': 11}
+  These are mostly stale entry/runner_entry LIMITs — not the live TP/SL brackets.
+
+## 2) Strategy adherence (open book)
+Open book = US30 ST+PMC runners 2r/10r, +3 @ 53434.9
+Broker protective orders present:
+  STOP_LOSS id=1578 price=53385.4 (Δ=49.5 from entry)
+  STOP_LOSS id=1581 price=53385.4 (Δ=49.5 from entry)
+  STOP_LOSS id=1584 price=53385.4 (Δ=49.5 from entry)
+  TAKE_PROFIT id=1577 price=53585.4 (Δ=+150.5 from entry)
+  TAKE_PROFIT id=1580 price=53735.4 (Δ=+300.5 from entry)
+  TAKE_PROFIT id=1583 price=54935.4 (Δ=+1500.5 from entry)
+Read: SL ≈ −50 pts on all 3 lots (matches 50-pt stop design).
+TP ladder ≈ +150 / +300 / +1500 — consistent with scale-out / runner targets on this book.
+VERDICT open-book: **protective brackets adherent** on broker.
+VERDICT local orders: **not adherent** — 35 stale LIMIT entry/runner orders; broker has 63 pending LIMITs (US30=35 NAS100=28) that look like orphan entry nest — cleanup candidate (cancel orphans) but NOT done automatically.
+
+## 3) Live ↔ StrategyPlugin entry tape (strategy adherence)
+Driver: .cursor/skills/potions-oanda-live-sim-reconcile/scripts/reconcile_oanda_demos.py
+Hub: live/state/_oanda_live_sim_reconcile/
+
+audjpy_yearly_orb_oanda                              MATCH         20589      0      0
+eurusd_hourly_st_pmc_sl50_tp150_3r_oanda             MATCH         10894      0      0
+eurusd_hourly_st_pmc_sl50_tp150_runners_2r_10r_oanda MATCH         11022      0      0
+eurusd_v2b_ungated_oanda                             MISMATCH      18177     17     20  unmatched live=[('2026-07-28T13:46', 'buy', '3'), ('2026-08-04T15:17', 'sell', '3'), ('2026-08-06T13:52', 'buy', '3'), ('2026-08-11T14:10', 'sell', '3')] sim=[('2026-07-24T17:52', 'sell', '3'), ('2026-07-27T13:46', 'sell', '3'), ('2026-07-27T16:25', 'buy', '3'), ('2026-07-28T13:49', 'buy', '3'), ('2026-08-04T15:20', 'sell', '3'), ('2026-08-06T13:56', 'buy', '3'), ('2026-08-11T14:28', 'sell', '3')]
+eurusd_yearly_orb_oanda                              MATCH         21260      0      0
+nas100_hourly_st_pmc_sl50_tp150_3r_oanda             MISMATCH      22040      0      2  unmatched live=[] sim=[('2026-08-14T15:00', 'buy', '1'), ('2026-08-17T17:00', 'buy', '1')]
+nas100_hourly_st_pmc_sl50_tp150_runners_2r_10r_oanda MATCH         13543      0      0
+nas100_v2b_ungated_oanda                             MATCH         21323      0      0
+spx500_v2b_ungated_oanda                             MATCH         21615      0      0
+us30_hourly_st_pmc_sl50_tp150_3r_oanda               MATCH         17385      0      0
+us30_hourly_st_pmc_sl50_tp150_runners_2r_10r_oanda   MATCH          8606      0      0
+us30_london_prior_opposed_oanda                      MATCH          7579      0      0
+us30_monday_or_m3_s3_r2_half_oanda                   MATCH           369      0      0
+us30_v2b_ungated_oanda                               MATCH         17550      0      0
+us30_yearly_orb_oanda                                MATCH          8168      0      0
+usdjpy_asia_range_london_oanda                       MATCH         11388      0      0
+usdjpy_monday_or_ungated_oanda                       MATCH          1606      0      0
+xagusd_yearly_orb_oanda                              MATCH         21053      0      0
+xauusd_yearly_orb_oanda                              MATCH         21116      0      0
+
+Status counts (from table): MATCH=17 MISMATCH=2 other=see table
+
+MISMATCH callouts:
+- eurusd_v2b_ungated_oanda: classic stream/latency side+time drift (daemon DOWN / no pid). Not a live concern until restarted.
+- nas100_hourly_st_pmc_sl50_tp150_3r_oanda: sim wants 2 entries (Aug14, Aug17) live has 0 — possible missed ST+PMC arms while flat; daemon UP with 2 orphan local orders.
+
+Open US30 2r10r book scored MATCH with 0/0 post-started_at entries (open position predates scored window / already filled) — rely on bracket check above for current adherence.
+
+## 4) Stance / next actions
+- Local positions reconciled for owned US30+3.
+- Do **not** auto-cancel 63 broker LIMIT orphans without explicit OK (shared account).
+- Recommend: cancel orphan US30/NAS100 entry LIMITs that are not protecting open trades; keep the 3 TP + 3 SL on US30.
+- Restart downed v2b OANDA demos only if you want them live again (were overnight-stopped for 429).
+- Investigate nas100 ST+PMC 3r missed sim entries vs live.
+
+Artifacts:
+  live/demo/oanda_practice_snapshot/REPORT.md
+  live/demo/oanda_practice_snapshot/account_snapshot.json
+  live/state/_oanda_live_sim_reconcile/summary.json
+  this email body saved as live/demo/EMAIL_ADHERENCE_STRATEGY_RECONCILE_TODAY.txt

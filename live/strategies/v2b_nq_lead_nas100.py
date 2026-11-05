@@ -2,10 +2,16 @@
 
 ``strategy_type = v2b_nq_lead_nas100``
 
-- Lead campaigns are injected via ``config.nq_lead_campaigns`` (session-keyed).
+Legacy mode loads a finished book via ``config.nq_lead_campaigns`` (including
+later NQ exit times). Coupled mode (``coupled_stream``) does not. The replay
+driver calls ``ingest_coupled_event`` only after the NQ bar that produced the
+event is complete. Campaign payloads have entry geometry only; TP1/stop/EOD
+arrive later as milestone events.
+
 - Consumes **NAS100** 1m bars only (Engine single-instrument constraint).
-- Enters with a market order inside ``[t_nq - delta_early, t_nq + t_max]`` when
-  structure (mapped OR) passes; otherwise skips.
+- Enters with a market order inside the sync window when mapped OR passes.
+- Coupled window is anchored at bar-complete ``available_at_ts`` and cannot
+  start before that timestamp.
 - After entry, manages local CFD ``S_1_1_1`` scaleout / EOD (NQ gates entry only).
 
 Does not modify ``v2b_scaleout`` / standalone prior-opposed strategies.
@@ -43,6 +49,7 @@ class V2BNqLeadNas100Strategy(StrategyPlugin):
             "delta_early_seconds": 30,
             "nq_lead_campaigns": {},
             "record_sync_audit": True,
+            "coupled_stream": False,
         }
         try:
             self.config.update(json.loads(instance.config_json or "{}"))
@@ -117,11 +124,15 @@ class V2BNqLeadNas100Strategy(StrategyPlugin):
             prev_finished = list(state.get("finished_campaign_ids") or [])
             prev_trades = dict(state.get("trades") or {})
             prev_seq = int(state.get("trade_seq") or 0)
+            prev_coupled = dict(state.get("coupled_campaigns") or {})
+            prev_miles = dict(state.get("coupled_milestones") or {})
             state = self._fresh_session_state(session)
             state["sync_audit"] = prev_audit
             state["finished_campaign_ids"] = prev_finished
             state["trades"] = prev_trades
             state["trade_seq"] = prev_seq
+            state["coupled_campaigns"] = prev_coupled
+            state["coupled_milestones"] = prev_miles
 
         orders: List[OrderIntent] = []
         cancels: List[CancelIntent] = []
@@ -163,20 +174,40 @@ class V2BNqLeadNas100Strategy(StrategyPlugin):
             state["or_low"] = float(mapped_lo)
 
         t_nq = _parse_dt(str(campaign["t_nq_entry"]))
+        coupled = bool(self.config.get("coupled_stream"))
+        if coupled:
+            anchor = _parse_dt(str(campaign["available_at_ts"]))
+            # Strictly after the completed NQ bar. Equality is still that bar.
+            if dt <= anchor:
+                self._commit_state(state)
+                return StrategyActions.empty()
+            early = 0.0
+        else:
+            anchor = t_nq
+            early = float(self.config.get("delta_early_seconds") or 30)
         t_max = float(self.config.get("t_max_seconds") or 60)
-        early = float(self.config.get("delta_early_seconds") or 30)
-        window_start = t_nq - timedelta(seconds=early)
-        window_end = t_nq + timedelta(seconds=t_max)
+        window_start = anchor - timedelta(seconds=early)
+        window_end = anchor + timedelta(seconds=t_max)
 
         # Milestone: NQ already scaled/stopped before we can enter.
-        for key, reason in (("t_nq_tp1", "nq_already_scaled"), ("t_nq_stop", "nq_already_stopped")):
-            raw = campaign.get(key)
-            if not raw:
+        # Coupled mode only sees milestones the driver has already revealed.
+        for mile in self._known_milestones(state, campaign):
+            reason = {"tp1": "nq_already_scaled", "stop": "nq_already_stopped"}.get(
+                str(mile.get("milestone") or "")
+            )
+            if not reason:
                 continue
             try:
-                milestone = _parse_dt(str(raw))
+                milestone = _parse_dt(str(mile.get("t_nq") or ""))
             except Exception:
                 continue
+            avail_raw = mile.get("available_at_ts")
+            if avail_raw:
+                try:
+                    if dt <= _parse_dt(str(avail_raw)):
+                        continue
+                except Exception:
+                    continue
             if milestone <= dt and dt >= t_nq:
                 self._mark_skip(state, campaign, bar.ts, reason)
                 self._commit_state(state)
@@ -191,8 +222,8 @@ class V2BNqLeadNas100Strategy(StrategyPlugin):
             self._commit_state(state)
             return StrategyActions.empty()
 
-        # Time sync: |bar_ts - t_nq| <= T_max (also allow early side within delta_early).
-        delta_s = (dt - t_nq).total_seconds()
+        # Time sync vs the anchor (fill stamp in legacy mode, bar-complete in coupled mode).
+        delta_s = (dt - anchor).total_seconds()
         if abs(delta_s) > t_max and delta_s > 0:
             self._mark_skip(state, campaign, bar.ts, "sync_window_expired")
             self._commit_state(state)
@@ -241,6 +272,7 @@ class V2BNqLeadNas100Strategy(StrategyPlugin):
             "campaign_id": campaign["campaign_id"],
             "side": side,
             "t_nq": campaign["t_nq_entry"],
+            "available_at_ts": campaign.get("available_at_ts") or "",
             "t_nas": bar.ts,
             "entry_delta_seconds": delta_s,
             "state": "entered",
@@ -272,24 +304,95 @@ class V2BNqLeadNas100Strategy(StrategyPlugin):
             return px <= float(lo)
         return False
 
+    def ingest_coupled_event(self, event: Dict[str, Any]) -> None:
+        """Accept one NQ event that is already knowable. Refuses future exits on campaigns."""
+
+        if not self.config.get("coupled_stream"):
+            raise RuntimeError("ingest_coupled_event requires coupled_stream")
+        kind = str(event.get("kind") or "")
+        state = self._state()
+        if kind == "campaign":
+            clean = {
+                "campaign_id": event.get("campaign_id"),
+                "side": event.get("side"),
+                "t_nq_entry": event.get("t_nq_entry"),
+                "available_at_ts": event.get("available_at_ts"),
+                "p_nq_entry": event.get("p_nq_entry"),
+                "or_high_nq": event.get("or_high_nq"),
+                "or_low_nq": event.get("or_low_nq"),
+                "mapped_or_high": event.get("mapped_or_high"),
+                "mapped_or_low": event.get("mapped_or_low"),
+                "map_ratio": event.get("map_ratio"),
+                "p_nas_at_reveal": event.get("p_nas_at_reveal"),
+            }
+            session = str(event.get("session") or _parse_dt(str(clean["available_at_ts"])).date().isoformat())
+            bucket = dict(state.get("coupled_campaigns") or {})
+            rows = [
+                row
+                for row in list(bucket.get(session) or [])
+                if row.get("campaign_id") != clean["campaign_id"]
+            ]
+            rows.append(clean)
+            rows.sort(key=lambda row: str(row.get("available_at_ts") or ""))
+            bucket[session] = rows
+            state["coupled_campaigns"] = bucket
+        elif kind == "milestone":
+            cid = str(event.get("campaign_id") or "")
+            mile = {
+                "milestone": event.get("milestone"),
+                "t_nq": event.get("t_nq"),
+                "available_at_ts": event.get("available_at_ts"),
+            }
+            miles = dict(state.get("coupled_milestones") or {})
+            rows = list(miles.get(cid) or [])
+            rows.append(mile)
+            miles[cid] = rows
+            state["coupled_milestones"] = miles
+        else:
+            raise ValueError("unknown coupled event kind: %s" % kind)
+        self._commit_state(state)
+
+    def _session_campaigns(self, state: Dict[str, Any], session: str) -> List[Dict[str, Any]]:
+        if self.config.get("coupled_stream"):
+            return [dict(ev) for ev in (state.get("coupled_campaigns") or {}).get(session, [])]
+        return [dict(ev) for ev in (self.config.get("nq_lead_campaigns") or {}).get(session, [])]
+
+    def _known_milestones(self, state: Dict[str, Any], campaign: Dict[str, Any]) -> List[Dict[str, Any]]:
+        if self.config.get("coupled_stream"):
+            cid = str(campaign.get("campaign_id") or "")
+            return [dict(row) for row in (state.get("coupled_milestones") or {}).get(cid, [])]
+        out: List[Dict[str, Any]] = []
+        for key, name in (("t_nq_tp1", "tp1"), ("t_nq_stop", "stop")):
+            raw = campaign.get(key)
+            if raw:
+                out.append({"milestone": name, "t_nq": raw})
+        return out
+
+    def _sync_anchor(self, ev: Dict[str, Any]) -> datetime:
+        if self.config.get("coupled_stream") and ev.get("available_at_ts"):
+            return _parse_dt(str(ev["available_at_ts"]))
+        return _parse_dt(str(ev["t_nq_entry"]))
+
     def _active_or_next_campaign(self, state: Dict[str, Any], dt: datetime) -> Optional[Dict[str, Any]]:
         session = str(state.get("session_date") or dt.date().isoformat())
-        events = list((self.config.get("nq_lead_campaigns") or {}).get(session, []))
+        events = self._session_campaigns(state, session)
         done = set(state.get("finished_campaign_ids") or [])
         active_id = state.get("active_campaign_id")
         if active_id and state.get("nas_candidate_state") in {"pending", "pending_fill"}:
             for ev in events:
                 if ev.get("campaign_id") == active_id:
                     return dict(ev)
+        coupled = bool(self.config.get("coupled_stream"))
+        t_max = float(self.config.get("t_max_seconds") or 60)
+        grace = 0.0 if coupled else 120.0
         for ev in events:
             cid = ev.get("campaign_id")
             if cid in done:
                 continue
-            # Only consider campaigns whose window has not long expired before session start handling.
-            t_nq = _parse_dt(str(ev["t_nq_entry"]))
-            t_max = float(self.config.get("t_max_seconds") or 60)
-            if dt > t_nq + timedelta(seconds=t_max + 120) and cid not in done:
-                # Too late even to observe — mark skipped once.
+            anchor = self._sync_anchor(ev)
+            if coupled and dt <= anchor:
+                continue
+            if dt > anchor + timedelta(seconds=t_max + grace) and cid not in done:
                 self._mark_skip(state, ev, dt.isoformat(), "sync_window_expired")
                 continue
             state["active_campaign_id"] = cid
@@ -312,6 +415,7 @@ class V2BNqLeadNas100Strategy(StrategyPlugin):
                 "campaign_id": cid,
                 "side": campaign.get("side"),
                 "t_nq": campaign.get("t_nq_entry"),
+                "available_at_ts": campaign.get("available_at_ts") or "",
                 "t_nas": ts,
                 "entry_delta_seconds": None,
                 "state": "skipped",
@@ -327,7 +431,7 @@ class V2BNqLeadNas100Strategy(StrategyPlugin):
     def _skip_pending(self, state: Dict[str, Any], ts: str, reason: str) -> None:
         if state.get("nas_candidate_state") == "pending" and state.get("active_campaign_id"):
             session = str(state.get("session_date") or "")
-            for ev in (self.config.get("nq_lead_campaigns") or {}).get(session, []):
+            for ev in self._session_campaigns(state, session):
                 if ev.get("campaign_id") == state.get("active_campaign_id"):
                     self._mark_skip(state, ev, ts, reason)
                     return
@@ -554,6 +658,8 @@ class V2BNqLeadNas100Strategy(StrategyPlugin):
             "active_campaign_id": "",
             "nas_candidate_state": "",
             "finished_campaign_ids": [],
+            "coupled_campaigns": {},
+            "coupled_milestones": {},
             "sync_audit": [],
             "entry_delta_seconds": None,
             "last_skip_reason": "",

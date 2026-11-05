@@ -1,0 +1,722 @@
+{
+  "frozen_at": "2026-08-20T15:06:01Z",
+  "purpose": "Top-3 dedicated-account cutover: freeze shared-primary OANDA fleet performance before stop",
+  "primary_account": {
+    "fetched_at": "2026-08-20T15:06:01Z",
+    "account_id": "101-002-39860312-001",
+    "NAV": 99537.7494,
+    "balance": 99690.538,
+    "unrealizedPL": -152.7886,
+    "pl": -132.8532,
+    "openTradeCount": 1,
+    "pendingOrderCount": 1,
+    "openPositionCount": 1,
+    "open_trades": [
+      {
+        "id": "1941",
+        "instrument": "NAS100_USD",
+        "units": -3.0,
+        "unrealizedPL": -154.8759,
+        "price": 29267.4
+      }
+    ],
+    "pending_orders": [
+      {
+        "id": "1937",
+        "type": "STOP",
+        "instrument": "NAS100_USD",
+        "units": 3.0,
+        "price": 29400.0
+      }
+    ]
+  },
+  "oanda_demos": [
+    {
+      "demo": "audjpy_yearly_orb_oanda",
+      "alive": true,
+      "pid": 2402602,
+      "oanda_account_id": "101-002-39860312-002",
+      "strategy_id": "audjpy_yearly_orb_oanda",
+      "variant": null,
+      "started_at": "2026-08-18T15:43:10Z",
+      "n_fills_local": 0,
+      "last_progress": "[2026-08-20T11:05:53] heartbeat bars=7080 last_day=2026-08-19 open_positions=0 orders=0 routing=True",
+      "last_fills": []
+    },
+    {
+      "demo": "eurusd_hourly_st_pmc_sl50_tp150_3r_oanda",
+      "alive": true,
+      "pid": 2407745,
+      "oanda_account_id": "101-002-39860312-001",
+      "strategy_id": "eurusd_hourly_st_pmc_sl50_tp150_3r_oanda",
+      "variant": "sl50_tp150_3r",
+      "started_at": "2026-08-18T15:59:14Z",
+      "n_fills_local": 0,
+      "last_progress": "[2026-08-20T11:03:03] heartbeat ticks=121626 bars_1m=2687 bars_1h=47 orders=0 open_positions=0 oanda_fills=0 variant=sl50_tp150_3r",
+      "last_fills": []
+    },
+    {
+      "demo": "eurusd_hourly_st_pmc_sl50_tp150_runners_2r_10r_oanda",
+      "alive": true,
+      "pid": 2407818,
+      "oanda_account_id": "101-002-39860312-001",
+      "strategy_id": "eurusd_hourly_st_pmc_sl50_tp150_runners_2r_10r_oanda",
+      "variant": "sl50_tp150_runners_2r_half",
+      "started_at": "2026-08-18T15:59:16Z",
+      "n_fills_local": 0,
+      "last_progress": "[2026-08-20T11:01:47] heartbeat ticks=126484 bars_1m=2800 bars_1h=48 orders=0 open_positions=0 oanda_fills=0 variant=sl50_tp150_runners_2r_half",
+      "last_fills": []
+    },
+    {
+      "demo": "eurusd_yearly_orb_oanda",
+      "alive": true,
+      "pid": 2402737,
+      "oanda_account_id": "101-002-39860312-002",
+      "strategy_id": "eurusd_yearly_orb_oanda",
+      "variant": null,
+      "started_at": "2026-08-18T15:43:12Z",
+      "n_fills_local": 0,
+      "last_progress": "[2026-08-20T11:01:05] heartbeat bars=7264 last_day=2026-08-19 open_positions=0 orders=0 routing=True",
+      "last_fills": []
+    },
+    {
+      "demo": "nas100_hourly_st_pmc_sl50_tp150_3r_oanda",
+      "alive": true,
+      "pid": 2729659,
+      "oanda_account_id": "101-002-39860312-001",
+      "strategy_id": "nas100_hourly_st_pmc_sl50_tp150_3r_oanda",
+      "variant": "sl50_tp150_3r",
+      "started_at": "2026-08-19T18:00:35Z",
+      "n_fills_local": 8,
+      "last_progress": "[2026-08-20T11:02:23] heartbeat ticks=215759 bars_1m=1202 bars_1h=20 orders=0 open_positions=0 oanda_fills=0 variant=sl50_tp150_3r",
+      "last_fills": [
+        {
+          "ts": "2026-08-10T13:35:00.250863445Z",
+          "instrument": "NAS100",
+          "side": "buy",
+          "quantity": "1",
+          "price": "29632.3",
+          "reason": "entry",
+          "trade_id": "nas100_hourly_st_pmc_sl50_tp150_3r_oanda_t7"
+        },
+        {
+          "ts": "2026-08-10T13:35:27.455853980Z",
+          "instrument": "NAS100",
+          "side": "buy",
+          "quantity": "1",
+          "price": "29627.6",
+          "reason": "entry",
+          "trade_id": "nas100_hourly_st_pmc_sl50_tp150_3r_oanda_t6"
+        },
+        {
+          "ts": "2026-08-10T14:10:18.177113071Z",
+          "instrument": "NAS100",
+          "side": "buy",
+          "quantity": "1",
+          "price": "29777.8",
+          "reason": "entry",
+          "trade_id": "nas100_hourly_st_pmc_sl50_tp150_3r_oanda_t1"
+        },
+        {
+          "ts": "2026-08-10T23:55:04.979411876Z",
+          "instrument": "NAS100",
+          "side": "buy",
+          "quantity": "1",
+          "price": "29596.5",
+          "reason": "entry",
+          "trade_id": "nas100_hourly_st_pmc_sl50_tp150_3r_oanda_t5"
+        },
+        {
+          "ts": "2026-08-11T02:46:25.863599336Z",
+          "instrument": "NAS100",
+          "side": "buy",
+          "quantity": "1",
+          "price": "29747.5",
+          "reason": "entry",
+          "trade_id": "nas100_hourly_st_pmc_sl50_tp150_3r_oanda_t1"
+        },
+        {
+          "ts": "2026-08-11T16:25:26.431184236Z",
+          "instrument": "NAS100",
+          "side": "buy",
+          "quantity": "1",
+          "price": "29533.2",
+          "reason": "entry",
+          "trade_id": "nas100_hourly_st_pmc_sl50_tp150_3r_oanda_t4"
+        },
+        {
+          "ts": "2026-08-11T17:12:06.635970142Z",
+          "instrument": "NAS100",
+          "side": "buy",
+          "quantity": "1",
+          "price": "29500.0",
+          "reason": "entry",
+          "trade_id": "nas100_hourly_st_pmc_sl50_tp150_3r_oanda_t3"
+        },
+        {
+          "ts": "2026-08-11T18:29:51.773271456Z",
+          "instrument": "NAS100",
+          "side": "buy",
+          "quantity": "1",
+          "price": "29459.5",
+          "reason": "entry",
+          "trade_id": "nas100_hourly_st_pmc_sl50_tp150_3r_oanda_t2"
+        }
+      ]
+    },
+    {
+      "demo": "nas100_hourly_st_pmc_sl50_tp150_runners_2r_10r_oanda",
+      "alive": true,
+      "pid": 2407674,
+      "oanda_account_id": "101-002-39860312-001",
+      "strategy_id": "nas100_hourly_st_pmc_sl50_tp150_runners_2r_10r_oanda",
+      "variant": "sl50_tp150_runners_2r_10r",
+      "started_at": "2026-08-18T15:59:12Z",
+      "n_fills_local": 6,
+      "last_progress": "[2026-08-20T11:02:08] heartbeat ticks=498240 bars_1m=2703 bars_1h=46 orders=0 open_positions=0 oanda_fills=0 variant=sl50_tp150_runners_2r_10r",
+      "last_fills": [
+        {
+          "ts": "2026-08-10T14:10:18.177113071Z",
+          "instrument": "NAS100",
+          "side": "buy",
+          "quantity": "1",
+          "price": "29777.8",
+          "reason": "entry",
+          "trade_id": "nas100_hourly_st_pmc_sl50_tp150_runners_2r_10r_oanda_t8"
+        },
+        {
+          "ts": "2026-08-10T14:11:00.430393575Z",
+          "instrument": "NAS100",
+          "side": "buy",
+          "quantity": "1",
+          "price": "29784.0",
+          "reason": "runner_entry",
+          "trade_id": "nas100_hourly_st_pmc_sl50_tp150_runners_2r_10r_oanda_t8"
+        },
+        {
+          "ts": "2026-08-11T02:46:25.863599336Z",
+          "instrument": "NAS100",
+          "side": "buy",
+          "quantity": "1",
+          "price": "29747.5",
+          "reason": "entry",
+          "trade_id": "nas100_hourly_st_pmc_sl50_tp150_runners_2r_10r_oanda_t1"
+        },
+        {
+          "ts": "2026-08-11T18:29:54.422041656Z",
+          "instrument": "NAS100",
+          "side": "buy",
+          "quantity": "1",
+          "price": "29449.0",
+          "reason": "runner_entry",
+          "trade_id": "nas100_hourly_st_pmc_sl50_tp150_runners_2r_10r_oanda_t1"
+        },
+        {
+          "ts": "2026-08-12T02:49:01.460623288Z",
+          "instrument": "NAS100",
+          "side": "buy",
+          "quantity": "1",
+          "price": "29609.9",
+          "reason": "runner_entry_2",
+          "trade_id": "nas100_hourly_st_pmc_sl50_tp150_runners_2r_10r_oanda_t1"
+        },
+        {
+          "ts": "2026-08-12T22:25:26.589861448Z",
+          "instrument": "NAS100",
+          "side": "buy",
+          "quantity": "2",
+          "price": "29713.2",
+          "reason": "entry",
+          "trade_id": "nas100_hourly_st_pmc_sl50_tp150_runners_2r_10r_oanda_t1"
+        }
+      ]
+    },
+    {
+      "demo": "nas100_v2b_ungated_oanda",
+      "alive": true,
+      "pid": 2729869,
+      "oanda_account_id": "101-002-39860312-001",
+      "strategy_id": "nas100_v2b_ungated_oanda",
+      "variant": null,
+      "started_at": "2026-08-18T15:59:19Z",
+      "n_fills_local": 48,
+      "last_progress": "[2026-08-19T14:00:42] DAEMON spawned pid=2729869 run_log=live/demo/nas100_v2b_ungated_oanda/run.log",
+      "last_fills": [
+        {
+          "ts": "2026-08-10T14:11:00.430393575Z",
+          "instrument": "NAS100",
+          "side": "sell",
+          "quantity": "1",
+          "price": "29784.0",
+          "reason": "wide_stop",
+          "trade_id": "nas100_v2b_ungated_oanda_20260810_01"
+        },
+        {
+          "ts": "2026-08-10T20:02:01.981781808Z",
+          "instrument": "NAS100",
+          "side": "sell",
+          "quantity": "1",
+          "price": "29649.5",
+          "reason": "eod_close",
+          "trade_id": "nas100_v2b_ungated_oanda_20260810_01"
+        },
+        {
+          "ts": "2026-08-11T13:45:59.508338852Z",
+          "instrument": "NAS100",
+          "side": "sell",
+          "quantity": "3",
+          "price": "29585.6",
+          "reason": "entry",
+          "trade_id": "nas100_v2b_ungated_oanda_20260811_01"
+        },
+        {
+          "ts": "2026-08-11T18:29:54.422041656Z",
+          "instrument": "NAS100",
+          "side": "buy",
+          "quantity": "1",
+          "price": "29449.0",
+          "reason": "wide_stop",
+          "trade_id": "nas100_v2b_ungated_oanda_20260811_01"
+        },
+        {
+          "ts": "2026-08-11T20:01:31.695034581Z",
+          "instrument": "NAS100",
+          "side": "buy",
+          "quantity": "2",
+          "price": "29549.1",
+          "reason": "eod_close",
+          "trade_id": "nas100_v2b_ungated_oanda_20260811_01"
+        },
+        {
+          "ts": "2026-08-12T14:05:00.170658859Z",
+          "instrument": "NAS100",
+          "side": "sell",
+          "quantity": "3",
+          "price": "29765.7",
+          "reason": "entry",
+          "trade_id": "nas100_v2b_ungated_oanda_20260812_01"
+        },
+        {
+          "ts": "2026-08-12T20:00:04.088177884Z",
+          "instrument": "NAS100",
+          "side": "buy",
+          "quantity": "3",
+          "price": "29769.7",
+          "reason": "eod_close",
+          "trade_id": "nas100_v2b_ungated_oanda_20260812_01"
+        },
+        {
+          "ts": "2026-08-13T20:00:06.809439008Z",
+          "instrument": "NAS100",
+          "side": "sell",
+          "quantity": "3",
+          "price": "30112.4",
+          "reason": "eod_close",
+          "trade_id": "trade_5c1a0b0b121a"
+        }
+      ]
+    },
+    {
+      "demo": "spx500_v2b_ungated_oanda",
+      "alive": true,
+      "pid": 2408056,
+      "oanda_account_id": "101-002-39860312-001",
+      "strategy_id": "spx500_v2b_ungated_oanda",
+      "variant": null,
+      "started_at": "2026-08-18T15:59:21Z",
+      "n_fills_local": 60,
+      "last_progress": "[2026-08-20T11:05:36] heartbeat ticks_logged=29951 bars_persisted=2154 bars_engine=485 orders=0 open_positions=0 pos_qty=0 oanda_fills=0",
+      "last_fills": [
+        {
+          "ts": "2026-08-10T14:59:40.452614612Z",
+          "instrument": "SPX500",
+          "side": "sell",
+          "quantity": "2",
+          "price": "7761.9",
+          "reason": "runner_stop",
+          "trade_id": "spx500_v2b_ungated_oanda_20260810_02"
+        },
+        {
+          "ts": "2026-08-11T13:46:01.064598116Z",
+          "instrument": "SPX500",
+          "side": "sell",
+          "quantity": "3",
+          "price": "7756.6",
+          "reason": "entry",
+          "trade_id": "spx500_v2b_ungated_oanda_20260811_01"
+        },
+        {
+          "ts": "2026-08-11T16:48:08.589296212Z",
+          "instrument": "SPX500",
+          "side": "buy",
+          "quantity": "1",
+          "price": "7740.5",
+          "reason": "tp1",
+          "trade_id": "spx500_v2b_ungated_oanda_20260811_01"
+        },
+        {
+          "ts": "2026-08-11T18:29:54.302924515Z",
+          "instrument": "SPX500",
+          "side": "buy",
+          "quantity": "1",
+          "price": "7723.3",
+          "reason": "tp2",
+          "trade_id": "spx500_v2b_ungated_oanda_20260811_01"
+        },
+        {
+          "ts": "2026-08-11T20:01:31.123591306Z",
+          "instrument": "SPX500",
+          "side": "buy",
+          "quantity": "1",
+          "price": "7732.1",
+          "reason": "eod_close",
+          "trade_id": "spx500_v2b_ungated_oanda_20260811_01"
+        },
+        {
+          "ts": "2026-08-12T13:46:27.382116587Z",
+          "instrument": "SPX500",
+          "side": "sell",
+          "quantity": "3",
+          "price": "7751.4",
+          "reason": "entry",
+          "trade_id": "spx500_v2b_ungated_oanda_20260812_01"
+        },
+        {
+          "ts": "2026-08-12T20:00:03.525029313Z",
+          "instrument": "SPX500",
+          "side": "buy",
+          "quantity": "3",
+          "price": "7752.9",
+          "reason": "eod_close",
+          "trade_id": "spx500_v2b_ungated_oanda_20260812_01"
+        },
+        {
+          "ts": "2026-08-13T20:00:05.551609325Z",
+          "instrument": "SPX500",
+          "side": "sell",
+          "quantity": "3",
+          "price": "7806.7",
+          "reason": "eod_close",
+          "trade_id": "trade_a79e4b70120c"
+        }
+      ]
+    },
+    {
+      "demo": "us30_hourly_st_pmc_sl50_tp150_3r_oanda",
+      "alive": true,
+      "pid": 2407460,
+      "oanda_account_id": "101-002-39860312-001",
+      "strategy_id": "us30_hourly_st_pmc_sl50_tp150_3r_oanda",
+      "variant": "sl50_tp150_3r",
+      "started_at": "2026-08-18T15:59:05Z",
+      "n_fills_local": 5,
+      "last_progress": "[2026-08-20T11:04:21] heartbeat ticks=185147 bars_1m=2705 bars_1h=46 orders=0 open_positions=0 oanda_fills=0 variant=sl50_tp150_3r",
+      "last_fills": [
+        {
+          "ts": "2026-08-11T16:32:49.151898422Z",
+          "instrument": "US30",
+          "side": "buy",
+          "quantity": "1",
+          "price": "53891.4",
+          "reason": "entry",
+          "trade_id": "us30_hourly_st_pmc_sl50_tp150_3r_oanda_t10"
+        },
+        {
+          "ts": "2026-08-11T16:32:49.151898422Z",
+          "instrument": "US30",
+          "side": "buy",
+          "quantity": "1",
+          "price": "53891.4",
+          "reason": "entry",
+          "trade_id": "us30_hourly_st_pmc_sl50_tp150_3r_oanda_t11"
+        },
+        {
+          "ts": "2026-08-11T18:29:56.049768514Z",
+          "instrument": "US30",
+          "side": "buy",
+          "quantity": "1",
+          "price": "53833.3",
+          "reason": "entry",
+          "trade_id": "us30_hourly_st_pmc_sl50_tp150_3r_oanda_t8"
+        },
+        {
+          "ts": "2026-08-11T18:29:56.049768514Z",
+          "instrument": "US30",
+          "side": "buy",
+          "quantity": "1",
+          "price": "53833.3",
+          "reason": "entry",
+          "trade_id": "us30_hourly_st_pmc_sl50_tp150_3r_oanda_t9"
+        },
+        {
+          "ts": "2026-08-11T18:29:56.561835202Z",
+          "instrument": "US30",
+          "side": "buy",
+          "quantity": "1",
+          "price": "53832.3",
+          "reason": "entry",
+          "trade_id": "us30_hourly_st_pmc_sl50_tp150_3r_oanda_t7"
+        }
+      ]
+    },
+    {
+      "demo": "us30_hourly_st_pmc_sl50_tp150_runners_2r_10r_oanda",
+      "alive": true,
+      "pid": 2407532,
+      "oanda_account_id": "101-002-39860312-001",
+      "strategy_id": "us30_hourly_st_pmc_sl50_tp150_runners_2r_10r_oanda",
+      "variant": "sl50_tp150_runners_2r_10r",
+      "started_at": "2026-08-18T15:59:08Z",
+      "n_fills_local": 8,
+      "last_progress": "[2026-08-20T11:02:06] heartbeat ticks=143150 bars_1m=2315 bars_1h=41 orders=0 open_positions=0 oanda_fills=0 variant=sl50_tp150_runners_2r_10r",
+      "last_fills": [
+        {
+          "ts": "2026-08-11T19:56:47.655745093Z",
+          "instrument": "US30",
+          "side": "buy",
+          "quantity": "1",
+          "price": "53783.8",
+          "reason": "entry",
+          "trade_id": "us30_hourly_st_pmc_sl50_tp150_runners_2r_10r_oanda_t1"
+        },
+        {
+          "ts": "2026-08-11T19:56:47.655745093Z",
+          "instrument": "US30",
+          "side": "buy",
+          "quantity": "1",
+          "price": "53783.8",
+          "reason": "runner_entry",
+          "trade_id": "us30_hourly_st_pmc_sl50_tp150_runners_2r_10r_oanda_t1"
+        },
+        {
+          "ts": "2026-08-11T19:58:07.561937951Z",
+          "instrument": "US30",
+          "side": "buy",
+          "quantity": "1",
+          "price": "53781.8",
+          "reason": "runner_entry_2",
+          "trade_id": "us30_hourly_st_pmc_sl50_tp150_runners_2r_10r_oanda_t1"
+        },
+        {
+          "ts": "2026-08-11T19:59:39.692830429Z",
+          "instrument": "US30",
+          "side": "buy",
+          "quantity": "1",
+          "price": "53779.3",
+          "reason": "entry",
+          "trade_id": "us30_hourly_st_pmc_sl50_tp150_runners_2r_10r_oanda_t18"
+        },
+        {
+          "ts": "2026-08-11T19:59:39.692830429Z",
+          "instrument": "US30",
+          "side": "buy",
+          "quantity": "1",
+          "price": "53779.3",
+          "reason": "runner_entry",
+          "trade_id": "us30_hourly_st_pmc_sl50_tp150_runners_2r_10r_oanda_t18"
+        },
+        {
+          "ts": "2026-08-11T19:59:39.692830429Z",
+          "instrument": "US30",
+          "side": "buy",
+          "quantity": "1",
+          "price": "53779.3",
+          "reason": "runner_entry_2",
+          "trade_id": "us30_hourly_st_pmc_sl50_tp150_runners_2r_10r_oanda_t18"
+        },
+        {
+          "ts": "2026-08-12T12:26:27.028845506Z",
+          "instrument": "US30",
+          "side": "buy",
+          "quantity": "1",
+          "price": "53931.5",
+          "reason": "entry",
+          "trade_id": "us30_hourly_st_pmc_sl50_tp150_runners_2r_10r_oanda_t2"
+        },
+        {
+          "ts": "2026-08-12T22:25:26.545220228Z",
+          "instrument": "US30",
+          "side": "buy",
+          "quantity": "2",
+          "price": "53813.7",
+          "reason": "entry",
+          "trade_id": "us30_hourly_st_pmc_sl50_tp150_runners_2r_10r_oanda_t1"
+        }
+      ]
+    },
+    {
+      "demo": "us30_london_prior_opposed_oanda",
+      "alive": true,
+      "pid": 2407390,
+      "oanda_account_id": "101-002-39860312-001",
+      "strategy_id": "us30_london_prior_opposed_S_1_0_0_qtr_oanda",
+      "variant": null,
+      "started_at": "2026-08-18T15:59:04Z",
+      "n_fills_local": 0,
+      "last_progress": "[2026-08-20T11:05:02] heartbeat ticks=0 bars=1080 st_injects=0 orders=0 position_qty=0 size_mult=0.25",
+      "last_fills": []
+    },
+    {
+      "demo": "us30_monday_or_m3_s3_r2_half_oanda",
+      "alive": true,
+      "pid": 2407920,
+      "oanda_account_id": "101-002-39860312-001",
+      "strategy_id": "us30_monday_or_m3_s3_r2_half_oanda",
+      "variant": "M3_S3_R2",
+      "started_at": "2026-08-18T15:59:18Z",
+      "n_fills_local": 1,
+      "last_progress": "[2026-08-20T11:05:31] containment bracket_watchdog class=orphan_protective actions=detect:orphan_protective,shadow_would_cancel_orphan_protectives shadow=True",
+      "last_fills": [
+        {
+          "ts": "2026-08-18T04:45:09.359532384Z",
+          "instrument": "US30",
+          "side": "sell",
+          "quantity": "1",
+          "price": "53414.1",
+          "reason": "entry",
+          "trade_id": "trade_828120345fd2"
+        }
+      ]
+    },
+    {
+      "demo": "us30_yearly_orb_oanda",
+      "alive": true,
+      "pid": 2402873,
+      "oanda_account_id": "101-002-39860312-002",
+      "strategy_id": "us30_yearly_orb_oanda",
+      "variant": null,
+      "started_at": "2026-08-18T15:43:14Z",
+      "n_fills_local": 0,
+      "last_progress": "[2026-08-20T11:03:12] heartbeat bars=2727 last_day=2026-08-19 open_positions=0 orders=0 routing=True",
+      "last_fills": []
+    },
+    {
+      "demo": "usdjpy_asia_range_london_oanda",
+      "alive": true,
+      "pid": 2407313,
+      "oanda_account_id": "101-002-39860312-001",
+      "strategy_id": "usdjpy_asia_range_london_S_3_1_3_flt_oanda",
+      "variant": "skip_months+roll50_wr40_pf1",
+      "started_at": "2026-08-18T15:59:01Z",
+      "n_fills_local": 0,
+      "last_progress": "[2026-08-20T11:04:46] heartbeat ticks=156299 bars_1m=1880 orders=0 open_positions=0 asia_bars=0 book=S_3_1_3",
+      "last_fills": []
+    },
+    {
+      "demo": "usdjpy_monday_or_ungated_oanda",
+      "alive": true,
+      "pid": 2407231,
+      "oanda_account_id": "101-002-39860312-001",
+      "strategy_id": "usdjpy_monday_or_ungated_oanda",
+      "variant": "M2_S3_R1",
+      "started_at": "2026-08-18T15:58:57Z",
+      "n_fills_local": 15,
+      "last_progress": "[2026-08-20T11:05:03] heartbeat ticks=230273 bars_1m=2811 bars_15m=189 orders=0 open_positions=0 oanda_fills=0 tag=M2_S3_R1",
+      "last_fills": [
+        {
+          "ts": "2026-07-29T18:00:01.085885986Z",
+          "instrument": "USDJPY",
+          "side": "sell",
+          "quantity": "1",
+          "price": "163.738",
+          "reason": "dd30",
+          "trade_id": "trade_9617b61a3485"
+        },
+        {
+          "ts": "2026-07-29T18:00:01.651037094Z",
+          "instrument": "USDJPY",
+          "side": "sell",
+          "quantity": "2",
+          "price": "163.594",
+          "reason": "dd50",
+          "trade_id": "trade_9617b61a3485"
+        },
+        {
+          "ts": "2026-07-29T19:00:00.306447415Z",
+          "instrument": "USDJPY",
+          "side": "sell",
+          "quantity": "4",
+          "price": "163.308",
+          "reason": "entry",
+          "trade_id": "trade_1cf06df948df"
+        },
+        {
+          "ts": "2026-07-29T19:32:34.937478002Z",
+          "instrument": "USDJPY",
+          "side": "buy",
+          "quantity": "2",
+          "price": "163.462",
+          "reason": "dd30",
+          "trade_id": "trade_1cf06df948df"
+        },
+        {
+          "ts": "2026-07-29T20:15:49.405909833Z",
+          "instrument": "USDJPY",
+          "side": "buy",
+          "quantity": "2",
+          "price": "163.564",
+          "reason": "dd50",
+          "trade_id": "trade_1cf06df948df"
+        },
+        {
+          "ts": "2026-08-04T07:15:03.622992863Z",
+          "instrument": "USDJPY",
+          "side": "buy",
+          "quantity": "3",
+          "price": "157.757",
+          "reason": "entry",
+          "trade_id": "trade_659016c13e76"
+        },
+        {
+          "ts": "2026-08-04T12:06:15.635274892Z",
+          "instrument": "USDJPY",
+          "side": "sell",
+          "quantity": "1",
+          "price": "157.305",
+          "reason": "dd30",
+          "trade_id": "trade_659016c13e76"
+        },
+        {
+          "ts": "2026-08-07T12:34:42.489451932Z",
+          "instrument": "USDJPY",
+          "side": "sell",
+          "quantity": "2",
+          "price": "156.993",
+          "reason": "dd50",
+          "trade_id": "trade_659016c13e76"
+        }
+      ]
+    },
+    {
+      "demo": "xagusd_yearly_orb_oanda",
+      "alive": true,
+      "pid": 2402806,
+      "oanda_account_id": "101-002-39860312-002",
+      "strategy_id": "xagusd_yearly_orb_oanda",
+      "variant": null,
+      "started_at": "2026-08-18T15:43:13Z",
+      "n_fills_local": 0,
+      "last_progress": "[2026-08-20T11:02:59] heartbeat bars=7142 last_day=2026-08-19 open_positions=0 orders=0 routing=True",
+      "last_fills": []
+    },
+    {
+      "demo": "xauusd_yearly_orb_oanda",
+      "alive": true,
+      "pid": 2402668,
+      "oanda_account_id": "101-002-39860312-002",
+      "strategy_id": "xauusd_yearly_orb_oanda",
+      "variant": null,
+      "started_at": "2026-08-18T15:43:11Z",
+      "n_fills_local": 0,
+      "last_progress": "[2026-08-20T11:05:52] heartbeat bars=7228 last_day=2026-08-19 open_positions=0 orders=0 routing=True",
+      "last_fills": []
+    }
+  ],
+  "planned_keep": {
+    "us30_hourly_st_pmc_sl50_tp150_3r_oanda": "101-002-39860312-003",
+    "nas100_hourly_st_pmc_sl50_tp150_runners_2r_10r_oanda": "101-002-39860312-004",
+    "usdjpy_monday_or_ungated_oanda": "101-002-39860312-005"
+  },
+  "primary_dormant": "101-002-39860312-001",
+  "token_access_note": "Current OANDA_TOKEN lists -003/-004/-005 but GET returns 403; need regenerated practice token before restart on dedicated accounts."
+}

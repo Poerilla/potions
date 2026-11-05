@@ -1,0 +1,5 @@
+strategy_book,feature,feature_value,coverage,size_multiplier,filter_or_sizeup,causal_eligibility
+gbpusd_first_lower,ATR14 quartile,atr_q4,0.2549019607843137,1.25,sizeup,needs_rolling_proxy
+gbpusd_first_lower,Day of week,Monday,0.29411764705882354,1.25,sizeup,live_ready
+gbpusd_first_lower,Week of month,3,0.11764705882352941,1.25,sizeup,live_ready
+gbpusd_first_lower,Entry hour (NY),12,0.17647058823529413,1.25,sizeup,live_ready

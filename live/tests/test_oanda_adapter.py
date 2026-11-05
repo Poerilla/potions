@@ -206,6 +206,44 @@ def test_oanda_broker_blocks_live_routing_without_flag():
         tmp.cleanup()
 
 
+def test_oanda_rejection_response_sends_immediate_resend_alarm(monkeypatch):
+    tmp, store = make_store()
+    sent = []
+    try:
+        monkeypatch.setattr(
+            "potions.live.notify_email.send_resend_email",
+            lambda **kwargs: sent.append(kwargs) or "ops@example.com",
+        )
+        broker = OandaBroker(store, config=OandaConfig(env="practice", account_id="demo-003"))
+        response = {
+            "orderRejectTransaction": {
+                "id": "reject-42",
+                "type": "MARKET_ORDER_REJECT",
+                "rejectReason": "INSUFFICIENT_MARGIN",
+            }
+        }
+        broker._emit_order_event(
+            {
+                "event": "network_order_response",
+                "action": "create",
+                "order_ref": "ord_42",
+                "response": response,
+            }
+        )
+        # Explicit create-path rejection emission is deduplicated by transaction id.
+        broker._emit_order_event(
+            {"event": "order_rejected", "order_ref": "ord_42", "reject": response["orderRejectTransaction"]}
+        )
+        assert len(sent) == 1
+        assert "HARD ALARM" in sent[0]["subject"]
+        assert "INSUFFICIENT_MARGIN" in sent[0]["subject"]
+        event_path = Path(tmp.name) / "events" / "reconciliation_events.jsonl"
+        events = [json.loads(line) for line in event_path.read_text(encoding="utf-8").splitlines()]
+        assert any(e.get("event") == "broker_rejection_alarm_sent" for e in events)
+    finally:
+        tmp.cleanup()
+
+
 def test_oanda_go_flat_cancels_and_emits_close_payloads():
     tmp, store = make_store()
     try:
@@ -278,6 +316,129 @@ def test_apply_account_changes_returns_fills_and_writes_fills_csv():
         assert fills[0].reason == "entry"
         assert broker.last_transaction_id == "42"
         assert (Path(tmp.name) / "fills.csv").exists()
+    finally:
+        tmp.cleanup()
+
+
+def test_apply_account_changes_orders_filled_before_fill_tx_still_returns_fill():
+    """ordersFilled status must not swallow the subsequent FILL transaction.
+
+    Regression: clean-break trail 2026-09-01 left a naked NAS100 on -003 because
+    apply_account_changes marked the local order filled from ordersFilled, then
+    ignored the ORDER_FILL (fill_ignored_terminal_local / fill_unmatched).
+    """
+    tmp, store = make_store()
+    try:
+        config = OandaConfig(env="practice", account_id="101-002-39860312-001")
+        broker = OandaBroker(store, config=config, allow_live_routing=False)
+        intent = OrderIntent.create(
+            strategy_id="s1",
+            trade_id="t1",
+            instrument="NAS100",
+            account_mode="paper",
+            side="buy",
+            order_type="stop",
+            quantity=1,
+            stop_price=29100.5,
+            reason="entry",
+            bracket_role="entry",
+            requires_verification=False,
+        )
+        order = broker.submit_order_intent(intent)
+        fills = broker.apply_account_changes(
+            {
+                "lastTransactionID": "106",
+                "changes": {
+                    "ordersFilled": [
+                        {
+                            "id": "105",
+                            "clientExtensions": {"id": order.broker_order_id, "tag": "s1"},
+                            "state": "FILLED",
+                            "units": "1.0",
+                            "instrument": "NAS100_USD",
+                            "fillingTransactionID": "106",
+                        }
+                    ],
+                    "tradesOpened": [
+                        {
+                            "id": "106",
+                            "instrument": "NAS100_USD",
+                            "currentUnits": "1.0",
+                            "price": "29100.8",
+                            "state": "OPEN",
+                        }
+                    ],
+                    "transactions": [
+                        {
+                            "type": "ORDER_FILL",
+                            "id": "106",
+                            "orderID": "105",
+                            "clientOrderID": order.broker_order_id,
+                            "units": "1.0",
+                            "price": "29100.8",
+                            "instrument": "NAS100_USD",
+                            "time": "2026-09-01T13:47:41.037447253Z",
+                            "tradeOpened": {"tradeID": "106", "units": "1.0", "price": "29100.8"},
+                        }
+                    ],
+                },
+            }
+        )
+        assert len(fills) == 1
+        assert fills[0].quantity == 1
+        assert fills[0].price == 29100.8
+        assert fills[0].reason == "entry"
+        rows = store.read_table("fills")
+        assert any(r.get("fill_id") == "106" for r in rows)
+        assert broker._get_order(order.broker_order_id).status == "filled"
+    finally:
+        tmp.cleanup()
+
+
+def test_on_fill_recovers_when_local_already_marked_filled_without_fills_csv():
+    tmp, store = make_store()
+    try:
+        config = OandaConfig(env="practice", account_id="101-002-39860312-001")
+        broker = OandaBroker(store, config=config, allow_live_routing=False)
+        intent = OrderIntent.create(
+            strategy_id="s1",
+            trade_id="t1",
+            instrument="NAS100",
+            account_mode="paper",
+            side="buy",
+            order_type="stop",
+            quantity=1,
+            stop_price=29100.5,
+            reason="entry",
+            bracket_role="entry",
+            requires_verification=False,
+        )
+        order = broker.submit_order_intent(intent)
+        # Simulate the old bug: status updated to filled with no fills.csv row.
+        broker.on_order_status(
+            {
+                "type": "order_status",
+                "id": "105",
+                "clientExtensions": {"id": order.broker_order_id},
+                "state": "FILLED",
+                "units": "1.0",
+            }
+        )
+        assert broker._get_order(order.broker_order_id).status == "filled"
+        assert store.read_table("fills") == []
+        fill = broker.on_fill(
+            {
+                "type": "fill",
+                "id": "106",
+                "orderID": "105",
+                "clientOrderID": order.broker_order_id,
+                "units": "1.0",
+                "price": "29100.8",
+            }
+        )
+        assert fill.fill_id == "106"
+        assert fill.quantity == 1
+        assert any(r.get("fill_id") == "106" for r in store.read_table("fills"))
     finally:
         tmp.cleanup()
 

@@ -1,7 +1,7 @@
-# USDJPY FBO 1/1/3 atr80 — trade months
+# USDJPY FBO 1/1/3 atr80 — trade months (4h candles)
 
 Ignore first OR break → arm opposite. Promoted ladder 1@0.25R / 1@1R / 3@2R; BE after TP25; close-SL; atr80 filter.
-Markers: entry (^/v), tp1, tp2, tp3 (*), close (x).
+Markers: entry (^/v), tp1, tp2, tp3 (*), close (x). Legend: lower right.
 
 | Month | Entries | Chart |
 |---|---:|---|

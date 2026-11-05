@@ -8,7 +8,7 @@ from __future__ import annotations
 
 import csv
 from collections import defaultdict
-from datetime import date, datetime
+from datetime import date, datetime, timedelta
 from pathlib import Path
 from typing import Any, Dict, List, Mapping, Optional, Tuple
 
@@ -17,6 +17,9 @@ import pytz
 
 NY = pytz.timezone("America/New_York")
 NQ_TICK = 0.25
+# NQ fills are stamped with the left-labeled 1m bar. That bar is complete one
+# minute later; the follower may use the event only on a strictly later NAS bar.
+BAR_COMPLETE = timedelta(minutes=1)
 
 
 def _to_ny(ts: Any) -> datetime:
@@ -193,6 +196,98 @@ def _nas_mid_at(day_bars: Optional[pd.DataFrame], t_nq: datetime) -> Optional[fl
         pos = len(day_bars) - 1
     row = day_bars.iloc[pos]
     return float(row["close"])
+
+
+def bar_complete_ts(fill_ts: datetime) -> datetime:
+    """Wall time when a left-labeled 1m fill bar is finished."""
+
+    return _to_ny(fill_ts) + BAR_COMPLETE
+
+
+def build_coupled_nq_stream(
+    nq_state_root: Path,
+    *,
+    strategy_id: str = "nq_v2b_prior_opposed_stpmc_only_S_1_1_3",
+    start: Optional[date] = None,
+    end: Optional[date] = None,
+) -> List[Dict[str, Any]]:
+    """Point-in-time NQ events for a coupled NAS100 replay.
+
+    Campaign rows carry entry side, price, and OR only. They become eligible
+    at ``available_at_ts`` (entry bar complete). TP1 / stop / EOD are separate
+    milestone rows at each exit bar's completion — they are not attached to
+    the campaign ahead of time.
+
+    Pass the hour-complete resting-limit book, not the left-label fill-stamp book.
+    """
+
+    campaigns = load_nq_lead_campaigns(
+        nq_state_root, strategy_id=strategy_id, start=start, end=end
+    )
+    events: List[Dict[str, Any]] = []
+    for session, rows in campaigns.items():
+        for ev in rows:
+            entry = _parse_ny_iso(str(ev["t_nq_entry"]))
+            events.append(
+                {
+                    "kind": "campaign",
+                    "session": session,
+                    "available_at_ts": bar_complete_ts(entry).isoformat(),
+                    "campaign_id": ev["campaign_id"],
+                    "side": ev["side"],
+                    "t_nq_entry": entry.isoformat(),
+                    "p_nq_entry": float(ev["p_nq_entry"]),
+                    "or_high_nq": float(ev["or_high_nq"]),
+                    "or_low_nq": float(ev["or_low_nq"]),
+                }
+            )
+            for key, milestone in (
+                ("t_nq_tp1", "tp1"),
+                ("t_nq_stop", "stop"),
+                ("t_nq_eod", "eod"),
+            ):
+                raw = ev.get(key)
+                if not raw:
+                    continue
+                exit_ts = _parse_ny_iso(str(raw))
+                events.append(
+                    {
+                        "kind": "milestone",
+                        "session": session,
+                        "available_at_ts": bar_complete_ts(exit_ts).isoformat(),
+                        "campaign_id": ev["campaign_id"],
+                        "milestone": milestone,
+                        "t_nq": exit_ts.isoformat(),
+                    }
+                )
+    events.sort(
+        key=lambda e: (
+            e["available_at_ts"],
+            0 if e["kind"] == "campaign" else 1,
+            str(e.get("campaign_id") or ""),
+            str(e.get("milestone") or ""),
+        )
+    )
+    return events
+
+
+def map_campaign_at_reveal(event: Mapping[str, Any], nas_px: Optional[float]) -> Dict[str, Any]:
+    """Freeze mapped OR from the last NAS close already known at reveal time."""
+
+    ev = dict(event)
+    p_nq = float(ev.get("p_nq_entry") or 0.0)
+    if nas_px is None or p_nq <= 0 or ev.get("or_high_nq") is None or ev.get("or_low_nq") is None:
+        ev["mapped_or_high"] = None
+        ev["mapped_or_low"] = None
+        ev["map_ratio"] = None
+        ev["p_nas_at_reveal"] = None
+        return ev
+    ratio = float(nas_px) / p_nq
+    ev["map_ratio"] = ratio
+    ev["mapped_or_high"] = float(ev["or_high_nq"]) * ratio
+    ev["mapped_or_low"] = float(ev["or_low_nq"]) * ratio
+    ev["p_nas_at_reveal"] = float(nas_px)
+    return ev
 
 
 def campaigns_for_json(campaigns_by_session: Dict[str, List[Dict[str, Any]]]) -> Dict[str, List[Dict[str, Any]]]:

@@ -1,0 +1,5 @@
+strategy_book,feature,feature_value,coverage,size_multiplier,filter_or_sizeup,causal_eligibility
+mnq_chop20_boundary60_1m,Week of month,3,0.2903225806451613,1.25,sizeup,live_ready
+mnq_chop20_boundary60_1m,Hourly RSI vs trade,rsi_with_side,0.7096774193548387,1.25,sizeup,live_ready
+mnq_chop20_boundary60_1m,Day of week,Monday,0.2903225806451613,1.25,sizeup,live_ready
+mnq_chop20_boundary60_1m,Hourly OBV vs trade,obv_aligned,0.6774193548387096,1.25,sizeup,live_ready

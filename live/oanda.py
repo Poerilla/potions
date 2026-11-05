@@ -973,6 +973,7 @@ class OandaBroker(BaseBroker):
         self._account_trades_cache: List[Dict[str, Any]] = []
         self._account_trades_cache_at: float = 0.0
         self._cross_book_cache_ttl_s: float = 30.0
+        self._alerted_rejection_keys: Set[str] = set()
 
     def display_precision_for(self, instrument: str) -> int:
         key = str(instrument or "").upper()
@@ -1644,6 +1645,27 @@ class OandaBroker(BaseBroker):
         if hasattr(changes, "dict"):
             changes = changes.dict()
         fills: List[Fill] = []
+        # FILL transactions first. OANDA often includes the same fill in both
+        # ordersFilled (status=FILLED) and transactions. If we mark the local
+        # order filled from ordersFilled first, on_fill raises terminal-local
+        # and the Engine never sees the fill (naked broker position + armed
+        # plugin) — clean-break trail 2026-09-01 on -003.
+        for raw_fill in changes.get("transactions") or []:
+            if hasattr(raw_fill, "dict"):
+                raw_fill = raw_fill.dict()
+            if str(raw_fill.get("type") or "").endswith("FILL") or raw_fill.get("type") in {"ORDER_FILL", "MarketOrderFill"}:
+                fill_id = str(raw_fill.get("id") or raw_fill.get("fill_id") or "")
+                if fill_id and any(f.fill_id == fill_id for f in self._pending_fills):
+                    continue
+                # Skip if already mirrored into fills.csv (e.g. from create response).
+                if fill_id:
+                    existing = [r for r in self.store.read_table("fills") if r.get("fill_id") == fill_id]
+                    if existing:
+                        continue
+                try:
+                    fills.append(self.on_fill(dict(raw_fill, type="fill")))
+                except KeyError:
+                    self._emit_order_event({"event": "fill_unmatched", **dict(raw_fill)})
         for key in ("ordersCreated", "ordersFilled", "ordersCancelled", "ordersTriggered"):
             for raw_order in changes.get(key) or []:
                 if hasattr(raw_order, "dict"):
@@ -1663,22 +1685,6 @@ class OandaBroker(BaseBroker):
                 inst = self.config.internal_for(str(raw_trade.get("instrument") or "")).upper()
                 if inst in self._position_scope_instruments:
                     closed_scoped.add(inst)
-        for raw_fill in changes.get("transactions") or []:
-            if hasattr(raw_fill, "dict"):
-                raw_fill = raw_fill.dict()
-            if str(raw_fill.get("type") or "").endswith("FILL") or raw_fill.get("type") in {"ORDER_FILL", "MarketOrderFill"}:
-                fill_id = str(raw_fill.get("id") or raw_fill.get("fill_id") or "")
-                if fill_id and any(f.fill_id == fill_id for f in self._pending_fills):
-                    continue
-                # Skip if already mirrored into fills.csv (e.g. from create response).
-                if fill_id:
-                    existing = [r for r in self.store.read_table("fills") if r.get("fill_id") == fill_id]
-                    if existing:
-                        continue
-                try:
-                    fills.append(self.on_fill(dict(raw_fill, type="fill")))
-                except KeyError:
-                    self._emit_order_event({"event": "fill_unmatched", **dict(raw_fill)})
         # Broker-linked SL/TP fills often cannot match a local order id (stopLossOnFill).
         # Without this, strategy-owned position rows ghost after the broker is flat —
         # heartbeats show open_positions>0 with orders=0 until the next full reconcile.
@@ -2019,19 +2025,37 @@ class OandaBroker(BaseBroker):
             # sibling fills to the wrong resting order (false local fill → remote orphan).
             raise KeyError("fill missing client order id")
         order = self._get_order(broker_order_id)
+        fill_id = str(event.get("fill_id") or event.get("id") or "")
         if order.status in {"cancelled", "filled", "rejected"}:
+            # Recover when ordersFilled marked us filled before the FILL tx was
+            # applied (no fills.csv row yet). Cancelled/rejected stay hard ignores.
+            already = False
+            has_local_fill = False
+            if fill_id and order.status == "filled":
+                local_fills = self.store.read_table("fills")
+                already = any(r.get("fill_id") == fill_id for r in local_fills)
+                has_local_fill = any(r.get("broker_order_id") == broker_order_id for r in local_fills)
+            if order.status != "filled" or already or has_local_fill or not fill_id:
+                self._emit_order_event(
+                    {
+                        "event": "fill_ignored_terminal_local",
+                        "broker_order_id": broker_order_id,
+                        "local_status": order.status,
+                        "oanda_order_id": str(event.get("orderID") or event.get("order_id") or ""),
+                        "fill_id": fill_id,
+                        "price": event.get("price") or event.get("fillPrice"),
+                        "units": event.get("units") or event.get("quantity"),
+                    }
+                )
+                raise KeyError("fill for terminal local order %s" % broker_order_id)
             self._emit_order_event(
                 {
-                    "event": "fill_ignored_terminal_local",
+                    "event": "fill_recovered_after_terminal_status",
                     "broker_order_id": broker_order_id,
                     "local_status": order.status,
-                    "oanda_order_id": str(event.get("orderID") or event.get("order_id") or ""),
-                    "fill_id": str(event.get("fill_id") or event.get("id") or ""),
-                    "price": event.get("price") or event.get("fillPrice"),
-                    "units": event.get("units") or event.get("quantity"),
+                    "fill_id": fill_id,
                 }
             )
-            raise KeyError("fill for terminal local order %s" % broker_order_id)
         units = event.get("units") or event.get("quantity") or event.get("fillQty") or order.remaining_quantity
         quantity = abs(int(float(units)))
         price = float(event.get("price") or event.get("fillPrice") or event.get("averagePrice") or event.get("pl") or 0)
@@ -2229,7 +2253,90 @@ class OandaBroker(BaseBroker):
             raise
 
     def _emit_order_event(self, event: Dict[str, Any]) -> None:
-        self.store.append_event("oanda_order_events", _jsonable(event))
+        clean = _jsonable(event)
+        self.store.append_event("oanda_order_events", clean)
+        if str(clean.get("event") or "") == "network_order_response":
+            response = clean.get("response") or {}
+            if isinstance(response, dict):
+                for reject in self._rejections_from_response(response):
+                    rejection_event = {
+                        "event": "order_rejected",
+                        "action": clean.get("action") or "unknown",
+                        "order_ref": clean.get("order_ref") or clean.get("broker_order_id") or "",
+                        "reject": reject,
+                    }
+                    self.store.append_event("oanda_order_events", rejection_event)
+                    self._send_rejection_alarm(rejection_event)
+        elif str(clean.get("event") or "") == "order_rejected":
+            self._send_rejection_alarm(clean)
+
+    @staticmethod
+    def _rejections_from_response(response: Dict[str, Any]) -> List[Dict[str, Any]]:
+        out: List[Dict[str, Any]] = []
+        for key, value in response.items():
+            if not isinstance(value, dict):
+                continue
+            tx_type = str(value.get("type") or "").upper()
+            if "REJECT" in str(key).upper() or tx_type.endswith("REJECT"):
+                out.append(dict(value, response_key=str(key)))
+        return out
+
+    def _send_rejection_alarm(self, event: Dict[str, Any]) -> None:
+        reject = event.get("reject") or {}
+        if not isinstance(reject, dict):
+            reject = {"raw": reject}
+        tx_id = str(reject.get("id") or reject.get("transactionID") or "")
+        key = tx_id or json.dumps(reject, sort_keys=True, default=str)
+        if key in self._alerted_rejection_keys:
+            return
+        self._alerted_rejection_keys.add(key)
+        reason = str(
+            reject.get("rejectReason")
+            or reject.get("reason")
+            or reject.get("errorCode")
+            or reject.get("type")
+            or "UNKNOWN_REJECTION"
+        )
+        urgent = "INSUFFICIENT_MARGIN" in reason.upper()
+        subject = "potions %s: OANDA broker rejection [%s]" % (
+            "HARD ALARM" if urgent else "ALARM",
+            reason,
+        )
+        body = "\n".join(
+            [
+                "account_id=%s" % self.config.account_id,
+                "environment=%s" % self.config.env,
+                "action=%s" % (event.get("action") or "create"),
+                "order_ref=%s" % (event.get("order_ref") or ""),
+                "reason=%s" % reason,
+                "rejection=%s" % json.dumps(reject, sort_keys=True, default=str),
+                "state=%s" % self.store.root,
+            ]
+        )
+        try:
+            from .notify_email import send_resend_email
+
+            send_resend_email(subject=subject, body=body)
+            self.store.append_event(
+                "reconciliation_events",
+                {
+                    "event": "broker_rejection_alarm_sent",
+                    "reason": reason,
+                    "transaction_id": tx_id,
+                    "urgent": urgent,
+                },
+            )
+        except BaseException as exc:
+            # Alarm delivery failure must never hide or replace the broker response.
+            self.store.append_event(
+                "reconciliation_events",
+                {
+                    "event": "broker_rejection_alarm_error",
+                    "reason": reason,
+                    "transaction_id": tx_id,
+                    "error": str(exc),
+                },
+            )
 
 
     def instrument_net_qty_from_account(self, account: Dict[str, Any], *, instrument: str) -> float:
@@ -2750,6 +2857,8 @@ def response_body(response: Any) -> Dict[str, Any]:
         "orderCreateTransaction",
         "orderFillTransaction",
         "orderRejectTransaction",
+        "orderCancelRejectTransaction",
+        "orderReplaceRejectTransaction",
         "relatedTransactionIDs",
         "lastTransactionID",
         "changes",

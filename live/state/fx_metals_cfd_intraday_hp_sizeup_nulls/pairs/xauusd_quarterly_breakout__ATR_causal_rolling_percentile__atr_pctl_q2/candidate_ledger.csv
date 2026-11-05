@@ -1,0 +1,42 @@
+strategy_book,feature,feature_value,coverage,size_multiplier,filter_or_sizeup,causal_eligibility
+xauusd_quarterly_breakout,Week of month,1,0.3008849557522124,1.25,sizeup,live_ready
+xauusd_quarterly_breakout,Yearly ORB direction,yor_up,0.4247787610619469,1.25,sizeup,live_ready
+xauusd_quarterly_breakout,ATR14 quartile,atr_q2,0.24778761061946902,1.25,sizeup,needs_rolling_proxy
+xauusd_quarterly_breakout,Hourly RSI bucket,rsi_gt70,0.35398230088495575,1.25,sizeup,live_ready
+xauusd_quarterly_breakout,Prior quarter type,q_break_up,0.5486725663716814,1.25,sizeup,live_ready
+xauusd_quarterly_breakout,Weekly ATR trend vs trade,w_atr_aligned,0.7610619469026548,1.25,sizeup,live_ready
+xauusd_quarterly_breakout,Prior-day range half,day_opposed,0.9911504424778761,1.25,sizeup,live_ready
+xauusd_quarterly_breakout,ATR causal rolling percentile,atr_pctl_q2,0.23008849557522124,1.25,sizeup,needs_rolling_proxy
+xauusd_quarterly_breakout,5m MA cross vs trade,cross_none,0.9292035398230089,1.25,sizeup,live_ready
+xauusd_quarterly_breakout,ATR14 quartile,atr_q1,0.25663716814159293,1.25,sizeup,needs_rolling_proxy
+xauusd_quarterly_breakout,Prior-week range half,week_opposed,0.9823008849557522,1.25,sizeup,live_ready
+xauusd_quarterly_breakout,London OR width vs ATR,lor_na,1.0,1.25,sizeup,live_ready
+xauusd_quarterly_breakout,Monday session range vs ATR,mon_na,1.0,1.25,sizeup,live_ready
+xauusd_quarterly_breakout,Prior-month range half,month_opposed,0.9734513274336283,1.25,sizeup,live_ready
+xauusd_quarterly_breakout,Hourly RSI vs trade,rsi_with_side,0.911504424778761,1.25,sizeup,live_ready
+xauusd_quarterly_breakout,5m MA vs trade,ma_opposed,0.36283185840707965,1.25,sizeup,live_ready
+xauusd_quarterly_breakout,Hourly OBV vs trade,obv_aligned,0.8672566371681416,1.25,sizeup,live_ready
+xauusd_quarterly_breakout,ATR causal rolling percentile,atr_pctl_q1,0.336283185840708,1.25,sizeup,needs_rolling_proxy
+xauusd_quarterly_breakout,Prior-quarter range width,pqw_q2,0.23008849557522124,1.25,sizeup,live_ready
+xauusd_quarterly_breakout,ATR14 quartile,atr_q4,0.24778761061946902,1.25,sizeup,needs_rolling_proxy
+xauusd_quarterly_breakout,Entry hour (NY),20,0.672566371681416,1.25,sizeup,live_ready
+xauusd_quarterly_breakout,Prior-day range percentile,prior_range_exp,0.415929203539823,1.25,sizeup,live_ready
+xauusd_quarterly_breakout,5m MA vs trade,ma_aligned,0.6371681415929203,1.25,sizeup,live_ready
+xauusd_quarterly_breakout,Week of month,3,0.20353982300884957,1.25,sizeup,live_ready
+xauusd_quarterly_breakout,Monthly OR direction,mor_up,0.4778761061946903,1.25,sizeup,live_ready
+xauusd_quarterly_breakout,Prior-day range percentile,prior_range_comp,0.2831858407079646,1.25,sizeup,live_ready
+xauusd_quarterly_breakout,Hourly RSI bucket,rsi_55_70,0.3274336283185841,1.25,sizeup,live_ready
+xauusd_quarterly_breakout,Entry hour (NY),19,0.3274336283185841,1.25,sizeup,live_ready
+xauusd_quarterly_breakout,Yearly ORB direction,yor_na,0.2743362831858407,1.25,sizeup,live_ready
+xauusd_quarterly_breakout,Day of week,Tuesday,0.23893805309734514,1.25,sizeup,live_ready
+xauusd_quarterly_breakout,ATR causal rolling percentile,atr_pctl_q4,0.34513274336283184,1.25,sizeup,needs_rolling_proxy
+xauusd_quarterly_breakout,Day of week,Wednesday,0.18584070796460178,1.25,sizeup,live_ready
+xauusd_quarterly_breakout,Prior-day range percentile,prior_range_norm,0.3008849557522124,1.25,sizeup,live_ready
+xauusd_quarterly_breakout,Prior-quarter range width,pqw_q1,0.34513274336283184,1.25,sizeup,live_ready
+xauusd_quarterly_breakout,Prior-quarter range width,pqw_q3,0.26548672566371684,1.25,sizeup,live_ready
+xauusd_quarterly_breakout,Day of week,Thursday,0.20353982300884957,1.25,sizeup,live_ready
+xauusd_quarterly_breakout,Week of month,2,0.2743362831858407,1.25,sizeup,live_ready
+xauusd_quarterly_breakout,Weekly ATR trend vs trade,w_atr_opposed,0.23893805309734514,1.25,sizeup,live_ready
+xauusd_quarterly_breakout,ATR14 quartile,atr_q3,0.24778761061946902,1.25,sizeup,needs_rolling_proxy
+xauusd_quarterly_breakout,Monthly OR direction,mor_down,0.21238938053097345,1.25,sizeup,live_ready
+xauusd_quarterly_breakout,Prior quarter type,q_inside,0.24778761061946902,1.25,sizeup,live_ready

@@ -1,0 +1,14 @@
+potions: USDJPY live OANDA demo↔plugin tick parity — MATCH
+
+Hub: /home/tester/hsm/potions/live/state/usdjpy_live_demo_plugin_tick_parity_v1
+Data: OANDA practice fx_ticks only (not research OHLC).
+
+monday_or: MATCH
+  days=84 demo_fills=40 plugin_fills=40 pnl≈-686620.00
+  ticks=8141283 match=True
+
+asia_range: MATCH
+  days=66 demo_fills=124 plugin_fills=124 pnl≈1450300.53
+  ticks=6478700 match=True
+
+Stance: practice wiring check only; not a promote gate.

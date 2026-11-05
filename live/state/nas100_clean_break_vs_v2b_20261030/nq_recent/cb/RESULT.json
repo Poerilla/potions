@@ -1,0 +1,21 @@
+{
+  "dataset": "nq_recent",
+  "strategy": "cb",
+  "sessions": 265,
+  "start": "2025-10-01",
+  "end": "2026-10-09",
+  "trades": 147,
+  "units": 250,
+  "net_usd": 3354.000000000764,
+  "closed_dd_usd": -2805.8499999999185,
+  "stress_dd_usd": -2914.6999999999316,
+  "win_rate": 0.1292517006802721,
+  "profit_factor": 1.4300799507602056,
+  "causality_violations": 0,
+  "shorts": 0,
+  "ns": 1.1507187703711677,
+  "yearly_net": {
+    "2025": 1332.9,
+    "2026": 2021.1
+  }
+}

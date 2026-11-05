@@ -1,0 +1,9 @@
+trade_id,session,year,side,entry_ts,exit_ts,entry_price,entry_qty,net_usd,exit_reasons,hit_tp,eod_close,full_initial_sl,any_stop_exit,atr14,range_width,range_label,atr14_quartile,range_width_quartile
+nq_quarterly_atr4_fade_ladder_t5,2020-10-30,2020,long,2020-10-30 16:00:00-04:00,2021-01-03 19:00:00-05:00,11056.0,10,145574.52,"flatten,tp1,tp2,tp3,tp4",True,False,False,False,,,n/a,,
+nq_quarterly_atr4_fade_ladder_t6,2025-01-13,2025,long,2025-01-13 07:00:00-05:00,2025-02-28 07:00:00-05:00,20765.375,10,94522.82,"stop,tp1,tp2,tp3,tp4",True,False,False,True,,,n/a,,
+nq_quarterly_atr4_fade_ladder_t8,2026-01-20,2026,long,2026-01-20 07:00:00-05:00,2026-02-04 11:00:00-05:00,25205.125,10,59531.94,"stop,tp1,tp2,tp3,tp4",True,False,False,True,,,n/a,,
+nq_quarterly_atr4_fade_ladder_t1,2013-04-18,2013,long,2013-04-18 16:00:00-04:00,2013-07-01 00:00:00-04:00,2736.0,10,15227.98,"flatten,tp1,tp2,tp3,tp4",True,False,False,False,,,n/a,,
+nq_quarterly_atr4_fade_ladder_t2,2014-07-08,2014,long,2014-07-08 12:00:00-04:00,2014-07-08 12:00:00-04:00,3848.25,10,-215.0,stop,False,False,True,True,,,n/a,,
+nq_quarterly_atr4_fade_ladder_t7,2025-10-10,2025,long,2025-10-10 16:00:00-04:00,2025-10-10 16:00:00-04:00,24403.0,10,-215.0,stop,False,False,True,True,,,n/a,,
+nq_quarterly_atr4_fade_ladder_t4,2019-08-02,2019,long,2019-08-02 12:00:00-04:00,2019-08-02 12:00:00-04:00,7681.5,10,-496.4,stop,False,False,True,True,,,n/a,,
+nq_quarterly_atr4_fade_ladder_t3,2016-04-26,2016,long,2016-04-26 20:00:00-04:00,2016-04-27 08:00:00-04:00,4408.75,10,-6969.099999999999,stop,False,False,True,True,,,n/a,,

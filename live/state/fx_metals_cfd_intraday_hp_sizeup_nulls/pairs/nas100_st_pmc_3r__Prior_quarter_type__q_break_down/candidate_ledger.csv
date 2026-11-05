@@ -1,0 +1,73 @@
+strategy_book,feature,feature_value,coverage,size_multiplier,filter_or_sizeup,causal_eligibility
+nas100_st_pmc_3r,5m MA cross vs trade,cross_none,0.9433962264150944,1.25,sizeup,live_ready
+nas100_st_pmc_3r,Hourly OBV vs trade,obv_flat,1.0,1.25,sizeup,live_ready
+nas100_st_pmc_3r,Prior-quarter range width,pqw_na,1.0,1.25,sizeup,live_ready
+nas100_st_pmc_3r,London OR width vs ATR,lor_na,1.0,1.25,sizeup,live_ready
+nas100_st_pmc_3r,Monday session range vs ATR,mon_na,1.0,1.25,sizeup,live_ready
+nas100_st_pmc_3r,Weekly ATR trend vs trade,w_atr_aligned,0.6561844863731656,1.25,sizeup,live_ready
+nas100_st_pmc_3r,5m MA vs trade,ma_opposed,0.8637316561844863,1.25,sizeup,live_ready
+nas100_st_pmc_3r,Prior-month range half,month_opposed,0.8029350104821803,1.25,sizeup,live_ready
+nas100_st_pmc_3r,Prior-day range half,day_opposed,0.7211740041928721,1.25,sizeup,live_ready
+nas100_st_pmc_3r,Entry hour (NY),11,0.09014675052410902,1.25,sizeup,live_ready
+nas100_st_pmc_3r,Prior quarter type,q_break_down,0.13836477987421383,1.25,sizeup,live_ready
+nas100_st_pmc_3r,Hourly RSI vs trade,rsi_against_side,0.1970649895178197,1.25,sizeup,live_ready
+nas100_st_pmc_3r,Hourly RSI bucket,rsi_55_70,0.3312368972746331,1.25,sizeup,live_ready
+nas100_st_pmc_3r,Entry hour (NY),9,0.2138364779874214,1.25,sizeup,live_ready
+nas100_st_pmc_3r,Monthly OR direction,mor_up,0.48427672955974843,1.25,sizeup,live_ready
+nas100_st_pmc_3r,Prior-week range half,week_opposed,0.7714884696016772,1.25,sizeup,live_ready
+nas100_st_pmc_3r,Yearly ORB direction,yor_down,0.13417190775681342,1.25,sizeup,live_ready
+nas100_st_pmc_3r,Entry hour (NY),15,0.05660377358490566,1.25,sizeup,live_ready
+nas100_st_pmc_3r,Month,2,0.08176100628930817,1.25,sizeup,live_ready
+nas100_st_pmc_3r,Month,12,0.09014675052410902,1.25,sizeup,live_ready
+nas100_st_pmc_3r,Prior-day range percentile,prior_range_exp,0.4025157232704403,1.25,sizeup,live_ready
+nas100_st_pmc_3r,Day of week,Friday,0.1740041928721174,1.25,sizeup,live_ready
+nas100_st_pmc_3r,ATR causal rolling percentile,atr_pctl_q1,0.21593291404612158,1.25,sizeup,needs_rolling_proxy
+nas100_st_pmc_3r,ATR causal rolling percentile,atr_pctl_q4,0.35429769392033544,1.25,sizeup,needs_rolling_proxy
+nas100_st_pmc_3r,Week of month,4,0.20754716981132076,1.25,sizeup,live_ready
+nas100_st_pmc_3r,ATR14 quartile,atr_q3,0.24947589098532494,1.25,sizeup,needs_rolling_proxy
+nas100_st_pmc_3r,Prior quarter type,q_break_up,0.6226415094339622,1.25,sizeup,live_ready
+nas100_st_pmc_3r,ATR14 quartile,atr_q4,0.24947589098532494,1.25,sizeup,needs_rolling_proxy
+nas100_st_pmc_3r,Monthly OR direction,mor_down,0.2914046121593291,1.25,sizeup,live_ready
+nas100_st_pmc_3r,Yearly ORB direction,yor_up,0.5324947589098532,1.25,sizeup,live_ready
+nas100_st_pmc_3r,Hourly RSI vs trade,rsi_with_side,0.350104821802935,1.25,sizeup,live_ready
+nas100_st_pmc_3r,Week of month,1,0.22431865828092243,1.25,sizeup,live_ready
+nas100_st_pmc_3r,Weekly ATR trend vs trade,w_atr_opposed,0.3438155136268344,1.25,sizeup,live_ready
+nas100_st_pmc_3r,Hourly RSI bucket,rsi_30_45,0.16981132075471697,1.25,sizeup,live_ready
+nas100_st_pmc_3r,Prior-day range percentile,prior_range_comp,0.31027253668763105,1.25,sizeup,live_ready
+nas100_st_pmc_3r,Prior quarter type,q_break_both,0.20545073375262055,1.25,sizeup,live_ready
+nas100_st_pmc_3r,Yearly ORB direction,yor_na,0.24947589098532494,1.25,sizeup,live_ready
+nas100_st_pmc_3r,Week of month,2,0.24947589098532494,1.25,sizeup,live_ready
+nas100_st_pmc_3r,Entry hour (NY),8,0.0649895178197065,1.25,sizeup,live_ready
+nas100_st_pmc_3r,Hourly RSI bucket,rsi_45_55,0.4528301886792453,1.25,sizeup,live_ready
+nas100_st_pmc_3r,Hourly RSI vs trade,rsi_neutral,0.4528301886792453,1.25,sizeup,live_ready
+nas100_st_pmc_3r,ATR causal rolling percentile,atr_pctl_q3,0.24109014675052412,1.25,sizeup,needs_rolling_proxy
+nas100_st_pmc_3r,Yearly ORB direction,yor_inside,0.08385744234800839,1.25,sizeup,live_ready
+nas100_st_pmc_3r,Day of week,Thursday,0.2138364779874214,1.25,sizeup,live_ready
+nas100_st_pmc_3r,Month,5,0.09014675052410902,1.25,sizeup,live_ready
+nas100_st_pmc_3r,Prior-day range half,day_aligned,0.27882599580712786,1.25,sizeup,live_ready
+nas100_st_pmc_3r,Month,4,0.0859538784067086,1.25,sizeup,live_ready
+nas100_st_pmc_3r,Day of week,Monday,0.16561844863731656,1.25,sizeup,live_ready
+nas100_st_pmc_3r,Prior-month range half,month_aligned,0.1970649895178197,1.25,sizeup,live_ready
+nas100_st_pmc_3r,Month,6,0.08385744234800839,1.25,sizeup,live_ready
+nas100_st_pmc_3r,Day of week,Tuesday,0.22012578616352202,1.25,sizeup,live_ready
+nas100_st_pmc_3r,Month,3,0.08385744234800839,1.25,sizeup,live_ready
+nas100_st_pmc_3r,Week of month,3,0.24109014675052412,1.25,sizeup,live_ready
+nas100_st_pmc_3r,5m MA vs trade,ma_aligned,0.13626834381551362,1.25,sizeup,live_ready
+nas100_st_pmc_3r,ATR14 quartile,atr_q2,0.24947589098532494,1.25,sizeup,needs_rolling_proxy
+nas100_st_pmc_3r,Prior-week range half,week_aligned,0.22851153039832284,1.25,sizeup,live_ready
+nas100_st_pmc_3r,Entry hour (NY),10,0.17819706498951782,1.25,sizeup,live_ready
+nas100_st_pmc_3r,Month,10,0.0859538784067086,1.25,sizeup,live_ready
+nas100_st_pmc_3r,Prior-day range percentile,prior_range_norm,0.2809224318658281,1.25,sizeup,live_ready
+nas100_st_pmc_3r,Monthly OR direction,mor_inside,0.0859538784067086,1.25,sizeup,live_ready
+nas100_st_pmc_3r,Monthly OR direction,mor_na,0.09643605870020965,1.25,sizeup,live_ready
+nas100_st_pmc_3r,ATR14 quartile,atr_q1,0.25157232704402516,1.25,sizeup,needs_rolling_proxy
+nas100_st_pmc_3r,ATR causal rolling percentile,atr_pctl_q2,0.18029350104821804,1.25,sizeup,needs_rolling_proxy
+nas100_st_pmc_3r,Entry hour (NY),12,0.07337526205450734,1.25,sizeup,live_ready
+nas100_st_pmc_3r,Month,8,0.07547169811320754,1.25,sizeup,live_ready
+nas100_st_pmc_3r,Day of week,Wednesday,0.2138364779874214,1.25,sizeup,live_ready
+nas100_st_pmc_3r,Month,7,0.09224318658280922,1.25,sizeup,live_ready
+nas100_st_pmc_3r,Week of month,5,0.07756813417190776,1.25,sizeup,live_ready
+nas100_st_pmc_3r,Entry hour (NY),14,0.07337526205450734,1.25,sizeup,live_ready
+nas100_st_pmc_3r,Month,11,0.06918238993710692,1.25,sizeup,live_ready
+nas100_st_pmc_3r,Month,9,0.08176100628930817,1.25,sizeup,live_ready
+nas100_st_pmc_3r,Month,1,0.07966457023060797,1.25,sizeup,live_ready

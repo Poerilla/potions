@@ -1,0 +1,25 @@
+{
+  "_doc": "One routing strategy per OANDA account + instrument. A routing daemon refuses to start unless its strategy_id is the owner listed here. Edit this file (and TOP3_ACCOUNT_MAP.md) when rotating an account. -001 is dormant: no owners.",
+  "accounts": {
+    "101-002-39860312-001": {},
+    "101-002-39860312-002": {
+      "AUDJPY": "audjpy_yearly_orb_oanda",
+      "XAUUSD": "xauusd_yearly_orb_oanda",
+      "EURUSD": "eurusd_yearly_orb_oanda",
+      "XAGUSD": "xagusd_yearly_orb_oanda",
+      "US30": "us30_yearly_orb_oanda"
+    },
+    "101-002-39860312-003": {
+      "NAS100": "nas100_v2b_clean_break_trail06_m4_e2_out_be_oanda"
+    },
+    "101-002-39860312-004": {
+      "USDJPY": "usdjpy_asia_range_london_S_3_1_3_flt_oanda"
+    },
+    "101-002-39860312-005": {
+      "USDJPY": "usdjpy_monday_or_ungated_oanda"
+    },
+    "101-002-39860312-006": {
+      "USDJPY": "usdjpy_monthly_orb_fbo_atr80_oanda"
+    }
+  }
+}

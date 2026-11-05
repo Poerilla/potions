@@ -1,0 +1,25 @@
+NAS100 clean-break trail06_m4_e2_out_be — live vs StrategyPlugin audit
+
+Rules (as coded):
+- Clean break: after stop fill, breakout 5m must CLOSE > OR high (else failed_clean_close).
+- Soft exit: flatten when 5m CLOSE <= OR high (close_back_into_range). Wick into OR alone does NOT exit; adds require low > OR high.
+- NOT "exit as soon as price trades back into the range."
+
+Live practice was NOT behaving as expected:
+- Live fills: entry + eod_close only (held through deep re-entry on charts).
+- Same stored 5m bars through StrategyPlugin: failed_clean_close on most days (entry bar closed back <= OR high), plus one close_back_into_range.
+- Root cause: pending_clean_validation stuck because OANDA wall-clock fill ts (e.g. 13:45:55Z) never equaled left-label bar.ts (13:45:00+00:00). Soft-exit is gated behind that flag.
+- Demo↔plugin tick parity on PaperBroker path still MATCH (fills already stamped with bar.ts).
+
+Fix shipped:
+- Floor OANDA fill clocks to 5m left-label UTC (+ nanosecond parse for py3.8)
+- Live config fill_to_signal_minutes=5
+- Unblock soft-exit if entry bar already passed (restart / missed validation)
+
+Hubs:
+- live/state/_oanda_live_sim_reconcile/nas100_v2b_clean_break_trail06_m4_e2_out_be_oanda/
+- live/state/nas100_clean_break_demo_plugin_tick_parity_v1/ (MATCH, emailed)
+
+Action: restart demo-nas100-clean-break-trail-oanda so today's open (still pending_clean_validation) can soft-exit on next close into OR.
+
+Gmail agent: re-authed; poll daemon up (pid in live/state/job_notify/gmail_prompt_agent.pid).

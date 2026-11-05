@@ -1,0 +1,11 @@
+market,path_id,trade_mode,allowed_sides,first_side_filter,n,wins,win_rate,tattoo_win_rank,tattoo_year,tattoo_quarter,tattoo_side,tattoo_mae_px,tattoo_mae_atr,tattoo_touch_ts,tattoo_resolve_ts,risk_atr_mult,note
+EURUSD,second_after_upper,second_only,lower,upper,17,7,0.4117647058823529,1,2003,4,lower,0.009152412287062983,1.9336843807799113,2003-11-03 15:00:00-05:00,2003-11-16 23:00:00-05:00,2.0,max WR among n>=5
+GBPUSD,first_lower,first_only,lower,lower,53,31,0.5849056603773585,1,2004,4,lower,0.00942924928889366,1.9597571288195528,2004-10-04 12:00:00-04:00,2004-10-21 04:00:00-04:00,2.0,max WR among n>=5
+USDJPY,second_after_lower,second_only,upper,lower,8,4,0.5,1,2003,3,upper,0.47060337161694576,1.3711254347567416,2003-07-30 12:00:00-04:00,2003-08-21 12:00:00-04:00,1.5,max WR among n>=5
+AUDJPY,second_after_lower,second_only,upper,lower,11,4,0.36363636363636365,1,2005,3,upper,0.8525773395786729,2.384127050469287,2005-07-20 12:00:00-04:00,2005-08-23 00:00:00-04:00,2.5,max WR among n>=5
+XAUUSD,second_after_upper,second_only,lower,upper,13,7,0.5384615384615384,1,2004,3,lower,0.6315526272304055,0.25110319803066217,2004-07-28 08:00:00-04:00,2004-08-19 08:00:00-04:00,0.5,max WR among n>=5
+XAGUSD,second_after_lower,second_only,upper,lower,9,4,0.4444444444444444,1,2015,2,upper,0.25637843316504316,1.485989979074837,2015-05-14 12:00:00-04:00,2015-06-04 12:00:00-04:00,1.5,max WR among n>=5
+US30,first_lower,first_only,lower,lower,11,8,0.7272727272727273,1,2018,2,lower,58.63398341678476,0.3213410795108557,2018-04-02 12:00:00-04:00,2018-04-17 08:00:00-04:00,0.5,max WR among n>=5
+NAS100,first_lower,first_only,lower,lower,9,5,0.5555555555555556,1,2017,2,lower,28.06551688385298,1.8762102000195533,2017-04-11 09:00:00-04:00,2017-04-23 17:00:00-04:00,2.0,max WR among n>=5
+NQ,second_after_upper,second_only,lower,upper,8,4,0.5,1,2013,2,lower,12.400294736771684,1.1311633373436043,2013-04-18 12:00:00-04:00,2013-04-23 08:00:00-04:00,1.5,max WR among n>=5
+YM,second_after_upper,second_only,lower,upper,9,5,0.5555555555555556,1,2016,2,lower,43.94504669456364,0.6838233790787552,2016-05-19 08:00:00-04:00,2016-05-25 08:00:00-04:00,1.0,max WR among n>=5

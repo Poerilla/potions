@@ -1,0 +1,11 @@
+strategy_book,feature,feature_value,coverage,size_multiplier,filter_or_sizeup,causal_eligibility
+nq_liq_run_fade_1r1_reentry_hp_1m,Hourly RSI bucket,rsi_gt70,0.0898876404494382,1.25,sizeup,live_ready
+nq_liq_run_fade_1r1_reentry_hp_1m,Day of week,Monday,0.15168539325842698,1.25,sizeup,live_ready
+nq_liq_run_fade_1r1_reentry_hp_1m,Hourly RSI bucket,rsi_30_45,0.2696629213483146,1.25,sizeup,live_ready
+nq_liq_run_fade_1r1_reentry_hp_1m,Day of week,Tuesday,0.2640449438202247,1.25,sizeup,live_ready
+nq_liq_run_fade_1r1_reentry_hp_1m,Week of month,1,0.5449438202247191,1.25,sizeup,live_ready
+nq_liq_run_fade_1r1_reentry_hp_1m,ATR14 quartile,atr_q4,0.25280898876404495,1.25,sizeup,needs_rolling_proxy
+nq_liq_run_fade_1r1_reentry_hp_1m,Prior-week range half,week_aligned,0.8258426966292135,1.25,sizeup,live_ready
+nq_liq_run_fade_1r1_reentry_hp_1m,Prior-month range half,month_opposed,0.3202247191011236,1.25,sizeup,live_ready
+nq_liq_run_fade_1r1_reentry_hp_1m,Hourly RSI vs trade,rsi_against_side,0.8146067415730337,1.25,sizeup,live_ready
+nq_liq_run_fade_1r1_reentry_hp_1m,5m MA vs trade,ma_opposed,0.8820224719101124,1.25,sizeup,live_ready

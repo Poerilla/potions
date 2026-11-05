@@ -1,0 +1,13 @@
+{
+  "symbol": "NAS100",
+  "quote": "USD",
+  "strategy_id": "nas100_ma_aligned_arm_asof_hp_x4",
+  "fee_per_unit": 1.5,
+  "tick": 0.1,
+  "point_value": 1.0,
+  "hp_mult": 4.0,
+  "hp_contract": "arm_asof_no_qty_refresh",
+  "parent_hub": "live/state/nas100_clean_break_ma_aligned_size15_broker",
+  "frozen_candidate": "trail06_m4_e2_out_be",
+  "variant_slug": "nas100_ma_aligned_arm_asof_hp_x4"
+}

@@ -579,6 +579,16 @@ def run_loop(
 ) -> int:
     root = Path(output_root) if output_root is not None else default_output_root()
     cfg = config or monthly_config(oanda_config_path=oanda_config_path)
+    from .singleton import EXIT_REFUSED, claim_runtime
+
+    if not claim_runtime(
+        strategy_id=STRATEGY_ID,
+        output_root=root,
+        account_id=str(cfg.account_id or ""),
+        instrument=INSTRUMENT,
+        routes_orders=True,
+    ):
+        return EXIT_REFUSED
     return MonthlyFboOandaRunner(output_root=root, config=cfg).run(max_polls=max_polls)
 
 

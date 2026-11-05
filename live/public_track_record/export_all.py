@@ -43,6 +43,11 @@ CB_DEMO = (
     REPO
     / "live/demo/nas100_v2b_clean_break_trail06_m4_e2_out_be_oanda/state/fills.csv"
 )
+# Index Momentum base size = live practice book (entry/add 10 / hard max 30)
+# vs the deployment-capped validation tape (entry 1 / max 3). Public path stays
+# flat-size additive — no yearly size-ups — at this default base.
+INDEX_MOMENTUM_BASE_SIZE_MULT = 10.0
+INDEX_MOMENTUM_BASE_ENTRY_QTY = 10.0
 
 RETIRED_PUBLIC_FILES = (
     "fx_breakout.json",
@@ -134,8 +139,13 @@ def build_fx_intraday_trend() -> Dict[str, Any]:
 
 
 def build_index_momentum() -> Dict[str, Any]:
-    camps = C.campaigns_from_unit_trades_usd(CB_UNIT)
-    demo = C.campaigns_from_fills_index(CB_DEMO, normalize_qty=False)
+    camps = C.campaigns_from_unit_trades_usd(CB_UNIT).copy()
+    camps["cash_usd"] = camps["cash_usd"].astype(float) * float(INDEX_MOMENTUM_BASE_SIZE_MULT)
+    demo = C.campaigns_from_fills_index(
+        CB_DEMO,
+        normalize_qty=False,
+        base_entry_qty=INDEX_MOMENTUM_BASE_ENTRY_QTY,
+    )
     return C.build_track_payload(
         product_name="Index Momentum",
         tab_id="index_momentum",

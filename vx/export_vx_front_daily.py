@@ -2,13 +2,13 @@
 """
 Export **VX** front-month daily OHLCV from a Databento **ohlcv-1d** DBN (XCBF.PITCH).
 
-DBN **version 3** requires a recent ``databento`` client (e.g. ``pip install 'databento>=0.77'``)
-on **Python 3.10+**. Pyenv 3.8 + databento 0.42 cannot decode v3 files.
+DBN **version 3** is read with ``scripts/python-dbn`` (Python 3.11 + databento 0.87
+in ``.venv-dbn``). Pyenv 3.8 + databento 0.42 cannot decode v3, and the current
+client cannot rewrite those files down to a version 3.8 can open.
 
 Example::
 
-  /usr/bin/python3.10 -m pip install --user databento
-  cd potions && /usr/bin/python3.10 vx/export_vx_front_daily.py \\
+  cd potions && scripts/python-dbn vx/export_vx_front_daily.py \\
     --dbn vx/raw/xcbf-pitch-20181104-20260511.ohlcv-1d.dbn.zst \\
     --out vx/vx_front_daily.csv
 """

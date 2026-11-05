@@ -1,0 +1,20 @@
+{
+  "dataset": "demo",
+  "strategy": "cb",
+  "sessions": 44,
+  "start": "2026-08-31",
+  "end": "2026-10-30",
+  "trades": 24,
+  "units": 31,
+  "net_usd": -506.54999999994106,
+  "closed_dd_usd": -870.8999999999687,
+  "stress_dd_usd": -870.8999999999687,
+  "win_rate": 0.041666666666666664,
+  "profit_factor": 0.4404926271608015,
+  "causality_violations": 0,
+  "shorts": 0,
+  "ns": -0.5816396830864154,
+  "yearly_net": {
+    "2026": -506.55
+  }
+}

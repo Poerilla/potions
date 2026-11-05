@@ -1,0 +1,43 @@
+strategy_book,feature,feature_value,coverage,size_multiplier,filter_or_sizeup,causal_eligibility
+audjpy_quarterly_breakout,Prior-day range percentile,prior_range_exp,0.41025641025641024,1.25,sizeup,live_ready
+audjpy_quarterly_breakout,Hourly RSI bucket,rsi_gt70,0.2222222222222222,1.25,sizeup,live_ready
+audjpy_quarterly_breakout,ATR causal rolling percentile,atr_pctl_q4,0.2905982905982906,1.25,sizeup,needs_rolling_proxy
+audjpy_quarterly_breakout,Prior-quarter range width,pqw_q1,0.3418803418803419,1.25,sizeup,live_ready
+audjpy_quarterly_breakout,ATR causal rolling percentile,atr_pctl_q2,0.21367521367521367,1.25,sizeup,needs_rolling_proxy
+audjpy_quarterly_breakout,Week of month,2,0.17094017094017094,1.25,sizeup,live_ready
+audjpy_quarterly_breakout,Weekly ATR trend vs trade,w_atr_opposed,0.28205128205128205,1.25,sizeup,live_ready
+audjpy_quarterly_breakout,ATR14 quartile,atr_q4,0.24786324786324787,1.25,sizeup,needs_rolling_proxy
+audjpy_quarterly_breakout,Week of month,1,0.3333333333333333,1.25,sizeup,live_ready
+audjpy_quarterly_breakout,ATR14 quartile,atr_q3,0.24786324786324787,1.25,sizeup,needs_rolling_proxy
+audjpy_quarterly_breakout,Day of week,Thursday,0.27350427350427353,1.25,sizeup,live_ready
+audjpy_quarterly_breakout,ATR14 quartile,atr_q1,0.2564102564102564,1.25,sizeup,needs_rolling_proxy
+audjpy_quarterly_breakout,Hourly OBV vs trade,obv_aligned,0.7606837606837606,1.25,sizeup,live_ready
+audjpy_quarterly_breakout,Prior-quarter range width,pqw_q2,0.18803418803418803,1.25,sizeup,live_ready
+audjpy_quarterly_breakout,Yearly ORB direction,yor_na,0.3076923076923077,1.25,sizeup,live_ready
+audjpy_quarterly_breakout,Monthly OR direction,mor_down,0.3418803418803419,1.25,sizeup,live_ready
+audjpy_quarterly_breakout,5m MA vs trade,ma_aligned,0.6837606837606838,1.25,sizeup,live_ready
+audjpy_quarterly_breakout,Entry hour (NY),20,0.6495726495726496,1.25,sizeup,live_ready
+audjpy_quarterly_breakout,Prior-quarter range width,pqw_q3,0.19658119658119658,1.25,sizeup,live_ready
+audjpy_quarterly_breakout,Entry hour (NY),19,0.3504273504273504,1.25,sizeup,live_ready
+audjpy_quarterly_breakout,Week of month,4,0.17094017094017094,1.25,sizeup,live_ready
+audjpy_quarterly_breakout,Prior-day range half,day_opposed,1.0,1.25,sizeup,live_ready
+audjpy_quarterly_breakout,London OR width vs ATR,lor_na,1.0,1.25,sizeup,live_ready
+audjpy_quarterly_breakout,Monday session range vs ATR,mon_na,1.0,1.25,sizeup,live_ready
+audjpy_quarterly_breakout,ATR causal rolling percentile,atr_pctl_q1,0.3418803418803419,1.25,sizeup,needs_rolling_proxy
+audjpy_quarterly_breakout,Prior-week range half,week_opposed,0.9914529914529915,1.25,sizeup,live_ready
+audjpy_quarterly_breakout,Prior-month range half,month_opposed,0.9914529914529915,1.25,sizeup,live_ready
+audjpy_quarterly_breakout,5m MA vs trade,ma_opposed,0.3162393162393162,1.25,sizeup,live_ready
+audjpy_quarterly_breakout,Hourly RSI vs trade,rsi_with_side,0.8547008547008547,1.25,sizeup,live_ready
+audjpy_quarterly_breakout,Weekly ATR trend vs trade,w_atr_aligned,0.717948717948718,1.25,sizeup,live_ready
+audjpy_quarterly_breakout,Yearly ORB direction,yor_up,0.39316239316239315,1.25,sizeup,live_ready
+audjpy_quarterly_breakout,Prior quarter type,q_break_up,0.5726495726495726,1.25,sizeup,live_ready
+audjpy_quarterly_breakout,Prior-day range percentile,prior_range_norm,0.28205128205128205,1.25,sizeup,live_ready
+audjpy_quarterly_breakout,5m MA cross vs trade,cross_none,0.9316239316239316,1.25,sizeup,live_ready
+audjpy_quarterly_breakout,Hourly RSI bucket,rsi_30_45,0.23931623931623933,1.25,sizeup,live_ready
+audjpy_quarterly_breakout,Prior-day range percentile,prior_range_comp,0.27350427350427353,1.25,sizeup,live_ready
+audjpy_quarterly_breakout,Monthly OR direction,mor_up,0.39316239316239315,1.25,sizeup,live_ready
+audjpy_quarterly_breakout,Hourly OBV vs trade,obv_opposed,0.23931623931623933,1.25,sizeup,live_ready
+audjpy_quarterly_breakout,Day of week,Saturday,0.2222222222222222,1.25,sizeup,live_ready
+audjpy_quarterly_breakout,Week of month,3,0.27350427350427353,1.25,sizeup,live_ready
+audjpy_quarterly_breakout,Hourly RSI bucket,rsi_55_70,0.3418803418803419,1.25,sizeup,live_ready
+audjpy_quarterly_breakout,ATR14 quartile,atr_q2,0.24786324786324787,1.25,sizeup,needs_rolling_proxy

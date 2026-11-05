@@ -16,9 +16,9 @@ Shared primary `101-002-39860312-001` is **dormant**. Only these three OANDA dae
 
 | Strategy | Account | CLI |
 |---|---|---|
-| NAS100 clean-break trail06_m4_e2_out_be (**10×** entry 10 / max 40; ~$20k DD target) | `-003` | `demo-nas100-clean-break-trail-oanda --daemon --oanda-config …/nas100_clean_break_trail_003.json` |
+| NAS100 clean-break trail06_m4_e2_out_be (**default Index Momentum base 10×** entry 10 / max 40; ~$20k DD target) | `-003` | `demo-nas100-clean-break-trail-oanda --daemon --oanda-config …/nas100_clean_break_trail_003.json` |
 | USDJPY Asia Range `S_3_1_3` | `-004` | `demo-usdjpy-asia-range-oanda --daemon --oanda-config …/usdjpy_asia_range_004.json` |
-| USDJPY Monday OR `M2_S3_R1` | `-005` | `demo-usdjpy-monday-or-oanda --daemon --oanda-config …/usdjpy_monday_or_005.json` |
+| USDJPY Monday OR `M2_S3_R1` (**research lot**: entry 300k / dd30 100k / dd50 200k; review 2026-10-01) | `-005` | `demo-usdjpy-monday-or-oanda --daemon --oanda-config …/usdjpy_monday_or_005.json` |
 | USDJPY Monthly FBO 1/1/3 atr80 | `-006` | `demo-usdjpy-monthly-fbo-oanda --daemon --oanda-config …/usdjpy_monthly_fbo_006.json` |
 
 Fleet freeze + cutover log: [`oanda_practice_snapshot/TOP3_CUTOVER_FREEZE_LATEST.md`](oanda_practice_snapshot/TOP3_CUTOVER_FREEZE_LATEST.md).
@@ -366,6 +366,30 @@ live/demo/<run>/
 
 ## Create / run / stop daemons
 
+### One runner per strategy (singleton, 2026-11-05)
+
+Every demo entrypoint calls `singleton.claim_runtime(...)` before it touches state. A second copy exits with code **3** and logs `REFUSING start: ...` in its `PROGRESS.log`. The locks are `fcntl.flock` locks held for the life of the process. The OS drops them on any exit, including SIGKILL, so there are no stale locks to clean up.
+
+| Lock | Path | Blocks |
+|---|---|---|
+| Output folder | `<run>/daemon.lock` | two runners on one demo folder |
+| Strategy | `live/demo/.locks/strategy/<strategy_id>.lock` | the same strategy from a second folder |
+| Route (OANDA only) | `live/demo/.locks/route/<account>__<INSTR>.lock` | two strategies sending orders for one instrument on one account |
+
+OANDA runners also need an explicit owner in `live/demo/oanda_account_ownership.json` (account → instrument → strategy_id). An unlisted strategy, an empty account or a wrong account refuses to start. When you rotate an account, edit the registry in the same change.
+
+```bash
+# Only sanctioned restart: SIGTERM every runner on the folder, wait for locks, relaunch the same argv, verify one holder
+python3 -m potions.live.cli demo-restart usdjpy_monday_or_ungated_oanda
+# Deferred restart: wait for NY time + broker-flat account, then restart and email the outcome
+python3 -m potions.live.cli demo-restart usdjpy_asia_range_london_oanda --not-before 12:05 --when-flat --email
+
+# Duplicate / unlocked / wrong-owner scan (cron */5 via scripts/demo_singleton_audit.sh; alarms email, 1/h per signature)
+python3 -m potions.live.cli demo-singleton-audit --no-email   # report: live/demo/SINGLETON_AUDIT.json
+```
+
+Do not delete `pidfile` or `daemon.lock` by hand, and do not `kill` + `--daemon` to restart. Doing that caused the 2026-11-04 NAS/Asia double-daemon incident. Each daemon also runs a 5-minute watchdog. It alarms if a lock file is replaced or a sibling runner appears.
+
 ### Start (background)
 
 ```bash
@@ -382,7 +406,9 @@ python3 -m potions.live.cli demo-usdjpy-monday-or-paper --daemon
 python3 -m potions.live.cli demo-usdjpy-monday-or-oanda --daemon
 
 python3 -m potions.live.cli demo-usdjpy-asia-range-paper --daemon
-python3 -m potions.live.cli demo-usdjpy-asia-range-oanda --daemon
+# Without --oanda-config this falls back to OANDA_ACCOUNT_ID from .env (shared -001).
+python3 -m potions.live.cli demo-usdjpy-asia-range-oanda --daemon \
+  --oanda-config live/demo/oanda_account_configs/usdjpy_asia_range_004.json
 
 python3 -m potions.live.cli demo-us30-hourly-st-pmc-paper --daemon
 python3 -m potions.live.cli demo-us30-hourly-st-pmc-oanda --daemon
@@ -445,7 +471,8 @@ python3 -m potions.live.cli --state-root /tmp/oanda_flat \
 
 - Quote stream → 1m → **15m** bars (research-compatible left label)
 - Monday builds OR; breakouts Tue–Fri; flatten **Friday only @ NY 15:59**
-- Core tune-up: sitout +3 pts **+ skip Aug/Sep** (broker N/S **10.60**); alt `M2_S3_R2` = skip-1-after-2W **+ skip Aug/Sep** (N/S **10.62**)
+- Core tune-up: sitout +3 research-lot pts **+ skip Aug/Sep** (broker N/S **10.60**); alt `M2_S3_R2` = skip-1-after-2W **+ skip Aug/Sep** (N/S **10.62**)
+- **2026-10-01 practice size:** account `-005` orders research book counts × 100,000 OANDA units (entry 300k / dd30 100k / dd50 200k; shifted entry 400k). Sitout threshold scales with that factor. Review that day: Oct 1 primary matched the plugin on stored 15m bars. Research ranking stays the unit book. META: `oanda_account_configs/usdjpy_monday_or_005_META.json`.
 - Spec: `live/state/monday_or_phase2/SPEC_USDJPY_M2_S3_R1.md` · tracker: `CORE_WEEK_SITOUT.md`
 
 ---
@@ -455,6 +482,7 @@ python3 -m potions.live.cli --state-root /tmp/oanda_flat \
 1. **Plugin** under `live/strategies/` + register in `live/registry.py`.
 2. **Runner module** in `live/demo/` (copy a paper twin: e.g. `eurusd_v2b_ungated_paper.py`, or OANDA via `oanda_v2b_ungated_common.OandaDemoSpec`).
 3. Implement / reuse: `default_output_root`, `spawn_daemon`, `status_daemon`, `stop_daemon`, `run_stream_loop`.
+   `run_stream_loop` must call `claim_runtime(strategy_id=..., output_root=..., account_id=..., instrument=..., routes_orders=<True for OANDA>)` and `return EXIT_REFUSED` on failure **before** `write_run_meta` / bootstrap / runner construction. `live/tests/test_demo_singleton.py` fails otherwise. OANDA books also need a row in `oanda_account_ownership.json`.
 4. Artifacts under `live/demo/<your_run_name>/` via `demo_run_root("your_run_name")`.
 5. Wire CLI in `live/cli.py`: start / `-status` / `-stop` parsers + `cmd_*` handlers.
 6. For session PnL, call `session_pnl.append_session_result(...)` at NY RTH close (see paper runners).

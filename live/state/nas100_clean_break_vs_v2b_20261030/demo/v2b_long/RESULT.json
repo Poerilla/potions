@@ -1,0 +1,20 @@
+{
+  "dataset": "demo",
+  "strategy": "v2b_long",
+  "sessions": 44,
+  "start": "2026-08-31",
+  "end": "2026-10-30",
+  "trades": 33,
+  "units": 99,
+  "net_usd": 127.95000000032815,
+  "closed_dd_usd": -1946.999999999869,
+  "stress_dd_usd": -1967.5499999998647,
+  "win_rate": 0.5454545454545454,
+  "profit_factor": 1.029801208818161,
+  "causality_violations": 0,
+  "shorts": 0,
+  "ns": 0.06503011359321845,
+  "yearly_net": {
+    "2026": 127.95
+  }
+}

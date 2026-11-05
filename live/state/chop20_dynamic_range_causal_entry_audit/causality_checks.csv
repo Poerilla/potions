@@ -1,0 +1,11 @@
+slug,trades,available_before_entry_ok,exit_after_entry_ok,range_confirm_ok,range_age_ok,entry_mode_ok,issues,pass
+mnq__close_to_globex__baseline,30,30,30,30,30,30,0,True
+mnq__close_to_globex__hp_wom3,13,13,13,13,13,13,0,True
+mnq__close_to_next_rth__baseline,27,27,27,27,27,27,0,True
+mnq__close_to_next_rth__hp_wom3,13,13,13,13,13,13,0,True
+nq__close_to_globex__baseline,79,79,79,79,79,79,0,True
+nq__close_to_globex__hp_rsi_gt70,29,29,29,29,29,29,0,True
+nq__close_to_globex__hp_rsi_with_side,67,67,67,67,67,67,0,True
+nq__close_to_next_rth__baseline,67,67,67,67,67,67,0,True
+nq__close_to_next_rth__hp_rsi_gt70,28,28,28,28,28,28,0,True
+nq__close_to_next_rth__hp_rsi_with_side,60,60,60,60,60,60,0,True

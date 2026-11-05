@@ -1,0 +1,9 @@
+strategy_book,feature,feature_value,coverage,size_multiplier,filter_or_sizeup,causal_eligibility
+usdjpy_fbo_1_1_3_atr80,Hourly RSI bucket,rsi_55_70,0.24358974358974358,1.25,sizeup,live_ready
+usdjpy_fbo_1_1_3_atr80,ATR14 quartile,atr_q3,0.25,1.25,sizeup,needs_rolling_proxy
+usdjpy_fbo_1_1_3_atr80,Hourly RSI vs trade,rsi_with_side,0.6089743589743589,1.25,sizeup,live_ready
+usdjpy_fbo_1_1_3_atr80,Day of week,Thursday,0.1858974358974359,1.25,sizeup,live_ready
+usdjpy_fbo_1_1_3_atr80,Day of week,Monday,0.19230769230769232,1.25,sizeup,live_ready
+usdjpy_fbo_1_1_3_atr80,Day of week,Sunday,0.14102564102564102,1.25,sizeup,live_ready
+usdjpy_fbo_1_1_3_atr80,Prior-month range half,month_aligned,0.391025641025641,1.25,sizeup,live_ready
+usdjpy_fbo_1_1_3_atr80,Entry hour (NY),19,0.33974358974358976,1.25,sizeup,live_ready

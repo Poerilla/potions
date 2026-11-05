@@ -1,0 +1,11 @@
+trade_id,session,year,side,entry_ts,exit_ts,entry_price,entry_qty,net_usd,exit_reasons,hit_tp,eod_close,full_initial_sl,any_stop_exit,atr14,range_width,range_label,atr14_quartile,range_width_quartile
+gbpusd_quarterly_atr4_fade_ladder_t12,2008-10-08,2008,long,2008-10-08 16:00:00-04:00,2008-10-09 16:00:00-04:00,1.73077,14,-33359.200000000004,stop,False,False,True,True,0.025681428571428584,,n/a,Q4 high,
+gbpusd_quarterly_atr4_fade_ladder_t5,2005-07-07,2005,long,2005-07-07 04:00:00-04:00,2005-07-08 04:00:00-04:00,1.7498200000000002,14,-19101.039999999997,stop,False,False,True,True,0.013071428571428559,,n/a,Q4 high,
+gbpusd_quarterly_atr4_fade_ladder_t9,2008-01-09,2008,long,2008-01-09 19:00:00-05:00,2008-01-21 15:00:00-05:00,1.95722,14,-18020.100000000002,stop,False,False,True,True,0.011994285714285735,,n/a,Q4 high,
+gbpusd_quarterly_atr4_fade_ladder_t4,2005-01-04,2005,long,2005-01-04 19:00:00-05:00,2005-01-06 07:00:00-05:00,1.8835,14,-17301.62,stop,False,False,True,True,0.014534999999999996,,n/a,Q4 high,
+gbpusd_quarterly_atr4_fade_ladder_t13,2009-07-06,2009,long,2009-07-06 08:00:00-04:00,2009-07-08 16:00:00-04:00,1.613515,14,-16841.72,stop,False,False,True,True,0.01783357142857148,,n/a,Q4 high,
+gbpusd_quarterly_atr4_fade_ladder_t43,2022-07-06,2022,long,2022-07-06 16:00:00-04:00,2022-07-14 12:00:00-04:00,1.19052,14,-16722.440000000002,stop,False,False,True,True,0.010741428571428553,,n/a,Q3,
+gbpusd_quarterly_atr4_fade_ladder_t2,2004-04-05,2004,long,2004-04-05 16:00:00-04:00,2004-04-14 08:00:00-04:00,1.81409,14,-15551.34,stop,False,False,True,True,0.01708142857142855,,n/a,Q4 high,
+gbpusd_quarterly_atr4_fade_ladder_t39,2020-01-09,2020,long,2020-01-09 15:00:00-05:00,2020-02-04 07:00:00-05:00,1.30495,14,-14715.399999999998,stop,False,False,True,True,0.008657857142857146,,n/a,Q2,
+gbpusd_quarterly_atr4_fade_ladder_t42,2022-04-08,2022,long,2022-04-08 16:00:00-04:00,2022-04-22 04:00:00-04:00,1.3030700000000002,14,-13584.480000000001,stop,False,False,True,True,0.00710714285714282,,n/a,Q1 low,
+gbpusd_quarterly_atr4_fade_ladder_t20,2013-01-07,2013,long,2013-01-07 07:00:00-05:00,2013-01-18 07:00:00-05:00,1.603725,14,-13517.699999999999,stop,False,False,True,True,0.008604285714285731,,n/a,Q2,

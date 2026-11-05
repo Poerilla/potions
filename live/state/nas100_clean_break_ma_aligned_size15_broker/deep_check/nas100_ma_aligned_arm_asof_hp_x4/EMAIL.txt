@@ -1,0 +1,23 @@
+potions: deep-check NAS100 clean-break ma_aligned arm-asof HP ×4 (research unit; demo 10× ≈ $408k/−$53k N/S 7.64)
+
+Hub: live/state/nas100_clean_break_ma_aligned_size15_broker/deep_check/nas100_ma_aligned_arm_asof_hp_x4
+State: /home/tester/hsm/potions/live/state/nas100_clean_break_ma_aligned_size15_broker/states/nas100_v2b_clean_break_trail06_m4_e2_out_be_1mfill/size_4_ma_aligned_arm
+Net=$40778.60  trades=1166  full_SL=0 (0.0%)  hit_TP=8.8%  EOD=4.4%
+
+Year | net | stress | N/S | ret on start eq
+2016 | $-707.25 | $-786.65 | -0.90 | -0.71%
+2017 | $-586.15 | $-1295.45 | -0.45 | -0.59%
+2018 | $-637.15 | $-2036.20 | -0.31 | -0.65%
+2019 | $4623.95 | $-1231.35 | 3.76 | +4.71%
+2020 | $5095.90 | $-3674.70 | 1.39 | +4.96%
+2021 | $9761.35 | $-2831.15 | 3.45 | +9.06%
+2022 | $9758.30 | $-4200.60 | 2.32 | +8.30%
+2023 | $468.00 | $-3420.00 | 0.14 | +0.37%
+2024 | $4461.00 | $-3769.10 | 1.18 | +3.49%
+2025 | $8540.65 | $-4919.35 | 1.74 | +6.46%
+
+Weakest N/S year: 2016 ($-707.25 net, N/S=-0.90)
+
+End equity if $100k at year-1 start: $140778.60
+
+See YEARLY.md + ROBUSTNESS_AUDIT.md in hub.

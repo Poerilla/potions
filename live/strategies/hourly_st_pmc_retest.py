@@ -53,6 +53,11 @@ class HourlyStPmcRetestStrategy(StrategyPlugin):
             "runner_specs": [],
             "year_end_flatten_runners": False,
             "runners_do_not_block_entries": False,
+            # Max calendar days an indefinite runner lot may remain open.
+            # 0 = disabled (original year-end-only behaviour).
+            # Applies only to null-target runner_entry lots (indefinite runners).
+            # Implemented in the postprocess layer (see live/runner_risk_postprocess.py).
+            "max_runner_hold_days": 0,
             "ma_filter": "none",
             "close_against_entry_exit": False,
             "st_flip_exit": False,

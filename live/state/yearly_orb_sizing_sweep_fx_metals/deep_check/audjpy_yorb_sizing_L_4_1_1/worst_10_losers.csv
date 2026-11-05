@@ -1,0 +1,11 @@
+trade_id,session,year,side,entry_ts,exit_ts,entry_price,entry_qty,net_usd,exit_reasons,hit_tp,eod_close,full_initial_sl,any_stop_exit,atr14,range_width,range_label,atr14_quartile,range_width_quartile
+audjpy_yorb_sizing_L_4_1_1_2022_01,2022-04-21,2022,long,2022-04-21 20:00:00-04:00,2022-04-21 20:00:00-04:00,94.312,4,-6747.718181818154,"runner_entry,runner_stop,stop",False,False,False,True,0.9102857142857153,,n/a,Q3,
+audjpy_yorb_sizing_L_4_1_1_2024_02,2024-04-11,2024,long,2024-04-11 20:00:00-04:00,2024-04-11 20:00:00-04:00,100.168,1,-5313.1727272727485,"runner_entry,runner_stop,stop",False,False,False,True,0.6639999999999985,,n/a,Q1 low,
+audjpy_yorb_sizing_L_4_1_1_2022_07,2022-08-14,2022,long,2022-08-14 20:00:00-04:00,2022-08-14 20:00:00-04:00,94.312,1,-4609.536363636357,"runner_entry,runner_stop,stop",False,False,False,True,1.0752142857142866,,n/a,Q3,
+audjpy_yorb_sizing_L_4_1_1_2006_02,2006-09-06,2006,long,2006-09-06 20:00:00-04:00,2006-09-06 20:00:00-04:00,89.376,1,-4527.718181818251,"runner_entry,runner_stop,stop",False,False,False,True,0.5397857142857114,,n/a,Q1 low,
+audjpy_yorb_sizing_L_4_1_1_2014_03,2014-04-14,2014,long,2014-04-14 20:00:00-04:00,2014-04-14 20:00:00-04:00,95.754,1,-3818.6272727272885,"runner_entry,runner_stop,stop",False,False,False,True,0.6066428571428598,,n/a,Q1 low,
+audjpy_yorb_sizing_L_4_1_1_2014_05,2014-04-22,2014,long,2014-04-22 20:00:00-04:00,2014-04-22 20:00:00-04:00,95.754,1,-3818.6272727272885,"runner_entry,runner_stop,stop",False,False,False,True,0.6037857142857155,,n/a,Q1 low,
+audjpy_yorb_sizing_L_4_1_1_2014_15,2014-09-30,2014,long,2014-09-30 20:00:00-04:00,2014-09-30 20:00:00-04:00,95.754,1,-2765.9000000000274,"runner_entry,runner_stop,stop",False,False,False,True,0.7141428571428564,,n/a,Q2,
+audjpy_yorb_sizing_L_4_1_1_2013_04,2013-07-13,2013,short,2013-07-13 20:00:00-04:00,2013-07-13 20:00:00-04:00,89.811,4,-1642.263636363569,"close,runner_entry",False,False,False,False,,,n/a,,
+audjpy_yorb_sizing_L_4_1_1_2016_01,2016-06-18,2016,short,2016-06-18 20:00:00-04:00,2016-06-18 20:00:00-04:00,77.584,1,-1309.5363636363356,"close,runner_entry",False,False,False,False,,,n/a,,
+audjpy_yorb_sizing_L_4_1_1_2012_02,2012-05-26,2012,short,2012-05-26 20:00:00-04:00,2012-05-26 20:00:00-04:00,78.088,1,-709.5363636364162,"close,runner_entry",False,False,False,False,,,n/a,,

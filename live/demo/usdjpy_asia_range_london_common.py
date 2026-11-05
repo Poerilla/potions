@@ -16,11 +16,22 @@ import time
 from dataclasses import dataclass
 from datetime import date, datetime, time as dt_time, timedelta
 from pathlib import Path
-from typing import Any, Dict, List, Optional, Tuple
+from typing import Any, Dict, List, Optional, Sequence, Tuple
 
 import pytz
 
-from ..asia_range_shadow import append_shadow_campaign, load_shadow_book, save_shadow_book, seed_shadow_nets
+from ..asia_range_shadow import (
+    append_shadow_campaign,
+    campaigns_from_unit_trades,
+    DEFAULT_SIZING_UNIT,
+    latest_clear_roll_end,
+    load_shadow_book,
+    load_shadow_meta,
+    mark_shadow_session_evaluated,
+    save_shadow_book,
+    seed_shadow_nets,
+    shadow_observation_sessions,
+)
 from ..broker import DEFAULT_TICK_SIZE
 from ..engine import Engine
 from ..fx_v2b_london_ungated import resolve_book
@@ -55,9 +66,49 @@ ASIA_END = dt_time(3, 0)
 LONDON_OPEN = dt_time(3, 0)
 EOD = dt_time(11, 59)
 PROGRESS_HEARTBEAT_SECONDS = 300
+SHADOW_DEFER_RETRY_SECONDS = 300
+SHADOW_SIM_READY = dt_time(12, 1)
 ACCOUNT_CHANGES_POLL_SECONDS = 2.0
 MIN_ASIA_BARS = 180
 BOOK = "S_3_1_3"
+# Research book uses small integer qtys (7/3/1). OANDA units are 1:1 with those
+# integers unless scaled — micro fills (~$0.07 on a 155‑pip winner) are hard to
+# review. Live/paper demos size at 1 standard lot (100k units) per research unit.
+LIVE_UNITS_PER_LOT = 100_000
+# Review note: research ``net_usd`` = book_qty * Δprice * POINT_VALUES(USDJPY=1e5).
+# Live OANDA $ ≈ (book_qty * LIVE_UNITS_PER_LOT) * Δprice / USDJPY_rate (JPY PnL→USD).
+# Do not compare raw research nets to account balance moves without that conversion.
+PERFORMANCE_REVIEW_SIZING_NOTE = (
+    "Asia-range live size = S_3_1_3 lots (entry 7 / tp1 3 / tp2 1 × 100k OANDA units). "
+    "Research hub nets use POINT_VALUES scaling and are not 1:1 with OANDA cash PnL; "
+    "convert before performance reviews. Shadow/candle-sim stay on research book qtys."
+)
+
+
+def research_book_sizing(book: str = BOOK) -> Dict[str, int]:
+    raw = resolve_book(book)
+    return {
+        "entry_qty": int(raw["entry_qty"]),
+        "tp1_qty": int(raw["tp1_qty"]),
+        "tp2_qty": int(raw["tp2_qty"]),
+    }
+
+
+def live_broker_sizing(book: str = BOOK, *, units_per_lot: int = LIVE_UNITS_PER_LOT) -> Dict[str, int]:
+    """OANDA/paper order sizes: research book counts × standard-lot units."""
+    base = research_book_sizing(book)
+    u = int(units_per_lot)
+    return {
+        "entry_qty": int(base["entry_qty"]) * u,
+        "tp1_qty": int(base["tp1_qty"]) * u,
+        "tp2_qty": int(base["tp2_qty"]) * u,
+        "units_per_lot": u,
+        "book_entry_lots": int(base["entry_qty"]),
+        "book_tp1_lots": int(base["tp1_qty"]),
+        "book_tp2_lots": int(base["tp2_qty"]),
+    }
+
+
 TICK = 0.001
 
 
@@ -181,16 +232,72 @@ def append_progress(output_root: Path, message: str) -> None:
         fh.write(line + "\n")
 
 
-def ensure_shadow_seed(output_root: Path) -> List[float]:
+DEFAULT_SHADOW_SEED_WINDOW = 100
+
+
+def ensure_shadow_seed(output_root: Path, *, window: int = DEFAULT_SHADOW_SEED_WINDOW) -> List[float]:
     path = shadow_path(output_root)
     existing = load_shadow_book(path)
     if existing:
         return existing
-    nets = seed_shadow_nets(window=50)
+    nets = seed_shadow_nets(window=int(window))
     save_shadow_book(
         path,
         nets,
-        meta={"seed": "usdjpy_v2b_asia_range_london_S_3_1_3 last50", "book": BOOK},
+        meta={
+            "seed": "usdjpy_v2b_asia_range_london_S_3_1_3 last%d" % int(window),
+            "book": BOOK,
+            "window": int(window),
+        },
+    )
+    return nets
+
+
+def reseed_shadow_from_research(
+    output_root: Path,
+    *,
+    window: int = DEFAULT_SHADOW_SEED_WINDOW,
+    roll_window: int = 50,
+    min_wr: float = 0.40,
+    min_pf: float = 1.0,
+    end_idx: Optional[int] = None,
+    after_nets: Optional[Sequence[float]] = None,
+    prefer_clear_roll: bool = True,
+) -> List[float]:
+    """Replace live shadow book with a wider research seed.
+
+    Default: last ``window`` campaigns ending at the latest research index whose
+    trailing ``roll_window`` clears WR/PF (optionally after appending ``after_nets``,
+    e.g. candle-sim backfills). Raw tape-tail last-N often still has a broken
+    trailing-50, which leaves the live gate stuck after reseed.
+    """
+    all_nets = campaigns_from_unit_trades(DEFAULT_SIZING_UNIT)
+    end = int(end_idx) if end_idx is not None else len(all_nets)
+    if prefer_clear_roll and end_idx is None:
+        found = latest_clear_roll_end(
+            all_nets,
+            window=int(roll_window),
+            min_wr=float(min_wr),
+            min_pf=float(min_pf),
+            after=after_nets,
+        )
+        if found is not None:
+            end = int(found)
+    nets = seed_shadow_nets(window=int(window), end_idx=end)
+    save_shadow_book(
+        shadow_path(output_root),
+        nets,
+        meta={
+            "seed": "usdjpy_v2b_asia_range_london_S_3_1_3 last%d_clear_roll%d" % (int(window), int(roll_window)),
+            "book": BOOK,
+            "window": int(window),
+            "roll_window": int(roll_window),
+            "research_end_idx": end,
+            "research_tape_n": len(all_nets),
+            "prefer_clear_roll": bool(prefer_clear_roll),
+            "after_nets_n": len(list(after_nets or ())),
+            "reseeded_at": utc_now_iso(),
+        },
     )
     return nets
 
@@ -238,7 +345,12 @@ def candle_sim_unfiltered_campaign_net(
     if not bars:
         return None
     london_bars: List[Bar] = []
+    seen_ts = set()
     for bar in bars:
+        # Bars before 2026-10-22 were persisted twice; replay each minute once.
+        if bar.ts in seen_ts:
+            continue
+        seen_ts.add(bar.ts)
         wall = parse_oanda_ts(bar.ts).astimezone(NY)
         if wall.date().isoformat() != sess:
             continue
@@ -252,7 +364,7 @@ def candle_sim_unfiltered_campaign_net(
     if len(london_bars) < 30:
         return None
 
-    sizing = resolve_book(spec.book)
+    sizing = research_book_sizing(spec.book)
     sid = "%s_candle_sim_%s" % (spec.strategy_id, sess.replace("-", ""))
     tmp = Path(tempfile.mkdtemp(prefix="asia_candle_sim_", dir=str(output_root)))
     try:
@@ -322,34 +434,180 @@ def candle_sim_unfiltered_campaign_net(
         )
         for bar in london_bars:
             engine.process_bar(bar)
+        # Engine/PaperBroker does not write unit_trades.csv (research replay audit does).
+        # Prefer unit_trades when present; else derive research-scale net from fills /
+        # realized_pnl so sit-out days still advance the shadow book.
         unit_path = tmp / "unit_trades.csv"
-        if not unit_path.exists():
-            return None
-        ut = pd.read_csv(unit_path)
-        if ut.empty or "net_usd" not in ut.columns:
-            return None
-        if "entry_ts" in ut.columns:
-            ut["entry_ts"] = pd.to_datetime(ut["entry_ts"], utc=True)
-            today = ut[ut["entry_ts"].dt.tz_convert("America/New_York").dt.date.astype(str) == sess]
-        else:
-            today = ut
-        if today.empty:
-            return None
-        if "trade_id" in today.columns:
-            return float(today.groupby("trade_id")["net_usd"].sum().sum())
-        return float(today["net_usd"].sum())
+        if unit_path.exists():
+            ut = pd.read_csv(unit_path)
+            if not ut.empty and "net_usd" in ut.columns:
+                if "entry_ts" in ut.columns:
+                    ut["entry_ts"] = pd.to_datetime(ut["entry_ts"], utc=True)
+                    today = ut[
+                        ut["entry_ts"].dt.tz_convert("America/New_York").dt.date.astype(str) == sess
+                    ]
+                else:
+                    today = ut
+                if not today.empty:
+                    if "trade_id" in today.columns:
+                        return float(today.groupby("trade_id")["net_usd"].sum().sum())
+                    return float(today["net_usd"].sum())
+        return _campaign_net_from_candle_sim_store(store, instrument=spec.instrument)
     finally:
         shutil.rmtree(tmp, ignore_errors=True)
 
 
+def _campaign_net_from_candle_sim_store(store: FlatFileStore, *, instrument: str) -> Optional[float]:
+    """Research-scale campaign net from a candle-sim PaperBroker store.
+
+    Research ``unit_trades.net_usd`` is ``qty * price_delta * POINT_VALUES`` (JPY-like
+    units for USDJPY). PaperBroker ``realized_pnl`` is ``qty * price_delta`` only —
+    multiply by ``POINT_VALUES`` so appended shadow nets stay on the seed scale.
+    """
+    from ..replay_audit import POINT_VALUES
+
+    fills = list(store.read_table("fills") or [])
+    if not fills:
+        return None
+    pv = float(POINT_VALUES.get(str(instrument).upper()) or 1.0)
+    realized = 0.0
+    for row in store.read_table("positions") or []:
+        if str(row.get("instrument") or "").upper() != str(instrument).upper():
+            continue
+        try:
+            realized += float(row.get("realized_pnl") or 0.0)
+        except (TypeError, ValueError):
+            continue
+    if abs(realized) > 1e-12:
+        return float(realized) * pv
+
+    # Fallback FIFO if realized was not persisted.
+    lots: List[Tuple[str, float, float]] = []
+    net = 0.0
+    saw_exit = False
+    for row in fills:
+        inst = str(row.get("instrument") or "").upper()
+        if inst and inst != str(instrument).upper():
+            continue
+        side = str(row.get("side") or "").lower()
+        reason = str(row.get("reason") or "").lower()
+        try:
+            qty = abs(float(row.get("quantity") or 0.0))
+            px = float(row.get("price") or 0.0)
+        except (TypeError, ValueError):
+            continue
+        if qty <= 0 or px <= 0 or side not in {"buy", "sell"}:
+            continue
+        if reason == "entry" or not lots:
+            if reason == "entry" or (not lots and reason not in {"tp1", "tp2", "eod_close", "stop", "target"}):
+                lots.append((side, qty, px))
+                continue
+        saw_exit = True
+        remain = qty
+        while remain > 1e-12 and lots:
+            open_side, open_qty, open_px = lots[0]
+            take = min(remain, open_qty)
+            sign = 1.0 if open_side == "buy" else -1.0
+            net += sign * (px - open_px) * take * pv
+            open_qty -= take
+            remain -= take
+            if open_qty <= 1e-12:
+                lots.pop(0)
+            else:
+                lots[0] = (open_side, open_qty, open_px)
+    if not saw_exit:
+        return None
+    return float(net)
+
+
+def backfill_shadow_campaigns(
+    *,
+    output_root: Path,
+    spec: AsiaRangeDemoSpec,
+    start_session: str,
+    end_session: str,
+) -> Dict[str, Any]:
+    """Repair missing live shadow observations from stored bars, idempotently."""
+    rows = FlatFileStore(state_root_for(output_root)).read_table("strategy_instances")
+    ranges: Dict[str, Any] = {}
+    for row in rows:
+        if str(row.get("strategy_id") or "") != spec.strategy_id:
+            continue
+        try:
+            cfg = json.loads(row.get("config_json") or "{}")
+        except json.JSONDecodeError:
+            cfg = {}
+        ranges = dict(cfg.get("session_or_ranges") or {})
+        break
+
+    path = shadow_path(output_root)
+    evaluated = set((load_shadow_meta(path) or {}).get("evaluated_sessions") or [])
+    report: Dict[str, Any] = {
+        "start_session": start_session,
+        "end_session": end_session,
+        "before_n": len(load_shadow_book(path)),
+        "appended": [],
+        "no_campaign": [],
+        "missing_range": [],
+        "already_evaluated": [],
+    }
+    for sess in sorted(d for d in ranges if start_session <= d <= end_session):
+        if sess in evaluated:
+            report["already_evaluated"].append(sess)
+            continue
+        raw = ranges.get(sess) or {}
+        try:
+            asia_hi = float(raw["high"])
+            asia_lo = float(raw["low"])
+        except (KeyError, TypeError, ValueError):
+            report["missing_range"].append(sess)
+            continue
+        net = candle_sim_unfiltered_campaign_net(
+            output_root=output_root,
+            spec=spec,
+            sess=sess,
+            asia_hi=asia_hi,
+            asia_lo=asia_lo,
+        )
+        if net is None:
+            mark_shadow_session_evaluated(
+                path,
+                sess,
+                source="stored_bars_backfill",
+                outcome="no_campaign",
+            )
+            report["no_campaign"].append(sess)
+        else:
+            append_shadow_campaign(
+                path,
+                net,
+                session_date=sess,
+                source="stored_bars_backfill",
+            )
+            report["appended"].append({"session_date": sess, "net_usd": float(net)})
+        evaluated.add(sess)
+    report["after_n"] = len(load_shadow_book(path))
+    report["advanced_by"] = report["after_n"] - report["before_n"]
+    return report
+
 def strategy_config_payload(spec: AsiaRangeDemoSpec, output_root: Path) -> Dict[str, Any]:
-    sizing = resolve_book(spec.book)
+    # Broker orders: lots. Shadow/candle-sim keep research book qtys separately.
+    sizing = live_broker_sizing(spec.book)
+    research = research_book_sizing(spec.book)
     nets = ensure_shadow_seed(output_root)
     return {
         "mode": "oco_then_reverse",
         "entry_qty": sizing["entry_qty"],
         "tp1_qty": sizing["tp1_qty"],
         "tp2_qty": sizing["tp2_qty"],
+        "units_per_lot": sizing["units_per_lot"],
+        "book_entry_lots": sizing["book_entry_lots"],
+        "book_tp1_lots": sizing["book_tp1_lots"],
+        "book_tp2_lots": sizing["book_tp2_lots"],
+        "research_entry_qty": research["entry_qty"],
+        "research_tp1_qty": research["tp1_qty"],
+        "research_tp2_qty": research["tp2_qty"],
+        "performance_review_sizing_note": PERFORMANCE_REVIEW_SIZING_NOTE,
         "tick_size": spec.tick,
         "rth_start": "03:00",
         "or_end": "03:00",
@@ -395,6 +653,9 @@ def write_run_meta(output_root: Path, *, spec: AsiaRangeDemoSpec, config: OandaC
         "entry_qty": payload["entry_qty"],
         "tp1_qty": payload["tp1_qty"],
         "tp2_qty": payload["tp2_qty"],
+        "units_per_lot": payload.get("units_per_lot"),
+        "book_entry_lots": payload.get("book_entry_lots"),
+        "performance_review_sizing_note": PERFORMANCE_REVIEW_SIZING_NOTE,
         "account_mode": "paper",
         "oanda_routing": spec.oanda_routing,
         "allow_live_routing": False,
@@ -404,7 +665,10 @@ def write_run_meta(output_root: Path, *, spec: AsiaRangeDemoSpec, config: OandaC
         "state_root": str(state_root_for(output_root)),
         "tracker": "USDJPY Asia-range London S_3_1_3 filtered N/S 7.23",
         "hub": "live/state/fx_v2b_asia_range_london_usdjpy_filters",
-        "note": "Asia OR 19:00-03:00 → arm London 03:00 → flatten 11:59; Jan skip + shadow roll50.",
+        "note": (
+            "Asia OR 19:00-03:00 → arm London 03:00 → flatten 11:59; Jan skip + shadow roll50. "
+            + PERFORMANCE_REVIEW_SIZING_NOTE
+        ),
     }
     output_root.mkdir(parents=True, exist_ok=True)
     run_meta_path(output_root).write_text(json.dumps(meta, indent=2, sort_keys=True) + "\n", encoding="utf-8")
@@ -415,6 +679,18 @@ def bootstrap_store(output_root: Path, spec: AsiaRangeDemoSpec) -> FlatFileStore
     store = FlatFileStore(state_root_for(output_root))
     store.ensure()
     payload = strategy_config_payload(spec, output_root)
+    # Preserve Asia OR history across daemon restarts / size-ups.
+    try:
+        for row in store.read_table("strategy_instances") or []:
+            if str(row.get("strategy_id") or "") != spec.strategy_id:
+                continue
+            prev = json.loads(row.get("config_json") or "{}")
+            ranges = prev.get("session_or_ranges") or {}
+            if isinstance(ranges, dict) and ranges:
+                payload["session_or_ranges"] = dict(ranges)
+            break
+    except Exception:
+        pass
     store.upsert_row(
         "strategy_instances",
         "strategy_id",
@@ -517,6 +793,10 @@ class AsiaRangeRunner:
         self._asia_session: Optional[date] = None  # London session date this Asia window feeds
         self._injected_session: Optional[str] = None
         self._shadow_done_session: Optional[str] = None
+        self._shadow_defer_session: Optional[str] = None
+        self._shadow_retry_at = 0.0
+        self._shadow_alarm_session: Optional[str] = None
+        self._shadow_count_at_inject = len(load_shadow_book(shadow_path(self.output_root)))
         self.containment = None
         if spec.oanda_routing:
             install_containment(
@@ -638,6 +918,7 @@ class AsiaRangeRunner:
                 except Exception:
                     pass
         self._injected_session = sess
+        self._shadow_count_at_inject = len(cfg["shadow_campaigns_seed"])
         append_progress(
             self.output_root,
             "asia_or injected session=%s hi=%.3f lo=%.3f bars=%d" % (sess, self._asia_hi, self._asia_lo, self._asia_bars),
@@ -682,18 +963,18 @@ class AsiaRangeRunner:
     def _maybe_append_shadow_from_live(self, wall: datetime) -> None:
         """After London EOD, append today's unfiltered campaign net into the shadow book.
 
-        Taken days: live ``unit_trades`` net (when present).
-        Sit-out / no-fill days: candle-sim on stored 1m bars with filters off so the
-        roll50 window cannot freeze (research contract).
+        Every day uses the same unfiltered candle-sim on stored 1m bars. The OANDA
+        daemon does not create research ``unit_trades.csv``; waiting for that file
+        froze the roll-50 book on all taken sessions.
         """
-        if wall.timetz().replace(tzinfo=None) < EOD:
+        if wall.timetz().replace(tzinfo=None) < SHADOW_SIM_READY:
             return
         sess = wall.date().isoformat()
         if self._shadow_done_session == sess:
             return
+        if self._shadow_defer_session == sess and time.monotonic() < self._shadow_retry_at:
+            return
         try:
-            import pandas as pd
-
             decision = "unknown"
             plugin = self.engine.manager.plugins.get(self.spec.strategy_id)
             if plugin is not None and hasattr(plugin, "session_gate_decision"):
@@ -705,124 +986,100 @@ class AsiaRangeRunner:
                 except Exception:
                     decision = "unknown"
 
-            fills_path = state_root_for(self.output_root) / "fills.csv"
-            net: Optional[float] = None
-            source = ""
-
-            if fills_path.exists():
-                df = pd.read_csv(fills_path)
-                if not df.empty and "ts" in df.columns:
-                    df["ts"] = pd.to_datetime(df["ts"], utc=True)
-                    day = df[df["ts"].dt.tz_convert("America/New_York").dt.date.astype(str) == sess]
-                    if not day.empty:
-                        unit_path = state_root_for(self.output_root) / "unit_trades.csv"
-                        if unit_path.exists():
-                            ut = pd.read_csv(unit_path)
-                            if not ut.empty and "entry_ts" in ut.columns and "net_usd" in ut.columns:
-                                ut["entry_ts"] = pd.to_datetime(ut["entry_ts"], utc=True)
-                                today = ut[
-                                    ut["entry_ts"].dt.tz_convert("America/New_York").dt.date.astype(str) == sess
-                                ]
-                                if not today.empty:
-                                    net = float(today.groupby("trade_id")["net_usd"].sum().sum())
-                                    source = "live_unit_trades"
-
-            if net is None and decision != "take":
-                # Sit-out (or unknown): advance shadow via unfiltered candle-sim.
-                asia = _session_asia_or(self.output_root, self.spec, sess)
-                if asia is None and self._asia_hi is not None and self._asia_lo is not None:
-                    asia = (float(self._asia_hi), float(self._asia_lo))
-                if asia is None:
-                    append_progress(
-                        self.output_root,
-                        "shadow candle_sim defer session=%s (no Asia OR yet)" % sess,
-                    )
-                    append_campaign_parity(
-                        self.output_root,
-                        {
-                            "session_date": sess,
-                            "shadow_50_wr": "",
-                            "shadow_50_pf": "",
-                            "shadow_n": "",
-                            "decision": "eod",
-                            "reason": "sitout_no_asia_or",
-                            "realized_campaign_net": "",
-                            "next_shadow_n": len(load_shadow_book(shadow_path(self.output_root))),
-                            "warmup": "",
-                        },
-                    )
-                    self._shadow_done_session = sess
-                    return
-                net = candle_sim_unfiltered_campaign_net(
-                    output_root=self.output_root,
-                    spec=self.spec,
-                    sess=sess,
-                    asia_hi=asia[0],
-                    asia_lo=asia[1],
+            path = shadow_path(self.output_root)
+            if sess in shadow_observation_sessions(path):
+                self._shadow_done_session = sess
+                return
+            before_n = len(load_shadow_book(path))
+            asia = _session_asia_or(self.output_root, self.spec, sess)
+            if asia is None and self._asia_hi is not None and self._asia_lo is not None:
+                asia = (float(self._asia_hi), float(self._asia_lo))
+            if asia is None:
+                self._send_shadow_hard_alarm(
+                    sess,
+                    reason="missing Asia OR after shadow deadline",
+                    before_n=before_n,
+                    after_n=before_n,
                 )
-                source = "candle_sim_unfiltered"
-                if net is None:
-                    append_progress(
-                        self.output_root,
-                        "shadow candle_sim no_campaign session=%s decision=%s" % (sess, decision),
-                    )
-                    append_campaign_parity(
-                        self.output_root,
-                        {
-                            "session_date": sess,
-                            "shadow_50_wr": "",
-                            "shadow_50_pf": "",
-                            "shadow_n": "",
-                            "decision": "eod",
-                            "reason": "candle_sim_no_campaign",
-                            "realized_campaign_net": "",
-                            "next_shadow_n": len(load_shadow_book(shadow_path(self.output_root))),
-                            "warmup": "",
-                        },
-                    )
-                    self._shadow_done_session = sess
-                    return
+                self._shadow_defer_session = sess
+                self._shadow_retry_at = time.monotonic() + SHADOW_DEFER_RETRY_SECONDS
+                return
 
+            net = candle_sim_unfiltered_campaign_net(
+                output_root=self.output_root,
+                spec=self.spec,
+                sess=sess,
+                asia_hi=asia[0],
+                asia_lo=asia[1],
+            )
+            source = "candle_sim_unfiltered"
             if net is None:
-                # Taken day still waiting on unit_trades, or take with no fills (no OR break).
-                reason = "take_await_unit_trades" if decision == "take" else "sitout_or_no_unit_trades"
+                has_fills = self._session_has_broker_fills(sess)
+                if has_fills:
+                    self._send_shadow_hard_alarm(
+                        sess,
+                        reason="broker fills exist but unfiltered candle-sim produced no observation",
+                        before_n=before_n,
+                        after_n=before_n,
+                    )
+                mark_shadow_session_evaluated(
+                    path,
+                    sess,
+                    source=source,
+                    outcome="no_campaign",
+                )
                 append_progress(
                     self.output_root,
-                    "shadow defer session=%s decision=%s (%s)" % (sess, decision, reason),
+                    "shadow evaluated session=%s no_campaign decision=%s broker_fills=%s n=%d"
+                    % (sess, decision, has_fills, before_n),
                 )
                 append_campaign_parity(
                     self.output_root,
                     {
                         "session_date": sess,
-                        "shadow_50_wr": "",
-                        "shadow_50_pf": "",
-                        "shadow_n": "",
                         "decision": "eod",
-                        "reason": reason,
-                        "realized_campaign_net": "",
-                        "next_shadow_n": len(load_shadow_book(shadow_path(self.output_root))),
-                        "warmup": "",
+                        "reason": "candle_sim_no_campaign",
+                        "next_shadow_n": before_n,
                     },
                 )
-                # Do not freeze take days forever if unit_trades lag a few ticks —
-                # retry until a later heartbeat sees them (only mark done for no-fill take).
-                if decision == "take" and fills_path.exists():
-                    try:
-                        df2 = pd.read_csv(fills_path)
-                        if not df2.empty and "ts" in df2.columns:
-                            df2["ts"] = pd.to_datetime(df2["ts"], utc=True)
-                            day2 = df2[df2["ts"].dt.tz_convert("America/New_York").dt.date.astype(str) == sess]
-                            if not day2.empty:
-                                return  # keep retrying while fills exist without unit_trades
-                    except Exception:
-                        pass
                 self._shadow_done_session = sess
                 return
 
-            nets = append_shadow_campaign(shadow_path(self.output_root), net)
+            nets = append_shadow_campaign(
+                path,
+                net,
+                session_date=sess,
+                source=source,
+            )
+            if len(nets) <= before_n:
+                self._send_shadow_hard_alarm(
+                    sess,
+                    reason="shadow observation count failed to advance after campaign simulation",
+                    before_n=before_n,
+                    after_n=len(nets),
+                )
+            # Keep plugin state in sync with the shadow file (gate reloads file first).
+            plugin = self.engine.manager.plugins.get(self.spec.strategy_id)
+            if plugin is not None:
+                st = dict(getattr(plugin, "state", None) or {})
+                st["shadow_campaigns"] = list(nets)
+                plugin.state = st
+                try:
+                    self.store.upsert_row(
+                        "strategy_state",
+                        "strategy_id",
+                        {
+                            "strategy_id": self.spec.strategy_id,
+                            "state_json": json.dumps(st, separators=(",", ":")),
+                            "updated_at": utc_now_iso(),
+                        },
+                    )
+                except Exception:
+                    pass
             append_progress(
                 self.output_root,
-                "shadow append session=%s net=%.2f source=%s decision=%s" % (sess, net, source, decision),
+                "shadow append session=%s net=%.2f source=%s decision=%s n=%d"
+                % (sess, net, source, decision, len(nets)),
             )
             append_campaign_parity(
                 self.output_root,
@@ -841,7 +1098,66 @@ class AsiaRangeRunner:
             self._shadow_done_session = sess
         except Exception as exc:
             append_progress(self.output_root, "shadow append failed session=%s: %s" % (sess, exc))
-            self._shadow_done_session = sess
+            self._send_shadow_hard_alarm(
+                sess,
+                reason="shadow append exception: %s" % exc,
+                before_n=len(load_shadow_book(shadow_path(self.output_root))),
+                after_n=len(load_shadow_book(shadow_path(self.output_root))),
+            )
+
+    def _session_has_broker_fills(self, sess: str) -> bool:
+        import pandas as pd
+
+        path = state_root_for(self.output_root) / "fills.csv"
+        if not path.exists():
+            return False
+        try:
+            df = pd.read_csv(path, usecols=["ts"])
+            if df.empty:
+                return False
+            ts = pd.to_datetime(df["ts"], utc=True)
+            return bool((ts.dt.tz_convert("America/New_York").dt.date.astype(str) == sess).any())
+        except Exception:
+            return False
+
+    def _send_shadow_hard_alarm(self, sess: str, *, reason: str, before_n: int, after_n: int) -> None:
+        if self._shadow_alarm_session == sess:
+            return
+        self._shadow_alarm_session = sess
+        payload = {
+            "event": "shadow_observation_frozen_alarm",
+            "session_date": sess,
+            "strategy_id": self.spec.strategy_id,
+            "reason": reason,
+            "before_n": int(before_n),
+            "after_n": int(after_n),
+        }
+        self.store.append_event("reconciliation_events", payload)
+        append_progress(
+            self.output_root,
+            "HARD ALARM shadow observation frozen session=%s n=%d->%d reason=%s"
+            % (sess, before_n, after_n, reason),
+        )
+        try:
+            from ..notify_email import send_resend_email
+
+            send_resend_email(
+                subject="potions HARD ALARM: Asia shadow observation frozen [%s]" % sess,
+                body="\n".join(
+                    [
+                        "strategy_id=%s" % self.spec.strategy_id,
+                        "session=%s" % sess,
+                        "shadow_count=%d -> %d" % (before_n, after_n),
+                        "reason=%s" % reason,
+                        "state=%s" % shadow_path(self.output_root),
+                    ]
+                ),
+            )
+        except BaseException as exc:
+            self.store.append_event(
+                "reconciliation_events",
+                {"event": "shadow_alarm_email_error", "session_date": sess, "error": str(exc)},
+            )
 
     def on_price_tick(
         self,
@@ -876,7 +1192,6 @@ class AsiaRangeRunner:
         completed: List[Bar] = []
         for bar_1m in self.builder_1m.on_quote(bid=float(bid), ask=float(ask), mid=mid_px, quantity=quantity, ts=ts):
             self.bars_1m += 1
-            self.store.append_bar(bar_1m)
             self._update_asia_range(parse_oanda_ts(bar_1m.ts).astimezone(NY), float(bar_1m.high), float(bar_1m.low))
             self._maybe_inject_session_or(parse_oanda_ts(bar_1m.ts).astimezone(NY))
             self.engine.process_bar(bar_1m)
@@ -890,7 +1205,6 @@ class AsiaRangeRunner:
         out: List[Bar] = []
         for bar_1m in self.builder_1m.flush():
             self.bars_1m += 1
-            self.store.append_bar(bar_1m)
             self._update_asia_range(parse_oanda_ts(bar_1m.ts).astimezone(NY), float(bar_1m.high), float(bar_1m.low))
             self._maybe_inject_session_or(parse_oanda_ts(bar_1m.ts).astimezone(NY))
             self.engine.process_bar(bar_1m)
@@ -1029,6 +1343,7 @@ def run_stream_loop(
         _price_levels,
         _remove_pidfile,
     )
+    from .singleton import EXIT_REFUSED, claim_runtime
 
     cfg = config or oanda_config_from_env()
     cfg.validate_for_network()
@@ -1038,6 +1353,14 @@ def run_stream_loop(
         return 2
 
     root = Path(output_root) if output_root is not None else default_output_root(spec)
+    if not claim_runtime(
+        strategy_id=spec.strategy_id,
+        output_root=root,
+        account_id=str(cfg.account_id or ""),
+        instrument=spec.instrument,
+        routes_orders=bool(spec.oanda_routing),
+    ):
+        return EXIT_REFUSED
     # Foreground smoke against the same output_root must not steal/delete a live daemon's pidfile.
     existing_pid = read_pid(root)
     own_pidfile = not (existing_pid and existing_pid != os.getpid() and pid_is_alive(existing_pid))

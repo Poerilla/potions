@@ -38,6 +38,8 @@ for d in sorted(ROOT.iterdir()):
 PY
 ```
 
+**Singleton check (always):** `python3 -m potions.live.cli demo-singleton-audit --no-email` (cron runs it every 5 min with email). Any `ALARM` line (`DUPLICATE_*`, `UNLOCKED`, `WRONG_OWNER`) is a hard problem: report it and let the user decide what to stop. Restart only with `demo-restart <demo dir>`.
+
 Also: `ps aux | rg 'potions.live.cli'` and per-demo `python3 -m potions.live.cli <demo>-status` (full list in [reference.md](reference.md)).
 
 ## What “healthy” looks like
@@ -45,6 +47,7 @@ Also: `ps aux | rg 'potions.live.cli'` and per-demo `python3 -m potions.live.cli
 | Signal | Good | Concern |
 |--------|------|---------|
 | Process / pidfile | `alive=True` | Dead pidfile / no process |
+| Singleton audit | exit 0, no `ALARM` | Two runners on one folder/strategy/route, or a runner without `daemon.lock` |
 | Heartbeat age | `PROGRESS.log` / `run.log` updated within ~5–10m | Stale >15–30m |
 | Positions | Flat or intentional open qty | Unexpected open + no resting brackets |
 | Ticks / bars | Counters advancing (esp. FX / ST+PMC) | Frozen ticks **and** frozen bars mid-session |

@@ -3,6 +3,7 @@ from __future__ import annotations
 import argparse
 import json
 from pathlib import Path
+from typing import Optional
 
 from .engine import Engine, bars_from_csv
 from .health import HealthServer
@@ -1836,6 +1837,25 @@ def build_parser() -> argparse.ArgumentParser:
     oanda_flat.add_argument("--allow-live", action="store_true")
     oanda_flat.set_defaults(func=cmd_oanda_emergency_flatten)
 
+    singleton_audit = sub.add_parser(
+        "demo-singleton-audit",
+        help="Scan running demo daemons for duplicate/unlocked/wrong-account runners; Resend hard alarm",
+    )
+    singleton_audit.add_argument("--no-email", action="store_true")
+    singleton_audit.set_defaults(func=cmd_demo_singleton_audit)
+
+    demo_restart = sub.add_parser(
+        "demo-restart",
+        help="Stop every runner on a demo folder, wait for its locks to free, relaunch one, verify",
+    )
+    demo_restart.add_argument("book", help="Demo dirname under live/demo/ or an output-root path")
+    demo_restart.add_argument("--stop-timeout", type=float, default=60.0)
+    demo_restart.add_argument("--not-before", default="", help="Wait until this America/New_York HH:MM first")
+    demo_restart.add_argument("--when-flat", action="store_true", help="Wait until the routed OANDA account has no trades or pending orders")
+    demo_restart.add_argument("--flat-timeout", type=float, default=120.0, help="Minutes to wait for flat before giving up")
+    demo_restart.add_argument("--email", action="store_true", help="Email the restart outcome")
+    demo_restart.set_defaults(func=cmd_demo_restart)
+
     demo_paper = sub.add_parser(
         "demo-eurusd-v2b-paper",
         help="EURUSD v2b ungated paper demo (OANDA prices, local PaperBroker; --daemon for background)",
@@ -2177,7 +2197,16 @@ def build_parser() -> argparse.ArgumentParser:
         help="NAS100 clean-break pyramid trail06_m4_e2_out_be OANDA practice (5m; account -003)",
     )
     demo_nas100_cbt_oanda.add_argument("--output-root", default="")
-    demo_nas100_cbt_oanda.add_argument("--oanda-config", default="")
+    demo_nas100_cbt_oanda.add_argument(
+        "--oanda-config",
+        default=str(
+            Path(__file__).resolve().parent
+            / "demo"
+            / "oanda_account_configs"
+            / "nas100_clean_break_trail_003.json"
+        ),
+        help="Dedicated -003 practice account config (do not rely on OANDA_ACCOUNT_ID=-001 from .env)",
+    )
     demo_nas100_cbt_oanda.add_argument("--max-ticks", type=int, default=0)
     demo_nas100_cbt_oanda.add_argument("--daemon", action="store_true")
     demo_nas100_cbt_oanda.set_defaults(func=cmd_demo_nas100_clean_break_trail_oanda)
@@ -2519,9 +2548,104 @@ def build_parser() -> argparse.ArgumentParser:
     return p
 
 
+def cmd_demo_singleton_audit(args) -> int:
+    from .demo.singleton import AUDIT_REPORT_PATH, run_audit
+
+    result = run_audit(email=not args.no_email)
+    for r in result["runners"]:
+        print("pid=%-8s lock=%-5s %-44s %s" % (r["pid"], r.get("lock_held"), r["command"], r["output_root"]))
+    for line in result["alarms"]:
+        print("ALARM " + line)
+    for line in result["notes"]:
+        print("note  " + line)
+    print("report: %s" % AUDIT_REPORT_PATH)
+    return 1 if result["alarms"] else 0
+
+
+def cmd_demo_restart(args) -> int:
+    import contextlib
+    import io
+    import time
+    from datetime import datetime
+
+    import pytz
+
+    from .demo.singleton import DEMO_DIR, broker_flat, restart
+
+    root = Path(args.book)
+    if not root.is_absolute() and not root.exists():
+        root = DEMO_DIR / args.book
+    root = root.resolve()
+    log = io.StringIO()
+
+    def say(msg: str) -> None:
+        print(msg, flush=True)
+        log.write(msg + "\n")
+
+    rc = 1
+    if args.not_before:
+        ny = pytz.timezone("America/New_York")
+        hh, mm = (int(x) for x in args.not_before.split(":"))
+        target = datetime.now(ny).replace(hour=hh, minute=mm, second=0, microsecond=0)
+        wait = (target - datetime.now(ny)).total_seconds()
+        if wait > 0:
+            say("demo-restart: waiting %.0fs until %s NY" % (wait, args.not_before))
+            time.sleep(wait)
+    flat_ok = True
+    if args.when_flat:
+        deadline = time.time() + float(args.flat_timeout) * 60.0
+        while True:
+            flat_ok, detail = broker_flat(root)
+            say("demo-restart: flat=%s %s" % (flat_ok, detail))
+            if flat_ok or time.time() >= deadline:
+                break
+            time.sleep(60)
+    if not flat_ok:
+        say("demo-restart: NOT restarting %s; account never went flat within %.0f min" % (root.name, args.flat_timeout))
+    else:
+        buf = io.StringIO()
+        with contextlib.redirect_stdout(buf):
+            rc = restart(root, stop_timeout=float(args.stop_timeout))
+        say(buf.getvalue().rstrip())
+    if args.email:
+        from .notify_email import send_email
+
+        status = "OK" if rc == 0 else "FAILED"
+        send_email(
+            subject="potions demo-restart %s: %s" % (status, root.name),
+            body="demo-restart %s\nbook: %s\n\n%s" % (status, root, log.getvalue()),
+        )
+    return rc
+
+
+def _singleton_gate(args) -> Optional[int]:
+    """Catch-all for ``demo-*`` runners: output-folder lock before any runner code runs."""
+    name = getattr(getattr(args, "func", None), "__name__", "")
+    if not name.startswith("cmd_demo_") or name.endswith(("_status", "_stop")):
+        return None
+    if name in ("cmd_demo_singleton_audit", "cmd_demo_restart"):
+        return None
+    out = getattr(args, "output_root", "") or ""
+    if not out:
+        return None
+    from .demo.singleton import EXIT_REFUSED, acquire_output_lock, lock_is_held, output_lock_path, read_lock_meta
+
+    root = Path(out)
+    if getattr(args, "daemon", False):
+        lock = output_lock_path(root)
+        if lock_is_held(lock):
+            print("Already running as pid %s (holds %s)" % (read_lock_meta(lock).get("pid", "?"), lock))
+            return EXIT_REFUSED
+        return None
+    return None if acquire_output_lock(root) else EXIT_REFUSED
+
+
 def main(argv=None) -> int:
     parser = build_parser()
     args = parser.parse_args(argv)
+    refused = _singleton_gate(args)
+    if refused is not None:
+        return refused
     return args.func(args)
 
 

@@ -1,0 +1,123 @@
+potions: OANDA live/demo adherence + performance (2026-08-17 19:30Z)
+
+## Adherence
+OANDA demos: 15/20 alive.
+Local open-position demos: 0.
+Flagged demos: 10.
+
+Flags (DEAD_PID / STALE / OPEN_NO_BRACKET / ORPHAN_ORDERS / 429):
+  - eurusd_v2b_ungated_oanda: NO_PID|429+stream_err (hb=8594.1m open=0 rest=0)
+  - nas100_hourly_st_pmc_sl50_tp150_3r_oanda: ORPHAN_ORDERS (hb=0.2m open=0 rest=2)
+  - nas100_hourly_st_pmc_sl50_tp150_runners_2r_10r_oanda: ORPHAN_ORDERS (hb=4.1m open=0 rest=26)
+  - nas100_v2b_ungated_oanda: NO_PID|429+stream_err (hb=3912.8m open=0 rest=0)
+  - oanda_practice_snapshot: NO_PID (hb=nanm open=0 rest=0)
+  - spx500_v2b_ungated_oanda: NO_PID|429+stream_err (hb=3912.8m open=0 rest=0)
+  - us30_hourly_st_pmc_sl50_tp150_runners_2r_10r_oanda: ORPHAN_ORDERS (hb=1.5m open=0 rest=35)
+  - us30_monday_or_m3_s3_r2_half_oanda: 429 (hb=0.5m open=0 rest=0)
+  - us30_v2b_ungated_oanda: NO_PID|stream_err (hb=7016.6m open=0 rest=0)
+  - usdjpy_asia_range_london_oanda: 429 (hb=0.7m open=0 rest=0)
+
+All OANDA local position tapes flat.
+
+broker snapshot skipped: ModuleNotFoundError
+No module named 'oandapyV20'
+
+## Alive heartbeats (hb age minutes)
+  eurusd_hourly_st_pmc_sl50_tp150_3r_oanda         hb=  0.0 open=0 rest=0 fills=0
+  nas100_hourly_st_pmc_sl50_tp150_3r_oanda         hb=  0.2 open=0 rest=2 fills=8
+  us30_monday_or_m3_s3_r2_half_oanda               hb=  0.5 open=0 rest=0 fills=0
+  usdjpy_monday_or_ungated_oanda                   hb=  0.5 open=0 rest=0 fills=15
+  xagusd_yearly_orb_oanda                          hb=  0.5 open=0 rest=0 fills=0
+  eurusd_hourly_st_pmc_sl50_tp150_runners_2r_10r_oanda hb=  0.7 open=0 rest=0 fills=0
+  usdjpy_asia_range_london_oanda                   hb=  0.7 open=0 rest=0 fills=0
+  us30_hourly_st_pmc_sl50_tp150_runners_2r_10r_oanda hb=  1.5 open=0 rest=35 fills=8
+  audjpy_yearly_orb_oanda                          hb=  2.1 open=0 rest=0 fills=0
+  eurusd_yearly_orb_oanda                          hb=  2.5 open=0 rest=0 fills=0
+  us30_yearly_orb_oanda                            hb=  2.5 open=0 rest=0 fills=0
+  xauusd_yearly_orb_oanda                          hb=  2.6 open=0 rest=0 fills=0
+  us30_hourly_st_pmc_sl50_tp150_3r_oanda           hb=  2.9 open=0 rest=0 fills=5
+  us30_london_prior_opposed_oanda                  hb=  3.5 open=0 rest=0 fills=0
+  nas100_hourly_st_pmc_sl50_tp150_runners_2r_10r_oanda hb=  4.1 open=0 rest=26 fills=6
+
+Not running:
+  eurusd_v2b_ungated_oanda                         NO_PID|429+stream_err
+  nas100_v2b_ungated_oanda                         NO_PID|429+stream_err
+  oanda_practice_snapshot                          NO_PID
+  spx500_v2b_ungated_oanda                         NO_PID|429+stream_err
+  us30_v2b_ungated_oanda                           NO_PID|stream_err
+
+## Performance (shared practice account)
+
+  balance: 100442.4439
+  NAV: 100753.525
+  resettablePL: 578.345
+  unrealizedPL: 311.0811
+  financing: -137.9993
+  pl: 578.345
+
+--- PL attribution excerpt ---
+# OANDA practice PL attribution
+
+Fetched: `2026-08-17T19:29:02Z`  Account: `101-002-39860312-001` (practice)
+
+## Balance vs trading PnL
+
+- **Balance** (what the UI often shows as a big number): **$100442.44**
+- NAV: **$100753.52** (balance + unrealized **$311.08**)
+- Broker `resettablePL` (realized): **$578.35**
+- Broker financing field: **$-138.00**
+- Starting deposit hint: **$100000.00**
+- Bridge check: `start + resettablePL + financing ≈ $100440.35`
+
+If the user quotes ~balance (e.g. 100895), say clearly: that is **account balance**, not trading PnL.
+
+## Realized ORDER_FILL PL by instrument
+
+| Instrument | Fill PL | Role |
+|---|---:|---|
+| `NAS100_USD` | $2521.97 | v2b ungated NAS100 (shared account; ST+PMC may share tape) |
+| `SPX500_USD` | $335.37 | v2b ungated SPX500 |
+| `EUR_USD` | $-0.01 | v2b / ST+PMC EURUSD |
+| `USD_JPY` | $-0.04 | Monday OR / Asia-range USDJPY |
+| `US30_USD` | $-1912.26 | v2b ungated US30 (shared account; ST+PMC / london may share) |
+| **Sum of fill PL** | **$945.02** | |
+
+Closing fills with PL: **74 wins / $14540.22** vs **79 losses / $-13595.20**.
+
+### By exit / fill reason
+
+- `STOP_ORDER`: $-11239.53
+- `LIMIT_ORDER`: $8129.59
+- `MARKET_ORDER`: $4584.15
+- `STOP_LOSS_ORDER`: $-1154.38
+- `TAKE_PROFIT_ORDER`: $625.19
+- `MARKET_ORDER_POSITION_CLOSEOUT`: $-0.00
+- `MARKET_ORDER_TRADE_CLOSE`: $-0.00
+
+### By clientExtensions.tag
+
+- `(no tag)`: $945.02
+
+### Largest losses
+
+- 2026-07-28T15:26:11 `NAS100_USD` **$-1118.74** units=3.0 `STOP_ORDER`
+- 2026-07-30T15:00:45 `US30_USD` **$-1047.04** units=-3.0 `STOP_ORDER`
+- 2026-08-05T19:59:06 `US30_USD` **$-1029.59** units=-3.0 `STOP_ORDER`
+- 2026-07-30T16:04:15 `US30_USD` **$-1016.02** units=3.0 `STOP_ORDER`
+- 2026-08-04T14:56:35 `US30_USD` **$-999.01** units=3.0 `STOP_ORDER`
+- 2026-08-03T18:45:12 `US30_USD` **$-822.15** units=3.0 `STOP_ORDER`
+- 2026-08-03T16:50:45 `US30_USD` **$-814.93** units=-3.0 `STOP_ORDER`
+- 2026-08-11T14:34:43 `US30_USD` **$-706.95** units=-3.0 `STOP_ORDER`
+- 2026-07-29T20:00:04 `NAS100_USD` **$-695.54** units=-1.0 `MARKET_ORDER`
+- 2026-08-05T14:23:20 `NAS100_USD` **$-626.63** units=-3.0 `STOP_ORDER`
+
+### Largest wins
+
+- 2026-08-03T20:00:05 `NAS100_USD` **$1009.47** units=-2.0 `MARKET_ORDER`
+- 2026-07-29T20:00:04 `US30_USD` **$942.01** units=1.0 `MARKET_ORDER`
+- 2026-08-04T19:16:24 `NAS100_USD` **$674.43** units=-1.0 `LIMIT_ORDER`
+
+Artifacts:
+  live/demo/ADHERENCE_INVENTORY_TODAY.csv
+  live/demo/EMAIL_ADHERENCE_TODAY.txt
+  live/demo/oanda_practice_snapshot/PL_ATTRIBUTION.md

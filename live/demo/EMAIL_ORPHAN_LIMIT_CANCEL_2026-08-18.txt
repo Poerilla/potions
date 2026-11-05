@@ -1,0 +1,12 @@
+potions: OANDA orphan LIMIT mass-cancel logged (2026-08-18)
+
+Incident: 2026-08-18_oanda_orphan_limit_mass_cancel
+Cancelled: 53 pending (US30/NAS100 LIMITs + MonOR STOP/LIMIT 1610/1611)
+Pending left: 0
+Account flat before cancel (openTrades=0).
+
+Hub: live/demo/oanda_practice_snapshot/ORPHAN_LIMIT_CANCEL.md
+JSON: ORPHAN_LIMIT_CANCEL.json (+ META, LOCAL)
+
+If more orphans appear today: practice-sync pendingOrders, diff ids vs this cancel list,
+check oanda_order_events.jsonl cancel_requested/remote_ack_before_local.

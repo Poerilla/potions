@@ -176,6 +176,7 @@ def load_campaigns(book: Book) -> pd.DataFrame:
     out["dow"] = out["entry_ts"].dt.day_name()
     out["hour_ny"] = out["entry_ts"].dt.hour
     out["month"] = out["entry_ts"].dt.month
+    out["month_name"] = out["entry_ts"].dt.month_name()
     out["year"] = out["entry_ts"].dt.year
     # Week of month: 1..5 from NY calendar day
     out["week_of_month"] = ((out["entry_ts"].dt.day - 1) // 7 + 1).astype(int)
@@ -513,6 +514,7 @@ def summarize_bucket(df: pd.DataFrame, baseline: Dict[str, float]) -> Dict[str, 
 CONDITION_COLS = [
     ("dow", "Day of week"),
     ("week_of_month", "Week of month"),
+    ("month_name", "Entry month"),
     ("hour_ny", "Entry hour (NY)"),
     ("ma5_align", "5m MA vs trade"),
     ("ma5_cross_align", "5m MA cross vs trade"),
@@ -579,9 +581,9 @@ def render_summary(
         "Diagnostic profile of calendar / HTF / 5m conditions vs broker-like campaign outcomes",
         "for research tapes aligned to **running intraday demos**. Not a promotion gate.",
         "",
-        "Features (causal asof): day-of-week, week-of-month, NY hour, 5m SMA9/21 state+cross,",
-        "hourly RSI14 + OBV×MA20, daily ATR14 quartiles, entry vs prior day/week/month range half",
-        "(aligned = long in lower half / short in upper half).",
+        "Features (causal asof): day-of-week, week-of-month, calendar entry month, NY hour,",
+        "5m SMA9/21 state+cross, hourly RSI14 + OBV×MA20, daily ATR14 quartiles,",
+        "entry vs prior day/week/month range half (aligned = long in lower half / short in upper half).",
         "",
         "Significance heuristic: n≥%d, positive WR and avg-net lift, and (|z_WR|≥1.64 or avg lift ≥35%% of |baseline avg|)."
         % min_n,

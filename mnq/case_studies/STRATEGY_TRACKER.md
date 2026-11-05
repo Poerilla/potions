@@ -1,7 +1,65 @@
 # MNQ ORB — Strategy tracker (research notes)
 
+> **2026-10-13 — NQ prior-opposed rebuild reconciled; 6J London v2b is red.**
+> Campaign match vs `nq_v2b_prior_opposed_stpmc_resting_limit`: **426 / 439**
+> previous campaigns are identical on entry time, price, and net. Through the
+> old last entry (2026-03-05) the new tape is **433** campaigns, **$1,330,838**
+> net, stress still **−$68,610** (trough 2025-01-29), N/S **19.40**. The
+> headline drop to **484 / $1,266,970 / −$125,992 / 10.06** is the post-sample:
+> **51** campaigns after 2026-03-05, net **−$63,868**, stress trough
+> **2026-08-05**. Inside the overlap, 13 old campaigns drop and 7 new ones
+> appear (several are the same day shifted by about an hour, same net). Not a
+> promote. Hub:
+> [`../../live/state/nq_v2b_prior_opposed_stpmc_resting_limit_through_20261011/INDEX.md`](../../live/state/nq_v2b_prior_opposed_stpmc_resting_limit_through_20261011/INDEX.md).
+> **6J London v2b `S_1_1_3` from 2015-01-02** (OR 03:00–03:15, flatten 11:59):
+> ungated **2,162** trades, **−$257,856 / −$259,235 / N/S −0.99**. Prior-opposed
+> on today's ST 25/75 resting-limit gate: **207** trades, **−$22,199 / −$22,468 /
+> N/S −0.99**. Same reject as Monday OR and Asia-range. ST+PMC 25/75 remains
+> the only green 6J row (**+$25k / N/S 1.22**). No 6J demo.
+
 Central index of execution variants explored in this workspace / chat threads.
 **Canonical live model** for Production remains **`scripts/step2_preplaced_stops.py`** (OCO stops, bracket-then-reverse) — see `scripts/validation.md` and `potions/README.md`.
+
+> **2026-10-03 — NAS100 misses of NQ winners are a one-bar close giveback.**
+> Lookahead on the coupled audit, not a new book. Of 116 NQ winners skipped for structure, 88 already closed through the mapped range on the NQ fill or completion minute. The only legal bar closes back inside (median 6.5 pts) while the wick still tags the level. NAS 15m range width ratio vs the mapped NQ range is 1.01. Lookahead S_1_1_1 on the later close wins 106/116. Research only — do not promote. Note:
+> [`../../live/state/nas100_v2b_nq_lead_coupled_resting_limit/winner_miss_lookahead/SUMMARY.md`](../../live/state/nas100_v2b_nq_lead_coupled_resting_limit/winner_miss_lookahead/SUMMARY.md).
+>
+> **2026-10-03 — NAS100 NQ-lead add-on was the left-label preload. Coupled stream is the causal read.**
+> The Oct 2 joint book followed `nq_v2b_prior_opposed_stpmc_broker_like` (hourly left-label gate) and injected later NQ exit times before the NAS replay. That tape is not a bar-complete NQ stream. Replacement: hour-complete resting-limit book, campaign emitted only after the NQ bar completes, exits not preloaded. Result: **193** trades, net **$7,474**, stress **-$3,113**, N/S **2.40**, lookahead violations **0** (`$1/pt` native; N/S is unchanged at the ×40 research scale). Stance: **research only** — do not cite the Oct 2 lead N/S as causal, and do not wire a demo. Hub:
+> [`../../live/state/nas100_v2b_nq_lead_coupled_resting_limit/INDEX.md`](../../live/state/nas100_v2b_nq_lead_coupled_resting_limit/INDEX.md).
+>
+> **2026-10-02 — TOP3 stays three sleeves. NAS100 NQ-lead is the add-on candidate.**
+> The NQ-futures fourth sleeve is dropped (OR-norm 2× was ~85% of that basket's net).
+> Same overlap joint 1m MTM, adding banked `nas100_v2b_nq_lead_synced_S_1_1_1`
+> (`nq_lead_sync`, flat size, no HP multiplier). TOP3 N/S **7.26**. Plus lead at
+> **1×** → **8.25** (lead 8% of net); at **10×** (Clean Break's multiplier) →
+> **14.42** (Δ +7.16, lead 47% of net, stress DD slightly shallower); at **40×**
+> (NQ-matched research dollars) → **16.89** but lead is **78%** of net. Lead alone
+> 1× N/S **15.33**. Daily close P&L correlation vs TOP3 **0.04**. Live book stays
+> TOP3 — research add-on only, 29 causality violations on the lead replay, not a
+> demo wiring change. Hub:
+> [`../../live/state/top3_active_demo_portfolio/joint_1m_cb10x_plus_nas100_nq_lead/SUMMARY.md`](../../live/state/top3_active_demo_portfolio/joint_1m_cb10x_plus_nas100_nq_lead/SUMMARY.md).
+>
+> **2026-10-02 — TOP3 + NQ prior-opposed OR-norm 2× (dropped).**
+> Overlap N/S 7.26 → 19.78, but NQ was ~85% of net and the combo did not beat NQ
+> alone. Superseded by the NAS100 NQ-lead note above. Hub:
+> [`../../live/state/top3_active_demo_portfolio/joint_1m_cb10x_plus_nq_po_or_norm_2x/SUMMARY.md`](../../live/state/top3_active_demo_portfolio/joint_1m_cb10x_plus_nq_po_or_norm_2x/SUMMARY.md).
+
+> **2026-10-01 — USDJPY Monday OR practice (`-005`) research-lot size.**
+> Oct 1 primary matched `monday_or_breakout` on stored 15m bars (buy 3, dd30 ×1,
+> dd50 ×2). Practice had been 1:1 OANDA units (~−$0.01). Now one standard lot
+> (100,000 units) per research book qty: entry 300k / dd30 100k / dd50 200k.
+> Sitout stays +3 research-lot points. Research ranking tape unchanged. Practice
+> only — not a funded promote. META:
+> [`../../live/demo/oanda_account_configs/usdjpy_monday_or_005_META.json`](../../live/demo/oanda_account_configs/usdjpy_monday_or_005_META.json).
+
+> **2026-09-12 — Index Momentum default base = 10×.**
+> Public tear sheet + practice sleeve `-003` (`trail06_m4_e2_out_be`) treat
+> entry 10 / add 10 / max 40 as the **default base size** (not a temporary
+> size-up). Research ranking tape stays unit book (`brl_21741b260a28`, ~$12.3k
+> net / ~−$2.0k stress / N/S ~6.2). Public BT scales unit tape ×10; legacy
+> qty=1 practice fills renormalized to base 10. META:
+> [`../../live/demo/oanda_account_configs/nas100_clean_break_trail_003_META.json`](../../live/demo/oanda_account_configs/nas100_clean_break_trail_003_META.json).
 
 > **2026-09-11 — NAS100 clean-break trail06 practice (`-003`) soft-exit fix + 10×.**
 > Frozen unit book `trail06_m4_e2_out_be` / `brl_21741b260a28`: ~$12.3k net /
@@ -12,7 +70,7 @@ Central index of execution variants explored in this workspace / chat threads.
 > max 40) targeting ~$20k stress DD. Practice only — not a funded promote.
 > Demo: `demo-nas100-clean-break-trail-oanda`; META
 > [`../../live/demo/oanda_account_configs/nas100_clean_break_trail_003_META.json`](../../live/demo/oanda_account_configs/nas100_clean_break_trail_003_META.json).
-
+> **Superseded for sizing stance:** 2026-09-12 makes 10× the default Index Momentum base.
 > **2026-05-20 broker realism re-baseline.** The `PaperBroker` now applies
 > 1-tick adverse slippage on market and stop fills, fills gapped-through stops
 > at `max/min(stop, bar.open)`, evaluates stops before limits in same-bar

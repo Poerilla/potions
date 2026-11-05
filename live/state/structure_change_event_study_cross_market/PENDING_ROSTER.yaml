@@ -1,0 +1,116 @@
+# Cross-market structure-change event study — PENDING NQ APPROVAL
+# Parent hub: live/state/structure_change_event_study_cross_market/
+# Created: 2026-08-29
+#
+# Do NOT start Phase 1 on any row until:
+#   1) NQ Phase 1–4 atlas is reviewed, AND
+#   2) operators set APPROVAL_GATE.md → status: approved
+#
+# Engine / taxonomy inherit from:
+#   live/state/nq_structure_change_event_study/STRUCTURE_CHANGE_RESEARCH_CONTRACT.yaml
+#   live/state/nq_structure_change_event_study/EVENT_TAXONOMY.md
+# Freeze rule identical: no pivot/lookback changes after seeing NQ results.
+
+gate:
+  depends_on: live/state/nq_structure_change_event_study/
+  required_artifacts_before_review:
+    - EXPANSION_ATLAS.md
+    - CLOSE_VS_WICK.md
+    - TIME_OF_CHANGE_ATLAS.md
+    - ONE_HOUR_INCREMENTAL_VALUE.md
+    - CAUSALITY_AUDIT.md
+  approval_file: APPROVAL_GATE.md
+  auto_start_on_nq_cpu_clear: false
+
+shared_contract:
+  structure_engine: StructureProgramEngine_v1_existing
+  timeframes: ["4h primary", "1h secondary"]
+  event_classes: [CLOSE_BREAK, WICK_REJECT, CLOSE_RECLAIM, TOUCH_ONLY]
+  penetration_primary_min_ATR: 0.05
+  also_report_zero_buffer: true
+
+# --- PENDING instruments (no Phase 1 compute until gate opens) ---
+
+cfd_index:
+  - key: nas100
+    symbol: NAS100
+    role: implementation_parity_vs_NQ
+    data: fx/nas100_1m.csv
+    clock: rth
+    status: PENDING_NQ_APPROVAL
+  - key: us30
+    symbol: US30
+    role: independent_index_cfd
+    data: fx/us30_1m.csv
+    clock: rth
+    status: PENDING_NQ_APPROVAL
+
+cfd_fx_metal:
+  - key: usdjpy_ny
+    symbol: USDJPY
+    role: fx_ny_session
+    data: fx/usdjpy_1m.csv
+    clock: ny_open
+    status: PENDING_NQ_APPROVAL
+  - key: eurusd_ny
+    symbol: EURUSD
+    role: fx_ny_session_all_cfd_book
+    data: fx/eurusd_1m.csv
+    clock: ny_open
+    status: PENDING_NQ_APPROVAL
+  - key: xauusd_ny
+    symbol: XAUUSD
+    role: separate_economic_family_gold
+    data: fx/xauusd_1m.csv
+    clock: ny_open
+    status: PENDING_NQ_APPROVAL
+
+micros_futures:
+  - key: mnq
+    symbol: MNQ
+    role: implementation_parity_vs_NQ
+    data: mnq/raw/glbx-mdp3-20210304-20260303.ohlcv-1m.csv
+    status: PENDING_NQ_APPROVAL
+  - key: mym
+    symbol: MYM
+    role: micro_dow_parity_vs_YM_US30
+    data: "mym/raw/glbx-mdp3-20100606-20260308.ohlcv-1m (mym).dbn.zst"
+    status: PENDING_NQ_APPROVAL
+  - key: mes
+    symbol: MES
+    role: micro_es
+    data: mes/mes_1min_raw.csv
+    status: BLOCKED_DATA
+    note: >
+      Config points at mes_1min_raw.csv which is missing on disk; only
+      mes_5min_rth.csv + mes_front_month_4h_from_1m.csv present. Need 1m
+      before Phase 1; do not silently proxy ES without an explicit decision.
+
+data_present_not_in_fx_markets_yet:
+  # 1m exists under fx/ but not registered in live/fx_or_markets.FX_MARKETS.
+  # Include only after NQ approval + explicit wire (same clock/risk conventions).
+  - symbol: SPX500
+    path: fx/spx500_1m.csv
+    status: PENDING_WIRE_THEN_NQ_GATE
+  - symbol: GBPUSD
+    path: fx/gbpusd_1m.csv
+    status: PENDING_WIRE_THEN_NQ_GATE
+
+run_order_after_approval:
+  # Cheap → expensive; parity pairs first so NQ findings transfer checks are fast.
+  - mnq
+  - nas100
+  - us30
+  - mym
+  - usdjpy_ny
+  - xauusd_ny
+  - eurusd_ny
+  # mes only if 1m restored
+
+phases_per_market:
+  0: "Stub hub + inherit NQ freeze (DONE for roster)"
+  1: "Event ledger + matched controls → EXPANSION_ATLAS.md"
+  2: "CLOSE_VS_WICK.md"
+  3: "TIME_OF_CHANGE_ATLAS.md"
+  4: "ONE_HOUR_INCREMENTAL_VALUE.md"
+  5: "Prototypes only if that market clears 1–4 AND NQ prototypes were authorized"

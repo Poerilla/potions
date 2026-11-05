@@ -1,0 +1,11 @@
+potions: Asia-range -004 sized to lots
+
+Live/paper now trade S_3_1_3 as 7/3/1 standard lots (700k/300k/100k OANDA units).
+Pre-sizeup 2026-09-03 winner was ~$0.07 at 7 micro units.
+
+Performance review note (FILTERS.md + PERFORMANCE_SIZING.md + RUN_META):
+- Research net_usd uses POINT_VALUES — not 1:1 with OANDA cash PnL
+- Shadow/candle-sim stay on research book qtys
+- Convert before comparing hub nets to account balance
+
+Daemons restarted (oanda + paper). Next take should move -004 by ~thousands on similar moves.

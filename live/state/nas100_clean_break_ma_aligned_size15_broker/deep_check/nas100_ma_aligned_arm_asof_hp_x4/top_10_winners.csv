@@ -1,0 +1,11 @@
+trade_id,session,year,side,entry_ts,exit_ts,entry_price,entry_qty,net_usd,exit_reasons,hit_tp,eod_close,full_initial_sl,any_stop_exit,atr14,range_width,range_label,atr14_quartile,range_width_quartile
+nas100_v2b_clean_break_trail06_m4_e2_out_be_1mfill_20220131_01,2022-01-31,2022,long,2022-01-31 09:52:00-05:00,2022-01-31 15:59:00-05:00,14597.8,4,3779.8,eod_close,False,True,False,False,449.0714285714287,,n/a,Q4 high,
+nas100_v2b_clean_break_trail06_m4_e2_out_be_1mfill_20250422_01,2025-04-22,2025,long,2025-04-22 09:45:00-04:00,2025-04-22 12:00:00-04:00,18104.8,4,2766.2,target,True,False,False,False,956.1285714285707,,n/a,Q4 high,
+nas100_v2b_clean_break_trail06_m4_e2_out_be_1mfill_20220727_01,2022-07-27,2022,long,2022-07-27 09:45:00-04:00,2022-07-27 14:41:00-04:00,12360.2,4,2751.8,target,True,False,False,False,291.57142857142856,,n/a,Q4 high,
+nas100_v2b_clean_break_trail06_m4_e2_out_be_1mfill_20220803_01,2022-08-03,2022,long,2022-08-03 09:51:00-04:00,2022-08-03 14:20:00-04:00,13078.000000000002,4,2686.2,target,True,False,False,False,292.2071428571431,,n/a,Q4 high,
+nas100_v2b_clean_break_trail06_m4_e2_out_be_1mfill_20221028_01,2022-10-28,2022,long,2022-10-28 10:25:00-04:00,2022-10-28 15:59:00-04:00,11328.2,4,2552.6,eod_close,False,True,False,False,366.7785714285713,,n/a,Q4 high,
+nas100_v2b_clean_break_trail06_m4_e2_out_be_1mfill_20250424_01,2025-04-24,2025,long,2025-04-24 09:45:00-04:00,2025-04-24 11:11:00-04:00,18857.1,4,2397.0,target,True,False,False,False,887.9142857142853,,n/a,Q4 high,
+nas100_v2b_clean_break_trail06_m4_e2_out_be_1mfill_20200615_01,2020-06-15,2020,long,2020-06-15 09:55:00-04:00,2020-06-15 14:01:00-04:00,9569.8,4,2271.8,target,True,False,False,False,195.09999999999997,,n/a,Q3,
+nas100_v2b_clean_break_trail06_m4_e2_out_be_1mfill_20250513_01,2025-05-13,2025,long,2025-05-13 09:50:00-04:00,2025-05-13 11:29:00-04:00,21006.1,4,2077.0,target,True,False,False,False,377.4642857142857,,n/a,Q4 high,
+nas100_v2b_clean_break_trail06_m4_e2_out_be_1mfill_20250519_01,2025-05-19,2025,long,2025-05-19 09:45:00-04:00,2025-05-19 15:59:00-04:00,21263.6,4,2043.0,eod_close,False,True,False,False,333.33571428571406,,n/a,Q4 high,
+nas100_v2b_clean_break_trail06_m4_e2_out_be_1mfill_20200330_01,2020-03-30,2020,long,2020-03-30 10:03:00-04:00,2020-03-30 15:54:00-04:00,7710.5,4,2011.0,target,True,False,False,False,584.2785714285714,,n/a,Q4 high,

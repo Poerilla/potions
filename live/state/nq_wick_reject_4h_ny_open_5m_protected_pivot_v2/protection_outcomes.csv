@@ -1,0 +1,8 @@
+candidate_id,evaluation_start,observation_end,protection_held,outcome_label,equal_touch_occurred,first_equal_touch_ts,failure_ts,failure_price,failure_distance_ticks,minutes_to_failure,max_favorable_excursion_ticks,max_adverse_excursion_ticks,session_outcome,data_complete,held_to_1030,held_to_1100,held_to_1300,observation_timeframe
+CAND_SEED_4h_bear_24_INV_WICK__826_2012-01-19,2012-01-19T10:15:00-05:00,2012-01-19T13:00:00-05:00,False,FAILED_ONE_TICK_OR_MORE,False,,2012-01-19T10:45:00-05:00,2437.5,1.0,30.0,22.0,1.0,FAILED,True,True,False,False,5m
+CAND_SEED_4h_bull_45_INV_WICK__1177_2012-09-25,2012-09-25T10:25:00-04:00,2012-09-25T13:00:00-04:00,False,FAILED_ONE_TICK_OR_MORE,False,,2012-09-25T12:40:00-04:00,2835.75,10.0,135.0,59.0,10.0,FAILED,True,True,True,False,5m
+CAND_SEED_4h_bull_97_INV_WICK__2182_2014-09-30,2014-09-30T10:25:00-04:00,2014-09-30T13:00:00-04:00,True,HELD_NO_TOUCH,False,,,,,,162.0,0.0,HELD,True,True,True,True,5m
+CAND_SEED_4h_bull_104_INV_WICK__2432_2015-03-27,2015-03-27T10:25:00-04:00,2015-03-27T13:00:00-04:00,True,HELD_EQUAL_TOUCH,True,2015-03-27T11:15:00-04:00,,,,,98.0,0.0,HELD,True,True,True,True,5m
+CAND_SEED_4h_bull_169_INV_WICK__3716_2017-09-21,2017-09-21T10:25:00-04:00,2017-09-21T13:00:00-04:00,False,FAILED_ONE_TICK_OR_MORE,False,,2017-09-21T10:30:00-04:00,5921.25,41.0,5.0,0.0,41.0,FAILED,True,False,False,False,5m
+CAND_SEED_4h_bull_197_INV_WICK__4589_2019-06-04,2019-06-04T10:05:00-04:00,2019-06-04T13:00:00-04:00,True,HELD_NO_TOUCH,False,,,,,,468.0,0.0,HELD,True,True,True,True,5m
+CAND_SEED_4h_bear_267_INV_WICK__6236_2022-08-12,2022-08-12T10:30:00-04:00,2022-08-12T13:00:00-04:00,True,HELD_NO_TOUCH,False,,,,,,541.0,0.0,HELD,True,True,True,True,5m

@@ -34,6 +34,7 @@ from ..replay_realism import hardened_replay_engine_kwargs
 from ..store import FlatFileStore
 from ..verification import SpoofVerificationProvider
 from . import demo_run_root
+from .singleton import EXIT_REFUSED, claim_runtime
 
 INSTRUMENT = "SPX500"
 STRATEGY_ID = "spx500_v2b_ungated_demo"
@@ -423,6 +424,14 @@ def run_stream_loop(
     config = config or OandaConfig.from_env()
     config.validate_for_network()
 
+    if not claim_runtime(
+        strategy_id=STRATEGY_ID,
+        output_root=output_root,
+        account_id=str(config.account_id or ""),
+        instrument=INSTRUMENT,
+        routes_orders=False,
+    ):
+        return EXIT_REFUSED
     runner = DemoPaperRunner(output_root=output_root)
     meta = write_run_meta(output_root, config=config)
     pidfile_path(output_root).write_text(str(os.getpid()) + "\n", encoding="utf-8")

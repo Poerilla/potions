@@ -1,0 +1,4 @@
+variant,state_root,fills,entry_fills,orders,feature_snapshots,causality_violation_rows,feature_order_violations,fills_missing_1m_bar,live_after_violations,same_timestamp_fills,touch_violations,unsupported_touch_checks,min_entry_delay_seconds,status,blocking_reasons
+sl50_tp150_3r_1mfill,live/state/us30_st_pmc_runner_variants/states/us30_hourly_st_pmc_sl50_tp150_3r_1mfill,2034,1017,3496,142887,0,0,0,0,0,0,0,60.0,PASS,
+sl50_tp150_runners_2r_10r,live/state/us30_st_pmc_runner_variants/states/us30_hourly_st_pmc_sl50_tp150_runners_2r_10r,3816,1908,6717,127536,0,0,0,0,0,0,0,60.0,PASS,
+sl50_tp150_runners_2r_indef,live/state/us30_st_pmc_runner_variants/states/us30_hourly_st_pmc_sl50_tp150_runners_2r_indef,6020,3051,9480,142904,0,0,0,0,0,0,0,60.0,PASS,

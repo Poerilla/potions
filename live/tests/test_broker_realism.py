@@ -381,6 +381,58 @@ def test_paper_broker_ny_expiry_not_tripped_by_utc_noon_bar():
         tmp.cleanup()
 
 
+def test_resting_quote_backed_target_fills_at_limit_not_bar_close_improvement():
+    tmp, store = make_store()
+    try:
+        broker = PaperBroker(store, slippage_ticks=0.0, tick_size={"NAS100": 0.1})
+        broker.submit_order_intent(
+            OrderIntent.create(
+                "s1",
+                "t1",
+                "NAS100",
+                "paper",
+                "buy",
+                "market",
+                1,
+                requires_verification=False,
+            )
+        )
+        broker.process_bar(
+            Bar(
+                "NAS100", "1m", "2026-01-01T09:30:00-05:00", 100, 101, 99, 100,
+                bid_open=99.9, bid_high=100.9, bid_low=98.9, bid_close=99.9,
+                ask_open=100.1, ask_high=101.1, ask_low=99.1, ask_close=100.1,
+            )
+        )
+        broker.submit_order_intent(
+            OrderIntent.create(
+                "s1",
+                "t1",
+                "NAS100",
+                "paper",
+                "sell",
+                "limit",
+                1,
+                limit_price=105.0,
+                reduce_only=True,
+                bracket_role="target",
+                requires_verification=False,
+            )
+        )
+        fills = broker.process_bar(
+            Bar(
+                "NAS100", "1m", "2026-01-01T09:31:00-05:00", 104, 108, 103, 107,
+                bid_open=103.9, bid_high=107.9, bid_low=102.9, bid_close=106.9,
+                ask_open=104.1, ask_high=108.1, ask_low=103.1, ask_close=107.1,
+            )
+        )
+        assert len(fills) == 1
+        assert fills[0].reason == "target"
+        assert fills[0].price == 105.0
+    finally:
+        tmp.cleanup()
+
+
 def test_htf_signal_bar_does_not_lookahead_fill_when_broker_fills_disabled():
     """1h OHLC must not fill resting limits when broker_fills=False; 1m tape does."""
     from potions.live.engine import Engine

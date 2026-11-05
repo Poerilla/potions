@@ -1,0 +1,68 @@
+{
+  "incident_id": "2026-08-19_oanda_orphan_4_cancel",
+  "cancelled_at": "2026-08-19T17:46:13Z",
+  "account": "101-002-39860312-001",
+  "results": [
+    {
+      "oanda_id": "1719",
+      "cid": "ord_911e574f9526",
+      "demo": "nas100_v2b_ungated_oanda",
+      "why": "v2b entry STOP cross-book while NAS100 owned elsewhere",
+      "cancelled_at": "2026-08-19T17:46:13Z",
+      "status": "cancelled",
+      "cancel_tx_id": "1762"
+    },
+    {
+      "oanda_id": "1756",
+      "cid": "ord_d6dc0c5d4eff",
+      "demo": "nas100_hourly_st_pmc_sl50_tp150_3r_oanda",
+      "why": "3r hourly re-arm LIMIT at open price while runners long",
+      "cancelled_at": "2026-08-19T17:46:13Z",
+      "status": "cancelled",
+      "cancel_tx_id": "1763"
+    },
+    {
+      "oanda_id": "1758",
+      "cid": "ord_7a190b98e111",
+      "demo": "nas100_hourly_st_pmc_sl50_tp150_3r_oanda",
+      "why": "3r hourly re-arm LIMIT at open price while runners long",
+      "cancelled_at": "2026-08-19T17:46:13Z",
+      "status": "cancelled",
+      "cancel_tx_id": "1764"
+    },
+    {
+      "oanda_id": "1760",
+      "cid": "ord_75fa2902fd76",
+      "demo": "nas100_hourly_st_pmc_sl50_tp150_3r_oanda",
+      "why": "3r hourly re-arm LIMIT at open price while runners long",
+      "cancelled_at": "2026-08-19T17:46:13Z",
+      "status": "cancelled",
+      "cancel_tx_id": "1765"
+    }
+  ],
+  "local_clears": [
+    {
+      "demo": "nas100_v2b_ungated_oanda",
+      "cid": "ord_911e574f9526",
+      "rows": 1
+    },
+    {
+      "demo": "nas100_hourly_st_pmc_sl50_tp150_3r_oanda",
+      "cid": "ord_d6dc0c5d4eff",
+      "rows": 1
+    },
+    {
+      "demo": "nas100_hourly_st_pmc_sl50_tp150_3r_oanda",
+      "cid": "ord_7a190b98e111",
+      "rows": 1
+    },
+    {
+      "demo": "nas100_hourly_st_pmc_sl50_tp150_3r_oanda",
+      "cid": "ord_75fa2902fd76",
+      "rows": 1
+    }
+  ],
+  "orphans_still_pending": [],
+  "note_1720": "v2b sell STOP pair of 1719; not in the 4-id cancel set",
+  "1720_still_pending": false
+}

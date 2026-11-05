@@ -1,0 +1,11 @@
+trade_id,session,year,side,entry_ts,exit_ts,entry_price,entry_qty,net_usd,exit_reasons,hit_tp,eod_close,full_initial_sl,any_stop_exit,atr14,range_width,range_label,atr14_quartile,range_width_quartile
+us30_hourly_st_pmc_sl50_tp150_3r_1mfill_t4,2016-11-14,2016,long,2016-11-14 12:15:00-05:00,2016-11-21 20:48:00-05:00,18831.548011623065,1,148.5,target,False,False,False,False,284.14285714285717,,n/a,Q2,
+us30_hourly_st_pmc_sl50_tp150_3r_1mfill_t5,2016-11-27,2016,long,2016-11-27 21:32:00-05:00,2016-12-05 03:35:00-05:00,19107.914092617146,1,148.5,target,False,False,False,False,111.57142857142857,,n/a,Q1 low,
+us30_hourly_st_pmc_sl50_tp150_3r_1mfill_t6,2016-12-12,2016,long,2016-12-12 04:48:00-05:00,2016-12-13 09:40:00-05:00,19746.94744519477,1,148.5,target,False,False,False,False,111.5,,n/a,Q1 low,
+us30_hourly_st_pmc_sl50_tp150_3r_1mfill_t18,2017-01-23,2017,long,2017-01-23 10:33:00-05:00,2017-01-24 12:47:00-05:00,19752.043909087835,1,148.5,target,False,False,False,False,103.21428571428571,,n/a,Q1 low,
+us30_hourly_st_pmc_sl50_tp150_3r_1mfill_t27,2017-02-06,2017,long,2017-02-06 08:33:00-05:00,2017-02-09 11:16:00-05:00,20015.147801175965,1,148.5,target,False,False,False,False,121.5,,n/a,Q1 low,
+us30_hourly_st_pmc_sl50_tp150_3r_1mfill_t28,2017-02-16,2017,long,2017-02-16 10:54:00-05:00,2017-02-21 10:11:00-05:00,20571.71944649801,1,148.5,target,False,False,False,False,125.28571428571429,,n/a,Q1 low,
+us30_hourly_st_pmc_sl50_tp150_3r_1mfill_t29,2017-02-23,2017,long,2017-02-23 11:09:00-05:00,2017-03-01 03:55:00-05:00,20750.728014456683,1,148.5,target,False,False,False,False,106.42857142857143,,n/a,Q1 low,
+us30_hourly_st_pmc_sl50_tp150_3r_1mfill_t49,2017-04-06,2017,short,2017-04-06 10:31:00-04:00,2017-04-06 21:26:00-04:00,20701.19494992323,1,148.5,target,False,False,False,False,166.14285714285714,,n/a,Q1 low,
+us30_hourly_st_pmc_sl50_tp150_3r_1mfill_t67,2017-05-10,2017,short,2017-05-10 11:14:00-04:00,2017-05-11 09:56:00-04:00,20959.90720785362,1,148.5,target,False,False,False,False,100.35714285714286,,n/a,Q1 low,
+us30_hourly_st_pmc_sl50_tp150_3r_1mfill_t75,2017-06-02,2017,long,2017-06-02 08:47:00-04:00,2017-06-09 10:31:00-04:00,21140.89982453137,1,148.5,target,False,False,False,False,129.07142857142858,,n/a,Q1 low,

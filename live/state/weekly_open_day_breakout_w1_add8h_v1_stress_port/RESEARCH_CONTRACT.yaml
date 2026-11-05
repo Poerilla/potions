@@ -1,0 +1,80 @@
+# Frozen research contract — do not retune during NAS100 stress or first
+# cross-market replication (NQ → MNQ → YM → MYM).
+# Locked 2026-08-27 from causal week-1 half+EOW +1/8h discovery.
+
+strategy_id: od_half_eow_bull_hivol_w1_add8h_v1
+plugin: weekly_open_day_breakout
+plugin_version: v6
+dsr_trial_id: TRL-2026-00168
+parent_discovery: TRL-2026-00165 / TRL-2026-00167
+
+market_structure:
+  reference_instrument: NAS100
+  allowed_week_of_month: [1]
+  regime:
+    require_bull_200dma: true
+    require_high_vol: true
+    ma_len: 200
+    vol_ret_days: 20
+    vol_median_lookback: 252
+  direction: existing breakout-candle direction (long if close > od_high, short if close < od_lo)
+  entry: limit at breakout candle close (OD-half scale book)
+  initial_stop: od_far (far side of Monday open-day range) — SHARED across lots
+  initial_targets:
+    - 0.5x OD range (tp1_qty=1)
+    - 1.0x OD range (tp2_qty=1, BE after tp2)
+  runner: 1 unit to Friday flatten / EOW
+  entry_qty: 3
+  final_exit: Friday 13:00 NY 4h completion → 1m market flatten
+
+add_rule:
+  cadence: one market add every completed 8 hours while in trade
+  add_qty: 1
+  max_adds: 9   # LOCKED to observed NAS100 effective max (prior unlimited run)
+  add_direction: same direction only
+  add_price_logic: market time_add at 4h decision bar; fill on 1m tape
+  add_stop: SHARED stop at original od_far price; resized to cover remaining qty
+  add_target: EOW / Friday flatten only (no new TP geometry for adds)
+  no_discretionary_rearm: true
+
+causality:
+  completed_bars_only: true
+  feature_snapshot_required: true
+  causality_mode: strict
+  expected_violations: 0
+
+execution:
+  engine: strict StrategyPlugin / 4h signal + 1m fill tape
+  slippage_ticks: 1.0
+  stop_gap_rule: worst of stop_price / bar.open (PaperBroker)
+  spread_model: family default (cfd/futures)
+  fee_schedule: MarketSpec.fee_per_unit (NAS100 1.50)
+
+normalization_for_xmarket:
+  - native point/tick P&L
+  - dollar P&L at one contract
+  - P&L in initial-risk R (od_far distance × point_value × entry_qty)
+  - stress in R
+  - N/S
+  - add fills per campaign
+  - max gross units / notional
+  - Friday exposure at 13:00 NY
+  - campaign count by week-of-month
+
+decision_predeclare:
+  nas100_survives_nq_mnq_pos_ym_mixed: Nasdaq-specific — research only, no portfolio multiplier
+  all_positive: broader index effect — locked OOS/forward next
+  only_nas100: CFD-specific — do not paper-promote
+  base_ok_add_fails: reject DCA mechanism; keep no-add week-1 as throttle research
+  fragile_to_8h_or_exit_minute: archive / shadow only
+  breaks_modest_slip: execution-fragile — no demo
+
+paper_demo_gate: NOT YET
+  requires:
+    - NAS100 +8h passes realistic adverse execution stress
+    - 6h/8h/10h neighborhood is a plateau not an 8h spike
+    - NQ replica positive / not materially worse in R or N/S
+    - YM positive OR documented structure difference
+    - selection-aware analysis covers idea-search tree
+    - unique campaign/add IDs + brackets + flat-for-week
+  first_demo_shape: 1 initial unit + at most 1 add (not full max-add book)

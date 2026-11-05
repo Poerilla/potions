@@ -74,5 +74,20 @@ Tests: `live/tests/test_oanda_daemon_containment.py`,
 - [x] Stream-staleness (≥180s) freezes entries; reconnect REST-reconciles then rearms.
 - [x] Wire Monday OR / ST+PMC runners to the same controller.
 - [x] Wire asia-range / London prior-opposed commons the same way.
+- [x] `v2b_clean_break` deferred trail is not false-`open_without_brackets`; fill-miss
+      desync (`ordersFilled` before FILL → no `on_fill`) classifies `fill_miss_orphan`
+      → would-flat (shadow) / flat-for-day (live) + immediate email.
 - [ ] ≥1 week shadow on practice daemons before enabling `live` flatten.
 - [ ] Optional: account-level rate-limit coordinator across sibling daemons.
+
+## 2026-09-01 shadow audit notes
+
+- Real orphan: `-003` NAS100 long 1 with **no SL/TP**, local plugin still `phase=armed`
+  after entry fill was dropped (`fill_ignored_terminal_local` / `fill_unmatched`).
+  Shadow correctly logged would-freeze under the old (wrong) `open_without_brackets`
+  class, but freeze alone would not have flattened the naked trade; root cause was
+  broker fill ordering, not missing trail brackets.
+- Asia / Monday OR: healthy; historical `would_cancel` spam was pre-fix (Aug 20)
+  and is no longer emitted on ok flat books in shadow.
+- Ops: closed trade 106, wrote `FLAT_FOR_DAY.json`, disarmed strategy for the session,
+  defaulted CLI `--oanda-config` to `-003` so `.env` `-001` cannot steal the daemon.

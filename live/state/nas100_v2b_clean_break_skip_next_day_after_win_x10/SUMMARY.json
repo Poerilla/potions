@@ -1,0 +1,37 @@
+{
+  "parent_run_id": "brl_21741b260a28",
+  "size_mult": 10.0,
+  "filter": "skip_next_RTH_session_after_win",
+  "sessions_replayed": 2277,
+  "baseline_trades": 1166,
+  "taken_trades": 1107,
+  "skipped_trades": 59,
+  "skip_dates_armed": 138,
+  "empty_skip_dates_no_baseline_trade": 79,
+  "baseline_x10": {
+    "net": 122529.5,
+    "stress_dd": -19658.5,
+    "closed_dd": -18938.5,
+    "ns": 6.232901798204339,
+    "wr": 12.864493996569468,
+    "pf": 1.4319004154057917,
+    "trades": 1166,
+    "units_research": 2070
+  },
+  "filtered_x10": {
+    "net": 110500.0,
+    "stress_dd": -19553.999999999985,
+    "closed_dd": -18794.0,
+    "ns": 5.678019842487475,
+    "wr": 12.466124661246612,
+    "pf": 1.4119030667208416,
+    "trades": 1107,
+    "units_research": 1953
+  },
+  "skipped_tape_x10": {
+    "net": 12029.499999999998,
+    "wins_skipped": 12,
+    "losses_skipped": 47,
+    "flats_skipped": 0
+  }
+}

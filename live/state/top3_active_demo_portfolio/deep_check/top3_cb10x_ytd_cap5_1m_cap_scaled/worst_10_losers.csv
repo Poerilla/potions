@@ -1,0 +1,11 @@
+trade_id,session,year,side,entry_ts,exit_ts,entry_price,entry_qty,net_usd,exit_reasons,hit_tp,eod_close,full_initial_sl,any_stop_exit,atr14,range_width,range_label,atr14_quartile,range_width_quartile
+clean_break::nas100_v2b_clean_break_trail06_m4_e2_out_be_1mfill_20250320_01,2025-03-20,2025,long,2025-03-20 09:45:00-04:00,2025-03-20 12:28:00-04:00,0.0,4,-10604.146911261218,trail_stop,False,False,False,True,482.8857142857144,,n/a,Q4 high,
+monday_or::trade_9562a7dd61db,2025-04-09,2025,long,2025-04-09 04:30:00-04:00,2025-04-09 17:15:00-04:00,0.0,3,-10173.510242831617,"dd30,dd50",False,False,False,False,755.0071428571431,,n/a,Q4 high,
+clean_break::nas100_v2b_clean_break_trail06_m4_e2_out_be_1mfill_20250115_01,2025-01-15,2025,long,2025-01-15 09:46:00-05:00,2025-01-15 11:34:00-05:00,0.0,4,-8547.314093580688,close_back_into_range,False,False,False,False,334.7928571428568,,n/a,Q3,
+asia_range::usdjpy_v2b_asia_range_london_S_3_1_3_20260203_01,2026-02-03,2026,long,2026-02-03 04:22:00-05:00,2026-02-03 09:46:00-05:00,0.0,7,-7941.734531700798,wide_stop,False,False,True,True,,,n/a,,
+monday_or::trade_b6072c72a0b6,2025-03-04,2025,long,2025-03-04 00:45:00-05:00,2025-03-05 01:15:00-05:00,0.0,3,-7286.932368018676,"dd30,dd50",False,False,False,False,369.0642857142856,,n/a,Q3,
+monday_or::trade_c865d984007f,2026-01-27,2026,long,2026-01-27 13:00:00-05:00,2026-01-30 10:00:00-05:00,0.0,3,-7082.980720764535,"dd30,dd50",False,False,False,False,,,n/a,,
+clean_break::nas100_v2b_clean_break_trail06_m4_e2_out_be_1mfill_20250319_01,2025-03-19,2025,long,2025-03-19 09:54:00-04:00,2025-03-19 10:54:00-04:00,0.0,4,-6535.195032806316,close_back_into_range,False,False,False,False,505.75714285714326,,n/a,Q4 high,
+monday_or::trade_1773f5a324ca,2025-04-16,2025,long,2025-04-16 06:00:00-04:00,2025-04-17 08:15:00-04:00,0.0,3,-6127.677409140791,"dd30,dd50",False,False,False,False,1015.828571428571,,n/a,Q4 high,
+monday_or::trade_a6f5a9b23806,2025-01-07,2025,long,2025-01-07 00:30:00-05:00,2025-01-10 15:15:00-05:00,0.0,3,-5685.112837945182,"dd30,dd50",False,False,False,False,278.53571428571456,,n/a,Q3,
+asia_range::usdjpy_v2b_asia_range_london_S_3_1_3_20260205_01,2026-02-05,2026,long,2026-02-05 03:36:00-05:00,2026-02-05 05:55:00-05:00,0.0,7,-5662.364985819924,wide_stop,False,False,True,True,,,n/a,,

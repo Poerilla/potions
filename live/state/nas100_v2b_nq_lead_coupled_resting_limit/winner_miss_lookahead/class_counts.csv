@@ -1,0 +1,15 @@
+slice,miss_class,n,share
+all,entered_on_legal_bar,193,0.5065616797900262
+all,close_gave_back,185,0.48556430446194226
+all,skipped_nq_already_scaled,2,0.005249343832020997
+all,skipped_nq_already_stopped,1,0.0026246719160104987
+nq_winners,entered_on_legal_bar,129,0.524390243902439
+nq_winners,close_gave_back,116,0.4715447154471545
+nq_winners,skipped_nq_already_scaled,1,0.0040650406504065045
+nq_losers,close_gave_back,69,0.5111111111111111
+nq_losers,entered_on_legal_bar,64,0.4740740740740741
+nq_losers,skipped_nq_already_stopped,1,0.007407407407407408
+nq_losers,skipped_nq_already_scaled,1,0.007407407407407408
+structure_failed_nq_winners,close_gave_back,116,1.0
+structure_failed_nq_losers,close_gave_back,69,1.0
+entered,entered_on_legal_bar,193,1.0

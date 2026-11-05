@@ -1,0 +1,2 @@
+note,status
+Trail arm timestamps live in strategy state JSON per session; exits via trail_stop/target in order_event_ledger.,PARTIAL — exit-side trail events in order_event_ledger

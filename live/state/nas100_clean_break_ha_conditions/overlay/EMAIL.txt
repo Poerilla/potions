@@ -1,0 +1,18 @@
+potions: NAS100 clean-break HA overlay complete
+
+Hub: /home/tester/hsm/potions/live/state/nas100_clean_break_ha_conditions/overlay
+Candidates: 12
+
+Top full-tape by ΔN/S:
+  5m MA vs trade=ma_aligned | filter | hp=61% ΔN/S=+4.65 Δnet=$+136
+  Entry month=April | filter | hp=7% ΔN/S=+4.10 Δnet=$-7717
+  Day of week=Monday | size_1.5 | hp=22% ΔN/S=+1.36 Δnet=$+3378
+  5m MA vs trade=ma_aligned | size_1.5 | hp=61% ΔN/S=+1.29 Δnet=$+6195
+  Week of month=1 | size_1.5 | hp=23% ΔN/S=+1.20 Δnet=$+2274
+  Entry month=April | size_1.5 | hp=7% ΔN/S=+1.15 Δnet=$+2268
+  Week of month=4 | filter | hp=23% ΔN/S=+1.01 Δnet=$-6775
+  Week of month=4 | size_1.5 | hp=23% ΔN/S=+0.75 Δnet=$+2739
+  5m MA vs trade=ma_aligned | size_1.25 | hp=61% ΔN/S=+0.72 Δnet=$+3097
+  Day of week=Monday | size_1.25 | hp=22% ΔN/S=+0.70 Δnet=$+1689
+  Day of week=Monday | filter | hp=22% ΔN/S=+0.62 Δnet=$-5497
+  Week of month=1 | size_1.25 | hp=23% ΔN/S=+0.60 Δnet=$+1137

@@ -1,0 +1,61 @@
+strategy_book,feature,feature_value,coverage,size_multiplier,filter_or_sizeup,causal_eligibility
+us30_london_prior_opposed,ATR14 quartile,atr_q2,0.25,1.25,sizeup,needs_rolling_proxy
+us30_london_prior_opposed,Entry hour (NY),3,0.3466666666666667,1.25,sizeup,live_ready
+us30_london_prior_opposed,Prior-week range half,week_aligned,0.8166666666666667,1.25,sizeup,live_ready
+us30_london_prior_opposed,London OR width vs ATR,lor_norm,0.30666666666666664,1.25,sizeup,live_ready
+us30_london_prior_opposed,ATR causal rolling percentile,atr_pctl_q2,0.22333333333333333,1.25,sizeup,needs_rolling_proxy
+us30_london_prior_opposed,Hourly RSI vs trade,rsi_against_side,0.7433333333333333,1.25,sizeup,live_ready
+us30_london_prior_opposed,Yearly ORB direction,yor_up,0.52,1.25,sizeup,live_ready
+us30_london_prior_opposed,Prior-day range half,day_aligned,0.8333333333333334,1.25,sizeup,live_ready
+us30_london_prior_opposed,Week of month,4,0.14333333333333334,1.25,sizeup,live_ready
+us30_london_prior_opposed,Hourly OBV vs trade,obv_flat,1.0,1.25,sizeup,live_ready
+us30_london_prior_opposed,Prior-quarter range width,pqw_na,1.0,1.25,sizeup,live_ready
+us30_london_prior_opposed,Monday session range vs ATR,mon_na,1.0,1.25,sizeup,live_ready
+us30_london_prior_opposed,Hourly RSI bucket,rsi_55_70,0.37666666666666665,1.25,sizeup,live_ready
+us30_london_prior_opposed,Day of week,Monday,0.17333333333333334,1.25,sizeup,live_ready
+us30_london_prior_opposed,Hourly RSI bucket,rsi_30_45,0.2833333333333333,1.25,sizeup,live_ready
+us30_london_prior_opposed,5m MA cross vs trade,cross_none,0.9233333333333333,1.25,sizeup,live_ready
+us30_london_prior_opposed,Prior-day range percentile,prior_range_comp,0.37333333333333335,1.25,sizeup,live_ready
+us30_london_prior_opposed,Weekly ATR trend vs trade,w_atr_aligned,0.4633333333333333,1.25,sizeup,live_ready
+us30_london_prior_opposed,Prior-month range half,month_aligned,0.68,1.25,sizeup,live_ready
+us30_london_prior_opposed,Prior quarter type,q_break_up,0.73,1.25,sizeup,live_ready
+us30_london_prior_opposed,Monthly OR direction,mor_down,0.29,1.25,sizeup,live_ready
+us30_london_prior_opposed,Monthly OR direction,mor_up,0.39,1.25,sizeup,live_ready
+us30_london_prior_opposed,5m MA vs trade,ma_opposed,0.3433333333333333,1.25,sizeup,live_ready
+us30_london_prior_opposed,Weekly ATR trend vs trade,w_atr_opposed,0.5366666666666666,1.25,sizeup,live_ready
+us30_london_prior_opposed,ATR causal rolling percentile,atr_pctl_q1,0.34,1.25,sizeup,needs_rolling_proxy
+us30_london_prior_opposed,5m MA vs trade,ma_aligned,0.6533333333333333,1.25,sizeup,live_ready
+us30_london_prior_opposed,Prior-day range percentile,prior_range_exp,0.2966666666666667,1.25,sizeup,live_ready
+us30_london_prior_opposed,Entry hour (NY),4,0.11666666666666667,1.25,sizeup,live_ready
+us30_london_prior_opposed,Day of week,Wednesday,0.20333333333333334,1.25,sizeup,live_ready
+us30_london_prior_opposed,London OR width vs ATR,lor_wide,0.3433333333333333,1.25,sizeup,live_ready
+us30_london_prior_opposed,Yearly ORB direction,yor_na,0.39666666666666667,1.25,sizeup,live_ready
+us30_london_prior_opposed,Month,1,0.14666666666666667,1.25,sizeup,live_ready
+us30_london_prior_opposed,London OR width vs ATR,lor_narrow,0.35,1.25,sizeup,live_ready
+us30_london_prior_opposed,ATR14 quartile,atr_q1,0.25,1.25,sizeup,needs_rolling_proxy
+us30_london_prior_opposed,Month,9,0.08666666666666667,1.25,sizeup,live_ready
+us30_london_prior_opposed,Prior-month range half,month_opposed,0.32,1.25,sizeup,live_ready
+us30_london_prior_opposed,Day of week,Friday,0.21,1.25,sizeup,live_ready
+us30_london_prior_opposed,Week of month,3,0.20333333333333334,1.25,sizeup,live_ready
+us30_london_prior_opposed,Monthly OR direction,mor_na,0.14,1.25,sizeup,live_ready
+us30_london_prior_opposed,Day of week,Thursday,0.25333333333333335,1.25,sizeup,live_ready
+us30_london_prior_opposed,Week of month,2,0.22333333333333333,1.25,sizeup,live_ready
+us30_london_prior_opposed,ATR causal rolling percentile,atr_pctl_q4,0.17666666666666667,1.25,sizeup,needs_rolling_proxy
+us30_london_prior_opposed,Month,3,0.09666666666666666,1.25,sizeup,live_ready
+us30_london_prior_opposed,ATR14 quartile,atr_q3,0.25,1.25,sizeup,needs_rolling_proxy
+us30_london_prior_opposed,Day of week,Tuesday,0.16,1.25,sizeup,live_ready
+us30_london_prior_opposed,Week of month,1,0.36666666666666664,1.25,sizeup,live_ready
+us30_london_prior_opposed,Prior quarter type,q_break_both,0.21333333333333335,1.25,sizeup,live_ready
+us30_london_prior_opposed,Prior-day range percentile,prior_range_norm,0.33,1.25,sizeup,live_ready
+us30_london_prior_opposed,Month,12,0.09,1.25,sizeup,live_ready
+us30_london_prior_opposed,Entry hour (NY),9,0.13333333333333333,1.25,sizeup,live_ready
+us30_london_prior_opposed,ATR14 quartile,atr_q4,0.25,1.25,sizeup,needs_rolling_proxy
+us30_london_prior_opposed,ATR causal rolling percentile,atr_pctl_q3,0.26,1.25,sizeup,needs_rolling_proxy
+us30_london_prior_opposed,Prior-week range half,week_opposed,0.18333333333333332,1.25,sizeup,live_ready
+us30_london_prior_opposed,Entry hour (NY),10,0.08333333333333333,1.25,sizeup,live_ready
+us30_london_prior_opposed,Month,2,0.15,1.25,sizeup,live_ready
+us30_london_prior_opposed,Monthly OR direction,mor_inside,0.1,1.25,sizeup,live_ready
+us30_london_prior_opposed,Entry hour (NY),8,0.09,1.25,sizeup,live_ready
+us30_london_prior_opposed,Prior-day range half,day_opposed,0.16666666666666666,1.25,sizeup,live_ready
+us30_london_prior_opposed,Hourly RSI bucket,rsi_45_55,0.22666666666666666,1.25,sizeup,live_ready
+us30_london_prior_opposed,Hourly RSI vs trade,rsi_neutral,0.22666666666666666,1.25,sizeup,live_ready

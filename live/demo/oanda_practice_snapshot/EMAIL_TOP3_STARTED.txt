@@ -1,0 +1,15 @@
+OANDA top-3 daemons started 2026-08-20T15:23:07Z
+
+SUPERSEDED ACTIVE MAP NOTE
+- 2026-08-24: account 101-002-39860312-004 rotated from NAS100 ST+PMC 2R->10R
+  to USDJPY Asia Range S_3_1_3.
+- Current map lives at live/demo/oanda_account_configs/TOP3_ACCOUNT_MAP.md.
+- This email remains a historical 2026-08-20 startup snapshot.
+
+| Strategy | Account | Status |
+|---|---|---|
+| Fair US30 ST+PMC 3R | 101-002-39860312-003 | UP stream 200 |
+| NAS100 ST+PMC 2R→10R | 101-002-39860312-004 | UP stream 200 |
+| USDJPY Monday OR M2_S3_R1 | 101-002-39860312-005 | UP stream 200 |
+
+Primary -001 dormant. Map: live/demo/oanda_account_configs/TOP3_ACCOUNT_MAP.md

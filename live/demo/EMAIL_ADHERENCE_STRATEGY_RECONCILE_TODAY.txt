@@ -1,0 +1,41 @@
+potions: live/demo OANDA adherence + performance (2026-08-18 ~11:00 ET)
+
+Hubs:
+- live/demo/oanda_practice_snapshot/ (REPORT.md, PL_ATTRIBUTION.md)
+- live/state/_oanda_live_sim_reconcile/summary.json
+
+=== ACCOUNT / PERFORMANCE ===
+Balance/NAV: $99,403.23 (flat; unrealized $0)
+resettablePL: $-423.18  financing: $-175.69
+Bridge: ~$100k start + resettablePL + financing ≈ $99,401
+
+Fill PL by instrument (ORDER_FILL; tags empty → instrument attribution):
+  NAS100  +$2,767
+  SPX500  +$329
+  EURUSD / USDJPY  ~flat
+  US30    $-3,173
+  Sum fill PL ≈ $-77 (gaps vs resettablePL: missing_tx_ids=149)
+
+77 wins / $15.6k vs 100 losses / $-15.6k
+Exit mix: STOPs dominate losses; LIMITs/TPs carry wins.
+
+Today (US30): overnight SL exits ~08:00Z; later 3× LIMIT longs @53333.9 stopped ~14s later (~−50 pts each). Account flat now.
+
+=== ADHERENCE ===
+Broker open: FLAT. Pending orders: 53 (orphaned entry LIMITs, not auto-cancelled).
+  US30 LIMIT 30 + NAS100 LIMIT 22 + US30 bare STOP/LIMIT pair (1610/1611, no onFill brackets)
+
+Entry LIMIT brackets (51 with onFill): SL distance=50 on all; TP in {150,300,1500} — ST+PMC adherent.
+
+Repaired: us30_hourly_st_pmc_…_2r_10r_oanda local positions.csv had US30:3 vs broker flat → cleared.
+
+Daemons: 15/19 OANDA UP. DOWN (no pidfile): eurusd/nas100/spx500/us30 v2b_ungated_oanda.
+Paper: most UP; usdjpy_monday_or_ungated_paper reconnecting. Paper opens: NAS100 v2b −3, SPX500 v2b −3, NAS100 ST+PMC runners +1, US30 MonOR −1.
+
+=== LIVE ↔ SIM (post-started_at entries) ===
+MATCH: yearly ORBs, USDJPY MonOR + Asia, US30 MonOR, US30/EURUSD ST+PMC, US30 prior-opposed, nas100 runners, spx/nas/us30 v2b (down books still MATCH on stored tape)
+MISMATCH:
+  eurusd_v2b_ungated_oanda — live 17 vs sim 20 (book DOWN; residual session drift)
+  nas100_hourly_st_pmc_…_3r_oanda — live 0 vs sim 2 missed entries (sim wanted buys 08-14 15:00, 08-17 17:00)
+
+Stance: brackets adherent; orphan entry LIMITs still clutter (~53). PnL drag is US30 stops. Restart v2b OANDA books only if you want them live again; cancel orphans only if you ask.

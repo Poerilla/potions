@@ -2,11 +2,10 @@
 
 STATUS: validation replay, not a new optimization sweep.
 
-Ledger row: `brl_21741b260a28`
-
 ## Frozen candidate
 
 - Candidate: `trail06_m4_e2_out_be`.
+- Deployment exposure: max 3 research units (10x live sizing = hard cap 30).
 - Source family: clean-break pyramid trail sizing validation.
 - Signal bars: completed 5m candles, signal-only through `Engine.process_bar(..., broker_fills=False)`.
 - Signal timestamps: final 1m row in each 5m bucket, with the left-label retained in `signal_delivery_audit.csv`.
@@ -17,13 +16,13 @@ Ledger row: `brl_21741b260a28`
 
 | Sessions | Trades | Units | Net | Closed DD | Intrabar stress DD | Max units | Win% | PF | N/S |
 |---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
-| 2277 | 1166 | 2070 | $12,252.95 | $-1,893.85 | $-1,965.85 | 4 | 27.1% | 1.43 | 6.23 |
+| 2277 | 1166 | 1817 | $9,449.35 | $-1,456.40 | $-1,528.40 | 3 | 24.1% | 1.40 | 6.18 |
 
 ## Causality and timing
 
 | Check | Result |
 |---|---:|
-| Feature snapshots | 22558 |
+| Feature snapshots | 21767 |
 | Causality violations | 0 |
 | Non-MOC fills at/before activation | 0 |
 | MOC fills before activation | 0 |
@@ -52,12 +51,14 @@ Config:
 ```json
 {
   "broker_style_fill_source": "1m_proxy_synthetic_bid_ask",
+  "deployment_live_max_contracts": 30,
+  "deployment_live_size_mult": 10,
   "entry_offset_ticks": 2,
   "entry_qty": 1,
   "fill_signal_bucket_end": true,
   "fill_to_signal_minutes": 5,
   "market": "nas100",
-  "max_pyramid_qty": 4,
+  "max_pyramid_qty": 3,
   "pyramid_add_every_n": 2,
   "pyramid_add_mode": "outside",
   "pyramid_place_2r_target": true,

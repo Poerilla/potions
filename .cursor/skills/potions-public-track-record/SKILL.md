@@ -25,11 +25,11 @@ description: >-
 
 ## Tab map (private → public name)
 
-| Public tab | Demo sleeve | Research tape |
-|---|---|---|
-| FX Momentum | `usdjpy_asia_range_london_oanda` | Asia filtered `unit_trades` |
-| FX Intraday Trend | `usdjpy_monday_or_ungated_oanda` | Monday OR `M2_S3_R1` research fills |
-| Index Momentum | `nas100_v2b_clean_break_trail06_m4_e2_out_be_oanda` | Clean-break 1mfill `unit_trades` |
+| Public tab | Demo sleeve | Research tape | Default base |
+|---|---|---|---|
+| FX Momentum | `usdjpy_asia_range_london_oanda` | Asia filtered `unit_trades` | Live lot-cash |
+| FX Intraday Trend | `usdjpy_monday_or_ungated_oanda` | Monday OR `M2_S3_R1` research fills | As exported |
+| Index Momentum | `nas100_v2b_clean_break_trail06_m4_e2_out_be_oanda` | Clean-break 1mfill `unit_trades` ×**10** | entry 10 / max 40 (legacy qty=1 practice renormalized) |
 
 ## Manual refresh
 

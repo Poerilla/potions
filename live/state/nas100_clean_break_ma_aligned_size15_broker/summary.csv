@@ -1,0 +1,6 @@
+book,hp_contract,policy,hp_mult,net_usd,closed_dd_usd,intrabar_stress_dd_usd,ns,trades,units,hp_units,max_open_units,win_rate_units,profit_factor,mtm_dd_vs_baseline,closed_dd_vs_baseline,net_vs_baseline,linear_mtm_expect,mtm_dd_vs_x1_5,mtm_dd_vs_linear_expect
+baseline_unit,arm_asof_no_qty_refresh,baseline,1.0,12252.95,-1893.85,-1965.85,6.232902,1166,2070,0,4.00,27.1014,1.427779,1.000,1.000,1.000,1.000,,
+ma_aligned_arm_asof_no_qty_refresh_x1_5,arm_asof_no_qty_refresh,size_1_5,1.5,17007.23,-2425.57,-2497.57,6.809495,1166,2070,1150,6.00,27.1014,1.474541,1.2705,1.2808,1.3880,,1.0000,1.0000
+ma_aligned_arm_asof_no_qty_refresh_x2,arm_asof_no_qty_refresh,size_2,2.0,21761.50,-2957.30,-3029.30,7.183673,1166,2070,1150,8.00,27.1014,1.505665,1.5410,1.5615,1.7760,,1.2129,1.0000
+ma_aligned_arm_asof_no_qty_refresh_x4,arm_asof_no_qty_refresh,size_4,4.0,40778.60,-5139.55,-5339.55,7.637086,1166,2070,1150,16.00,27.1014,1.567790,2.7162,2.7138,3.3281,,2.1379,1.0356
+ma_aligned_arm_asof_no_qty_refresh_x6,arm_asof_no_qty_refresh,size_6,6.0,59795.70,-7982.15,-8282.15,7.219828,1166,2070,1150,24.00,27.1014,1.594366,4.2130,4.2148,4.8801,,3.3161,1.1372

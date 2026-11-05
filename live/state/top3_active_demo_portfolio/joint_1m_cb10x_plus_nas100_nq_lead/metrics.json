@@ -1,0 +1,92 @@
+{
+  "hub": "/home/tester/hsm/potions/live/state/top3_active_demo_portfolio/joint_1m_cb10x_plus_nas100_nq_lead",
+  "variant": "nas100_v2b_nq_lead_synced_S_1_1_1 flat size",
+  "dropped": "nq_prior_opposed_rl or_norm @ 2x (NQ was ~85% of that basket net)",
+  "common_window_start": "2021-03-04T11:03:00-05:00",
+  "common_window_end": "2025-09-29T11:14:00-04:00",
+  "published_top3_full_window_ns": 10.607987988582144,
+  "top3_overlap": {
+    "name": "top3_overlap",
+    "net_usd": 243491.08636363613,
+    "closed_dd_usd": -33438.40454545335,
+    "intrabar_stress_dd_usd": -33525.67727272617,
+    "net_over_stress": 7.262823786761234,
+    "max_open_units": 14,
+    "events": 2156475,
+    "sleeve": {
+      "asia_range": {
+        "units": 3619,
+        "trades": 517,
+        "net_usd": 104736.06363635653,
+        "win_rate": 46.4492953854656
+      },
+      "monday_or": {
+        "units": 1215,
+        "trades": 378,
+        "net_usd": 44081.5227272663,
+        "win_rate": 26.008230452674898
+      },
+      "clean_break": {
+        "units": 1076,
+        "trades": 600,
+        "net_usd": 94673.50000001295,
+        "win_rate": 29.739776951672862
+      }
+    }
+  },
+  "lead_1x": {
+    "name": "nas100_nq_lead_1x",
+    "net_usd": 21168.8390822661,
+    "closed_dd_usd": -1362.8682672920004,
+    "intrabar_stress_dd_usd": -1380.5682672919938,
+    "net_over_stress": 15.333424346909775,
+    "max_open_units": 3,
+    "events": 453086,
+    "sleeve": {
+      "nas100_nq_lead": {
+        "units": 837,
+        "trades": 279,
+        "net_usd": 21168.839082266102,
+        "win_rate": 57.46714456391876
+      }
+    }
+  },
+  "scales": [
+    {
+      "scale": 1.0,
+      "combined_net_usd": 264659.92544590187,
+      "combined_stress_dd_usd": -32082.660268382548,
+      "combined_ns": 8.249313592823352,
+      "delta_ns_vs_top3": 0.9864898060621181,
+      "lead_net_share": 0.07998505647048988,
+      "basket_ns_improves": true,
+      "lead_dominates_net": false
+    },
+    {
+      "scale": 10.0,
+      "combined_net_usd": 455179.4771862961,
+      "combined_stress_dd_usd": -31565.358181224263,
+      "combined_ns": 14.420222149009112,
+      "delta_ns_vs_top3": 7.157398362247878,
+      "lead_net_share": 0.4650657629188784,
+      "basket_ns_improves": true,
+      "lead_dominates_net": false
+    },
+    {
+      "scale": 40.0,
+      "combined_net_usd": 1090244.6496542792,
+      "combined_stress_dd_usd": -64546.99006796209,
+      "combined_ns": 16.890712463994852,
+      "delta_ns_vs_top3": 9.627888677233617,
+      "lead_net_share": 0.7766638098697873,
+      "basket_ns_improves": true,
+      "lead_dominates_net": true
+    }
+  ],
+  "daily_close_pnl_corr_top3_vs_lead_1x": 0.04258788132559243,
+  "lead_units_full": 840,
+  "lead_trades_full": 280,
+  "primary_scale": 10.0,
+  "method": "joint_1m_mtm_on_engine_fills",
+  "hp_sizeup": "not applied; 1.25x mill was RISK THROTTLE / NOT VALIDATED"
+}

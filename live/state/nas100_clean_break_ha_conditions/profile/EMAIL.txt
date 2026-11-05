@@ -1,0 +1,21 @@
+potions: NAS100 clean-break HA profile complete
+
+Hub: /home/tester/hsm/potions/live/state/nas100_clean_break_ha_conditions/profile
+Book: nas100_v2b_clean_break_trail06
+campaigns: 1166  notables: 15
+baseline net=$12253 N/S=6.57
+DSR: TRL-2026-00198
+
+Top notables:
+  Entry month=April | n=86 WR=22% avg=$+42 z=2.47
+  Entry month=January | n=96 WR=19% avg=$+19 z=1.66
+  Day of week=Monday | n=261 WR=16% avg=$+15 z=1.57
+  Week of month=4 | n=267 WR=14% avg=$+10 z=0.60
+  Entry month=August | n=105 WR=18% avg=$+9 z=1.53
+  Prior-month range half=month_aligned | n=301 WR=17% avg=$+8 z=1.88
+  ATR14 quartile=atr_q4 | n=290 WR=14% avg=$+8 z=0.42
+  Week of month=5 | n=89 WR=15% avg=$+8 z=0.47
+  5m MA cross vs trade=cross_aligned | n=66 WR=14% avg=$+8 z=0.18
+  5m MA vs trade=ma_aligned | n=710 WR=13% avg=$+7 z=0.32
+  Week of month=1 | n=269 WR=15% avg=$+6 z=0.89
+  Entry month=March | n=88 WR=15% avg=$+5 z=0.52

@@ -1,0 +1,13 @@
+strategy_book,feature,feature_value,coverage,size_multiplier,filter_or_sizeup,causal_eligibility
+usdjpy_chop20_causal_globex,Hourly RSI bucket,rsi_45_55,0.24404761904761904,1.25,sizeup,live_ready
+usdjpy_chop20_causal_globex,Hourly RSI vs trade,rsi_neutral,0.24404761904761904,1.25,sizeup,live_ready
+usdjpy_chop20_causal_globex,Hourly OBV vs trade,obv_opposed,0.35119047619047616,1.25,sizeup,live_ready
+usdjpy_chop20_causal_globex,Week of month,2,0.21428571428571427,1.25,sizeup,live_ready
+usdjpy_chop20_causal_globex,Hourly RSI bucket,rsi_gt70,0.1130952380952381,1.25,sizeup,live_ready
+usdjpy_chop20_causal_globex,Day of week,Friday,0.20238095238095238,1.25,sizeup,live_ready
+usdjpy_chop20_causal_globex,Prior-week range half,week_aligned,0.21428571428571427,1.25,sizeup,live_ready
+usdjpy_chop20_causal_globex,5m MA vs trade,ma_opposed,0.47619047619047616,1.25,sizeup,live_ready
+usdjpy_chop20_causal_globex,Day of week,Sunday,0.20833333333333334,1.25,sizeup,live_ready
+usdjpy_chop20_causal_globex,Entry hour (NY),21,0.16666666666666666,1.25,sizeup,live_ready
+usdjpy_chop20_causal_globex,ATR14 quartile,atr_q4,0.25,1.25,sizeup,needs_rolling_proxy
+usdjpy_chop20_causal_globex,Entry hour (NY),22,0.041666666666666664,1.25,sizeup,live_ready

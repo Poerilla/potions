@@ -11,10 +11,10 @@ Single PNG: **top** — MNQ daily **close** with **50-** and **150-day** simple 
 - **`mnq/mnq_daily.csv`** — already maintained in the repo for MNQ research.
 - **`vx/vx_front_daily.csv`** — built from a Databento **ohlcv-1d** drop under `vx/raw/` (e.g. `xcbf-pitch-*.ohlcv-1d.dbn.zst` for **XCBF.PITCH** / **VX.FUT**).
 
-The VX DBN is often **DBN version 3**. The default repo Python (**3.8** + `databento` 0.42) cannot decode v3. Use **Python 3.10+** with a current client once (user install):
+The VX DBN is often **DBN version 3**. The default repo Python (**3.8** + `databento` 0.42) cannot decode v3, and current Databento will not rewrite v3 down to an older file. Use the repo reader (Python 3.11 + `databento` 0.87):
 
 ```bash
-/usr/bin/python3.10 -m pip install --user 'databento>=0.77'
+scripts/python-dbn -c "import databento; print(databento.__version__)"
 ```
 
 ### 1. Export VX front daily to CSV
@@ -22,7 +22,7 @@ The VX DBN is often **DBN version 3**. The default repo Python (**3.8** + `datab
 From the repo root (`potions/`):
 
 ```bash
-/usr/bin/python3.10 vx/export_vx_front_daily.py \
+scripts/python-dbn vx/export_vx_front_daily.py \
   --dbn vx/raw/xcbf-pitch-20181104-20260511.ohlcv-1d.dbn.zst \
   --out vx/vx_front_daily.csv
 ```

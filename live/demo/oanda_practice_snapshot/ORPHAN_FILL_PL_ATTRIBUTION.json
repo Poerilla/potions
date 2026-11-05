@@ -1,0 +1,83 @@
+{
+  "definition": "Broker ORDER_FILL on trades opened without a matching *_oanda demo fills.csv entry (instrument/side/qty within \u00b12 minutes). Closes of those tradeIDs included.",
+  "all_broker_fill_pl": -76.88540000000125,
+  "nonstrat_all": {
+    "n": 68,
+    "opens": 34,
+    "net": -2600.056099999999,
+    "win_n": 0,
+    "win_pl": 0,
+    "loss_n": 34,
+    "loss_pl": -2600.056099999999,
+    "by_inst": {
+      "US30_USD": -1923.9565999999998,
+      "NAS100_USD": -676.0984000000001,
+      "EUR_USD": -0.0011
+    },
+    "by_reason": {
+      "STOP_LOSS_ORDER": -1844.8158999999998,
+      "MARKET_ORDER_TRADE_CLOSE": -726.0903,
+      "MARKET_ORDER": -29.149,
+      "MARKET_ORDER_POSITION_CLOSEOUT": -0.0009,
+      "STOP_ORDER": 0.0,
+      "LIMIT_ORDER": 0.0
+    }
+  },
+  "nonstrat_since_mon": {
+    "n": 56,
+    "opens": 28,
+    "net": -1873.9648999999997,
+    "win_n": 0,
+    "win_pl": 0,
+    "loss_n": 28,
+    "loss_pl": -1873.9648999999997,
+    "by_inst": {
+      "US30_USD": -1197.8664999999999,
+      "NAS100_USD": -676.0984000000001
+    },
+    "by_reason": {
+      "STOP_LOSS_ORDER": -1844.8158999999998,
+      "MARKET_ORDER": -29.149,
+      "LIMIT_ORDER": 0.0
+    }
+  },
+  "strat_matched_all": {
+    "n": 234,
+    "opens": 94,
+    "net": 2523.1706999999988,
+    "win_n": 77,
+    "win_pl": 15553.886299999996,
+    "loss_n": 66,
+    "loss_pl": -13030.715599999998,
+    "by_inst": {
+      "NAS100_USD": 3443.530399999999,
+      "US30_USD": -1249.3424,
+      "SPX500_USD": 329.033,
+      "USD_JPY": -0.0445,
+      "EUR_USD": -0.005800000000000005
+    },
+    "by_reason": {
+      "STOP_ORDER": -10643.009399999997,
+      "LIMIT_ORDER": 8129.592899999998,
+      "MARKET_ORDER": 4572.182299999999,
+      "TAKE_PROFIT_ORDER": 1042.3377,
+      "STOP_LOSS_ORDER": -418.80100000000004,
+      "MARKET_ORDER_TRADE_CLOSE": -159.1315,
+      "MARKET_ORDER_POSITION_CLOSEOUT": -0.0003
+    }
+  },
+  "strat_matched_since_mon": {
+    "n": 0,
+    "opens": 0,
+    "net": 0,
+    "win_n": 0,
+    "win_pl": 0,
+    "loss_n": 0,
+    "loss_pl": 0,
+    "by_inst": {},
+    "by_reason": {}
+  },
+  "orphan_trade_ids_n": 34,
+  "strat_trade_ids_n": 94,
+  "note": "The 53 mass-cancelled pending LIMITs had 0 fills (still pending). Non-strat PnL is from earlier filled sibling rests."
+}

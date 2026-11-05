@@ -1,0 +1,11 @@
+trade_id,session,year,side,entry_ts,exit_ts,entry_price,entry_qty,net_usd,exit_reasons,hit_tp,eod_close,full_initial_sl,any_stop_exit,atr14,range_width,range_label,atr14_quartile,range_width_quartile
+xauusd_yorb_sizing_L_4_2_1_2025_02,2025-05-14,2025,long,2025-05-14 20:00:00-04:00,2025-12-31 19:00:00-05:00,3127.825,4,273568.3000000001,"close,runner_entry,target",False,False,False,False,69.02335714285707,,n/a,Q4 high,
+xauusd_yorb_sizing_L_4_2_1_2024_01,2024-04-01,2024,long,2024-04-01 20:00:00-04:00,2024-12-31 19:00:00-05:00,2247.265,2,116679.40000000002,"close,runner_entry,target",False,False,False,False,26.438642857142863,,n/a,Q4 high,
+xauusd_yorb_sizing_L_4_2_1_2010_02,2010-04-27,2010,long,2010-04-27 20:00:00-04:00,2011-01-01 19:00:00-05:00,1160.949,2,60631.900000000016,"close,runner_entry,target",False,False,False,False,13.467142857142871,,n/a,Q2,
+xauusd_yorb_sizing_L_4_2_1_2011_01,2011-04-11,2011,long,2011-04-11 20:00:00-04:00,2012-01-01 19:00:00-05:00,1447.701,2,53922.900000000016,"close,runner_entry,target",False,False,False,False,14.038571428571393,,n/a,Q3,
+xauusd_yorb_sizing_L_4_2_1_2015_05,2015-11-01,2015,short,2015-11-01 19:00:00-05:00,2016-01-02 19:00:00-05:00,1142.759,2,40537.89999999999,"close,runner_entry,target",False,False,False,False,12.579928571428582,,n/a,Q2,
+xauusd_yorb_sizing_L_4_2_1_2008_03,2008-08-30,2008,short,2008-08-30 20:00:00-04:00,2008-09-16 20:00:00-04:00,832.865,4,35038.29999999996,"close,runner_entry,target",False,False,False,False,,,n/a,,
+xauusd_yorb_sizing_L_4_2_1_2014_02,2014-10-30,2014,short,2014-10-30 20:00:00-04:00,2014-11-30 19:00:00-05:00,1202.302,2,34070.900000000045,"close,runner_entry,target",False,False,False,False,11.796285714285675,,n/a,Q2,
+xauusd_yorb_sizing_L_4_2_1_2022_03,2022-08-15,2022,short,2022-08-15 20:00:00-04:00,2022-11-14 19:00:00-05:00,1780.158,2,32189.000000000164,"close,runner_entry,target",False,False,False,False,17.855642857142843,,n/a,Q3,
+xauusd_yorb_sizing_L_4_2_1_2008_01,2008-08-13,2008,short,2008-08-13 20:00:00-04:00,2008-08-20 20:00:00-04:00,832.865,2,26131.89999999997,"close,runner_entry,target",False,False,False,False,19.116285714285716,,n/a,Q3,
+xauusd_yorb_sizing_L_4_2_1_2017_08,2017-12-20,2017,long,2017-12-20 19:00:00-05:00,2017-12-31 19:00:00-05:00,1263.831,2,23447.500000000076,"close,runner_entry,target",False,False,False,False,9.508642857142847,,n/a,Q1 low,

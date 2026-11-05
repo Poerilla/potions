@@ -1,0 +1,58 @@
+strategy_book,feature,feature_value,coverage,size_multiplier,filter_or_sizeup,causal_eligibility
+es_quarterly_range_breakout,Week of month,3,0.21666666666666667,1.25,sizeup,live_ready
+es_quarterly_range_breakout,Day of week,Monday,0.2,1.25,sizeup,live_ready
+es_quarterly_range_breakout,Cross-index direction agreement,mixed,0.18333333333333332,1.25,sizeup,live_ready
+es_quarterly_range_breakout,Day of week,Thursday,0.2,1.25,sizeup,live_ready
+es_quarterly_range_breakout,Post-holiday session,not_post_holiday,0.9833333333333333,1.25,sizeup,live_ready
+es_quarterly_range_breakout,Monthly OR direction,mor_up,0.43333333333333335,1.25,sizeup,live_ready
+es_quarterly_range_breakout,5m MA vs trade,ma_na,1.0,1.25,sizeup,live_ready
+es_quarterly_range_breakout,Hourly RSI bucket,rsi_na,1.0,1.25,sizeup,live_ready
+es_quarterly_range_breakout,Hourly RSI vs trade,rsi_na,1.0,1.25,sizeup,live_ready
+es_quarterly_range_breakout,Prior-day range half,day_opposed,1.0,1.25,sizeup,live_ready
+es_quarterly_range_breakout,Prior-week range half,week_opposed,1.0,1.25,sizeup,live_ready
+es_quarterly_range_breakout,Overnight range third,na,1.0,1.25,sizeup,live_ready
+es_quarterly_range_breakout,Overnight VWAP side,na,1.0,1.25,sizeup,live_ready
+es_quarterly_range_breakout,Gap direction,na,1.0,1.25,sizeup,live_ready
+es_quarterly_range_breakout,Overnight compression,na,1.0,1.25,sizeup,live_ready
+es_quarterly_range_breakout,Opening 15m range vs ATR,na,1.0,1.25,sizeup,live_ready
+es_quarterly_range_breakout,Opening 15m direction vs trade,na,1.0,1.25,sizeup,live_ready
+es_quarterly_range_breakout,RTH VWAP side,na,1.0,1.25,sizeup,live_ready
+es_quarterly_range_breakout,Opening 15m volume percentile,na,1.0,1.25,sizeup,live_ready
+es_quarterly_range_breakout,ST-event age,st_age_gt180m,1.0,1.25,sizeup,live_ready
+es_quarterly_range_breakout,ST-event direction vs trade,st_dir_na,1.0,1.25,sizeup,live_ready
+es_quarterly_range_breakout,Contract-roll week,not_roll_week,0.9833333333333333,1.25,sizeup,live_ready
+es_quarterly_range_breakout,NQ-ES dispersion,disp_mid,0.36666666666666664,1.25,sizeup,live_ready
+es_quarterly_range_breakout,Prior RTH range percentile,prior_range_norm,0.36666666666666664,1.25,sizeup,live_ready
+es_quarterly_range_breakout,Yearly ORB direction,yor_up,0.55,1.25,sizeup,live_ready
+es_quarterly_range_breakout,Prior quarter type,q_break_up,0.7,1.25,sizeup,live_ready
+es_quarterly_range_breakout,Entry hour (NY),20,0.7166666666666667,1.25,sizeup,live_ready
+es_quarterly_range_breakout,ATR14 quartile,atr_q2,0.25,1.25,sizeup,needs_rolling_proxy
+es_quarterly_range_breakout,Weekly ATR trend vs trade,w_atr_opposed,0.18333333333333332,1.25,sizeup,live_ready
+es_quarterly_range_breakout,Cross-index direction agreement,all_agree,0.8,1.25,sizeup,live_ready
+es_quarterly_range_breakout,NQ-ES dispersion,disp_high,0.3333333333333333,1.25,sizeup,live_ready
+es_quarterly_range_breakout,ATR causal rolling percentile,atr_p75_100,0.3,1.25,sizeup,needs_rolling_proxy
+es_quarterly_range_breakout,Prior RTH close location,prior_close_low_third,0.21666666666666667,1.25,sizeup,live_ready
+es_quarterly_range_breakout,Weekly ATR trend vs trade,w_atr_aligned,0.8166666666666667,1.25,sizeup,live_ready
+es_quarterly_range_breakout,Prior RTH close location,prior_close_high_third,0.43333333333333335,1.25,sizeup,live_ready
+es_quarterly_range_breakout,Prior RTH range percentile,prior_range_comp,0.36666666666666664,1.25,sizeup,live_ready
+es_quarterly_range_breakout,ATR14 quartile,atr_q4,0.25,1.25,sizeup,needs_rolling_proxy
+es_quarterly_range_breakout,ATR14 quartile,atr_q1,0.25,1.25,sizeup,needs_rolling_proxy
+es_quarterly_range_breakout,Monthly OR direction,mor_na,0.26666666666666666,1.25,sizeup,live_ready
+es_quarterly_range_breakout,ATR causal rolling percentile,atr_p50_75,0.26666666666666666,1.25,sizeup,needs_rolling_proxy
+es_quarterly_range_breakout,Entry hour (NY),19,0.2833333333333333,1.25,sizeup,live_ready
+es_quarterly_range_breakout,Prior RTH close location,prior_close_mid_third,0.35,1.25,sizeup,live_ready
+es_quarterly_range_breakout,Week of month,2,0.25,1.25,sizeup,live_ready
+es_quarterly_range_breakout,Month,1,0.16666666666666666,1.25,sizeup,live_ready
+es_quarterly_range_breakout,Prior RTH range percentile,prior_range_exp,0.25,1.25,sizeup,live_ready
+es_quarterly_range_breakout,Week of month,1,0.4,1.25,sizeup,live_ready
+es_quarterly_range_breakout,Yearly ORB direction,yor_na,0.31666666666666665,1.25,sizeup,live_ready
+es_quarterly_range_breakout,NQ-ES dispersion,disp_low,0.3,1.25,sizeup,live_ready
+es_quarterly_range_breakout,Week of month,4,0.13333333333333333,1.25,sizeup,live_ready
+es_quarterly_range_breakout,Month,7,0.2,1.25,sizeup,live_ready
+es_quarterly_range_breakout,ATR14 quartile,atr_q3,0.25,1.25,sizeup,needs_rolling_proxy
+es_quarterly_range_breakout,Day of week,Tuesday,0.13333333333333333,1.25,sizeup,live_ready
+es_quarterly_range_breakout,Month,10,0.18333333333333332,1.25,sizeup,live_ready
+es_quarterly_range_breakout,Day of week,Wednesday,0.2,1.25,sizeup,live_ready
+es_quarterly_range_breakout,Day of week,Saturday,0.18333333333333332,1.25,sizeup,live_ready
+es_quarterly_range_breakout,ATR causal rolling percentile,atr_p0_25,0.3,1.25,sizeup,needs_rolling_proxy
+es_quarterly_range_breakout,Monthly OR direction,mor_down,0.18333333333333332,1.25,sizeup,live_ready

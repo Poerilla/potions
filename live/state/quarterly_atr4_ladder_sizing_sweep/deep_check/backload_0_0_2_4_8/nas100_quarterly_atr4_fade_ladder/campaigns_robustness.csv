@@ -1,0 +1,10 @@
+trade_id,session,year,side,entry_ts,exit_ts,entry_price,entry_qty,net_usd,exit_reasons,hit_tp,eod_close,full_initial_sl,any_stop_exit,atr14,range_width,range_label,atr14_quartile,range_width_quartile
+nas100_quarterly_atr4_fade_ladder_t1,2017-04-11,2017,long,2017-04-11 13:00:00-04:00,2017-04-16 21:00:00-04:00,5393.700000000001,14,-663.74,stop,False,False,True,True,44.47857142857148,,n/a,Q1 low,
+nas100_quarterly_atr4_fade_ladder_t2,2018-10-08,2018,long,2018-10-08 13:00:00-04:00,2018-10-10 09:00:00-04:00,7269.800000000001,14,-909.0200000000001,stop,False,False,True,True,90.7357142857143,,n/a,Q1 low,
+nas100_quarterly_atr4_fade_ladder_t3,2021-01-04,2021,long,2021-01-04 12:00:00-05:00,2021-01-04 12:00:00-05:00,12649.2,14,-1275.54,stop,False,False,True,True,125.0857142857142,,n/a,Q1 low,
+nas100_quarterly_atr4_fade_ladder_t4,2022-01-05,2022,long,2022-01-05 12:00:00-05:00,2022-01-05 12:00:00-05:00,16143.2,14,-2138.92,stop,False,False,True,True,234.06428571428543,,n/a,Q3,
+nas100_quarterly_atr4_fade_ladder_t5,2022-04-06,2022,long,2022-04-06 13:00:00-04:00,2022-04-10 21:00:00-04:00,14447.9,14,-2681.42,stop,False,False,True,True,277.86428571428587,,n/a,Q3,
+nas100_quarterly_atr4_fade_ladder_t6,2023-04-25,2023,long,2023-04-25 13:00:00-04:00,2023-07-02 21:00:00-04:00,12825.7,14,22233.9,"flatten,tp3,tp4",True,False,False,False,160.19285714285706,,n/a,Q2,
+nas100_quarterly_atr4_fade_ladder_t7,2024-01-08,2024,long,2024-01-08 08:00:00-05:00,2024-04-01 01:00:00-04:00,16338.05,14,19020.039999999997,"flatten,tp3,tp4",True,False,False,False,165.92857142857156,,n/a,Q2,
+nas100_quarterly_atr4_fade_ladder_t8,2024-04-16,2024,long,2024-04-16 01:00:00-04:00,2024-04-18 09:00:00-04:00,17691.299999999996,14,-3390.3799999999997,stop,False,False,True,True,296.1928571428572,,n/a,Q4 high,
+nas100_quarterly_atr4_fade_ladder_t9,2025-04-07,2025,long,2025-04-07 05:00:00-04:00,2025-07-01 01:00:00-04:00,16701.399999999998,14,63301.759999999995,"flatten,tp3,tp4",True,False,False,False,552.0785714285719,,n/a,Q4 high,

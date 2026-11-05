@@ -1,0 +1,23 @@
+{
+  "schema_version": 2,
+  "title": "Strategy Tear Sheets",
+  "as_of": "2026-11-05",
+  "tabs": [
+    {
+      "id": "fx_momentum",
+      "name": "FX Momentum",
+      "data": "data/fx_momentum.json"
+    },
+    {
+      "id": "fx_intraday_trend",
+      "name": "FX Intraday Trend",
+      "data": "data/fx_intraday_trend.json"
+    },
+    {
+      "id": "index_momentum",
+      "name": "Index Momentum",
+      "data": "data/index_momentum.json"
+    }
+  ],
+  "disclaimer": "LIVE/SIM (top) is unaudited practice. BACKTEST (bottom) is hypothetical \u2014 not an offer to invest."
+}

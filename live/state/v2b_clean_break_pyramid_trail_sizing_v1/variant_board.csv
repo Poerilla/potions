@@ -1,0 +1,11 @@
+variant,label,combined_net,worst_stress,combined_ns,trades,units,max_open_units
+trail06_m4_e2_out_be,Trail@60%→BE max4 every-2 outside,335810.5,-39598.0,8.480491438961563,2735,4802,4
+trail06_m4_e1_opp_be,Trail@60%→BE max4 every-1 opposing,327372.0,-43724.0,7.4872381300887385,2735,4815,4
+trail06_m8_e2_out_be,Trail@60%→BE max8 every-2 outside,569229.0,-80606.0,7.061868843510409,2736,6595,8
+trail06_m12_e2_out_be,Trail@60%→BE max12 every-2 outside,722200.5,-115542.5,6.250518207585953,2738,7982,12
+trail06_m8_e1_opp_be,Trail@60%→BE max8 every-1 opposing,512071.0,-84132.0,6.0865188037845295,2739,6558,8
+trail06_m12_e1_opp_be,Trail@60%→BE max12 every-1 opposing,621768.0,-119836.5,5.188469289406817,2739,7783,12
+ctrl_m8_e1_out_notrail,"Control max8 every-1 outside, no trail",682692.0,-139398.5,4.897412812906882,2721,7737,8
+trail06_m4_e1_out_be,Trail@60%→BE max4 every-1 outside,263643.5,-125754.0,2.096501900535967,2735,5633,4
+trail06_m8_e1_out_be,Trail@60%→BE max8 every-1 outside,-119830.0,-519285.0,-0.23075960214525743,2737,9653,8
+trail06_m12_e1_out_be,Trail@60%→BE max12 every-1 outside,-822897.0,-1032921.0,-0.7966698324460438,2737,13490,12

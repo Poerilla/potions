@@ -1,0 +1,4 @@
+decision,book,condition,bucket,mult,hp_pct,inc_net,inc_ns,delta_ns,p_placebo,p_shift,p_master,wf_pos_frac,slug
+RISK THROTTLE,nas100_nq_lead_prior_opposed,Hourly RSI vs trade,rsi_against_side,1.25,33.57142857142857,3093.110734351007,21.24470904627128,1.600727776872784,0.004399120175964807,0.02197802197802198,0.7005988023952096,1.0,nas100_nq_lead_prior_opposed__Hourly_RSI_vs_trade__rsi_against_side
+RISK THROTTLE,nas100_nq_lead_prior_opposed,ST-event direction vs trade,st_opposed_proxy,1.25,33.57142857142857,3093.110734351007,21.24470904627128,1.600727776872784,0.004999000199960008,0.02197802197802198,0.7265469061876247,1.0,nas100_nq_lead_prior_opposed__ST-event_direction_vs_trade__st_opposed_proxy
+NOT VALIDATED,nas100_nq_lead_prior_opposed,Overnight compression,on_comp,1.25,29.642857142857142,1636.084773278009,12.808831234345659,0.2299389907259375,0.3225354929014197,0.3676323676323676,1.0,1.0,nas100_nq_lead_prior_opposed__Overnight_compression__on_comp

@@ -1,0 +1,111 @@
+{
+  "incident_id": "2026-08-19_us30_stale_arm_dedupe_r2",
+  "cancelled_at": "2026-08-19T23:03:53Z",
+  "keep": [
+    {
+      "demo": "us30_hourly_st_pmc_sl50_tp150_3r_oanda",
+      "px": 53367.3,
+      "cids": [
+        "ord_62e8c3210684"
+      ]
+    },
+    {
+      "demo": "us30_hourly_st_pmc_sl50_tp150_runners_2r_10r_oanda",
+      "px": 53371.0,
+      "cids": [
+        "ord_08dcd502c98c",
+        "ord_4978c2220002",
+        "ord_4d0d7d24c6d9",
+        "ord_50424ad88328",
+        "ord_6697575bba41",
+        "ord_6f97993552e9",
+        "ord_a6b2bc0c05a5",
+        "ord_d4e86ee9fc14",
+        "ord_e6330675b1da"
+      ]
+    }
+  ],
+  "results": [
+    {
+      "demo": "us30_hourly_st_pmc_sl50_tp150_3r_oanda",
+      "cid": "ord_e99a46b2bd86",
+      "remote_id": "1773",
+      "px": 53367.30544866246,
+      "why": "duplicate entry within keep price; paper wants 1",
+      "cancelled_at": "2026-08-19T23:03:53Z",
+      "status": "cancelled",
+      "cancel_tx": "1803"
+    },
+    {
+      "demo": "us30_hourly_st_pmc_sl50_tp150_3r_oanda",
+      "cid": "ord_7323fc78b98e",
+      "remote_id": "1796",
+      "px": 53367.30544866246,
+      "why": "duplicate entry within keep price; paper wants 1",
+      "cancelled_at": "2026-08-19T23:03:53Z",
+      "status": "cancelled",
+      "cancel_tx": "1804"
+    },
+    {
+      "demo": "us30_hourly_st_pmc_sl50_tp150_runners_2r_10r_oanda",
+      "cid": "ord_6697575bba41",
+      "remote_id": "1774",
+      "px": 53370.978213237,
+      "why": "duplicate role=entry within keep set",
+      "cancelled_at": "2026-08-19T23:03:53Z",
+      "status": "cancelled",
+      "cancel_tx": "1805"
+    },
+    {
+      "demo": "us30_hourly_st_pmc_sl50_tp150_runners_2r_10r_oanda",
+      "cid": "ord_08dcd502c98c",
+      "remote_id": "1795",
+      "px": 53370.978213237,
+      "why": "duplicate role=entry within keep set",
+      "cancelled_at": "2026-08-19T23:03:53Z",
+      "status": "cancelled",
+      "cancel_tx": "1806"
+    },
+    {
+      "demo": "us30_hourly_st_pmc_sl50_tp150_runners_2r_10r_oanda",
+      "cid": "ord_50424ad88328",
+      "remote_id": "1775",
+      "px": 53370.978213237,
+      "why": "duplicate role=runner_entry within keep set",
+      "cancelled_at": "2026-08-19T23:03:53Z",
+      "status": "cancelled",
+      "cancel_tx": "1807"
+    },
+    {
+      "demo": "us30_hourly_st_pmc_sl50_tp150_runners_2r_10r_oanda",
+      "cid": "ord_6f97993552e9",
+      "remote_id": "1797",
+      "px": 53370.978213237,
+      "why": "duplicate role=runner_entry within keep set",
+      "cancelled_at": "2026-08-19T23:03:53Z",
+      "status": "cancelled",
+      "cancel_tx": "1808"
+    },
+    {
+      "demo": "us30_hourly_st_pmc_sl50_tp150_runners_2r_10r_oanda",
+      "cid": "ord_4d0d7d24c6d9",
+      "remote_id": "1776",
+      "px": 53370.978213237,
+      "why": "duplicate role=runner_entry_2 within keep set",
+      "cancelled_at": "2026-08-19T23:03:53Z",
+      "status": "cancelled",
+      "cancel_tx": "1809"
+    },
+    {
+      "demo": "us30_hourly_st_pmc_sl50_tp150_runners_2r_10r_oanda",
+      "cid": "ord_d4e86ee9fc14",
+      "remote_id": "1798",
+      "px": 53370.978213237,
+      "why": "duplicate role=runner_entry_2 within keep set",
+      "cancelled_at": "2026-08-19T23:03:53Z",
+      "status": "cancelled",
+      "cancel_tx": "1810"
+    }
+  ],
+  "pending_after": 8
+}

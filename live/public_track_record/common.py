@@ -122,8 +122,18 @@ def campaigns_from_fills_fx(
     return pd.DataFrame(rows).sort_values("exit_ts").reset_index(drop=True)
 
 
-def campaigns_from_fills_index(path: Path, *, normalize_qty: bool = False) -> pd.DataFrame:
-    """Index CFD fills: cash ≈ price move × qty (point value 1)."""
+def campaigns_from_fills_index(
+    path: Path,
+    *,
+    normalize_qty: bool = False,
+    base_entry_qty: Optional[float] = None,
+) -> pd.DataFrame:
+    """Index CFD fills: cash ≈ price move × qty (point value 1).
+
+    When ``base_entry_qty`` is set, each campaign's cash is scaled by
+    ``base_entry_qty / first_entry_qty`` so legacy research-unit practice fills
+    (qty=1) report at the current default live base size.
+    """
     fills = pd.read_csv(path)
     fills["ts"] = pd.to_datetime(fills["ts"], utc=True)
     fills = fills.sort_values("ts")
@@ -134,6 +144,9 @@ def campaigns_from_fills_index(path: Path, *, normalize_qty: bool = False) -> pd
         if entry.empty:
             continue
         entry = entry.iloc[0]
+        entry_qty = float(entry["quantity"])
+        if normalize_qty:
+            entry_qty = norm_live_qty(entry_qty)
         open_lots: List[Tuple[str, float, float]] = []
         cash = 0.0
         for _, r in g.iterrows():
@@ -160,6 +173,8 @@ def campaigns_from_fills_index(path: Path, *, normalize_qty: bool = False) -> pd
                     open_lots.pop(0)
                 else:
                     open_lots[0] = (oside, oq, opx)
+        if base_entry_qty is not None and entry_qty > 1e-9:
+            cash *= float(base_entry_qty) / entry_qty
         exit_ts = g.iloc[-1]["ts"]
         rows.append(
             {

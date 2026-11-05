@@ -1,0 +1,13 @@
+NAS100 clean-break filter: skip next day after win (×10)
+
+Parent: brl_21741b260a28
+Hub: live/state/nas100_v2b_clean_break_skip_next_day_after_win_x10
+Size: research ×10 (demo 10/40)
+
+Baseline ×10: net $122,530 | stress $-19,658 | N/S 6.23 | 1166 trades | WR 12.9%
+Filtered ×10:  net $110,500 | stress $-19,554 | N/S 5.68 | 1107 trades | WR 12.5%
+
+Skipped 59 trades (net left on table $12,029: 12W/47L)
+Delta net $-12,030 | delta N/S -0.55
+
+Stance: reject as promotion filter (hurts vs baseline)

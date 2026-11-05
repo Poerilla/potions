@@ -1,0 +1,16 @@
+potions: OANDA -003 cutover — Fair US30 → NAS100 clean-break trail
+
+Account: 101-002-39860312-003 (practice)
+Replaced: Fair US30 ST+PMC 3R (us30_hourly_st_pmc_sl50_tp150_3r_oanda) — STOPPED
+Now running: NAS100 trail06_m4_e2_out_be (nas100_v2b_clean_break_trail06_m4_e2_out_be_oanda)
+
+CLI: demo-nas100-clean-break-trail-oanda --daemon --oanda-config …/nas100_clean_break_trail_003.json
+Demo root: live/demo/nas100_v2b_clean_break_trail06_m4_e2_out_be_oanda/
+Parent book: brl_21741b260a28 (1m-fill validation N/S ~6.23)
+
+Cutover checks:
+- Fair US30 SIGTERM'd; US30 emergency flatten on -003 (1 close payload; was flat)
+- New daemon STREAM connected status=200, account=-003, open_positions=0
+- Frozen: max4 / every-2 outside / trail@0.6→BE + 2R / left-label 5m
+
+Stance: practice demo only (not funded promote). CFD basket still non-portable; this is a single-sleeve NAS100 practice rotation.

@@ -1,0 +1,21 @@
+Worst live sleeves by closed FIFO net (entry days = unique NY dates with an entry fill)
+
+Demo,Days,Net
+USDJPY Monday OR oanda,3,-3217
+USDJPY Monday OR paper,3,-3139
+US30 v2b ungated paper,14,-2882
+EURUSD v2b ungated paper,15,-792
+US30 v2b ungated oanda,12,-495
+
+(EURUSD oanda is +$1,233 closed with 1 unit still open — noise, not a save.)
+
+CROSS-CHECK VS BROKER-LIKE
+
+Live sleeve | Broker-like book | Broker net / N/S | Drop?
+USDJPY Monday OR M2_S3_R1 | Phase 2 core | +$219k / 8.20 (core +Aug/Sep skip: +$294k / 10.60) | No — keep
+EURUSD v2b ungated S_1_1_1 | NY ungated hub | -$150k / -0.97 (1623d) | Yes — drop
+US30 v2b ungated S_1_1_1 | London ungated S_1_1_1 (no archived NY CFD book); YM OCO proxy | US30 London -$4.3k / -0.42; YM 1.47 | Yes — drop ungated
+
+STANCE
+- Drop EURUSD + US30 ungated v2b (paper and oanda). Live is red or fluky; broker books already reject ungated v2b. Keep the ST+PMC US30 demos — that's the real sleeve.
+- Keep USDJPY Monday OR. Only 3 entry days / 2 weeks vs ~743d broker. One losing week was Aug 4 (~-$1.2k) in a month the core book skips; config already has skip_entry_months=[8,9]. A -$3k patch is inside the -$27k stress band of an N/S ~8–10 system.

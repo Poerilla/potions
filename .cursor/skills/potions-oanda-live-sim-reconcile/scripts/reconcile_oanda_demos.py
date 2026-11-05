@@ -184,7 +184,13 @@ def _bars_for_demo(demo_dir: Path, instrument: str, timeframes: str) -> List[Bar
             path = matches[0] if matches else None
         if path is None:
             continue
-        loaded.extend(bars_from_csv(path, instrument=instrument, timeframe=tf, source=str(path)))
+        seen = set()
+        for bar in bars_from_csv(path, instrument=instrument, timeframe=tf, source=str(path)):
+            # Some daemons persist each bar twice (store + Engine persist_bars); replay each once.
+            if bar.ts in seen:
+                continue
+            seen.add(bar.ts)
+            loaded.append(bar)
     loaded.sort(key=lambda b: (b.ts, {"1m": 0, "15m": 1, "1h": 2}.get(b.timeframe, 9)))
     return loaded
 
@@ -357,7 +363,7 @@ def _match_report(
     }
 
 
-def reconcile_one(demo_name: str, *, also_fresh: bool) -> Dict[str, Any]:
+def reconcile_one(demo_name: str, *, also_fresh: bool, since: Optional[str] = None) -> Dict[str, Any]:
     demo_dir = DEMO_ROOT / demo_name
     inst = _load_instance(demo_dir)
     instrument = inst["instrument"]
@@ -368,7 +374,7 @@ def reconcile_one(demo_name: str, *, also_fresh: bool) -> Dict[str, Any]:
     drift = _config_drift(live_cfg, fresh)
 
     bars = _bars_for_demo(demo_dir, instrument, timeframes)
-    started = _started_at_iso(demo_dir)
+    started = since or _started_at_iso(demo_dir)
     live_entries_all = _load_entries(demo_dir / "state" / "fills.csv")
     # Score against the current daemon epoch (RUN_META.started_at). Older fills remain
     # on disk for PnL forensics but must not fail reconcile after an intentional
@@ -445,6 +451,7 @@ def main() -> int:
     ap.add_argument("--demo", action="append", default=[], help="Demo run dirname (repeatable)")
     ap.add_argument("--also-fresh", action="store_true", help="Also replay fresh spawn payload")
     ap.add_argument("--json-out", type=Path, default=None)
+    ap.add_argument("--since", default=None, help="Score entries at/after this ISO ts instead of RUN_META.started_at")
     args = ap.parse_args()
     demos = args.demo or list_oanda_demos()
     OUT_ROOT.mkdir(parents=True, exist_ok=True)
@@ -456,7 +463,7 @@ def main() -> int:
     )
     for name in demos:
         try:
-            r = reconcile_one(name, also_fresh=bool(args.also_fresh))
+            r = reconcile_one(name, also_fresh=bool(args.also_fresh), since=args.since)
         except Exception as exc:  # noqa: BLE001
             r = {"demo": name, "status": "ERROR", "reason": str(exc)}
         rows.append(r)

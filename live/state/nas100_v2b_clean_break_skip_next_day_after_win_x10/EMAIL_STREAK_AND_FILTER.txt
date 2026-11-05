@@ -1,0 +1,21 @@
+NAS100 clean-break (brl_21741b260a28): loss-streak rhythm + skip-next-day-after-win ×10
+
+Hub (filter): live/state/nas100_v2b_clean_break_skip_next_day_after_win_x10
+Parent: live/state/nas100_v2b_clean_break_trail06_m4_e2_out_be_1mfill_validation
+Size: research ×10 (demo entry 10 / max 40)
+Campaigns: 1166 | WR 12.9% | max losing streak 27 (expected at this WR)
+
+LOSS STREAKS — no stacking rhythm
+- After 1 loss → next loss 86.3% (N=131)
+- After 2 losses → next loss 86.7% / next win 13.3% (N=113)
+- Unconditional P(loss)=87.1% / P(win)=12.9%
+- Lag-1 loss autocorr ≈ 0.005; streak lengths match a memoryless geometric null
+- Verdict: two losses do NOT raise odds of a third; they lead to a win ~as often as any random trade (~13%)
+
+SKIP NEXT DAY AFTER WIN (×10)
+| Book | Trades | Net | Stress DD | N/S | WR |
+| Baseline | 1166 | $122,530 | $-19,659 | 6.23 | 12.9% |
+| Filtered | 1107 | $110,500 | $-19,554 | 5.68 | 12.5% |
+Skipped 59 trades left $12,030 on table (12W/47L). Delta net $-12,030 | delta N/S -0.55
+
+Stance: reject skip-after-win as promotion filter (hurts). No sit-out-from-loss-streak filter implied either — no dependence to harvest.

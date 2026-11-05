@@ -6,6 +6,13 @@ Primary sort: `delta_NS` desc (overlays) or `candidate_NS` desc (baselines).
 
 _Eligible: finite 3R / 2R→10R / filters. Prior-opposed 10R addon + indefinite runners excluded._
 
+> **STALE / do not pickup:** hourly ST+PMC fair-3R rows below (US30 **20.97**,
+> NAS100 **19.56**, GBPUSD **8.12**, EURUSD **3.01**) are **left-label** tapes.
+> Completed-hour causality invalidates them (US30 −0.21, NAS100 0.53, GBPUSD −0.97,
+> EURUSD −0.63). See
+> [`../fx_index_metals_st_pmc_runner_variants/INVALIDATED_LEFT_LABEL.md`](../fx_index_metals_st_pmc_runner_variants/INVALIDATED_LEFT_LABEL.md).
+> Do not quote these N/S as current alpha. Filter-revival is an open research item.
+
 | market | book | type | net | stress | N/S | source |
 |---|---|---|---:|---:|---:|---|
 | US30 | US30/sl50_tp150_3r_1mfill | baseline | +19028 | 907 | **20.97** | us30_st_pmc_runner_variants |

@@ -198,6 +198,8 @@ For gates driven by higher-timeframe prerequisite strategies (e.g. hourly ST+PMC
 
 Promotion standard for this family: **resting-limit hour-complete** (`gate_mode=resting_limit`). Lookahead re-review on NQ: SOLID for minute-by-minute execution. Cross-market outputs: `live/state/v2b_prior_opposed_resting_limit_cross_market/`.
 
+**NQ-lead NAS100 coupled stream (2026-10-03):** `v2b_nq_lead_nas100` with `coupled_stream` does not preload the finished NQ book. The driver (`nq_lead_nas100_prior_opposed_replay.py --coupled`) reads the hour-complete resting-limit NQ state and calls `ingest_coupled_event` only when `available_at_ts` (left-labeled 1m fill `+ 1m`) is strictly before the NAS bar. Campaign events carry entry side, price, and OR only. TP1, stop, and EOD are later milestone events. Mapped OR is frozen from the prior completed NAS close at reveal time. The legacy `--coupled` off path still injects `config.nq_lead_campaigns` from the left-label book, including future exit times, and is diagnostic only.
+
 Live ST+PMC demos (`HourlyBarAggregator`) emit the left-labeled 1h bar only after the `:59` 1m bar, so the live loop is structurally hour-complete for fills even when `bar.ts` remains left-labeled. Research seed paths that load completed-hour ST orders must use `st_signal_stamp=completed_hour` (see US30 London prior-opposed demo).
 
 ### Current regeneration status
@@ -339,6 +341,16 @@ Comparable Core Board rows must pass: variant complete, USD-normalized (JPY), re
 ## Maintenance
 
 Any change to fill semantics, causality guards, or reported metrics **must update this file** in the same PR as code/tests.
+
+**2026-10-01:** USDJPY Monday OR practice `-005` orders research book qty ×
+100,000 OANDA units. `week_sitout_after_pts` is scaled by the same factor
+(sitout is qty-weighted lot-points). Research ranking stays the unit book.
+See CHANGE_LOG.
+
+**2026-09-12:** Index Momentum / practice `-003` **default base size** is
+`size_mult=10` (entry 10 / max 40). Research unit book stays the N/S ranking
+tape; public tear sheet exports the 10× flat base (legacy qty=1 practice
+renormalized). See CHANGE_LOG.
 
 **2026-09-11:** `v2b_clean_break` maps OANDA wall-clock entry fills to the left-label
 5m signal bucket (`fill_to_signal_minutes`, timezone-preserving floor) before

@@ -1,0 +1,20 @@
+potions: NAS100 clean-break ma_aligned arm-asof HP size-up complete
+
+Hub: /home/tester/hsm/potions/live/state/nas100_clean_break_ma_aligned_size15_broker
+Contract: arm_asof_no_qty_refresh (default ×1.5)
+Scales: ×1.5, ×2, ×4, ×6
+DSR: TRL-2026-00201 (parent TRL-2026-00199)
+
+HP campaigns: 647 / 1166
+Engine baseline: net=$12253 MTM DD=$1966 N/S=6.23
+
+Scale board (MTM DD):
+  ×1.5  net=$17007  MTM=$2498 (1.270× base, 1.000× vs linear)  N/S=6.81
+  ×2  net=$21762  MTM=$3029 (1.541× base, 1.000× vs linear)  N/S=7.18
+  ×4  net=$40779  MTM=$5340 (2.716× base, 1.036× vs linear)  N/S=7.64
+  ×6  net=$59796  MTM=$8282 (4.213× base, 1.137× vs linear)  N/S=7.22
+
+Default ×1.5 Δnet=$+4754 ΔN/S=+0.58
+
+MTM DD: MTM DD shows material non-linearity vs ×1.5 interpolation (max |ratio-1|=14%) — size extremes change path DD, not just scale.
+Stance: RESEARCH — arm-asof Engine confirms size-up lift @ ×1.5

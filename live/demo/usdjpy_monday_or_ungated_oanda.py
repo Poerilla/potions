@@ -3,6 +3,10 @@
 Tracker / Phase 2 default: ``M2_S3_R1`` (``monday_or_breakout``), N/S ≈ 8.20.
 Artifacts: ``live/demo/usdjpy_monday_or_ungated_oanda/``.
 
+Practice orders are research book counts × 100,000 OANDA units (one standard
+lot per book qty), from the 2026-10-01 rule review. The research ranking tape
+stays the unit book.
+
 Streams practice prices, aggregates 1m → 15m (left-labeled like research), routes
 real practice orders via ``OandaBroker``. Local CSVs mirror Account Changes.
 """
@@ -66,6 +70,7 @@ from .oanda_daemon_reconcile import (
     install_containment,
     oanda_broker_with_supervisor,
 )
+from .singleton import EXIT_REFUSED, claim_runtime
 
 INSTRUMENT = "USDJPY"
 STRATEGY_ID = "usdjpy_monday_or_ungated_oanda"
@@ -73,6 +78,28 @@ RUN_DIRNAME = "usdjpy_monday_or_ungated_oanda"
 PHASE2_TAG = PAIR_PHASE2_DEFAULT["USDJPY"]  # M2_S3_R1
 TICK = 0.001
 CLI_COMMAND = "demo-usdjpy-monday-or-oanda"
+# Research book counts (3 / 1 / 2, shifted 4 / 2 / 2). One research lot = one
+# standard OANDA lot. Sitout is qty-weighted, so the +3 lot-point threshold
+# scales with the same factor.
+LIVE_UNITS_PER_LOT = 100_000
+SIZING_REVIEW_DATE = "2026-10-01"
+SIZING_REVIEW_NOTE = (
+    "2026-10-01 review: Oct 1 primary (buy 3 @ 158.233, dd30 x1, dd50 x2) "
+    "MATCH vs monday_or_breakout on stored 15m bars (live config and fresh spawn). "
+    "Practice had been 1:1 OANDA units (~-$0.01 on that trade). "
+    "Scaled to research lot size: 100000 OANDA units per book qty "
+    "(entry 300000 / dd30 100000 / dd50 200000; shifted entry 400000). "
+    "week_sitout_after_pts scaled by the same factor so the +3 research-lot-point "
+    "sitout is unchanged. Research ranking tape stays the unit book."
+)
+_SCALED_QTY_KEYS = (
+    "entry_qty",
+    "dd30_qty",
+    "dd50_qty",
+    "shifted_entry_qty",
+    "shifted_dd30_qty",
+    "shifted_dd50_qty",
+)
 NY = pytz.timezone("America/New_York")
 WEEK_END_SIZE_REPORT_NY = dt_time(15, 59)
 
@@ -82,7 +109,15 @@ def default_output_root() -> Path:
 
 
 def strategy_config_payload() -> Dict[str, Any]:
-    payload = plugin_config(TICK, PHASE2_TAG, pair="USDJPY")
+    research = plugin_config(TICK, PHASE2_TAG, pair="USDJPY")
+    payload = dict(research)
+    units = int(LIVE_UNITS_PER_LOT)
+    for key in _SCALED_QTY_KEYS:
+        if payload.get(key) is not None:
+            payload[key] = int(payload[key]) * units
+    sitout = float(payload.get("week_sitout_after_pts") or 0.0)
+    if sitout:
+        payload["week_sitout_after_pts"] = sitout * units
     payload.update(
         {
             "phase2_tag": PHASE2_TAG,
@@ -91,6 +126,14 @@ def strategy_config_payload() -> Dict[str, Any]:
             "oanda_routing": True,
             "signal_price": "mid",
             "fill_price": "oanda",
+            "units_per_lot": units,
+            "research_entry_qty": int(research["entry_qty"]),
+            "research_dd30_qty": int(research["dd30_qty"]),
+            "research_dd50_qty": int(research["dd50_qty"]),
+            "research_shifted_entry_qty": int(research["shifted_entry_qty"]),
+            "research_week_sitout_after_pts": sitout,
+            "sizing_review_date": SIZING_REVIEW_DATE,
+            "sizing_review_note": SIZING_REVIEW_NOTE,
         }
     )
     return payload
@@ -114,7 +157,11 @@ def write_run_meta(output_root: Path, *, config: OandaConfig) -> Dict[str, Any]:
         "dd50_qty": payload["dd50_qty"],
         "shifted_entry_qty": payload["shifted_entry_qty"],
         "max_trades_per_week": payload["max_trades_per_week"],
-        "units_note": "Strategy qty maps 1:1 to OANDA units (tiny practice size; not research 7700 units).",
+        "units_per_lot": payload["units_per_lot"],
+        "research_entry_qty": payload["research_entry_qty"],
+        "research_week_sitout_after_pts": payload["research_week_sitout_after_pts"],
+        "sizing_review_date": payload["sizing_review_date"],
+        "units_note": SIZING_REVIEW_NOTE,
         "account_mode": "paper",
         "oanda_routing": True,
         "allow_live_routing": False,
@@ -395,6 +442,14 @@ def run_stream_loop(
     if str(config.env).lower() != "practice":
         append_progress(output_root, "REFUSING non-practice OANDA_ENV=%s" % config.env)
         return 2
+    if not claim_runtime(
+        strategy_id=STRATEGY_ID,
+        output_root=output_root,
+        account_id=str(config.account_id or ""),
+        instrument=INSTRUMENT,
+        routes_orders=True,
+    ):
+        return EXIT_REFUSED
 
     runner = MondayOrOandaRunner(output_root=output_root, config=config)
     meta = write_run_meta(output_root, config=config)

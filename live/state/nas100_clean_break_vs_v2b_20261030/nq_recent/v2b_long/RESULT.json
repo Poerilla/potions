@@ -1,0 +1,21 @@
+{
+  "dataset": "nq_recent",
+  "strategy": "v2b_long",
+  "sessions": 265,
+  "start": "2025-10-01",
+  "end": "2026-10-09",
+  "trades": 198,
+  "units": 591,
+  "net_usd": -1500.0999999974592,
+  "closed_dd_usd": -8888.54999999925,
+  "stress_dd_usd": -8921.54999999925,
+  "win_rate": 0.51010101010101,
+  "profit_factor": 0.9558485057187819,
+  "causality_violations": 0,
+  "shorts": 0,
+  "ns": -0.1681434279915021,
+  "yearly_net": {
+    "2025": 396.95,
+    "2026": -1897.05
+  }
+}

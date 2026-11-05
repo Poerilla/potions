@@ -1,0 +1,26 @@
+potions: FX Momentum $114,086 vs OANDA -004 $110,799.57
+
+Verdict: not USD/CAD. Gap is (1) public size-normalization of the micro-size Sep 3 trade, minus (2) leftover NAS100 PnL still on dedicated account -004.
+
+Account 101-002-39860312-004 (currency USD)
+- Balance / NAV: $110,799.57
+- Deposit: $100,000 (2026-08-20)
+- resettablePL: +$10,799.57 (financing $0)
+
+Broker fill PL bridge
+- NAS100_USD (pre–Asia Range, ST+PMC era on -004): +$4,283.40
+- USD_JPY (Asia Range since 2026-09-03): +$6,516.17
+- Sum: +$10,799.57 → matches balance
+
+FX Momentum public equity $114,086.36
+- Sleeve-only additive path from $100k (not account NAV)
+- Size-normalizes qty<1000 × 100k lots for the chart
+- Sep 3 trade was actually 7 OANDA units → ~$0.07; chart treats it as 700k → ~+$7,000
+- Sep 10 also had 1-unit TP legs that get renormalized slightly
+
+Gap math
+- Chart asia net +$14,086 − OANDA USDJPY +$6,516 ≈ +$7,570 chart inflation
+- Account also includes prior NAS100 +$4,283 (not on FX Mom chart)
+- Net chart − balance ≈ $7,570 − $4,283 = ~$3,287 (= 114086.36 − 110799.57)
+
+Stance: compare FX Mom tear sheet only to the Asia sleeve at full live size; do not expect it to equal -004 NAV.

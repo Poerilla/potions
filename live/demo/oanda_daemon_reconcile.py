@@ -93,6 +93,17 @@ def expectation_for_strategy_type(strategy_type: str, *, entry_qty: float = 0.0)
             entry_qty=float(entry_qty or 3.0),
             strategy_type=key,
         )
+    if "clean_break" in key:
+        # Pyramid/trail books intentionally defer SL/TP until trail_at_frac (or soft
+        # exit). Bracket gaps alone are not a fault; fill_miss_orphan catches the
+        # desync where broker is open but the plugin never saw the entry fill.
+        return BracketExpectation(
+            require_stop=False,
+            require_tp=False,
+            allow_runner_no_tp=True,
+            entry_qty=float(entry_qty or 0.0),
+            strategy_type=key,
+        )
     if "st_pmc" in key or "hourly_st" in key:
         return BracketExpectation(
             require_stop=True,
@@ -121,7 +132,7 @@ def expectation_for_strategy_type(strategy_type: str, *, entry_qty: float = 0.0)
 @dataclass
 class BracketInvariantResult:
     ok: bool
-    classification: str  # ok | armed_entry | stop_only | open_without_brackets | orphan_protective | cross_book_entry | foreign_bleed | qty_mismatch
+    classification: str  # ok | armed_entry | stop_only | open_without_brackets | orphan_protective | cross_book_entry | foreign_bleed | qty_mismatch | fill_miss_orphan
     ownership_certain: bool
     local_qty: float
     stop_qty: float
@@ -132,6 +143,95 @@ class BracketInvariantResult:
 
     def as_dict(self) -> Dict[str, Any]:
         return asdict(self)
+
+
+_FILL_MISS_ARMED_PHASES = frozenset({"armed", "or_building"})
+_FILL_MISS_MANAGED_PHASES = frozenset(
+    {
+        "pending_clean_validation",
+        "in_trade",
+        "trail_armed",
+        "position_open",
+        "pyramid",
+        "add_pending",
+    }
+)
+
+
+def detect_fill_miss_orphan(
+    *,
+    store: "FlatFileStore",
+    instrument: str,
+    strategy_id: str,
+    local_qty: float,
+    stop_qty: float = 0.0,
+    tp_qty: float = 0.0,
+    working_roles: Optional[Sequence[str]] = None,
+) -> Optional[BracketInvariantResult]:
+    """Broker/local open with no plugin fill + still-armed/managed state → flatten.
+
+    Catches the ordersFilled-before-FILL race where positions.csv is rewritten
+    from account details but StrategyManager never saw ``on_fill``.
+
+    Requires positive plugin-state evidence so curated bracket fixtures (no
+    strategy_state / no fills) keep their stop_only / qty_mismatch classes.
+    """
+    if abs(float(local_qty)) < 1e-9:
+        return None
+    fills = []
+    try:
+        fills = list(store.read_table("fills") or [])
+    except Exception:
+        fills = []
+    owned_fills = [
+        r
+        for r in fills
+        if str(r.get("strategy_id") or "") == strategy_id
+        and str(r.get("instrument") or "").upper() == str(instrument).upper()
+        and abs(float(r.get("quantity") or 0.0)) > 1e-9
+    ]
+    if owned_fills:
+        return None
+
+    phase = ""
+    active_trade_id = ""
+    entry_armed = False
+    try:
+        for row in store.read_table("strategy_state") or []:
+            if str(row.get("strategy_id") or "") != strategy_id:
+                continue
+            raw = row.get("state_json") or "{}"
+            state = json.loads(raw) if isinstance(raw, str) else (raw or {})
+            if not isinstance(state, dict):
+                break
+            phase = str(state.get("phase") or "")
+            active_trade_id = str(state.get("active_trade_id") or "")
+            entry_armed = bool(state.get("entry_armed"))
+            break
+    except Exception:
+        return None
+
+    phase_l = phase.lower()
+    desync = bool(active_trade_id) or entry_armed or phase_l in _FILL_MISS_ARMED_PHASES or phase_l in _FILL_MISS_MANAGED_PHASES
+    if not desync:
+        return None
+
+    reasons = ["open_qty=%s with zero strategy fills" % local_qty]
+    if active_trade_id:
+        reasons.append("active_trade_id=%s without fills" % active_trade_id)
+    reasons.append("plugin_phase=%s entry_armed=%s" % (phase or "?", entry_armed))
+
+    return BracketInvariantResult(
+        ok=False,
+        classification="fill_miss_orphan",
+        ownership_certain=True,
+        local_qty=float(local_qty),
+        stop_qty=float(stop_qty),
+        tp_qty=float(tp_qty),
+        working_roles=list(working_roles or []),
+        reasons=reasons,
+        recommended_action="flat_for_day",
+    )
 
 
 @dataclass
@@ -830,6 +930,18 @@ class DaemonContainmentController:
         if not bleed.ok:
             invariant = bleed
 
+        fill_miss = detect_fill_miss_orphan(
+            store=self.store,
+            instrument=self.instrument,
+            strategy_id=self.strategy_id,
+            local_qty=float(invariant.local_qty),
+            stop_qty=float(invariant.stop_qty),
+            tp_qty=float(invariant.tp_qty),
+            working_roles=list(invariant.working_roles),
+        )
+        if fill_miss is not None:
+            invariant = fill_miss
+
         stream_inv = self._stream_stale_invariant()
         details: Dict[str, Any] = {"phase": phase, "mode": self.mode, "stream_age_s": self.stream_age_s()}
         if stream_inv is not None and invariant.ok:
@@ -895,7 +1007,9 @@ class DaemonContainmentController:
         )
         self._emit(result)
         if (not invariant.ok) and self.email_on_action and self.email_mode != "off":
-            if self.email_mode == "immediate":
+            # fill_miss / hard flatten classes need a ping now — not only the EOD digest.
+            escalate = invariant.classification in {"fill_miss_orphan", "qty_mismatch", "foreign_bleed"}
+            if self.email_mode == "immediate" or escalate:
                 self._send_containment_email(result)
             else:
                 self._record_email_digest(result)

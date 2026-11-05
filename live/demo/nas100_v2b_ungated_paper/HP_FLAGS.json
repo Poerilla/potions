@@ -1,0 +1,24 @@
+{
+  "demo": "/home/tester/hsm/potions/live/demo/nas100_v2b_ungated_paper",
+  "book": "nas100_nq_lead_prior_opposed",
+  "conditions": [
+    "rsi_against_side",
+    "st_opposed_proxy",
+    "both_flags",
+    "neither_flags"
+  ],
+  "st_note": "st_opposed uses research rsi_proxy (identical to rsi_against_side on prior_opposed family). both/neither collapse to against/not-against until a true ST-direction tape is wired.",
+  "decision": "RISK THROTTLE",
+  "size_mult_if_hit": 1.25,
+  "mode": "shadow",
+  "n_entry_fills": 21,
+  "n_rsi_against": 9,
+  "n_st_opposed": 9,
+  "n_both_flags": 9,
+  "n_neither_flags": 12,
+  "n_newly_logged": 0,
+  "updated_at": "2026-08-14T01:05:22Z",
+  "artifacts": {
+    "hp_flags_csv": "/home/tester/hsm/potions/live/demo/nas100_v2b_ungated_paper/state/hp_flags.csv"
+  }
+}

@@ -1,0 +1,13 @@
+6J London v2b and prior-opposed complete.
+
+Clock: OR 03:00-03:15 America/New_York, flatten 11:59. Start 2015-01-02. Book S_1_1_3.
+Prior-opposed gate: today's 6J hourly ST+PMC sl25/tp75 3R resting-limit orders
+(/home/tester/hsm/potions/live/state/6j_fx_tracker_leaders/st_pmc/6j/states/6j_hourly_st_pmc_sl25_tp75_3r_ma_bull_prior).
+
+Ungated hub: /home/tester/hsm/potions/live/state/6j_v2b_london_ungated_S_1_1_3
+  net $-257856  stress $-259235  N/S -0.99  trades 2162
+
+Prior-opposed hub: /home/tester/hsm/potions/live/state/6j_v2b_london_prior_opposed_S_1_1_3
+  net $-22199  stress $-22468  N/S -0.99  trades 207
+
+Stance: research read only until compared with USDJPY London v2b. No 6J demo.

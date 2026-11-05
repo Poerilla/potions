@@ -1,0 +1,13 @@
+trigger,condition,n,bars5_p25,bars5_median,bars5_p75,bars5_p90
+close5,all,1860,1.0,3.0,8.0,26.0
+close5,or_width_q=q1,377,1.0,3.0,8.0,20.0
+close5,or_width_q=q2,441,1.0,3.0,8.0,31.0
+close5,or_width_q=q3,431,1.0,3.0,9.0,31.0
+close5,or_width_q=q4,569,1.0,3.0,9.0,22.0
+close5,failed_break_no1r,861,1.0,2.0,5.0,13.0
+touch,all,2028,0.0,1.0,3.0,11.0
+touch,or_width_q=q1,409,0.0,1.0,3.0,10.0
+touch,or_width_q=q2,480,0.0,1.0,3.0,13.0
+touch,or_width_q=q3,479,0.0,1.0,3.0,12.0
+touch,or_width_q=q4,612,0.0,1.0,3.0,10.0
+touch,failed_break_no1r,979,0.0,1.0,2.0,6.0

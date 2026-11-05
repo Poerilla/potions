@@ -1,0 +1,6 @@
+# Isolated reader for Databento DBN v3. Recreate with:
+#   ~/.pyenv/versions/3.11.2/bin/python -m venv .venv-dbn
+#   .venv-dbn/bin/pip install -r scripts/requirements-dbn.txt
+# The default potions Python stays 3.8. Databento 0.87 requires Python >= 3.10
+# and will not rewrite v3 files down to a version 3.8 can decode.
+databento==0.87.0

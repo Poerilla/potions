@@ -1,0 +1,68 @@
+[
+  {
+    "bars": 12618,
+    "demo": "nas100_v2b_clean_break_trail06_m4_e2_out_be_oanda",
+    "drift": [],
+    "instrument": "NAS100",
+    "live_cfg_replay": {
+      "first_diff": [
+        [
+          "2026-10-30T13:58",
+          "buy",
+          "10"
+        ],
+        [
+          "2026-10-30T13:55",
+          "buy",
+          "10"
+        ]
+      ],
+      "fuzzy_match": false,
+      "fuzzy_unmatched_live": [
+        [
+          "2026-10-30T13:58",
+          "buy",
+          "10"
+        ]
+      ],
+      "fuzzy_unmatched_sim": [
+        [
+          "2026-10-30T13:55",
+          "buy",
+          "10"
+        ]
+      ],
+      "live_n": 4,
+      "live_only": [
+        [
+          "2026-10-30T13:58",
+          "buy",
+          "10"
+        ],
+        [
+          "2026-11-02T15:12",
+          "buy",
+          "10"
+        ]
+      ],
+      "match": false,
+      "sim_n": 4,
+      "sim_only": [
+        [
+          "2026-10-30T13:55",
+          "buy",
+          "10"
+        ],
+        [
+          "2026-11-02T15:10",
+          "buy",
+          "10"
+        ]
+      ]
+    },
+    "live_entries_all": 26,
+    "started_at": "2026-10-30T00:00:00Z",
+    "status": "MISMATCH",
+    "strategy_type": "v2b_clean_break"
+  }
+]

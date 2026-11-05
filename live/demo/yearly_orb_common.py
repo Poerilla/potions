@@ -657,6 +657,16 @@ def run_loop(
     if str(cfg.env).lower() != "practice":
         append_progress(root, "REFUSING non-practice OANDA_ENV=%s" % cfg.env)
         return 2
+    from .singleton import EXIT_REFUSED, claim_runtime
+
+    if not claim_runtime(
+        strategy_id=spec.strategy_id_oanda if oanda_routing else spec.strategy_id_paper,
+        output_root=root,
+        account_id=str(cfg.account_id or ""),
+        instrument=spec.instrument,
+        routes_orders=bool(oanda_routing),
+    ):
+        return EXIT_REFUSED
     runner = YearlyOrbDailyRunner(spec, output_root=root, oanda_routing=oanda_routing, config=cfg)
     return runner.run(max_polls=max_polls)
 

@@ -89,6 +89,8 @@ MARKETS: Dict[str, MarketSpec] = {
     "EURUSD": MarketSpec("EURUSD", 0.00001, 100_000.0, 7.0, "USD", "fx"),
     "GBPUSD": MarketSpec("GBPUSD", 0.00001, 100_000.0, 7.0, "USD", "fx"),
     "USDJPY": MarketSpec("USDJPY", 0.001, 100_000.0, 7.0, "JPY", "fx"),
+    # CME Japanese yen. Family cfd keeps the spread at about one tick ($6.25).
+    "6J": MarketSpec("6J", 0.0000005, 12_500_000.0, 1.50, "USD", "cfd"),
     "AUDJPY": MarketSpec("AUDJPY", 0.001, 100_000.0, 7.0, "JPY", "fx"),
     "XAUUSD": MarketSpec("XAUUSD", 0.01, 100.0, 7.0, "USD", "metal"),
     "XAGUSD": MarketSpec("XAGUSD", 0.001, 1000.0, 7.0, "USD", "metal"),

@@ -45,14 +45,14 @@ Writes under `live/state/_oanda_live_sim_reconcile/<demo>/` (gitignored-style sc
 
 Also: sim **and** live entries before `RUN_META.started_at` are dropped from the score (seed history + pre-restart fills). Full tape stays on disk for PnL forensics.
 
-**Restart gotcha:** spawn daemons with `set -a; source live/demo/.env; set +a` so `OANDA_TOKEN` is present (spawn does not auto-load `.env`).
+**Restart:** only `python3 -m potions.live.cli demo-restart <demo dir>` (add `--when-flat --not-before HH:MM --email` mid-session). It loads `live/demo/.env`, relaunches the same argv, and verifies one lock holder. Never delete `pidfile`/`daemon.lock` or `kill` + `--daemon`: that caused the 2026-11-04 double-daemon incident.
 
 ## Workflow
 
 1. Confirm daemon UP (`potions-demo-status`) and note open qty.
 2. Run reconciler for the book(s) in question.
 3. If **live-config** mismatches → bug in stream/aggregation/broker routing (investigate `PROGRESS.log` / `run.log`).
-4. If **live-config** matches but **fresh** differs → daemon spawned on stale config; restart with current payload (stop → `--daemon`) so `bootstrap_store` upserts `strategy_instances`.
+4. If **live-config** matches but **fresh** differs → daemon spawned on stale config; restart with current payload (`demo-restart <demo dir>` when flat) so `bootstrap_store` upserts `strategy_instances`.
 5. Do **not** wipe `fills.csv` on restart unless the user asks; history stays; new rules apply going forward.
 
 ## Current OANDA books (inventory)

@@ -1,0 +1,15 @@
+potions: NAS100 clean-break ma_aligned size_1.5 causality CONDITIONAL_PASS
+
+Hub: /home/tester/hsm/potions/live/state/nas100_clean_break_ma_aligned_size15_broker
+Audit: /home/tester/hsm/potions/live/state/nas100_clean_break_ma_aligned_size15_broker/causality_audit
+DSR: TRL-2026-00200 (parent TRL-2026-00199)
+
+Engine tape: PASS (violations=0, live_after fails=0, feat order fails=0)
+ma5_align recipe: PASS (stored mismatch=0, avail>entry=0)
+Arm↔fill MA flips: 135 (HP fill=710 arm=647)
+
+Engine baseline: net=$12253 stress=$1966 N/S=6.23
+Fill-asof size_1.5: net=$18448 N/S=7.48 Δnet=$+6195 ΔN/S=+1.25
+Arm-asof size_1.5: net=$17007 N/S=6.81 Δnet=$+4754 ΔN/S=+0.58
+
+Stance: RESEARCH — Engine causal; size-up lift is fill-asof unless live refreshes qty.

@@ -1,0 +1,8 @@
+strategy_book,feature,feature_value,coverage,size_multiplier,filter_or_sizeup,causal_eligibility
+nq_chop20_boundary60_1m,Hourly RSI bucket,rsi_gt70,0.2028985507246377,1.25,sizeup,live_ready
+nq_chop20_boundary60_1m,ATR14 quartile,atr_q4,0.2463768115942029,1.25,sizeup,needs_rolling_proxy
+nq_chop20_boundary60_1m,Day of week,Monday,0.2463768115942029,1.25,sizeup,live_ready
+nq_chop20_boundary60_1m,Hourly RSI vs trade,rsi_with_side,0.782608695652174,1.25,sizeup,live_ready
+nq_chop20_boundary60_1m,Week of month,1,0.21739130434782608,1.25,sizeup,live_ready
+nq_chop20_boundary60_1m,Day of week,Thursday,0.13043478260869565,1.25,sizeup,live_ready
+nq_chop20_boundary60_1m,Week of month,3,0.2753623188405797,1.25,sizeup,live_ready

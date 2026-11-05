@@ -1,0 +1,50 @@
+potions live/demo adherence update (no PnL)
+as_of: 2026-08-13 18:35 UTC
+
+Scope: process health, heartbeats, open brackets, fill-reason mix, stream errors.
+PnL intentionally omitted.
+
+INVENTORY
+  demos with pidfile: 35
+  alive: 35 / dead: 0
+  PROGRESS stale >20m: none
+  open without any working order: none
+
+EXECUTION / BRACKETS (open books)
+  nas100_hourly_st_pmc_sl50_tp150_runners_2r_10r_paper
+    open NAS100 qty=1 with working runner_stop + target  — expected after scale-outs
+  nas100_v2b_ungated_paper
+    open NAS100 qty=2 with working runner_stop + tp2  — expected post-tp1 path
+  nas100_v2b_ungated_oanda
+    open NAS100 qty=3 with only a working protective stop (bracket_role=entry);
+    tp1/tp2/wide_stop not currently resting after latest entry  — FLAG
+  spx500_v2b_ungated_oanda
+    open SPX500 qty=3 with only a working protective stop (bracket_role=entry);
+    tp1/tp2 not currently resting after latest entry  — FLAG
+  All other demos: flat locally.
+
+TODAY FILL REASONS (adherence only)
+  us30_hourly_st_pmc_sl50_tp150_runners_2r_10r_paper: entry / runner_entry / runner_entry_2 / stop / runner_stop
+  us30_hourly_st_pmc_sl50_tp150_3r_paper: entry / stop
+  us30_london_prior_opposed_paper: entry / eod_close
+  nas100_v2b_ungated_paper: entry / tp1
+  spx500_v2b_ungated_paper: entry / tp1 / runner_stop
+  Reason vocabulary matches strategy contracts (no unexpected reasons seen).
+
+STREAM / RECOVERY
+  Several OANDA + paper demos logged HTTP 429 / timeout / stream ERROR traces today.
+  Heartbeats and tick/bar counters are advancing on all checked runs — treated as recovered
+  overnight/session reconnect noise, not stuck daemons.
+
+OANDA instrument bleed
+  Current open OANDA locals match demo instrument (NAS100 / SPX500). No foreign-symbol bleed in open rows right now.
+
+VERDICT
+  Daemons are up and progressing.
+  Paper v2b / ST+PMC / prior-opposed fill paths look adherent.
+  Watch: NAS100 + SPX500 v2b OANDA opens appear stop-only (missing resting TPs) after re-entry —
+  paper twin for NAS100 has the expected runner_stop+tp2 pair.
+
+Artifacts:
+  live/demo/ADHERENCE_INVENTORY_TODAY.csv
+  hub boards: live/state/canonical_ns_research/INDIVIDUAL_250K_*.md

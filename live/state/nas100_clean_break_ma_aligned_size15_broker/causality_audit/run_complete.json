@@ -1,0 +1,48 @@
+{
+  "overall": "CONDITIONAL_PASS",
+  "dsr": "TRL-2026-00200",
+  "parent_dsr": "TRL-2026-00199",
+  "engine": {
+    "feature_snapshots": 22558,
+    "causality_violation_rows": 0,
+    "non_moc_fills_at_or_before_live_after": 0,
+    "entry_fills_at_or_before_live_after": 0,
+    "feature_order_fails": 0,
+    "pass": true
+  },
+  "ma": {
+    "campaigns": 1166,
+    "stored_vs_fill_asof_mismatch": 0,
+    "avail_at_after_entry": 0,
+    "avail_at_eq_entry": 515,
+    "arm_vs_fill_flips": 135,
+    "hp_fill": 710,
+    "hp_arm": 647,
+    "hp_both": 611,
+    "hp_only_fill": 99,
+    "hp_only_arm": 36,
+    "campaign_base_net": 12252.95,
+    "campaign_fill_size_net": 18447.550000000003,
+    "campaign_arm_size_net": 17007.225000000002,
+    "campaign_both_size_net": 17188.550000000003,
+    "campaign_fill_delta": 6194.600000000002,
+    "campaign_arm_delta": 4754.2750000000015,
+    "pass_feature_recipe": true
+  },
+  "engine_board": {
+    "baseline_net": 12252.950000000743,
+    "baseline_stress": 1965.8499999998166,
+    "baseline_ns": 6.232901798205298,
+    "fill_hp_net": 18447.550000000985,
+    "fill_hp_stress": 2465.7749999997486,
+    "fill_hp_ns": 7.481440926281946,
+    "arm_hp_net": 17007.22500000095,
+    "arm_hp_stress": 2497.5749999997697,
+    "arm_hp_ns": 6.809495210355053,
+    "fill_delta_net": 6194.600000000242,
+    "fill_delta_ns": 1.248539128076648,
+    "arm_delta_net": 4754.275000000209,
+    "arm_delta_ns": 0.5765934121497542
+  },
+  "smoke": false
+}

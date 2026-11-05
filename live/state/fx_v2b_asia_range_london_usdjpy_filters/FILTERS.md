@@ -31,6 +31,13 @@ Research does **not** place live shadow orders during the filtered run; it uses 
 Module: `live/asia_range_shadow.py`  
 Plugin knobs on `v2b_scaleout`: `skip_entry_months`, `shadow_roll_window`, `shadow_min_wr`, `shadow_min_pf`, `shadow_campaigns_path` / seed.
 
+### Live sizing vs research nets (performance reviews)
+
+- Research book `S_3_1_3` uses **lot counts** `entry/tp1/tp2 = 7/3/1`. Research `net_usd` scales those by `POINT_VALUES[USDJPY]=100000` (ranking units, not OANDA cash).
+- Live/paper demos size OANDA orders at **1 standard lot (100k units) per research lot** → entry **700k** / tp1 **300k** / tp2 **100k** units. Account $ moves are then visible (e.g. ~$7k on the 2026-09-03 ~155‑pip short at 7 lots).
+- **Do not** paste research hub nets next to practice-account balance deltas without converting. Shadow + sit-out candle-sim stay on **research book qtys** so the roll50 gate stays on the research tape scale.
+- Constant / note: `LIVE_UNITS_PER_LOT` + `PERFORMANCE_REVIEW_SIZING_NOTE` in `live/demo/usdjpy_asia_range_london_common.py`.
+
 1. Seed `shadow_campaigns.json` from the last 50 unfiltered `S_3_1_3` campaigns (sizing hub).
 2. Each London day: build Asia H/L from collected 1m quotes (19:00–03:00), inject `session_or_ranges`, arm at 03:00 if filters pass, flatten 11:59.
 3. After EOD: append today’s **unfiltered** campaign net into the shadow book so tomorrow’s gate keeps moving.

@@ -1,0 +1,49 @@
+strategy_book,feature,feature_value,coverage,size_multiplier,filter_or_sizeup,causal_eligibility
+nas100_v2b_clean_break_trail06,5m MA vs trade (arm-asof),ma_aligned,0.5548885077186964,4.0,sizeup,live_ready
+nas100_v2b_clean_break_trail06,Entry month,April,0.07375643224699828,4.0,sizeup,live_ready
+nas100_v2b_clean_break_trail06,Entry month,January,0.0823327615780446,4.0,sizeup,live_ready
+nas100_v2b_clean_break_trail06,Day of week,Monday,0.22384219554030874,4.0,sizeup,live_ready
+nas100_v2b_clean_break_trail06,Week of month,4,0.22898799313893653,4.0,sizeup,live_ready
+nas100_v2b_clean_break_trail06,Entry month,August,0.09005145797598628,4.0,sizeup,live_ready
+nas100_v2b_clean_break_trail06,Prior-month range half,month_aligned,0.258147512864494,4.0,sizeup,live_ready
+nas100_v2b_clean_break_trail06,ATR14 quartile,atr_q4,0.24871355060034306,4.0,sizeup,needs_rolling_proxy
+nas100_v2b_clean_break_trail06,Week of month,5,0.07632933104631218,4.0,sizeup,live_ready
+nas100_v2b_clean_break_trail06,5m MA cross vs trade,cross_aligned,0.05660377358490566,4.0,sizeup,live_ready
+nas100_v2b_clean_break_trail06,5m MA vs trade,ma_aligned,0.6089193825042881,4.0,sizeup,live_ready
+nas100_v2b_clean_break_trail06,Week of month,1,0.2307032590051458,4.0,sizeup,live_ready
+nas100_v2b_clean_break_trail06,Entry month,March,0.07547169811320754,4.0,sizeup,live_ready
+nas100_v2b_clean_break_trail06,Day of week,Tuesday,0.1946826758147513,4.0,sizeup,live_ready
+nas100_v2b_clean_break_trail06,Hourly RSI bucket,rsi_55_70,0.3361921097770154,4.0,sizeup,live_ready
+nas100_v2b_clean_break_trail06,Entry month,October,0.0797598627787307,4.0,sizeup,live_ready
+nas100_v2b_clean_break_trail06,ATR14 quartile,atr_q2,0.24871355060034306,4.0,sizeup,needs_rolling_proxy
+nas100_v2b_clean_break_trail06,Prior-week range half,week_aligned,0.30017152658662094,4.0,sizeup,live_ready
+nas100_v2b_clean_break_trail06,Hourly RSI vs trade,rsi_with_side,0.41680960548885077,4.0,sizeup,live_ready
+nas100_v2b_clean_break_trail06,Entry month,July,0.08404802744425385,4.0,sizeup,live_ready
+nas100_v2b_clean_break_trail06,Hourly RSI bucket,rsi_45_55,0.31732418524871353,4.0,sizeup,live_ready
+nas100_v2b_clean_break_trail06,Hourly RSI vs trade,rsi_neutral,0.31732418524871353,4.0,sizeup,live_ready
+nas100_v2b_clean_break_trail06,Entry month,June,0.09348198970840481,4.0,sizeup,live_ready
+nas100_v2b_clean_break_trail06,Prior-day range half,day_opposed,0.6869639794168096,4.0,sizeup,live_ready
+nas100_v2b_clean_break_trail06,Entry hour (NY),10,0.18010291595197256,4.0,sizeup,live_ready
+nas100_v2b_clean_break_trail06,Entry hour (NY),9,0.8087478559176673,4.0,sizeup,live_ready
+nas100_v2b_clean_break_trail06,Hourly OBV vs trade,obv_flat,1.0,4.0,sizeup,live_ready
+nas100_v2b_clean_break_trail06,5m MA cross vs trade,cross_none,0.934819897084048,4.0,sizeup,live_ready
+nas100_v2b_clean_break_trail06,Prior-day range half,day_aligned,0.31217838765008576,4.0,sizeup,live_ready
+nas100_v2b_clean_break_trail06,Prior-week range half,week_opposed,0.6963979416809606,4.0,sizeup,live_ready
+nas100_v2b_clean_break_trail06,ATR14 quartile,atr_q3,0.2478559176672384,4.0,sizeup,needs_rolling_proxy
+nas100_v2b_clean_break_trail06,Entry month,May,0.08833619210977701,4.0,sizeup,live_ready
+nas100_v2b_clean_break_trail06,Prior-month range half,month_opposed,0.7358490566037735,4.0,sizeup,live_ready
+nas100_v2b_clean_break_trail06,Hourly RSI bucket,rsi_gt70,0.08061749571183534,4.0,sizeup,live_ready
+nas100_v2b_clean_break_trail06,Hourly RSI bucket,rsi_30_45,0.2307032590051458,4.0,sizeup,live_ready
+nas100_v2b_clean_break_trail06,Day of week,Thursday,0.18782161234991424,4.0,sizeup,live_ready
+nas100_v2b_clean_break_trail06,Hourly RSI vs trade,rsi_against_side,0.2658662092624357,4.0,sizeup,live_ready
+nas100_v2b_clean_break_trail06,Week of month,3,0.2221269296740995,4.0,sizeup,live_ready
+nas100_v2b_clean_break_trail06,Day of week,Wednesday,0.19639794168096056,4.0,sizeup,live_ready
+nas100_v2b_clean_break_trail06,Entry month,November,0.0797598627787307,4.0,sizeup,live_ready
+nas100_v2b_clean_break_trail06,Entry month,December,0.08147512864493997,4.0,sizeup,live_ready
+nas100_v2b_clean_break_trail06,Day of week,Friday,0.19725557461406518,4.0,sizeup,live_ready
+nas100_v2b_clean_break_trail06,ATR14 quartile,atr_q1,0.24871355060034306,4.0,sizeup,needs_rolling_proxy
+nas100_v2b_clean_break_trail06,5m MA vs trade,ma_opposed,0.3910806174957118,4.0,sizeup,live_ready
+nas100_v2b_clean_break_trail06,Week of month,2,0.241852487135506,4.0,sizeup,live_ready
+nas100_v2b_clean_break_trail06,Hourly RSI bucket,rsi_le30,0.03516295025728988,4.0,sizeup,live_ready
+nas100_v2b_clean_break_trail06,Entry month,September,0.08662092624356775,4.0,sizeup,live_ready
+nas100_v2b_clean_break_trail06,Entry month,February,0.08490566037735849,4.0,sizeup,live_ready

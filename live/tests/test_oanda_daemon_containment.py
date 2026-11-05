@@ -507,6 +507,144 @@ def test_flat_entry_limit_is_armed_entry_not_orphan():
     assert result.recommended_action == "none"
 
 
+def test_clean_break_open_without_stop_is_ok_when_fills_present():
+    from potions.live.demo.oanda_daemon_reconcile import expectation_for_strategy_type
+
+    result = evaluate_bracket_invariant(
+        instrument="NAS100",
+        strategy_id="nas_cb",
+        positions=[{"instrument": "NAS100", "strategy_id": "nas_cb", "quantity": 1}],
+        orders=[],
+        expectation=expectation_for_strategy_type("v2b_clean_break", entry_qty=1),
+    )
+    assert result.ok
+    assert result.classification == "ok"
+
+
+def test_detect_fill_miss_orphan_when_open_and_plugin_still_armed():
+    from potions.live.demo.oanda_daemon_reconcile import detect_fill_miss_orphan
+
+    tmp, store = make_store()
+    try:
+        store.upsert_row(
+            "strategy_state",
+            "strategy_id",
+            {
+                "strategy_id": "nas_cb",
+                "state_json": json.dumps(
+                    {
+                        "phase": "armed",
+                        "entry_armed": True,
+                        "active_trade_id": "",
+                        "trades": {},
+                    }
+                ),
+                "updated_at": utc_now_iso(),
+            },
+        )
+        miss = detect_fill_miss_orphan(
+            store=store,
+            instrument="NAS100",
+            strategy_id="nas_cb",
+            local_qty=1.0,
+        )
+        assert miss is not None
+        assert miss.classification == "fill_miss_orphan"
+        assert miss.recommended_action == "flat_for_day"
+        assert not miss.ok
+
+        store.append_rows(
+            "fills",
+            [
+                {
+                    "fill_id": "106",
+                    "strategy_id": "nas_cb",
+                    "instrument": "NAS100",
+                    "quantity": "1",
+                    "price": "29100.8",
+                    "reason": "entry",
+                }
+            ],
+        )
+        assert (
+            detect_fill_miss_orphan(
+                store=store,
+                instrument="NAS100",
+                strategy_id="nas_cb",
+                local_qty=1.0,
+            )
+            is None
+        )
+    finally:
+        tmp.cleanup()
+
+
+def test_clean_break_controller_escalates_fill_miss_to_would_flat(monkeypatch):
+    from potions.live.demo import oanda_daemon_reconcile as mod
+
+    tmp, store = make_store()
+    try:
+        store.upsert_row(
+            "positions",
+            "position_id",
+            {
+                "position_id": "nas_cb|NAS100|paper",
+                "strategy_id": "nas_cb",
+                "instrument": "NAS100",
+                "account_mode": "paper",
+                "quantity": "1",
+                "avg_price": "29100.8",
+                "realized_pnl": "0",
+                "updated_at": utc_now_iso(),
+            },
+        )
+        store.upsert_row(
+            "strategy_state",
+            "strategy_id",
+            {
+                "strategy_id": "nas_cb",
+                "state_json": json.dumps(
+                    {"phase": "armed", "entry_armed": True, "active_trade_id": ""}
+                ),
+                "updated_at": utc_now_iso(),
+            },
+        )
+        config = OandaConfig(env="practice", account_id="101-002-39860312-003")
+        broker = OandaBroker(store, config=config, allow_live_routing=False)
+        supervisor = RuntimeSupervisor(store)
+        sent = []
+
+        def _fake_send(subject, body):
+            sent.append(subject)
+
+        monkeypatch.setattr(mod, "containment_mode", lambda: "shadow")
+        monkeypatch.setattr(mod, "containment_email_mode", lambda: "eod")
+        monkeypatch.setitem(__import__("sys").modules, "potions.live.notify_email", type("m", (), {"send_email": staticmethod(_fake_send)})())
+        # Patch import path used inside _send_containment_email
+        import potions.live.notify_email as ne
+
+        monkeypatch.setattr(ne, "send_email", _fake_send)
+
+        ctrl = DaemonContainmentController(
+            store=store,
+            broker=broker,
+            supervisor=supervisor,
+            instrument="NAS100",
+            strategy_id="nas_cb",
+            strategy_type="v2b_clean_break",
+            entry_qty=1.0,
+            mode="shadow",
+            email_on_action=True,
+        )
+        result = ctrl.run_cycle(phase="bracket_watchdog", force=True)
+        assert result.invariant is not None
+        assert result.invariant.classification == "fill_miss_orphan"
+        assert "shadow_would_flat_for_day" in result.actions
+        assert sent, "fill_miss should escalate email immediately even in eod mode"
+    finally:
+        tmp.cleanup()
+
+
 def test_flat_entry_with_account_qty_is_cross_book():
     result = evaluate_bracket_invariant(
         instrument="NAS100",

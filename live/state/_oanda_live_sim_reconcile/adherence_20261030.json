@@ -1,0 +1,284 @@
+[
+  {
+    "bars": 11530,
+    "demo": "nas100_v2b_clean_break_trail06_m4_e2_out_be_oanda",
+    "drift": [],
+    "instrument": "NAS100",
+    "live_cfg_replay": {
+      "first_diff": [
+        [
+          "2026-09-24T13:46",
+          "buy",
+          "10"
+        ],
+        [
+          "2026-09-24T13:45",
+          "buy",
+          "10"
+        ]
+      ],
+      "fuzzy_match": false,
+      "fuzzy_unmatched_live": [
+        [
+          "2026-09-30T13:59",
+          "buy",
+          "10"
+        ],
+        [
+          "2026-10-13T13:48",
+          "buy",
+          "10"
+        ],
+        [
+          "2026-10-21T13:49",
+          "buy",
+          "10"
+        ],
+        [
+          "2026-10-29T14:02",
+          "buy",
+          "10"
+        ],
+        [
+          "2026-10-30T13:58",
+          "buy",
+          "10"
+        ]
+      ],
+      "fuzzy_unmatched_sim": [
+        [
+          "2026-09-30T13:55",
+          "buy",
+          "10"
+        ],
+        [
+          "2026-10-13T13:45",
+          "buy",
+          "10"
+        ],
+        [
+          "2026-10-21T13:45",
+          "buy",
+          "10"
+        ],
+        [
+          "2026-10-29T14:05",
+          "buy",
+          "10"
+        ],
+        [
+          "2026-10-30T13:55",
+          "buy",
+          "10"
+        ]
+      ],
+      "live_n": 14,
+      "live_only": [
+        [
+          "2026-09-24T13:46",
+          "buy",
+          "10"
+        ],
+        [
+          "2026-09-25T13:52",
+          "buy",
+          "10"
+        ],
+        [
+          "2026-09-30T13:59",
+          "buy",
+          "10"
+        ],
+        [
+          "2026-10-06T14:07",
+          "buy",
+          "10"
+        ],
+        [
+          "2026-10-13T13:48",
+          "buy",
+          "10"
+        ],
+        [
+          "2026-10-14T13:47",
+          "buy",
+          "10"
+        ],
+        [
+          "2026-10-21T13:49",
+          "buy",
+          "10"
+        ],
+        [
+          "2026-10-26T14:16",
+          "buy",
+          "10"
+        ],
+        [
+          "2026-10-29T14:02",
+          "buy",
+          "10"
+        ],
+        [
+          "2026-10-30T13:58",
+          "buy",
+          "10"
+        ]
+      ],
+      "match": false,
+      "sim_n": 14,
+      "sim_only": [
+        [
+          "2026-09-24T13:45",
+          "buy",
+          "10"
+        ],
+        [
+          "2026-09-25T13:50",
+          "buy",
+          "10"
+        ],
+        [
+          "2026-09-30T13:55",
+          "buy",
+          "10"
+        ],
+        [
+          "2026-10-06T14:05",
+          "buy",
+          "10"
+        ],
+        [
+          "2026-10-13T13:45",
+          "buy",
+          "10"
+        ],
+        [
+          "2026-10-14T13:45",
+          "buy",
+          "10"
+        ],
+        [
+          "2026-10-21T13:45",
+          "buy",
+          "10"
+        ],
+        [
+          "2026-10-26T14:15",
+          "buy",
+          "10"
+        ],
+        [
+          "2026-10-29T14:05",
+          "buy",
+          "10"
+        ],
+        [
+          "2026-10-30T13:55",
+          "buy",
+          "10"
+        ]
+      ]
+    },
+    "live_entries_all": 23,
+    "started_at": "2026-09-22T17:47:02Z",
+    "status": "MISMATCH",
+    "strategy_type": "v2b_clean_break"
+  },
+  {
+    "bars": 75806,
+    "demo": "usdjpy_asia_range_london_oanda",
+    "drift": [],
+    "instrument": "USDJPY",
+    "live_cfg_replay": {
+      "first_diff": [
+        [
+          "2026-10-27T07:01",
+          "buy",
+          "700000"
+        ],
+        [
+          "2026-10-27T07:02",
+          "buy",
+          "700000"
+        ]
+      ],
+      "fuzzy_match": true,
+      "fuzzy_unmatched_live": [],
+      "fuzzy_unmatched_sim": [],
+      "live_n": 6,
+      "live_only": [
+        [
+          "2026-10-27T07:01",
+          "buy",
+          "700000"
+        ],
+        [
+          "2026-10-28T08:09",
+          "sell",
+          "700000"
+        ],
+        [
+          "2026-10-28T13:31",
+          "buy",
+          "700000"
+        ]
+      ],
+      "match": false,
+      "sim_n": 6,
+      "sim_only": [
+        [
+          "2026-10-27T07:02",
+          "buy",
+          "700000"
+        ],
+        [
+          "2026-10-28T08:11",
+          "sell",
+          "700000"
+        ],
+        [
+          "2026-10-28T13:33",
+          "buy",
+          "700000"
+        ]
+      ]
+    },
+    "live_entries_all": 41,
+    "started_at": "2026-10-22T21:50:09Z",
+    "status": "FUZZY",
+    "strategy_type": "v2b_scaleout"
+  },
+  {
+    "bars": 6581,
+    "demo": "usdjpy_monday_or_ungated_oanda",
+    "drift": [],
+    "fresh_cfg_replay": {
+      "first_diff": null,
+      "fuzzy_match": true,
+      "fuzzy_unmatched_live": [],
+      "fuzzy_unmatched_sim": [],
+      "live_n": 9,
+      "live_only": [],
+      "match": true,
+      "sim_n": 9,
+      "sim_only": []
+    },
+    "instrument": "USDJPY",
+    "live_cfg_replay": {
+      "first_diff": null,
+      "fuzzy_match": true,
+      "fuzzy_unmatched_live": [],
+      "fuzzy_unmatched_sim": [],
+      "live_n": 9,
+      "live_only": [],
+      "match": true,
+      "sim_n": 9,
+      "sim_only": []
+    },
+    "live_entries_all": 15,
+    "started_at": "2026-10-01T16:35:10Z",
+    "status": "MATCH",
+    "strategy_type": "monday_or_breakout"
+  }
+]

@@ -1,0 +1,350 @@
+{
+  "account": {
+    "fetched_at": "2026-08-18T14:54:17Z",
+    "env": "practice",
+    "account_id": "101-002-39860312-001",
+    "NAV": 99403.2307,
+    "balance": 99403.2307,
+    "unrealizedPL": 0.0,
+    "resettablePL": -423.1807,
+    "financing": -175.6868,
+    "pl": -423.1807,
+    "lastTransactionID": "1655",
+    "openTradeCount": 0
+  },
+  "attribution": {
+    "by_instrument": {
+      "NAS100_USD": 2767.4319999999993,
+      "SPX500_USD": 329.033,
+      "EUR_USD": -0.006900000000000002,
+      "USD_JPY": -0.0445,
+      "US30_USD": -3173.298999999998
+    },
+    "by_tag": {
+      "(no tag)": -76.88540000000125
+    },
+    "by_reason": {
+      "STOP_ORDER": -10643.009399999997,
+      "LIMIT_ORDER": 8129.592899999998,
+      "MARKET_ORDER": 4543.033299999998,
+      "STOP_LOSS_ORDER": -2263.6168999999995,
+      "TAKE_PROFIT_ORDER": 1042.3377,
+      "MARKET_ORDER_TRADE_CLOSE": -885.2217999999999,
+      "MARKET_ORDER_POSITION_CLOSEOUT": -0.0012
+    },
+    "fill_pl_total": -76.88539999999878,
+    "wins_usd": 15553.886299999998,
+    "losses_usd": -15630.771699999994,
+    "n_wins": 77,
+    "n_losses": 100,
+    "financing_tx_sum": -175.6868,
+    "transfers_sum": 100000.0,
+    "missing_tx_ids_count": 149,
+    "n_transactions": 1506
+  },
+  "open_trades": [],
+  "top_wins": [
+    {
+      "id": "517",
+      "time": "2026-08-03T20:00:05.472006831Z",
+      "instrument": "NAS100_USD",
+      "pl": 1009.4703,
+      "units": "-2.0",
+      "price": 28791.3,
+      "reason": "MARKET_ORDER",
+      "tag": "(no tag)"
+    },
+    {
+      "id": "305",
+      "time": "2026-07-29T20:00:04.783304079Z",
+      "instrument": "US30_USD",
+      "pl": 942.0098,
+      "units": "1.0",
+      "price": 51620.5,
+      "reason": "MARKET_ORDER",
+      "tag": "(no tag)"
+    },
+    {
+      "id": "593",
+      "time": "2026-08-04T19:16:24.146310870Z",
+      "instrument": "NAS100_USD",
+      "pl": 674.433,
+      "units": "-1.0",
+      "price": 29832.3,
+      "reason": "LIMIT_ORDER",
+      "tag": "(no tag)"
+    },
+    {
+      "id": "600",
+      "time": "2026-08-04T20:00:05.194189825Z",
+      "instrument": "NAS100_USD",
+      "pl": 609.9993,
+      "units": "-1.0",
+      "price": 29786.0,
+      "reason": "MARKET_ORDER",
+      "tag": "(no tag)"
+    },
+    {
+      "id": "1266",
+      "time": "2026-08-12T14:05:00.170658859Z",
+      "instrument": "NAS100_USD",
+      "pl": 596.5211,
+      "units": "-3.0",
+      "price": 29765.7,
+      "reason": "STOP_ORDER",
+      "tag": "(no tag)"
+    },
+    {
+      "id": "735",
+      "time": "2026-08-06T17:22:14.482188463Z",
+      "instrument": "US30_USD",
+      "pl": 574.0362,
+      "units": "1.0",
+      "price": 53928.7,
+      "reason": "LIMIT_ORDER",
+      "tag": "(no tag)"
+    },
+    {
+      "id": "744",
+      "time": "2026-08-06T20:00:04.754574174Z",
+      "instrument": "US30_USD",
+      "pl": 564.2901,
+      "units": "1.0",
+      "price": 53935.5,
+      "reason": "MARKET_ORDER",
+      "tag": "(no tag)"
+    },
+    {
+      "id": "112",
+      "time": "2026-07-27T14:30:31.196967146Z",
+      "instrument": "NAS100_USD",
+      "pl": 520.092,
+      "units": "1.0",
+      "price": 27921.5,
+      "reason": "LIMIT_ORDER",
+      "tag": "(no tag)"
+    },
+    {
+      "id": "597",
+      "time": "2026-08-04T20:00:03.313699888Z",
+      "instrument": "US30_USD",
+      "pl": 434.7924,
+      "units": "-2.0",
+      "price": 54166.9,
+      "reason": "MARKET_ORDER",
+      "tag": "(no tag)"
+    },
+    {
+      "id": "271",
+      "time": "2026-07-29T14:42:59.677506489Z",
+      "instrument": "NAS100_USD",
+      "pl": 431.8565,
+      "units": "1.0",
+      "price": 27400.3,
+      "reason": "LIMIT_ORDER",
+      "tag": "(no tag)"
+    },
+    {
+      "id": "413",
+      "time": "2026-07-31T14:10:28.086104482Z",
+      "instrument": "NAS100_USD",
+      "pl": 429.3219,
+      "units": "1.0",
+      "price": 27995.0,
+      "reason": "LIMIT_ORDER",
+      "tag": "(no tag)"
+    },
+    {
+      "id": "670",
+      "time": "2026-08-05T20:00:04.460357848Z",
+      "instrument": "NAS100_USD",
+      "pl": 414.8961,
+      "units": "1.0",
+      "price": 29503.7,
+      "reason": "MARKET_ORDER",
+      "tag": "(no tag)"
+    },
+    {
+      "id": "667",
+      "time": "2026-08-05T19:59:44.205666964Z",
+      "instrument": "NAS100_USD",
+      "pl": 396.3111,
+      "units": "1.0",
+      "price": 29517.1,
+      "reason": "LIMIT_ORDER",
+      "tag": "(no tag)"
+    },
+    {
+      "id": "113",
+      "time": "2026-07-27T14:35:08.087066134Z",
+      "instrument": "US30_USD",
+      "pl": 390.6411,
+      "units": "1.0",
+      "price": 52209.1,
+      "reason": "LIMIT_ORDER",
+      "tag": "(no tag)"
+    },
+    {
+      "id": "580",
+      "time": "2026-08-04T15:52:27.720773343Z",
+      "instrument": "NAS100_USD",
+      "pl": 337.1514,
+      "units": "-1.0",
+      "price": 29590.0,
+      "reason": "LIMIT_ORDER",
+      "tag": "(no tag)"
+    }
+  ],
+  "top_losses": [
+    {
+      "id": "175",
+      "time": "2026-07-28T15:26:11.775780370Z",
+      "instrument": "NAS100_USD",
+      "pl": -1118.7393,
+      "units": "3.0",
+      "price": 27867.2,
+      "reason": "STOP_ORDER",
+      "tag": "(no tag)"
+    },
+    {
+      "id": "357",
+      "time": "2026-07-30T15:00:45.805031772Z",
+      "instrument": "US30_USD",
+      "pl": -1047.0422,
+      "units": "-3.0",
+      "price": 51740.8,
+      "reason": "STOP_ORDER",
+      "tag": "(no tag)"
+    },
+    {
+      "id": "659",
+      "time": "2026-08-05T19:59:06.312474816Z",
+      "instrument": "US30_USD",
+      "pl": -1029.5888,
+      "units": "-3.0",
+      "price": 54414.2,
+      "reason": "STOP_ORDER",
+      "tag": "(no tag)"
+    },
+    {
+      "id": "375",
+      "time": "2026-07-30T16:04:15.818866018Z",
+      "instrument": "US30_USD",
+      "pl": -1016.0171,
+      "units": "3.0",
+      "price": 51977.3,
+      "reason": "STOP_ORDER",
+      "tag": "(no tag)"
+    },
+    {
+      "id": "564",
+      "time": "2026-08-04T14:56:35.440980981Z",
+      "instrument": "US30_USD",
+      "pl": -999.0122,
+      "units": "3.0",
+      "price": 54010.8,
+      "reason": "STOP_ORDER",
+      "tag": "(no tag)"
+    },
+    {
+      "id": "509",
+      "time": "2026-08-03T18:45:12.505974614Z",
+      "instrument": "US30_USD",
+      "pl": -822.1536,
+      "units": "3.0",
+      "price": 53200.8,
+      "reason": "STOP_ORDER",
+      "tag": "(no tag)"
+    },
+    {
+      "id": "500",
+      "time": "2026-08-03T16:50:45.092449151Z",
+      "instrument": "US30_USD",
+      "pl": -814.9309,
+      "units": "-3.0",
+      "price": 53008.6,
+      "reason": "STOP_ORDER",
+      "tag": "(no tag)"
+    },
+    {
+      "id": "1286",
+      "time": "2026-08-12T22:25:26.545220228Z",
+      "instrument": "US30_USD",
+      "pl": -726.0901,
+      "units": "-2.0",
+      "price": 53813.7,
+      "reason": "MARKET_ORDER_TRADE_CLOSE",
+      "tag": "(no tag)"
+    },
+    {
+      "id": "1183",
+      "time": "2026-08-11T14:34:43.338058714Z",
+      "instrument": "US30_USD",
+      "pl": -706.9519,
+      "units": "-3.0",
+      "price": 54008.9,
+      "reason": "STOP_ORDER",
+      "tag": "(no tag)"
+    },
+    {
+      "id": "303",
+      "time": "2026-07-29T20:00:04.770276726Z",
+      "instrument": "NAS100_USD",
+      "pl": -695.5439,
+      "units": "-1.0",
+      "price": 27228.3,
+      "reason": "MARKET_ORDER",
+      "tag": "(no tag)"
+    },
+    {
+      "id": "637",
+      "time": "2026-08-05T14:23:20.355056659Z",
+      "instrument": "NAS100_USD",
+      "pl": -626.6285,
+      "units": "-3.0",
+      "price": 29803.5,
+      "reason": "STOP_ORDER",
+      "tag": "(no tag)"
+    },
+    {
+      "id": "778",
+      "time": "2026-08-07T13:56:42.171332962Z",
+      "instrument": "NAS100_USD",
+      "pl": -549.4905,
+      "units": "-3.0",
+      "price": 29586.3,
+      "reason": "STOP_ORDER",
+      "tag": "(no tag)"
+    },
+    {
+      "id": "802",
+      "time": "2026-08-07T15:26:01.810236539Z",
+      "instrument": "NAS100_USD",
+      "pl": -537.4377,
+      "units": "3.0",
+      "price": 29713.6,
+      "reason": "STOP_ORDER",
+      "tag": "(no tag)"
+    },
+    {
+      "id": "1064",
+      "time": "2026-08-10T16:32:00.051007161Z",
+      "instrument": "US30_USD",
+      "pl": -466.4609,
+      "units": "-3.0",
+      "price": 53915.2,
+      "reason": "STOP_ORDER",
+      "tag": "(no tag)"
+    },
+    {
+      "id": "1041",
+      "time": "2026-08-10T14:46:12.346329248Z",
+      "instrument": "US30_USD",
+      "pl": -462.4817,
+      "units": "3.0",
+      "price": 54025.7,
+      "reason": "STOP_ORDER",
+      "tag": "(no tag)"
+    }
+  ]
+}

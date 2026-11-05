@@ -1,0 +1,14 @@
+USDJPY Asia-range -004 losing streak vs plugin — 2026-10-07
+
+Closed streak Sep 29 through Oct 6: 7 losses, about $-11,993.
+Six of those are the plugin trade (about $-10,767). One is not.
+
+Plugin on deduped stored 1m bars (hub live/state/_oanda_live_sim_reconcile/usdjpy_asia_range_london_oanda/streak_deduped/):
+- Sep 29 long then reverse short: both wide stops, same prices. Legitimate double loss (~$1,696 and ~$1,706).
+- Oct 1 long: wide stop 157.37 vs entry 158.404. That stop was armed at the opposite side of the Asia range (~1.03 yen). Plugin fills the same stop. Legitimate ~$4,599.
+- Oct 1 10:33 short, covered at noon ~$1,226: live re-armed the short breakout after the stop and it filled immediately. Fresh plugin does not take that second trade.
+- Oct 2 short and Oct 5 long: same entry minute, both lose at the noon flatten. Legitimate.
+- Oct 6 long: same buy-stop 158.2475. Live filled when price traded it at 04:20; plugin fills that stop at 05:30. Both lose at noon (~$580 live). Legitimate.
+- Oct 7 short from 03:52 is still open. Plugin entered at 03:54. Wide stop 158.510 is working.
+
+The streak is real price, not a bad size or a phantom fill. The only trade the research rule does not take is the Oct 1 extra short.

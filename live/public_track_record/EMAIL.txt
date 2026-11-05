@@ -1,0 +1,20 @@
+potions: FX Momentum yearly rolling size-up (lookback DD)
+
+Why it did not size up again before
+- Exporter intentionally used a *single* permanent 2× after cum PnL ≥ 2×|full-sample 1× max DD| (lookahead). That blocked further doubles.
+
+New rule (shipped)
+- Year 1 = base size (1×)
+- Each later year-start: if prior-year sized PnL ≥ 2×|prior-year max DD| (lookback only), permanently step up
+- Default step ×2; if |prior DD|×2 > 40% of equity at review → ×1.5 instead
+- Never sizes down; ups can repeat indefinitely
+
+Events on this tape
+- 2016: 1→2 (×2; 2015 PnL +$38.1k vs DD −$7.0k)
+- 2018: 2→4 (×2; 2017)
+- 2021: 4→8 (×2; 2020)
+- 2023: 8→12 (×1.5 exposure throttle; 2022 DD large vs equity)
+- Final size 12× · end equity ≈ $1.06M (was ~$360k at single 2×)
+
+Page: https://poerilla.github.io/fx-momentum-track/
+Exporter: live/public_track_record/export_fx_momentum.py

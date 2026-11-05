@@ -1,0 +1,59 @@
+OANDA top-3 dedicated-account cutover — status 2026-08-20T15:08:56Z
+
+SUPERSEDED ACTIVE MAP NOTE
+- 2026-08-24: account 101-002-39860312-004 rotated from NAS100 ST+PMC 2R→10R to
+  USDJPY Asia Range S_3_1_3.
+- Current map lives at live/demo/oanda_account_configs/TOP3_ACCOUNT_MAP.md.
+- This email remains a historical 2026-08-20 freeze/cutover snapshot.
+
+DONE
+- Froze shared-primary fleet performance → live/demo/oanda_practice_snapshot/TOP3_CUTOVER_FREEZE_LATEST.md
+- Stopped ALL OANDA daemons (paper still running)
+- Primary 101-002-39860312-001 flattened + dormant
+  - Cancelled pending STOP 1937
+  - Closed NAS100 short 1941 @ ~29306.5 (realized ~-$163 on closeout)
+  - Now: trades=0 pending=0 NAV=99527.28 bal=99527.28 cumPL=-296.11
+
+MAP (ready)
+- Fair US30 ST+PMC 3R     → 101-002-39860312-003  (us30_fair_st_pmc_003.json)
+- NAS100 ST+PMC 2R→10R    → 101-002-39860312-004  (nas100_2r10r_st_pmc_004.json)
+- USDJPY Monday OR M2_S3_R1 → 101-002-39860312-005  (usdjpy_monday_or_005.json)
+Configs: live/demo/oanda_account_configs/
+
+BLOCKED — need new practice API token
+Current OANDA_TOKEN can list the dedicated accounts but GET summary returns 403:
+  {'101-002-39860312-003': 'FAIL 403', '101-002-39860312-004': 'FAIL 403', '101-002-39860312-005': 'FAIL 403'}
+Please regenerate the practice Personal Access Token in OANDA (Manage API Access),
+put it in live/demo/.env as OANDA_TOKEN, then reply / ask to start the three daemons.
+I will not start them while REST is 403 (would just thrash).
+
+PRIORITY going forward: validate only these three; leave -001 dormant; no other OANDA demos.
+
+Freeze excerpt:
+# OANDA top-3 cutover freeze (2026-08-20T15:06:01Z)
+
+Shared-primary fleet stopped so validation focuses on three dedicated practice accounts.
+
+## Primary `101-002-39860312-001` (will go dormant)
+- NAV **99537.75** balance **99690.54** UPL **-152.79** cum PL **-132.85**
+- Open trades: **1** pending: **1**
+  - trade 1941 NAS100_USD units=-3.0 uPL=-154.88
+  - pending 1937 STOP NAS100_USD px=29400.0
+
+## Planned dedicated map
+
+- `us30_hourly_st_pmc_sl50_tp150_3r_oanda` → `101-002-39860312-003`
+- `nas100_hourly_st_pmc_sl50_tp150_runners_2r_10r_oanda` → `101-002-39860312-004`
+- `usdjpy_monday_or_ungated_oanda` → `101-002-39860312-005`
+
+## OANDA demos at freeze
+
+| Demo | Alive | Fills | Account | Last progress |
+|---|:---:|---:|---|---|
+| `audjpy_yearly_orb_oanda` | True | 0 | `101-002-39860312-002` | [2026-08-20T11:05:53] heartbeat bars=7080 last_day=2026-08-19 open_positions=0 orders=0 ro |
+| `eurusd_hourly_st_pmc_sl50_tp150_3r_oanda` | True | 0 | `101-002-39860312-001` | [2026-08-20T11:03:03] heartbeat ticks=121626 bars_1m=2687 bars_1h=47 orders=0 open_positio |
+| `eurusd_hourly_st_pmc_sl50_tp150_runners_2r_10r_oanda` | True | 0 | `101-002-39860312-001` | [2026-08-20T11:01:47] heartbeat ticks=126484 bars_1m=2800 bars_1h=48 orders=0 open_positio |
+| `eurusd_yearly_orb_oanda` | True | 0 | `101-002-39860312-002` | [2026-08-20T11:01:05] heartbeat bars=7264 last_day=2026-08-19 open_positions=0 orders=0 ro |
+| `nas100_hourly_st_pmc_sl50_tp150_3r_oanda` | True | 8 | `101-002-39860312-001` | [2026-08-20T11:02:23] heartbeat ticks=215759 bars_1m=1202 bars_1h=20 orders=0 open_positio |
+| `nas100_hourly_st_pmc_sl50_tp150_runners_2r_10r_oanda` | True | 6 | `101-002-39860312-001` | [2026-08-20T11:02:08] heartbeat ticks=498240 bars_1m=2703 bars_1h=46 orders=0 open_positio |
+| `nas100_v2b_u

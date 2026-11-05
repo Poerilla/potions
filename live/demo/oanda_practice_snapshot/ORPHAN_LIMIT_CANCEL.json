@@ -1,0 +1,379 @@
+{
+  "ts": "2026-08-18T16:34:18Z",
+  "cancelled_n": 53,
+  "errors": [],
+  "pending_left": 0,
+  "cancelled": [
+    {
+      "id": "829",
+      "instrument": "US30_USD",
+      "type": "LIMIT",
+      "price": 51684.6,
+      "units": "1.0"
+    },
+    {
+      "id": "833",
+      "instrument": "US30_USD",
+      "type": "LIMIT",
+      "price": 51684.6,
+      "units": "1.0"
+    },
+    {
+      "id": "837",
+      "instrument": "NAS100_USD",
+      "type": "LIMIT",
+      "price": 28576.5,
+      "units": "1.0"
+    },
+    {
+      "id": "839",
+      "instrument": "NAS100_USD",
+      "type": "LIMIT",
+      "price": 28576.5,
+      "units": "1.0"
+    },
+    {
+      "id": "848",
+      "instrument": "NAS100_USD",
+      "type": "LIMIT",
+      "price": 28704.5,
+      "units": "1.0"
+    },
+    {
+      "id": "850",
+      "instrument": "NAS100_USD",
+      "type": "LIMIT",
+      "price": 28704.5,
+      "units": "1.0"
+    },
+    {
+      "id": "852",
+      "instrument": "NAS100_USD",
+      "type": "LIMIT",
+      "price": 28704.5,
+      "units": "1.0"
+    },
+    {
+      "id": "854",
+      "instrument": "US30_USD",
+      "type": "LIMIT",
+      "price": 51958.3,
+      "units": "1.0"
+    },
+    {
+      "id": "856",
+      "instrument": "US30_USD",
+      "type": "LIMIT",
+      "price": 51958.3,
+      "units": "1.0"
+    },
+    {
+      "id": "858",
+      "instrument": "US30_USD",
+      "type": "LIMIT",
+      "price": 51958.3,
+      "units": "1.0"
+    },
+    {
+      "id": "866",
+      "instrument": "NAS100_USD",
+      "type": "LIMIT",
+      "price": 28844.4,
+      "units": "1.0"
+    },
+    {
+      "id": "868",
+      "instrument": "NAS100_USD",
+      "type": "LIMIT",
+      "price": 28844.4,
+      "units": "1.0"
+    },
+    {
+      "id": "870",
+      "instrument": "NAS100_USD",
+      "type": "LIMIT",
+      "price": 28844.4,
+      "units": "1.0"
+    },
+    {
+      "id": "874",
+      "instrument": "US30_USD",
+      "type": "LIMIT",
+      "price": 52263.9,
+      "units": "1.0"
+    },
+    {
+      "id": "876",
+      "instrument": "US30_USD",
+      "type": "LIMIT",
+      "price": 52263.9,
+      "units": "1.0"
+    },
+    {
+      "id": "878",
+      "instrument": "US30_USD",
+      "type": "LIMIT",
+      "price": 52263.9,
+      "units": "1.0"
+    },
+    {
+      "id": "889",
+      "instrument": "NAS100_USD",
+      "type": "LIMIT",
+      "price": 28969.0,
+      "units": "1.0"
+    },
+    {
+      "id": "891",
+      "instrument": "NAS100_USD",
+      "type": "LIMIT",
+      "price": 28969.0,
+      "units": "1.0"
+    },
+    {
+      "id": "893",
+      "instrument": "NAS100_USD",
+      "type": "LIMIT",
+      "price": 28969.0,
+      "units": "1.0"
+    },
+    {
+      "id": "895",
+      "instrument": "US30_USD",
+      "type": "LIMIT",
+      "price": 52517.0,
+      "units": "1.0"
+    },
+    {
+      "id": "897",
+      "instrument": "US30_USD",
+      "type": "LIMIT",
+      "price": 52517.0,
+      "units": "1.0"
+    },
+    {
+      "id": "899",
+      "instrument": "US30_USD",
+      "type": "LIMIT",
+      "price": 52517.0,
+      "units": "1.0"
+    },
+    {
+      "id": "910",
+      "instrument": "NAS100_USD",
+      "type": "LIMIT",
+      "price": 29109.0,
+      "units": "1.0"
+    },
+    {
+      "id": "914",
+      "instrument": "NAS100_USD",
+      "type": "LIMIT",
+      "price": 29109.0,
+      "units": "1.0"
+    },
+    {
+      "id": "917",
+      "instrument": "NAS100_USD",
+      "type": "LIMIT",
+      "price": 29109.0,
+      "units": "1.0"
+    },
+    {
+      "id": "919",
+      "instrument": "US30_USD",
+      "type": "LIMIT",
+      "price": 52724.4,
+      "units": "1.0"
+    },
+    {
+      "id": "921",
+      "instrument": "US30_USD",
+      "type": "LIMIT",
+      "price": 52724.4,
+      "units": "1.0"
+    },
+    {
+      "id": "923",
+      "instrument": "US30_USD",
+      "type": "LIMIT",
+      "price": 52724.4,
+      "units": "1.0"
+    },
+    {
+      "id": "934",
+      "instrument": "US30_USD",
+      "type": "LIMIT",
+      "price": 52870.6,
+      "units": "1.0"
+    },
+    {
+      "id": "936",
+      "instrument": "US30_USD",
+      "type": "LIMIT",
+      "price": 52870.6,
+      "units": "1.0"
+    },
+    {
+      "id": "941",
+      "instrument": "US30_USD",
+      "type": "LIMIT",
+      "price": 52870.6,
+      "units": "1.0"
+    },
+    {
+      "id": "943",
+      "instrument": "NAS100_USD",
+      "type": "LIMIT",
+      "price": 29206.6,
+      "units": "1.0"
+    },
+    {
+      "id": "945",
+      "instrument": "NAS100_USD",
+      "type": "LIMIT",
+      "price": 29206.6,
+      "units": "1.0"
+    },
+    {
+      "id": "947",
+      "instrument": "NAS100_USD",
+      "type": "LIMIT",
+      "price": 29206.6,
+      "units": "1.0"
+    },
+    {
+      "id": "956",
+      "instrument": "NAS100_USD",
+      "type": "LIMIT",
+      "price": 29250.4,
+      "units": "1.0"
+    },
+    {
+      "id": "958",
+      "instrument": "NAS100_USD",
+      "type": "LIMIT",
+      "price": 29250.4,
+      "units": "1.0"
+    },
+    {
+      "id": "960",
+      "instrument": "NAS100_USD",
+      "type": "LIMIT",
+      "price": 29250.4,
+      "units": "1.0"
+    },
+    {
+      "id": "962",
+      "instrument": "US30_USD",
+      "type": "LIMIT",
+      "price": 53001.7,
+      "units": "1.0"
+    },
+    {
+      "id": "964",
+      "instrument": "US30_USD",
+      "type": "LIMIT",
+      "price": 53001.7,
+      "units": "1.0"
+    },
+    {
+      "id": "966",
+      "instrument": "US30_USD",
+      "type": "LIMIT",
+      "price": 53001.7,
+      "units": "1.0"
+    },
+    {
+      "id": "970",
+      "instrument": "NAS100_USD",
+      "type": "LIMIT",
+      "price": 29250.4,
+      "units": "1.0"
+    },
+    {
+      "id": "971",
+      "instrument": "NAS100_USD",
+      "type": "LIMIT",
+      "price": 29250.4,
+      "units": "1.0"
+    },
+    {
+      "id": "974",
+      "instrument": "US30_USD",
+      "type": "LIMIT",
+      "price": 53064.1,
+      "units": "1.0"
+    },
+    {
+      "id": "976",
+      "instrument": "US30_USD",
+      "type": "LIMIT",
+      "price": 53064.1,
+      "units": "1.0"
+    },
+    {
+      "id": "978",
+      "instrument": "US30_USD",
+      "type": "LIMIT",
+      "price": 53064.1,
+      "units": "1.0"
+    },
+    {
+      "id": "1053",
+      "instrument": "US30_USD",
+      "type": "LIMIT",
+      "price": 53127.2,
+      "units": "1.0"
+    },
+    {
+      "id": "1055",
+      "instrument": "US30_USD",
+      "type": "LIMIT",
+      "price": 53127.2,
+      "units": "1.0"
+    },
+    {
+      "id": "1057",
+      "instrument": "US30_USD",
+      "type": "LIMIT",
+      "price": 53127.2,
+      "units": "1.0"
+    },
+    {
+      "id": "1068",
+      "instrument": "US30_USD",
+      "type": "LIMIT",
+      "price": 53244.1,
+      "units": "1.0"
+    },
+    {
+      "id": "1070",
+      "instrument": "US30_USD",
+      "type": "LIMIT",
+      "price": 53244.1,
+      "units": "1.0"
+    },
+    {
+      "id": "1072",
+      "instrument": "US30_USD",
+      "type": "LIMIT",
+      "price": 53244.1,
+      "units": "1.0"
+    },
+    {
+      "id": "1610",
+      "instrument": "US30_USD",
+      "type": "STOP",
+      "price": 53577.3,
+      "units": "1.0"
+    },
+    {
+      "id": "1611",
+      "instrument": "US30_USD",
+      "type": "LIMIT",
+      "price": 52761.2,
+      "units": "1.0"
+    }
+  ]
+}

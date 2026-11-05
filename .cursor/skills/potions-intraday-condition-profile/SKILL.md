@@ -42,7 +42,7 @@ Always pass `--email` (skill `potions-job-email`). Artifacts → hub root.
 
 | Feature | Definition |
 |---------|------------|
-| Day of week / week of month / NY hour | Calendar from entry ts |
+| Day of week / week of month / entry month / NY hour | Calendar from entry ts |
 | 5m MA state + cross | SMA9/21; align = state/cross with trade side |
 | Hourly RSI14 | Buckets + with/against/neutral vs side |
 | Hourly OBV × MA20 | Above/below; align vs trade |

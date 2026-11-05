@@ -1,0 +1,32 @@
+potions: OANDA stale-arm cleanup (round 2)
+
+Time: 2026-08-19T23:04:00Z UTC
+Account: practice 101-002-39860312-001
+Hub: live/demo/oanda_practice_snapshot/
+
+## What we found
+
+After the 21:36 cleanup (pending 8), hourly ST+PMC refresh re-piled US30 arms:
+pending grew to **16** (4 NAS100 protectives + 12 US30 LIMIT duplicates).
+
+Same root cause — refresh submitted new LIMITs without fully cancelling prior remote set.
+
+## What we did
+
+Cancelled **8** stale/duplicate US30 LIMITs (tx 1803–1810).
+Kept newest paper-inline set (23:00 hour):
+
+| Keep | Book | Geometry |
+|---|---|---|
+| 1799 | us30 … 3r | LIMIT @53367.3  SL−50 TP+150 |
+| 1800/1801/1802 | us30 … runners | LIMIT @53371.0  SL−50 / TP+150,+300,+1500 |
+
+NAS100 +2 protectives 1738–1742 untouched.
+Local orders.csv marked cancelled for removed cids.
+
+Pending now: **8** (4 protective + 4 intentional US30 arms).
+
+Artifacts: STALE_ARM_DEDUPE_R2.json, REPORT.md
+
+Stance: account clean again; daemons may re-pile on next hourly refresh until remote-ack cancel is reliable.
+

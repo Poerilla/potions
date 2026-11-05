@@ -1,0 +1,78 @@
+strategy_book,feature,feature_value,coverage,size_multiplier,filter_or_sizeup,causal_eligibility
+nq_prior_opposed_rl,Hourly RSI vs trade,rsi_against_side,0.5740740740740741,2.0,sizeup,live_ready
+nq_prior_opposed_rl,ST-event direction vs trade,st_opposed_proxy,0.5740740740740741,2.0,sizeup,live_ready
+nq_prior_opposed_rl,Post-holiday session,not_post_holiday,0.9444444444444444,2.0,sizeup,live_ready
+nq_prior_opposed_rl,RTH VWAP side,below_rth_vwap,0.5694444444444444,2.0,sizeup,live_ready
+nq_prior_opposed_rl,Opening 15m range vs ATR,or_norm,0.2986111111111111,2.0,sizeup,live_ready
+nq_prior_opposed_rl,Gap direction,gap_up,0.5810185185185185,2.0,sizeup,live_ready
+nq_prior_opposed_rl,Prior-day range half,day_aligned,0.7129629629629629,2.0,sizeup,live_ready
+nq_prior_opposed_rl,Prior-week range half,week_aligned,0.7291666666666666,2.0,sizeup,live_ready
+nq_prior_opposed_rl,Overnight VWAP side,below_on_vwap,0.5185185185185185,2.0,sizeup,live_ready
+nq_prior_opposed_rl,Prior RTH close location,prior_close_high_third,0.42824074074074076,2.0,sizeup,live_ready
+nq_prior_opposed_rl,Contract-roll week,not_roll_week,0.8981481481481481,2.0,sizeup,live_ready
+nq_prior_opposed_rl,ST-event age,st_age_30_90m,0.27314814814814814,2.0,sizeup,live_ready
+nq_prior_opposed_rl,ATR causal rolling percentile,atr_p25_50,0.19444444444444445,2.0,sizeup,needs_rolling_proxy
+nq_prior_opposed_rl,5m MA vs trade,ma_aligned,0.6342592592592593,2.0,sizeup,live_ready
+nq_prior_opposed_rl,Overnight range third,on_lower,0.37962962962962965,2.0,sizeup,live_ready
+nq_prior_opposed_rl,NQ-ES dispersion,disp_mid,0.3194444444444444,2.0,sizeup,live_ready
+nq_prior_opposed_rl,Opening 15m direction vs trade,or_aligned,0.5671296296296297,2.0,sizeup,live_ready
+nq_prior_opposed_rl,NQ-ES dispersion,disp_high,0.36574074074074076,2.0,sizeup,live_ready
+nq_prior_opposed_rl,Overnight compression,on_exp,0.43287037037037035,2.0,sizeup,live_ready
+nq_prior_opposed_rl,Entry hour (NY),10,0.2962962962962963,2.0,sizeup,live_ready
+nq_prior_opposed_rl,Entry hour (NY),9,0.46064814814814814,2.0,sizeup,live_ready
+nq_prior_opposed_rl,Cross-index direction agreement,all_agree,0.7546296296296297,2.0,sizeup,live_ready
+nq_prior_opposed_rl,Week of month,2,0.2152777777777778,2.0,sizeup,live_ready
+nq_prior_opposed_rl,Day of week,Friday,0.19675925925925927,2.0,sizeup,live_ready
+nq_prior_opposed_rl,5m MA vs trade,ma_opposed,0.36574074074074076,2.0,sizeup,live_ready
+nq_prior_opposed_rl,Cross-index direction agreement,mixed,0.24537037037037038,2.0,sizeup,live_ready
+nq_prior_opposed_rl,Prior RTH range percentile,prior_range_exp,0.3194444444444444,2.0,sizeup,live_ready
+nq_prior_opposed_rl,ST-event age,st_age_lt30m,0.4861111111111111,2.0,sizeup,live_ready
+nq_prior_opposed_rl,Opening 15m direction vs trade,or_opposed,0.43287037037037035,2.0,sizeup,live_ready
+nq_prior_opposed_rl,Hourly RSI bucket,rsi_55_70,0.37037037037037035,2.0,sizeup,live_ready
+nq_prior_opposed_rl,Month,10,0.10648148148148148,2.0,sizeup,live_ready
+nq_prior_opposed_rl,Prior RTH range percentile,prior_range_norm,0.31712962962962965,2.0,sizeup,live_ready
+nq_prior_opposed_rl,Overnight compression,on_norm,0.3055555555555556,2.0,sizeup,live_ready
+nq_prior_opposed_rl,ATR14 quartile,atr_q3,0.25,2.0,sizeup,needs_rolling_proxy
+nq_prior_opposed_rl,Opening 15m volume percentile,vol_mid,0.34953703703703703,2.0,sizeup,live_ready
+nq_prior_opposed_rl,Overnight compression,on_comp,0.26157407407407407,2.0,sizeup,live_ready
+nq_prior_opposed_rl,ATR causal rolling percentile,atr_p0_25,0.3101851851851852,2.0,sizeup,needs_rolling_proxy
+nq_prior_opposed_rl,Prior RTH range percentile,prior_range_comp,0.36342592592592593,2.0,sizeup,live_ready
+nq_prior_opposed_rl,Opening 15m range vs ATR,or_narrow,0.29398148148148145,2.0,sizeup,live_ready
+nq_prior_opposed_rl,Overnight range third,on_middle,0.25,2.0,sizeup,live_ready
+nq_prior_opposed_rl,ST-event age,st_age_gt180m,0.16203703703703703,2.0,sizeup,live_ready
+nq_prior_opposed_rl,Day of week,Wednesday,0.19212962962962962,2.0,sizeup,live_ready
+nq_prior_opposed_rl,NQ-ES dispersion,disp_low,0.3148148148148148,2.0,sizeup,live_ready
+nq_prior_opposed_rl,ATR14 quartile,atr_q1,0.25,2.0,sizeup,needs_rolling_proxy
+nq_prior_opposed_rl,ATR14 quartile,atr_q2,0.25,2.0,sizeup,needs_rolling_proxy
+nq_prior_opposed_rl,Opening 15m volume percentile,vol_high,0.39814814814814814,2.0,sizeup,live_ready
+nq_prior_opposed_rl,RTH VWAP side,above_rth_vwap,0.4305555555555556,2.0,sizeup,live_ready
+nq_prior_opposed_rl,Week of month,1,0.28935185185185186,2.0,sizeup,live_ready
+nq_prior_opposed_rl,Opening 15m range vs ATR,or_wide,0.4074074074074074,2.0,sizeup,live_ready
+nq_prior_opposed_rl,Overnight VWAP side,above_on_vwap,0.48148148148148145,2.0,sizeup,live_ready
+nq_prior_opposed_rl,Prior RTH close location,prior_close_mid_third,0.2569444444444444,2.0,sizeup,live_ready
+nq_prior_opposed_rl,Hourly RSI bucket,rsi_45_55,0.28935185185185186,2.0,sizeup,live_ready
+nq_prior_opposed_rl,Hourly RSI vs trade,rsi_neutral,0.28935185185185186,2.0,sizeup,live_ready
+nq_prior_opposed_rl,ST-event direction vs trade,st_neutral_proxy,0.28935185185185186,2.0,sizeup,live_ready
+nq_prior_opposed_rl,ATR causal rolling percentile,atr_p50_75,0.18287037037037038,2.0,sizeup,needs_rolling_proxy
+nq_prior_opposed_rl,Prior-day range half,day_opposed,0.28703703703703703,2.0,sizeup,live_ready
+nq_prior_opposed_rl,Week of month,4,0.19212962962962962,2.0,sizeup,live_ready
+nq_prior_opposed_rl,ATR causal rolling percentile,atr_p75_100,0.3125,2.0,sizeup,needs_rolling_proxy
+nq_prior_opposed_rl,Gap direction,gap_down,0.41435185185185186,2.0,sizeup,live_ready
+nq_prior_opposed_rl,Prior-week range half,week_opposed,0.2708333333333333,2.0,sizeup,live_ready
+nq_prior_opposed_rl,Overnight range third,on_upper,0.37037037037037035,2.0,sizeup,live_ready
+nq_prior_opposed_rl,Day of week,Tuesday,0.2013888888888889,2.0,sizeup,live_ready
+nq_prior_opposed_rl,ATR14 quartile,atr_q4,0.25,2.0,sizeup,needs_rolling_proxy
+nq_prior_opposed_rl,Week of month,3,0.24768518518518517,2.0,sizeup,live_ready
+nq_prior_opposed_rl,Month,9,0.10416666666666667,2.0,sizeup,live_ready
+nq_prior_opposed_rl,Day of week,Thursday,0.2152777777777778,2.0,sizeup,live_ready
+nq_prior_opposed_rl,Opening 15m volume percentile,vol_low,0.2523148148148148,2.0,sizeup,live_ready
+nq_prior_opposed_rl,Prior RTH close location,prior_close_low_third,0.3148148148148148,2.0,sizeup,live_ready
+nq_prior_opposed_rl,Month,3,0.10185185185185185,2.0,sizeup,live_ready
+nq_prior_opposed_rl,Hourly RSI bucket,rsi_30_45,0.23842592592592593,2.0,sizeup,live_ready
+nq_prior_opposed_rl,Month,8,0.10185185185185185,2.0,sizeup,live_ready
+nq_prior_opposed_rl,Day of week,Monday,0.19444444444444445,2.0,sizeup,live_ready
+nq_prior_opposed_rl,Month,7,0.09953703703703703,2.0,sizeup,live_ready
+nq_prior_opposed_rl,Contract-roll week,roll_week,0.10185185185185185,2.0,sizeup,live_ready
+nq_prior_opposed_rl,Month,1,0.10416666666666667,2.0,sizeup,live_ready
+nq_prior_opposed_rl,Hourly RSI vs trade,rsi_with_side,0.13657407407407407,2.0,sizeup,live_ready
+nq_prior_opposed_rl,ST-event direction vs trade,st_aligned_proxy,0.13657407407407407,2.0,sizeup,live_ready

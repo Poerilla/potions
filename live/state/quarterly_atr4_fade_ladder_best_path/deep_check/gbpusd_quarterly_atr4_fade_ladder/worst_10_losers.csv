@@ -1,0 +1,11 @@
+trade_id,session,year,side,entry_ts,exit_ts,entry_price,entry_qty,net_usd,exit_reasons,hit_tp,eod_close,full_initial_sl,any_stop_exit,atr14,range_width,range_label,atr14_quartile,range_width_quartile
+gbpusd_quarterly_atr4_fade_ladder_t12,2008-10-08,2008,long,2008-10-08 16:00:00-04:00,2008-10-09 16:00:00-04:00,1.73077,10,-23827.963946767544,stop,False,False,True,True,0.025681428571428584,,n/a,Q4 high,
+gbpusd_quarterly_atr4_fade_ladder_t5,2005-07-07,2005,long,2005-07-07 04:00:00-04:00,2005-07-08 04:00:00-04:00,1.7498200000000002,10,-13643.648414100247,stop,False,False,True,True,0.013071428571428559,,n/a,Q4 high,
+gbpusd_quarterly_atr4_fade_ladder_t4,2005-01-04,2005,long,2005-01-04 19:00:00-05:00,2005-01-06 07:00:00-05:00,1.8835,10,-12358.336689491252,stop,False,False,True,True,0.014534999999999996,,n/a,Q4 high,
+gbpusd_quarterly_atr4_fade_ladder_t26,2015-01-06,2015,long,2015-01-06 11:00:00-05:00,2015-01-07 11:00:00-05:00,1.5186700000000002,10,-9132.093492347323,stop,False,False,True,True,0.008350714285714291,,n/a,Q1 low,
+gbpusd_quarterly_atr4_fade_ladder_t32,2016-10-04,2016,long,2016-10-04 08:00:00-04:00,2016-10-05 04:00:00-04:00,1.277305,10,-8806.03920306909,stop,False,False,True,True,0.00874785714285715,,n/a,Q2,
+gbpusd_quarterly_atr4_fade_ladder_t43,2022-07-06,2022,long,2022-07-06 16:00:00-04:00,2022-07-14 12:00:00-04:00,1.19052,10,-8185.672884132108,"stop,tp1",True,False,False,True,0.010741428571428553,,n/a,Q3,
+gbpusd_quarterly_atr4_fade_ladder_t18,2012-07-06,2012,long,2012-07-06 16:00:00-04:00,2012-07-12 12:00:00-04:00,1.54783,10,-7905.200323288216,stop,False,False,True,True,0.009781428571428576,,n/a,Q2,
+gbpusd_quarterly_atr4_fade_ladder_t41,2021-07-19,2021,long,2021-07-19 20:00:00-04:00,2021-07-20 12:00:00-04:00,1.3669300000000002,10,-7336.764009429272,stop,False,False,True,True,0.007854999999999977,,n/a,Q1 low,
+gbpusd_quarterly_atr4_fade_ladder_t47,2024-10-07,2024,long,2024-10-07 12:00:00-04:00,2024-10-16 04:00:00-04:00,1.30818,10,-7319.810871889029,stop,False,False,True,True,0.008789285714285722,,n/a,Q2,
+gbpusd_quarterly_atr4_fade_ladder_t13,2009-07-06,2009,long,2009-07-06 08:00:00-04:00,2009-07-08 16:00:00-04:00,1.613515,10,-6741.200854942816,"stop,tp1",True,False,False,True,0.01783357142857148,,n/a,Q4 high,

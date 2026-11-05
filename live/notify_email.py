@@ -268,7 +268,10 @@ def _send_gmail_api(*, subject: str, body: str, to: str, html: Optional[str] = N
     """Send multipart/alternative via Gmail API using ``.gmail_token.json``."""
     import base64
 
-    from live.format_email import build_multipart_message
+    try:
+        from live.format_email import build_multipart_message
+    except ImportError:
+        from .format_email import build_multipart_message
 
     # Ensure google env is loaded (token path / user).
     for path in (REPO / ".env.google", REPO / ".env.cursor"):
@@ -318,7 +321,10 @@ def _ensure_html(*, subject: str, body: str, html: Optional[str]) -> str:
     """Return HTML body; auto-render from plain text when not provided."""
     if html:
         return _truncate(html)
-    from live.format_email import plain_to_html
+    try:
+        from live.format_email import plain_to_html
+    except ImportError:
+        from .format_email import plain_to_html
 
     return _truncate(plain_to_html(body, title=subject))
 
@@ -418,6 +424,50 @@ def send_email(
         "Set NOTIFY_WEBHOOK_URL (Apps Script — see .env.notify.example) "
         "or RESEND_API_KEY in .env.notify."
     )
+
+
+def send_resend_email(
+    *,
+    subject: str,
+    body: str,
+    to: Optional[str] = None,
+    html: Optional[str] = None,
+    attachments: Optional[Sequence[AttachmentPath]] = None,
+) -> str:
+    """Send through Resend explicitly, bypassing webhook/Gmail/SMTP fallbacks.
+
+    Runtime hard alarms use this path so their transport is deterministic and an
+    accidentally configured webhook cannot silently become the alarm channel.
+    """
+    load_notify_env()
+    resend_key = (os.environ.get("RESEND_API_KEY") or "").strip()
+    to_addr = (to or os.environ.get("NOTIFY_TO") or os.environ.get("GMAIL_USER") or "").strip()
+    sender = (os.environ.get("NOTIFY_FROM") or "").strip()
+    if not to_addr:
+        raise SystemExit("Missing NOTIFY_TO (or GMAIL_USER).")
+    if not resend_key:
+        raise SystemExit("Missing RESEND_API_KEY for mandatory Resend alarm delivery.")
+    text_body = _truncate(body)
+    html_body = _ensure_html(subject=subject, body=text_body, html=html)
+    try:
+        _send_resend(
+            api_key=resend_key,
+            subject=subject,
+            body=text_body,
+            to=to_addr,
+            sender=sender,
+            html=html_body,
+            attachments=attachments,
+        )
+    except urllib.error.URLError as exc:
+        detail = str(exc)
+        if isinstance(exc, urllib.error.HTTPError):
+            try:
+                detail = "%s %s" % (exc.code, exc.read().decode("utf-8", "replace"))
+            except Exception:
+                detail = str(exc)
+        raise SystemExit("Resend API failed: %s" % detail) from exc
+    return to_addr
 
 
 def main(argv: Optional[Sequence[str]] = None) -> int:

@@ -1,0 +1,36 @@
+demo,alive,age_m,open_n,open_qty,instruments,orders_n,roles,today_fills,no_orders_while_open,stop_only,bleed,last
+audjpy_yearly_orb_oanda,True,1.1,0,0.0,,0,{},0,False,False,False,[2026-08-14T21:30:45] heartbeat bars=7077 last_day=2026-08-14 open_positions=0 orders=0 routing=True
+audjpy_yearly_orb_paper,True,0.6,0,0.0,,0,{},0,False,False,False,[2026-08-14T21:31:14] heartbeat bars=7077 last_day=2026-08-14 open_positions=0 orders=0 routing=False
+eurusd_hourly_st_pmc_sl50_tp150_3r_oanda,True,1.1,0,0.0,,0,{},0,False,False,False,[2026-08-14T21:30:46] heartbeat ticks=53901 bars_1m=1626 bars_1h=27 orders=0 open_positions=0 oanda_fills=0 variant=sl50_tp150_3r
+eurusd_hourly_st_pmc_sl50_tp150_3r_paper,True,3.1,0,0.0,,0,{},0,False,False,False,[2026-08-14T21:28:48] heartbeat ticks=146884 bars_1m=4282 bars_1h=72 orders=0 open_positions=0 variant=sl50_tp150_3r
+eurusd_hourly_st_pmc_sl50_tp150_runners_2r_10r_oanda,True,2.3,0,0.0,,0,{},0,False,False,False,[2026-08-14T21:29:35] heartbeat ticks=53260 bars_1m=1600 bars_1h=27 orders=0 open_positions=0 oanda_fills=0 variant=sl50_tp150_runners_2r_half
+eurusd_hourly_st_pmc_sl50_tp150_runners_2r_10r_paper,True,3.2,0,0.0,,0,{},0,False,False,False,[2026-08-14T21:28:38] heartbeat ticks=137506 bars_1m=4013 bars_1h=70 orders=0 open_positions=0 variant=sl50_tp150_runners_2r_half
+eurusd_monday_or_m1_s2_r2_half_paper,True,0.4,0,0.0,,0,{},0,False,False,False,[2026-08-14T21:31:28] heartbeat ticks=147434 bars_1m=4308 bars_15m=290 orders=0 open_positions=0 tag=M1_S2_R2
+eurusd_yearly_orb_oanda,True,1.5,0,0.0,,0,{},0,False,False,False,[2026-08-14T21:30:24] heartbeat bars=7261 last_day=2026-08-14 open_positions=0 orders=0 routing=True
+eurusd_yearly_orb_paper,True,2.7,0,0.0,,3,"{'entry': 2, 'runner_entry': 1}",0,False,False,False,[2026-08-14T21:29:09] heartbeat bars=7261 last_day=2026-08-14 open_positions=0 orders=3 routing=False
+nas100_hourly_st_pmc_sl50_tp150_3r_oanda,True,0.2,0,0.0,,2,{'entry': 2},0,False,False,False,[2026-08-14T21:31:41] heartbeat ticks=238467 bars_1m=1551 bars_1h=25 orders=2 open_positions=0 oanda_fills=0 variant=sl50_tp150_3r
+nas100_hourly_st_pmc_sl50_tp150_3r_paper,True,0.1,0,0.0,,0,{},2,False,False,False,[2026-08-14T21:31:48] heartbeat ticks=844561 bars_1m=5288 bars_1h=88 orders=0 open_positions=0 variant=sl50_tp150_3r
+nas100_hourly_st_pmc_sl50_tp150_runners_2r_10r_oanda,True,0.7,0,0.0,,26,"{'runner_entry': 9, 'runner_entry_2': 8, 'entry': 9}",0,False,False,False,[2026-08-14T21:31:09] RECONNECT sleeping 60.0s after stream_open failure
+nas100_hourly_st_pmc_sl50_tp150_runners_2r_10r_paper,True,2.8,1,1.0,NAS100,2,"{'runner_stop': 1, 'target': 1}",0,False,False,False,[2026-08-14T21:29:04] heartbeat ticks=825872 bars_1m=5135 bars_1h=86 orders=2 open_positions=1 variant=sl50_tp150_runners_2r_10r
+nas100_v2b_ungated_oanda,True,255.5,0,0.0,,1,{'entry': 1},0,False,False,False,[2026-08-14T17:16:25] heartbeat ticks_logged=106700 bars_persisted=1156 bars_engine=502 orders=1 open_positions=0 pos_qty=0 oanda_fills=0
+nas100_v2b_ungated_paper,True,253.5,0,0.0,,0,{},5,False,False,False,[2026-08-14T17:18:22] heartbeat ticks_logged=1322513 bars_persisted=20647 bars_engine=5847 orders=0 open_positions=0 pos_qty=0
+spx500_v2b_ungated_oanda,True,253.5,0,0.0,,1,{'entry': 1},0,False,False,False,[2026-08-14T17:18:22] STREAM connected attempt=9 status=200
+spx500_v2b_ungated_paper,True,253.6,0,0.0,,0,{},6,False,False,False,[2026-08-14T17:18:18] heartbeat ticks_logged=385626 bars_persisted=20474 bars_engine=5808 orders=0 open_positions=0 pos_qty=0
+us30_hourly_st_pmc_sl50_tp150_3r_oanda,True,0.8,0,0.0,,0,{},0,False,False,False,[2026-08-14T21:31:06] heartbeat ticks=65684 bars_1m=1527 bars_1h=25 orders=0 open_positions=0 oanda_fills=0 variant=sl50_tp150_3r
+us30_hourly_st_pmc_sl50_tp150_3r_paper,True,3.8,0,0.0,,0,{},0,False,False,False,[2026-08-14T21:28:03] heartbeat ticks=252941 bars_1m=5026 bars_1h=87 orders=0 open_positions=0 variant=sl50_tp150_3r
+us30_hourly_st_pmc_sl50_tp150_runners_2r_10r_oanda,True,1.0,0,0.0,,47,"{'runner_entry': 16, 'runner_entry_2': 16, 'entry': 15}",0,False,False,False,[2026-08-14T21:30:50] heartbeat ticks=68424 bars_1m=1563 bars_1h=26 orders=47 open_positions=0 oanda_fills=0 variant=sl50_tp150_runners_2r_10r
+us30_hourly_st_pmc_sl50_tp150_runners_2r_10r_paper,True,1.1,0,0.0,,0,{},0,False,False,False,[2026-08-14T21:30:46] heartbeat ticks=257874 bars_1m=5079 bars_1h=86 orders=0 open_positions=0 variant=sl50_tp150_runners_2r_10r
+us30_london_prior_opposed_oanda,True,1.2,0,0.0,,0,{},0,False,False,False,[2026-08-14T21:30:42] heartbeat ticks=0 bars=566 st_injects=0 orders=0 position_qty=0 size_mult=0.25
+us30_london_prior_opposed_paper,True,1.8,0,0.0,,0,{},0,False,False,False,[2026-08-14T21:30:03] heartbeat ticks=0 bars=1568 st_injects=1 orders=0 position_qty=0 size_mult=0.25
+us30_monday_or_m3_s3_r2_half_oanda,True,255.5,0,0.0,,0,{},0,False,False,False,[2026-08-14T17:16:23] heartbeat ticks=68370 bars_1m=1562 bars_15m=105 orders=0 open_positions=0 oanda_fills=0 tag=M3_S3_R2
+us30_monday_or_m3_s3_r2_half_paper,True,0.7,0,0.0,,0,{},0,False,False,False,[2026-08-14T21:31:09] RECONNECT sleeping 60.0s after stream_open failure
+us30_yearly_orb_oanda,True,1.4,0,0.0,,0,{},0,False,False,False,[2026-08-14T21:30:28] heartbeat bars=2724 last_day=2026-08-14 open_positions=0 orders=0 routing=True
+us30_yearly_orb_paper,True,0.4,0,0.0,,0,{},0,False,False,False,[2026-08-14T21:31:27] heartbeat bars=2724 last_day=2026-08-14 open_positions=0 orders=0 routing=False
+usdjpy_asia_range_london_oanda,True,3.7,0,0.0,,0,{},0,False,False,False,[2026-08-14T21:28:08] heartbeat ticks=178930 bars_1m=2783 orders=0 open_positions=0 asia_bars=478 book=S_3_1_3
+usdjpy_asia_range_london_paper,True,4.9,0,0.0,,0,{},0,False,False,False,[2026-08-14T21:27:00] heartbeat ticks=276009 bars_1m=4491 orders=0 open_positions=0 asia_bars=478 book=S_3_1_3
+usdjpy_monday_or_ungated_oanda,True,255.5,0,0.0,,0,{},0,False,False,False,[2026-08-14T17:16:25] heartbeat ticks=178934 bars_1m=2783 bars_15m=186 orders=0 open_positions=1 oanda_fills=0 tag=M2_S3_R1
+usdjpy_monday_or_ungated_paper,True,2.6,0,0.0,,0,{},0,False,False,False,[2026-08-14T21:29:15] heartbeat ticks=336242 bars_1m=5434 bars_15m=365 orders=0 open_positions=0 tag=M2_S3_R1
+xagusd_yearly_orb_oanda,True,4.3,0,0.0,,0,{},0,False,False,False,[2026-08-14T21:27:34] heartbeat bars=7139 last_day=2026-08-14 open_positions=0 orders=0 routing=True
+xagusd_yearly_orb_paper,True,4.0,0,0.0,,0,{},0,False,False,False,[2026-08-14T21:27:53] heartbeat bars=7139 last_day=2026-08-14 open_positions=0 orders=0 routing=False
+xauusd_yearly_orb_oanda,True,1.6,0,0.0,,0,{},0,False,False,False,[2026-08-14T21:30:18] heartbeat bars=7225 last_day=2026-08-14 open_positions=0 orders=0 routing=True
+xauusd_yearly_orb_paper,True,4.0,0,0.0,,0,{},0,False,False,False,[2026-08-14T21:27:52] heartbeat bars=7225 last_day=2026-08-14 open_positions=0 orders=0 routing=False

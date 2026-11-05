@@ -1,0 +1,10 @@
+market,variant,scenario,engine_paperbroker_path,fill_assertions,fails,parent_repro,trail_stop_exits,target_exits,avg_qty
+nas100,trail06_m8_e2_out_be,S0_base,unified_Engine+PaperBroker,PASS,,PASS,47,104,2.4425385934819897
+nas100,trail06_m4_e1_opp_be,S0_base,unified_Engine+PaperBroker,PASS,,PASS,47,104,1.7847341337907376
+nas100,trail06_m4_e2_out_be,S0_base,unified_Engine+PaperBroker,PASS,,PASS,47,104,1.781303602058319
+us30,trail06_m8_e2_out_be,S0_base,unified_Engine+PaperBroker,PASS,,FAIL,44,96,2.384963768115942
+us30,trail06_m4_e1_opp_be,S0_base,unified_Engine+PaperBroker,PASS,,FAIL,44,96,1.7653985507246377
+us30,trail06_m4_e2_out_be,S0_base,unified_Engine+PaperBroker,PASS,,FAIL,44,96,1.7590579710144927
+spx500,trail06_m8_e2_out_be,S0_base,unified_Engine+PaperBroker,PASS,,FAIL,76,156,2.3326745718050064
+spx500,trail06_m4_e1_opp_be,S0_base,unified_Engine+PaperBroker,PASS,,FAIL,76,157,1.7740447957839263
+spx500,trail06_m4_e2_out_be,S0_base,unified_Engine+PaperBroker,PASS,,FAIL,76,156,1.7608695652173914

@@ -1,0 +1,11 @@
+trade_id,session,year,side,entry_ts,exit_ts,entry_price,entry_qty,net_usd,exit_reasons,hit_tp,eod_close,full_initial_sl,any_stop_exit,atr14,range_width,range_label,atr14_quartile,range_width_quartile
+eurusd_quarterly_atr4_fade_ladder_t1,2003-11-03,2003,long,2003-11-03 19:00:00-05:00,2004-01-01 03:00:00-05:00,1.14505,14,113195.56,"flatten,tp3,tp4",True,False,False,False,0.008643571428571433,,n/a,Q3,
+eurusd_quarterly_atr4_fade_ladder_t16,2025-01-13,2025,long,2025-01-13 11:00:00-05:00,2025-04-01 00:00:00-04:00,1.0202000000000002,14,59899.44,"flatten,tp3,tp4",True,False,False,False,0.006505000000000062,,n/a,Q2,
+eurusd_quarterly_atr4_fade_ladder_t12,2020-11-02,2020,long,2020-11-02 11:00:00-05:00,2021-01-03 23:00:00-05:00,1.16478,14,57270.16,"flatten,tp3,tp4",True,False,False,False,0.005799999999999995,,n/a,Q2,
+eurusd_quarterly_atr4_fade_ladder_t5,2008-05-02,2008,long,2008-05-02 16:00:00-04:00,2008-07-01 00:00:00-04:00,1.54289,14,46499.4,"flatten,tp3",True,False,False,False,0.015080714285714272,,n/a,Q4 high,
+eurusd_quarterly_atr4_fade_ladder_t2,2004-01-16,2004,long,2004-01-16 19:00:00-05:00,2004-03-02 15:00:00-05:00,1.2369,14,15295.66,"stop,tp3,tp4",True,False,False,True,0.012346428571428552,,n/a,Q4 high,
+eurusd_quarterly_atr4_fade_ladder_t11,2019-04-24,2019,long,2019-04-24 20:00:00-04:00,2019-04-25 08:00:00-04:00,1.11565,14,-4596.900000000001,stop,False,False,True,True,0.003983571428571404,,n/a,Q1 low,
+eurusd_quarterly_atr4_fade_ladder_t9,2015-10-23,2015,long,2015-10-23 16:00:00-04:00,2015-10-28 16:00:00-04:00,1.1015700000000002,14,-4614.12,stop,False,False,True,True,0.008424285714285726,,n/a,Q3,
+eurusd_quarterly_atr4_fade_ladder_t13,2021-11-10,2021,long,2021-11-10 19:00:00-05:00,2021-11-11 07:00:00-05:00,1.14989,14,-4934.44,stop,False,False,True,True,0.005948571428571462,,n/a,Q2,
+eurusd_quarterly_atr4_fade_ladder_t15,2024-04-11,2024,long,2024-04-11 16:00:00-04:00,2024-04-12 04:00:00-04:00,1.07214,14,-5101.04,stop,False,False,True,True,0.004985714285714308,,n/a,Q1 low,
+eurusd_quarterly_atr4_fade_ladder_t14,2022-01-26,2022,long,2022-01-26 23:00:00-05:00,2022-01-27 07:00:00-05:00,1.12409,14,-5151.58,stop,False,False,True,True,0.005757142857142857,,n/a,Q1 low,

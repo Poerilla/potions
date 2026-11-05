@@ -3,6 +3,8 @@
 Lot-correct audit: trade_id match, reachable stop stress, forced-flat open mark.
 
 > **2026-08 completed-hour causality fix.** The shared hourly resampler is left-labeled, so a bar timestamped 11:00 contains 11:00-11:59 data. This replay shifts signal bars to the completed-hour timestamp before the strategy can consume them, and fills only on the 1m tape.
+>
+> **2026-09-08 — fair 3R INVALIDATED (do not cite left-label N/S).** NAS100 ~~19.56~~ → **0.53**; GBPUSD ~~8.12~~ → **−0.97**; EURUSD ~~3.01~~ → **−0.63**. Same lookahead class as US30 29.39 → −0.21. Hide from pickup lists until a causal filter recovers post-close alpha. See [`INVALIDATED_LEFT_LABEL.md`](INVALIDATED_LEFT_LABEL.md).
 
 ## Rankability
 

@@ -1,0 +1,63 @@
+{
+  "ts": "2026-08-21T16:07:26Z",
+  "account_id": "101-002-39860312-003",
+  "note": "account_details.pendingOrders was empty; used order.list_pending / order.get",
+  "keep": {
+    "id": "11",
+    "price": 52945.2,
+    "client_id": "ord_0fc075855acd",
+    "tag": "us30_hourly_st_pmc_sl50_tp150_3r_oanda",
+    "type": "LIMIT",
+    "createTime": "2026-08-21T16:05:43.327768097Z"
+  },
+  "cancelled_n": 4,
+  "cancelled": [
+    {
+      "id": "8",
+      "price": 52877.3,
+      "client_id": "ord_5eec96e990ce",
+      "tag": "us30_hourly_st_pmc_sl50_tp150_3r_oanda",
+      "type": "LIMIT",
+      "createTime": "2026-08-21T15:00:00.308142019Z",
+      "response_lastTx": "12"
+    },
+    {
+      "id": "7",
+      "price": 52877.3,
+      "client_id": "ord_89e69273a152",
+      "tag": "us30_hourly_st_pmc_sl50_tp150_3r_oanda",
+      "type": "LIMIT",
+      "createTime": "2026-08-21T14:00:00.442745551Z",
+      "response_lastTx": "13"
+    },
+    {
+      "id": "6",
+      "price": 52877.3,
+      "client_id": "ord_0f40dfa8128c",
+      "tag": "us30_hourly_st_pmc_sl50_tp150_3r_oanda",
+      "type": "LIMIT",
+      "createTime": "2026-08-21T13:00:01.171034697Z",
+      "response_lastTx": "14"
+    },
+    {
+      "id": "5",
+      "price": 52794.3,
+      "client_id": "ord_d06585716f6e",
+      "tag": "us30_hourly_st_pmc_sl50_tp150_3r_oanda",
+      "type": "LIMIT",
+      "createTime": "2026-08-21T12:00:00.380493455Z",
+      "response_lastTx": "15"
+    }
+  ],
+  "errors": [],
+  "pending_after": [
+    {
+      "id": "11",
+      "price": 52945.2,
+      "client_id": "ord_0fc075855acd"
+    }
+  ],
+  "local_marked": [],
+  "root_cause": "StrategyContext.strategy_open_orders ignored status=working; hourly refresh stacked arms",
+  "fix": "OPEN_ORDER_STATUSES includes working/pendingnew; RiskManager + ST+PMC helpers updated"
+}

@@ -1,0 +1,32 @@
+# Frozen research contract — separate family from 1h confirm model
+strategy_id: nq_wick_reject_4h_swing_retest_v1
+created: 2026-08-30
+seed:
+  source: existing frozen 4h WICK_REJECT (StructureProgramEngine_v1_existing)
+  penetration_min: 0.05 x 4h ATR20
+  width_allowed: [0.25, 2.00] x 4h ATR20
+  one_active_seed: true
+  seed_expiry_4h_bars: 30
+structure:
+  timeframe: 4h
+  swing_engine: StructureProgramEngine_v1_existing
+  use_only_completed_bars: true
+  note: identical atlas engine; no permissive redo
+model_S1:
+  break: completed 4h close outside seed high/low
+  entry: resting limit at seed boundary
+  stop: opposite seed boundary +/- 1 tick
+  targets: 0.5W / 1.0W / 2.0W @ 50/25/25
+  order_life_hours: 48
+  invalidate: completed 4h close back inside seed range
+  no_same_bar_fill: true
+  one_trade_per_seed: true
+  reentry: false
+model_S2:
+  status: ACTIVE (Stage C) — first atlas CLOSE_BREAK outside seed
+  break: post-seed confirmed 4h swing/break outside seed
+  entry: limit at new swing/break level
+  stop: opposite original seed boundary
+order_life_cases_hours: [24, 48, 72]
+holdout: atlas slice column locked
+compare_to: nq_wick_reject_range_seed_retest (1h confirm, 24h life)

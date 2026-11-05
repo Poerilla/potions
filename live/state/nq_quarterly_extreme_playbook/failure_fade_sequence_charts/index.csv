@@ -1,0 +1,23 @@
+i,file,next_label,side,tag,fade_net,reclaim_net,seq_net,status
+1,01_2010Q4_short_reclaim_miss.png,2010Q4,short,reclaim_miss,-2015.0,0.0,-2015.0,stop → reclaim unfilled
+2,02_2012Q2_short_fade_only.png,2012Q2,short,fade_only,34541.74999999996,0.0,34541.74999999996,tp2 (no reclaim — fade succeeded)
+3,03_2012Q3_short_with_reclaim.png,2012Q3,short,with_reclaim,-2765.0,-9765.0,-12530.0,be_stop → reclaim stop
+4,04_2012Q4_long_reclaim_miss.png,2012Q4,long,reclaim_miss,-2015.0,0.0,-2015.0,stop → reclaim unfilled
+5,05_2013Q2_short_with_reclaim.png,2013Q2,short,with_reclaim,1621.2500000000182,-7615.0,-5993.749999999982,be_stop → reclaim stop
+6,06_2014Q2_long_fade_only.png,2014Q2,long,fade_only,8429.500000000016,0.0,8429.500000000016,tp2 (no reclaim — fade succeeded)
+7,07_2014Q4_long_with_reclaim.png,2014Q4,long,with_reclaim,-2515.0,-2865.0,-5380.0,stop → reclaim stop
+8,08_2015Q4_short_with_reclaim.png,2015Q4,short,with_reclaim,-65.0,10848.500000000022,10783.500000000022,be_stop → reclaim be_stop
+9,09_2016Q1_long_with_reclaim.png,2016Q1,long,with_reclaim,-3415.0,8752.000000000007,5337.000000000007,be_stop → reclaim be_stop
+10,10_2016Q3_short_reclaim_miss.png,2016Q3,short,reclaim_miss,-5915.0,0.0,-5915.0,stop → reclaim unfilled
+11,11_2017Q2_short_reclaim_miss.png,2017Q2,short,reclaim_miss,-4565.0,0.0,-4565.0,stop → reclaim unfilled
+12,12_2018Q4_short_fade_only.png,2018Q4,short,fade_only,50366.50000000005,0.0,50366.50000000005,tp2 (no reclaim — fade succeeded)
+13,13_2020Q3_short_reclaim_miss.png,2020Q3,short,reclaim_miss,-8315.0,0.0,-8315.0,stop → reclaim unfilled
+14,14_2020Q4_short_with_reclaim.png,2020Q4,short,with_reclaim,-12215.0,-11065.0,-23280.0,stop → reclaim be_stop
+15,15_2021Q1_short_with_reclaim.png,2021Q1,short,with_reclaim,-23150.00000000004,-65.0,-23215.00000000004,stop → reclaim be_stop
+16,16_2021Q3_short_with_reclaim.png,2021Q3,short,with_reclaim,-14765.0,-17815.0,-32580.0,stop → reclaim stop
+17,17_2021Q4_long_fade_only.png,2021Q4,long,fade_only,88993.74999999997,0.0,88993.74999999997,tp2 (no reclaim — fade succeeded)
+18,18_2022Q1_long_with_reclaim.png,2022Q1,long,with_reclaim,-16615.0,127456.5,110841.5,be_stop → reclaim quarter_eod
+19,19_2022Q2_long_with_reclaim.png,2022Q2,long,with_reclaim,29282.50000000004,-41965.0,-12682.49999999996,stop → reclaim stop
+20,20_2023Q2_short_reclaim_miss.png,2023Q2,short,reclaim_miss,-65.0,0.0,-65.0,be_stop → reclaim unfilled
+21,21_2023Q4_long_with_reclaim.png,2023Q4,long,with_reclaim,-20463.749999999927,91518.0,71054.25000000007,stop → reclaim tp2
+22,22_2025Q1_long_with_reclaim.png,2025Q1,long,with_reclaim,-34915.0,36468.49999999991,1553.4999999999127,be_stop → reclaim be_stop

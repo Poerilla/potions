@@ -1,0 +1,16 @@
+scope,condition,bucket,books,n_books,median_wr_lift_pp,median_avg_lift,median_z_wr,total_n
+cross_book,Hourly RSI bucket,rsi_gt70,"eurusd_monday_or,eurusd_v2b_ungated,nas100_v2b_london,usdjpy_asia_range,usdjpy_monday_or",5,2.6282785812889675,59.681542843805815,0.590838044809693,700
+cross_book,Week of month,4,"eurusd_st_pmc_3r,nas100_v2b_london,us30_london_prior_opposed,us30_monday_or,usdjpy_monday_or",5,1.7089159427777945,35.70635975037874,0.4665304135684469,1279
+cross_book,Day of week,Friday,"eurusd_monday_or,eurusd_st_pmc_3r,nas100_st_pmc_3r,us30_monday_or,us30_st_pmc_3r",5,7.46886918744159,29.34903878679953,1.5946262694315831,823
+cross_book,Day of week,Thursday,"eurusd_monday_or,eurusd_st_pmc_3r,nas100_v2b_london,us30_st_pmc_3r,usdjpy_monday_or",5,5.491199355908327,21.04282137450824,1.579114041927579,1481
+cross_book,ATR14 quartile,atr_q4,"eurusd_monday_or,eurusd_st_pmc_3r,eurusd_v2b_ungated,usdjpy_asia_range",4,3.0925379191516917,73.29920776139289,1.2144617170780685,1742
+cross_book,Hourly RSI vs trade,rsi_against_side,"eurusd_monday_or,eurusd_st_pmc_3r,nas100_st_pmc_3r,us30_london_prior_opposed",4,7.325492557551755,66.18649531622503,1.5935113838543873,668
+cross_book,Prior-week range half,week_opposed,"eurusd_monday_or,eurusd_st_pmc_3r,us30_monday_or,usdjpy_monday_or",4,1.5704450132883463,24.023625501003913,0.7226357852777454,4956
+cross_book,Week of month,2,"eurusd_st_pmc_3r,nas100_v2b_london,us30_st_pmc_3r,usdjpy_monday_or",4,2.521032817079358,20.985215296837957,0.9565438506790004,1135
+cross_book,Entry hour (NY),4,"eurusd_monday_or,usdjpy_asia_range,usdjpy_monday_or",3,7.179961982170951,446.3992720077336,1.212379247623765,237
+cross_book,5m MA vs trade,ma_opposed,"eurusd_monday_or,us30_london_prior_opposed,usdjpy_asia_range",3,5.225329621045977,249.17424231229825,1.017168761791542,475
+cross_book,ATR14 quartile,atr_q2,"us30_london_prior_opposed,us30_monday_or,usdjpy_asia_range",3,6.666666666666677,91.31416666666269,1.060395106132355,568
+cross_book,Entry hour (NY),3,"eurusd_monday_or,nas100_v2b_london,us30_london_prior_opposed",3,3.242677824267781,87.24279487179733,1.346495950410879,1207
+cross_book,Entry hour (NY),11,"eurusd_v2b_ungated,nas100_st_pmc_3r,us30_monday_or",3,7.4668069723996755,31.063195093852016,1.7672923295108782,346
+cross_book,Hourly RSI bucket,rsi_55_70,"eurusd_st_pmc_3r,us30_london_prior_opposed,us30_monday_or",3,2.383480825958706,30.190284660774324,0.569904280551773,673
+cross_book,Week of month,5,"eurusd_st_pmc_3r,eurusd_v2b_ungated,nas100_v2b_london",3,2.657290487756286,18.30918289059366,0.6856209312044512,393

@@ -1,0 +1,48 @@
+# Frozen research contract — descriptive protected-pivot study (NOT a trade model)
+study_id: nq_wick_reject_4h_ny_open_1m_protected_pivot_v1
+status: RESEARCH_DESCRIPTIVE_ONLY
+instrument: NQ
+timezone: America/New_York
+tick: 0.25
+
+seed:
+  source: frozen 4h WICK_REJECT atlas (StructureProgramEngine_v1_existing)
+  builder: make_seeds_30
+  penetration_min: 0.05 x 4h ATR20
+  width_allowed: [0.25, 2.00] x 4h ATR20
+  seed_expiry_4h_bars: 30
+  one_ny_open_per_seed: true
+
+session:
+  ny_open: "09:30"
+  formation_cutoff: "10:30"
+  observation_end: "13:00"
+
+pivots:
+  timeframe: 1m
+  left_bars: 1
+  right_bars: 1
+  strict_extrema: true
+  equal_level_policy: reject
+  min_pivot_separation_bars: 1
+
+structure:
+  bear: H1 -> L1 -> HH -> LL
+  bull: L1 -> H1 -> LL -> HH
+  selection: first consecutive four-pivot tuple in causal order
+  intervening_pivots: reject (consecutive only)
+
+protection:
+  bear_fail: high > protected_high + 1 tick
+  bull_fail: low < protected_low - 1 tick
+  equal_touch: held (HELD_EQUAL_TOUCH)
+  horizon: structure_complete_at exclusive through 13:00 ET
+
+non_goals:
+  - no fills / stops / targets / P&L
+  - no plugin
+  - no S1/S2 coupling
+  - no tracker promotion from this study alone
+
+config_hash: 2b2af86f45806115
+created: 2026-08-30

@@ -1,0 +1,21 @@
+potions: OANDA -003/-004 live↔sim reconcile
+
+Compared practice fills to Engine+PaperBroker StrategyPlugin replay on each demo's stored bars
+(skill: potions-oanda-live-sim-reconcile).
+
+Account -003  NAS100 clean-break trail06_m4_e2_out_be
+  demo: live/demo/nas100_v2b_clean_break_trail06_m4_e2_out_be_oanda
+  status: MISMATCH (strict ±2m), but same trades
+  post-started_at entries: live=2 sim=2 — both buy qty=1
+  2026-09-03: sim 13:45 bar vs live fill 13:49 (+4m), px ~29324 vs 29333
+  2026-09-04: sim 13:45 bar vs live fill 13:48 (+3m), px ~29606 vs 29607
+  Verdict: aligned on side/qty/session; 5m-bar stamp vs OANDA fill latency exceeds fuzzy window.
+
+Account -004  USDJPY Asia Range S_3_1_3
+  demo: live/demo/usdjpy_asia_range_london_oanda
+  status: MATCH
+  post-started_at (2026-09-03T16:54:58Z): live=1 sim=1 — buy 700000 @ ~156.45 on 2026-09-04T09:33
+  Verdict: exact entry sequence match vs replay engine.
+
+Artifacts: live/state/_oanda_live_sim_reconcile/acc_003_004_summary.json
+Stance: -004 gold-path aligned; -003 same book trades with expected practice latency (not a stream/routing bug).

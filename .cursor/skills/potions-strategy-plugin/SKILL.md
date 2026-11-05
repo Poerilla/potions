@@ -47,6 +47,7 @@ Registry: [`live/registry.py`](../../../live/registry.py)
 
 ## After create
 
+- Live/demo runner: `run_stream_loop` must call `live.demo.singleton.claim_runtime(...)` (return `EXIT_REFUSED` on failure) before any state/bootstrap. OANDA books also need an owner row in `live/demo/oanda_account_ownership.json`. `live/tests/test_demo_singleton.py` enforces both. See `live/demo/README.md` → singleton.
 - Quick replay: `potions-quick-backtest`
 - Causality check: `potions-causality-audit`
 - Tracker / CHANGE_LOG: `potions-tracker-docs`

@@ -488,6 +488,7 @@ def run(
     st_strategy_id: Optional[str] = None,
     start: date = date(2021, 3, 4),
     dbn_path: Optional[Path] = None,
+    daily_path: Optional[Path] = None,
     refine_st_touches: bool = True,
     gate_mode: str = "auto",
     st_signal_stamp: str = "left_label",
@@ -517,6 +518,8 @@ def run(
     cfg = MARKETS[market]
     if dbn_path is not None:
         cfg = replace(cfg, dbn_path=dbn_path)
+    if daily_path is not None:
+        cfg = replace(cfg, daily_path=daily_path)
     instrument = cfg.instrument
     output_root.mkdir(parents=True, exist_ok=True)
     suffix = str(strategy_id_suffix or "")
@@ -871,6 +874,7 @@ def main(argv: Optional[List[str]] = None) -> int:
     parser.add_argument("--st-strategy-id", default=None)
     parser.add_argument("--start", default="2021-03-04", help="First NY session date to consider, YYYY-MM-DD.")
     parser.add_argument("--dbn-path", type=Path, default=None, help="Override the configured 1m DBN/CSV source path.")
+    parser.add_argument("--daily", type=Path, default=None, help="Override the daily regime CSV.")
     parser.add_argument(
         "--gate-mode",
         choices=["auto", "fill", "fill_1m_touch", "resting_limit", "resting_limit_left_label"],
@@ -930,6 +934,7 @@ def main(argv: Optional[List[str]] = None) -> int:
             st_strategy_id=args.st_strategy_id,
             start=start,
             dbn_path=args.dbn_path,
+            daily_path=args.daily,
             refine_st_touches=not args.no_refine_st_touches,
             gate_mode=args.gate_mode,
             st_signal_stamp=args.st_signal_stamp,

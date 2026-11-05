@@ -1,0 +1,11 @@
+trade_id,session,year,side,entry_ts,exit_ts,entry_price,entry_qty,net_usd,exit_reasons,hit_tp,eod_close,full_initial_sl,any_stop_exit,atr14,range_width,range_label,atr14_quartile,range_width_quartile
+xauusd_quarterly_atr4_fade_ladder_t15,2012-04-03,2012,long,2012-04-03 20:00:00-04:00,2012-04-04 08:00:00-04:00,1646.329,10,-22748.500716696362,stop,False,False,True,True,18.86707142857137,,n/a,Q4 high,
+xauusd_quarterly_atr4_fade_ladder_t27,2022-07-06,2022,long,2022-07-06 12:00:00-04:00,2022-07-06 12:00:00-04:00,1763.078,10,-20659.531637946267,stop,False,False,True,True,19.13607142857149,,n/a,Q4 high,
+xauusd_quarterly_atr4_fade_ladder_t10,2009-01-05,2009,long,2009-01-05 15:00:00-05:00,2009-01-12 11:00:00-05:00,853.131,10,-12807.056012619405,"stop,tp1",True,False,False,True,15.539071428571422,,n/a,Q3,
+xauusd_quarterly_atr4_fade_ladder_t13,2010-07-06,2010,long,2010-07-06 16:00:00-04:00,2010-07-19 12:00:00-04:00,1195.384,10,-11577.338550581517,"stop,tp1",True,False,False,True,17.135285714285697,,n/a,Q3,
+xauusd_quarterly_atr4_fade_ladder_t12,2009-07-08,2009,long,2009-07-08 08:00:00-04:00,2009-07-08 12:00:00-04:00,921.822,10,-11230.389666844025,stop,False,False,True,True,11.772285714285715,,n/a,Q2,
+xauusd_quarterly_atr4_fade_ladder_t20,2013-10-11,2013,long,2013-10-11 16:00:00-04:00,2013-10-15 08:00:00-04:00,1267.787,10,-10571.138788475146,stop,False,False,True,True,24.522571428571446,,n/a,Q4 high,
+xauusd_quarterly_atr4_fade_ladder_t18,2013-02-15,2013,long,2013-02-15 15:00:00-05:00,2013-02-15 15:00:00-05:00,1610.966,10,-10234.06237638671,stop,False,False,True,True,15.530928571428571,,n/a,Q3,
+xauusd_quarterly_atr4_fade_ladder_t7,2006-10-03,2006,long,2006-10-03 16:00:00-04:00,2006-10-04 12:00:00-04:00,582.399,10,-9732.53936947487,stop,False,False,True,True,9.440785714285726,,n/a,Q2,
+xauusd_quarterly_atr4_fade_ladder_t4,2005-01-03,2005,long,2005-01-03 15:00:00-05:00,2005-01-06 11:00:00-05:00,429.975,10,-7124.810385718724,stop,False,False,True,True,3.752928571428567,,n/a,Q1 low,
+xauusd_quarterly_atr4_fade_ladder_t23,2017-07-03,2017,long,2017-07-03 16:00:00-04:00,2017-07-07 12:00:00-04:00,1222.518,10,-6007.978898249639,stop,False,False,True,True,8.547714285714294,,n/a,Q2,

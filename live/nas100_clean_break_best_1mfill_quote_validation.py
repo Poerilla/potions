@@ -2,7 +2,8 @@
 
 This is intentionally a validation run, not a new optimization sweep:
 
-- frozen candidate: ``trail06_m4_e2_out_be``
+- frozen signal/exit candidate: ``trail06_m4_e2_out_be``
+- deployment exposure override: max 3 research units (10x live = hard cap 30)
 - 5m bars drive StrategyPlugin signals only
 - 1m bars drive every PaperBroker fill
 - synthetic bid/ask fields are derived from the 1m mid OHLC because the local
@@ -43,6 +44,7 @@ VARIANT_NAME = "trail06_m4_e2_out_be"
 INSTRUMENT = "NAS100"
 POINT_VALUE = 1.0
 TICK_SIZE = 0.1
+DEPLOYMENT_MAX_RESEARCH_UNITS = 3
 NY = "America/New_York"
 
 
@@ -237,6 +239,11 @@ def run_validation(max_sessions: Optional[int], half_spread_ticks: float) -> Val
             "fill_signal_bucket_end": True,
             "broker_style_fill_source": "1m_proxy_synthetic_bid_ask",
             "synthetic_half_spread_ticks": float(half_spread_ticks),
+            # Live entry/add are 10 contracts, so three research units map to
+            # the approved 30-contract hard cap. Signal and exit rules remain frozen.
+            "max_pyramid_qty": DEPLOYMENT_MAX_RESEARCH_UNITS,
+            "deployment_live_size_mult": 10,
+            "deployment_live_max_contracts": 30,
         }
     )
     instance = StrategyInstance(
@@ -410,6 +417,8 @@ def write_outputs(result: ValidationResult, config: Dict[str, Any], state_root: 
         "## Frozen candidate",
         "",
         "- Candidate: `%s`." % VARIANT_NAME,
+        "- Deployment exposure: max %d research units (10x live sizing = hard cap 30)."
+        % DEPLOYMENT_MAX_RESEARCH_UNITS,
         "- Source family: clean-break pyramid trail sizing validation.",
         "- Signal bars: completed 5m candles, signal-only through `Engine.process_bar(..., broker_fills=False)`.",
         "- Signal timestamps: final 1m row in each 5m bucket, with the left-label retained in `signal_delivery_audit.csv`.",

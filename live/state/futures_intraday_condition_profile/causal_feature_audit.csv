@@ -1,0 +1,217 @@
+book,condition,feature_col,n,n_unique,causal_live_ready,needs_proxy,family
+nq_or_complement_skipflat,Day of week,dow,729,5,True,False,calendar
+nq_or_complement_skipflat,Week of month,week_of_month,729,5,True,False,calendar
+nq_or_complement_skipflat,Entry hour (NY),hour_ny,729,7,True,False,calendar
+nq_or_complement_skipflat,Month,month,729,12,True,False,calendar
+nq_or_complement_skipflat,5m MA vs trade,ma5_align,729,2,True,False,ma_opposition
+nq_or_complement_skipflat,Hourly RSI bucket,rsi_bucket,729,5,True,False,momentum_rsi
+nq_or_complement_skipflat,Hourly RSI vs trade,rsi_align,729,3,True,False,momentum_rsi
+nq_or_complement_skipflat,ATR14 quartile,atr_q,729,4,False,True,atr
+nq_or_complement_skipflat,ATR causal rolling percentile,atr_pct_bucket,729,4,False,True,atr
+nq_or_complement_skipflat,Prior-day range half,day_half_align,729,2,True,False,prior_range
+nq_or_complement_skipflat,Prior-week range half,week_half_align,729,2,True,False,prior_range
+nq_or_complement_skipflat,Overnight range third,on_third,729,3,True,False,overnight_location
+nq_or_complement_skipflat,Overnight VWAP side,on_vwap_side,729,2,True,False,overnight_location
+nq_or_complement_skipflat,Gap direction,gap_dir,729,3,True,False,overnight_location
+nq_or_complement_skipflat,Overnight compression,on_range_pct,729,3,True,False,overnight_compression
+nq_or_complement_skipflat,Prior RTH close location,prior_rth_loc,729,3,True,False,prior_rth
+nq_or_complement_skipflat,Prior RTH range percentile,prior_rth_range_pct,729,3,True,False,prior_rth
+nq_or_complement_skipflat,Opening 15m range vs ATR,or15_width_pct,729,3,True,False,opening_structure
+nq_or_complement_skipflat,Opening 15m direction vs trade,or15_dir_align,729,2,True,False,opening_structure
+nq_or_complement_skipflat,RTH VWAP side,rth_vwap_side,729,2,True,False,vwap
+nq_or_complement_skipflat,Opening 15m volume percentile,on_vol_open_pct,729,3,True,False,participation
+nq_or_complement_skipflat,Cross-index direction agreement,idx_agree,729,3,True,False,cross_index
+nq_or_complement_skipflat,NQ-ES dispersion,nq_es_disp,729,3,True,False,cross_index
+nq_or_complement_skipflat,ST-event age,st_age_bucket,729,4,True,False,st_state
+nq_or_complement_skipflat,ST-event direction vs trade,st_dir_align,729,1,True,False,st_state
+nq_or_complement_skipflat,Post-holiday session,post_holiday,729,2,True,False,futures_calendar
+nq_or_complement_skipflat,Contract-roll week,roll_week,729,2,True,False,futures_calendar
+nq_st_pmc_3r,Day of week,dow,679,6,True,False,calendar
+nq_st_pmc_3r,Week of month,week_of_month,679,5,True,False,calendar
+nq_st_pmc_3r,Entry hour (NY),hour_ny,679,24,True,False,calendar
+nq_st_pmc_3r,Month,month,679,12,True,False,calendar
+nq_st_pmc_3r,5m MA vs trade,ma5_align,679,2,True,False,ma_opposition
+nq_st_pmc_3r,Hourly RSI bucket,rsi_bucket,679,5,True,False,momentum_rsi
+nq_st_pmc_3r,Hourly RSI vs trade,rsi_align,679,3,True,False,momentum_rsi
+nq_st_pmc_3r,ATR14 quartile,atr_q,679,4,False,True,atr
+nq_st_pmc_3r,ATR causal rolling percentile,atr_pct_bucket,679,5,False,True,atr
+nq_st_pmc_3r,Prior-day range half,day_half_align,679,2,True,False,prior_range
+nq_st_pmc_3r,Prior-week range half,week_half_align,679,2,True,False,prior_range
+nq_st_pmc_3r,Overnight range third,on_third,679,4,True,False,overnight_location
+nq_st_pmc_3r,Overnight VWAP side,on_vwap_side,679,3,True,False,overnight_location
+nq_st_pmc_3r,Gap direction,gap_dir,679,4,True,False,overnight_location
+nq_st_pmc_3r,Overnight compression,on_range_pct,650,4,True,False,overnight_compression
+nq_st_pmc_3r,Prior RTH close location,prior_rth_loc,679,3,True,False,prior_rth
+nq_st_pmc_3r,Prior RTH range percentile,prior_rth_range_pct,679,4,True,False,prior_rth
+nq_st_pmc_3r,Opening 15m range vs ATR,or15_width_pct,650,5,True,False,opening_structure
+nq_st_pmc_3r,Opening 15m direction vs trade,or15_dir_align,679,4,True,False,opening_structure
+nq_st_pmc_3r,RTH VWAP side,rth_vwap_side,679,2,True,False,vwap
+nq_st_pmc_3r,Opening 15m volume percentile,on_vol_open_pct,650,5,True,False,participation
+nq_st_pmc_3r,Cross-index direction agreement,idx_agree,679,3,True,False,cross_index
+nq_st_pmc_3r,NQ-ES dispersion,nq_es_disp,679,3,True,False,cross_index
+nq_st_pmc_3r,ST-event age,st_age_bucket,679,4,True,False,st_state
+nq_st_pmc_3r,ST-event direction vs trade,st_dir_align,679,3,True,False,st_state
+nq_st_pmc_3r,Post-holiday session,post_holiday,679,2,True,False,futures_calendar
+nq_st_pmc_3r,Contract-roll week,roll_week,679,2,True,False,futures_calendar
+nq_prior_opposed_rl,Day of week,dow,432,5,True,False,calendar
+nq_prior_opposed_rl,Week of month,week_of_month,432,5,True,False,calendar
+nq_prior_opposed_rl,Entry hour (NY),hour_ny,432,7,True,False,calendar
+nq_prior_opposed_rl,Month,month,432,12,True,False,calendar
+nq_prior_opposed_rl,5m MA vs trade,ma5_align,432,2,True,False,ma_opposition
+nq_prior_opposed_rl,Hourly RSI bucket,rsi_bucket,432,5,True,False,momentum_rsi
+nq_prior_opposed_rl,Hourly RSI vs trade,rsi_align,432,3,True,False,momentum_rsi
+nq_prior_opposed_rl,ATR14 quartile,atr_q,432,4,False,True,atr
+nq_prior_opposed_rl,ATR causal rolling percentile,atr_pct_bucket,432,4,False,True,atr
+nq_prior_opposed_rl,Prior-day range half,day_half_align,432,2,True,False,prior_range
+nq_prior_opposed_rl,Prior-week range half,week_half_align,432,2,True,False,prior_range
+nq_prior_opposed_rl,Overnight range third,on_third,432,3,True,False,overnight_location
+nq_prior_opposed_rl,Overnight VWAP side,on_vwap_side,432,2,True,False,overnight_location
+nq_prior_opposed_rl,Gap direction,gap_dir,432,3,True,False,overnight_location
+nq_prior_opposed_rl,Overnight compression,on_range_pct,432,3,True,False,overnight_compression
+nq_prior_opposed_rl,Prior RTH close location,prior_rth_loc,432,3,True,False,prior_rth
+nq_prior_opposed_rl,Prior RTH range percentile,prior_rth_range_pct,432,3,True,False,prior_rth
+nq_prior_opposed_rl,Opening 15m range vs ATR,or15_width_pct,432,3,True,False,opening_structure
+nq_prior_opposed_rl,Opening 15m direction vs trade,or15_dir_align,432,2,True,False,opening_structure
+nq_prior_opposed_rl,RTH VWAP side,rth_vwap_side,432,2,True,False,vwap
+nq_prior_opposed_rl,Opening 15m volume percentile,on_vol_open_pct,432,3,True,False,participation
+nq_prior_opposed_rl,Cross-index direction agreement,idx_agree,432,2,True,False,cross_index
+nq_prior_opposed_rl,NQ-ES dispersion,nq_es_disp,432,3,True,False,cross_index
+nq_prior_opposed_rl,ST-event age,st_age_bucket,432,4,True,False,st_state
+nq_prior_opposed_rl,ST-event direction vs trade,st_dir_align,432,3,True,False,st_state
+nq_prior_opposed_rl,Post-holiday session,post_holiday,432,2,True,False,futures_calendar
+nq_prior_opposed_rl,Contract-roll week,roll_week,432,2,True,False,futures_calendar
+nq_v2b_s113,Day of week,dow,1386,5,True,False,calendar
+nq_v2b_s113,Week of month,week_of_month,1386,5,True,False,calendar
+nq_v2b_s113,Entry hour (NY),hour_ny,1386,7,True,False,calendar
+nq_v2b_s113,Month,month,1386,12,True,False,calendar
+nq_v2b_s113,5m MA vs trade,ma5_align,1386,2,True,False,ma_opposition
+nq_v2b_s113,Hourly RSI bucket,rsi_bucket,1386,5,True,False,momentum_rsi
+nq_v2b_s113,Hourly RSI vs trade,rsi_align,1386,3,True,False,momentum_rsi
+nq_v2b_s113,ATR14 quartile,atr_q,1386,4,False,True,atr
+nq_v2b_s113,ATR causal rolling percentile,atr_pct_bucket,1386,4,False,True,atr
+nq_v2b_s113,Prior-day range half,day_half_align,1386,2,True,False,prior_range
+nq_v2b_s113,Prior-week range half,week_half_align,1386,2,True,False,prior_range
+nq_v2b_s113,Overnight range third,on_third,1386,3,True,False,overnight_location
+nq_v2b_s113,Overnight VWAP side,on_vwap_side,1386,2,True,False,overnight_location
+nq_v2b_s113,Gap direction,gap_dir,1386,3,True,False,overnight_location
+nq_v2b_s113,Overnight compression,on_range_pct,1386,3,True,False,overnight_compression
+nq_v2b_s113,Prior RTH close location,prior_rth_loc,1386,3,True,False,prior_rth
+nq_v2b_s113,Prior RTH range percentile,prior_rth_range_pct,1386,3,True,False,prior_rth
+nq_v2b_s113,Opening 15m range vs ATR,or15_width_pct,1386,3,True,False,opening_structure
+nq_v2b_s113,Opening 15m direction vs trade,or15_dir_align,1386,2,True,False,opening_structure
+nq_v2b_s113,RTH VWAP side,rth_vwap_side,1386,2,True,False,vwap
+nq_v2b_s113,Opening 15m volume percentile,on_vol_open_pct,1386,3,True,False,participation
+nq_v2b_s113,Cross-index direction agreement,idx_agree,1386,3,True,False,cross_index
+nq_v2b_s113,NQ-ES dispersion,nq_es_disp,1386,3,True,False,cross_index
+nq_v2b_s113,ST-event age,st_age_bucket,1386,4,True,False,st_state
+nq_v2b_s113,ST-event direction vs trade,st_dir_align,1386,1,True,False,st_state
+nq_v2b_s113,Post-holiday session,post_holiday,1386,2,True,False,futures_calendar
+nq_v2b_s113,Contract-roll week,roll_week,1386,2,True,False,futures_calendar
+ym_st_pmc_3r,Day of week,dow,985,6,True,False,calendar
+ym_st_pmc_3r,Week of month,week_of_month,985,5,True,False,calendar
+ym_st_pmc_3r,Entry hour (NY),hour_ny,985,24,True,False,calendar
+ym_st_pmc_3r,Month,month,985,12,True,False,calendar
+ym_st_pmc_3r,5m MA vs trade,ma5_align,985,3,True,False,ma_opposition
+ym_st_pmc_3r,Hourly RSI bucket,rsi_bucket,985,5,True,False,momentum_rsi
+ym_st_pmc_3r,Hourly RSI vs trade,rsi_align,985,3,True,False,momentum_rsi
+ym_st_pmc_3r,ATR14 quartile,atr_q,985,4,False,True,atr
+ym_st_pmc_3r,ATR causal rolling percentile,atr_pct_bucket,985,5,False,True,atr
+ym_st_pmc_3r,Prior-day range half,day_half_align,985,2,True,False,prior_range
+ym_st_pmc_3r,Prior-week range half,week_half_align,985,2,True,False,prior_range
+ym_st_pmc_3r,Overnight range third,on_third,985,4,True,False,overnight_location
+ym_st_pmc_3r,Overnight VWAP side,on_vwap_side,985,3,True,False,overnight_location
+ym_st_pmc_3r,Gap direction,gap_dir,985,4,True,False,overnight_location
+ym_st_pmc_3r,Overnight compression,on_range_pct,943,4,True,False,overnight_compression
+ym_st_pmc_3r,Prior RTH close location,prior_rth_loc,985,3,True,False,prior_rth
+ym_st_pmc_3r,Prior RTH range percentile,prior_rth_range_pct,985,4,True,False,prior_rth
+ym_st_pmc_3r,Opening 15m range vs ATR,or15_width_pct,943,5,True,False,opening_structure
+ym_st_pmc_3r,Opening 15m direction vs trade,or15_dir_align,985,4,True,False,opening_structure
+ym_st_pmc_3r,RTH VWAP side,rth_vwap_side,985,2,True,False,vwap
+ym_st_pmc_3r,Opening 15m volume percentile,on_vol_open_pct,943,5,True,False,participation
+ym_st_pmc_3r,Cross-index direction agreement,idx_agree,985,3,True,False,cross_index
+ym_st_pmc_3r,NQ-ES dispersion,nq_es_disp,985,3,True,False,cross_index
+ym_st_pmc_3r,ST-event age,st_age_bucket,985,4,True,False,st_state
+ym_st_pmc_3r,ST-event direction vs trade,st_dir_align,985,3,True,False,st_state
+ym_st_pmc_3r,Post-holiday session,post_holiday,985,2,True,False,futures_calendar
+ym_st_pmc_3r,Contract-roll week,roll_week,985,2,True,False,futures_calendar
+es_prior_opposed_legacy,Day of week,dow,245,5,True,False,calendar
+es_prior_opposed_legacy,Week of month,week_of_month,245,5,True,False,calendar
+es_prior_opposed_legacy,Entry hour (NY),hour_ny,245,7,True,False,calendar
+es_prior_opposed_legacy,Month,month,245,12,True,False,calendar
+es_prior_opposed_legacy,5m MA vs trade,ma5_align,245,1,True,False,ma_opposition
+es_prior_opposed_legacy,Hourly RSI bucket,rsi_bucket,245,1,True,False,momentum_rsi
+es_prior_opposed_legacy,Hourly RSI vs trade,rsi_align,245,1,True,False,momentum_rsi
+es_prior_opposed_legacy,ATR14 quartile,atr_q,245,4,False,True,atr
+es_prior_opposed_legacy,ATR causal rolling percentile,atr_pct_bucket,245,4,False,True,atr
+es_prior_opposed_legacy,Prior-day range half,day_half_align,245,2,True,False,prior_range
+es_prior_opposed_legacy,Prior-week range half,week_half_align,245,2,True,False,prior_range
+es_prior_opposed_legacy,Overnight range third,on_third,245,1,True,False,overnight_location
+es_prior_opposed_legacy,Overnight VWAP side,on_vwap_side,245,1,True,False,overnight_location
+es_prior_opposed_legacy,Gap direction,gap_dir,245,1,True,False,overnight_location
+es_prior_opposed_legacy,Overnight compression,on_range_pct,245,1,True,False,overnight_compression
+es_prior_opposed_legacy,Prior RTH close location,prior_rth_loc,245,3,True,False,prior_rth
+es_prior_opposed_legacy,Prior RTH range percentile,prior_rth_range_pct,245,3,True,False,prior_rth
+es_prior_opposed_legacy,Opening 15m range vs ATR,or15_width_pct,245,1,True,False,opening_structure
+es_prior_opposed_legacy,Opening 15m direction vs trade,or15_dir_align,245,1,True,False,opening_structure
+es_prior_opposed_legacy,RTH VWAP side,rth_vwap_side,245,1,True,False,vwap
+es_prior_opposed_legacy,Opening 15m volume percentile,on_vol_open_pct,245,1,True,False,participation
+es_prior_opposed_legacy,Cross-index direction agreement,idx_agree,245,2,True,False,cross_index
+es_prior_opposed_legacy,NQ-ES dispersion,nq_es_disp,245,3,True,False,cross_index
+es_prior_opposed_legacy,ST-event age,st_age_bucket,245,4,True,False,st_state
+es_prior_opposed_legacy,ST-event direction vs trade,st_dir_align,245,1,True,False,st_state
+es_prior_opposed_legacy,Post-holiday session,post_holiday,245,2,True,False,futures_calendar
+es_prior_opposed_legacy,Contract-roll week,roll_week,245,2,True,False,futures_calendar
+ym_prior_opposed_rl,Day of week,dow,436,5,True,False,calendar
+ym_prior_opposed_rl,Week of month,week_of_month,436,5,True,False,calendar
+ym_prior_opposed_rl,Entry hour (NY),hour_ny,436,7,True,False,calendar
+ym_prior_opposed_rl,Month,month,436,12,True,False,calendar
+ym_prior_opposed_rl,5m MA vs trade,ma5_align,436,2,True,False,ma_opposition
+ym_prior_opposed_rl,Hourly RSI bucket,rsi_bucket,436,5,True,False,momentum_rsi
+ym_prior_opposed_rl,Hourly RSI vs trade,rsi_align,436,3,True,False,momentum_rsi
+ym_prior_opposed_rl,ATR14 quartile,atr_q,436,4,False,True,atr
+ym_prior_opposed_rl,ATR causal rolling percentile,atr_pct_bucket,436,4,False,True,atr
+ym_prior_opposed_rl,Prior-day range half,day_half_align,436,2,True,False,prior_range
+ym_prior_opposed_rl,Prior-week range half,week_half_align,436,2,True,False,prior_range
+ym_prior_opposed_rl,Overnight range third,on_third,436,3,True,False,overnight_location
+ym_prior_opposed_rl,Overnight VWAP side,on_vwap_side,436,2,True,False,overnight_location
+ym_prior_opposed_rl,Gap direction,gap_dir,436,3,True,False,overnight_location
+ym_prior_opposed_rl,Overnight compression,on_range_pct,436,3,True,False,overnight_compression
+ym_prior_opposed_rl,Prior RTH close location,prior_rth_loc,436,3,True,False,prior_rth
+ym_prior_opposed_rl,Prior RTH range percentile,prior_rth_range_pct,436,3,True,False,prior_rth
+ym_prior_opposed_rl,Opening 15m range vs ATR,or15_width_pct,436,3,True,False,opening_structure
+ym_prior_opposed_rl,Opening 15m direction vs trade,or15_dir_align,436,2,True,False,opening_structure
+ym_prior_opposed_rl,RTH VWAP side,rth_vwap_side,436,2,True,False,vwap
+ym_prior_opposed_rl,Opening 15m volume percentile,on_vol_open_pct,436,3,True,False,participation
+ym_prior_opposed_rl,Cross-index direction agreement,idx_agree,436,2,True,False,cross_index
+ym_prior_opposed_rl,NQ-ES dispersion,nq_es_disp,436,3,True,False,cross_index
+ym_prior_opposed_rl,ST-event age,st_age_bucket,436,4,True,False,st_state
+ym_prior_opposed_rl,ST-event direction vs trade,st_dir_align,436,3,True,False,st_state
+ym_prior_opposed_rl,Post-holiday session,post_holiday,436,2,True,False,futures_calendar
+ym_prior_opposed_rl,Contract-roll week,roll_week,436,2,True,False,futures_calendar
+es_st_pmc_ma_bull,Day of week,dow,223,6,True,False,calendar
+es_st_pmc_ma_bull,Week of month,week_of_month,223,5,True,False,calendar
+es_st_pmc_ma_bull,Entry hour (NY),hour_ny,223,22,True,False,calendar
+es_st_pmc_ma_bull,Month,month,223,12,True,False,calendar
+es_st_pmc_ma_bull,5m MA vs trade,ma5_align,223,1,True,False,ma_opposition
+es_st_pmc_ma_bull,Hourly RSI bucket,rsi_bucket,223,1,True,False,momentum_rsi
+es_st_pmc_ma_bull,Hourly RSI vs trade,rsi_align,223,1,True,False,momentum_rsi
+es_st_pmc_ma_bull,ATR14 quartile,atr_q,223,4,False,True,atr
+es_st_pmc_ma_bull,ATR causal rolling percentile,atr_pct_bucket,223,5,False,True,atr
+es_st_pmc_ma_bull,Prior-day range half,day_half_align,223,2,True,False,prior_range
+es_st_pmc_ma_bull,Prior-week range half,week_half_align,223,2,True,False,prior_range
+es_st_pmc_ma_bull,Overnight range third,on_third,223,1,True,False,overnight_location
+es_st_pmc_ma_bull,Overnight VWAP side,on_vwap_side,223,1,True,False,overnight_location
+es_st_pmc_ma_bull,Gap direction,gap_dir,223,1,True,False,overnight_location
+es_st_pmc_ma_bull,Overnight compression,on_range_pct,223,1,True,False,overnight_compression
+es_st_pmc_ma_bull,Prior RTH close location,prior_rth_loc,223,3,True,False,prior_rth
+es_st_pmc_ma_bull,Prior RTH range percentile,prior_rth_range_pct,223,4,True,False,prior_rth
+es_st_pmc_ma_bull,Opening 15m range vs ATR,or15_width_pct,223,2,True,False,opening_structure
+es_st_pmc_ma_bull,Opening 15m direction vs trade,or15_dir_align,223,2,True,False,opening_structure
+es_st_pmc_ma_bull,RTH VWAP side,rth_vwap_side,223,1,True,False,vwap
+es_st_pmc_ma_bull,Opening 15m volume percentile,on_vol_open_pct,223,2,True,False,participation
+es_st_pmc_ma_bull,Cross-index direction agreement,idx_agree,223,2,True,False,cross_index
+es_st_pmc_ma_bull,NQ-ES dispersion,nq_es_disp,223,3,True,False,cross_index
+es_st_pmc_ma_bull,ST-event age,st_age_bucket,223,4,True,False,st_state
+es_st_pmc_ma_bull,ST-event direction vs trade,st_dir_align,223,1,True,False,st_state
+es_st_pmc_ma_bull,Post-holiday session,post_holiday,223,2,True,False,futures_calendar
+es_st_pmc_ma_bull,Contract-roll week,roll_week,223,2,True,False,futures_calendar

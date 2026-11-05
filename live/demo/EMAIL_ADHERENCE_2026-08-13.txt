@@ -1,0 +1,44 @@
+LIVE/DEMO ADHERENCE UPDATE (2026-08-13) — no PnL
+
+Scope: daemon health, heartbeats, position/bracket adherence, stream recovery.
+Hub: live/demo/
+
+PROCESS
+- 35/35 demos with pidfiles are ALIVE
+- All PROGRESS.log heartbeats fresh (<5m); 0 stale >20m
+
+STREAM (overnight → recovered)
+- Overnight cluster of OANDA pricing-stream failures: V20Timeout, stream_read
+  disconnects, and HTTP 429 Too Many Requests (shared practice stream).
+- Daemons auto-recovered; midday heartbeats show ticks/bars advancing again.
+- Not treated as current outage.
+
+ADHERENCE — looking healthy
+- Paper index v2b (NAS100/SPX500): entry → tp1/tp2/eod_close/runner_stop sequence
+  present on recent fills; open NAS100 paper has runner_stop + tp2 working.
+- NAS100 ST+PMC 2R→10R paper: open 1u with runner_stop + target submitted.
+- Runner OANDA books (US30/NAS100 2R→10R): resting entry/runner limits working
+  (strategy still placing structure).
+- USDJPY Monday OR / Asia-range paper+oanda: flat, heartbeats OK (quiet is fine).
+- Yearly OR books: alive, bars advancing, flat.
+
+ADHERENCE — concerns (execution shape, not PnL)
+1) US30 ST+PMC 3R OANDA: open US30 qty=2 from Aug-11 entries, but local orders
+   tape shows only filled entry limits — NO working stop/target brackets now.
+   Heartbeat also reports orders=0 with open_positions=1. Unexpected vs 3R design.
+2) Shared OANDA practice account bleed: several non-US30/NAS100 OANDA demos
+   (e.g. EURUSD ST+PMC, US30 London prior-opposed, US30 Monday OR) show
+   NAS100+US30 rows in positions.csv with strategy_id=oanda while strategy
+   heartbeat position_qty may be 0. Local CSV ≠ strategy-owned inventory —
+   do not treat those as that strategy's open book without reconcile.
+3) US30 London prior-opposed OANDA: ticks=0 / bars advancing (bar-path OK) —
+   confirm intentional for that runner; st_injects=0 today.
+
+STANCE
+- Paper books generally executing expected fill reasons.
+- OANDA shared-account state needs careful reading; one clear flag is
+  US30 3R OANDA open without resting protective orders in local state.
+- Recommend oanda-practice-sync / live-sim reconcile on US30 ST+PMC 3R OANDA
+  before trusting that sleeve overnight.
+
+(No PnL figures by request.)

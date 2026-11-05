@@ -9,6 +9,68 @@ Artifacts per check often also live as:
 
 ---
 
+## 2026-11-05 — NAS clean-break adherence; duplicate daemons
+
+Source: `live/state/_oanda_live_sim_reconcile/ADHERENCE_NAS100_20261105.md`
+
+| Severity | Issue | Status at write |
+|----------|-------|-----------------|
+| FLAG | Two NAS clean-break daemons on `-003` since Nov 2 16:59; Nov 4 exit (09:50) and EOD (15:55) missed, 00:05 double `eod_close` → stray short 10. Cost vs rules ≈ −$5,572 | **fixed**; short closed (tx 301), single daemon pid 2042476 |
+| FLAG | Two Asia-range daemons on `-004` (Oct 22 old-code orphan + Nov 2) | **fixed**; single daemon pid 2042569 |
+| FLAG | `_remove_pidfile` deleted another live process's pidfile, bypassing spawn's alive-check | **fixed**; flock `daemon.lock` + pid-aware removal |
+| NOTE | NAS entries since Oct 30: 4/4 (2 exact, 2 same 5m bar); exits match Oct 30, Nov 2, Nov 3 | pass |
+| NOTE | Monday OR single instance; lock applies on next restart | **closed** 09:54 NY: `demo-restart` → pid 2067559 holding the output, strategy and route locks |
+| FIX | Singleton runtime: one runner per output folder, per strategy, and per OANDA account+instrument (ownership registry); `demo-restart`, 5-min audit cron + watchdog alarms | live; Asia restart deferred to 12:05 NY when flat |
+
+---
+
+## 2026-11-02 — Asia shadow repair and NAS execution controls
+
+Source: `live/state/_oanda_live_sim_reconcile/REMEDIATION_20261102.md`
+
+| Severity | Issue | Status at write |
+|----------|-------|-----------------|
+| FLAG | Asia roll-50 stayed at 107 because taken days waited for a research `unit_trades.csv` the OANDA daemon never writes | **fixed + backfilled**; 145 observations through Nov 2, WR 56%, PF 1.142 |
+| FLAG | No hard notification when the Asia shadow count failed to advance | **fixed**; session-idempotent state + immediate Resend hard alarm and reconciliation event |
+| FLAG | NAS max 40 exceeded demonstrated account margin capacity; two fourth-add rejects were previously observed | **fixed**; entry/add 10, hard max 30 |
+| FLAG | Broker reject responses were logged but not immediately emailed | **fixed**; all rejects use Resend, `INSUFFICIENT_MARGIN` is a hard alarm |
+| NOTE | Quote-backed resting targets received completed bar-close improvement | **fixed**; reduce-only targets fill at the resting limit after touch |
+| NOTE | First NAS restart used a relative config path, then exposed a missing-token launcher dependency | **fixed during deployment**; config resolved absolute and demo env loaded; final stream connected |
+| NOTE | Focused runtime regression | **pass**; 65 passed / 1 skipped |
+
+---
+
+## 2026-10-30 — health + adherence (3 live OANDA books)
+
+Source: `live/state/_oanda_live_sim_reconcile/ADHERENCE_20261030.md`
+
+| Severity | Issue | Status at write |
+|----------|-------|-----------------|
+| NOTE | USDJPY Monday OR: 9/9 exact; tick parity 40/40 | pass |
+| NOTE | USDJPY Asia-range: 6/6 within 2m since Oct 22 restart; tick parity 124/124, identical P&L; live ≈ $50–190/trade better than replay | pass |
+| NOTE | NAS100 clean-break: 14/14 same 5m bar; Oct 29 live ask trigger one bar earlier (−7.5 vs sim −65 pts); tick parity 34/34 (archive Jul 24–Aug 19 only) | pass |
+| NOTE | NAS100 long open with no broker-side stop (by design for `pyramid_outside` until trail arms) | by design |
+| NOTE | Asia −$15.9k realized from peak: ≈ 5.5% tail of unfiltered research 40-campaign windows; not an execution issue | watch |
+
+---
+
+## 2026-10-22 — live-rule adherence (3 live OANDA books)
+
+Source: `live/state/_oanda_live_sim_reconcile/ADHERENCE_20261022.md`
+
+| Severity | Issue | Status at write |
+|----------|-------|-----------------|
+| NOTE | USDJPY Monday OR: 8/8 live entries exact vs replay; tick parity 36/36 | pass |
+| NOTE | NAS100 clean-break: 10/10 in the same 5m signal bar; exits identical; tick parity 34/34 (archive Jul 24–Aug 19 only) | pass |
+| NOTE | USDJPY Asia-range: 20/24 within 2m; 3 earlier bid/ask triggers at the same price; Oct 1 extra same-bar stop-and-reverse (causal, ≈ −193k JPY); tick parity 113/113 | pass (explained) |
+| FLAG | Asia-range 1m bars persisted twice since 2026-08-11 (runner + Engine) | **fixed**; restarted flat on `-004` pid 643631 |
+| FLAG | Asia-range shadow roll50 frozen open since 2026-09-02 `clear_roll50` reseed (take days never append; `unit_trades.csv` not written live). Would have sat out 14/15 sessions from Oct 2 | **accepted by operator — leave frozen** |
+| NOTE | `take_await_unit_trades` logged on every post-EOD tick (25k–67k rows/day in PROGRESS + `campaign_parity.csv`) | **fixed** — once per session, 300s recheck; history deduped (backups in `log_archive/`) |
+| NOTE | Paper twins (`us30_hourly_st_pmc_3r_paper`, `usdjpy_asia_range_london_paper`, `usdjpy_monday_or_ungated_paper`) down since 2026-09-20 | not audited |
+| NOTE | Restart without `--oanda-config` attached shared `-001` for ~4 min (0 orders/fills); README launch line updated | closed |
+
+---
+
 ## 2026-08-24 — account `-004` rotation
 
 Source: `oanda_account_configs/ACCOUNT_004_ROTATION_2026-08-24.md`

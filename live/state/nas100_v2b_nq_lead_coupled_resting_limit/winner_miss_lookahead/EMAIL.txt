@@ -1,0 +1,10 @@
+Hub: /home/tester/hsm/potions/live/state/nas100_v2b_nq_lead_coupled_resting_limit/winner_miss_lookahead
+Parent: /home/tester/hsm/potions/live/state/nas100_v2b_nq_lead_coupled_resting_limit
+Book: NQ resting-limit hour-complete vs coupled NAS100 sync audit.
+Study: lookahead. Not a causal replay and not a demo promote.
+NQ-winner structure misses: 116
+Mechanism: close gives back on the only legal bar. First mapped close-break is the NQ minute; NAS own OR width matches (ratio ~1.01).
+Median giveback: 6.5 pts. Legal bar still wicks the level on 99.1%.
+Close back through: median 3 min. Within 5 min: 63.8%.
+Lookahead NAS winners among those misses: 106 of 116
+Stance: research only. Not a demo promote. Opening-range mismatch is not the miss.

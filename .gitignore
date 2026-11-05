@@ -62,6 +62,11 @@ live/demo/**/charts/
 live/demo/**/FILE_SIZES.log
 live/demo/**/gate_audit.csv
 live/demo/**/st_events.json
+live/demo/**/daemon.lock
+live/demo/**/deferred_restart_*.log
+live/demo/.locks/
+live/demo/SINGLETON_AUDIT.json
+live/demo/singleton_audit.log
 
 # ST+PMC 1mfill / US30 gambit heavy local artifacts (SUMMARY.md + summary.csv stay)
 live/state/st_pmc_1mfill_cross_market/**/states/
@@ -79,6 +84,7 @@ live/state/us30_futures_strats_sweep/*.log
 **/.env
 .env.notify
 **/.env.notify
+**/.env.databento
 .env.resend
 **/.env.resend
 .env.cursor
@@ -123,3 +129,6 @@ live/state/futures_intraday_condition_profile/all_campaigns.csv
 live/state/futures_intraday_hp_sizeup_nulls/pidfile
 live/state/futures_intraday_hp_sizeup_nulls/run.log
 live/state/futures_intraday_hp_sizeup_nulls/PROGRESS.log
+
+# Python 3.10 + current Databento, for DBN v3 files the 3.8 env cannot decode
+.venv-dbn/

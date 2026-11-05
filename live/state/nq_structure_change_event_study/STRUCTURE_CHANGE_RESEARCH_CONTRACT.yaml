@@ -1,0 +1,138 @@
+# Frozen before any optimization / parameter search.
+# Standalone market-structure event study — NOT a strategy build until Phases 1–4 clear.
+#
+# Hub: live/state/nq_structure_change_event_study/
+# Created: 2026-08-29
+# Stance: RESEARCH / descriptive atlas first
+
+study:
+  name: nq_structure_change_event_study
+  objective: >
+    Measure whether LH–LL–HH / HL–HH–LL structural transitions (and events at
+    protected swings) predict subsequent expansion vs matched non-event
+    periods; whether body-close confirmation beats wick-only breaches; whether
+    1h adds incremental info beyond 4h.
+  not_in_scope_until_phase_5:
+    - entry/exit strategy optimization
+    - scale-in / DCA
+    - adaptive continuation+fade hybrids
+
+structure_engine:
+  version: "StructureProgramEngine_v1_existing"
+  source: "live/structure_program_st_study.py"
+  four_hour_adapter: "live/structure_program_st_chart_bias_4h.py (to_4h + _ingest_4h_day)"
+  freeze_rule: "Do not alter pivot width, lookback, or left/right confirmation after seeing results."
+  swing_confirmation:
+    left: 2
+    right: 2
+    rule: "existing frozen left/right pivot method (confirm_swings)"
+  structure_patterns:
+    bullish: "L → H → LL → HH  (protected key = LL)"
+    bearish: "H → L → HH → LL  (protected key = HH)"
+  program_lists:
+    list_size: 20
+    takeouts_to_flip: 2
+    note: >
+      Program buy/sell flips are a separate layer from per-structure protected-swing
+      events. Event taxonomy is relative to the last confirmed protected swing key.
+  initial_timeframes:
+    - "4h primary"
+    - "1h secondary"
+  information_rule:
+    only_completed_bars: true
+    feature_available_at: "close of the confirmation bar"
+    order_active_earliest: "first executable timestamp strictly after available_at"
+
+penetration:
+  formula: "|extreme - protected_swing| / ATR_20_same_timeframe"
+  primary_min_ATR: 0.05
+  also_report_zero_buffer: true
+  note: "0.05 ATR is diagnostic, not optimized"
+
+event_classes:
+  # Non-overlapping relative to last confirmed protected swing
+  - CLOSE_BREAK
+  - WICK_REJECT
+  - CLOSE_RECLAIM
+  - TOUCH_ONLY
+
+expansion_labels_predeclared:
+  short_horizon: "same-direction MFE >= 1.0R within 60 minutes"
+  session: "same-direction MFE >= 2.0R before RTH close"
+  multi_session: "same-direction MFE >= 3.0R within two trading sessions"
+  failed: "opposite-direction MAE >= 1.0R before 1.0R favorable"
+
+forward_horizons_R:
+  returns: ["5m", "15m", "30m", "60m", "1session", "2session"]
+  excursions: ["MAE_R", "MFE_R"]
+
+markets:
+  phase_1_dev: ["NQ"]
+  # Cross-market Phase 1 is PENDING human approval of NQ Phases 1–4.
+  # Roster + gate: live/state/structure_change_event_study_cross_market/
+  pending_nq_approval_cross_market:
+    cfd_index: ["NAS100", "US30"]
+    cfd_fx_metal: ["USDJPY", "EURUSD", "XAUUSD"]
+    micros: ["MNQ", "MYM"]
+    micros_blocked_data: ["MES"]  # no continuous 1m on disk
+    optional_wire_then_gate: ["SPX500", "GBPUSD"]  # 1m present; not in FX_MARKETS yet
+  implementation_parity_not_independent: ["NAS100", "MNQ"]
+  independent_checks: ["ES", "SPX500", "YM", "US30"]
+  separate_economic_family: ["XAUUSD"]
+  fx_later: true
+  cross_market_auto_start: false
+
+holdout:
+  rule: "most recent contiguous 20–30% of event history held out"
+  peek_ban: "definitions locked on development slice before holdout eval"
+
+sample_minimums:
+  descriptive_n: 30
+  action_rule_candidate_n: 50
+
+timing_buckets_equity:
+  NY_OPEN: "09:30–10:30 America/New_York"
+  NY_AM: "10:30–12:00 America/New_York"
+  NY_MIDDAY: "12:00–14:00 America/New_York"
+  NY_PM: "14:00–15:30 America/New_York"
+  NY_CLOSE: "15:30–16:00 America/New_York"
+  GLOBEX: "all other eligible futures hours"
+
+phases:
+  0: "Freeze contract + taxonomy (this file + EVENT_TAXONOMY.md)"
+  1: "Pure event study NQ + matched controls → EXPANSION_ATLAS.md"
+  2: "CLOSE_BREAK vs WICK_REJECT → CLOSE_VS_WICK.md"
+  3: "Timing atlas → TIME_OF_CHANGE_ATLAS.md"
+  4: "1h incremental vs 4h → ONE_HOUR_INCREMENTAL_VALUE.md"
+  5: "Three prototypes only if Phases 1–4 show stable signal → STRATEGY_PROTOTYPES.md"
+
+prototypes_phase_5_only:
+  - confirmed_continuation
+  - confirmed_failed_break_fade
+  - reclaim_failure_exit
+
+causality:
+  available_at_lt_order_active_ts: true
+  audit_artifact: CAUSALITY_AUDIT.md
+  one_m_path_aware_fills_required_before_strategy_claims: true
+
+deliverables:
+  - STRUCTURE_CHANGE_RESEARCH_CONTRACT.yaml
+  - EVENT_TAXONOMY.md
+  - structure_events.csv
+  - structure_event_controls.csv
+  - EXPANSION_ATLAS.md
+  - TIME_OF_CHANGE_ATLAS.md
+  - CLOSE_VS_WICK.md
+  - ONE_HOUR_INCREMENTAL_VALUE.md
+  - STRATEGY_PROTOTYPES.md
+  - CAUSALITY_AUDIT.md
+  - TRIAL_LEDGER.md
+
+cpu_sequencing:
+  blocked_behind:
+    - "us30_st_pmc_continuation_exec_stress (pid 824591)"
+    - "us30_pmc_failed_break_fade_structure_bias (QUEUE.sh armed)"
+  reason: >
+    4-core box; stress pegs 1 core ~100%. Structure-bias overlay already queued.
+    Phase 0 docs only until those clear. Phase 1 NQ ledger starts after.

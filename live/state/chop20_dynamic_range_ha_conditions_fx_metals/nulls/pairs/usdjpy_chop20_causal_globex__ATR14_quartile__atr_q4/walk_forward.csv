@@ -1,0 +1,3 @@
+mode,train_through,test_year,chosen_condition,chosen_bucket,chosen_hp_frac,test_hp_n,test_n,inc_net,inc_ns,book_ns,book_stress,delta_net,p_inc_net,p_inc_ns,p_book_ns,matches_frozen
+discovery,2020,2021,Hourly RSI bucket,rsi_45_55,0.26153846153846155,3,14,128459.12499999946,2.9682829893304183,1.1656510315071644,658126.7500000165,128459.12499999942,0.5087281795511222,0.5087281795511222,0.5087281795511222,False
+frozen,2020,2021,ATR14 quartile,atr_q4,0.0,0,14,0.0,0.0,1.0387696501338297,614849.5000000168,0.0,,,,True

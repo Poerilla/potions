@@ -70,6 +70,13 @@ class V2BCleanBreakStrategy(StrategyPlugin):
             # runs and soft-exit stays blocked behind pending_clean_validation.
             "fill_to_signal_minutes": 5,
             "fill_signal_bucket_end": False,
+            # Optional arm-asof 5m MA-aligned HP size-up (default off).
+            # When hp_ma_aligned_mult > 1: at resting-entry arm time, if 5m SMA9>SMA21
+            # (ma_bull for this long-only plugin), lock entry/add/max qty to
+            # base×mult and do not refresh qty at fill (arm_asof_no_qty_refresh).
+            "hp_ma_aligned_mult": 1.0,
+            "hp_ma_fast": 9,
+            "hp_ma_slow": 21,
         }
         try:
             self.config.update(json.loads(instance.config_json or "{}"))
@@ -233,6 +240,7 @@ class V2BCleanBreakStrategy(StrategyPlugin):
                     orders.append(entry)
                     state["entry_armed"] = True
                     alerts.append(Alert.create(self.instance.strategy_id, "info", "v2b clean-break long stop armed"))
+                    trade = self._trade(entry.trade_id, state)
                     features.append(
                         self._feature(
                             "v2b_clean_break_or_finalized",
@@ -243,6 +251,15 @@ class V2BCleanBreakStrategy(StrategyPlugin):
                                 "entry_stop": entry.stop_price,
                                 "entry_offset_ticks": int(self.config.get("entry_offset_ticks") or 0),
                                 "or_count": int(state.get("or_count") or 0),
+                                "entry_qty": int(trade.get("entry_qty") or entry.quantity),
+                                "hp_ma_aligned": bool(trade.get("hp_ma_aligned")),
+                                "ma_state_arm": trade.get("ma_state_arm", ""),
+                                "hp_mult_locked": trade.get("hp_mult_locked", 1.0),
+                                "max_pyramid_qty": int(
+                                    trade.get("max_pyramid_qty")
+                                    or self.config.get("max_pyramid_qty")
+                                    or 0
+                                ),
                             },
                         )
                     )
@@ -541,7 +558,14 @@ class V2BCleanBreakStrategy(StrategyPlugin):
                         trade["trail_delay_left"] = delay_need
                         state["phase"] = "trail_trigger_pending"
 
-        max_qty = max(1, int(self.config.get("max_pyramid_qty") or 8))
+        max_qty = max(
+            1,
+            int(
+                trade.get("max_pyramid_qty")
+                or self.config.get("max_pyramid_qty")
+                or 8
+            ),
+        )
         if context.position_quantity >= max_qty:
             return orders, cancels, features
         if bool(state.get("add_pending")):
@@ -572,6 +596,8 @@ class V2BCleanBreakStrategy(StrategyPlugin):
                     "add_every_n": every_n,
                     "cadence_hit": eligible_n % every_n == 0,
                     "position_quantity": context.position_quantity,
+                    "max_pyramid_qty": max_qty,
+                    "hp_ma_aligned": bool(trade.get("hp_ma_aligned")),
                 },
             )
         )
@@ -600,9 +626,15 @@ class V2BCleanBreakStrategy(StrategyPlugin):
 
         trade["add_pending"] = True
         state["add_pending"] = True
+        # Arm-asof lock: trade pyramid_add_qty wins over config (no fill refresh).
         add_qty = max(
             1,
-            int(self.config.get("pyramid_add_qty") or self.config.get("entry_qty") or 1),
+            int(
+                trade.get("pyramid_add_qty")
+                or self.config.get("pyramid_add_qty")
+                or self.config.get("entry_qty")
+                or 1
+            ),
         )
         orders.append(
             OrderIntent.create(
@@ -687,12 +719,20 @@ class V2BCleanBreakStrategy(StrategyPlugin):
         if high is None or low is None or high <= low:
             return None
         trade_id = self._new_trade_id(state)
+        sizing = self._arm_asof_sizing(ts)
         state["trades"][trade_id] = {
             "direction": "Long",
             "status": "armed",
             "range_high": high,
             "range_low": low,
             "range_value": high - low,
+            "entry_qty": int(sizing["entry_qty"]),
+            "pyramid_add_qty": int(sizing["pyramid_add_qty"]),
+            "max_pyramid_qty": int(sizing["max_pyramid_qty"]),
+            "hp_ma_aligned": bool(sizing["hp_ma_aligned"]),
+            "ma_state_arm": str(sizing["ma_state_arm"]),
+            "hp_mult_locked": float(sizing["hp_mult_locked"]),
+            "hp_contract": str(sizing["hp_contract"]),
         }
         tick = float(self.config["tick_size"])
         entry_offset = int(self.config.get("entry_offset_ticks", 2)) * tick
@@ -703,7 +743,7 @@ class V2BCleanBreakStrategy(StrategyPlugin):
             account_mode=self.instance.account_mode,
             side="buy",
             order_type="stop",
-            quantity=int(self.config.get("entry_qty", 1)),
+            quantity=int(sizing["entry_qty"]),
             stop_price=high + entry_offset,
             reason="v2b_clean_break_entry",
             requires_verification=True,
@@ -711,6 +751,86 @@ class V2BCleanBreakStrategy(StrategyPlugin):
             live_after_ts=ts,
             expires_after_ts=_session_expiry(ts),
         )
+
+    def _arm_asof_sizing(self, arm_ts: str) -> Dict[str, Any]:
+        """Lock entry/add/max qty at arm time (optional ma_aligned HP size-up).
+
+        Contract matches research ``arm_asof_no_qty_refresh``: HP uses 5m MA state
+        available at ``arm_ts`` (completed bars only; current arm bar excluded via
+        +5m availability shift), then freezes qty until fill.
+        """
+        base_entry = max(1, int(self.config.get("entry_qty") or 1))
+        base_add = max(
+            1,
+            int(self.config.get("pyramid_add_qty") or self.config.get("entry_qty") or 1),
+        )
+        base_max = max(base_entry, int(self.config.get("max_pyramid_qty") or 8))
+        hp_mult = float(self.config.get("hp_ma_aligned_mult") or 1.0)
+        out: Dict[str, Any] = {
+            "entry_qty": base_entry,
+            "pyramid_add_qty": base_add,
+            "max_pyramid_qty": base_max,
+            "hp_ma_aligned": False,
+            "ma_state_arm": "ma_na",
+            "hp_mult_locked": 1.0,
+            "hp_contract": "arm_asof_no_qty_refresh",
+        }
+        if hp_mult <= 1.0 + 1e-12:
+            return out
+        ma_state = self._ma_state_asof(arm_ts)
+        out["ma_state_arm"] = ma_state
+        # Long-only clean-break: ma_aligned == ma_bull.
+        if ma_state == "ma_bull":
+            out["hp_ma_aligned"] = True
+            out["hp_mult_locked"] = hp_mult
+            out["entry_qty"] = max(1, int(round(base_entry * hp_mult)))
+            out["pyramid_add_qty"] = max(1, int(round(base_add * hp_mult)))
+            out["max_pyramid_qty"] = max(
+                int(out["entry_qty"]), int(round(base_max * hp_mult))
+            )
+        return out
+
+    def _ma_state_asof(self, asof_ts: str) -> str:
+        """5m SMA9/SMA21 state available at ``asof_ts`` (causal +5m availability)."""
+        fast = max(1, int(self.config.get("hp_ma_fast") or 9))
+        slow = max(fast, int(self.config.get("hp_ma_slow") or 21))
+        try:
+            asof = _parse_ts_keep_tz(asof_ts)
+        except (TypeError, ValueError):
+            return "ma_na"
+        if asof.tzinfo is None:
+            asof = pytz.UTC.localize(asof)
+        else:
+            asof = asof.astimezone(pytz.UTC)
+        closes: List[float] = []
+        try:
+            bars = self.store.read_bars(self.instance.instrument, "5m")
+        except Exception:
+            bars = []
+        for bar in bars:
+            if not getattr(bar, "complete", True):
+                continue
+            try:
+                bt = _parse_ts_keep_tz(bar.ts)
+            except (TypeError, ValueError):
+                continue
+            if bt.tzinfo is None:
+                bt = pytz.UTC.localize(bt)
+            else:
+                bt = bt.astimezone(pytz.UTC)
+            # Research recipe: feature available_at = left-label ts + 5m.
+            if bt + timedelta(minutes=5) > asof:
+                continue
+            closes.append(float(bar.close))
+        if len(closes) < slow:
+            return "ma_na"
+        sma_fast = sum(closes[-fast:]) / float(fast)
+        sma_slow = sum(closes[-slow:]) / float(slow)
+        if sma_fast > sma_slow:
+            return "ma_bull"
+        if sma_fast < sma_slow:
+            return "ma_bear"
+        return "ma_flat"
 
     def _reduce_order(
         self,

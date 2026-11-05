@@ -67,6 +67,7 @@ from .us30_hourly_st_pmc_common import (
     strategy_config_payload,
     upsert_strategy_instance,
 )
+from .singleton import EXIT_REFUSED, claim_runtime
 
 BOOK = "sl50_tp150_runners_2r_10r"
 _SPEC = book_spec(BOOK)
@@ -325,6 +326,14 @@ def run_stream_loop(
         append_progress(output_root, "REFUSING non-practice OANDA_ENV=%s" % config.env)
         return 2
 
+    if not claim_runtime(
+        strategy_id=STRATEGY_ID,
+        output_root=output_root,
+        account_id=str(config.account_id or ""),
+        instrument=INSTRUMENT,
+        routes_orders=True,
+    ):
+        return EXIT_REFUSED
     runner = StPmcOandaRunner(output_root=output_root, config=config)
     meta = write_run_meta(output_root, config=config)
     pidfile_path(output_root).write_text(str(os.getpid()) + "\n", encoding="utf-8")

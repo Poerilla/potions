@@ -3,5 +3,22 @@
   "account_id": "101-002-39860312-005",
   "label": "USDJPY Monday OR M2_S3_R1",
   "demo": "usdjpy_monday_or_ungated_oanda",
-  "cli": "demo-usdjpy-monday-or-oanda"
+  "cli": "demo-usdjpy-monday-or-oanda",
+  "strategy_type": "monday_or_breakout",
+  "strategy_id": "usdjpy_monday_or_ungated_oanda",
+  "instrument": "USDJPY",
+  "phase2_tag": "M2_S3_R1",
+  "live_units_per_lot": 100000,
+  "entry_qty_units": 300000,
+  "dd30_qty_units": 100000,
+  "dd50_qty_units": 200000,
+  "shifted_entry_qty_units": 400000,
+  "shifted_dd30_qty_units": 200000,
+  "shifted_dd50_qty_units": 200000,
+  "book_lots": "3=(1@30,2@50) shifted 4=(2@30,2@50)",
+  "research_week_sitout_after_pts": 3.0,
+  "live_week_sitout_after_pts": 300000.0,
+  "sizing_review_date": "2026-10-01",
+  "sizing_review_note": "2026-10-01 review: Oct 1 primary (buy 3 @ 158.233, dd30 x1, dd50 x2) MATCH vs monday_or_breakout on stored 15m bars (live config and fresh spawn). Practice had been 1:1 OANDA units (~-$0.01). Scaled to 100000 OANDA units per research book qty. week_sitout_after_pts scaled by the same factor so the +3 research-lot-point sitout is unchanged. Research ranking tape stays the unit book.",
+  "lot_sizeup_date": "2026-10-01"
 }

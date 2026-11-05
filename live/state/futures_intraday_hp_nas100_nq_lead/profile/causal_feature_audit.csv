@@ -1,0 +1,28 @@
+book,condition,feature_col,n,n_unique,causal_live_ready,needs_proxy,family
+nas100_nq_lead_prior_opposed,Day of week,dow,280,5,True,False,calendar
+nas100_nq_lead_prior_opposed,Week of month,week_of_month,280,5,True,False,calendar
+nas100_nq_lead_prior_opposed,Entry hour (NY),hour_ny,280,7,True,False,calendar
+nas100_nq_lead_prior_opposed,Month,month,280,12,True,False,calendar
+nas100_nq_lead_prior_opposed,5m MA vs trade,ma5_align,280,2,True,False,ma_opposition
+nas100_nq_lead_prior_opposed,Hourly RSI bucket,rsi_bucket,280,5,True,False,momentum_rsi
+nas100_nq_lead_prior_opposed,Hourly RSI vs trade,rsi_align,280,3,True,False,momentum_rsi
+nas100_nq_lead_prior_opposed,ATR14 quartile,atr_q,280,4,False,True,atr
+nas100_nq_lead_prior_opposed,ATR causal rolling percentile,atr_pct_bucket,280,4,False,True,atr
+nas100_nq_lead_prior_opposed,Prior-day range half,day_half_align,280,2,True,False,prior_range
+nas100_nq_lead_prior_opposed,Prior-week range half,week_half_align,280,2,True,False,prior_range
+nas100_nq_lead_prior_opposed,Overnight range third,on_third,280,3,True,False,overnight_location
+nas100_nq_lead_prior_opposed,Overnight VWAP side,on_vwap_side,280,2,True,False,overnight_location
+nas100_nq_lead_prior_opposed,Gap direction,gap_dir,280,2,True,False,overnight_location
+nas100_nq_lead_prior_opposed,Overnight compression,on_range_pct,280,3,True,False,overnight_compression
+nas100_nq_lead_prior_opposed,Prior RTH close location,prior_rth_loc,280,3,True,False,prior_rth
+nas100_nq_lead_prior_opposed,Prior RTH range percentile,prior_rth_range_pct,280,3,True,False,prior_rth
+nas100_nq_lead_prior_opposed,Opening 15m range vs ATR,or15_width_pct,280,3,True,False,opening_structure
+nas100_nq_lead_prior_opposed,Opening 15m direction vs trade,or15_dir_align,280,2,True,False,opening_structure
+nas100_nq_lead_prior_opposed,RTH VWAP side,rth_vwap_side,280,1,True,False,vwap
+nas100_nq_lead_prior_opposed,Opening 15m volume percentile,on_vol_open_pct,280,1,True,False,participation
+nas100_nq_lead_prior_opposed,Cross-index direction agreement,idx_agree,280,2,True,False,cross_index
+nas100_nq_lead_prior_opposed,NQ-ES dispersion,nq_es_disp,280,3,True,False,cross_index
+nas100_nq_lead_prior_opposed,ST-event age,st_age_bucket,280,4,True,False,st_state
+nas100_nq_lead_prior_opposed,ST-event direction vs trade,st_dir_align,280,3,True,False,st_state
+nas100_nq_lead_prior_opposed,Post-holiday session,post_holiday,280,2,True,False,futures_calendar
+nas100_nq_lead_prior_opposed,Contract-roll week,roll_week,280,2,True,False,futures_calendar

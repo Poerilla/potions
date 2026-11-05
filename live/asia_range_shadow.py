@@ -115,13 +115,40 @@ def campaigns_from_unit_trades(path: Path) -> List[float]:
     return [float(x) for x in g["net_usd"].tolist()]
 
 
+def latest_clear_roll_end(
+    nets: Sequence[float],
+    *,
+    window: int = 50,
+    min_wr: float = 0.40,
+    min_pf: float = 1.0,
+    after: Optional[Sequence[float]] = None,
+) -> Optional[int]:
+    """Most recent exclusive end index where ``nets[:end]`` (+ optional ``after``) clears the roll gate.
+
+    Returns ``None`` when no prefix clears. Used to reseed live books so the trailing
+    roll window is not stuck on a PF-broken research tail.
+    """
+    extra = list(after or ())
+    latest: Optional[int] = None
+    for end in range(int(window), len(nets) + 1):
+        book = list(nets[:end]) + extra
+        blocked, _meta = gate_blocks(book, window=window, min_wr=min_wr, min_pf=min_pf)
+        if not blocked:
+            latest = end
+    return latest
+
+
 def seed_shadow_nets(
     *,
     unit_trades: Optional[Path] = None,
     window: int = 50,
+    end_idx: Optional[int] = None,
 ) -> List[float]:
     path = Path(unit_trades) if unit_trades is not None else DEFAULT_SIZING_UNIT
     nets = campaigns_from_unit_trades(path)
+    if end_idx is not None:
+        end = max(0, min(int(end_idx), len(nets)))
+        nets = nets[:end]
     if window > 0:
         return nets[-window:]
     return nets
@@ -144,6 +171,15 @@ def load_shadow_book(path: Path) -> List[float]:
     return out
 
 
+def load_shadow_meta(path: Path) -> Optional[dict]:
+    if not path.exists():
+        return None
+    raw = json.loads(path.read_text(encoding="utf-8"))
+    if isinstance(raw, dict) and isinstance(raw.get("meta"), dict):
+        return dict(raw["meta"])
+    return None
+
+
 def save_shadow_book(path: Path, nets: Sequence[float], *, meta: Optional[dict] = None) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     payload = {"nets": [float(x) for x in nets]}
@@ -152,10 +188,77 @@ def save_shadow_book(path: Path, nets: Sequence[float], *, meta: Optional[dict] 
     path.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
 
 
-def append_shadow_campaign(path: Path, net_usd: float, *, keep: int = 500) -> List[float]:
+def shadow_observation_sessions(path: Path) -> List[str]:
+    meta = load_shadow_meta(path) or {}
+    out: List[str] = []
+    for item in meta.get("session_observations") or []:
+        if isinstance(item, dict):
+            sess = str(item.get("session_date") or "").strip()
+        else:
+            sess = str(item or "").strip()
+        if sess and sess not in out:
+            out.append(sess)
+    return out
+
+
+def mark_shadow_session_evaluated(
+    path: Path,
+    session_date: str,
+    *,
+    source: str,
+    outcome: str,
+) -> None:
+    """Record a completed no-campaign evaluation without changing roll observations."""
+    meta = load_shadow_meta(path) or {}
+    evaluated = list(meta.get("evaluated_sessions") or [])
+    if session_date not in evaluated:
+        evaluated.append(session_date)
+    meta["evaluated_sessions"] = evaluated[-1000:]
+    meta["last_evaluated_session"] = session_date
+    meta["last_evaluated_source"] = source
+    meta["last_evaluated_outcome"] = outcome
+    save_shadow_book(path, load_shadow_book(path), meta=meta)
+
+
+def append_shadow_campaign(
+    path: Path,
+    net_usd: float,
+    *,
+    keep: int = 500,
+    session_date: str = "",
+    source: str = "",
+) -> List[float]:
+    meta = load_shadow_meta(path) or {}
     nets = load_shadow_book(path)
+    observations = list(meta.get("session_observations") or [])
+    if session_date and session_date in shadow_observation_sessions(path):
+        if session_date >= str(meta.get("last_evaluated_session") or ""):
+            meta["last_evaluated_session"] = session_date
+            meta["last_evaluated_source"] = source
+            meta["last_evaluated_outcome"] = "campaign"
+            save_shadow_book(path, nets, meta=meta)
+        return nets
     nets.append(float(net_usd))
     if keep > 0 and len(nets) > keep:
         nets = nets[-keep:]
-    save_shadow_book(path, nets)
+    if session_date:
+        observations.append(
+            {
+                "session_date": session_date,
+                "net_usd": float(net_usd),
+                "source": source,
+            }
+        )
+        meta["session_observations"] = observations[-1000:]
+        evaluated = list(meta.get("evaluated_sessions") or [])
+        if session_date not in evaluated:
+            evaluated.append(session_date)
+        meta["evaluated_sessions"] = evaluated[-1000:]
+        meta["last_evaluated_session"] = session_date
+        meta["last_evaluated_source"] = source
+        meta["last_evaluated_outcome"] = "campaign"
+        meta["last_observation_session"] = session_date
+        meta["last_observation_source"] = source
+        meta["observation_count"] = len(nets)
+    save_shadow_book(path, nets, meta=meta)
     return nets

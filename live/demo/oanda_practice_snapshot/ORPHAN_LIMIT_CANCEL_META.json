@@ -1,0 +1,106 @@
+{
+  "incident_id": "2026-08-18_oanda_orphan_limit_mass_cancel",
+  "ts_cancel": "2026-08-18T16:34:18Z",
+  "ts_logged": "2026-08-18T16:36:11Z",
+  "account": "101-002-39860312-001",
+  "env": "practice",
+  "precondition": "openTrades=0 openPositions=0 (flat) \u2014 mass-cancel of all pending safe",
+  "cancelled_n": 53,
+  "pending_left_after": 0,
+  "errors": [],
+  "by_instrument": {
+    "US30_USD": 31,
+    "NAS100_USD": 22
+  },
+  "by_type": {
+    "LIMIT": 52,
+    "STOP": 1
+  },
+  "oanda_order_ids": [
+    "829",
+    "833",
+    "837",
+    "839",
+    "848",
+    "850",
+    "852",
+    "854",
+    "856",
+    "858",
+    "866",
+    "868",
+    "870",
+    "874",
+    "876",
+    "878",
+    "889",
+    "891",
+    "893",
+    "895",
+    "897",
+    "899",
+    "910",
+    "914",
+    "917",
+    "919",
+    "921",
+    "923",
+    "934",
+    "936",
+    "941",
+    "943",
+    "945",
+    "947",
+    "956",
+    "958",
+    "960",
+    "962",
+    "964",
+    "966",
+    "970",
+    "971",
+    "974",
+    "976",
+    "978",
+    "1053",
+    "1055",
+    "1057",
+    "1068",
+    "1070",
+    "1072",
+    "1610",
+    "1611"
+  ],
+  "local_csv_clears": [
+    {
+      "demo": "nas100_hourly_st_pmc_sl50_tp150_runners_2r_10r_oanda",
+      "cleared": 6
+    },
+    {
+      "demo": "us30_hourly_st_pmc_sl50_tp150_runners_2r_10r_oanda",
+      "cleared": 27
+    },
+    {
+      "demo": "us30_monday_or_m3_s3_r2_half_oanda",
+      "cleared": 2
+    }
+  ],
+  "related_same_day": [
+    "OandaBroker.cancel_order: remote-ack-before-local (live/oanda.py)",
+    "Containment emails: EOD digest only (POTIONS_OANDA_CONTAINMENT_EMAIL=eod)",
+    "Containment still shadow \u2014 would_cancel orphan_protective, not live cancel of entry LIMITs",
+    "Root class: ST+PMC entry LIMITs (SL50 / TP 150|300|1500 onFill) left after local cancel without remote map; MonOR bare STOP/LIMIT 1610/1611 from shared-account close"
+  ],
+  "trace_if_recurs": [
+    "Compare new pending order ids vs ORPHAN_LIMIT_CANCEL.json oanda_order_ids",
+    "Check state/events/oanda_order_events.jsonl for cancel_requested / remote_ack_before_local / cancel_local_only_no_remote",
+    "Check containment_email_digest.json + PROGRESS orphan_protective lines",
+    "practice sync REPORT.md pendingOrders count"
+  ],
+  "artifacts": [
+    "live/demo/oanda_practice_snapshot/ORPHAN_LIMIT_CANCEL.json",
+    "live/demo/oanda_practice_snapshot/ORPHAN_LIMIT_CANCEL_LOCAL.json",
+    "live/demo/oanda_practice_snapshot/ORPHAN_LIMIT_CANCEL.md",
+    "live/demo/EMAIL_ORPHAN_LIMIT_CANCEL_2026-08-18.txt"
+  ]
+}

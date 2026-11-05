@@ -1,0 +1,54 @@
+{
+  "hub": "/home/tester/hsm/potions/live/state/top3_active_demo_portfolio/joint_1m_cb10x",
+  "cb_scale": 10.0,
+  "common_window_start": "2016-11-15T10:00:00-05:00",
+  "common_window_end": "2025-09-29T11:14:00-04:00",
+  "method": "joint_1m_mtm_on_engine_fills",
+  "note": "Independent Engine+PaperBroker fills per sleeve; shared 1m MTM clock; NAS100 Clean Break size \u00d710; USDJPY /110 USD-norm.",
+  "net_usd": 355639.98181816767,
+  "closed_dd_usd": -33438.40454545402,
+  "intrabar_stress_dd_usd": -33525.67727272684,
+  "net_over_stress": 10.607987988582144,
+  "max_open_units": 14,
+  "events": 4175840,
+  "sleeves": {
+    "asia_range": {
+      "units": 4228,
+      "trades": 604,
+      "net_usd": 127288.21818180359,
+      "win_rate": 47.469252601702934
+    },
+    "monday_or": {
+      "units": 2414,
+      "trades": 751,
+      "net_usd": 105822.26363635137,
+      "win_rate": 27.879038939519468
+    },
+    "clean_break": {
+      "units": 2070,
+      "trades": 1166,
+      "net_usd": 122529.50000000745,
+      "win_rate": 27.10144927536232
+    }
+  },
+  "published_full_history_sleeves": {
+    "asia_range": {
+      "units": 6027,
+      "trades": 861,
+      "net_usd": 178141.91818178768,
+      "win_rate": 48.56479177036668
+    },
+    "monday_or": {
+      "units": 6125,
+      "trades": 1907,
+      "net_usd": 293966.3863636056,
+      "win_rate": 29.56734693877551
+    },
+    "clean_break": {
+      "units": 2070,
+      "trades": 1166,
+      "net_usd": 122529.50000000745,
+      "win_rate": 27.10144927536232
+    }
+  }
+}

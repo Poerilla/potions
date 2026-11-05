@@ -1,0 +1,2 @@
+strategy_id,start_date,trades,units,net_usd,closed_dd_usd,intrabar_stress_dd_usd,win_rate_pct,profit_factor,net_over_stress,causality_violations,prior_opposite_entries,long_trades,short_trades,gate_mode,invalidate_without_opposite_minutes,entry_live_after_delay_minutes,state_root
+nas100_v2b_nq_lead_coupled_S_1_1_1,2021-03-04,193,579,7474.39,-3086.08,-3113.08,61.14,1.483,2.40,0,193,79,114,nq_lead_coupled_resting_limit,,,/home/tester/hsm/potions/live/state/nas100_v2b_nq_lead_coupled_resting_limit/states/nas100_v2b_nq_lead_coupled_S_1_1_1

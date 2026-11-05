@@ -1,0 +1,95 @@
+# Diagnostic branch — 5m protected-pivot WITHOUT 10:30 formation cutoff
+# Does NOT overwrite archived V2 (d3b30d168b0bb59b). Descriptive only.
+study_id: nq_wick_reject_4h_ny_open_5m_protected_pivot_v2_no_cutoff
+parent_context: nq_wick_reject_4h_ny_open_5m_protected_pivot_v2
+parent_result:
+  status: insufficient_sample_archive
+  config_hash: d3b30d168b0bb59b
+  candidates: 7
+grandparent: nq_wick_reject_4h_ny_open_1m_protected_pivot_v1
+grandparent_status: archived_negative
+status: RESEARCH_DESCRIPTIVE_ONLY_DIAGNOSTIC
+stance: descriptive_only_window_widening_diagnostic
+instrument: NQ
+timezone: America/New_York
+tick: 0.25
+
+purpose: >
+  User-requested diagnostic: re-run the frozen V2 5m protected-pivot screen
+  with the 10:30 formation cutoff removed so P4 may complete any time before
+  the 13:00 observation end. Measures how many of the FINAL_PIVOT_AFTER_CUTOFF
+  near-misses become candidates. Not a rescue of the family archive.
+
+not_allowed:
+  - Overwrite archived V2 cutoff result
+  - Replace or revise the 1-minute V1 result
+  - Treat this as a predeclared promotion path for the family
+  - Convert structure survival directly into an entry model
+  - Add P&L, entries, stops, targets, sizing, or plugin work
+  - Choose between 1m / 5m / no-cutoff after peeking
+
+seed:
+  source: frozen 4h WICK_REJECT atlas (StructureProgramEngine_v1_existing)
+  builder: make_seeds_30
+  existing_4h_wick_reject_ledger: true
+  seed_definition_changed: false
+  penetration_min: 0.05 x 4h ATR20
+  width_allowed: [0.25, 2.00] x 4h ATR20
+  seed_expiry_4h_bars: 30
+  first_eligible_ny_open_only: true
+  require_seed_active_at_ny_open: true
+
+session:
+  ny_open: "09:30"
+  formation_window: "09:30-13:00"
+  formation_cutoff: none
+  formation_bound: "P4.available_at < 13:00"
+  observation_end: "13:00"
+
+pivots:
+  timeframe: 5m
+  left_bars: 1
+  right_bars: 1
+  strict_extrema: true
+  equal_level_policy: reject
+  min_pivot_separation_bars: 1
+  pivot_ts: close of pivot 5m bar
+  pivot_available_at: close of following 5m bar
+
+structure:
+  bear: H1 -> L1 -> HH -> LL
+  bull: L1 -> H1 -> LL -> HH
+  selection: first consecutive four-pivot tuple in causal order
+  intervening_pivots: reject (consecutive only)
+  first_qualifying_structure_only: true
+  one_candidate_per_seed_open: true
+
+protection:
+  bear_fail: 5m high > protected_HH + 1 tick
+  bull_fail: 5m low < protected_LL - 1 tick
+  equal_touch: held (HELD_EQUAL_TOUCH); reported separately
+  horizon: structure_complete_at through 13:00 ET
+  observation_timeframe: 5m
+  note: late completions have short remaining observation windows
+
+minimum_reporting:
+  eligible_seed_opens: 80
+  total_formed_candidates: 40
+  bear_candidates: 15
+  bull_candidates: 15
+
+hard_stop:
+  if_total_candidates_below_40: "insufficient sample; archive without further tuning"
+
+screen:
+  bear_hold_min: 0.55
+  bull_hold_min: 0.55
+  both_sides_required_for_family_success: true
+
+non_goals:
+  - no fills / stops / targets / P&L
+  - no plugin
+  - no S1/S2 coupling
+  - no tracker promotion from this study alone
+  - no V1 overwrite / no timeframe chooser
+  - does not reopen frozen V2 family closure by itself

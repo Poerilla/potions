@@ -1,0 +1,551 @@
+book,family,condition,feature_col,n,n_unique,causal_live_ready,needs_proxy,family_tag
+eurusd_monday_or,monday_or,Day of week,dow,2868,4,True,False,calendar
+eurusd_monday_or,monday_or,Week of month,week_of_month,2868,5,True,False,calendar
+eurusd_monday_or,monday_or,Entry hour (NY),hour_ny,2868,24,True,False,calendar
+eurusd_monday_or,monday_or,Month,month,2868,12,True,False,calendar
+eurusd_monday_or,monday_or,5m MA vs trade,ma5_align,2868,2,True,False,ma_opposition
+eurusd_monday_or,monday_or,5m MA cross vs trade,ma5_cross_align,2868,3,True,False,other
+eurusd_monday_or,monday_or,Hourly RSI bucket,rsi_bucket,2868,5,True,False,momentum_rsi
+eurusd_monday_or,monday_or,Hourly RSI vs trade,rsi_align,2868,3,True,False,momentum_rsi
+eurusd_monday_or,monday_or,Hourly OBV vs trade,obv_align,2868,2,True,False,other
+eurusd_monday_or,monday_or,ATR14 quartile,atr_q,2868,5,False,True,atr
+eurusd_monday_or,monday_or,Prior-day range half,day_half_align,2868,2,True,False,prior_range
+eurusd_monday_or,monday_or,Prior-week range half,week_half_align,2868,2,True,False,prior_range
+eurusd_monday_or,monday_or,Prior-month range half,month_half_align,2868,3,True,False,other
+eurusd_monday_or,monday_or,Prior-day range percentile,prior_day_range_pct,2868,4,True,False,other
+eurusd_monday_or,monday_or,ATR causal rolling percentile,atr_pct_bucket,2868,5,False,True,atr
+eurusd_monday_or,monday_or,Prior-quarter range width,prior_q_width_q,2868,1,True,False,other
+eurusd_monday_or,monday_or,London OR width vs ATR,london_or_width,2868,1,True,False,other
+eurusd_monday_or,monday_or,Monday session range vs ATR,monday_range_pct,2868,4,True,False,other
+eurusd_monday_or,monday_or,Yearly ORB direction,yor_dir,2868,5,True,False,htf_orb
+eurusd_monday_or,monday_or,Monthly OR direction,mor_dir,2868,5,True,False,htf_orb
+eurusd_monday_or,monday_or,Prior quarter type,prior_q_type,2868,5,True,False,htf_quarter
+eurusd_monday_or,monday_or,Weekly ATR trend vs trade,w_atr_align,2868,2,True,False,htf_weekly_trend
+usdjpy_monday_or,monday_or,Day of week,dow,1907,4,True,False,calendar
+usdjpy_monday_or,monday_or,Week of month,week_of_month,1907,5,True,False,calendar
+usdjpy_monday_or,monday_or,Entry hour (NY),hour_ny,1907,24,True,False,calendar
+usdjpy_monday_or,monday_or,Month,month,1907,10,True,False,calendar
+usdjpy_monday_or,monday_or,5m MA vs trade,ma5_align,1907,2,True,False,ma_opposition
+usdjpy_monday_or,monday_or,5m MA cross vs trade,ma5_cross_align,1907,3,True,False,other
+usdjpy_monday_or,monday_or,Hourly RSI bucket,rsi_bucket,1907,5,True,False,momentum_rsi
+usdjpy_monday_or,monday_or,Hourly RSI vs trade,rsi_align,1907,3,True,False,momentum_rsi
+usdjpy_monday_or,monday_or,Hourly OBV vs trade,obv_align,1907,2,True,False,other
+usdjpy_monday_or,monday_or,ATR14 quartile,atr_q,1907,5,False,True,atr
+usdjpy_monday_or,monday_or,Prior-day range half,day_half_align,1907,2,True,False,prior_range
+usdjpy_monday_or,monday_or,Prior-week range half,week_half_align,1907,2,True,False,prior_range
+usdjpy_monday_or,monday_or,Prior-month range half,month_half_align,1907,3,True,False,other
+usdjpy_monday_or,monday_or,Prior-day range percentile,prior_day_range_pct,1907,4,True,False,other
+usdjpy_monday_or,monday_or,ATR causal rolling percentile,atr_pct_bucket,1907,5,False,True,atr
+usdjpy_monday_or,monday_or,Prior-quarter range width,prior_q_width_q,1907,1,True,False,other
+usdjpy_monday_or,monday_or,London OR width vs ATR,london_or_width,1907,1,True,False,other
+usdjpy_monday_or,monday_or,Monday session range vs ATR,monday_range_pct,1907,4,True,False,other
+usdjpy_monday_or,monday_or,Yearly ORB direction,yor_dir,1907,5,True,False,htf_orb
+usdjpy_monday_or,monday_or,Monthly OR direction,mor_dir,1907,5,True,False,htf_orb
+usdjpy_monday_or,monday_or,Prior quarter type,prior_q_type,1907,5,True,False,htf_quarter
+usdjpy_monday_or,monday_or,Weekly ATR trend vs trade,w_atr_align,1907,2,True,False,htf_weekly_trend
+us30_monday_or,monday_or,Day of week,dow,1121,4,True,False,calendar
+us30_monday_or,monday_or,Week of month,week_of_month,1121,5,True,False,calendar
+us30_monday_or,monday_or,Entry hour (NY),hour_ny,1121,23,True,False,calendar
+us30_monday_or,monday_or,Month,month,1121,12,True,False,calendar
+us30_monday_or,monday_or,5m MA vs trade,ma5_align,1121,3,True,False,ma_opposition
+us30_monday_or,monday_or,5m MA cross vs trade,ma5_cross_align,1121,3,True,False,other
+us30_monday_or,monday_or,Hourly RSI bucket,rsi_bucket,1121,5,True,False,momentum_rsi
+us30_monday_or,monday_or,Hourly RSI vs trade,rsi_align,1121,3,True,False,momentum_rsi
+us30_monday_or,monday_or,Hourly OBV vs trade,obv_align,1121,1,True,False,other
+us30_monday_or,monday_or,ATR14 quartile,atr_q,1121,5,False,True,atr
+us30_monday_or,monday_or,Prior-day range half,day_half_align,1121,2,True,False,prior_range
+us30_monday_or,monday_or,Prior-week range half,week_half_align,1121,2,True,False,prior_range
+us30_monday_or,monday_or,Prior-month range half,month_half_align,1121,3,True,False,other
+us30_monday_or,monday_or,Prior-day range percentile,prior_day_range_pct,1121,4,True,False,other
+us30_monday_or,monday_or,ATR causal rolling percentile,atr_pct_bucket,1121,5,False,True,atr
+us30_monday_or,monday_or,Prior-quarter range width,prior_q_width_q,1121,1,True,False,other
+us30_monday_or,monday_or,London OR width vs ATR,london_or_width,1121,1,True,False,other
+us30_monday_or,monday_or,Monday session range vs ATR,monday_range_pct,1121,4,True,False,other
+us30_monday_or,monday_or,Yearly ORB direction,yor_dir,1121,5,True,False,htf_orb
+us30_monday_or,monday_or,Monthly OR direction,mor_dir,1121,5,True,False,htf_orb
+us30_monday_or,monday_or,Prior quarter type,prior_q_type,1121,5,True,False,htf_quarter
+us30_monday_or,monday_or,Weekly ATR trend vs trade,w_atr_align,1121,2,True,False,htf_weekly_trend
+gbpusd_monday_or,monday_or,Day of week,dow,2822,4,True,False,calendar
+gbpusd_monday_or,monday_or,Week of month,week_of_month,2822,5,True,False,calendar
+gbpusd_monday_or,monday_or,Entry hour (NY),hour_ny,2822,24,True,False,calendar
+gbpusd_monday_or,monday_or,Month,month,2822,12,True,False,calendar
+gbpusd_monday_or,monday_or,5m MA vs trade,ma5_align,2822,2,True,False,ma_opposition
+gbpusd_monday_or,monday_or,5m MA cross vs trade,ma5_cross_align,2822,3,True,False,other
+gbpusd_monday_or,monday_or,Hourly RSI bucket,rsi_bucket,2822,5,True,False,momentum_rsi
+gbpusd_monday_or,monday_or,Hourly RSI vs trade,rsi_align,2822,3,True,False,momentum_rsi
+gbpusd_monday_or,monday_or,Hourly OBV vs trade,obv_align,2822,2,True,False,other
+gbpusd_monday_or,monday_or,ATR14 quartile,atr_q,2822,5,False,True,atr
+gbpusd_monday_or,monday_or,Prior-day range half,day_half_align,2822,2,True,False,prior_range
+gbpusd_monday_or,monday_or,Prior-week range half,week_half_align,2822,2,True,False,prior_range
+gbpusd_monday_or,monday_or,Prior-month range half,month_half_align,2822,3,True,False,other
+gbpusd_monday_or,monday_or,Prior-day range percentile,prior_day_range_pct,2822,4,True,False,other
+gbpusd_monday_or,monday_or,ATR causal rolling percentile,atr_pct_bucket,2822,5,False,True,atr
+gbpusd_monday_or,monday_or,Prior-quarter range width,prior_q_width_q,2822,1,True,False,other
+gbpusd_monday_or,monday_or,London OR width vs ATR,london_or_width,2822,1,True,False,other
+gbpusd_monday_or,monday_or,Monday session range vs ATR,monday_range_pct,2822,4,True,False,other
+gbpusd_monday_or,monday_or,Yearly ORB direction,yor_dir,2822,5,True,False,htf_orb
+gbpusd_monday_or,monday_or,Monthly OR direction,mor_dir,2822,5,True,False,htf_orb
+gbpusd_monday_or,monday_or,Prior quarter type,prior_q_type,2822,5,True,False,htf_quarter
+gbpusd_monday_or,monday_or,Weekly ATR trend vs trade,w_atr_align,2822,2,True,False,htf_weekly_trend
+audjpy_monday_or,monday_or,Day of week,dow,2749,4,True,False,calendar
+audjpy_monday_or,monday_or,Week of month,week_of_month,2749,5,True,False,calendar
+audjpy_monday_or,monday_or,Entry hour (NY),hour_ny,2749,24,True,False,calendar
+audjpy_monday_or,monday_or,Month,month,2749,12,True,False,calendar
+audjpy_monday_or,monday_or,5m MA vs trade,ma5_align,2749,2,True,False,ma_opposition
+audjpy_monday_or,monday_or,5m MA cross vs trade,ma5_cross_align,2749,3,True,False,other
+audjpy_monday_or,monday_or,Hourly RSI bucket,rsi_bucket,2749,5,True,False,momentum_rsi
+audjpy_monday_or,monday_or,Hourly RSI vs trade,rsi_align,2749,3,True,False,momentum_rsi
+audjpy_monday_or,monday_or,Hourly OBV vs trade,obv_align,2749,2,True,False,other
+audjpy_monday_or,monday_or,ATR14 quartile,atr_q,2749,5,False,True,atr
+audjpy_monday_or,monday_or,Prior-day range half,day_half_align,2749,2,True,False,prior_range
+audjpy_monday_or,monday_or,Prior-week range half,week_half_align,2749,2,True,False,prior_range
+audjpy_monday_or,monday_or,Prior-month range half,month_half_align,2749,3,True,False,other
+audjpy_monday_or,monday_or,Prior-day range percentile,prior_day_range_pct,2749,4,True,False,other
+audjpy_monday_or,monday_or,ATR causal rolling percentile,atr_pct_bucket,2749,5,False,True,atr
+audjpy_monday_or,monday_or,Prior-quarter range width,prior_q_width_q,2749,1,True,False,other
+audjpy_monday_or,monday_or,London OR width vs ATR,london_or_width,2749,1,True,False,other
+audjpy_monday_or,monday_or,Monday session range vs ATR,monday_range_pct,2749,4,True,False,other
+audjpy_monday_or,monday_or,Yearly ORB direction,yor_dir,2749,5,True,False,htf_orb
+audjpy_monday_or,monday_or,Monthly OR direction,mor_dir,2749,5,True,False,htf_orb
+audjpy_monday_or,monday_or,Prior quarter type,prior_q_type,2749,5,True,False,htf_quarter
+audjpy_monday_or,monday_or,Weekly ATR trend vs trade,w_atr_align,2749,2,True,False,htf_weekly_trend
+xauusd_monday_or,monday_or,Day of week,dow,3968,4,True,False,calendar
+xauusd_monday_or,monday_or,Week of month,week_of_month,3968,5,True,False,calendar
+xauusd_monday_or,monday_or,Entry hour (NY),hour_ny,3968,24,True,False,calendar
+xauusd_monday_or,monday_or,Month,month,3968,12,True,False,calendar
+xauusd_monday_or,monday_or,5m MA vs trade,ma5_align,3968,2,True,False,ma_opposition
+xauusd_monday_or,monday_or,5m MA cross vs trade,ma5_cross_align,3968,3,True,False,other
+xauusd_monday_or,monday_or,Hourly RSI bucket,rsi_bucket,3968,5,True,False,momentum_rsi
+xauusd_monday_or,monday_or,Hourly RSI vs trade,rsi_align,3968,3,True,False,momentum_rsi
+xauusd_monday_or,monday_or,Hourly OBV vs trade,obv_align,3968,2,True,False,other
+xauusd_monday_or,monday_or,ATR14 quartile,atr_q,3968,5,False,True,atr
+xauusd_monday_or,monday_or,Prior-day range half,day_half_align,3968,2,True,False,prior_range
+xauusd_monday_or,monday_or,Prior-week range half,week_half_align,3968,2,True,False,prior_range
+xauusd_monday_or,monday_or,Prior-month range half,month_half_align,3968,3,True,False,other
+xauusd_monday_or,monday_or,Prior-day range percentile,prior_day_range_pct,3968,4,True,False,other
+xauusd_monday_or,monday_or,ATR causal rolling percentile,atr_pct_bucket,3968,5,False,True,atr
+xauusd_monday_or,monday_or,Prior-quarter range width,prior_q_width_q,3968,1,True,False,other
+xauusd_monday_or,monday_or,London OR width vs ATR,london_or_width,3968,1,True,False,other
+xauusd_monday_or,monday_or,Monday session range vs ATR,monday_range_pct,3968,4,True,False,other
+xauusd_monday_or,monday_or,Yearly ORB direction,yor_dir,3968,5,True,False,htf_orb
+xauusd_monday_or,monday_or,Monthly OR direction,mor_dir,3968,5,True,False,htf_orb
+xauusd_monday_or,monday_or,Prior quarter type,prior_q_type,3968,5,True,False,htf_quarter
+xauusd_monday_or,monday_or,Weekly ATR trend vs trade,w_atr_align,3968,2,True,False,htf_weekly_trend
+usdjpy_asia_range,asia_range,Day of week,dow,861,5,True,False,calendar
+usdjpy_asia_range,asia_range,Week of month,week_of_month,861,5,True,False,calendar
+usdjpy_asia_range,asia_range,Entry hour (NY),hour_ny,861,9,True,False,calendar
+usdjpy_asia_range,asia_range,Month,month,861,11,True,False,calendar
+usdjpy_asia_range,asia_range,5m MA vs trade,ma5_align,861,2,True,False,ma_opposition
+usdjpy_asia_range,asia_range,5m MA cross vs trade,ma5_cross_align,861,3,True,False,other
+usdjpy_asia_range,asia_range,Hourly RSI bucket,rsi_bucket,861,5,True,False,momentum_rsi
+usdjpy_asia_range,asia_range,Hourly RSI vs trade,rsi_align,861,3,True,False,momentum_rsi
+usdjpy_asia_range,asia_range,Hourly OBV vs trade,obv_align,861,2,True,False,other
+usdjpy_asia_range,asia_range,ATR14 quartile,atr_q,861,4,False,True,atr
+usdjpy_asia_range,asia_range,Prior-day range half,day_half_align,861,2,True,False,prior_range
+usdjpy_asia_range,asia_range,Prior-week range half,week_half_align,861,2,True,False,prior_range
+usdjpy_asia_range,asia_range,Prior-month range half,month_half_align,861,2,True,False,other
+usdjpy_asia_range,asia_range,Prior-day range percentile,prior_day_range_pct,861,3,True,False,other
+usdjpy_asia_range,asia_range,ATR causal rolling percentile,atr_pct_bucket,861,4,False,True,atr
+usdjpy_asia_range,asia_range,Prior-quarter range width,prior_q_width_q,861,1,True,False,other
+usdjpy_asia_range,asia_range,London OR width vs ATR,london_or_width,861,3,True,False,other
+usdjpy_asia_range,asia_range,Monday session range vs ATR,monday_range_pct,861,1,True,False,other
+usdjpy_asia_range,asia_range,Yearly ORB direction,yor_dir,861,5,True,False,htf_orb
+usdjpy_asia_range,asia_range,Monthly OR direction,mor_dir,861,5,True,False,htf_orb
+usdjpy_asia_range,asia_range,Prior quarter type,prior_q_type,861,4,True,False,htf_quarter
+usdjpy_asia_range,asia_range,Weekly ATR trend vs trade,w_atr_align,861,2,True,False,htf_weekly_trend
+eurusd_v2b_ungated,v2b,Day of week,dow,2383,5,True,False,calendar
+eurusd_v2b_ungated,v2b,Week of month,week_of_month,2383,5,True,False,calendar
+eurusd_v2b_ungated,v2b,Entry hour (NY),hour_ny,2383,7,True,False,calendar
+eurusd_v2b_ungated,v2b,Month,month,2383,12,True,False,calendar
+eurusd_v2b_ungated,v2b,5m MA vs trade,ma5_align,2383,2,True,False,ma_opposition
+eurusd_v2b_ungated,v2b,5m MA cross vs trade,ma5_cross_align,2383,3,True,False,other
+eurusd_v2b_ungated,v2b,Hourly RSI bucket,rsi_bucket,2383,5,True,False,momentum_rsi
+eurusd_v2b_ungated,v2b,Hourly RSI vs trade,rsi_align,2383,3,True,False,momentum_rsi
+eurusd_v2b_ungated,v2b,Hourly OBV vs trade,obv_align,2383,2,True,False,other
+eurusd_v2b_ungated,v2b,ATR14 quartile,atr_q,2383,4,False,True,atr
+eurusd_v2b_ungated,v2b,Prior-day range half,day_half_align,2383,2,True,False,prior_range
+eurusd_v2b_ungated,v2b,Prior-week range half,week_half_align,2383,2,True,False,prior_range
+eurusd_v2b_ungated,v2b,Prior-month range half,month_half_align,2383,2,True,False,other
+eurusd_v2b_ungated,v2b,Prior-day range percentile,prior_day_range_pct,2383,3,True,False,other
+eurusd_v2b_ungated,v2b,ATR causal rolling percentile,atr_pct_bucket,2383,4,False,True,atr
+eurusd_v2b_ungated,v2b,Prior-quarter range width,prior_q_width_q,2383,1,True,False,other
+eurusd_v2b_ungated,v2b,London OR width vs ATR,london_or_width,2383,3,True,False,other
+eurusd_v2b_ungated,v2b,Monday session range vs ATR,monday_range_pct,2383,1,True,False,other
+eurusd_v2b_ungated,v2b,Yearly ORB direction,yor_dir,2383,5,True,False,htf_orb
+eurusd_v2b_ungated,v2b,Monthly OR direction,mor_dir,2383,5,True,False,htf_orb
+eurusd_v2b_ungated,v2b,Prior quarter type,prior_q_type,2383,4,True,False,htf_quarter
+eurusd_v2b_ungated,v2b,Weekly ATR trend vs trade,w_atr_align,2383,2,True,False,htf_weekly_trend
+nas100_v2b_london,v2b,Day of week,dow,1618,5,True,False,calendar
+nas100_v2b_london,v2b,Week of month,week_of_month,1618,5,True,False,calendar
+nas100_v2b_london,v2b,Entry hour (NY),hour_ny,1618,9,True,False,calendar
+nas100_v2b_london,v2b,Month,month,1618,12,True,False,calendar
+nas100_v2b_london,v2b,5m MA vs trade,ma5_align,1618,2,True,False,ma_opposition
+nas100_v2b_london,v2b,5m MA cross vs trade,ma5_cross_align,1618,3,True,False,other
+nas100_v2b_london,v2b,Hourly RSI bucket,rsi_bucket,1618,5,True,False,momentum_rsi
+nas100_v2b_london,v2b,Hourly RSI vs trade,rsi_align,1618,3,True,False,momentum_rsi
+nas100_v2b_london,v2b,Hourly OBV vs trade,obv_align,1618,1,True,False,other
+nas100_v2b_london,v2b,ATR14 quartile,atr_q,1618,4,False,True,atr
+nas100_v2b_london,v2b,Prior-day range half,day_half_align,1618,2,True,False,prior_range
+nas100_v2b_london,v2b,Prior-week range half,week_half_align,1618,2,True,False,prior_range
+nas100_v2b_london,v2b,Prior-month range half,month_half_align,1618,2,True,False,other
+nas100_v2b_london,v2b,Prior-day range percentile,prior_day_range_pct,1618,3,True,False,other
+nas100_v2b_london,v2b,ATR causal rolling percentile,atr_pct_bucket,1618,4,False,True,atr
+nas100_v2b_london,v2b,Prior-quarter range width,prior_q_width_q,1618,1,True,False,other
+nas100_v2b_london,v2b,London OR width vs ATR,london_or_width,1618,3,True,False,other
+nas100_v2b_london,v2b,Monday session range vs ATR,monday_range_pct,1618,1,True,False,other
+nas100_v2b_london,v2b,Yearly ORB direction,yor_dir,1618,4,True,False,htf_orb
+nas100_v2b_london,v2b,Monthly OR direction,mor_dir,1618,5,True,False,htf_orb
+nas100_v2b_london,v2b,Prior quarter type,prior_q_type,1618,3,True,False,htf_quarter
+nas100_v2b_london,v2b,Weekly ATR trend vs trade,w_atr_align,1618,2,True,False,htf_weekly_trend
+us30_london_prior_opposed,london_prior,Day of week,dow,300,5,True,False,calendar
+us30_london_prior_opposed,london_prior,Week of month,week_of_month,300,5,True,False,calendar
+us30_london_prior_opposed,london_prior,Entry hour (NY),hour_ny,300,9,True,False,calendar
+us30_london_prior_opposed,london_prior,Month,month,300,12,True,False,calendar
+us30_london_prior_opposed,london_prior,5m MA vs trade,ma5_align,300,3,True,False,ma_opposition
+us30_london_prior_opposed,london_prior,5m MA cross vs trade,ma5_cross_align,300,3,True,False,other
+us30_london_prior_opposed,london_prior,Hourly RSI bucket,rsi_bucket,300,5,True,False,momentum_rsi
+us30_london_prior_opposed,london_prior,Hourly RSI vs trade,rsi_align,300,3,True,False,momentum_rsi
+us30_london_prior_opposed,london_prior,Hourly OBV vs trade,obv_align,300,1,True,False,other
+us30_london_prior_opposed,london_prior,ATR14 quartile,atr_q,300,4,False,True,atr
+us30_london_prior_opposed,london_prior,Prior-day range half,day_half_align,300,2,True,False,prior_range
+us30_london_prior_opposed,london_prior,Prior-week range half,week_half_align,300,2,True,False,prior_range
+us30_london_prior_opposed,london_prior,Prior-month range half,month_half_align,300,2,True,False,other
+us30_london_prior_opposed,london_prior,Prior-day range percentile,prior_day_range_pct,300,3,True,False,other
+us30_london_prior_opposed,london_prior,ATR causal rolling percentile,atr_pct_bucket,300,4,False,True,atr
+us30_london_prior_opposed,london_prior,Prior-quarter range width,prior_q_width_q,300,1,True,False,other
+us30_london_prior_opposed,london_prior,London OR width vs ATR,london_or_width,300,3,True,False,other
+us30_london_prior_opposed,london_prior,Monday session range vs ATR,monday_range_pct,300,1,True,False,other
+us30_london_prior_opposed,london_prior,Yearly ORB direction,yor_dir,300,4,True,False,htf_orb
+us30_london_prior_opposed,london_prior,Monthly OR direction,mor_dir,300,5,True,False,htf_orb
+us30_london_prior_opposed,london_prior,Prior quarter type,prior_q_type,300,4,True,False,htf_quarter
+us30_london_prior_opposed,london_prior,Weekly ATR trend vs trade,w_atr_align,300,2,True,False,htf_weekly_trend
+eurusd_st_pmc_3r,st_pmc,Day of week,dow,865,6,True,False,calendar
+eurusd_st_pmc_3r,st_pmc,Week of month,week_of_month,865,5,True,False,calendar
+eurusd_st_pmc_3r,st_pmc,Entry hour (NY),hour_ny,865,24,True,False,calendar
+eurusd_st_pmc_3r,st_pmc,Month,month,865,12,True,False,calendar
+eurusd_st_pmc_3r,st_pmc,5m MA vs trade,ma5_align,865,2,True,False,ma_opposition
+eurusd_st_pmc_3r,st_pmc,5m MA cross vs trade,ma5_cross_align,865,3,True,False,other
+eurusd_st_pmc_3r,st_pmc,Hourly RSI bucket,rsi_bucket,865,5,True,False,momentum_rsi
+eurusd_st_pmc_3r,st_pmc,Hourly RSI vs trade,rsi_align,865,3,True,False,momentum_rsi
+eurusd_st_pmc_3r,st_pmc,Hourly OBV vs trade,obv_align,865,2,True,False,other
+eurusd_st_pmc_3r,st_pmc,ATR14 quartile,atr_q,865,4,False,True,atr
+eurusd_st_pmc_3r,st_pmc,Prior-day range half,day_half_align,865,2,True,False,prior_range
+eurusd_st_pmc_3r,st_pmc,Prior-week range half,week_half_align,865,2,True,False,prior_range
+eurusd_st_pmc_3r,st_pmc,Prior-month range half,month_half_align,865,2,True,False,other
+eurusd_st_pmc_3r,st_pmc,Prior-day range percentile,prior_day_range_pct,865,4,True,False,other
+eurusd_st_pmc_3r,st_pmc,ATR causal rolling percentile,atr_pct_bucket,865,5,False,True,atr
+eurusd_st_pmc_3r,st_pmc,Prior-quarter range width,prior_q_width_q,865,1,True,False,other
+eurusd_st_pmc_3r,st_pmc,London OR width vs ATR,london_or_width,865,1,True,False,other
+eurusd_st_pmc_3r,st_pmc,Monday session range vs ATR,monday_range_pct,865,1,True,False,other
+eurusd_st_pmc_3r,st_pmc,Yearly ORB direction,yor_dir,865,5,True,False,htf_orb
+eurusd_st_pmc_3r,st_pmc,Monthly OR direction,mor_dir,865,5,True,False,htf_orb
+eurusd_st_pmc_3r,st_pmc,Prior quarter type,prior_q_type,865,5,True,False,htf_quarter
+eurusd_st_pmc_3r,st_pmc,Weekly ATR trend vs trade,w_atr_align,865,2,True,False,htf_weekly_trend
+gbpusd_st_pmc_3r,st_pmc,Day of week,dow,1025,6,True,False,calendar
+gbpusd_st_pmc_3r,st_pmc,Week of month,week_of_month,1025,5,True,False,calendar
+gbpusd_st_pmc_3r,st_pmc,Entry hour (NY),hour_ny,1025,24,True,False,calendar
+gbpusd_st_pmc_3r,st_pmc,Month,month,1025,12,True,False,calendar
+gbpusd_st_pmc_3r,st_pmc,5m MA vs trade,ma5_align,1025,2,True,False,ma_opposition
+gbpusd_st_pmc_3r,st_pmc,5m MA cross vs trade,ma5_cross_align,1025,3,True,False,other
+gbpusd_st_pmc_3r,st_pmc,Hourly RSI bucket,rsi_bucket,1025,5,True,False,momentum_rsi
+gbpusd_st_pmc_3r,st_pmc,Hourly RSI vs trade,rsi_align,1025,3,True,False,momentum_rsi
+gbpusd_st_pmc_3r,st_pmc,Hourly OBV vs trade,obv_align,1025,2,True,False,other
+gbpusd_st_pmc_3r,st_pmc,ATR14 quartile,atr_q,1025,4,False,True,atr
+gbpusd_st_pmc_3r,st_pmc,Prior-day range half,day_half_align,1025,2,True,False,prior_range
+gbpusd_st_pmc_3r,st_pmc,Prior-week range half,week_half_align,1025,2,True,False,prior_range
+gbpusd_st_pmc_3r,st_pmc,Prior-month range half,month_half_align,1025,2,True,False,other
+gbpusd_st_pmc_3r,st_pmc,Prior-day range percentile,prior_day_range_pct,1025,4,True,False,other
+gbpusd_st_pmc_3r,st_pmc,ATR causal rolling percentile,atr_pct_bucket,1025,5,False,True,atr
+gbpusd_st_pmc_3r,st_pmc,Prior-quarter range width,prior_q_width_q,1025,1,True,False,other
+gbpusd_st_pmc_3r,st_pmc,London OR width vs ATR,london_or_width,1025,1,True,False,other
+gbpusd_st_pmc_3r,st_pmc,Monday session range vs ATR,monday_range_pct,1025,1,True,False,other
+gbpusd_st_pmc_3r,st_pmc,Yearly ORB direction,yor_dir,1025,5,True,False,htf_orb
+gbpusd_st_pmc_3r,st_pmc,Monthly OR direction,mor_dir,1025,5,True,False,htf_orb
+gbpusd_st_pmc_3r,st_pmc,Prior quarter type,prior_q_type,1025,5,True,False,htf_quarter
+gbpusd_st_pmc_3r,st_pmc,Weekly ATR trend vs trade,w_atr_align,1025,2,True,False,htf_weekly_trend
+usdjpy_st_pmc_3r,st_pmc,Day of week,dow,869,6,True,False,calendar
+usdjpy_st_pmc_3r,st_pmc,Week of month,week_of_month,869,5,True,False,calendar
+usdjpy_st_pmc_3r,st_pmc,Entry hour (NY),hour_ny,869,24,True,False,calendar
+usdjpy_st_pmc_3r,st_pmc,Month,month,869,12,True,False,calendar
+usdjpy_st_pmc_3r,st_pmc,5m MA vs trade,ma5_align,869,2,True,False,ma_opposition
+usdjpy_st_pmc_3r,st_pmc,5m MA cross vs trade,ma5_cross_align,869,3,True,False,other
+usdjpy_st_pmc_3r,st_pmc,Hourly RSI bucket,rsi_bucket,869,5,True,False,momentum_rsi
+usdjpy_st_pmc_3r,st_pmc,Hourly RSI vs trade,rsi_align,869,3,True,False,momentum_rsi
+usdjpy_st_pmc_3r,st_pmc,Hourly OBV vs trade,obv_align,869,2,True,False,other
+usdjpy_st_pmc_3r,st_pmc,ATR14 quartile,atr_q,869,4,False,True,atr
+usdjpy_st_pmc_3r,st_pmc,Prior-day range half,day_half_align,869,2,True,False,prior_range
+usdjpy_st_pmc_3r,st_pmc,Prior-week range half,week_half_align,869,2,True,False,prior_range
+usdjpy_st_pmc_3r,st_pmc,Prior-month range half,month_half_align,869,2,True,False,other
+usdjpy_st_pmc_3r,st_pmc,Prior-day range percentile,prior_day_range_pct,869,4,True,False,other
+usdjpy_st_pmc_3r,st_pmc,ATR causal rolling percentile,atr_pct_bucket,869,5,False,True,atr
+usdjpy_st_pmc_3r,st_pmc,Prior-quarter range width,prior_q_width_q,869,1,True,False,other
+usdjpy_st_pmc_3r,st_pmc,London OR width vs ATR,london_or_width,869,1,True,False,other
+usdjpy_st_pmc_3r,st_pmc,Monday session range vs ATR,monday_range_pct,869,1,True,False,other
+usdjpy_st_pmc_3r,st_pmc,Yearly ORB direction,yor_dir,869,5,True,False,htf_orb
+usdjpy_st_pmc_3r,st_pmc,Monthly OR direction,mor_dir,869,5,True,False,htf_orb
+usdjpy_st_pmc_3r,st_pmc,Prior quarter type,prior_q_type,869,5,True,False,htf_quarter
+usdjpy_st_pmc_3r,st_pmc,Weekly ATR trend vs trade,w_atr_align,869,2,True,False,htf_weekly_trend
+audjpy_st_pmc_3r,st_pmc,Day of week,dow,850,6,True,False,calendar
+audjpy_st_pmc_3r,st_pmc,Week of month,week_of_month,850,5,True,False,calendar
+audjpy_st_pmc_3r,st_pmc,Entry hour (NY),hour_ny,850,24,True,False,calendar
+audjpy_st_pmc_3r,st_pmc,Month,month,850,12,True,False,calendar
+audjpy_st_pmc_3r,st_pmc,5m MA vs trade,ma5_align,850,2,True,False,ma_opposition
+audjpy_st_pmc_3r,st_pmc,5m MA cross vs trade,ma5_cross_align,850,3,True,False,other
+audjpy_st_pmc_3r,st_pmc,Hourly RSI bucket,rsi_bucket,850,5,True,False,momentum_rsi
+audjpy_st_pmc_3r,st_pmc,Hourly RSI vs trade,rsi_align,850,3,True,False,momentum_rsi
+audjpy_st_pmc_3r,st_pmc,Hourly OBV vs trade,obv_align,850,2,True,False,other
+audjpy_st_pmc_3r,st_pmc,ATR14 quartile,atr_q,850,4,False,True,atr
+audjpy_st_pmc_3r,st_pmc,Prior-day range half,day_half_align,850,2,True,False,prior_range
+audjpy_st_pmc_3r,st_pmc,Prior-week range half,week_half_align,850,2,True,False,prior_range
+audjpy_st_pmc_3r,st_pmc,Prior-month range half,month_half_align,850,2,True,False,other
+audjpy_st_pmc_3r,st_pmc,Prior-day range percentile,prior_day_range_pct,850,4,True,False,other
+audjpy_st_pmc_3r,st_pmc,ATR causal rolling percentile,atr_pct_bucket,850,5,False,True,atr
+audjpy_st_pmc_3r,st_pmc,Prior-quarter range width,prior_q_width_q,850,1,True,False,other
+audjpy_st_pmc_3r,st_pmc,London OR width vs ATR,london_or_width,850,1,True,False,other
+audjpy_st_pmc_3r,st_pmc,Monday session range vs ATR,monday_range_pct,850,1,True,False,other
+audjpy_st_pmc_3r,st_pmc,Yearly ORB direction,yor_dir,850,5,True,False,htf_orb
+audjpy_st_pmc_3r,st_pmc,Monthly OR direction,mor_dir,850,5,True,False,htf_orb
+audjpy_st_pmc_3r,st_pmc,Prior quarter type,prior_q_type,850,5,True,False,htf_quarter
+audjpy_st_pmc_3r,st_pmc,Weekly ATR trend vs trade,w_atr_align,850,2,True,False,htf_weekly_trend
+nas100_st_pmc_3r,st_pmc,Day of week,dow,477,6,True,False,calendar
+nas100_st_pmc_3r,st_pmc,Week of month,week_of_month,477,5,True,False,calendar
+nas100_st_pmc_3r,st_pmc,Entry hour (NY),hour_ny,477,22,True,False,calendar
+nas100_st_pmc_3r,st_pmc,Month,month,477,12,True,False,calendar
+nas100_st_pmc_3r,st_pmc,5m MA vs trade,ma5_align,477,2,True,False,ma_opposition
+nas100_st_pmc_3r,st_pmc,5m MA cross vs trade,ma5_cross_align,477,3,True,False,other
+nas100_st_pmc_3r,st_pmc,Hourly RSI bucket,rsi_bucket,477,5,True,False,momentum_rsi
+nas100_st_pmc_3r,st_pmc,Hourly RSI vs trade,rsi_align,477,3,True,False,momentum_rsi
+nas100_st_pmc_3r,st_pmc,Hourly OBV vs trade,obv_align,477,1,True,False,other
+nas100_st_pmc_3r,st_pmc,ATR14 quartile,atr_q,477,4,False,True,atr
+nas100_st_pmc_3r,st_pmc,Prior-day range half,day_half_align,477,2,True,False,prior_range
+nas100_st_pmc_3r,st_pmc,Prior-week range half,week_half_align,477,2,True,False,prior_range
+nas100_st_pmc_3r,st_pmc,Prior-month range half,month_half_align,477,2,True,False,other
+nas100_st_pmc_3r,st_pmc,Prior-day range percentile,prior_day_range_pct,477,4,True,False,other
+nas100_st_pmc_3r,st_pmc,ATR causal rolling percentile,atr_pct_bucket,477,5,False,True,atr
+nas100_st_pmc_3r,st_pmc,Prior-quarter range width,prior_q_width_q,477,1,True,False,other
+nas100_st_pmc_3r,st_pmc,London OR width vs ATR,london_or_width,477,1,True,False,other
+nas100_st_pmc_3r,st_pmc,Monday session range vs ATR,monday_range_pct,477,1,True,False,other
+nas100_st_pmc_3r,st_pmc,Yearly ORB direction,yor_dir,477,4,True,False,htf_orb
+nas100_st_pmc_3r,st_pmc,Monthly OR direction,mor_dir,477,5,True,False,htf_orb
+nas100_st_pmc_3r,st_pmc,Prior quarter type,prior_q_type,477,5,True,False,htf_quarter
+nas100_st_pmc_3r,st_pmc,Weekly ATR trend vs trade,w_atr_align,477,2,True,False,htf_weekly_trend
+us30_st_pmc_3r,st_pmc,Day of week,dow,578,6,True,False,calendar
+us30_st_pmc_3r,st_pmc,Week of month,week_of_month,578,5,True,False,calendar
+us30_st_pmc_3r,st_pmc,Entry hour (NY),hour_ny,578,23,True,False,calendar
+us30_st_pmc_3r,st_pmc,Month,month,578,12,True,False,calendar
+us30_st_pmc_3r,st_pmc,5m MA vs trade,ma5_align,578,2,True,False,ma_opposition
+us30_st_pmc_3r,st_pmc,5m MA cross vs trade,ma5_cross_align,578,3,True,False,other
+us30_st_pmc_3r,st_pmc,Hourly RSI bucket,rsi_bucket,578,5,True,False,momentum_rsi
+us30_st_pmc_3r,st_pmc,Hourly RSI vs trade,rsi_align,578,3,True,False,momentum_rsi
+us30_st_pmc_3r,st_pmc,Hourly OBV vs trade,obv_align,578,1,True,False,other
+us30_st_pmc_3r,st_pmc,ATR14 quartile,atr_q,578,4,False,True,atr
+us30_st_pmc_3r,st_pmc,Prior-day range half,day_half_align,578,2,True,False,prior_range
+us30_st_pmc_3r,st_pmc,Prior-week range half,week_half_align,578,2,True,False,prior_range
+us30_st_pmc_3r,st_pmc,Prior-month range half,month_half_align,578,2,True,False,other
+us30_st_pmc_3r,st_pmc,Prior-day range percentile,prior_day_range_pct,578,4,True,False,other
+us30_st_pmc_3r,st_pmc,ATR causal rolling percentile,atr_pct_bucket,578,5,False,True,atr
+us30_st_pmc_3r,st_pmc,Prior-quarter range width,prior_q_width_q,578,1,True,False,other
+us30_st_pmc_3r,st_pmc,London OR width vs ATR,london_or_width,578,1,True,False,other
+us30_st_pmc_3r,st_pmc,Monday session range vs ATR,monday_range_pct,578,1,True,False,other
+us30_st_pmc_3r,st_pmc,Yearly ORB direction,yor_dir,578,4,True,False,htf_orb
+us30_st_pmc_3r,st_pmc,Monthly OR direction,mor_dir,578,5,True,False,htf_orb
+us30_st_pmc_3r,st_pmc,Prior quarter type,prior_q_type,578,5,True,False,htf_quarter
+us30_st_pmc_3r,st_pmc,Weekly ATR trend vs trade,w_atr_align,578,2,True,False,htf_weekly_trend
+xauusd_st_pmc_3r,st_pmc,Day of week,dow,169,6,True,False,calendar
+xauusd_st_pmc_3r,st_pmc,Week of month,week_of_month,169,5,True,False,calendar
+xauusd_st_pmc_3r,st_pmc,Entry hour (NY),hour_ny,169,23,True,False,calendar
+xauusd_st_pmc_3r,st_pmc,Month,month,169,12,True,False,calendar
+xauusd_st_pmc_3r,st_pmc,5m MA vs trade,ma5_align,169,2,True,False,ma_opposition
+xauusd_st_pmc_3r,st_pmc,5m MA cross vs trade,ma5_cross_align,169,3,True,False,other
+xauusd_st_pmc_3r,st_pmc,Hourly RSI bucket,rsi_bucket,169,5,True,False,momentum_rsi
+xauusd_st_pmc_3r,st_pmc,Hourly RSI vs trade,rsi_align,169,3,True,False,momentum_rsi
+xauusd_st_pmc_3r,st_pmc,Hourly OBV vs trade,obv_align,169,2,True,False,other
+xauusd_st_pmc_3r,st_pmc,ATR14 quartile,atr_q,169,4,False,True,atr
+xauusd_st_pmc_3r,st_pmc,Prior-day range half,day_half_align,169,2,True,False,prior_range
+xauusd_st_pmc_3r,st_pmc,Prior-week range half,week_half_align,169,2,True,False,prior_range
+xauusd_st_pmc_3r,st_pmc,Prior-month range half,month_half_align,169,3,True,False,other
+xauusd_st_pmc_3r,st_pmc,Prior-day range percentile,prior_day_range_pct,169,4,True,False,other
+xauusd_st_pmc_3r,st_pmc,ATR causal rolling percentile,atr_pct_bucket,169,5,False,True,atr
+xauusd_st_pmc_3r,st_pmc,Prior-quarter range width,prior_q_width_q,169,1,True,False,other
+xauusd_st_pmc_3r,st_pmc,London OR width vs ATR,london_or_width,169,1,True,False,other
+xauusd_st_pmc_3r,st_pmc,Monday session range vs ATR,monday_range_pct,169,1,True,False,other
+xauusd_st_pmc_3r,st_pmc,Yearly ORB direction,yor_dir,169,5,True,False,htf_orb
+xauusd_st_pmc_3r,st_pmc,Monthly OR direction,mor_dir,169,5,True,False,htf_orb
+xauusd_st_pmc_3r,st_pmc,Prior quarter type,prior_q_type,169,5,True,False,htf_quarter
+xauusd_st_pmc_3r,st_pmc,Weekly ATR trend vs trade,w_atr_align,169,2,True,False,htf_weekly_trend
+eurusd_quarterly_breakout,quarterly_breakout,Day of week,dow,110,6,True,False,calendar
+eurusd_quarterly_breakout,quarterly_breakout,Week of month,week_of_month,110,5,True,False,calendar
+eurusd_quarterly_breakout,quarterly_breakout,Entry hour (NY),hour_ny,110,2,True,False,calendar
+eurusd_quarterly_breakout,quarterly_breakout,Month,month,110,12,True,False,calendar
+eurusd_quarterly_breakout,quarterly_breakout,5m MA vs trade,ma5_align,110,2,True,False,ma_opposition
+eurusd_quarterly_breakout,quarterly_breakout,5m MA cross vs trade,ma5_cross_align,110,3,True,False,other
+eurusd_quarterly_breakout,quarterly_breakout,Hourly RSI bucket,rsi_bucket,110,5,True,False,momentum_rsi
+eurusd_quarterly_breakout,quarterly_breakout,Hourly RSI vs trade,rsi_align,110,3,True,False,momentum_rsi
+eurusd_quarterly_breakout,quarterly_breakout,Hourly OBV vs trade,obv_align,110,2,True,False,other
+eurusd_quarterly_breakout,quarterly_breakout,ATR14 quartile,atr_q,110,4,False,True,atr
+eurusd_quarterly_breakout,quarterly_breakout,Prior-day range half,day_half_align,110,2,True,False,prior_range
+eurusd_quarterly_breakout,quarterly_breakout,Prior-week range half,week_half_align,110,1,True,False,prior_range
+eurusd_quarterly_breakout,quarterly_breakout,Prior-month range half,month_half_align,110,1,True,False,other
+eurusd_quarterly_breakout,quarterly_breakout,Prior-day range percentile,prior_day_range_pct,110,4,True,False,other
+eurusd_quarterly_breakout,quarterly_breakout,ATR causal rolling percentile,atr_pct_bucket,110,5,False,True,atr
+eurusd_quarterly_breakout,quarterly_breakout,Prior-quarter range width,prior_q_width_q,110,5,True,False,other
+eurusd_quarterly_breakout,quarterly_breakout,London OR width vs ATR,london_or_width,110,1,True,False,other
+eurusd_quarterly_breakout,quarterly_breakout,Monday session range vs ATR,monday_range_pct,110,1,True,False,other
+eurusd_quarterly_breakout,quarterly_breakout,Yearly ORB direction,yor_dir,110,5,True,False,htf_orb
+eurusd_quarterly_breakout,quarterly_breakout,Monthly OR direction,mor_dir,110,5,True,False,htf_orb
+eurusd_quarterly_breakout,quarterly_breakout,Prior quarter type,prior_q_type,110,5,True,False,htf_quarter
+eurusd_quarterly_breakout,quarterly_breakout,Weekly ATR trend vs trade,w_atr_align,110,2,True,False,htf_weekly_trend
+gbpusd_quarterly_breakout,quarterly_breakout,Day of week,dow,102,6,True,False,calendar
+gbpusd_quarterly_breakout,quarterly_breakout,Week of month,week_of_month,102,5,True,False,calendar
+gbpusd_quarterly_breakout,quarterly_breakout,Entry hour (NY),hour_ny,102,2,True,False,calendar
+gbpusd_quarterly_breakout,quarterly_breakout,Month,month,102,12,True,False,calendar
+gbpusd_quarterly_breakout,quarterly_breakout,5m MA vs trade,ma5_align,102,2,True,False,ma_opposition
+gbpusd_quarterly_breakout,quarterly_breakout,5m MA cross vs trade,ma5_cross_align,102,3,True,False,other
+gbpusd_quarterly_breakout,quarterly_breakout,Hourly RSI bucket,rsi_bucket,102,5,True,False,momentum_rsi
+gbpusd_quarterly_breakout,quarterly_breakout,Hourly RSI vs trade,rsi_align,102,3,True,False,momentum_rsi
+gbpusd_quarterly_breakout,quarterly_breakout,Hourly OBV vs trade,obv_align,102,2,True,False,other
+gbpusd_quarterly_breakout,quarterly_breakout,ATR14 quartile,atr_q,102,4,False,True,atr
+gbpusd_quarterly_breakout,quarterly_breakout,Prior-day range half,day_half_align,102,2,True,False,prior_range
+gbpusd_quarterly_breakout,quarterly_breakout,Prior-week range half,week_half_align,102,2,True,False,prior_range
+gbpusd_quarterly_breakout,quarterly_breakout,Prior-month range half,month_half_align,102,2,True,False,other
+gbpusd_quarterly_breakout,quarterly_breakout,Prior-day range percentile,prior_day_range_pct,102,3,True,False,other
+gbpusd_quarterly_breakout,quarterly_breakout,ATR causal rolling percentile,atr_pct_bucket,102,5,False,True,atr
+gbpusd_quarterly_breakout,quarterly_breakout,Prior-quarter range width,prior_q_width_q,102,5,True,False,other
+gbpusd_quarterly_breakout,quarterly_breakout,London OR width vs ATR,london_or_width,102,1,True,False,other
+gbpusd_quarterly_breakout,quarterly_breakout,Monday session range vs ATR,monday_range_pct,102,1,True,False,other
+gbpusd_quarterly_breakout,quarterly_breakout,Yearly ORB direction,yor_dir,102,5,True,False,htf_orb
+gbpusd_quarterly_breakout,quarterly_breakout,Monthly OR direction,mor_dir,102,5,True,False,htf_orb
+gbpusd_quarterly_breakout,quarterly_breakout,Prior quarter type,prior_q_type,102,5,True,False,htf_quarter
+gbpusd_quarterly_breakout,quarterly_breakout,Weekly ATR trend vs trade,w_atr_align,102,2,True,False,htf_weekly_trend
+usdjpy_quarterly_breakout,quarterly_breakout,Day of week,dow,111,6,True,False,calendar
+usdjpy_quarterly_breakout,quarterly_breakout,Week of month,week_of_month,111,5,True,False,calendar
+usdjpy_quarterly_breakout,quarterly_breakout,Entry hour (NY),hour_ny,111,2,True,False,calendar
+usdjpy_quarterly_breakout,quarterly_breakout,Month,month,111,12,True,False,calendar
+usdjpy_quarterly_breakout,quarterly_breakout,5m MA vs trade,ma5_align,111,2,True,False,ma_opposition
+usdjpy_quarterly_breakout,quarterly_breakout,5m MA cross vs trade,ma5_cross_align,111,3,True,False,other
+usdjpy_quarterly_breakout,quarterly_breakout,Hourly RSI bucket,rsi_bucket,111,5,True,False,momentum_rsi
+usdjpy_quarterly_breakout,quarterly_breakout,Hourly RSI vs trade,rsi_align,111,3,True,False,momentum_rsi
+usdjpy_quarterly_breakout,quarterly_breakout,Hourly OBV vs trade,obv_align,111,2,True,False,other
+usdjpy_quarterly_breakout,quarterly_breakout,ATR14 quartile,atr_q,111,4,False,True,atr
+usdjpy_quarterly_breakout,quarterly_breakout,Prior-day range half,day_half_align,111,2,True,False,prior_range
+usdjpy_quarterly_breakout,quarterly_breakout,Prior-week range half,week_half_align,111,2,True,False,prior_range
+usdjpy_quarterly_breakout,quarterly_breakout,Prior-month range half,month_half_align,111,1,True,False,other
+usdjpy_quarterly_breakout,quarterly_breakout,Prior-day range percentile,prior_day_range_pct,111,3,True,False,other
+usdjpy_quarterly_breakout,quarterly_breakout,ATR causal rolling percentile,atr_pct_bucket,111,5,False,True,atr
+usdjpy_quarterly_breakout,quarterly_breakout,Prior-quarter range width,prior_q_width_q,111,5,True,False,other
+usdjpy_quarterly_breakout,quarterly_breakout,London OR width vs ATR,london_or_width,111,1,True,False,other
+usdjpy_quarterly_breakout,quarterly_breakout,Monday session range vs ATR,monday_range_pct,111,1,True,False,other
+usdjpy_quarterly_breakout,quarterly_breakout,Yearly ORB direction,yor_dir,111,5,True,False,htf_orb
+usdjpy_quarterly_breakout,quarterly_breakout,Monthly OR direction,mor_dir,111,5,True,False,htf_orb
+usdjpy_quarterly_breakout,quarterly_breakout,Prior quarter type,prior_q_type,111,5,True,False,htf_quarter
+usdjpy_quarterly_breakout,quarterly_breakout,Weekly ATR trend vs trade,w_atr_align,111,2,True,False,htf_weekly_trend
+audjpy_quarterly_breakout,quarterly_breakout,Day of week,dow,117,6,True,False,calendar
+audjpy_quarterly_breakout,quarterly_breakout,Week of month,week_of_month,117,5,True,False,calendar
+audjpy_quarterly_breakout,quarterly_breakout,Entry hour (NY),hour_ny,117,2,True,False,calendar
+audjpy_quarterly_breakout,quarterly_breakout,Month,month,117,12,True,False,calendar
+audjpy_quarterly_breakout,quarterly_breakout,5m MA vs trade,ma5_align,117,2,True,False,ma_opposition
+audjpy_quarterly_breakout,quarterly_breakout,5m MA cross vs trade,ma5_cross_align,117,3,True,False,other
+audjpy_quarterly_breakout,quarterly_breakout,Hourly RSI bucket,rsi_bucket,117,5,True,False,momentum_rsi
+audjpy_quarterly_breakout,quarterly_breakout,Hourly RSI vs trade,rsi_align,117,3,True,False,momentum_rsi
+audjpy_quarterly_breakout,quarterly_breakout,Hourly OBV vs trade,obv_align,117,2,True,False,other
+audjpy_quarterly_breakout,quarterly_breakout,ATR14 quartile,atr_q,117,4,False,True,atr
+audjpy_quarterly_breakout,quarterly_breakout,Prior-day range half,day_half_align,117,1,True,False,prior_range
+audjpy_quarterly_breakout,quarterly_breakout,Prior-week range half,week_half_align,117,2,True,False,prior_range
+audjpy_quarterly_breakout,quarterly_breakout,Prior-month range half,month_half_align,117,2,True,False,other
+audjpy_quarterly_breakout,quarterly_breakout,Prior-day range percentile,prior_day_range_pct,117,4,True,False,other
+audjpy_quarterly_breakout,quarterly_breakout,ATR causal rolling percentile,atr_pct_bucket,117,5,False,True,atr
+audjpy_quarterly_breakout,quarterly_breakout,Prior-quarter range width,prior_q_width_q,117,5,True,False,other
+audjpy_quarterly_breakout,quarterly_breakout,London OR width vs ATR,london_or_width,117,1,True,False,other
+audjpy_quarterly_breakout,quarterly_breakout,Monday session range vs ATR,monday_range_pct,117,1,True,False,other
+audjpy_quarterly_breakout,quarterly_breakout,Yearly ORB direction,yor_dir,117,5,True,False,htf_orb
+audjpy_quarterly_breakout,quarterly_breakout,Monthly OR direction,mor_dir,117,5,True,False,htf_orb
+audjpy_quarterly_breakout,quarterly_breakout,Prior quarter type,prior_q_type,117,5,True,False,htf_quarter
+audjpy_quarterly_breakout,quarterly_breakout,Weekly ATR trend vs trade,w_atr_align,117,2,True,False,htf_weekly_trend
+xauusd_quarterly_breakout,quarterly_breakout,Day of week,dow,113,6,True,False,calendar
+xauusd_quarterly_breakout,quarterly_breakout,Week of month,week_of_month,113,5,True,False,calendar
+xauusd_quarterly_breakout,quarterly_breakout,Entry hour (NY),hour_ny,113,2,True,False,calendar
+xauusd_quarterly_breakout,quarterly_breakout,Month,month,113,12,True,False,calendar
+xauusd_quarterly_breakout,quarterly_breakout,5m MA vs trade,ma5_align,113,2,True,False,ma_opposition
+xauusd_quarterly_breakout,quarterly_breakout,5m MA cross vs trade,ma5_cross_align,113,3,True,False,other
+xauusd_quarterly_breakout,quarterly_breakout,Hourly RSI bucket,rsi_bucket,113,5,True,False,momentum_rsi
+xauusd_quarterly_breakout,quarterly_breakout,Hourly RSI vs trade,rsi_align,113,3,True,False,momentum_rsi
+xauusd_quarterly_breakout,quarterly_breakout,Hourly OBV vs trade,obv_align,113,2,True,False,other
+xauusd_quarterly_breakout,quarterly_breakout,ATR14 quartile,atr_q,113,4,False,True,atr
+xauusd_quarterly_breakout,quarterly_breakout,Prior-day range half,day_half_align,113,2,True,False,prior_range
+xauusd_quarterly_breakout,quarterly_breakout,Prior-week range half,week_half_align,113,2,True,False,prior_range
+xauusd_quarterly_breakout,quarterly_breakout,Prior-month range half,month_half_align,113,2,True,False,other
+xauusd_quarterly_breakout,quarterly_breakout,Prior-day range percentile,prior_day_range_pct,113,3,True,False,other
+xauusd_quarterly_breakout,quarterly_breakout,ATR causal rolling percentile,atr_pct_bucket,113,4,False,True,atr
+xauusd_quarterly_breakout,quarterly_breakout,Prior-quarter range width,prior_q_width_q,113,5,True,False,other
+xauusd_quarterly_breakout,quarterly_breakout,London OR width vs ATR,london_or_width,113,1,True,False,other
+xauusd_quarterly_breakout,quarterly_breakout,Monday session range vs ATR,monday_range_pct,113,1,True,False,other
+xauusd_quarterly_breakout,quarterly_breakout,Yearly ORB direction,yor_dir,113,5,True,False,htf_orb
+xauusd_quarterly_breakout,quarterly_breakout,Monthly OR direction,mor_dir,113,5,True,False,htf_orb
+xauusd_quarterly_breakout,quarterly_breakout,Prior quarter type,prior_q_type,113,5,True,False,htf_quarter
+xauusd_quarterly_breakout,quarterly_breakout,Weekly ATR trend vs trade,w_atr_align,113,2,True,False,htf_weekly_trend
+xagusd_quarterly_breakout,quarterly_breakout,Day of week,dow,108,6,True,False,calendar
+xagusd_quarterly_breakout,quarterly_breakout,Week of month,week_of_month,108,5,True,False,calendar
+xagusd_quarterly_breakout,quarterly_breakout,Entry hour (NY),hour_ny,108,2,True,False,calendar
+xagusd_quarterly_breakout,quarterly_breakout,Month,month,108,12,True,False,calendar
+xagusd_quarterly_breakout,quarterly_breakout,5m MA vs trade,ma5_align,108,2,True,False,ma_opposition
+xagusd_quarterly_breakout,quarterly_breakout,5m MA cross vs trade,ma5_cross_align,108,3,True,False,other
+xagusd_quarterly_breakout,quarterly_breakout,Hourly RSI bucket,rsi_bucket,108,5,True,False,momentum_rsi
+xagusd_quarterly_breakout,quarterly_breakout,Hourly RSI vs trade,rsi_align,108,3,True,False,momentum_rsi
+xagusd_quarterly_breakout,quarterly_breakout,Hourly OBV vs trade,obv_align,108,2,True,False,other
+xagusd_quarterly_breakout,quarterly_breakout,ATR14 quartile,atr_q,108,4,False,True,atr
+xagusd_quarterly_breakout,quarterly_breakout,Prior-day range half,day_half_align,108,2,True,False,prior_range
+xagusd_quarterly_breakout,quarterly_breakout,Prior-week range half,week_half_align,108,1,True,False,prior_range
+xagusd_quarterly_breakout,quarterly_breakout,Prior-month range half,month_half_align,108,2,True,False,other
+xagusd_quarterly_breakout,quarterly_breakout,Prior-day range percentile,prior_day_range_pct,108,4,True,False,other
+xagusd_quarterly_breakout,quarterly_breakout,ATR causal rolling percentile,atr_pct_bucket,108,5,False,True,atr
+xagusd_quarterly_breakout,quarterly_breakout,Prior-quarter range width,prior_q_width_q,108,5,True,False,other
+xagusd_quarterly_breakout,quarterly_breakout,London OR width vs ATR,london_or_width,108,1,True,False,other
+xagusd_quarterly_breakout,quarterly_breakout,Monday session range vs ATR,monday_range_pct,108,1,True,False,other
+xagusd_quarterly_breakout,quarterly_breakout,Yearly ORB direction,yor_dir,108,5,True,False,htf_orb
+xagusd_quarterly_breakout,quarterly_breakout,Monthly OR direction,mor_dir,108,5,True,False,htf_orb
+xagusd_quarterly_breakout,quarterly_breakout,Prior quarter type,prior_q_type,108,5,True,False,htf_quarter
+xagusd_quarterly_breakout,quarterly_breakout,Weekly ATR trend vs trade,w_atr_align,108,2,True,False,htf_weekly_trend
+us30_quarterly_breakout,quarterly_breakout,Day of week,dow,48,6,True,False,calendar
+us30_quarterly_breakout,quarterly_breakout,Week of month,week_of_month,48,5,True,False,calendar
+us30_quarterly_breakout,quarterly_breakout,Entry hour (NY),hour_ny,48,2,True,False,calendar
+us30_quarterly_breakout,quarterly_breakout,Month,month,48,12,True,False,calendar
+us30_quarterly_breakout,quarterly_breakout,5m MA vs trade,ma5_align,48,2,True,False,ma_opposition
+us30_quarterly_breakout,quarterly_breakout,5m MA cross vs trade,ma5_cross_align,48,3,True,False,other
+us30_quarterly_breakout,quarterly_breakout,Hourly RSI bucket,rsi_bucket,48,4,True,False,momentum_rsi
+us30_quarterly_breakout,quarterly_breakout,Hourly RSI vs trade,rsi_align,48,2,True,False,momentum_rsi
+us30_quarterly_breakout,quarterly_breakout,Hourly OBV vs trade,obv_align,48,1,True,False,other
+us30_quarterly_breakout,quarterly_breakout,ATR14 quartile,atr_q,48,4,False,True,atr
+us30_quarterly_breakout,quarterly_breakout,Prior-day range half,day_half_align,48,1,True,False,prior_range
+us30_quarterly_breakout,quarterly_breakout,Prior-week range half,week_half_align,48,1,True,False,prior_range
+us30_quarterly_breakout,quarterly_breakout,Prior-month range half,month_half_align,48,2,True,False,other
+us30_quarterly_breakout,quarterly_breakout,Prior-day range percentile,prior_day_range_pct,48,3,True,False,other
+us30_quarterly_breakout,quarterly_breakout,ATR causal rolling percentile,atr_pct_bucket,48,4,False,True,atr
+us30_quarterly_breakout,quarterly_breakout,Prior-quarter range width,prior_q_width_q,48,5,True,False,other
+us30_quarterly_breakout,quarterly_breakout,London OR width vs ATR,london_or_width,48,1,True,False,other
+us30_quarterly_breakout,quarterly_breakout,Monday session range vs ATR,monday_range_pct,48,1,True,False,other
+us30_quarterly_breakout,quarterly_breakout,Yearly ORB direction,yor_dir,48,4,True,False,htf_orb
+us30_quarterly_breakout,quarterly_breakout,Monthly OR direction,mor_dir,48,5,True,False,htf_orb
+us30_quarterly_breakout,quarterly_breakout,Prior quarter type,prior_q_type,48,5,True,False,htf_quarter
+us30_quarterly_breakout,quarterly_breakout,Weekly ATR trend vs trade,w_atr_align,48,2,True,False,htf_weekly_trend
+nas100_quarterly_breakout,quarterly_breakout,Day of week,dow,49,6,True,False,calendar
+nas100_quarterly_breakout,quarterly_breakout,Week of month,week_of_month,49,5,True,False,calendar
+nas100_quarterly_breakout,quarterly_breakout,Entry hour (NY),hour_ny,49,2,True,False,calendar
+nas100_quarterly_breakout,quarterly_breakout,Month,month,49,11,True,False,calendar
+nas100_quarterly_breakout,quarterly_breakout,5m MA vs trade,ma5_align,49,2,True,False,ma_opposition
+nas100_quarterly_breakout,quarterly_breakout,5m MA cross vs trade,ma5_cross_align,49,1,True,False,other
+nas100_quarterly_breakout,quarterly_breakout,Hourly RSI bucket,rsi_bucket,49,5,True,False,momentum_rsi
+nas100_quarterly_breakout,quarterly_breakout,Hourly RSI vs trade,rsi_align,49,3,True,False,momentum_rsi
+nas100_quarterly_breakout,quarterly_breakout,Hourly OBV vs trade,obv_align,49,1,True,False,other
+nas100_quarterly_breakout,quarterly_breakout,ATR14 quartile,atr_q,49,4,False,True,atr
+nas100_quarterly_breakout,quarterly_breakout,Prior-day range half,day_half_align,49,1,True,False,prior_range
+nas100_quarterly_breakout,quarterly_breakout,Prior-week range half,week_half_align,49,1,True,False,prior_range
+nas100_quarterly_breakout,quarterly_breakout,Prior-month range half,month_half_align,49,2,True,False,other
+nas100_quarterly_breakout,quarterly_breakout,Prior-day range percentile,prior_day_range_pct,49,4,True,False,other
+nas100_quarterly_breakout,quarterly_breakout,ATR causal rolling percentile,atr_pct_bucket,49,5,False,True,atr
+nas100_quarterly_breakout,quarterly_breakout,Prior-quarter range width,prior_q_width_q,49,5,True,False,other
+nas100_quarterly_breakout,quarterly_breakout,London OR width vs ATR,london_or_width,49,1,True,False,other
+nas100_quarterly_breakout,quarterly_breakout,Monday session range vs ATR,monday_range_pct,49,1,True,False,other
+nas100_quarterly_breakout,quarterly_breakout,Yearly ORB direction,yor_dir,49,4,True,False,htf_orb
+nas100_quarterly_breakout,quarterly_breakout,Monthly OR direction,mor_dir,49,5,True,False,htf_orb
+nas100_quarterly_breakout,quarterly_breakout,Prior quarter type,prior_q_type,49,5,True,False,htf_quarter
+nas100_quarterly_breakout,quarterly_breakout,Weekly ATR trend vs trade,w_atr_align,49,2,True,False,htf_weekly_trend

@@ -1,0 +1,52 @@
+strategy_book,feature,feature_value,coverage,size_multiplier,filter_or_sizeup,causal_eligibility
+es_prior_opposed_legacy,ST-event age,st_age_gt180m,0.27755102040816326,2.0,sizeup,live_ready
+es_prior_opposed_legacy,Prior-week range half,week_aligned,0.8040816326530612,2.0,sizeup,live_ready
+es_prior_opposed_legacy,Prior RTH range percentile,prior_range_exp,0.3836734693877551,2.0,sizeup,live_ready
+es_prior_opposed_legacy,5m MA vs trade,ma_na,1.0,2.0,sizeup,live_ready
+es_prior_opposed_legacy,Hourly RSI bucket,rsi_na,1.0,2.0,sizeup,live_ready
+es_prior_opposed_legacy,Hourly RSI vs trade,rsi_na,1.0,2.0,sizeup,live_ready
+es_prior_opposed_legacy,Overnight range third,na,1.0,2.0,sizeup,live_ready
+es_prior_opposed_legacy,Overnight VWAP side,na,1.0,2.0,sizeup,live_ready
+es_prior_opposed_legacy,Gap direction,na,1.0,2.0,sizeup,live_ready
+es_prior_opposed_legacy,Overnight compression,na,1.0,2.0,sizeup,live_ready
+es_prior_opposed_legacy,Opening 15m range vs ATR,na,1.0,2.0,sizeup,live_ready
+es_prior_opposed_legacy,Opening 15m direction vs trade,na,1.0,2.0,sizeup,live_ready
+es_prior_opposed_legacy,RTH VWAP side,na,1.0,2.0,sizeup,live_ready
+es_prior_opposed_legacy,Opening 15m volume percentile,na,1.0,2.0,sizeup,live_ready
+es_prior_opposed_legacy,ST-event direction vs trade,st_dir_na,1.0,2.0,sizeup,live_ready
+es_prior_opposed_legacy,Post-holiday session,not_post_holiday,0.9306122448979591,2.0,sizeup,live_ready
+es_prior_opposed_legacy,Contract-roll week,not_roll_week,0.9183673469387755,2.0,sizeup,live_ready
+es_prior_opposed_legacy,ATR14 quartile,atr_q1,0.2530612244897959,2.0,sizeup,needs_rolling_proxy
+es_prior_opposed_legacy,Cross-index direction agreement,all_agree,0.763265306122449,2.0,sizeup,live_ready
+es_prior_opposed_legacy,Week of month,1,0.2938775510204082,2.0,sizeup,live_ready
+es_prior_opposed_legacy,Prior RTH close location,prior_close_mid_third,0.24897959183673468,2.0,sizeup,live_ready
+es_prior_opposed_legacy,Prior-day range half,day_aligned,0.7387755102040816,2.0,sizeup,live_ready
+es_prior_opposed_legacy,ST-event age,st_age_30_90m,0.2897959183673469,2.0,sizeup,live_ready
+es_prior_opposed_legacy,ATR causal rolling percentile,atr_p75_100,0.27755102040816326,2.0,sizeup,needs_rolling_proxy
+es_prior_opposed_legacy,Entry hour (NY),10,0.2938775510204082,2.0,sizeup,live_ready
+es_prior_opposed_legacy,Week of month,2,0.22857142857142856,2.0,sizeup,live_ready
+es_prior_opposed_legacy,ATR14 quartile,atr_q2,0.24897959183673468,2.0,sizeup,needs_rolling_proxy
+es_prior_opposed_legacy,NQ-ES dispersion,disp_mid,0.2979591836734694,2.0,sizeup,live_ready
+es_prior_opposed_legacy,Prior RTH close location,prior_close_low_third,0.2979591836734694,2.0,sizeup,live_ready
+es_prior_opposed_legacy,Prior RTH range percentile,prior_range_norm,0.2979591836734694,2.0,sizeup,live_ready
+es_prior_opposed_legacy,ATR causal rolling percentile,atr_p50_75,0.24489795918367346,2.0,sizeup,needs_rolling_proxy
+es_prior_opposed_legacy,Prior RTH close location,prior_close_high_third,0.4530612244897959,2.0,sizeup,live_ready
+es_prior_opposed_legacy,ATR14 quartile,atr_q4,0.24897959183673468,2.0,sizeup,needs_rolling_proxy
+es_prior_opposed_legacy,Day of week,Friday,0.24489795918367346,2.0,sizeup,live_ready
+es_prior_opposed_legacy,ATR causal rolling percentile,atr_p25_50,0.19591836734693877,2.0,sizeup,needs_rolling_proxy
+es_prior_opposed_legacy,Week of month,4,0.18775510204081633,2.0,sizeup,live_ready
+es_prior_opposed_legacy,NQ-ES dispersion,disp_high,0.4326530612244898,2.0,sizeup,live_ready
+es_prior_opposed_legacy,Prior-day range half,day_opposed,0.2612244897959184,2.0,sizeup,live_ready
+es_prior_opposed_legacy,NQ-ES dispersion,disp_low,0.2693877551020408,2.0,sizeup,live_ready
+es_prior_opposed_legacy,ATR14 quartile,atr_q3,0.24897959183673468,2.0,sizeup,needs_rolling_proxy
+es_prior_opposed_legacy,Day of week,Wednesday,0.1836734693877551,2.0,sizeup,live_ready
+es_prior_opposed_legacy,Day of week,Thursday,0.22448979591836735,2.0,sizeup,live_ready
+es_prior_opposed_legacy,ST-event age,st_age_90_180m,0.18775510204081633,2.0,sizeup,live_ready
+es_prior_opposed_legacy,Prior-week range half,week_opposed,0.19591836734693877,2.0,sizeup,live_ready
+es_prior_opposed_legacy,Cross-index direction agreement,mixed,0.23673469387755103,2.0,sizeup,live_ready
+es_prior_opposed_legacy,Day of week,Tuesday,0.20408163265306123,2.0,sizeup,live_ready
+es_prior_opposed_legacy,Prior RTH range percentile,prior_range_comp,0.3183673469387755,2.0,sizeup,live_ready
+es_prior_opposed_legacy,ATR causal rolling percentile,atr_p0_25,0.2816326530612245,2.0,sizeup,needs_rolling_proxy
+es_prior_opposed_legacy,Entry hour (NY),9,0.24081632653061225,2.0,sizeup,live_ready
+es_prior_opposed_legacy,ST-event age,st_age_lt30m,0.24489795918367346,2.0,sizeup,live_ready
+es_prior_opposed_legacy,Week of month,3,0.20816326530612245,2.0,sizeup,live_ready

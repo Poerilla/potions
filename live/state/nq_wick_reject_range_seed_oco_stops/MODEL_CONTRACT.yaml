@@ -1,0 +1,8 @@
+model: nq_wick_reject_range_seed_oco_stops
+created: 2026-08-30
+seed: "4h WICK_REJECT; range = confirm candle high/low"
+entry: "OCO buy-stop @ high / sell-stop @ low from available_at"
+same_bar_dual_touch: "skip (no fill)"
+stop: "opposite boundary ±1 tick"
+targets: "0.5W / 1.0W / 2.0W with 50/25/25"
+contrast_hub: nq_wick_reject_range_seed_retest

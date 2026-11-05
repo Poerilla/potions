@@ -1,0 +1,15 @@
+strategy_book,feature,feature_value,coverage,size_multiplier,filter_or_sizeup,causal_eligibility
+ym_chop20_boundary60_1m,Prior-week range half,week_aligned,0.1836734693877551,1.25,sizeup,live_ready
+ym_chop20_boundary60_1m,5m MA vs trade,ma_opposed,0.3673469387755102,1.25,sizeup,live_ready
+ym_chop20_boundary60_1m,Week of month,1,0.22448979591836735,1.25,sizeup,live_ready
+ym_chop20_boundary60_1m,ATR14 quartile,atr_q1,0.25510204081632654,1.25,sizeup,needs_rolling_proxy
+ym_chop20_boundary60_1m,Week of month,4,0.14285714285714285,1.25,sizeup,live_ready
+ym_chop20_boundary60_1m,Hourly RSI bucket,rsi_55_70,0.32653061224489793,1.25,sizeup,live_ready
+ym_chop20_boundary60_1m,Hourly OBV vs trade,obv_opposed,0.1836734693877551,1.25,sizeup,live_ready
+ym_chop20_boundary60_1m,Prior-day range half,day_opposed,0.8673469387755102,1.25,sizeup,live_ready
+ym_chop20_boundary60_1m,Day of week,Monday,0.17346938775510204,1.25,sizeup,live_ready
+ym_chop20_boundary60_1m,Hourly RSI vs trade,rsi_with_side,0.826530612244898,1.25,sizeup,live_ready
+ym_chop20_boundary60_1m,ATR14 quartile,atr_q4,0.25510204081632654,1.25,sizeup,needs_rolling_proxy
+ym_chop20_boundary60_1m,Day of week,Thursday,0.20408163265306123,1.25,sizeup,live_ready
+ym_chop20_boundary60_1m,Day of week,Tuesday,0.19387755102040816,1.25,sizeup,live_ready
+ym_chop20_boundary60_1m,5m MA cross vs trade,cross_none,0.9081632653061225,1.25,sizeup,live_ready

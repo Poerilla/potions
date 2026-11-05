@@ -1,0 +1,20 @@
+demo,alive,pid,hb_min,open,rest,stop_n,tp_n,entry_n,flags,last
+audjpy_yearly_orb_oanda,True,2402602.0,0.1,0.0,0,0,0,0,ok,[2026-08-19T13:22:58] heartbeat bars=7079 last_day=2026-08-18 open_positions=0 orders=0 routing=True
+eurusd_hourly_st_pmc_sl50_tp150_3r_oanda,True,2407745.0,0.6,0.0,0,0,0,0,ok,[2026-08-19T13:22:28] heartbeat ticks=60330 bars_1m=1396 bars_1h=25 orders=0 open_positions=0 oanda_fills=0 variant=sl50
+eurusd_hourly_st_pmc_sl50_tp150_runners_2r_10r_oanda,True,2407818.0,1.5,0.0,0,0,0,0,ok,[2026-08-19T13:21:33] heartbeat ticks=65577 bars_1m=1510 bars_1h=26 orders=0 open_positions=0 oanda_fills=0 variant=sl50
+eurusd_v2b_ungated_oanda,False,,11346.6,0.0,0,0,0,0,NO_PID|STALE_HB,[2026-08-11T16:16:28] STOPPED ticks=726561 ticks_logged=267636 bars_persisted=17465 bars_engine=4964 oanda_fills=33 reco
+eurusd_yearly_orb_oanda,True,2402737.0,4.5,0.0,0,0,0,0,ok,[2026-08-19T13:18:31] heartbeat bars=7263 last_day=2026-08-18 open_positions=0 orders=0 routing=True
+nas100_hourly_st_pmc_sl50_tp150_3r_oanda,True,2407603.0,0.6,0.0,3,0,0,3,LOCAL_ORPHAN_ORDERS,"[2026-08-19T13:22:29] containment bracket_watchdog class=orphan_protective actions=detect:orphan_protective,shadow_would"
+nas100_hourly_st_pmc_sl50_tp150_runners_2r_10r_oanda,True,2407674.0,1.5,2.0,0,0,0,0,OPEN_NO_BRACKET|OPEN_NO_STOP,"[2026-08-19T13:21:33] containment bracket_watchdog class=open_without_brackets actions=detect:open_without_brackets,shad"
+nas100_v2b_ungated_oanda,True,2407985.0,0.8,0.0,1,0,0,1,LOCAL_ORPHAN_ORDERS,"[2026-08-19T13:22:17] containment bracket_watchdog class=orphan_protective actions=detect:orphan_protective,shadow_would"
+spx500_v2b_ungated_oanda,True,2408056.0,2.2,0.0,0,0,0,0,ok,[2026-08-19T13:20:49] heartbeat ticks_logged=14165 bars_persisted=912 bars_engine=230 orders=0 open_positions=0 pos_qty=
+us30_hourly_st_pmc_sl50_tp150_3r_oanda,True,2407460.0,0.3,0.0,5,0,0,5,LOCAL_ORPHAN_ORDERS,"[2026-08-19T13:22:45] containment bracket_watchdog class=orphan_protective actions=detect:orphan_protective,shadow_would"
+us30_hourly_st_pmc_sl50_tp150_runners_2r_10r_oanda,True,2407532.0,0.1,0.0,6,0,0,6,LOCAL_ORPHAN_ORDERS,[2026-08-19T13:22:58] RECONNECT sleeping 60.0s after stream_open failure
+us30_london_prior_opposed_oanda,True,2407390.0,1.0,0.0,0,0,0,0,ok,[2026-08-19T13:22:02] heartbeat ticks=0 bars=580 st_injects=0 orders=0 position_qty=0 size_mult=0.25
+us30_monday_or_m3_s3_r2_half_oanda,True,2407920.0,0.2,0.0,0,0,0,0,ok,"[2026-08-19T13:22:49] containment bracket_watchdog class=orphan_protective actions=detect:orphan_protective,shadow_would"
+us30_v2b_ungated_oanda,False,,9769.1,0.0,0,0,0,0,NO_PID|STALE_HB,[2026-08-12T18:33:56] STOPPED ticks=82 ticks_logged=0 bars_persisted=7 bars_engine=0 oanda_fills=0 reconnect_attempts=2
+us30_yearly_orb_oanda,True,2402873.0,1.0,0.0,0,0,0,0,ok,[2026-08-19T13:22:01] heartbeat bars=2726 last_day=2026-08-18 open_positions=0 orders=0 routing=True
+usdjpy_asia_range_london_oanda,True,2407313.0,3.8,0.0,0,0,0,0,ok,[2026-08-19T13:19:17] heartbeat ticks=115359 bars_1m=1512 orders=0 open_positions=0 asia_bars=480 book=S_3_1_3
+usdjpy_monday_or_ungated_oanda,True,2407231.0,0.8,0.0,0,0,0,0,ok,[2026-08-19T13:22:15] heartbeat ticks=116608 bars_1m=1516 bars_15m=102 orders=0 open_positions=0 oanda_fills=0 tag=M2_S3
+xagusd_yearly_orb_oanda,True,2402806.0,3.2,0.0,0,0,0,0,ok,[2026-08-19T13:19:50] heartbeat bars=7141 last_day=2026-08-18 open_positions=0 orders=0 routing=True
+xauusd_yearly_orb_oanda,True,2402668.0,4.9,0.0,0,0,0,0,ok,[2026-08-19T13:18:10] heartbeat bars=7227 last_day=2026-08-18 open_positions=0 orders=0 routing=True

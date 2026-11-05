@@ -1,0 +1,67 @@
+potions: OANDA adherence + orphans (2026-08-19 17:24Z)
+
+Hubs:
+- live/demo/oanda_practice_snapshot/REPORT.md
+- live/demo/ADHERENCE_INVENTORY_TODAY.csv
+- live/demo/ADHERENCE_ISSUES.md (append)
+
+=== ACCOUNT ===
+NAV ~$100,915 | balance ~$100,608 | unreal ~$307 | openTrades=2 pending=19
+LIVE position: NAS100 +2 @ 29335.4 owned by nas100_hourly_st_pmc_…_runners_2r_10r_oanda
+Local↔owned: OK on all mapped demos (no foreign bleed).
+
+=== DAEMONS ===
+OANDA demos: 17/19 alive.
+DOWN (no pid / stale): eurusd_v2b_ungated_oanda, us30_v2b_ungated_oanda (stopped Aug 11–12).
+Heartbeats: alive books fresh (<5m) except yearly ORBs ~3–5m (normal).
+
+=== OPEN BOOK ADHERENCE ===
+nas100 runners: local qty=+2 matches broker.
+Broker trade-linked protectives (adherent 2R/10R geometry):
+  SL 29285.6 (−50) ×2, TP 29635.6 (+300) + TP 30835.6 (+1500)
+FLAG: local orders.csv has 0 working rows (OPEN_NO_BRACKET locally) while broker SL/TP exist —
+  containment shadow: open_without_brackets ×102 (would freeze entries only).
+
+=== BROKER ORPHAN ORDERS (still live) ===
+19 pending = 4 trade-linked SL/TP (OK) + 15 entry-style residuals:
+
+US30 orphan entry LIMITs (flat on US30): 11
+  ids 1709,1711,1712,1714,1725,1728,1729,1730,1757,1759,1761
+  onFill SL=−50; TP in {150,300,1500} — ST+PMC-shaped entry orphans
+
+NAS100 extra entry LIMITs @ 29335.4 (while already +2): 3
+  ids 1756,1758,1760 — onFill SL−50 / TP+150 (3R-shaped) — risk of size-up if filled
+
+NAS100 bare STOP qty=3 @ 29672.5: id 1719 — orphan / stray
+
+Aug-18 mass-cancel cleared 53; orphans have regrown (now 15 entry-style).
+
+=== PREVENTED / CONTAINMENT (shadow — detect only) ===
+POTIONS_OANDA_CONTAINMENT=shadow → would-cancel / would-freeze logged, NOT executed on broker.
+
+Digest totals (today session, cumulative detections):
+  us30_monday_or_m3_s3_r2_half_oanda: orphan_protective 369
+  us30_…_3r_oanda: orphan_protective 141
+  nas100_…_3r_oanda: orphan_protective 115
+  nas100_v2b_ungated_oanda: orphan_protective 105 + stop_only 13
+  us30_…_runners: orphan_protective 63
+  nas100_…_runners: open_without_brackets 102 + orphan_protective 39
+  spx500_v2b: stop_only 26 + orphan_protective 2
+  eurusd ST+PMC: stream_stale 34 (prior session)
+
+Reconnect paths also log shadow_would_cancel_orphan_protectives + stream_reconciled_ok
+(USDJPY MonOR / Asia / US30 MonOR) — prevention intent only while shadow.
+
+=== LOCAL ORPHAN ORDER CSVs (flat demos with resting locals) ===
+  nas100_…_3r_oanda rest=3 entry
+  nas100_v2b_ungated_oanda rest=1 entry
+  us30_…_3r_oanda rest=5 entry
+  us30_…_runners rest=6 entry
+Containment repeatedly flags these as orphan_protective (shadow would-cancel).
+
+=== VERDICT ===
+Positions ownership OK. Open NAS100 runners brackets OK on broker.
+Main risk: 15 broker orphan entry LIMITs/STOP (esp. 11 US30 + 3 NAS100 add-on LIMITs).
+Containment is watching but not cancelling (shadow).
+Ask if you want another orphan mass-cancel or flip containment to live for cancel-on-detect.
+

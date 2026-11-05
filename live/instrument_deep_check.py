@@ -996,6 +996,7 @@ def run_deep_check(
     prior_opposed: bool = False,
     force: bool = True,
     email: bool = False,
+    charts: bool = True,
 ) -> Path:
     paths = _resolve_paths(state_root, output_root, label)
     if force and paths.output_root.exists():
@@ -1046,7 +1047,8 @@ def run_deep_check(
     for name, table in quartiles.items():
         table.to_csv(paths.output_root / ("%s.csv" % name.lower().replace(" ", "_")), index=False)
 
-    write_plots(paths.output_root, campaigns, rolling, paths.label)
+    if charts:
+        write_plots(paths.output_root, campaigns, rolling, paths.label)
     write_yearly_md(paths, yearly, timing)
     write_robustness_md(
         paths, campaigns, yearly, rolling, unit_contrib, stop_audit, recovery, quartiles, timing, prior_opposed
@@ -1131,6 +1133,7 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
     ap.add_argument("--prior-opposed", action="store_true", help="Include gap/OR quartile sections when columns exist")
     ap.add_argument("--no-force", action="store_true")
     ap.add_argument("--email", action="store_true")
+    ap.add_argument("--no-charts", action="store_true")
     args = ap.parse_args(list(argv) if argv is not None else None)
     run_deep_check(
         args.state_root,
@@ -1139,6 +1142,7 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
         prior_opposed=args.prior_opposed,
         force=not args.no_force,
         email=args.email,
+        charts=not args.no_charts,
     )
     return 0
 

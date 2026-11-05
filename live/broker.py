@@ -480,7 +480,16 @@ class PaperBroker(BaseBroker):
                 touched = bar.high >= order.limit_price
             if not touched:
                 return None
-            # Limit fills at the limit; with quotes, buys cannot fill above ask and sells below bid.
+            # A resting target is entitled to its limit, not the completed bar's
+            # close. Using bid/ask close here gave research exits price improvement
+            # that cannot be established from OHLC ordering.
+            if order.reduce_only or str(order.bracket_role or "").lower() in {
+                "target",
+                "tp1",
+                "tp2",
+            }:
+                return order.limit_price
+            # Entry limits retain quote-side price improvement semantics.
             if quotes:
                 if order.side == "buy":
                     if float(bar.ask_low) > order.limit_price:

@@ -521,9 +521,8 @@ class V2BScaleoutStrategy(StrategyPlugin):
         return month in months
 
     def _shadow_nets(self, state: Dict[str, Any]) -> List[float]:
-        nets = list(state.get("shadow_campaigns") or [])
-        if nets:
-            return [float(x) for x in nets]
+        # File is source of truth when configured — otherwise sit-out appends never
+        # reach the gate (state keeps the original seed forever).
         path = str(self.config.get("shadow_campaigns_path") or "").strip()
         if path:
             try:
@@ -535,6 +534,9 @@ class V2BScaleoutStrategy(StrategyPlugin):
                     return loaded
             except Exception:
                 pass
+        nets = list(state.get("shadow_campaigns") or [])
+        if nets:
+            return [float(x) for x in nets]
         seed = self.config.get("shadow_campaigns_seed") or []
         out: List[float] = []
         for x in seed:

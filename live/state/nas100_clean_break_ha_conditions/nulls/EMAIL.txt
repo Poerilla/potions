@@ -1,0 +1,12 @@
+potions: NAS100 clean-break HA nulls complete
+
+Hub: /home/tester/hsm/potions/live/state/nas100_clean_break_ha_conditions/nulls
+Pairs: 7
+
+  Day of week=Monday | RISK THROTTLE | ΔN/S=+0.70 hp=22%
+  Week of month=1 | RISK THROTTLE | ΔN/S=+0.60 hp=23%
+  Entry month=April | NOT VALIDATED | ΔN/S=+0.58 hp=7%
+  Week of month=4 | NOT VALIDATED | ΔN/S=+0.39 hp=23%
+  Entry month=August | NOT VALIDATED | ΔN/S=+0.28 hp=9%
+  5m MA cross vs trade=cross_aligned | NOT VALIDATED | ΔN/S=+0.03 hp=6%
+  Week of month=5 | NOT VALIDATED | ΔN/S=+0.00 hp=8%

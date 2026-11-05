@@ -1,0 +1,17 @@
+{
+  "tape": "through 2026-10-11",
+  "guard_violations_rows": 0,
+  "filled_campaigns": 484,
+  "entry_fill_after_confirming_bar": "484 / 484 filled (580 armed incl. unfilled)",
+  "entry_fill_not_after_examples": [],
+  "entry_gate_rows_checked": 595294,
+  "st_gate_available_by_arm_bar": "1114 / 1114 gate snapshots referencing a prior opposite ST event (0 violations across all 595294 evaluations)",
+  "st_gate_source": "st_resting_limit_hour_complete (live_after_ts + 1h)",
+  "st_gate_bad_examples": [],
+  "opening_range_rows_checked": 297647,
+  "opening_range_finalized_before_arm": "297647 / 297647",
+  "opening_range_bad_examples": [],
+  "or_norm_trades": 137,
+  "or_norm_entries_before_0945": 0,
+  "or_norm_earliest_entry_time": "09:45:00"
+}

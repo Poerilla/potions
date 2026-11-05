@@ -1,0 +1,12 @@
+primary_entry_side,confirmation_class,outcome_bin,n
+long,ALREADY_CONFIRMED,loss_or_flat,13
+long,ALREADY_CONFIRMED,win,4
+long,NO_CONFIRM,loss_or_flat,6
+long,NO_CONFIRM,win,4
+long,PEER_LEVEL_UNAVAILABLE,loss_or_flat,6
+long,PEER_LEVEL_UNAVAILABLE,win,4
+short,ALREADY_CONFIRMED,loss_or_flat,4
+short,ALREADY_CONFIRMED,win,3
+short,NO_CONFIRM,loss_or_flat,6
+short,NO_CONFIRM,win,3
+short,PEER_LEVEL_UNAVAILABLE,loss_or_flat,3

@@ -1,0 +1,8 @@
+strategy_book,feature,feature_value,coverage,size_multiplier,filter_or_sizeup,causal_eligibility
+nas100_wod_od_half_eow_bull_hivol,Week of month,1,0.22277227722772278,1.25,sizeup,live_ready
+nas100_wod_od_half_eow_bull_hivol,Hourly RSI bucket,rsi_55_70,0.36633663366336633,1.25,sizeup,live_ready
+nas100_wod_od_half_eow_bull_hivol,ATR14 quartile,atr_q3,0.24752475247524752,1.25,sizeup,needs_rolling_proxy
+nas100_wod_od_half_eow_bull_hivol,ATR14 quartile,atr_q4,0.2524752475247525,1.25,sizeup,needs_rolling_proxy
+nas100_wod_od_half_eow_bull_hivol,Entry hour (NY),12,0.13861386138613863,1.25,sizeup,live_ready
+nas100_wod_od_half_eow_bull_hivol,Day of week,Thursday,0.1485148514851485,1.25,sizeup,live_ready
+nas100_wod_od_half_eow_bull_hivol,Day of week,Wednesday,0.2079207920792079,1.25,sizeup,live_ready

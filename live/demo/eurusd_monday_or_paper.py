@@ -55,6 +55,7 @@ from .oanda_v2b_ungated_common import (
     run_meta_path,
     state_root_for,
 )
+from .singleton import EXIT_REFUSED, claim_runtime
 
 INSTRUMENT = "EURUSD"
 STRATEGY_ID = "eurusd_monday_or_m1_s2_r2_half_paper"
@@ -342,6 +343,14 @@ def run_stream_loop(
         append_progress(output_root, "REFUSING non-practice OANDA_ENV=%s" % config.env)
         return 2
 
+    if not claim_runtime(
+        strategy_id=STRATEGY_ID,
+        output_root=output_root,
+        account_id=str(config.account_id or ""),
+        instrument=INSTRUMENT,
+        routes_orders=False,
+    ):
+        return EXIT_REFUSED
     runner = MondayOrPaperRunner(output_root=output_root, config=config)
     meta = write_run_meta(output_root, config=config)
     pidfile_path(output_root).write_text(str(os.getpid()) + "\n", encoding="utf-8")

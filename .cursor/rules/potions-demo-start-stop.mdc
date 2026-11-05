@@ -1,0 +1,10 @@
+---
+description: Every live/demo daemon start, stop, or restart goes through the potions-demo-start-stop skill
+alwaysApply: true
+---
+
+# Demo daemon start / stop / restart
+
+Before starting, stopping, restarting, or relaunching any `live/demo` daemon (OANDA practice or paper), read and follow `.cursor/skills/potions-demo-start-stop/SKILL.md`. Run the broker-flat pre-flight, use `demo-restart` for restarts, and run `demo-singleton-audit` before and after.
+
+Never delete `pidfile` / `daemon.lock` / `live/demo/.locks/*`, and never `kill` + `--daemon` as a restart.

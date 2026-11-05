@@ -42,6 +42,8 @@ PAIRS: Dict[str, Dict[str, object]] = {
     "EURUSD": dict(tick=0.00001, quote="USD", pv=100_000.0),
     "GBPUSD": dict(tick=0.00001, quote="USD", pv=100_000.0),
     "USDJPY": dict(tick=0.001, quote="JPY", pv=100_000.0),
+    # CME 6J: tick 0.0000005 = $6.25. Same Monday OR tag as USDJPY.
+    "6J": dict(tick=0.0000005, quote="USD", pv=12_500_000.0),
     "AUDJPY": dict(tick=0.001, quote="JPY", pv=100_000.0),
     "XAUUSD": dict(tick=0.01, quote="USD", pv=100.0),
     "XAGUSD": dict(tick=0.001, quote="USD", pv=1000.0),

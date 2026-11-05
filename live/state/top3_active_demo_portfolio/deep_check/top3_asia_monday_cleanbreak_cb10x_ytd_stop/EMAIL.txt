@@ -1,0 +1,23 @@
+potions: TOP3 x10 year-target stop
+
+Hub: live/state/top3_active_demo_portfolio/deep_check/top3_asia_monday_cleanbreak_cb10x_ytd_stop
+Book: Asia Range + Monday OR + NAS100 Clean Break x10
+State: live/state/top3_active_demo_portfolio/states/top3_asia_monday_cleanbreak_cb10x
+
+Rule: $100k compounds on the daily realized equity curve. After the first daily close already through 20%, 15%, or 10% of that year's starting equity, the rest of the calendar year is flat. The crossing day is kept. Hurdles rebuild off the stopped equity.
+
+Stance: leave the book unchanged. The stop lowers ending equity at every hurdle.
+
+Ending equity (from $100,000):
+  baseline  $693,941.78   net $593,941.78   +8.41%/year-row
+  stop 20%  $681,556.69   net $581,556.69   +8.33%    3 years locked, tail given up $12,385
+  stop 15%  $623,311.18   net $523,311.18   +7.92%    6 years locked, tail given up $70,631
+  stop 10%  $580,749.70   net $480,749.70   +7.61%   14 years locked, tail given up $113,192
+
+The years that finished near 5% had peaked below 10% of that year's starting equity. They were never 20% years. Only 2004, 2007, and 2022 printed +20%, and they finished at +21.2%, +21.6%, and +23.2%. The tape after those prints made +$244, -$329, and +$12,470.
+
+Largest giveback is 2006: peak +9.85% on 24 Mar, finish -2.18%. A 10% hurdle on the original $123,381 start does not bind (the peak was $12,157 vs a $12,338 hurdle). In the 10% book it does bind, because cutting 2004 shrinks 2006's start equity to $115,470, so the same $12,157 is +10.5%. That lock avoids a -$14,842 tail and is the only loser the rule flips. The other locks give up more than that save.
+
+Worst year stays 2003 at -3.91%. Worst year-local stress stays about -$29k. Average N/S is 1.45 baseline, 1.44 at 20%, 1.28 at 15%, 1.58 at 10%.
+
+Lock is end-of-day on equity_curve.csv (flat book, close = realized). 1,262 Monday OR / Asia fills have the exit clock before the entry clock, so the stop was not applied trade-by-trade.

@@ -1,0 +1,10 @@
+variant: touch_broken_boundary_max_age_60
+signal_tf: daily
+fill_tf: 1m
+same_bar_policy: stop_first
+entry: daily_close_plus_1tick
+stop: touch_broken_boundary
+max_range_age_bars: 60
+targets_r: [0.5, 1.0, 4.0]
+plugin: false
+dsr: TRL-2026-00176

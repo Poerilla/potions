@@ -1,0 +1,37 @@
+OANDA UP books — health + adherence (2026-09-28 16:01 EDT)
+
+## Health
+All three daemons UP. Broker flat on -003/-004/-005.
+
+### NAS100 -003
+- alive=True pid=203890 heartbeat_age≈0.2m
+- open=FLAT fills_n=26
+- last_fill: 2026-09-25T14:05:00.361978276Z sell10@close_back_into_range
+- last_progress: [2026-09-28T15:51:44] heartbeat ticks=1020580 bars_1m=5644 bars_5m=1129 orders=0 open_positions=0 oanda_fills=2 variant=trail06_m4_e2_out_be
+
+### Asia -004
+- alive=True pid=203958 heartbeat_age≈0.0m
+- open=FLAT fills_n=39
+- last_fill: 2026-09-28T14:46:23.605855061Z buy400000@runner_stop
+- last_progress: [2026-09-28T15:51:58] shadow defer session=2026-09-28 decision=take (take_await_unit_trades)
+
+### Monday -005
+- alive=True pid=204047 heartbeat_age≈3.9m
+- open=FLAT fills_n=15
+- last_fill: 2026-08-07T12:34:42.489451932Z sell2@dd50
+- last_progress: [2026-09-28T15:48:08] heartbeat ticks=561667 bars_1m=5845 bars_15m=392 orders=0 open_positions=0 oanda_fills=0 tag=M2_S3_R1
+
+## Tick → demo wiring ↔ StrategyPlugin
+- NAS100 clean-break: MATCH (33 fills)
+- USDJPY Monday OR: MATCH (12 fills)
+- USDJPY Asia-range: MATCH (73 fills)
+
+## Live fills.csv ↔ plugin on stored bars
+- nas100_v2b_clean_break_trail06_m4_e2_out_be_oanda: FUZZY liveE=2 simE=2 — ±2m side/qty ok
+- usdjpy_asia_range_london_oanda: MISMATCH liveE=4 simE=4 — same side/qty, entry clock differs (live 2026-09-25 07:13 vs sim 09:09 sell 700000)
+- usdjpy_monday_or_ungated_oanda: MATCH liveE=0 simE=0
+
+## Stance
+Tick parity MATCH on all three. Asia live↔sim is a single entry-time offset, not a rule mismatch. Monday OR still has no new live fills since Aug 7 (Monday-only). Practice check only.
+
+Gmail inbound: potions and lunapi tokens are both expired/revoked. Outbound Resend still works. Re-auth needed for potions-prompt and lunapi-prompt.

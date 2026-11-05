@@ -1,0 +1,64 @@
+LIVE/DEMO ADHERENCE UPDATE (2026-08-14 evening post-close) — no PnL
+as_of: 2026-08-15 01:35 UTC (2026-08-14 ~21:35 EDT / 01:35 UTC)
+
+Scope: daemon health, brackets, fill-reason mix, live↔sim, stream/recovery — not PnL.
+
+INVENTORY
+- 35/35 pidfiled demos UP (process alive)
+- open-without-working-orders: 0
+- stop-only opens: 0
+- foreign-instrument bleed in open rows: 0
+- PROGRESS stale >20m: 6 (see FLAGS / notes)
+
+OPEN RISK (expected shape)
+- nas100_hourly_st_pmc_sl50_tp150_runners_2r_10r_paper: long 1 @ ~29493.5 since Aug 11
+  resting runner_stop + target @ 30993.5 — adherent
+
+PAPER FILL PATHS TODAY (adherent)
+- nas100_v2b_ungated_paper: entry / wide_stop / tp1 / eod_close @19:59Z
+- spx500_v2b_ungated_paper: entry / wide_stop / tp1 / tp2 / eod_close @19:59Z
+- nas100_hourly_st_pmc_sl50_tp150_3r_paper: entry @15:14Z / stop @15:24Z
+
+FLAGS
+1) STREAM HUNG (~4h, since ~17:16 EDT) — process alive, PROGRESS/run.log frozen after
+   reconnect-to-200 following 429/V20 errors:
+   - us30_monday_or_m3_s3_r2_half_oanda
+   - usdjpy_monday_or_ungated_oanda
+   - nas100_v2b_ungated_oanda
+   - spx500_v2b_ungated_oanda
+   (paper NAS100/SPX500 v2b also quiet post-cash — expected for index CFDs)
+
+2) LIVE↔SIM MISMATCH on active OANDA books (sim entries today, live post-started_at = 0):
+   - nas100_v2b_ungated_oanda: sim buy/sell 13:45/14:20Z; live fills last = Aug 13 eod
+   - spx500_v2b_ungated_oanda: sim buy/sell 13:45/14:21Z; live fills last = Aug 13 eod
+   - nas100_hourly_st_pmc_sl50_tp150_3r_oanda: sim buy 15:00Z; paper twin filled entry+stop;
+     OANDA heartbeats advanced with orders=2 / oanda_fills=0 through the window
+
+3) ORPHAN protective stops (flat local pos, working stop bracket_role=entry qty=3):
+   - nas100_v2b_ungated_oanda @29778.7
+   - spx500_v2b_ungated_oanda @7769.2
+
+NOTES (not new open risk)
+- usdjpy_monday_or_ungated_oanda: heartbeat open_positions=1 vs empty positions.csv — counter
+  drift; also in hung-stream set above
+- eurusd_v2b_ungated_oanda: still MISMATCH (stopped daemon; historical latency/smoke)
+- Heavy 429/reconnect noise across OANDA fleet today; most other books recovered
+- Entry ladders on flat ST+PMC / yearly ORB books are resting entries (expected), not open risk
+
+LIVE↔SIM (OANDA inventory)
+- MATCH: 15/19
+- MISMATCH: eurusd_v2b (stopped), nas100_v2b, spx500_v2b, nas100 ST+PMC 3R
+- Morning was 18/19 MATCH — evening regression is today's missed OANDA cash-session entries
+
+VERDICT
+Paper books look adherent post-close (v2b path + eod_close; ST+PMC stop-out; runner brackets OK).
+OANDA adherence weaker tonight: four streams hung after 429, NAS/SPX v2b + NAS100 3R missed
+sim/paper signals today, plus orphan v2b stops. Restart candidates: the four hung OANDA demos
+(and clean orphan stops on NAS/SPX v2b).
+
+Artifacts:
+  live/demo/ADHERENCE_INVENTORY_TODAY.csv
+  live/demo/ADHERENCE_INVENTORY_2026-08-14_evening.csv
+  live/demo/EMAIL_ADHERENCE_2026-08-14_evening.txt
+  live/demo/ADHERENCE_ISSUES.md
+  live/state/_oanda_live_sim_reconcile/summary.json

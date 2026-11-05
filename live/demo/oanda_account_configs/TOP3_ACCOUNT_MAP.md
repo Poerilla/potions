@@ -10,6 +10,8 @@ Yearly ORB book uses `-002`. Monthly FBO uses `-006`.
 | USDJPY Monday OR M2_S3_R1 | `usdjpy_monday_or_ungated_oanda` | `101-002-39860312-005` | `usdjpy_monday_or_005.json` |
 | USDJPY Monthly FBO 1/1/3 atr80 | `usdjpy_monthly_orb_fbo_oanda` | `101-002-39860312-006` | `usdjpy_monthly_fbo_006.json` |
 
+**Order-routing ownership is enforced** by `live/demo/oanda_account_ownership.json`. A runner whose strategy_id is not the listed owner of its account + instrument refuses to start (exit 3). Update the registry together with this table on any rotation. Restart only with `python3 -m potions.live.cli demo-restart <demo dir>` (see `live/demo/README.md` → singleton).
+
 Start (after token can access accounts):
 
 ```bash

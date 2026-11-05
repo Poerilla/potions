@@ -1,0 +1,7 @@
+variant,mode,net_usd,close_mtm_dd,intrabar_mtm_dd,ns,units,runner_units,tp1_units,max_open_all,max_open_in_stress
+sl50_tp150_3r_1mfill,full_open_mtm,19027.571,-775.874,-907.274,20.972,578,0,578,1,1
+sl50_tp150_3r_1mfill,exclude_open_runners,19027.571,-775.874,-907.274,20.972,578,0,578,1,1
+sl50_tp150_runners_2r_10r,full_open_mtm,56110.593,-2473.023,-2867.223,19.57,1086,724,362,3,3
+sl50_tp150_runners_2r_10r,exclude_open_runners,56110.593,-2057.145,-2072.145,27.079,1086,724,362,3,1
+sl50_tp150_runners_2r_indef,full_open_mtm,191517.401,-62756.693,-73530.959,2.605,1670,1114,556,65,65
+sl50_tp150_runners_2r_indef,exclude_open_runners,191517.401,-54531.79,-59400.7,3.224,1670,1114,556,65,22

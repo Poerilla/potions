@@ -1,0 +1,84 @@
+# Frozen research contract — round-the-clock 5m protected-pivot + first-touch (NOT a trade model)
+study_id: nq_wick_reject_4h_24h_5m_protected_pivot_touch_response_v1
+status: RESEARCH_DESCRIPTIVE_ONLY
+stance: descriptive_only
+instrument: NQ
+timezone: America/New_York
+tick: 0.25
+
+purpose: >
+  After an active 4h WICK_REJECT seed, find the first causally confirmed
+  5-minute four-pivot structure round-the-clock; measure 180-minute
+  protected-level survival and separate 60-minute first-touch response.
+  Observational only.
+
+not_allowed:
+  - live signal / entry / stop / target / sizing / P&L
+  - NY-open vs all-session rule chooser
+  - 1m vs 5m rule chooser
+  - S1/S2 coupling
+  - plugin / demo / funded / production promotion
+  - parameter tuning after inspecting results
+
+data_session_policy: POLICY_A_FULL_AVAILABLE_FUTURES_DATA
+source_data_version: nq/raw/glbx-mdp3-20100606-20260616.ohlcv-1m.dbn.zst
+
+seed:
+  source: frozen 4h WICK_REJECT atlas via make_seeds_30
+  seed_definition_changed: false
+  seed_expiry_4h_bars: 30
+  one_candidate_per_seed: true
+
+pivots:
+  timeframe: 5m
+  left_bars: 1
+  right_bars: 1
+  strict_extrema: true
+  equal_level_policy: reject
+  min_pivot_separation_bars: 1
+
+structure:
+  bear: H1 -> L1 -> HH -> LL
+  bull: L1 -> H1 -> LL -> HH
+  selection: first consecutive four-pivot after seed_available_at
+  intervening_pivots: reject
+
+protection:
+  primary_horizon_minutes: 180
+  bear_fail: bar_high >= protected_HH + 1 tick
+  bull_fail: bar_low <= protected_LL - 1 tick
+  equal_touch_not_failure: true
+  no_cross_gap: true
+
+touch_response:
+  touch: exact level without one-tick failure
+  one_touch_per_candidate: true
+  response_horizon_minutes: 60
+  response_distance_ticks: "max(4, ceil(0.25 * break_distance_ticks))"
+  same_bar_both: TOUCH_BOTH_SAME_5M_BAR_STOP_FIRST
+
+session_segments:
+  ASIA: "18:00-01:59"
+  EUROPE: "02:00-07:59"
+  PRE_NY: "08:00-09:29"
+  NY_OPEN: "09:30-10:59"
+  NY_MIDDAY: "11:00-13:59"
+  NY_PM: "14:00-15:59"
+  POST_CASH: "16:00-16:59"
+  OVERNIGHT: "17:00-17:59"
+  OTHER_OR_BOUNDARY: fallback
+
+minimum_reporting:
+  eligible_seeds: 80
+  total_candidates: 40
+  per_direction_candidates: 15
+  evaluable_touches_per_direction: 15
+
+screens_descriptive_only:
+  protection_hold_min: 0.55
+  touch_favors_min: 0.55
+
+parent_studies_unchanged:
+  - nq_wick_reject_4h_ny_open_1m_protected_pivot_v1
+  - nq_wick_reject_4h_ny_open_5m_protected_pivot_v2
+  - nq_wick_reject_4h_ny_open_5m_protected_pivot_v2_no_cutoff

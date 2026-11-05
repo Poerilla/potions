@@ -1,0 +1,11 @@
+market,path_id,trade_mode,allowed_sides,first_side_filter,n,wins,win_rate,tattoo_win_rank,tattoo_year,tattoo_quarter,tattoo_side,tattoo_mae_px,tattoo_mae_atr,tattoo_touch_ts,tattoo_resolve_ts,risk_atr_mult,note
+EURUSD,second_after_upper,second_only,lower,upper,41,14,0.34146341463414637,1,2004,3,lower,0.0005947919639350818,0.18407191970154568,2004-03-11 08:00:00-05:00,2004-03-18 16:00:00-05:00,0.5,max WR among n>=5 (1h monthly)
+GBPUSD,second_after_lower,second_only,upper,lower,41,15,0.36585365853658536,1,2004,9,upper,0.003584362760441273,1.2755016229247176,2004-09-10 14:00:00-04:00,2004-09-15 14:00:00-04:00,1.5,max WR among n>=5 (1h monthly)
+USDJPY,first_upper,first_only,upper,upper,139,46,0.33093525179856115,1,2003,9,upper,0.06547340163588444,0.29293715312581065,2003-09-08 00:00:00-04:00,2003-09-18 06:00:00-04:00,0.5,max WR among n>=5 (1h monthly)
+AUDJPY,second_after_upper,second_only,lower,upper,48,18,0.375,1,2003,12,lower,0.148350974499877,0.8692664544049867,2003-12-22 11:00:00-05:00,2003-12-30 17:00:00-05:00,1.0,max WR among n>=5 (1h monthly)
+XAUUSD,first_lower,first_only,lower,lower,114,40,0.3508771929824561,1,2003,10,lower,3.269248537488693,1.7816671609041763,2003-10-06 12:00:00-04:00,2003-10-22 12:00:00-04:00,2.0,max WR among n>=5 (1h monthly)
+XAGUSD,second_after_lower,second_only,upper,lower,23,8,0.34782608695652173,1,2010,5,upper,0.22626183476914719,0.8780574636759331,2010-05-12 09:00:00-04:00,2010-05-20 12:00:00-04:00,1.0,max WR among n>=5 (1h monthly)
+US30,second_after_upper,second_only,lower,upper,19,8,0.42105263157894735,1,2017,5,lower,42.775593438393116,1.8063177164619062,2017-05-11 09:00:00-04:00,2017-05-16 09:00:00-04:00,2.0,max WR among n>=5 (1h monthly)
+NAS100,first_lower,first_only,lower,lower,44,19,0.4318181818181818,1,2017,3,lower,3.958740573651994,0.5333206674472175,2017-03-07 20:00:00-05:00,2017-03-15 12:00:00-04:00,1.0,max WR among n>=5 (1h monthly)
+NQ,first_lower,first_only,lower,lower,79,30,0.379746835443038,1,2010,10,lower,13.327890146533719,2.056605765792089,2010-10-04 11:00:00-04:00,2010-10-08 12:00:00-04:00,2.5,max WR among n>=5 (1h monthly)
+YM,second_after_upper,second_only,lower,upper,36,13,0.3611111111111111,1,2010,8,lower,104.75170969244027,2.935284463771744,2010-08-11 16:00:00-04:00,2010-08-15 15:00:00-04:00,3.0,max WR among n>=5 (1h monthly)

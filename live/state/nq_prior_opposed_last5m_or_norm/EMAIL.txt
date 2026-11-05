@@ -1,0 +1,30 @@
+Subject: NQ prior-opposed causal recheck PASS — deployable-to-demo edge confirmed
+
+NQ prior-opposed causal recheck — PASS (deployable-to-demo edge confirmed causal)
+
+Tape: live/state/nq_v2b_prior_opposed_stpmc_resting_limit_through_20261011
+       (gate_mode=resting_limit, book S_1_1_3), rebuilt on 1m data through 2026-10-11.
+
+Every entry condition is knowable strictly before the fill:
+  - Replay guard causality_violations: 0
+  - Entry fill strictly after confirming bar (live_after_ts): 484 / 484
+  - ST+PMC prior-opposed gate avail<=arm (source=st_resting_limit_hour_complete): 1114 / 1114
+  - Opening range finalized before arm: 297,647 / 297,647
+  - Normal-range (or_norm) entries before 09:45 (OR incomplete): 0 (earliest entry 09:45:00)
+
+Why causal:
+  - ST gate posts at live_after_ts + 1h (completed hourly bar), never the left-label wall clock.
+  - or_norm ranks the current 09:30-09:45 OR against the prior 60 complete sessions; no or_norm
+    trade enters before 09:45, so the label is known before entry.
+  - Broker live_after_ts fill guard (CO2b) holds on all 484 fills.
+
+Book: 484 campaigns, $1,266,970 net, N/S 10.06, last fill 2026-10-08.
+Caveat: proves 1m/hour-complete ordering, not sub-second queue placement; same-minute arm->fill
+campaigns need tick/broker-paper parity before promotion past demo.
+
+Artifacts:
+  - live/state/nq_prior_opposed_last5m_or_norm/CAUSAL_RECHECK.md
+  - live/state/nq_prior_opposed_last5m_or_norm/CAUSAL_RECHECK.json
+  - data/docs/AUDIT_TRACKER.md (row CO5)
+
+Stance: PROMOTE to demo (causality cleared). Remains PROVISIONAL/controlled-paper pending tick parity.

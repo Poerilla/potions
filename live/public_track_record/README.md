@@ -7,11 +7,11 @@ Sanitized **tear-sheet** JSON for the public GitHub Pages site.
 - **No** SPY / benchmark overlay
 - No instruments, hub paths, or fill tapes in the public repo
 
-| Public name | Private sleeve |
-|---|---|
-| FX Momentum | Asia-range London filtered |
-| FX Intraday Trend | Monday OR ungated demo book |
-| Index Momentum | Clean-break pyramid trail |
+| Public name | Private sleeve | Default base size |
+|---|---|---|
+| FX Momentum | Asia-range London filtered | Live lot-cash (micro fills normalized) |
+| FX Intraday Trend | Monday OR ungated demo book | Research / live book as exported |
+| Index Momentum | Clean-break pyramid trail | **10× deployment-capped research unit** (entry/add 10 / hard max 30); legacy qty=1 practice fills renormalized to that base |
 
 ```bash
 export PYTHONPATH="/home/tester/hsm:/home/tester/hsm/potions/v20-python/src"

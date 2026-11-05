@@ -1,0 +1,13 @@
+study_id: cfd_wick_reject_range_seed_retest
+symbol: NAS100
+inherits: nq_wick_reject_range_seed_retest
+demo_candidate: false
+seed: "4h WICK_REJECT; pen>=0.05; width 0.25–2.00×ATR; max_age 20×4h"
+break: "1h body close outside seeded boundary"
+entry: "resting limit at broken boundary; 24h life"
+stop: "opposite boundary ±1 tick"
+targets: "0.5W/1W/2W 50/25/25"
+tick: 0.1
+point_value: 1.0
+fee: 1.5
+chop20_filter: false

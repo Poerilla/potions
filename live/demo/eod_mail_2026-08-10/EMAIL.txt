@@ -1,0 +1,56 @@
+potions: 2026-08-10 live/demo EOD charts + non-CFD FX rankings
+
+TODAY'S EOD POSITION CHARTS (v2b demos only — 8 PNGs attached)
+Session: 2026-08-10 NY RTH. Written by live/demo/eod_charts.py at ~16:00–16:02 ET.
+
+  eurusd_v2b_ungated_{paper,oanda}
+  nas100_v2b_ungated_{paper,oanda}
+  spx500_v2b_ungated_{paper,oanda}
+  us30_v2b_ungated_{paper,oanda}
+
+No 2026-08-10 daily EOD PNGs for Monday OR USDJPY or hourly ST+PMC (expected):
+  - Monday OR emits Friday end-of-week packs (week overview + per-trade), not daily EOD.
+  - Hourly ST+PMC emits trade/open charts when positions are on, not daily EOD.
+
+---
+
+TOP RANKING FX / METALS MODELS — EXCLUDING INDEX CFDs
+Source: mnq/case_studies/STRATEGY_TRACKER.md + live/state/fx_metals_top4_report/
+Excluded: US30 / NAS100 / SPX500 index CFD ST+PMC sleeves (those top the FX leaderboard page but are CFDs).
+
+A) Cross-universe top-4 by Net/Stress (broker-like Engine+PaperBroker)
+
+  Rank  Pair     Strategy                         Net       Stress    N/S
+  1     AUDJPY   Yearly ORB scaleout3             +$194k    -$9.0k    15.26
+  2     XAUUSD   Yearly ORB scaleout3             +$541k    -$48k     11.30
+  3     XAGUSD   Yearly ORB scaleout3             +$121k    -$20k      6.21
+  4     USDJPY   Monthly ORB FBO 1/1/3 atr80       +$93k     -$27k      4.25
+  —     XAUUSD   ST+PMC 25/75 MA-bull (rank 5)     +$203k    -$61k      3.31
+
+B) Monday OR Phase 1/2 leaders (true FX pairs + metals; not index CFDs)
+
+  Pair     Config      N/S    ≈USD net   Status
+  USDJPY   M2_S3_R1    8.20   +$219k     Phase 2 hardened · live/paper eligible
+  GBPUSD   M1_S1_R2    2.67   +$231k     Phase 2 extended · paper-only
+  XAUUSD   M2_S2_R3    1.90   +$438k     heat / default do-not-fund
+  AUDJPY   M1_S2_R2    1.83   +$96k      Phase 2 extended · satellite
+  EURUSD   M1_S2_R2    1.74   +$123k     Phase 2 hardened · paper-only
+  XAGUSD   M2_S2_R3   -0.97   -$224k     excluded
+
+C) EURUSD sleeve board (promoted / prior baselines; N/S)
+
+  1.74  Monday OR M1_S2_R2 (paper-only)
+  1.62  Monthly ORB FBO 1/1/3 + atr80 filter  ← promoted filtered monthly
+  1.49  Hourly ST+PMC 25/75 + MA bull prior  ← prior intraday baseline
+  1.04  Monthly ORB FBO 1/1/3 unfiltered     ← promoted monthly
+  1.02  Monthly ORB FBO 1/2/3
+
+Allocator read (non-CFD):
+  • Highest N/S catalog winners: AUDJPY / XAU / XAG yearly ORB, then USDJPY FBO atr80.
+  • Best live-eligible Monday OR FX: USDJPY M2_S3_R1 (N/S 8.20).
+  • Do not confuse with index CFD ST+PMC ranks (US30 3R N/S 29.4 etc.) — those are CFDs.
+
+Hubs:
+  live/state/fx_metals_top4_report/
+  live/state/monday_or_phase2/
+  live/demo/*/charts/*2026-08-10.png

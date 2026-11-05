@@ -3,6 +3,12 @@
 Append-only research/platform progress notes.
 
 
+## 2026-10-13 — NQ prior-opposed reconcile + 6J London v2b
+
+- Ledger metrics backfilled for the 2026-10-13 NQ ST, NQ prior-opposed, and 6J FBO/ST, Monday OR, Asia-range rows.
+- NQ prior-opposed vs previous resting-limit: 426 identical campaigns. Shared window still N/S 19.40. Full tape N/S 10.06 from the Mar–Oct 2026 extension.
+- 6J London ungated v2b S_1_1_3 N/S −0.99; prior-opposed on ST 25/75 N/S −0.99. Reject. No demo.
+
 ## 2026-08-30 — Wick-range: CFD replication + V2B alignment (post-OCO)
 
 - Limit-retest stays RESEARCH / not demo (NQ holdout avgR fail; OCO failure informative).
@@ -285,3 +291,55 @@ Append-only research/platform progress notes.
 - Corrected charts: tick→demo wiring under live/demo/.../charts/traded_days/corrected/ (all five live sessions failed_clean_close).
 - Size-up: -003 entry/add 1→10, max_pyramid 4→40 (size_mult=10; ~$20k stress DD target vs ~$2k unit book brl_21741b260a28). Daemon restarted flat.
 - Tick demo↔plugin parity MATCH (PaperBroker path). Emails sent.
+
+## 2026-09-12 — Index Momentum default base = 10×
+- Stance: trail06_m4_e2_out_be / practice -003 entry 10 / max 40 is the default Index Momentum base (not a temporary size-up). Research ranking remains unit book brl_21741b260a28.
+- Public Pages: export_all scales 1mfill unit_trades ×10; legacy qty=1 practice fills renormalized to base entry 10. Flat additive path (no yearly size-ups).
+- Docs: META default_base_size, demo README/docstring, STRATEGY_TRACKER, Platform, CHANGE_LOG, public_track_record README + skill.
+
+[2026-09-13T18:15Z] Removed NAS100 clean-break ma_aligned HP ×4 paper demo (daemon stopped; CLI+runner deleted). Nulls NOT VALIDATED (p_master_ΔNS=0.860, coverage 55%) — fails even discretionary paper. Note: live/demo/nas100_v2b_clean_break_trail_ma_aligned_hp_x4_paper/REMOVED.md. Index Momentum -003 base 10× unchanged.
+
+## 2026-10-03 — NAS100 NQ-lead winner-miss lookahead
+- Hub: live/state/nas100_v2b_nq_lead_coupled_resting_limit/winner_miss_lookahead/
+- Skipped NQ winners (116) already closed through the mapped range on the fill or completion minute (88). Legal bar closes back inside, median 6.5 pts, wick still through on 99%. Reclaim median 3 min. OR width ratio 1.01.
+- Lookahead S_1_1_1 wins 106/116 of those. Research only. Not a demo. Email sent.
+
+## 2026-10-03 — NAS100 NQ-lead coupled stream
+- Replaced the preloaded left-label NQ book with a coupled stream on the hour-complete resting-limit tape.
+- Campaign ingested only after the NQ entry bar completes. TP1/stop/EOD are later milestone events.
+- Hub: live/state/nas100_v2b_nq_lead_coupled_resting_limit/
+- 193 trades, net $7,474, stress -$3,113, N/S 2.40, lookahead violations 0. 188 skips (185 structure_failed).
+- Stance: research only. Oct 2 lead add-on is not a causal result. No demo. Email sent. DSR TRL-2026-00203. Ledger brl_7e47ea9129e9.
+
+## 2026-10-02 — TOP3 kept; NAS100 NQ-lead add-on walked
+- Dropped NQ-futures fourth sleeve (OR-norm 2× was ~85% of basket net).
+- Hub: live/state/top3_active_demo_portfolio/joint_1m_cb10x_plus_nas100_nq_lead/
+- Overlap 2021-03-04 → 2025-09-29. TOP3 N/S 7.26. Lead 1× alone N/S 15.33, corr vs TOP3 0.04.
+- TOP3+lead 1× N/S 8.25 (8% of net). 10× N/S 14.42 (Δ +7.16, 47% of net, stress slightly shallower). 40× N/S 16.89 but 78% of net.
+- Stance: live book stays TOP3. ×10 is the research add-on size. No HP multiplier, no demo wiring. Email sent.
+
+## 2026-10-02 — TOP4 basket: NQ prior-opposed OR-norm 2×
+- Hub: live/state/top3_active_demo_portfolio/joint_1m_cb10x_plus_nq_po_or_norm_2x/
+- Overlap 2021-03-04 → 2025-09-29. TOP3 N/S 7.26 → TOP4 19.78 (Δ +12.52). NQ alone 19.89.
+- Daily close P&L corr vs TOP3 0.03. NQ ~85% of TOP4 net. Basket N/S rises vs TOP3; combo does not beat NQ alone.
+- Stance: research add-on. NQ OR-norm @2× stays provisional controlled paper. Email sent.
+
+## 2026-10-13 — NQ prior-opposed last 5 months vs OR-norm 2x/4x
+- From 2026-05-13: 49 trades, -$73.5k, campaign N/S -0.76, win 51%. Prior window N/S 24.23.
+- Opening ranges widened (median 72 to 132 points). OR-norm still +$43k on 8 trades but N/S 1.48. Whole-book 2x still red; 4x +$55k at N/S 0.33. Not a promote.
+- Hub: live/state/nq_prior_opposed_last5m_or_norm/
+
+## 2026-10-12 — NQ prior-opposed through 2026-10-11 and 6J USDJPY books
+- NQ resting-limit S_1_1_3 on the rebuilt ST 25/75 gate: 484 trades, $1,266,970 net, stress -$125,992, N/S 10.06, 0 causality violations. Last fill 2026-10-08. Frozen 19.40 tape not replaced.
+- 6J: Monday OR -0.74, Asia-range S_3_1_3 -0.97, FBO ~0 to -0.24, ST+PMC 25/75 N/S 1.22. No demo.
+- Hubs under live/state/nq_v2b_prior_opposed_stpmc_resting_limit_through_20261011 and live/state/6j_*.
+
+## 2026-10-01 — USDJPY Monday OR -005 research-lot size
+- Review: Oct 1 primary MATCH vs plugin on stored 15m bars (buy 3, dd30 x1, dd50 x2). Practice cash ~-$0.01 at 1:1 units.
+- Size: book qty × 100000 OANDA units (entry 300k / dd30 100k / dd50 200k; shifted 400k). Sitout +3 lot-points scaled with the same factor.
+- Research ranking unchanged (unit book M2_S3_R1). Practice only. Daemon restarted flat.
+[2026-10-22T20:50Z] Live adherence (3 OANDA books): Monday OR MATCH 8/8 (tick 36/36); NAS100 clean-break 10/10 same 5m bar (tick 34/34); Asia-range 20/24 +explained timing, 1 extra same-bar reverse (tick 113/113); no drift. Asia-range duplicate 1m bar writes fixed, daemon restarted flat on -004 pid 643631. Shadow roll50 frozen open since Sep 2 reseed (would have sat out 14/15 sessions from Oct 2, live -$1,453 there) — operator: leave as is. Report live/state/_oanda_live_sim_reconcile/ADHERENCE_20261022.md.
+[2026-10-22T22:08Z] USDJPY Asia-range log cleanup: shadow defer logs once per session (300s recheck); 1,431,239 repeated lines removed from PROGRESS/run/campaign_parity (backups log_archive/*.pre_cleanup_20261022.gz). Daemon restarted flat on -004 pid 659107; stream up after 17:00 NY rollover.
+[2026-10-30T14:45Z] OANDA books health+adherence: all up, Monday OR 9/9 (tick 40/40), Asia 6/6 fuzzy (tick 124/124), NAS100 14/14 (tick 34/34); drawdowns within research dist (Asia ~5th pct 40-window DD, CB ~7th pct, MOR ~32nd); CB vs v2b-opposite-stop N/S research 6.20/0.90, NQ OOS 1.15/-0.47, demo -0.58/-0.66. Report live/state/_oanda_live_sim_reconcile/ADHERENCE_20261030.md
+[2026-11-05T08:45Z] NAS100 clean-break adherence since Oct 30: entries 4/4, exits match except Nov 4 — two daemons on -003 (orphan pid 203890 + Nov 2 pid 1580741) missed the 09:50 exit and 15:55 EOD; 00:05 double eod_close opened stray short (closed tx 301, -$673). Cost vs rules ≈ -$5,572. Fix: daemon.lock flock + pid-aware pidfile removal; Asia dup (659107+1578721) also retired. Restarted NAS pid 2042476, Asia pid 2042569. Report live/state/_oanda_live_sim_reconcile/ADHERENCE_NAS100_20261105.md
+[2026-11-05T15:05Z] Demo singleton live: claim_runtime output/strategy/route flocks in all 35 demo entrypoints + OANDA ownership registry (live/demo/oanda_account_ownership.json); demo-restart (--when-flat/--not-before/--email) and demo-singleton-audit (cron */5, Resend alarms). Restarted NAS CB pid 2067164, Monday OR pid 2067559 (flat); Asia deferred to 12:05 NY when -004 flat. Live refusals proven (same root, --daemon, other root same strategy, wrong account). Tests 213 pass.

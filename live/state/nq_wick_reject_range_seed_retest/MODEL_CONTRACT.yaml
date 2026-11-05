@@ -1,0 +1,16 @@
+# Frozen before Phase 4 robustness / plugin work
+model: nq_wick_reject_range_seed_retest
+created: 2026-08-30
+seed: "4h WICK_REJECT StructureProgramEngine_v1; range = confirm candle high/low"
+break_confirm: "1h body close outside range"
+entry: "resting limit at broken boundary; live after 1h close; max 24h"
+stop: "opposite boundary ±1 tick"
+targets: "0.5W / 1.0W / 2.0W with 50/25/25"
+guards:
+  width_ATR: [0.25, 2.00]
+  max_age_4h_bars: 20
+  early_close_exclude: true
+  one_trade_per_seed: true
+holdout: "atlas slice column (dev ~75% / holdout ~25%) locked"
+phase4: deferred
+plugin: blocked_until_promote

@@ -1,0 +1,82 @@
+{
+  "cap_pct": 0.05,
+  "stats": {
+    "baseline": {
+      "end_equity": 694637.8045453983,
+      "span_years": 22.873716632443532,
+      "cagr_time": 0.08842935626454929,
+      "full_years": "2004-2025",
+      "n_full_years": 22,
+      "cagr_full_years": 0.09436609526294037,
+      "median_full_year_return": 0.08334116516335945,
+      "years_locked": 0,
+      "losing_years": 3,
+      "worst_year_return": -0.0389164090909153,
+      "worst_year_stress_pct": -0.1694678946865338
+    },
+    "cap_fixed": {
+      "end_equity": 281487.97272725805,
+      "span_years": 22.873716632443532,
+      "cagr_time": 0.04628408698433817,
+      "full_years": "2004-2025",
+      "n_full_years": 22,
+      "cagr_full_years": 0.050711975011657806,
+      "median_full_year_return": 0.0503288748476303,
+      "years_locked": 22,
+      "losing_years": 2,
+      "worst_year_return": -0.0389164090909153,
+      "worst_year_stress_pct": -0.1136641770985854
+    },
+    "cap_scaled": {
+      "end_equity": 308355.80790823017,
+      "span_years": 22.873716632443532,
+      "cagr_time": 0.05046243808496875,
+      "full_years": "2004-2025",
+      "n_full_years": 22,
+      "cagr_full_years": 0.052070703009357455,
+      "median_full_year_return": 0.05048740909091075,
+      "years_locked": 23,
+      "losing_years": 1,
+      "worst_year_return": -0.0389164090909153,
+      "worst_year_stress_pct": -0.2622668636363523
+    }
+  },
+  "results": {
+    "baseline": {
+      "variant": "baseline",
+      "cap_pct": null,
+      "net_usd": 594637.8045453983,
+      "close_mtm_dd_usd": -33438.40454545402,
+      "intrabar_stress_dd_usd": -33525.67727272684,
+      "net_over_stress": 17.73678723051888,
+      "units_taken": 14222,
+      "units_blocked": 0,
+      "units_cap_flatten": 0,
+      "events": 9381655
+    },
+    "cap_fixed": {
+      "variant": "cap_fixed",
+      "cap_pct": 0.05,
+      "net_usd": 181487.97272725805,
+      "close_mtm_dd_usd": -26139.413636362093,
+      "intrabar_stress_dd_usd": -26226.686363634915,
+      "net_over_stress": 6.919973427481997,
+      "units_taken": 2967,
+      "units_blocked": 11255,
+      "units_cap_flatten": 85,
+      "events": 9381655
+    },
+    "cap_scaled": {
+      "variant": "cap_scaled",
+      "cap_pct": 0.05,
+      "net_usd": 208355.80790823017,
+      "close_mtm_dd_usd": -73049.46168776434,
+      "intrabar_stress_dd_usd": -73293.35490725245,
+      "net_over_stress": 2.8427653253407446,
+      "units_taken": 2332,
+      "units_blocked": 11890,
+      "units_cap_flatten": 85,
+      "events": 9381655
+    }
+  }
+}

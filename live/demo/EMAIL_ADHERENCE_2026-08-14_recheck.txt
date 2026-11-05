@@ -1,0 +1,26 @@
+potions: adherence issues fixed + rechecked (2026-08-14 evening)
+
+Hub: live/demo/ADHERENCE_ISSUES.md (remediation + recheck)
+Inventory: live/demo/ADHERENCE_INVENTORY_2026-08-14_post_remediation.csv
+CHANGE_LOG: live/CHANGE_LOG.md (2026-08-14 OANDA stream hung-fix)
+
+EVENING FLAGS → FIXED
+1. Hung OANDA streams (US30/USDJPY Monday OR + NAS/SPX v2b)
+   - Monday OR: cooldown + stagger restart → STREAM connected, heartbeats OK
+   - NAS/SPX v2b OANDA: intentionally STOPPED overnight (cash closed; 429 risk to FX)
+2. Orphan protective STOPs on flat NAS/SPX v2b → cancelled; broker STOP=0
+3. live↔sim misses (v2b + NAS100 3R today) → historical only; cannot replay
+
+CODE
+- next_stream_backoff(): HTTP 429 uses ≥120s step / ≤300s ceiling
+  (Monday OR OANDA + oanda_v2b_ungated_common)
+
+RECHECK NOW (~22:22 EDT)
+- Broker: 0 open trades, 0 pending STOP
+- pidfile demos: 33 alive (was 35; −2 v2b OANDA overnight)
+- Monday OR + Asia-range OANDA up
+- Paper NAS/SPX v2b quiet post-cash (expected)
+
+STANCE
+- Ops green for weekend FX watch
+- Monday AM action: restart nas100_v2b_ungated_oanda + spx500_v2b_ungated_oanda before RTH

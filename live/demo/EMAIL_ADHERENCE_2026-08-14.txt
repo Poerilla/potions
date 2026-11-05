@@ -1,0 +1,38 @@
+LIVE/DEMO ADHERENCE UPDATE (2026-08-14) — no PnL
+as_of: 2026-08-14 11:47 UTC
+
+Scope: daemon health, brackets, fill-reason mix, live↔sim, stream/recovery — not PnL.
+
+INVENTORY
+- 35/35 pidfiled demos UP; no PROGRESS stale >20m
+- open-without-working-orders: 0
+- stop-only opens: 0
+- foreign-instrument bleed in open rows: 0
+- fills today: none (quiet pre-cash)
+
+OPEN RISK (expected shape)
+- nas100_hourly_st_pmc_sl50_tp150_runners_2r_10r_paper: long 1 @ 29493.5 since Aug 11
+  resting runner_stop + target @ 30993.5 — adherent
+
+YESTERDAY FLAGS → TODAY
+- nas100_v2b_ungated_oanda / spx500_v2b_ungated_oanda stop-only after Aug 13 re-entry:
+  CLEARED — both flat after eod_close ~20:00Z Aug 13; resting entry ladders only (not open risk)
+- us30 ST+PMC 3R OANDA open-without-brackets (midday Aug 13): still cleared (flat, orders=0)
+
+NOTES (not open risk)
+1) usdjpy_monday_or_ungated_oanda: heartbeat open_positions=1 but positions.csv empty / orders=0
+   — local counter drift; live↔sim MATCH; worth OANDA reconcile if you want broker certainty
+2) eurusd_v2b_ungated_oanda / us30_v2b_ungated_oanda: intentionally stopped (no pidfile) Aug 11–12
+3) Overnight stream 429/timeout noise recovered; heartbeats advancing
+
+LIVE↔SIM (OANDA books, post-started_at entries)
+- MATCH: 18/19 running inventory books (incl. NAS100/SPX500/US30 v2b, ST+PMC, Monday OR, Asia-range, yearly ORB)
+- MISMATCH: eurusd_v2b_ungated_oanda only (stopped daemon; historical tape vs sim timing — known v2b latency/smoke class, not a live book today)
+
+VERDICT
+Adherence looks good this morning. Daemons healthy; only intentional NAS100 paper runner open with correct brackets; Aug 13 stop-only / bleed flags cleared; live↔sim green on active OANDA books.
+
+Artifacts:
+  live/demo/ADHERENCE_INVENTORY_TODAY.csv
+  live/demo/EMAIL_ADHERENCE_2026-08-14.txt
+  live/state/_oanda_live_sim_reconcile/summary.json

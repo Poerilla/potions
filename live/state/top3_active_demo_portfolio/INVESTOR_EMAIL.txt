@@ -1,0 +1,60 @@
+TOP3 active demos as ONE investor book
+Hub: /home/tester/hsm/potions/live/state/top3_active_demo_portfolio
+
+═══════════════════════════════════════
+HEADLINE (research / broker-like tape)
+═══════════════════════════════════════
+Combined net:     $484,361
+Joint MTM stress: $-31,597
+Combined N/S:     15.33  (joint MTM — diversification credited)
+Additive N/S:     8.92  (sum |stress| — no diversification)
+Trades:           3,934
+Win rate:         30.3%
+Profit factor:    1.28
+
+$100k compound end equity: $583,665  (~8.0% CAGR over 23y span)
+Positive years: 20/24
+Best N/S year:  2007  net $26,099  N/S 3.73
+Weakest N/S yr: 2003  net $-3,906  N/S -0.36
+
+Common window (2016-11-15 → 2025-09-29):
+  net $245,089 / stress $-31,597 / N/S 7.76
+
+═══════════════════════════════════════
+SLEEVES (the three live OANDA demos)
+═══════════════════════════════════════
+asia_range    net $   178,142  stress $  -24,627  N/S  7.23  trades  861  WR 50.4%  (usdjpy_asia_range_london_oanda)
+monday_or     net $   293,966  stress $  -27,726  N/S 10.60  trades 1907  WR 31.9%  (usdjpy_monday_or_ungated_oanda)
+clean_break   net $    12,253  stress $   -1,966  N/S  6.23  trades 1166  WR 12.9%  (nas100_v2b_clean_break_trail06_m4_e2_out_be_oanda)
+
+Contribution: Asia 37% · 
+Monday OR 61% · 
+Clean Break 3%
+
+═══════════════════════════════════════
+BOOKS / DEMOS
+═══════════════════════════════════════
+• USDJPY Asia Range S_3_1_3_flt (Jan skip + roll50) — demo usdjpy_asia_range_london_oanda (-004)
+• USDJPY Monday OR M2_S3_R1 (sitout +3pts, skip Aug/Sep) — demo usdjpy_monday_or_ungated_oanda (-005)
+• NAS100 Clean Break trail06_m4_e2_out_be (1m-fill) — demo nas100_v2b_clean_break_trail06_m4_e2_out_be_oanda (-003)
+
+═══════════════════════════════════════
+DEEP-CHECK
+═══════════════════════════════════════
+/home/tester/hsm/potions/live/state/top3_active_demo_portfolio/deep_check/top3_asia_monday_cleanbreak/YEARLY.md
+/home/tester/hsm/potions/live/state/top3_active_demo_portfolio/deep_check/top3_asia_monday_cleanbreak/ROBUSTNESS_AUDIT.md
+Win/loss sample charts: /home/tester/hsm/potions/live/state/top3_active_demo_portfolio/winloss_charts/top3_asia_monday_cleanbreak/
+  (note: combined pack charts on NAS100 1m — FX sleeves not visually accurate there;
+   use per-sleeve charts if needed for investor annex)
+
+Timing (from refreshed deep-check):
+- Hit TP (any unit): **7.9%**
+- Reach EOD/flatten: **9.6%**
+- Full initial SL losses: **54** (1.4%)
+- Modal entry time: 09:45 · modal exit time: 11:59
+
+Sell stance: one multi-clock book (London Asia FX + Monday OR FX + US index clean-break).
+Lead with joint N/S 15.33; also disclose additive N/S 8.92 and that both FX sleeves are USDJPY.
+Clean Break is a small $ diversifier at research size (~2.5% of net).
+
+Not practice-account cash PnL — broker-like research tapes.

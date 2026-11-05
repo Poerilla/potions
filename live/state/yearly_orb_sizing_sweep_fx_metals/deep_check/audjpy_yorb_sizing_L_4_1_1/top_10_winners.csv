@@ -1,0 +1,11 @@
+trade_id,session,year,side,entry_ts,exit_ts,entry_price,entry_qty,net_usd,exit_reasons,hit_tp,eod_close,full_initial_sl,any_stop_exit,atr14,range_width,range_label,atr14_quartile,range_width_quartile
+audjpy_yorb_sizing_L_4_1_1_2025_05,2025-11-04,2025,long,2025-11-04 19:00:00-05:00,2025-12-31 19:00:00-05:00,99.166,4,16229.554545454554,"close,runner_entry,target",False,False,False,False,0.8006428571428584,,n/a,Q2,
+audjpy_yorb_sizing_L_4_1_1_2008_05,2008-09-18,2008,short,2008-09-18 20:00:00-04:00,2008-09-18 20:00:00-04:00,88.145,1,16057.7363636363,"close,runner_entry",False,False,False,False,3.3083571428571426,,n/a,Q4 high,
+audjpy_yorb_sizing_L_4_1_1_2005_03,2005-09-01,2005,long,2005-09-01 20:00:00-04:00,2005-12-31 19:00:00-05:00,83.655,4,14549.554545454566,"close,runner_entry,target",False,False,False,False,0.5699285714285713,,n/a,Q1 low,
+audjpy_yorb_sizing_L_4_1_1_2007_04,2007-11-11,2007,long,2007-11-11 19:00:00-05:00,2007-11-11 19:00:00-05:00,96.426,4,14339.554545454546,"close,runner_entry,target",False,False,False,False,1.9486428571428565,,n/a,Q4 high,
+audjpy_yorb_sizing_L_4_1_1_2022_08,2022-08-22,2022,long,2022-08-22 20:00:00-04:00,2022-09-22 20:00:00-04:00,94.312,1,13055.009090909109,"close,runner_entry,target",False,False,False,False,0.8536428571428587,,n/a,Q2,
+audjpy_yorb_sizing_L_4_1_1_2008_02,2008-06-07,2008,long,2008-06-07 20:00:00-04:00,2008-07-31 20:00:00-04:00,100.5,4,12556.827272727287,"close,runner_entry,target",False,False,False,False,,,n/a,,
+audjpy_yorb_sizing_L_4_1_1_2010_10,2010-08-22,2010,short,2010-08-22 20:00:00-04:00,2010-08-26 20:00:00-04:00,76.19,4,11979.554545454515,"close,runner_entry,target",False,False,False,False,1.0707142857142844,,n/a,Q3,
+audjpy_yorb_sizing_L_4_1_1_2010_04,2010-05-26,2010,short,2010-05-26 20:00:00-04:00,2010-05-26 20:00:00-04:00,76.19,4,11285.009090909027,"close,runner_entry",False,False,False,False,2.270000000000003,,n/a,Q4 high,
+audjpy_yorb_sizing_L_4_1_1_2008_04,2008-09-11,2008,short,2008-09-11 20:00:00-04:00,2008-09-11 20:00:00-04:00,88.145,4,11039.554545454474,"close,runner_entry",False,False,False,False,2.262499999999998,,n/a,Q4 high,
+audjpy_yorb_sizing_L_4_1_1_2011_01,2011-04-17,2011,long,2011-04-17 20:00:00-04:00,2011-05-04 20:00:00-04:00,86.185,1,10846.827272727285,"close,runner_entry,target",False,False,False,False,1.2011428571428553,,n/a,Q3,

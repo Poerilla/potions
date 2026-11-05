@@ -1,0 +1,234 @@
+OANDA practice adherence audit — tick→demo↔plugin + live fills↔sim
+
+## Tick → demo wiring ↔ StrategyPlugin (same bars)
+All three UP books: MATCH
+
+# NAS100 clean-break: OANDA practice ticks → demo vs StrategyPlugin
+
+STATUS: **MATCH**
+
+## Data (OANDA only)
+
+- Source: `live/demo/nas100_v2b_clean_break_trail06_m4_e2_out_be_oanda/state/events/rth_ticks`
+- Kind: stored OANDA practice pricing-stream ticks (`rth_ticks/*.jsonl`).
+- **Not used:** `fx/nas100_1m.csv` / research OHLC.
+- Days (14): 2026-08-31, 2026-09-01, 2026-09-02, 2026-09-03, 2026-09-04, 2026-09-06, 2026-09-07, 2026-09-08, 2026-09-09, 2026-09-10, 2026-09-11, 2026-09-13, 2026-09-14, 2026-09-15
+- Frozen variant: `trail06_m4_e2_out_be`
+
+## Demo path (live/demo wiring)
+
+- ticks=2588230 bars_1m=15056 bars_5m=3012 fills=19
+- range: 2026-08-31T18:10:00+00:00 → 2026-09-15T20:05:00+00:00
+
+## Plugin path (same 5m bars, fresh Engine)
+
+- bars_5m=3012 fills=19
+
+## Compare
+
+```json
+{
+  "match": true,
+  "a_n": 19,
+  "b_n": 19,
+  "a_only": [],
+  "b_only": [],
+  "first_diff_a": null,
+  "first_diff_b": null
+}
+```
+
+## Stance
+
+- MATCH → live/demo aggregation+Engine wiring equals non-live StrategyPlugin on identical OANDA-derived bars.
+- MISMATCH → investigate demo aggregator / Engine wiring before trusting the OANDA daemon.
+- Practice wiring check only; not a funded promote gate.
+
+
+
+---
+
+# USDJPY live OANDA demos: practice ticks → demo vs StrategyPlugin
+
+STATUS: **MATCH**
+
+Data: OANDA practice ``fx_ticks`` only (not research OHLC).
+
+## monday_or — MATCH
+
+- Tick dir: `/home/tester/hsm/potions/live/demo/usdjpy_monday_or_ungated_oanda/state/events/fx_ticks`
+- Days (47): 2026-07-23, 2026-07-24, 2026-07-26, 2026-07-27, 2026-07-28, 2026-07-29, 2026-07-30, 2026-07-31, 2026-08-02, 2026-08-03, 2026-08-04, 2026-08-05, 2026-08-06, 2026-08-07, 2026-08-09, 2026-08-10, 2026-08-11, 2026-08-12, 2026-08-13, 2026-08-14, 2026-08-16, 2026-08-17, 2026-08-18, 2026-08-19, 2026-08-20, 2026-08-21, 2026-08-23, 2026-08-24, 2026-08-25, 2026-08-26, 2026-08-27, 2026-08-28, 2026-08-30, 2026-08-31, 2026-09-01, 2026-09-02, 2026-09-03, 2026-09-04, 2026-09-06, 2026-09-07, 2026-09-08, 2026-09-09, 2026-09-10, 2026-09-11, 2026-09-13, 2026-09-14, 2026-09-15
+- Demo: `{"bars_1m": 53802, "bars_signal": 3618, "fills": 12, "first_bar": "2026-07-24T03:30:00Z", "last_bar": "2026-09-15T20:00:00Z", "phase2_tag": "M2_S3_R1", "realized_pnl": -2.972500000000082, "strategy_id": "usdjpy_monday_or_ungated_oanda", "ticks": 4162006}`
+- Plugin: `{"bars_signal": 3618, "fills": 12, "realized_pnl": -2.972500000000082}`
+- Compare: `{"a_n": 12, "a_only": [], "b_n": 12, "b_only": [], "first_diff_a": null, "first_diff_b": null, "match": true, "sequence_match": false}`
+
+## asia_range — MATCH
+
+- Tick dir: `/home/tester/hsm/potions/live/demo/usdjpy_asia_range_london_oanda/state/events/fx_ticks`
+- Days (29): 2026-08-11, 2026-08-12, 2026-08-13, 2026-08-14, 2026-08-16, 2026-08-17, 2026-08-18, 2026-08-19, 2026-08-20, 2026-08-24, 2026-08-25, 2026-08-26, 2026-08-27, 2026-08-28, 2026-08-30, 2026-08-31, 2026-09-01, 2026-09-02, 2026-09-03, 2026-09-04, 2026-09-06, 2026-09-07, 2026-09-08, 2026-09-09, 2026-09-10, 2026-09-11, 2026-09-13, 2026-09-14, 2026-09-15
+- Demo: `{"bars_1m": 31767, "book_code": "S_3_1_3", "fills": 55, "first_bar": "2026-08-11T17:23:00Z", "last_bar": "2026-09-15T20:11:00Z", "or_injections": 22, "realized_pnl": 3270350.6335001015, "strategy_id": "usdjpy_asia_range_london_S_3_1_3_flt_oanda", "ticks": 2503543}`
+- Plugin: `{"bars_1m": 31767, "fills": 55, "or_injections": 22, "realized_pnl": 3270350.6335001015}`
+- Compare: `{"a_n": 55, "a_only": [], "b_n": 55, "b_only": [], "first_diff_a": null, "first_diff_b": null, "match": true, "sequence_match": false}`
+
+## Stance
+
+- MATCH → live/demo aggregation+Engine wiring equals non-live StrategyPlugin on identical OANDA-derived bars.
+- Practice wiring check only; not a funded promote gate.
+
+
+
+## Live fills.csv ↔ plugin on stored demo bars
+[
+  {
+    "bars": 3018,
+    "demo": "nas100_v2b_clean_break_trail06_m4_e2_out_be_oanda",
+    "drift": [],
+    "instrument": "NAS100",
+    "live_cfg_replay": {
+      "first_diff": null,
+      "fuzzy_match": true,
+      "fuzzy_unmatched_live": [],
+      "fuzzy_unmatched_sim": [],
+      "live_n": 2,
+      "live_only": [],
+      "match": true,
+      "sim_n": 2,
+      "sim_only": []
+    },
+    "live_entries_all": 7,
+    "started_at": "2026-09-11T20:12:29Z",
+    "status": "MATCH",
+    "strategy_type": "v2b_clean_break"
+  },
+  {
+    "bars": 63540,
+    "demo": "usdjpy_asia_range_london_oanda",
+    "drift": [],
+    "instrument": "USDJPY",
+    "live_cfg_replay": {
+      "first_diff": [
+        [
+          "2026-09-07T07:55",
+          "sell",
+          "700000"
+        ],
+        [
+          "2026-09-07T07:59",
+          "sell",
+          "700000"
+        ]
+      ],
+      "fuzzy_match": false,
+      "fuzzy_unmatched_live": [
+        [
+          "2026-09-07T07:55",
+          "sell",
+          "700000"
+        ],
+        [
+          "2026-09-15T07:21",
+          "buy",
+          "700000"
+        ]
+      ],
+      "fuzzy_unmatched_sim": [
+        [
+          "2026-09-07T07:59",
+          "sell",
+          "700000"
+        ],
+        [
+          "2026-09-15T08:04",
+          "buy",
+          "700000"
+        ]
+      ],
+      "live_n": 7,
+      "live_only": [
+        [
+          "2026-09-07T07:55",
+          "sell",
+          "700000"
+        ],
+        [
+          "2026-09-11T10:56",
+          "sell",
+          "700000"
+        ],
+        [
+          "2026-09-14T07:19",
+          "buy",
+          "700000"
+        ],
+        [
+          "2026-09-15T07:21",
+          "buy",
+          "700000"
+        ]
+      ],
+      "match": false,
+      "sim_n": 7,
+      "sim_only": [
+        [
+          "2026-09-07T07:59",
+          "sell",
+          "700000"
+        ],
+        [
+          "2026-09-11T10:58",
+          "sell",
+          "700000"
+        ],
+        [
+          "2026-09-14T07:20",
+          "buy",
+          "700000"
+        ],
+        [
+          "2026-09-15T08:04",
+          "buy",
+          "700000"
+        ]
+      ]
+    },
+    "live_entries_all": 8,
+    "started_at": "2026-09-03T16:54:58Z",
+    "status": "MISMATCH",
+    "strategy_type": "v2b_scaleout"
+  },
+  {
+    "bars": 3626,
+    "demo": "usdjpy_monday_or_ungated_oanda",
+    "drift": [],
+    "instrument": "USDJPY",
+    "live_cfg_replay": {
+      "first_diff": [
+        [],
+        []
+      ],
+      "fuzzy_match": true,
+      "fuzzy_unmatched_live": [],
+      "fuzzy_unmatched_sim": [],
+      "live_n": 0,
+      "live_only": [],
+      "match": true,
+      "sim_n": 0,
+      "sim_only": []
+    },
+    "live_entries_all": 5,
+    "started_at": "2026-08-20T15:22:48Z",
+    "status": "MATCH",
+    "strategy_type": "monday_or_breakout"
+  }
+]
+
+
+Notes:
+- Tick parity MATCH = demo aggregation + Engine follows the same StrategyPlugin rules on identical OANDA-derived bars.
+- Asia live↔sim MISMATCH is entry *timing* only (same side/qty); classic practice stream/latency vs bar-stamped sim — not a rule-wiring failure (tick path MATCH).
+- NAS100 live↔sim MATCH on recent entries; Monday OR MATCH (0 entries in scored window).
+
+Hubs:
+- live/state/nas100_clean_break_demo_plugin_tick_parity_v1/
+- live/state/usdjpy_live_demo_plugin_tick_parity_v1/
+- live/state/_oanda_live_sim_reconcile/

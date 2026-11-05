@@ -1,11 +1,11 @@
 """NAS100 v2b clean-break pyramid trail (trail06_m4_e2_out_be) — OANDA practice demo.
 
 Frozen candidate from CFD validation / 1m-fill book (brl_21741b260a28):
-  research unit: max 4, add every 2 outside bars, trail@0.6→BE + 2R target,
+  research unit tape: max 4, add every 2 outside bars, trail@0.6→BE + 2R target,
   soft exit close≤OR high.
 
-Live practice size_mult=10 (entry 10 / add 10 / max 40) so stress DD targets
-~$20k vs ~$2k on the research unit book.
+**Live / Index Momentum size** is entry 10 / add 10 / hard max 30. Ranking N/S
+still cites the unit tape; practice + public tear sheet use the capped live size.
 
 Streams practice quotes → 1m → completed **left-label** 5m bars (research parity).
 Routes practice orders via ``OandaBroker`` on dedicated account ``-003``.
@@ -68,6 +68,7 @@ from .oanda_v2b_ungated_common import (
     run_meta_path,
     state_root_for,
 )
+from .singleton import EXIT_REFUSED, claim_runtime
 
 INSTRUMENT = "NAS100"
 TICK = 0.1
@@ -77,10 +78,10 @@ RUN_DIRNAME = "nas100_v2b_clean_break_trail06_m4_e2_out_be_oanda"
 CLI_COMMAND = "demo-nas100-clean-break-trail-oanda"
 VARIANT = "trail06_m4_e2_out_be"
 # Research freeze (brl_21741b260a28) is entry_qty=1 / max_pyramid=4 (~$2k stress DD).
-# Live practice ~10× so MTM/stress DD targets ~$20k on the same rules.
+# Entry/add remain 10× research; hard live cap is 30 to stay executable on -003.
 SIZE_MULT = 10
 ENTRY_QTY = 1 * SIZE_MULT
-MAX_QTY = 4 * SIZE_MULT
+MAX_QTY = 30
 NY = pytz.timezone("America/New_York")
 
 
@@ -205,7 +206,8 @@ def write_run_meta(output_root: Path, *, config: OandaConfig) -> Dict[str, Any]:
         "parent_run_id": "brl_21741b260a28",
         "note": (
             "NAS100 clean-break pyramid trail OANDA practice; left-label 5m; "
-            "size_mult=%dx vs research unit book (target ~$20k stress DD)." % SIZE_MULT
+            "Index Momentum entry/add size_mult=%dx vs research unit book; "
+            "hard live max_qty=%d for margin headroom." % (SIZE_MULT, MAX_QTY)
         ),
         "config": payload,
     }
@@ -416,6 +418,14 @@ def run_stream_loop(*, output_root: Optional[Path] = None, config: Optional[Oand
     output_root = Path(output_root) if output_root is not None else default_output_root()
     output_root.mkdir(parents=True, exist_ok=True)
     config = config or OandaConfig.from_env()
+    if not claim_runtime(
+        strategy_id=STRATEGY_ID,
+        output_root=output_root,
+        account_id=str(config.account_id or ""),
+        instrument=INSTRUMENT,
+        routes_orders=True,
+    ):
+        return EXIT_REFUSED
     runner = Runner(output_root=output_root, config=config)
     write_run_meta(output_root, config=config)
     pidfile_path(output_root).write_text(str(os.getpid()) + "\n", encoding="utf-8")

@@ -1,0 +1,37 @@
+potions: OANDA practice sync + US30 ST+PMC 3R reconcile (2026-08-13)
+
+Hub: live/demo/oanda_practice_snapshot/ + live/demo/us30_hourly_st_pmc_sl50_tp150_3r_oanda/
+
+SYNC / BLEED
+- oanda-practice-sync + --repair-demo-positions run.
+- LIVE open: NAS100 +3 (nas100_v2b_ungated_oanda), SPX500 +3 (spx500_v2b_ungated_oanda).
+- US30 flat on broker. No strategy_id=oanda bleed rows left in any *_oanda positions.csv.
+- All mapped demos: local vs owned = ok.
+
+US30 ST+PMC 3R (orders=0 / open_positions=1)
+- Flag was real through ~13:42 local: heartbeats showed open_positions=1 orders=0 while
+  blocking new entries (max_contracts_exceeded).
+- Broker truth: strategy longs opened Aug-11 with stopLossOnFill/takeProfitOnFill attached;
+  SL exits closed them (fill_unmatched locally). Account US30 flat since ~Aug-13 01:15Z.
+- Local ghost: Account Changes often omit positions[], so scoped sync never fired
+  (0 scoped_positions_synced events). fills.csv still has Aug-11 entries only (no exit rows).
+- Restart reconcile cleared ghost → now orders=0 open_positions=0 (healthy flat).
+- Note: orders=0 while truly open can be OK for OANDA attached SL/TP (not separate working
+  rows in orders.csv). The bug was ghost inventory after broker already flat.
+
+LIVE↔SIM
+- reconcile_oanda_demos --demo us30_hourly_st_pmc_sl50_tp150_3r_oanda → MATCH
+  (post-restart started_at window; liveE=0 simE=0).
+
+CODE FIX (live/oanda.py)
+- Refresh owned scoped positions on 60s authority sweep account_details fetch.
+- On tradesClosed for scoped instrument when changes.positions omitted and local still open,
+  re-pull account and rewrite owned positions (clears stopLossOnFill ghosts without restart).
+- Unit tests: 24 passed in test_oanda_adapter.py.
+- US30 3R OANDA daemon restarted onto this code (pid fresh; reconcile positions=0).
+
+STANCE
+- Bleed cleaned; US30 3R sleeve trustworthy flat overnight.
+- Other *_oanda daemons still on prior process image until their next restart — restart them
+  when convenient to pick up ghost-clear fix.
+- Snapshot: live/demo/oanda_practice_snapshot/REPORT.md

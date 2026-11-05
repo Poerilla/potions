@@ -1,0 +1,11 @@
+trade_id,session,year,side,entry_ts,exit_ts,entry_price,entry_qty,net_usd,exit_reasons,hit_tp,eod_close,full_initial_sl,any_stop_exit,atr14,range_width,range_label,atr14_quartile,range_width_quartile
+xagusd_yorb_sizing_L_5_2_1_2009_03,2009-08-13,2009,long,2009-08-13 20:00:00-04:00,2009-08-16 20:00:00-04:00,14.635,2,-5406.9999999999945,"runner_entry,runner_stop,stop",False,False,False,True,0.5964999999999998,,n/a,Q4 high,
+xagusd_yorb_sizing_L_5_2_1_2004_06,2004-06-21,2004,short,2004-06-21 20:00:00-04:00,2004-06-23 20:00:00-04:00,5.761,2,-3526.9999999999986,"runner_entry,runner_stop,stop",False,False,False,True,0.2972142857142857,,n/a,Q1 low,
+xagusd_yorb_sizing_L_5_2_1_2019_02,2019-04-23,2019,short,2019-04-23 20:00:00-04:00,2019-04-25 20:00:00-04:00,14.971,2,-894.9999999999936,"runner_entry,runner_stop,stop",False,False,False,True,0.145642857142857,,n/a,Q1 low,
+xagusd_yorb_sizing_L_5_2_1_2019_04,2019-06-13,2019,short,2019-06-13 20:00:00-04:00,2019-06-13 20:00:00-04:00,14.971,5,-894.9999999999936,"runner_entry,runner_stop,stop",False,False,False,True,0.20728571428571435,,n/a,Q1 low,
+xagusd_yorb_sizing_L_5_2_1_2006_04,2006-06-04,2006,long,2006-06-04 20:00:00-04:00,2006-06-05 20:00:00-04:00,11.938,5,-503.00000000001194,"close,runner_entry",False,False,False,False,0.733,,n/a,Q4 high,
+xagusd_yorb_sizing_L_5_2_1_2004_03,2004-05-20,2004,short,2004-05-20 20:00:00-04:00,2004-05-23 20:00:00-04:00,5.761,2,-334.99999999999847,"close,runner_entry",False,False,False,False,0.3635,,n/a,Q2,
+xagusd_yorb_sizing_L_5_2_1_2005_01,2005-10-10,2005,long,2005-10-10 20:00:00-04:00,2005-10-11 20:00:00-04:00,7.684,2,-167.0000000000063,"close,runner_entry",False,False,False,False,0.3136428571428572,,n/a,Q1 low,
+xagusd_yorb_sizing_L_5_2_1_2025_02,2025-06-02,2025,long,2025-06-02 20:00:00-04:00,2025-06-03 20:00:00-04:00,34.579,2,-150.99999999996544,"close,runner_entry",False,False,False,False,0.5907142857142872,,n/a,Q3,
+xagusd_yorb_sizing_L_5_2_1_2021_07,2021-10-31,2021,short,2021-10-31 20:00:00-04:00,2021-10-31 20:00:00-04:00,23.766,2,-63.0,"close,runner_entry",False,False,False,False,0.5009999999999997,,n/a,Q3,
+xagusd_yorb_sizing_L_5_2_1_2021_08,2021-11-03,2021,short,2021-11-03 20:00:00-04:00,2021-11-04 20:00:00-04:00,23.766,5,-47.00000000003729,"close,runner_entry",False,False,False,False,0.4917142857142852,,n/a,Q3,

@@ -1,0 +1,103 @@
+{
+  "hub": "/home/tester/hsm/potions/live/state/top3_active_demo_portfolio/joint_1m_cb10x_plus_nq_po_or_norm_2x",
+  "variant": "nq_prior_opposed_rl or_norm @ 2.00x else 1.00x",
+  "hp_source": "futures_intraday_hp_live_plan highest-conviction controlled paper",
+  "common_window_start": "2021-03-04T11:02:00-05:00",
+  "common_window_end": "2025-09-29T11:14:00-04:00",
+  "published_top3_full_window_ns": 10.607987988582144,
+  "top3_overlap": {
+    "name": "top3_overlap",
+    "net_usd": 243491.08636363613,
+    "closed_dd_usd": -33438.40454545335,
+    "intrabar_stress_dd_usd": -33525.67727272617,
+    "net_over_stress": 7.262823786761234,
+    "max_open_units": 14,
+    "events": 2156477,
+    "sleeve": {
+      "asia_range": {
+        "units": 3619,
+        "trades": 517,
+        "net_usd": 104736.06363635653,
+        "win_rate": 46.4492953854656
+      },
+      "monday_or": {
+        "units": 1215,
+        "trades": 378,
+        "net_usd": 44081.5227272663,
+        "win_rate": 26.008230452674898
+      },
+      "clean_break": {
+        "units": 1076,
+        "trades": 600,
+        "net_usd": 94673.50000001295,
+        "win_rate": 29.739776951672862
+      }
+    }
+  },
+  "top4": {
+    "name": "top4",
+    "net_usd": 1577113.5863636362,
+    "closed_dd_usd": -77334.06818181858,
+    "intrabar_stress_dd_usd": -79739.06818181858,
+    "net_over_stress": 19.77843010113374,
+    "max_open_units": 18,
+    "events": 2609790,
+    "sleeve": {
+      "asia_range": {
+        "units": 3619,
+        "trades": 517,
+        "net_usd": 104736.06363635653,
+        "win_rate": 46.4492953854656
+      },
+      "monday_or": {
+        "units": 1215,
+        "trades": 378,
+        "net_usd": 44081.5227272663,
+        "win_rate": 26.008230452674898
+      },
+      "clean_break": {
+        "units": 1076,
+        "trades": 600,
+        "net_usd": 94673.50000001295,
+        "win_rate": 29.739776951672862
+      },
+      "nq_prior_opposed": {
+        "units": 1905,
+        "trades": 381,
+        "net_usd": 1333622.5,
+        "win_rate": 49.028871391076116
+      }
+    }
+  },
+  "nq_only": {
+    "name": "nq_or_norm_2x",
+    "net_usd": 1333622.5,
+    "closed_dd_usd": -66135.0,
+    "intrabar_stress_dd_usd": -67035.0,
+    "net_over_stress": 19.894420824942195,
+    "max_open_units": 5,
+    "events": 453313,
+    "sleeve": {
+      "nq_prior_opposed": {
+        "units": 1905,
+        "trades": 381,
+        "net_usd": 1333622.5,
+        "win_rate": 49.028871391076116
+      }
+    }
+  },
+  "delta_ns_top4_minus_top3": 12.515606314372505,
+  "basket_ns_improves": true,
+  "nq_net_share_of_top4": 0.845609670432771,
+  "daily_close_pnl_corr_top3_vs_nq": 0.03292573632189116,
+  "nq_size_stats_full_history": {
+    "units": 2160,
+    "hp_units": 645,
+    "base_units": 1515,
+    "unmatched_units": 0,
+    "hp_trades": 129,
+    "base_trades": 303,
+    "unmatched_trades": 0
+  },
+  "method": "joint_1m_mtm_on_engine_fills"
+}

@@ -1119,6 +1119,7 @@ def run_stream_loop(
         _price_levels,
         _remove_pidfile,
     )
+    from .singleton import EXIT_REFUSED, claim_runtime
 
     cfg = config or oanda_config_from_env()
     cfg.validate_for_network()
@@ -1127,6 +1128,14 @@ def run_stream_loop(
     if str(cfg.env).lower() != "practice":
         append_progress(root, "REFUSING non-practice OANDA_ENV=%s" % cfg.env)
         return 2
+    if not claim_runtime(
+        strategy_id=spec.strategy_id,
+        output_root=root,
+        account_id=str(cfg.account_id or ""),
+        instrument=spec.instrument,
+        routes_orders=bool(spec.oanda_routing),
+    ):
+        return EXIT_REFUSED
 
     meta = write_run_meta(root, spec=spec, config=cfg)
     meta["price_source"] = price_source

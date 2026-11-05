@@ -1,0 +1,3 @@
+mode,train_through,test_year,chosen_condition,chosen_bucket,chosen_hp_frac,test_hp_n,test_n,inc_net,inc_ns,book_ns,book_stress,delta_net,p_inc_net,p_inc_ns,p_book_ns,matches_frozen
+discovery,2023,2024,Hourly RSI bucket,rsi_gt70,0.22641509433962265,2,10,732.75,3.8846918489065607,0.8870594426812306,23276.625,732.75,0.32917705735660846,0.2119700748129676,0.32917705735660846,False
+frozen,2023,2024,Day of week,Thursday,0.1,1,10,5350.125,99.0,1.094296820859321,23088.0,5350.125,0.22194513715710723,0.47880299251870323,0.22194513715710723,True

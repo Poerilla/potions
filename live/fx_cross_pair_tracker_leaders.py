@@ -46,6 +46,11 @@ PAIRS: Dict[str, Dict[str, object]] = {
     "AUDJPY": dict(pip=0.01, tick=0.001, quote="JPY"),
 }
 
+# CME 6J. pip is filled from the median price (USDJPY 0.01 mapped by 1/S^2).
+EXTRA_PAIRS: Dict[str, Dict[str, object]] = {
+    "6J": dict(pip=None, tick=0.0000005, quote="USD", pv=12_500_000.0),
+}
+
 FBO_STRUCTURES: List[Tuple[str, int, int, int]] = [("1_1_3", 5, 1, 1), ("1_2_3", 6, 1, 2)]
 
 
@@ -93,10 +98,31 @@ def _campaign_wr(fills: pd.DataFrame, pv: float, fee: float) -> Tuple[int, float
     return len(a), (100.0 * (a > 0).mean() if len(a) else 0.0)
 
 
+def _meta(sym: str) -> Dict[str, object]:
+    if sym in PAIRS:
+        return PAIRS[sym]
+    if sym in EXTRA_PAIRS:
+        return EXTRA_PAIRS[sym]
+    raise KeyError(sym)
+
+
+def _point_value(sym: str) -> float:
+    return float(_meta(sym).get("pv", 100000.0))
+
+
+def _pip(sym: str, daily_path: Path) -> float:
+    raw = _meta(sym).get("pip")
+    if raw is not None:
+        return float(raw)
+    px = float(pd.read_csv(daily_path)["close"].median())
+    # One USDJPY pip (0.01) on 6J = 1/USDJPY, USDJPY = 1/price.
+    return 0.01 * px * px
+
+
 def run_fbo(sym: str, rows: List[dict], force: bool) -> None:
-    meta = PAIRS[sym]
+    meta = _meta(sym)
     tick = float(meta["tick"])
-    POINT_VALUES[sym] = 100000.0
+    POINT_VALUES[sym] = _point_value(sym)
     DEFAULT_TICK_SIZE[sym] = tick
     daily_path = REPO / "fx" / ("%s_daily.csv" % sym.lower())
     bars = bars_from_csv(daily_path, sym, "D", source=str(daily_path))
@@ -169,7 +195,7 @@ def run_fbo(sym: str, rows: List[dict], force: bool) -> None:
                     output_root=OUT / "audits",
                     fee_per_unit=MONTHLY_FEE,
                 )
-                n, wr = _campaign_wr(pd.read_csv(root / "fills.csv"), 100000.0, MONTHLY_FEE)
+                n, wr = _campaign_wr(pd.read_csv(root / "fills.csv"), _point_value(sym), MONTHLY_FEE)
                 ns = audit.net_usd / abs(audit.intrabar_mtm_dd_usd) if audit.intrabar_mtm_dd_usd else 0.0
                 fx = JPY_USD if meta["quote"] == "JPY" else 1.0
                 rows.append(
@@ -223,10 +249,11 @@ def _hourly_bars(sym: str) -> List[Bar]:
 def run_st_pmc(sym: str, rows: List[dict], force: bool) -> None:
     from . import hourly_st_pmc_strategyplugin_variants as hsv
 
-    meta = PAIRS[sym]
-    pip = float(meta["pip"])
+    meta = _meta(sym)
     tick = float(meta["tick"])
-    POINT_VALUES[sym] = 100000.0
+    daily_path = REPO / "fx" / ("%s_daily.csv" % sym.lower())
+    pip = _pip(sym, daily_path)
+    POINT_VALUES[sym] = _point_value(sym)
     DEFAULT_TICK_SIZE[sym] = tick
     hsv.TICK_SIZE[sym] = tick
     cfg = VariantConfig(
@@ -291,16 +318,25 @@ def _write(rows: List[dict]) -> None:
 
 
 def main(argv: Optional[list] = None) -> int:
+    global OUT
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument("--force", action="store_true")
     p.add_argument("--skip-intraday", action="store_true")
+    p.add_argument("--pairs", default="", help="Comma list. Default is GBPUSD,USDJPY,AUDJPY.")
+    p.add_argument("--output-root", type=Path, default=None)
     args = p.parse_args(argv)
+    if args.output_root is not None:
+        OUT = args.output_root
     OUT.mkdir(parents=True, exist_ok=True)
+    if args.pairs.strip():
+        selected = [s.strip().upper() for s in args.pairs.split(",") if s.strip()]
+    else:
+        selected = list(PAIRS)
     rows: List[dict] = []
-    for sym in PAIRS:
+    for sym in selected:
         run_fbo(sym, rows, args.force)
     if not args.skip_intraday:
-        for sym in PAIRS:
+        for sym in selected:
             run_st_pmc(sym, rows, args.force)
     _write(rows)
     _progress("ALL DONE")

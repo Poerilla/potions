@@ -8,10 +8,17 @@
   "strategy_id": "usdjpy_asia_range_london_S_3_1_3_flt_oanda",
   "instrument": "USDJPY",
   "oanda_instrument": "USD_JPY",
+  "live_units_per_lot": 100000,
+  "entry_qty_units": 700000,
+  "tp1_qty_units": 300000,
+  "tp2_qty_units": 100000,
+  "book_lots": "7/3/1",
+  "performance_review_note": "Research net_usd uses POINT_VALUES; live cash PnL is OANDA units × Δprice / rate. Do not compare raw research nets to account balance without converting. Pre-2026-09-03 demos used raw research qtys (7 units) → ~cent PnL.",
   "validation_status": "PASS at 1m bar resolution",
   "validation_summary": "$178,142 / -$24,627 / 7.23 N/S; 3,772 feature snapshots; 0 causality violations; 0 entry fills at/before activation; earliest entry fill 1m after 03:00 London arm",
   "validation_doc": "live/state/usdjpy_causality_review_2026_08/CAUSALITY_REVIEW.md",
   "tracker_hub": "live/state/fx_v2b_asia_range_london_usdjpy_filters/VALIDATION_GATES.md",
   "replaces": "nas100_2r10r_st_pmc_004",
-  "cutover_date": "2026-08-24"
+  "cutover_date": "2026-08-24",
+  "lot_sizeup_date": "2026-09-03"
 }

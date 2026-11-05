@@ -1,0 +1,196 @@
+{
+  "incident_id": "2026-08-19_us30_stale_arm_dedupe",
+  "cancelled_at": "2026-08-19T21:35:13Z",
+  "keep": [
+    {
+      "demo": "us30_hourly_st_pmc_sl50_tp150_3r_oanda",
+      "px": 53367.3,
+      "cids": [
+        "ord_e99a46b2bd86"
+      ]
+    },
+    {
+      "demo": "us30_hourly_st_pmc_sl50_tp150_runners_2r_10r_oanda",
+      "px": 53371.0,
+      "cids": [
+        "ord_079f06107c94",
+        "ord_221acc7151d3",
+        "ord_4d0d7d24c6d9",
+        "ord_50424ad88328",
+        "ord_6697575bba41",
+        "ord_e0d90d6d2dbe"
+      ]
+    }
+  ],
+  "results": [
+    {
+      "demo": "us30_hourly_st_pmc_sl50_tp150_3r_oanda",
+      "cid": "ord_cfb9ad1928b8",
+      "remote_id": "1714",
+      "px": 53312.4,
+      "created_max": "2026-08-19T14:00:00Z",
+      "why": "stale arm set vs keep@53367.3",
+      "cancelled_at": "2026-08-19T21:35:13Z",
+      "status": "cancelled",
+      "cancel_tx": "1778"
+    },
+    {
+      "demo": "us30_hourly_st_pmc_sl50_tp150_3r_oanda",
+      "cid": "ord_6bdd504dd2b9",
+      "remote_id": "1725",
+      "px": 53312.4,
+      "created_max": "2026-08-19T14:00:00Z",
+      "why": "stale arm set vs keep@53367.3",
+      "cancelled_at": "2026-08-19T21:35:13Z",
+      "status": "cancelled",
+      "cancel_tx": "1779"
+    },
+    {
+      "demo": "us30_hourly_st_pmc_sl50_tp150_runners_2r_10r_oanda",
+      "cid": "ord_1d46856487f5",
+      "remote_id": "1709",
+      "px": 53320.7,
+      "created_max": "2026-08-19T14:00:00Z",
+      "why": "stale arm set vs keep@53371.0",
+      "cancelled_at": "2026-08-19T21:35:13Z",
+      "status": "cancelled",
+      "cancel_tx": "1780"
+    },
+    {
+      "demo": "us30_hourly_st_pmc_sl50_tp150_runners_2r_10r_oanda",
+      "cid": "ord_cd36bca3f45d",
+      "remote_id": "1711",
+      "px": 53320.7,
+      "created_max": "2026-08-19T14:00:00Z",
+      "why": "stale arm set vs keep@53371.0",
+      "cancelled_at": "2026-08-19T21:35:13Z",
+      "status": "cancelled",
+      "cancel_tx": "1781"
+    },
+    {
+      "demo": "us30_hourly_st_pmc_sl50_tp150_runners_2r_10r_oanda",
+      "cid": "ord_be26bdc07e20",
+      "remote_id": "1712",
+      "px": 53320.7,
+      "created_max": "2026-08-19T14:00:00Z",
+      "why": "stale arm set vs keep@53371.0",
+      "cancelled_at": "2026-08-19T21:35:13Z",
+      "status": "cancelled",
+      "cancel_tx": "1782"
+    },
+    {
+      "demo": "us30_hourly_st_pmc_sl50_tp150_runners_2r_10r_oanda",
+      "cid": "ord_df61d5de1d67",
+      "remote_id": "1728",
+      "px": 53320.7,
+      "created_max": "2026-08-19T14:00:00Z",
+      "why": "stale arm set vs keep@53371.0",
+      "cancelled_at": "2026-08-19T21:35:13Z",
+      "status": "cancelled",
+      "cancel_tx": "1783"
+    },
+    {
+      "demo": "us30_hourly_st_pmc_sl50_tp150_runners_2r_10r_oanda",
+      "cid": "ord_3a60345af0be",
+      "remote_id": "1729",
+      "px": 53320.7,
+      "created_max": "2026-08-19T14:00:00Z",
+      "why": "stale arm set vs keep@53371.0",
+      "cancelled_at": "2026-08-19T21:35:13Z",
+      "status": "cancelled",
+      "cancel_tx": "1784"
+    },
+    {
+      "demo": "us30_hourly_st_pmc_sl50_tp150_runners_2r_10r_oanda",
+      "cid": "ord_4429df06e1bc",
+      "remote_id": "1730",
+      "px": 53320.7,
+      "created_max": "2026-08-19T14:00:00Z",
+      "why": "stale arm set vs keep@53371.0",
+      "cancelled_at": "2026-08-19T21:35:13Z",
+      "status": "cancelled",
+      "cancel_tx": "1785"
+    },
+    {
+      "demo": "us30_hourly_st_pmc_sl50_tp150_3r_oanda",
+      "cid": "ord_89cc291680ec",
+      "remote_id": "1757",
+      "px": 53367.30544866246,
+      "why": "duplicate entry within keep price; paper wants 1",
+      "cancelled_at": "2026-08-19T21:35:13Z",
+      "status": "cancelled",
+      "cancel_tx": "1786"
+    },
+    {
+      "demo": "us30_hourly_st_pmc_sl50_tp150_3r_oanda",
+      "cid": "ord_452ce462619d",
+      "remote_id": "1759",
+      "px": 53367.30544866246,
+      "why": "duplicate entry within keep price; paper wants 1",
+      "cancelled_at": "2026-08-19T21:35:13Z",
+      "status": "cancelled",
+      "cancel_tx": "1787"
+    },
+    {
+      "demo": "us30_hourly_st_pmc_sl50_tp150_3r_oanda",
+      "cid": "ord_83ff92e3733b",
+      "remote_id": "1761",
+      "px": 53367.30544866246,
+      "why": "duplicate entry within keep price; paper wants 1",
+      "cancelled_at": "2026-08-19T21:35:13Z",
+      "status": "cancelled",
+      "cancel_tx": "1788"
+    },
+    {
+      "demo": "us30_hourly_st_pmc_sl50_tp150_3r_oanda",
+      "cid": "ord_68023dc36198",
+      "remote_id": "1766",
+      "px": 53367.30544866246,
+      "why": "duplicate entry within keep price; paper wants 1",
+      "cancelled_at": "2026-08-19T21:35:13Z",
+      "status": "cancelled",
+      "cancel_tx": "1789"
+    },
+    {
+      "demo": "us30_hourly_st_pmc_sl50_tp150_3r_oanda",
+      "cid": "ord_135da3c8ee95",
+      "remote_id": "1769",
+      "px": 53367.30544866246,
+      "why": "duplicate entry within keep price; paper wants 1",
+      "cancelled_at": "2026-08-19T21:35:13Z",
+      "status": "cancelled",
+      "cancel_tx": "1790"
+    },
+    {
+      "demo": "us30_hourly_st_pmc_sl50_tp150_runners_2r_10r_oanda",
+      "cid": "ord_e0d90d6d2dbe",
+      "remote_id": "1770",
+      "px": 53370.978213237,
+      "why": "duplicate role=entry within keep set",
+      "cancelled_at": "2026-08-19T21:35:13Z",
+      "status": "cancelled",
+      "cancel_tx": "1791"
+    },
+    {
+      "demo": "us30_hourly_st_pmc_sl50_tp150_runners_2r_10r_oanda",
+      "cid": "ord_079f06107c94",
+      "remote_id": "1771",
+      "px": 53370.978213237,
+      "why": "duplicate role=runner_entry within keep set",
+      "cancelled_at": "2026-08-19T21:35:13Z",
+      "status": "cancelled",
+      "cancel_tx": "1792"
+    },
+    {
+      "demo": "us30_hourly_st_pmc_sl50_tp150_runners_2r_10r_oanda",
+      "cid": "ord_221acc7151d3",
+      "remote_id": "1772",
+      "px": 53370.978213237,
+      "why": "duplicate role=runner_entry_2 within keep set",
+      "cancelled_at": "2026-08-19T21:35:13Z",
+      "status": "cancelled",
+      "cancel_tx": "1793"
+    }
+  ],
+  "pending_after": 8
+}
