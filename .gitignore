@@ -67,6 +67,7 @@ live/demo/**/deferred_restart_*.log
 live/demo/.locks/
 live/demo/SINGLETON_AUDIT.json
 live/demo/singleton_audit.log
+data/backup_logs/
 
 # ST+PMC 1mfill / US30 gambit heavy local artifacts (SUMMARY.md + summary.csv stay)
 live/state/st_pmc_1mfill_cross_market/**/states/

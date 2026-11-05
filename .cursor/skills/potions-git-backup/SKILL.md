@@ -39,6 +39,10 @@ Refresh `large_files_to_strip.txt` before packing if the curated set changed (ra
 
 Prefer **`rclone copy`** (incremental), not system `rsync`. Destination remote: `gdrive:potions-local`.
 
+Default: `setsid nohup scripts/drive_backup_nongit.sh --email >/dev/null 2>&1 &`. It copies every untracked and ignored file and skips credentials, symlinks, virtualenvs and `.certs`. Logs go to `data/backup_logs/`, and it emails when done.
+
+If rclone says `invalid_grant`, the user runs `rclone config reconnect gdrive:`. When the browser can't reach `127.0.0.1:53682`, the user pastes the redirect URL and you `curl` it on this host while rclone is still waiting. Never echo that URL back.
+
 Full recipe: [reference.md](reference.md).
 
 **Important:** the current `gdrive` remote uses `scope = drive.appfolder` / `root_folder_id = appDataFolder`. Files **count against Drive quota** but **do not appear** in the My Drive web UI. Listing works via rclone/`~/gdrive`. Do not promise browser visibility unless reconfigured to full `drive` scope.
